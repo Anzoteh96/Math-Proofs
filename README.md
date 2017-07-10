@@ -2,7 +2,7 @@
 
 The document now contains:
 1. Proofs of crucial identities in A-Level Further Maths, including:
-<br>
+
 -Binomial Expansion (for rational exponents)
 <br>
 -The complementary solution of n-th order linear differential equations
