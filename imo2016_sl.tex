@@ -1,0 +1,1314 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+
+
+\title{Solution to IMO 2016 shortlisted problems.}
+\author{Anzo Teh}
+\date{25 July 2017}
+\maketitle
+\section{Algebra}
+\begin{itemize}
+\item[\textbf{A1}]
+Let $a$, $b$, $c$ be positive real numbers such that $\min(ab,bc,ca) \ge 1$. Prove that $$\sqrt[3]{(a^2+1)(b^2+1)(c^2+1)} \le \left(\frac{a+b+c}{3}\right)^2 + 1.$$
+
+\textbf{Solution.} 
+We start with a preliminary observation: 
+given that $k\ge 2$, and given the set of pairs $K=\{(a,b): a+b=k, ab\ge 1\}$, 
+then for any $(a_1,b_1), (a_2, b_2)\in K$, 
+$(a_1^2+1)(b_1^2+1)\ge (a_2^2+1)(b_2^2+1)$ iff $|a_1-b_1|\le |a_2-b_2|$. 
+Indeed, for $(a,b)\in K$, $(a^2+1)(b^2+1)=(a+b)^2+a^2b^2-2ab+1$
+$=k^2+(ab-1)^2$
+$=k^2+(\frac{(a+b)^2-(a-b)^2}{2}-1)^2$
+$=k^2+(\frac{k^2-(a-b)^2}{2}-1)^2$, 
+and given that $ab\ge 1$, this function is increasing in $ab$. 
+In addition, with $a+b$ fixed, this function is also dereasing in $(a-b)^2$, which turns out to also be decreasing in $|a-b|$. 
+
+Now let $a+b+c=3k$, and let $f(a,b,c)=(a^2+1)(b^2+1)(c^2+1)$. 
+W.l.o.g. assume that $a\le b\le c$. 
+Let $b\le k$, then by above, $(b^2+1)(c^2+1)\le (k^2+1)((b+c-k)^2+1)$ because 
+$b+c\ge 2k$ ($a\le k$ and $c\ge k$), and 
+$(b+c-k)-k=(b+c)-2k\le (b+c)-2b=c-b$ (since $b\le k$), 
+which follows that $k(b+c-k)\ge bc\ge 1$. 
+Likewise, if $b\ge k$ then by above, 
+$(a^2+1)(b^2+1)\le ((a+b-k)^2+1)(k^2+1)$ because 
+$b+a\le 2k$ ($a\le k$ and $c\ge k$), and 
+$k-(a+b-k)=2k-(b+c)\le 2b-(a-b)=b-a$ (since $b\ge k$), 
+which follows that $k(a+b-k)\ge ab=1$. 
+Additionally, after the operation, we have $a\le k\le b+c-k$ in the first case, and $a+b-k\le k\le c$ 
+(a good question to ask might be: what if $a+b-k < 0$ in the second case? This is impossible because we only do this when $b\ge k$). 
+So we only need to verify that the first two has product at least one. 
+In case 1, $ak\ge ab=1$ and in case 2 we have already verified that $k(a+b-k)\ge ab=1$. 
+Thus $f(a,b,c)\le f(a, k, (b+c-k))$ in case 1, or $f(a,b,c)\le f((a+b-k), k, c)$ in case 2. 
+This means we can focus on the case where $b=k$. 
+Nevertheless, when $b=k$ we have $a+c=2k$ and by similar procedure we have $(a^2+1)(c^2+1)\le (k^2+1)^2$, 
+therefore we have: 
+$f(a,b,c)\le f(a, k, (b+c-k))\le f(k,k,k)$ in case 1, 
+$f(a,b,c)\le f((a+b-k), k, c)\le f(k,k,k)$ in case 2, 
+and $f(k,k,k)=(k^2+1)^3$ is precisely the cube the right hand side. Q.E.D. 
+
+\item[\textbf{A2}]
+ Find the smallest constant $C > 0$ for which the following statement holds: among any five positive real numbers $a_1,a_2,a_3,a_4,a_5$ (not necessarily distinct), one can always choose distinct subscripts $i,j,k,l$ such that
+\[ \left| \frac{a_i}{a_j} - \frac {a_k}{a_l} \right| \le C. \]
+
+\textbf{Solution.} The answer is $\frac 12$. 
+
+First, let $a_1=1, a_2=a_3=a_4=2$, $a_5=n$ for some extremely large real number $n$. 
+The possible numbers of $\frac {a_i}{a_j}$ are $\frac 1n, \frac 2n, \frac 12, 1, 2, \frac n2, n$. 
+Observe that the ratios $\frac 1n, \frac 2n, \frac n2, n$ all involve $a_5$, so there cannot exist distinct $i, j, k, l$ satisfying 
+$\frac{a_i}{a_j}, \frac {a_k}{a_l}\in\{\frac 1n, \frac 2n, \frac n2, n\}$. 
+In addition, both $\frac 12$ and 2 will involve $a_1$, meaning that there cannot exist distinct $i, j, k, l$ satisfying 
+$\frac{a_i}{a_j}, \frac {a_k}{a_l}\in\{\frac 12, 2\}$. 
+Since there are three $i$'s satisfying $a_i=2$, there cannot be distinct $i,j,k,l$ satisfying $\frac{a_i}{a_j}=\frac {a_k}{a_l}=1$. 
+We therefore know that  $\frac{a_i}{a_j}=\frac {a_k}{a_l}$ is impossible, 
+and same goes to $\frac{a_i}{a_j}=\frac 1n, \frac {a_k}{a_l}=\frac 2n$. 
+We also have $n-\frac n2> \frac n2 -2 > 2-1>1-\frac 12>\frac 12-\frac 2n$ for sufficiently large real $n$, 
+and $\lim_{n\to\infty}\frac 12-\frac 2n=\frac 12$. 
+Therefore $C\ge \frac 12$. 
+
+Now, we show that $C=\frac 12$ fits in all situations. 
+W.L.O.G. let $a_1\le a_2\le a_3\le a_4\le a_5$, and let $a=\frac {a_2}{a_1}$, 
+$b=\frac {a_3}{a_2}$, 
+$c=\frac {a_4}{a_3}$, 
+$d=\frac {a_5}{a_4}$. 
+Observe that $a, b, c, d\ge 1$. 
+Suppose that for some $a,b,c,d$, $C=\frac 12$ does not fit for any of the four distinct subscripts. 
+Now, considering $|\frac {a_1}{a_4}-\frac {a_2}{a_5}|$
+$=\frac bc|\frac 1a-\frac 1d|$
+and from $0\le \frac 1a, \frac 1d\le 1$
+we have $\frac bc\ge \frac bc|\frac 1a-\frac 1d|>C=\frac 12$
+so $b, c<2$. 
+Next, $C<|\frac {a_1}{a_3}-\frac {a_2}{a_4}|$
+$=\frac b|\frac 1a-\frac 1c|$
+$\le |\frac 1a-\frac 1c|$
+and from $\frac 1c<\frac 12$ we must have $\frac 1a>\frac 12$. 
+Similarly, $C<|\frac {a_2}{a_4}-\frac {a_3}{a_5}|$
+$=\frac c|\frac 1b-\frac 1d|$
+$\le |\frac 1b-\frac 1d|$
+and from $\frac 1b<\frac 12$ we must have $\frac 1d>\frac 12$. 
+Looking back, we have $\frac 12<|\frac {a_1}{a_4}-\frac {a_2}{a_5}|=\frac bc|\frac 1a-\frac 1d|\le|\frac 1a-\frac 1d|$, 
+yet $\frac 12<\frac 1a , \frac 1d\le 1$, contradiction.
+
+\item[\textbf{A4}]
+Find all functions $f:(0,\infty)\rightarrow (0,\infty)$ such that for any $x,y\in (0,\infty)$, $$xf(x^2)f(f(y)) + f(yf(x)) = f(xy) \left(f(f(x^2)) + f(f(y^2))\right)\cdots (*).$$
+
+\textbf{Solution.} 
+The only function is $f(x)\equiv \frac 1x$, which works because 
+$xf(x^2)f(f(y)) + f(yf(x))=x\frac1 {x^2} y+\frac 1 {y\frac 1{x}}$
+$=\frac xy+\frac yx$
+$=\frac{x^2}{xy}+\frac{y^2}{xy}$
+$=f(xy)\left(f(f(x^2)) + f(f(y^2))\right)$. 
+
+For the rest of the solution we proceed with the normal functional algorithmic procedure: 
+\begin{itemize}
+\item [Step 1.] 
+Plugging $x=y=1$ gives $f(1)f(f(1))+f(f(1))=2f(1)f(f(1))$, 
+and since $f>0$, we can factorize $f(f(1))$ out to get $f(1)+1=2f(1)$, giving \fbox{$f(1)=1$}. 
+
+\item [Step 2.]
+Plugging $x\la 1$ (and substituting $f(1)\la 1$ due to step 1) gives $f(f(y))+f(y)=f(y)(1+f(f(y^2)))$, 
+giving \fbox{$f(f(y))=f(y)f(f(y^2))$}. 
+
+\item [Step 3.]
+Plugging $y\la 1$, on the other hand, gives 
+$xf(x^2)+f(f(x))=f(x)(f(f(x^2))+1)$. 
+From step 2, $f(f(x))=f(x)f(f(x^2))$, 
+which gives rise to \fbox{$xf(x^2)=f(x)$}. 
+
+\item [Step 4.]
+Substitute $xf(x^2)\la f(x)$ (step 3), $f(f(y))\la f(y)f(f(y^2))$ (step 2), and $yf(x)\la xyf(x^2)$ (step 3) into (*) gives: 
+$$f(x)f(y)f(f(y^2)) + f(xyf(x^2)) = f(xy) \left(f(f(x^2)) + f(f(y^2))\right)\cdots(**).$$
+In the special case where $xy=1$ we have $f(x)f(y)f(f(y^2)) + f(f(x^2)) = 1 \left(f(f(x^2)) + f(f(y^2))\right)$, 
+so $f(x)f(y)=1$ whenever $xy=1$. 
+In other words, for all $x\in\mathbb{R}^+$, \fbox{$f(\frac 1x)=\frac 1{f(x)}$}. 
+
+\item [Step 5.]
+Having the results in Step 4 in mind, we do the following substitution: \\
+$\bullet$ Substitute $\frac 1x$ and $\frac 1x$ in place of $x$ and $y$ into (**) to turn
+$f(\frac 1x)f(\frac 1x)f(f(\frac 1{x^2})) + f(\frac 1{x^2}f(\frac 1{x^2}))$ 
+$= f(\frac 1{x^2}) \left(f(f(\frac 1{x^2})) + f(f(\frac 1{x^2}))\right)$
+into 
+$\frac 1{f(x)f(x)f(f(x^2))}+ \frac 1{f(x^2f(x^2))}$ 
+$= \frac 2{f(x^2)f(f(x^2))}\cdots (5a)$. \\
+$\bullet$ Subsitute $x=y$ into (**) we get 
+$f(x)f(x)f(f(x^2)) + f(x^2f(x^2)) = 2f(x^2) f(f(x^2))\cdots (5b).$ \\
+Comparing 5a and 5b gives 
+$\frac 1{f(x)f(x)f(f(x^2))}+ \frac 1{f(x^2f(x^2))}=\frac 2{f(x^2)f(f(x^2))}$
+$=\frac 4{f(x)f(x)f(f(x^2))+f(x^2f(x^2))}$, 
+which we can cross multiply to get 
+$(f(x)f(x)f(f(x^2))+ f(x^2f(x^2)))^2=4(f(x)f(x)f(f(x^2))\cdot f(x^2f(x^2)))$, 
+a.k.a. $(f(x)f(x)f(f(x^2))- f(x^2f(x^2)))^2=0$. 
+Therefore $f(x)f(x)f(f(x^2))=f(x^2f(x^2))=f(x^2)f(f(x^2))$. 
+Factorizing out $f(f(x^2))$ gives $f(x)^2=f(x^2)$, 
+and from (2), $f(x)=xf(x^2)=xf(x)^2$, or \hbox{$xf(x)=1$, or $f(x)=\frac 1x$}. 
+
+\end{itemize}
+
+\item[\textbf{A5}]
+Consider fractions $\frac{a}{b}$ where $a$ and $b$ are positive integers.\\
+(a) Prove that for every positive integer $n$, there exists such a fraction $\frac{a}{b}$ such that $\sqrt{n} \le \frac{a}{b} \le \sqrt{n+1}$ and $b \le \sqrt{n}+1$.\\
+(b) Show that there are infinitely many positive integers $n$ such that no such fraction $\frac{a}{b}$ satisfies $\sqrt{n} \le \frac{a}{b} \le \sqrt{n+1}$ and $b \le \sqrt{n}$.
+
+\textbf{Solution.} 
+For part (a), we partion the set of positive integers according to their integer square roots, 
+that is, the sets $S_1=\{1,2,3\}$, $S_2=\{4,5,6,7,8\}$, $S_3=\{9,10,11,12,13,14,15\}$, etc. 
+Consider $S_k=\{k^2, k^2+1, \cdots k^2+2k\}$, 
+and we claim that $b=k$ and $b=k+1$ alone will jointly work for the sets. 
+Indeed, considering $c\in [0, k]$ we have $(k+\frac ak)^2=k^2+2a+(\frac ak)^2$. 
+With $(\frac ak)^2\le 1$, we have $\sqrt{k^2+2a}\le k+\frac ak\le \sqrt{k^2+2a+1}$, 
+so $b=k$ works for $k^2, k^2+2, \cdots , k^2+2k$. 
+Meanwhile for $c\in [0, k+1]$ we have $(k+\frac a{k+1})^2=k^2+\frac{2ak}{k+1}+(\frac a{k+1})^2$
+$=k^2+2a-\frac{2a}{k+1}+(\frac a{k+1})^2$. 
+Notice that $-\frac{2a}{k+1}+(\frac a{k+1})^2=\frac{a^2-2a(k+1)}{(k+1)^2}$
+$=\frac{(a-(k+1))^2-(k+1)^2}{(k+1)^2}$
+$=\frac{(a-(k+1))^2}{(k+1)^2}-1$, 
+and with $0\le a\le k+1$ we have 
+$-1\le \frac{(a-(k+1))^2}{(k+1)^2}-1\le 0$. 
+Therefore 
+$\sqrt{k^2+2a-1}\le k+\frac a{k+1}\le \sqrt{k^2+2a+1}$, 
+and this works for $n=k^2+1$, $k^2+3$, $\cdots$, $k^2+2k-1$. 
+Therefore all elements in $S_k$ are covered. 
+As for part (b) we show that there's no fraction $\frac ab$ (with $b\le k$) lying in the interval $[\sqrt{k^2+1}, \sqrt{k^2+2}]$. 
+Notice that, $k< \sqrt{k^2+1} < \sqrt{k^2+2} < \sqrt{k^2+2k+1} =k+1$. 
+Assume that $\frac ab$ satisfies this property, 
+then from $\frac ab > k$ and $b\le k$ we have 
+$(\frac ab)^2\ge (k+\frac 1k)^2=k^2+2+\frac 1{k^2} > k^2+2$, contradiction. 
+
+\item[\textbf{A6/IMO 5}]
+The equation
+$$(x-1)(x-2)\cdots(x-2016)=(x-1)(x-2)\cdots (x-2016)$$is written on the board, with $2016$ linear factors on each side. What is the least possible value of $k$ for which it is possible to erase exactly $k$ of these $4032$ linear factors so that at least one factor remains on each side and the resulting equation has no real solutions?
+
+\textbf{Solution.} The answer is 2016. 
+Anything fewer doesn't work, because for some $i$, the factor $x-i$ appears on both sides, 
+so $i$ is itself a root. 
+
+It remains to show that 2016 is good to go. 
+We claim that the equation $\displaystyle\prod_{i=1}^{504} (x-(4i-3))(x-(4i))=\displaystyle\prod_{i=1}^{504} (x-(4i-2))(x-(4i-1))$ has no real solution by showing that the left-hand side is always strictly smaller than the right hand side. 
+We first eliminate the obvious cases where $LHS>0$ while $RHS<0$. 
+Observe that whenever $x\in (4i+1, 4i+2)$ for some $i\in [0, 503]$, 
+there are $2i+1$ negative factors (and the rest $1007-2i$ positive) on the left (hence negative) while $2i$ negative factors (and the rest $1008-2i$ positive) on the right (hence positive). 
+Also whenever $x\in (4i-1, 4i)$ for some $i\in [1, 504]$, 
+there are $2i-1$ negative factors (and the rest $1009-2i$ positive) on the left (hence negative) while $2i$ negative factors (and the rest $1008-2i$ positive) on the right (hence positive). 
+Thus in both of the cases the left is less than 0 while the right is more than 0. 
+As for the endpoints $x\in\{1,2,\cdots ,2016\}$, if $x=4i$ or $x=4i+1$ then LHS=0 while RHS has $2i$ negative factors (while the rest positive) hence positive. 
+If $x=4i-1$ or $x=4i-2$ then the right is 0 while the left has $2i-1$ negative factors (while the rest positive) hence negative. 
+
+If $x>2016$ then we have LHS and RHS both greater than 0 (since all remaining 2016 factors are positive). 
+Nevertheless, in light of the relation 
+$(x-(4i-2))(x-(4i-1))-(x-(4i-3))(x-(4i))=(4i-1)(4i-2)-(4i-3)(4i)=2$ we have 
+$|(x-(4i-2))(x-(4i-1))|>|(x-(4i-3))(x-(4i))|$, and thus 
+$\displaystyle\prod_{i=1}^{504} |(x-(4i-3))(x-(4i))|<\displaystyle\prod_{i=1}^{504} |(x-(4i-2))(x-(4i-1))|$. 
+Since each side is positive, $\displaystyle\prod_{i=1}^{504} (x-(4i-3))(x-(4i))<\displaystyle\prod_{i=1}^{504} (x-(4i-2))(x-(4i-1))$. 
+The case $x<1$ is symmetrical and hence analogous. 
+
+We are thus left with the trickiest case: $x\in (4i-2, 4i-1)$ for some $i\in [1, 504]$, whereby both sides are negative. 
+The goal is therefore to show that $|LHS|>|RHS|$.  
+We still want to keep in mind that $(x-(4i-2))(x-(4i-1))-(x-(4i-3))(x-(4i))=(4i-1)(4i-2)-(4i-3)(4i)=2$, 
+and that both $(x-(4i-2))(x-(4i-1))$ and $(x-(4i-3))(x-(4i))$ are positive for $x\not\in [4i-3, 4i]$. 
+Now, let $x\in (4i-2, 4i-1)$ for some $i\in [1, 504]$, 
+then from $(x-(4i-2))(x-(4i-1))=(x-(4i-1.5))-\frac 14\ge -\frac 14$ we get 
+$\frac{|(x-(4i-2))(x-(4i-1))|}{|(x-(4i))(x-(4i-3))|}=\frac{c}{c+2}=1-\frac{2}{c+2}\le 1-\frac 2{2+\frac 14}=\frac 19$ where $c=|(x-(4i-2))(x-(4i-1))|$. 
+Next, let's investigate $\frac{|(x-(4j-2))(x-(4j-1))|}{|(x-(4j))(x-(4j-3))|}$ 
+for some $j<i$. 
+We know that $x>4i+1$, so 
+$(x-(4j-2))(x-(4j-1))> (4i-4j-1)(4i-4j)$ 
+and therefore 
+$\frac{|(x-(4j-2))(x-(4j-1))|}{|(x-(4j))(x-(4j-3))|}$
+$\frac{(x-(4j-2))(x-(4j-1))}{(x-(4j-2))(x-(4j-1))-2}$
+$=1+\frac 2{(x-(4j-2))(x-(4j-1))-2}$
+$<1+\frac 2{(4(i-j)-1)(4i-4j)-2}$
+$=1+\frac 1{2(4(i-j)-1)(i-j)-1}$. 
+It's also not hard to verify that $2(4(i-j)-1)(i-j)-1<(i-j+1)^2-1$ for $j\le i-1$, so we in turn have 
+$ 1+\frac 1{2(4(i-j)-1)(i-j)-1}$
+$<1+\frac 1{(i-j+1)^2-1}$
+Thus $\dfrac{\displaystyle\prod_{j=1}^{i-1} (x-(4j-2))(x-(4j-1))}{\displaystyle\prod_{j=1}^{i-1} (x-(4j-3))(x-(4j))}$
+$<\displaystyle\prod_{j=1}^{i-1}(1+\frac 2{(4i-4j-1)(4i-4j)-2})$
+$<\displaystyle\prod_{j=-\infty}^{i-1}(1+\frac 2{(4i-4j-1)(4i-4j)-2})$
+$<\displaystyle\prod_{j=-\infty}^{i-1}(1+\frac 1{(i-j+1)^2-1})$
+$=\frac{2^2}{2^2-1}\cdot\frac{3^2}{3^2-1}\cdot\cdots$
+$=\lim_{x\to\infty}2\cdot \frac{x-1}{x}$
+$=2$. 
+Likewise, $\dfrac{\displaystyle\prod_{j=i+1}^{504} (x-(4j-2))(x-(4j-1))}{\displaystyle\prod_{j=i+1}^{504} (x-(4j-3))(x-(4j))}$
+$<2$, 
+(we can drop the modulus since they are all greater than 0. 
+Thus $\dfrac{\displaystyle\prod_{i=1}^{504} |(x-(4i-2))(x-(4i-1))|}{\displaystyle\prod_{i=1}^{504} |(x-(4i-3))(x-(4i))|}$
+$<2\times \frac{1}{9}\times 2$
+$<\frac 49$, 
+and we are done. (OMG the long proof...)
+
+\end{itemize}
+
+\section{Combinatorics}
+\begin{itemize}
+\item[\textbf{C1}]
+ The leader of an IMO team chooses positive integers $n$ and $k$ with $n > k$, and announces them to the deputy leader and a contestant. The leader then secretly tells the deputy leader an $n$-digit binary string, and the deputy leader writes down all $n$-digit binary strings which differ from the leader’s in exactly $k$ positions. (For example, if $n = 3$ and $k = 1$, and if the leader chooses $101$, the deputy leader would write down $001, 111$ and $100$.) The contestant is allowed to look at the strings written by the deputy leader and guess the leader’s string. What is the minimum number of guesses (in terms of $n$ and $k$) needed to guarantee the correct answer?
+
+\textbf{Solution.} The answer is 2 for $n=2k$ and 1 otherwise. 
+
+Notice that there are $\binom nk$ strings the deputy leader can write. 
+For the $i$-th digit (for any $i\in [0, n-1]$), there are $\binom {n-1}{k-1}$ such strings with $i$-th digit differing from the original, 
+$\binom {n-1}k$ such strings with $i$-th digit equal to the original. 
+If $\frac{(n-1)!}{(k-1)!(n-k)!}=\binom {n-1}{k-1}\neq \binom {n-1}k=\frac{(n-1)!}{(k)!(n-k-1)!}$, the contestant can determine that digit by counting the number of strings with 0 in it (and the number of strings with 1 in it). 
+This happens when $(k-1)!(n-k)!\neq k!(n-k-1)!$, or $n-k\neq k$ (fatorizing factors out) or $n\neq 2k$. 
+No further guesses is needed and the contestant can get it in one try. 
+
+If $n=2k$, then for each digit, half of the strings have one's and half have zero's. 
+The student then considers the strings with 0 on the leading digit. 
+If, the correct string has 0 on that leading digit, then for each of the written strings (with leading 0), among the remaining $2k-1$ digits there are $k-1$ being changed from the original. By the claim above the student can determine the remaining $2k-1$ digits. 
+Similar conclusion can be reached for he case with 1 as leading digit. 
+This gives the student the correct answer after 2 guesses. 
+To see why 2 guesses is necessary, let $a_0a_1\cdots a_{2k-1}$ be the string given by the leader, $b_0b_1\cdots b_{2k-1}$ be a string with $b_i=1-a_i$ for each $i$, $c_0c_1\cdots c_{2k-1}$ be any string written by the deputy leader. 
+Now, we have $c_i=a_i$ or $c_i=b_i$ but not both. 
+With $c_0c_1\cdots c_{2k-1}$ having $k$ same digits and $k$ different digits as $a_0a_1\cdots a_{2k-1}$, 
+it must have $2k-k=k$ same digits and $2k-k=k$ different digits as $b_0b_1\cdots b_{2k-1}$ too. 
+Thus $b_0b_1\cdots b_{2k-1}$ is actually another possibility. 
+
+\item[\textbf{C2}]
+Find all positive integers $n$ for which all positive divisors of $n$ can be put into the cells of a rectangular table under the following constraints:\\
+$\bullet$ each cell contains a distinct divisor;\\
+$\bullet$ the sums of all rows are equal; and\\
+$\bullet$ the sums of all columns are equal.\\
+
+\textbf{Solution.} 
+The answer is $n=1$, which works with 1 being placed in a $1\times 1$ table. 
+To show that this fails for other $n$, first prime factorize it into 
+$\displaystyle\prod_{i=1}^k p_i^{a_i}$. 
+If $r$ is the number of rows and $c$ is the number of columns then $rc=\displaystyle\prod_{i=1}^k (a_i+1)$, 
+the number of divisors of $n$. 
+W.l.o.g. $r\ge c$ and therefore $r\ge\sqrt{\displaystyle\prod_{i=1}^k (a_i+1)}=\displaystyle\prod_{i=1}^k \sqrt{(a_i+1)}$. 
+We have also known that the sum of divisors is 
+$\displaystyle\prod_{i=1}^k \frac{p_i^{a_i+1}-1}{p_i-1}$. 
+Knowing that one of the cells contains $n$, the sum of each row must be greater than $n$, 
+($n$ cannot be the only cell in that row, otherwise all cells would have to contain the same number which is absurd for $n>1$). 
+This means that the sum of each column is greater than $rn$, giving the following inequality: 
+$$\displaystyle\prod_{i=1}^k \frac{p_i^{a_i+1}-1}{p_i-1}>rn\ge\displaystyle\prod_{i=1}^k \sqrt{(a_i+1)}p_i^{a_i}$$
+or equivalently, 
+$\displaystyle\prod_{i=1}^k \frac{p_i-\frac{1}{p_i^{a_i}}}{p_i-1}>\displaystyle\prod_{i=1}^k \sqrt{(a_i+1)}$
+
+Now for each prime $p$, we are interested to investigate the ratio
+$\frac{1}{p-1}(p-\frac{1}{p^{a_i}}): \sqrt{(a_i+1)}$. 
+For $p=2$ we have $(2-\frac{1}{2^{a_i}}): \sqrt{(a_i+1)}$. 
+Notice that for $a_i\ge 3$, $(2-\frac{1}{2^{a_i}})<2$ while $\sqrt{(a_i+1)}\ge 2$. 
+so the ratio is smaller than 1. 
+for $a_i=1$, $(2-\frac{1}{2^{a_i}})=\frac 32$ and $\sqrt{(a_i+1)}=\sqrt{2}$ so the ratio is $\frac 3{2\sqrt{2}}$, 
+for $a_i=2$ we have $\frac 74\div \sqrt{3}=\frac 7{4\sqrt{3}}$. 
+Knowing that $\frac 3{2\sqrt{2}}=\sqrt{\frac 98}>\sqrt{\frac {49}{16}}=\frac 7{4\sqrt{3}}$ the maximum ratio is 
+$\sqrt{\frac 98}$. 
+For $p\ge 3$ we have $\frac{1}{p-1}(p-\frac{1}{p^{a_i}})$ decreasing with $p$ with $a_i$ fixed because
+$\frac{1}{p-1}(p-\frac{1}{p^{a_i}})$
+$=1+\frac 1p+\cdots +\frac 1{p^{a_i}}$
+$\le 1+\frac 13+\cdots +\frac 1{3^{a_i}}$
+$=\frac{1}{2}(3-\frac{1}{3^{a_i}})$. 
+When $a_i=1$ the ratio is $\frac 4{3\sqrt{2}}=\sqrt{\frac 89}$, when $a_i\ge 2$ the ratio is at most 
+$\frac{1}{2}(3-\frac{1}{3^{a_i}})\div \sqrt{a_i+1}$
+$\le\frac{1}{2}(3)\div \sqrt{2+1}$
+$=\frac 3{2\sqrt{3}}$
+$=\sqrt{\frac 34}$
+$<\sqrt{\frac 89}$. 
+Thus the maximum possible ratio is $ \sqrt{\frac 89}$. 
+
+Summing up, for $n$ consisting at least two distinct prime factors the ratio 
+$\displaystyle\prod_{i=1}^k \frac{p_i-\frac{1}{p_i^{a_i}}}{p_i-1}\div\displaystyle\prod_{i=1}^k \sqrt{(a_i+1)}$
+cannot exceed 
+$\sqrt{\frac 98}\times \sqrt{\frac 89}^{i-1}\le 1$, 
+contradicting that $\displaystyle\prod_{i=1}^k \frac{p_i-\frac{1}{p_i^{a_i}}}{p_i-1}>\displaystyle\prod_{i=1}^k \sqrt{(a_i+1)}$. 
+Hence $i=1$ and from the previous paragraph, $p < 3$ and thus $p=2$. 
+However, this implies $n$ is a power of 2 and from $a_i\ge 1$, at least two rows must be used (we assumed $r\ge c$). 
+The row containing $n$ must therefore have sum at least $2n$, 
+but for $n$ a power of two the sum of divisors is $2n-1$, contradiction. 
+
+\item[\textbf{C4/IMO 2}]
+Find all integers $n$ for which each cell of $n \times n$ table can be filled with one of the letters $I,M$ and $O$ in such a way that:\\
+$\bullet$ in each row and each column, one third of the entries are $I$, one third are $M$ and one third are $O$; and \\
+$\bullet$ in any diagonal, if the number of entries on the diagonal is a multiple of three, then one third of the entries are $I$, one third are $M$ and one third are $O$. 
+
+\textbf{Solution.} The answer is all $n$ divisible by 9. 
+We start by showing an example for $n=9$, given below: 
+\begin{center}
+\begin{tabular}{|c|c|c||c|c|c||c|c|c|}
+\hline
+I & M & O & M & O & I & O & I & M\\
+\hline
+M & M & M & O & O & O & I & I & I\\
+\hline
+I & M & O & M & O & I & O & I & M\\
+\hline
+\hline
+O & I & M & I & M & O & M & O & I\\
+\hline
+I & I & I & M & M & M & O & O & O\\
+\hline
+O & I & M & I & M & O & M & O & I\\
+\hline
+\hline
+M & O & I & O & I & M & I & M & O\\
+\hline
+O & O & O & I & I & I & M & M & M\\
+\hline
+M & O & I & O & I & M & I & M & O\\
+\hline
+\end{tabular}
+\end{center}
+For $n=9k$ for some $k$ we just have to split the grid into $k^2$ $9\times 9$ grids, and fill each one with the letters above. 
+For sake of verification, observe that there are exactly 3 $I$'s, 3 $M$'s and 3 $O$'s in each column or each row of a single $9\times 9$ grid. 
+Also, each diagonal is in the form of either $R_m=\{(i, j): i+j=m\}$, or $L_m=\{(i, j): i-j=m\}$, 
+for some $m$ satisfying $1\le (i, j)\le n$. 
+Now for $R_m$, the size $|R_m|$ is $m-1$ for $m\le n+1$, and $2n+1-m$ for $m\ge n+1$. 
+Notice that 3 divides $|R_m|$ iff $m\equiv 1\pmod{n}$ (first case), or iff  $m\equiv 1\pmod{n}$ (second case). 
+Thus it is not hard to see that the diagonals are in the form of 
+$(1, m-1), (2, m-2), \cdots (m-1, 1)$ in the first case, and 
+$(m-n, n), (m-n+1, n-1), \cdots (n, m-n)$ in the second case. 
+In each of the cases we can group them into groups of three, such that, if we further split each $9\times 9$ grids into $3\times 3$ grids, each group contains three cells along the main diagonal. 
+Nevertheless, from the construction above we see that each main diagonal in the $3\times 3$ grids have one $I$, one $M$ and one $O$. 
+Thus this set of diagonal works too. 
+A similar conclusion can be yielded for diagonals in the form of $L_m$. 
+
+To show that $9|n$ is necessary, observe from the first condition that $3|n$. 
+Let $n=3k$ and let's split the table into $k^2$ $3\times 3$ cells. 
+Notice from the logic (of diagonals characterization) as of above, 
+the center of each $3\times 3 $ cell ($(i, j)$ where $i, j\equiv 2\pmod{3}$) lie on both $R_m$ and $L_m$ with both size divisible by 3; 
+the four corners (($(i, j)$ where $i, j\not\equiv 2\pmod{3}$) lie on exactly one of the sets satifying the properties; 
+the four sides (($(i, j)$ where exactly one of $i$ and $j$ is congruent to 2 mod 3) lie on none of them. 
+Thus, when we mark the cells in each column, each row, and each diagonal with size divisible by 3, 
+the center cells are marked 4 times, the corners thrice, and the sides twice (as illustrated below). 
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+3 & 2 & 3\\
+\hline
+2 & 4 & 2\\
+\hline
+3 & 2 & 3\\
+\hline
+\end{tabular}
+\end{center}
+Let $c$ be the number of $M$'s on the center cells. 
+Considering just the $3i-1$-th column for $i\in [1, k]$ and the $3j-1$-th row for $j\in [1, k]$ yields $2k^2$ $M$'s being counted. 
+Each cell on the "side" is being counted once, each cell on the "center" twice, an each cell on the "corner" none. 
+This gives the number of $M$'s on the side as $2k^2-c$, which follows that there must be $k^2+c$ $M$'s at the corner. 
+Now let's see what happens as we consider all such markings (all columns, all rows, and all diagonals of size divisible by 3). 
+Observe that for each $3\times 3$ cells we have $3+2+3+2+4+2+3+2+3=24$ markings, so each letter ($M$, in particular) has $8k^2$ markings. 
+This means $8k^2=4c+2(2k^2-c)+3(k^2+c)=3c+7k^2$, or $c=\frac{k^2}{3}$. 
+Hence $3|k^2$, or $3|k$, or $9|n$. 
+
+%play around with c7 characters
+\newcommand{\person}{Feridun }
+\newcommand{\pronoun}{he }
+\newcommand{\possesive}{his }
+\newcommand{\animal}{goose }
+\newcommand{\animals}{geese }
+\newcommand{\Animal}{Goose }
+\newcommand{\Animals}{Geese }
+\newcommand{\move}{jump }
+\newcommand{\moves}{jumps }
+
+\item[\textbf{C7/IMO 6}]
+There are $n\ge 2$ line segments in the plane such that every two segments cross and no three segments meet at a point. \person  has to choose an endpoint of each segment and place a \animal on it facing the other endpoint. Then \pronoun will clap \possesive hands $n-1$ times. Every time \pronoun claps, each \animal will immediately jump forward to the next intersection point on its segment. \Animals never change the direction of their jumps. \person wishes to place the \animals in such a way that no two of them will ever occupy the same intersection point at the same time.
+
+(a) Prove that \person can always fulfill \possesive wish if $n$ is odd.
+
+(b) Prove that \person can never fulfill \possesive wish if $n$ is even.
+
+\textbf{Solution.} (a) Let the segments be $\ell_1, \ell_2, \cdots , \ell_n$. 
+Let $P_{ij}$ be the intersection of line $ij$. For each segment $\ell_i$ we aim to investigate the number of points on each side of $P_{ij}$ (other than $P_{ij}$). 
+Since there are $n-2$ such points (which is odd), 
+one side has even number of points and the other side odd. 
+We call this odd side of $\ell_i$ w.r.t. point $P_{ij}$. 
+
+Now place the first \animal arbitrarily on $\ell_1$. For $i\in [2, n]$ we do the following: 
+if the \animal corresponding to $\ell_1$ is place on the odd side of $\ell_1$ w.r.t. $P_{1i}$, 
+\person places one \animal at the even side of $\ell_i$ w.r.t. $P_{1i}$ (and vice versa). 
+We now proceed to the following claim: 
+using the procedure detailed above, for each two distinct integers $i, j\in [1, n]$, 
+the \animals corresponding to $\l_i$ and $\l_j$ lie on different parity of $l_i$ and $l_j$, respectively, 
+both w.r.t. $P_{ij}$. 
+Indeed, consider the triangle formed by lines $\ell_1$, $\ell_i$ and $\ell_j$. 
+Menelaus' theorem says that any line either intersects none or two of the segments 
+$P_{ij}P_{1i}$, $P_{1j}P_{1i}$, $P_{ij}P_{1j}$. 
+Thus considering lines $l_k$ with $k\not\in\{1,i,j\}$ 
+we know that it has even number of total intersection points with segments $P_{ij}P_{1i}$, $P_{1j}P_{1i}$, $P_{ij}P_{1j}$. 
+If this number is even on $P_{1j}P_{1i}$, 
+then each endpoint is on the odd side of $l_1$ w.r.t. one of $P_{1j}$ and $P_{1i}$, and even on the other. 
+Thus according of our choice of placing the \animals, 
+either one \animal come from the odd side of $l_i$ w.r.t. $P_{1i}$ and the other from even side of $l_j$ w.r.t. $P_{1j}$, 
+or vice versa. 
+The intersection with $P_{ij}P_{1i}$ and $P_{ij}P_{1j}$ will be both odd or both even. 
+If it's both odd and in the first case (one \animal come from the odd side of $l_i$ w.r.t. $P_{1i}$ and the other from even side of $l_j$ w.r.t. $P_{1j}$), 
+then the \animal corresponding to $i$ come from the odd side of $l_i$ w.r.t. $P_{1i}$ and the other from even side of $l_j$ w.r.t. $P_{1j}$, which works for this pair of $(i,j)$. 
+The other three subcases can be treated equally. 
+If this number is odd on $P_{ij}P_{1i}$, 
+then each endpoint is on the odd side of $l_i$ w.r.t. both $P_{1i}$ and $P_{1j}$, or vice versa (both even). 
+According to our choice again, 
+both \animals come from the odd side of $l_i$ w.r.t. $P_{1i}$ and the and of $l_j$ w.r.t. $P_{1j}$, or both from the even side of their respective lines. 
+The intersection with $P_{ij}P_{1i}$ and $P_{ij}P_{1j}$ will be one odd and one even, 
+for the same endpoint w.r.t the lines $l_i$ and $l_j$, exactly one of them will change sign when switching from $P_{1i}$ to $P_{ij}$ and from $P_{1j}$ to $P_{ij}$. 
+Again this $(i, j)$ works. 
+
+Finally, to see why the \animals won't intersect at the same time, observe that  if this happens for some of $(i, j)$, then the \animals must have encountered the same number of points before. This implies that they have to come both from the odd side or the even side of the line, contradiction. 
+
+(b) Let $\ell_1, \ell_2, \cdots , \ell_n$ be the segments, and let $\theta_i\in [0, \pi)$ be the angle need for $x$-axis to rotate counterclockwise to reach $\ell_i$. 
+W.L.O.G let $0=\theta_1 < \theta_2< \cdots < \theta_n$. For convinience we introduce $\ell_{n+1}=\ell_1$ with $\theta_{n+1}=\pi$. 
+
+For each segment \person has the choice of placing the \animal in the direction of $\theta_i$ or $\theta_i +\pi$ compared to the positive $x$-direction. Let's investigate $\ell_i$ and $\ell_{i+1}$ together. 
+Now, suppose that $\ell_i$ and $\ell_j$ intersect at $P_{ij}$ for some $j$; define $\ell_{(i+1)j}$ similarly. 
+We know that for each $j$ different from $i$, $i+1$, $\ell_i$, $\ell_{i+1}$ and $\ell_j$ are in that order (in anticlockwise angle, cycles allowed). 
+This means that $P_{ij}P_{i(i+1)}, P_{i(i+1)}P_{(i+1)j}, P_{(i+1)j}P_{ij}$ must also be in that order, 
+forcing $P_{ij}, P_{i(i+1)}, P_{(i+1)j}$ to be in clockwise order. 
+From here we infer that the vectors $P_{i(i+1)}P_{ij}$ and $P_{i(i+1)}P_{(i+1)j}$ either have directions ($\theta_i$, $\theta_{i+1}$) or ($\theta_i +\pi$, $\theta_{i+1} +\pi$), 
+and considering all such $j$'s, we know that there are equal number of intersection points lying on the half-line starting from $P_{i(i+1)}$ and extending in the $\theta_i$ direction, and on the half-line starting from $P_{i(i+1)}$ and extending in the $\theta_{i+1}$ direction. 
+This means that the \animals will collide when both placed in the $\theta_i, theta_{i+1}$ direction, or $\theta_i +\pi, theta_{i+1}+\pi$ direction, 
+forcing the directions to be  $\theta_i, \theta_{i+1}+\pi$ or  $\theta_i +\pi, \theta_{i+1}$. 
+
+Summarizing above, if we let $\theta_1$ to be the direction headed by the first \animal
+the directions must be $\theta_1, \theta_2+\pi, \theta_3, \theta_4+\pi, \cdots , \theta_n+\pi$ ($n$ is even). 
+Recall that we can also compare it with the "$n+1$-th" line (which is the first) and it has to have direction $\theta_{n+1}=\theta_1 +\pi$, 
+which contradicts our choice of making the first $\animal$ facing the direction $\theta_1$. 
+(The case where $\theta_1+\pi$ is chosen as the direction is completely analogous: if one configuration works, then the completely opposite configuration works too). 
+\end{itemize}
+
+\section{Geometry}
+\begin{itemize}
+\item[\textbf{G1/IMO 1}]
+Triangle $BCF$ has a right angle at $B$. Let $A$ be the point on line $CF$ such that $FA=FB$ and $F$ lies between $A$ and $C$. Point $D$ is chosen so that $DA=DC$ and $AC$ is the bisector of $\angle{DAB}$. Point $E$ is chosen so that $EA=ED$ and $AD$ is the bisector of $\angle{EAC}$. Let $M$ be the midpoint of $CF$. Let $X$ be the point such that $AMXE$ is a parallelogram. Prove that $BD,FX$ and $ME$ are concurrent.
+
+\textbf{Solution.} 
+The fact that $\angle CBF=90^{\circ}$ and $M$ being the midpoint of $CF$ should very well suggest us to draw the circumcircle of $\triangle BCF$. 
+As it turns out, $D$ and $X$ seems to lie on this circle (and that's almost everything we need). 
+Now $\angle DCF=\angle DCA=\angle DAC=\angle BAF=\angle ABF=90^{\circ}-\frac 12\angle BFC$. 
+$DC=DA=\frac{CA}{2\cos\angle DCA}$
+                            $=\frac{CF-AF}{2\cos(90^{\circ}-\frac 12\angle BFC)}$
+                            $=\frac{CF-BF}{2\sin\frac 12\angle BFC}$
+                            $=\frac{CF-CF\cos\angle BFC}{2\sin\frac 12\angle BFC}$
+                            $=CF\cdot\frac{1-(1-2\sin ^2\frac 12\angle BFC)}{2\sin\frac 12\angle BFC}$
+                            $=CF\cdot\sin \frac 12\angle BFC$
+                            $=CF\cdot\cos (90^{\circ}-\frac 12\angle BFC)$
+                            $=CF\cdot\cos\angle DCF$.
+                            If $D'$ is on ray CD satisfying $\angle CD'F=90^{\circ}$ we have $CD'=CF\cos\angle D'CF=CF\cos\angle DCF=CD$, so
+                            $D=D'$ and $D$ lies on the circumcircle of $BCF$. 
+                            Moreover, $\angle DFC=90^{\circ}-\angle DCF=\frac 12\angle BFC=\angle BFD$, 
+                            so $BD$ and $DC$ subtend the same angle and $BD=DC$. 
+
+Now $EA=ED$ and $\angle CAD=\angle EAD$ so $\angle EDA=\angle EAD=\angle CAD$, so $ED\parallel CM$. 
+                            With $EX\parallel AM$ we have $E, X, D$ collinear, too. 
+                            Moreover, $DE=\frac{DA}{2\cos\angle EDA}$
+                            $=\frac{DA}{2\cos\angle CAD}$
+                            $=\frac{DC}{2\cos\angle DCA}$
+                            $=\frac{CF\cos\angle DCF}{2\cos\angle DCF}$
+                            $=\frac{CF}{2}$
+                            $=CM$,
+                            so $CMED$ is a parallelogram. 
+                            Thus $\angle DEM=\angle DCM=\angle DCA=\angle CAD$, meaning that $DEMA$ is an isoceles trapezoid (so $\angle EAM=\angle EDM$). 
+                            With $AMXE$ parallelogram we also have $\angle DXM=\angle EXM=angle EAM=\angle EDM=\angle XDM$, so $MX=MD$ and $X$ lies on the circumcircle of $BCF$, too. 
+                            With $DX\parallel CF$ we conclude that $DXFC$ is an isoceles trapezoid so $CD=FX$, from previous identity we have $BD=DC$ so $FX=BD$.
+
+Finally, we already had $F,E,X$ collinear and $\angle DBA=\angle DBC+\angle CBA$
+                            $=\angle DFC+(90^{\circ}-\angle FBA)$
+                            $=\angle DFC+(\frac 12\angle BFC)$
+                            $=\angle DFC+(\angle DFC)$
+                            $=\angle DMC$, 
+                            so $B$ lies on the circle containing $D,E,A,M$ too. This means $\angle BED=\angle BMD$, 
+                            and since $BD$ and $FX$ subtend the same angle on circle $BCF$ we have 
+                            $\angle BMD=\angle FMX=\angle FEX$ (the last equality follows from that $EXFM$ is isoceles trapezoid, hence cyclic). 
+                            Therefore, $B, E, F$ are in fact collinear, and $E$ is the intersection of $DX$ and $BF$.
+                            Hence $ME$ is the common perpendicular bisector of segments $BX$ and $DF$ (since $BXFD$ is an isoceles trapezoid), 
+                            and the intersection of $BD$ and $FX$ will lie on this perpendicular bisector too.
+
+\item[\textbf{G2}]
+Let $ABC$ be a triangle with circumcircle $\Gamma$ and incenter $I$ and let $M$ be the midpoint of $\overline{BC}$. The points $D$, $E$, $F$ are selected on sides $\overline{BC}$, $\overline{CA}$, $\overline{AB}$ such that $\overline{ID} \perp \overline{BC}$, $\overline{IE}\perp \overline{AI}$, and $\overline{IF}\perp \overline{AI}$. Suppose that the circumcircle of $\triangle AEF$ intersects $\Gamma$ at a point $X$ other than $A$. Prove that lines $XD$ and $AM$ meet on $\Gamma$.
+
+\definecolor{zzttqq}{rgb}{0.6,0.2,0.}
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(-2.270656607672633,-3.796329905018268) rectangle (18.226000561693667,5.8638337348048095);
+\fill[line width=1.2pt,color=zzttqq,fill=zzttqq,fill opacity=0.10000000149011612] (2.6740633796648576,3.4476258129586164) -- (2.42,-1.08) -- (3.0332828475238647,0.5873608084337415) -- cycle;
+\fill[line width=1.2pt,color=zzttqq,fill=zzttqq,fill opacity=0.10000000149011612] (2.6740633796648576,3.4476258129586164) -- (7.861779119227031,1.5355684211039) -- (10.16,-0.98) -- cycle;
+\draw [line width=1.2pt] (6.264092589154242,0.9752335994617323) circle (4.359017433131806cm);
+\draw [line width=1.2pt] (5.201874941490228,2.312402981551107) circle (2.771021863689802cm);
+\draw [line width=1.2pt] (6.907124929188343,-3.3360936198545272)-- (2.6740633796648576,3.4476258129586164);
+\draw [line width=1.2pt] (4.667907423661546,5.031491221927057)-- (6.907124929188343,-3.3360936198545272);
+\draw [line width=1.2pt] (4.667907423661546,5.031491221927057)-- (2.42,-1.08);
+\draw [line width=1.2pt] (2.42,-1.08)-- (10.16,-0.98);
+\draw [line width=1.2pt] (4.667907423661546,5.031491221927057)-- (10.16,-0.98);
+\draw [line width=1.2pt] (3.0332828475238647,0.5873608084337415)-- (7.861779119227031,1.5355684211039);
+\draw [line width=1.2pt] (5.447530983375448,1.061464614768821)-- (5.474688584848092,-1.040533739213849);
+\draw [line width=1.2pt] (4.667907423661546,5.031491221927057)-- (5.447530983375448,1.061464614768821);
+\draw [line width=1.2pt] (5.447530983375448,1.061464614768821)-- (2.42,-1.08);
+\draw [line width=1.2pt] (5.447530983375448,1.061464614768821)-- (10.16,-0.98);
+\draw [line width=1.2pt] (2.6740633796648576,3.4476258129586164)-- (2.42,-1.08);
+\draw [line width=1.2pt] (2.6740633796648576,3.4476258129586164)-- (3.0332828475238647,0.5873608084337415);
+\draw [line width=1.2pt] (2.6740633796648576,3.4476258129586164)-- (7.861779119227031,1.5355684211039);
+\draw [line width=1.2pt] (2.6740633796648576,3.4476258129586164)-- (10.16,-0.98);
+\draw [line width=1.2pt,color=zzttqq] (2.6740633796648576,3.4476258129586164)-- (2.42,-1.08);
+\draw [line width=1.2pt,color=zzttqq] (2.42,-1.08)-- (3.0332828475238647,0.5873608084337415);
+\draw [line width=1.2pt,color=zzttqq] (3.0332828475238647,0.5873608084337415)-- (2.6740633796648576,3.4476258129586164);
+\draw [line width=1.2pt,color=zzttqq] (2.6740633796648576,3.4476258129586164)-- (7.861779119227031,1.5355684211039);
+\draw [line width=1.2pt,color=zzttqq] (7.861779119227031,1.5355684211039)-- (10.16,-0.98);
+\draw [line width=1.2pt,color=zzttqq] (10.16,-0.98)-- (2.6740633796648576,3.4476258129586164);
+\begin{scriptsize}
+\draw [fill=uuuuuu] (4.667907423661546,5.031491221927057) circle (2.0pt);
+\draw[color=uuuuuu] (4.537798208586435,5.46281218149112) node {$A$};
+\draw [fill=uuuuuu] (2.42,-1.08) circle (2.0pt);
+\draw[color=uuuuuu] (2.024729807820653,-1.2921730943261232) node {$B$};
+\draw [fill=uuuuuu] (10.16,-0.98) circle (2.0pt);
+\draw[color=uuuuuu] (10.383801296892647,-1.0782949325588227) node {$C$};
+\draw [fill=uuuuuu] (5.447530983375448,1.061464614768821) circle (2.0pt);
+\draw[color=uuuuuu] (5.571542657128387,1.3634807476178594) node {$I$};
+\draw [fill=uuuuuu] (5.474688584848092,-1.040533739213849) circle (2.0pt);
+\draw[color=uuuuuu] (5.357664495361086,-1.2921730943261232) node {$D$};
+\draw [fill=uuuuuu] (7.861779119227031,1.5355684211039) circle (2.0pt);
+\draw[color=uuuuuu] (8.155903778483268,1.6308284498269852) node {$E$};
+\draw [fill=uuuuuu] (3.0332828475238647,0.5873608084337415) circle (2.0pt);
+\draw[color=uuuuuu] (2.648541112975279,0.7931389829050577) node {$F$};
+\draw [fill=uuuuuu] (2.6740633796648576,3.4476258129586164) circle (2.0pt);
+\draw[color=uuuuuu] (2.1851384291461278,3.698317346910891) node {$X$};
+\draw [fill=uuuuuu] (6.29,-1.03) circle (2.0pt);
+\draw[color=uuuuuu] (6.409232124050314,-0.7396545097605967) node {$M$};
+\draw [fill=uuuuuu] (6.907124929188343,-3.3360936198545272) circle (2.0pt);
+\draw[color=uuuuuu] (7.050866609352216,-2.8071434068445025) node {$N$};
+\end{scriptsize}
+\end{tikzpicture}
+
+\textbf{Solution.}
+W.L.O.G. let $AB<AC$. 
+First, well-known spiral similarity property should dictate the similarity of triangles $BXF$ an $CXE$, so $\frac{CX}{CE}=\frac{BX}{BF}$.
+Also, let's also invoke an identity for triangles (feel free to verify it; I'm not gonna do this):
+$$\frac{BX}{XC}\cdot \frac{\sin\angle BXD}{\sin\angle CXD}=\frac{BD}{DC}.$$Denoting $N_1$ as the other intersection of $XD$ and $\Gamma$ gives $\frac{\sin\angle BXD}{\sin\angle CXD}=\frac{BN_1}{CN_1}.$
+Similarly we have $\frac{AB}{AC}\cdot \frac{\sin\angle ABM}{\sin\angle ACM}=\frac{BM}{CM}=1$.
+ALso let $N_2$ as the other intersection of $AM$ and $\Gamma$ and we have $\frac{\sin\angle ABM}{\sin\angle ACM}=\frac{BN_2}{CN_2}.$
+Therefore all we need is $\frac{\sin\angle ABM}{\sin\angle ACM}=\frac{\sin\angle BXD}{\sin\angle CXD}$,
+and it's not hard to see that $\frac{\sin\angle ABM}{\sin\angle ACM}=\frac{AC}{AB}$,
+so we are left with proving the fact
+$\frac{BF}{EC}\cdot\frac{AC}{AB}=\frac{BD}{DC}$.
+
+Now, $\frac{BD}{DC}=\frac{\tan\frac12\angle C}{\tan\frac12\angle B}$,
+$\frac{AC}{AB}=\frac{\sin\angle B}{\sin\angle C}=\frac{2\sin\frac 12\angle B\cos\frac 12\angle B}{2\sin\frac 12\angle C\cos\frac 12\angle C}$.
+Also $IE=IF$, and by angle chasing we have $\angle FIB=\angle ICE=\frac12\angle C$,
+$\angle EIC=\angle IBF=\frac12\angle B$.
+Therefore $BIF$ and $ICE$ similar, yielding $\frac{BF}{EC}=(\frac{BF}{FI})^2=(\frac{\sin\frac12\angle C}{\sin\frac12\angle B})^2$,
+now it's no longer difficult to prove that $(\frac{\sin\frac12\angle C}{\sin\frac12\angle B})^2\cdot \frac{2\sin\frac 12\angle B\cos\frac 12\angle B}{2\sin\frac 12\angle C\cos\frac 12\angle C}=\frac{\tan\frac12\angle C}{\tan\frac12\angle B}$.
+
+\item[\textbf{G3}]
+Let $B = (-1, 0)$ and $C = (1, 0)$ be fixed points on the coordinate plane. A nonempty, bounded subset $S$ of the plane is said to be nice if
+
+$\text{(i)}$ there is a point $T$ in $S$ such that for every point $Q$ in $S$, the segment $TQ$ lies entirely in $S$; and
+
+$\text{(ii)}$ for any triangle $P_1P_2P_3$, there exists a unique point $A$ in $S$ and a permutation $\sigma$ of the indices $\{1, 2, 3\}$ for which triangles $ABC$ and $P_{\sigma(1)}P_{\sigma(2)}P_{\sigma(3)}$ are similar.
+
+Prove that there exist two distinct nice subsets $S$ and $S'$ of the set $\{(x, y) : x \geq 0, y \geq 0\}$ such that if $A \in S$ and $A' \in S'$ are the unique choices of points in $\text{(ii)}$, then the product $BA \cdot BA'$ is a constant independent of the triangle $P_1P_2P_3$.
+
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=2.0cm,y=2.0cm]
+\clip(-1.7992213964115553,-0.5528722288194026) rectangle (4.3785964850163905,2.3587601987753266);
+\draw [line width=1.2pt] (0.,1.7320508075688772)-- (0.,0.);
+\draw [line width=1.2pt] (0.,0.)-- (3.,0.);
+\draw [shift={(-1.,0.)},line width=1.2pt]  plot[domain=0.:1.0471975511965976,variable=\t]({1.*2.*cos(\t r)+0.*2.*sin(\t r)},{0.*2.*cos(\t r)+1.*2.*sin(\t r)});
+\draw [shift={(1.,0.)},line width=1.2pt]  plot[domain=0.:2.0943951023931957,variable=\t]({1.*2.*cos(\t r)+0.*2.*sin(\t r)},{0.*2.*cos(\t r)+1.*2.*sin(\t r)});
+\draw [line width=1.2pt] (-1.,0.)-- (0.,0.);
+\draw [line width=1.2pt,dash pattern=on 3pt off 3pt] (-1.,0.)-- (2.2421749535956774,1.567482498996266);
+\draw [line width=1.2pt] (0.4643237490478057,0.70795126183782)-- (1.,0.);
+\draw [line width=1.2pt] (1.2141107495551722,1.0704480481283867)-- (1.,0.);
+\draw (0.23140048113606526,1.2521249956673668) node[anchor=north west] {$S$};
+\draw (1.0103427357508932,1.6281660841021104) node[anchor=north west] {$S'$};
+\begin{scriptsize}
+\draw [fill=uuuuuu] (-1.,0.) circle (2.0pt);
+\draw[color=uuuuuu] (-1.127719452778083,0.008503396058179014) node {$B$};
+\draw [fill=uuuuuu] (1.,0.) circle (2.0pt);
+\draw[color=uuuuuu] (0.967366611358351,-0.13654102376665067) node {$C$};
+\draw [fill=uuuuuu] (3.,0.) circle (2.0pt);
+\draw[color=uuuuuu] (3.1376608931817334,-0.10968094602131184) node {$T'$};
+\draw [fill=uuuuuu] (0.,0.) circle (2.0pt);
+\draw[color=uuuuuu] (-0.010340218571984802,-0.11505296157037961) node {$F$};
+\draw [fill=uuuuuu] (0.4643237490478057,0.70795126183782) circle (2.0pt);
+\draw[color=uuuuuu] (0.44090908754970864,0.8196777439674117) node {$A$};
+\draw [fill=uuuuuu] (1.2141107495551722,1.0704480481283867) circle (2.0pt);
+\draw[color=uuuuuu] (1.209107311066401,1.1957188324021553) node {$A'$};
+\end{scriptsize}
+\end{tikzpicture}
+
+\textbf{Solution.} We show that the following works: $S=\{(x,y): x\ge 0, y\ge 0, (x+1)^2+y^2\le 4\}$ and $S'=\{x\ge 0, y\ge 0, (x+1)^2+y^2\ge 4, (x-1)^2+y^2\le 4\}$. We claim that $BA\cdot BA'=4$ for those choices. 
+Denote triangles $ABC$ and $DEF$ as quasi-similar if there exists a permutation $\sigma$ of $\{D,E,F\}$ with $ABC$ and $\sigma(D)\sigma(E)\sigma(F)$ as similar. 
+
+We first start with the following claim: 
+for every point $A$ above $x$-axis, $A\in S$ iff $AC\le AB\le BC$ and $A'\in S'$ iff $A'C\le BC\le A'B$. \\
+Proof: let's first investigate all points $A\in S$ and $A'\in S'$. 
+Let $A=(x,y)$ be arbitrary. 
+Now, $AC\le AB\lra(x-1)^2+y^2\le  (x+1)^2+y^2\lra 0\le x$. 
+$BC\ge AB\lra 2^2\ge (x+1)^2+y^2\lra (x+1)^2+y^2\le 4$. 
+Therefore $AC\le AB\le BC$ iff $(x,y)$ satisfies both $x\ge 0$ and $(x+1)^2+y^2\le 4$ iff $(x,y)\in S$. 
+Next, $AC\le BC$ iff 
+$AC\le 2$ or $(x-1)^2+y^2\le 4$ 
+and $BC\le AB$ iff
+$(x-1)^2+y^2\ge 4$, 
+therefore $AC\le BC\le AB$ iff the two conditions are satisfied (and from here $(x-1)^2+y^2\le (x-1)^2+y^2$ so $x\ge 0$ is implied), 
+and this is equivalent to $A\in S'$. 
+
+We are now ready to justify our selection: 
+\begin{itemize}
+\item[(i)]
+In $S$ we can simply take any point as $T$, since the boundaries $x$-axis with $x\in [0, \sqrt{3}]$, $y$-axis with $y\in [0, 1], $ and the arc of the circle $(x-1)^2+y^2=4$ with $x\ge 0$ are concave. 
+In $S'$ we take $T=(3,0)$. 
+
+\item[(ii)] Observe that the objective is equivalent to: 
+for each triangle $P_1P_2P_3$ there is a unique point $A$ with triangle $ABC$ quasisimilar to $P_1P_2P_3$ satisfying $AC\le AB\le BC$, 
+and another unique point $A'$ with $A'BC$ quasisimilar to $P_1P_2P_3$ and $A'C\le BC\le A'B$. 
+Moreover we want to prove that $BA\cdot BA'=BC^2=4$. 
+We will also use the fact that for each triangle $DEF$ there is a unique $A$ above $x$-axis that is similar to $DEF$ (with $B, C$ fixed). 
+We split into the following cases: 
+\begin{itemize}
+\item [Case 1.] $P_1P_2P_3$ equilateral. The only point $A$ with $y\ge 0$ satisfying this is 
+$A=(0, \sqrt{3})$. 
+Since we have $(x+1)^2+y^2=(x-1)^2+y^2=1+3=4$, $A$ lies in both $S$ and $S'$ and we have $BA\cdot BA=2\times 2=4$. 
+\item [Case 2.] $P_1P_2P_3$ is isoceles, with the two equal sides longer than the other. 
+Now, let $P_1P_2=P_1P_3>P_2P_3$. 
+This means, if $AC$ is the shortest and if triangle $ABC$ is quasisimilar to $P_1P_2P_3$ then $AC$ corresponds to $P_2P_3$, 
+and $AB, BC$ correspond to $P_1P_2$ and $P_1P_3$, which implies that 
+$AB=BC=2$. 
+Such $A$ can be uniquely constructed, and with $AC < AB=BC=2$ we have $A$ lies in $S$. 
+Similarly, if $A'C$ is the shortest side of $A'BC$ and if triangle $A'BC$ is quasisimilar to $P_1P_2P_3$ then $A'C$ corresponds to $P_2P_3$, and $A'B, BC$ corresponds to $P_1P_2$ and $P_1P_3$, so 
+$A'$ can also be uniquely constructed (which turns out to be equal to $A$ in this case). 
+Therefore, $A'C < BC=A'B=2$, which implies that $A'$ is in $S'$, and moreover $BA\cdot BA'=2\times 2=4$. 
+
+\item [Case 3.] $P_1P_2P_3$ is isoceles with the two equal sides longer than the other. 
+Now, let $P_1P_2=P_1P_3<P_2P_3$. 
+This means $AC$ and $A'C$ corresponds to $P_1P_2$. 
+In $ABC$, we know that $AB\le BC$ implies $AB$ corresponds to $P_1P_3$, $BC$ corresponds to $P_2P_3$;
+In $ABC$, we know that $BC\le A'B$ implies $BC$ corresponds to $P_1P_3$, $A'B$ corresponds to $P_2P_3$. 
+Therefore $\frac{AB}{BC}=\frac{P_1P_3}{P_2P_3}=\frac{BC}{A'B}$ and $BC^2=AB\cdot A'B$. 
+\end{itemize}
+
+\item [Case 4.] $P_1P_2P_3$ scalene, and let $P_1P_2<P_1P_3<P_2P_3$. 
+This means $AC$ and $A'C$ corresponds to $P_1P_2$. 
+In $ABC$, we know that $AB\le BC$ implies $AB$ corresponds to $P_1P_3$, $BC$ corresponds to $P_2P_3$;
+In $ABC$, we know that $BC\le A'B$ implies $BC$ corresponds to $P_1P_3$, $A'B$ corresponds to $P_2P_3$. 
+Therefore $\frac{AB}{BC}=\frac{P_1P_3}{P_2P_3}=\frac{BC}{A'B}$ and $BC^2=AB\cdot A'B$. 
+\end{itemize}
+
+\item[\textbf{G4}]
+Let $ABC$ be a triangle with $AB = AC \neq BC$ and let $I$ be its incentre. The line $BI$ meets $AC$ at $D$, and the line through $D$ perpendicular to $AC$ meets $AI$ at $E$. Prove that the reflection of $I$ in $AC$ lies on the circumcircle of triangle $BDE$.
+
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(2.508533677869763,-3.670896102057754) rectangle (20.155064472682568,4.645990585584426);
+\draw [line width=1.2pt] (6.3,0.64) circle (3.7402481873228917cm);
+\draw [line width=1.2pt] (6.33659146518181,4.380069192869033)-- (3.9870541679262246,-2.299343137618459);
+\draw [line width=1.2pt] (6.33659146518181,4.380069192869033)-- (8.554993680980937,-2.3440341823625643);
+\draw [line width=1.2pt] (3.9870541679262246,-2.299343137618459)-- (8.554993680980937,-2.3440341823625643);
+\draw [line width=1.2pt] (3.9870541679262246,-2.299343137618459)-- (9.083041002455232,1.2728647515940277);
+\draw [line width=1.2pt] (6.33659146518181,4.380069192869033)-- (6.287016087198279,-0.6871054337761034);
+\draw [shift={(8.67788250632608,-5.057302928688166)},line width=1.2pt,dash pattern=on 4pt off 4pt]  plot[domain=1.4392311051423707:2.610082583237681,variable=\t]({1.*5.441526689219892*cos(\t r)+0.*5.441526689219892*sin(\t r)},{0.*5.441526689219892*cos(\t r)+1.*5.441526689219892*sin(\t r)});
+\draw [line width=1.2pt] (6.292107838093549,-0.16666984677409122)-- (6.53504758519073,-0.5132391930122152);
+\begin{scriptsize}
+\draw [fill=uuuuuu] (3.9870541679262246,-2.299343137618459) circle (2.0pt);
+\draw[color=uuuuuu] (3.7873931802595675,-2.4783712991910054) node {$B$};
+\draw [fill=uuuuuu] (6.33659146518181,4.380069192869033) circle (2.0pt);
+\draw[color=uuuuuu] (6.446073025680614,4.644264829899929) node {$A$};
+\draw [fill=uuuuuu] (8.554993680980937,-2.3440341823625643) circle (2.0pt);
+\draw[color=uuuuuu] (8.891402019308613,-2.4291364872387637) node {$C$};
+\draw [fill=uuuuuu] (6.287016087198279,-0.6871054337761034) circle (2.0pt);
+\draw[color=uuuuuu] (6.183487361935326,-0.9192689207033586) node {$I$};
+\draw [fill=uuuuuu] (7.685028544826755,0.2928796589089621) circle (2.0pt);
+\draw[color=uuuuuu] (7.7918245523752185,0.557775437863886) node {$D$};
+\draw [fill=uuuuuu] (6.292107838093549,-0.16666984677409122) circle (2.0pt);
+\draw[color=uuuuuu] (6.150664153967165,0.14748533826187354) node {$E$};
+\draw [fill=uuuuuu] (9.39173461207809,0.3371968516998012) circle (2.0pt);
+\draw[color=uuuuuu] (9.547866178671836,0.6070102498161274) node {$I'$};
+\draw [fill=uuuuuu] (9.083041002455232,1.2728647515940277) circle (2.0pt);
+\draw[color=uuuuuu] (9.301692118910626,1.5424716769087157) node {$I''$};
+\draw [fill=uuuuuu] (6.53504758519073,-0.5132391930122152) circle (2.0pt);
+\draw[color=uuuuuu] (6.823539917314466,-0.5418020290695073) node {$P$};
+\end{scriptsize}
+\end{tikzpicture}
+
+\textbf{Solution.} 
+Let $I'$ be the reflection of $I$ in $AC$. 
+Observe that $AC$ is an angle bisector of $\angle BDI'$ by the definition of $I'$, 
+and since $DE\perp AC$, 
+$DE$ is another angle bisector of this angle. 
+This implies that the intersection of $DE$ and the circumcircle of $BDI'$ (other than $D$) is equidistant from $B$ and $I'$, 
+i.e. on the perpendicular bisector of $BI'$. 
+It therefore suffices to prove that $E$ lies on this perpendicular bisector, or $BE=EI'$. 
+
+Let $I''$ be the image of $I$ when reflected in $D$, then $DI=DI'=DI''$. 
+Moreover, $I''$ lies on line $BD$, which entails that $I'I''$ is parallel to $AC$ and perpendicular to $DE$. 
+Therefore, $DE$ is the perpendicular bisector of $I'I''$ and $EI''=EI'$. 
+The problem is now reduced to proving $BE=EI''$. 
+Let $P$ be the foot of perpendicular from $E$ to $BD$, 
+then the problem is now equivalent to proving that $P$ is the midpoint of $BI''$. 
+Knowing that $BP=BI+ID-PD$ and $PI''=PD+DI''=PD+DI$ it suffices to prove that $BI=2PD$. 
+
+Denote the common angles $\angle ABI, \angle IBC, \angle ICB, \angle ACI$ as $\alpha$. 
+Then, $\angle ADB=3\alpha$, and $\angle IDE=|90^{\circ}-3\alpha|$ (as we will see, we are only interested in the cosine of this angle so don't worry about the sign). 
+So $\frac{PD}{BI}$
+$=\frac{DE\cos\angle IDE}{BI}$
+$=\frac{AD\tan\angle DAI\cos\angle IDE}{BI}$
+$=\frac{AB\tan\angle DAI\cos\angle IDE\sin\angle ABD}{BI\sin\angle ADB}$
+$=\frac{BI\tan\angle DAI\cos\angle IDE\sin\angle ABD\sin\angle AIB}{BI\sin\angle ADB\sin\angle BAI}$
+$=\frac{\tan(90^{\circ}-2\alpha)\cos|90^{\circ}-3\alpha|\sin\alpha\sin(90^{\circ}+\alpha)}{\sin(3\alpha)\sin(90^{\circ}-2\alpha)}$
+$=\frac{\sin(90^{\circ}-2\alpha)\sin(3\alpha)\sin\alpha\cos\alpha}{\sin(3\alpha)\sin(90^{\circ}-2\alpha)\cos(90^{\circ}-2\alpha)}$
+$=\frac{\sin\alpha\cos\alpha}{\sin (2\alpha)}$
+$=\frac{\sin\alpha\cos\alpha}{2\sin\alpha\cos\alpha}$
+$=\frac 12$, 
+as $\cos|90^{\circ}-x|=\cos(90^{\circ}-x)=\sin x$, $\sin(90^{\circ}+\alpha)=\cos\alpha$ and $\tan x=\frac{\sin x}{\cos x}$. 
+
+\item[\textbf{G5}]
+Let $D$ be the foot of perpendicular from $A$ to the Euler line (the line passing through the circumcentre and the orthocentre) of an acute scalene triangle $ABC$. A circle $\omega$ with centre $S$ passes through $A$ and $D$, and it intersects sides $AB$ and $AC$ at $X$ and $Y$ respectively. Let $P$ be the foot of altitude from $A$ to $BC$, and let $M$ be the midpoint of $BC$. Prove that the circumcentre of triangle $XSY$ is equidistant from $P$ and $M$.
+
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(-0.780894732325327,-3.0144161105989133) rectangle (15.499927939805652,4.658806400961947);
+\draw [line width=1.2pt] (3.968556783697015,2.1726396229121065) circle (1.8545634959840431cm);
+\draw [line width=1.2pt] (4.565154539765928,-0.2774755660589251) circle (2.5217044477442268cm);
+\draw [line width=1.2pt] (3.1345454545454556,3.8290909090909078)-- (1.86,-1.28);
+\draw [line width=1.2pt] (1.86,-1.28)-- (9.94,-1.04);
+\draw [line width=1.2pt] (3.1345454545454556,3.8290909090909078)-- (9.94,-1.04);
+\draw [line width=1.2pt] (3.1345454545454556,3.8290909090909078)-- (3.2850433621226975,-1.2376719793428905);
+\draw [line width=1.2pt] (3.1345454545454556,3.8290909090909078)-- (5.852548986261354,0.4375174625344114);
+\draw [line width=1.2pt] (5.852548986261354,0.4375174625344114)-- (5.9,-1.16);
+\draw [line width=1.2pt] (2.454233092884584,1.1020185321051048)-- (5.805563901771507,1.9180603449254363);
+\draw [line width=1.2pt] (3.968556783697015,2.1726396229121065)-- (4.565154539765928,-0.2774755660589251);
+\draw [line width=1.2pt] (3.1819964682841015,2.2315734465564963)-- (4.493547220403405,2.13330418581266);
+\draw [line width=1.2pt] (3.1345454545454556,3.8290909090909078)-- (3.968556783697015,2.1726396229121065);
+\draw [line width=1.2pt] (4.493547220403405,2.13330418581266)-- (4.565154539765928,-0.2774755660589251);
+\begin{scriptsize}
+\draw [fill=uuuuuu] (3.1345454545454556,3.8290909090909078) circle (2.0pt);
+\draw[color=uuuuuu] (3.2397606058357145,4.0571238239484115) node {$A$};
+\draw [fill=uuuuuu] (1.86,-1.28) circle (2.0pt);
+\draw[color=uuuuuu] (1.9656092662776379,-1.0394815342838948) node {$B$};
+\draw [fill=uuuuuu] (9.94,-1.04) circle (2.0pt);
+\draw[color=uuuuuu] (10.035234416812123,-0.8129657405846811) node {$C$};
+\draw [fill=uuuuuu] (5.852548986261354,0.4375174625344114) circle (2.0pt);
+\draw[color=uuuuuu] (5.957950130226277,0.6735441555664081) node {$O$};
+\draw [fill=uuuuuu] (5.9,-1.16) circle (2.0pt);
+\draw[color=uuuuuu] (6.000421841544879,-0.9262236374342878) node {$M$};
+\draw [fill=uuuuuu] (3.2850433621226975,-1.2376719793428905) circle (2.0pt);
+\draw[color=uuuuuu] (3.381332976897723,-0.9970098229652922) node {$P$};
+\draw [fill=uuuuuu] (3.2294474820227475,0.6340559840220845) circle (2.0pt);
+\draw[color=uuuuuu] (3.3247040284729197,0.8717454750532201) node {$H$};
+\draw [fill=uuuuuu] (3.1819964682841015,2.2315734465564963) circle (2.0pt);
+\draw[color=uuuuuu] (3.282232317154317,2.4715132680539162) node {$F$};
+\draw [fill=uuuuuu] (4.493547220403405,2.13330418581266) circle (2.0pt);
+\draw[color=uuuuuu] (4.697956027774401,2.499827742266318) node {$E$};
+\draw [fill=uuuuuu] (3.968556783697015,2.1726396229121065) circle (2.0pt);
+\draw[color=uuuuuu] (3.919307986933355,2.570613927797322) node {$S$};
+\draw [fill=uuuuuu] (2.454233092884584,1.1020185321051048) circle (2.0pt);
+\draw[color=uuuuuu] (2.1071816373396466,1.1407329800710362) node {$X$};
+\draw [fill=uuuuuu] (5.805563901771507,1.9180603449254363) circle (2.0pt);
+\draw[color=uuuuuu] (6.028736315757281,2.089267866186493) node {$Y$};
+\draw [fill=uuuuuu] (4.565154539765928,-0.2774755660589251) circle (2.0pt);
+\draw[color=uuuuuu] (4.669641553561999,-0.04847493684983516) node {$J$};
+\draw [fill=uuuuuu] (4.540998234142051,0.535786723278248) circle (2.0pt);
+\draw[color=uuuuuu] (4.6413270793495975,0.7726448153098141) node {$N$};
+\end{scriptsize}
+\end{tikzpicture}
+
+\textbf{Solution.}
+We first investigate the locus of $S$. 
+Denote by $O$ the circumcenter and $H$ the orthocenter of triangle $ABC$
+Denote also by $E$ the midpoint of $AO$, $F$ the midpoint of $AH$, and $N$ the midpoint of $OH$ (the nine-point-center). 
+Obviously $S$ passes through the perpendicular bisector of $AD$, so this locus is a line. 
+In the case there the circle passes through $H$, from the fact that $\angle ADH=90^{\circ}$ we know that $S=F$.
+Similarly, if the circle passes through $O$, $S=E$ in this case with $\angle ADO=90^{\circ}$. 
+Thus the locus is actually $EF$, i.e. parallel to $OH$. 
+
+We proceed to prove that the circumcenter of triangle $XSY$ (namely $J$) lies on the perpendicular bisector of $PM$. 
+That is, the line passing through the midpoint of $OH$ (a.k.a. nine-point-center) and perpendicular to $BC$ (or parallel to $AH$). 
+We first show this in the special cases that $S$ is the midpoint of $AO$ or $AH$. 
+In the first case ($E=S$), $X$ is the midpoint of $AB$ and $Y$ is the midpoint of $AC$ (imagine the homothety centered at $A$ with factor $\frac 12$ which brings $ABC$ to $AXY$ and point $O$ to the midpoint of $AO$). 
+$J$ lies on the perpendicular bisector of $XY$
+Notice that, with $XY\parallel BC$, this perpendicular bisector of $XY$ is also perpendicular to $BC$. 
+Moreover, nine-point-circle passes through the midpoints of $AB$ and $AC$, so this perpendicular bisector passes through the nine-point center. 
+Therefore the perpendicualr bisector of $XY$ is the perpendicular bisector of $PM$ itself, 
+and with $SX=SY$, $S$ (the midpoint of $AO$, a.k.a. $E$ in this case) lies on this perpendicular bisector too. 
+In the second case, $X$ and $Y$ are going to be the altitude from $C$ to $AB$, and $B$ to $AC$, respectively. 
+Since the nine-point circle passes through the midpoint of $AH$ ($S$ in this case), $X$, $Y$, $P$, $M$, 
+$J$, the circumcenter of $XSYPM$ is the nine-point center itself. 
+
+Now let's do the general case. Observe that with $E$ (midpoint of $AO$) and $N$ (midpoint of $OH$) both equidistant from $PM$ the conclusion now becomes $J$ lies on $EN$. We invoke the following two lemmas:\\ 
+$\bullet$ $\frac {SJ}{AS}=\frac {AE}{EN}$.\\
+Proof: we have $AE=\frac 12 AO$ and $EN=AF=\frac 12 AH$, and $AS=SX=SY$, 
+so we just have to prove that 
+$\frac {SJ}{SX}=\frac {AO}{AH}$.
+First, it is well notice that $SJ$ is the circumradius of $SXY$, so knowing that $\angle SXY=\angle XSY=90^{\circ}-\frac 12\angle XSY$
+$= 90^{\circ}-\angle XAY=90^{\circ}-\angle BAC$ we have 
+$SX=2SJ\sin\angle SXY=2SJ\cos\angle BAC$, yielding $\frac {SJ}{SX}=\frac {1}{2\cos\angle BAC}$.
+Let $T$ be the reflection of $H$ in $M$, then $HBMT$ is a parallelogram with $\angle ABT=\angle ABC+\angle CBT$
+$\angle ABC+\angle HCB=90^{\circ}$, and similarly $\angle ACT=90^{\circ}$. 
+Therefore $A, O, T$ collinear and with $AH\parallel OM$ we have $\frac{OM}{AH}=\frac {TH}{MT}=\frac 12$. 
+We also know that $\frac {OM}{AO}=\frac {OM}{BO}=\cos\angle BOM=\cos\angle BAC$
+so $\frac {AO}{AH}=\frac {AO}{2OM}=\frac 1{2\cos\angle BAC}=\frac {SJ}{AS}$.\\ 
+$\bullet$ $\angle (HA, AS)=\angle (SJ, AO)$. (This would also imply $\angle (AO, AS)=\angle (SJ, AH)$).\\
+Proof: we use the well-known fact that the circumcenter and orthocenter of each triangle are the isogonal conjugates of each other. 
+In particular, if $\ell$ is the perpendicular from $A$ to $XY$ then $AS$ and $\ell$ are the images of each other in the reflection of the internal angle bisector of $\angle AXY$. 
+This gives $\angle (AB, AS)=\angle (\ell, AC)$. 
+Same goes for the relation between $AH$ and $AO$, and therefore $\angle (AB, AH)=\angle (AO, AC)$. 
+Moreover, $SJ\perp XY$ (since $SX=SY$ and $JX\perp JY$ we know that $SJ$ must be the perpendicular bisector of $XY$). 
+Therefore $SJ\parallel \ell$. 
+Now we have $\angle (SJ, AO)=\angle (\ell, AO)=\angle (\ell, AC)+\angle (AC, AO)=\angle (AB, AS)+\angle (AH, AB)=\angle (AH, AS)$. 
+
+To complete the proof denote $J'$ by the intersection of $SJ$ and $EN$ and we shall prove that $J=J'$ by proving that $SJ=SJ'$. 
+From the first lemma it suffices to prove that  $\frac {SJ'}{AS}=\frac {AE}{EN}$. 
+Now $\frac {AS}{SE}=\frac{\sin\angle AES}{\sin\angle SAE}=\frac{\sin\angle AOH}{\sin\angle SAO}$ and 
+$\frac{SJ'}{SE}=\frac{\sin\angle SEJ'}{\sin\angle EJ'S}=\frac{\sin\angle AFE}{\sin\angle EJ'S}=\frac{\sin\angle AHO}{\sin\angle EJ'S}$. 
+Now, $\angle (EJ', J'S)=\angle (EN, SJ)=\angle (AH, SJ)=\angle (AO, AS)$ so the angles $\angle SEJ'$ and $\angle SAO$ are either equal or supplementary, hence $\sin\angle SEJ'=\sin\angle SAO$. 
+Therefore, $\frac {SJ'}{AS}=\frac {SJ'}{SE}\div \frac {AS}{SE}= \frac{\sin\angle AHO}{\sin\angle EJ'S}\div\frac{\sin\angle AOH}{\sin\angle SAO}=\frac{\sin\angle AHO}{\sin\angle AOH}=\frac{AO}{AH}=\frac {EN}{AE}$, Q.E.D.
+
+\item[\textbf{G6}]
+Let $ABCD$ be a convex quadrilateral with $\angle ABC = \angle ADC < 90^{\circ}$. The internal angle bisectors of $\angle ABC$ and $\angle ADC$ meet $AC$ at $E$ and $F$ respectively, and meet each other at point $P$. Let $M$ be the midpoint of $AC$ and let $\omega$ be the circumcircle of triangle $BPD$. Segments $BM$ and $DM$ intersect $\omega$ again at $X$ and $Y$ respectively. Denote by $Q$ the intersection point of lines $XE$ and $YF$. Prove that $PQ \perp AC$.
+
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(-0.06077115315761548,-3.6584705525177825) rectangle (17.29579728541572,4.521755615922858);
+\draw [line width=1.2pt] (5.233712087730585,0.15993392341275056) circle (3.52235927554948cm);
+\draw [line width=1.2pt] (8.344455105709537,0.24031487994967485) circle (3.52235927554948cm);
+\draw [line width=1.2pt] (6.707454566010934,3.3591678901243993)-- (6.870712627429188,-2.958919086761974);
+\draw [line width=1.2pt] (6.789083596720062,0.2001244016812127)-- (3.393315919220401,3.1632582164224963);
+\draw [line width=1.2pt] (6.789083596720062,0.2001244016812127)-- (10.923409101776997,2.639483726074752);
+\draw [line width=1.2pt] (4.823271172307094,0.14932821500387372)-- (5.119534491301556,1.6569665297266845);
+\draw [line width=1.2pt] (8.754896021133032,0.25092058835854925)-- (3.393315919220401,3.1632582164224963);
+\draw [line width=1.2pt] (10.923409101776997,2.639483726074752)-- (4.823271172307094,0.14932821500387372);
+\draw [line width=1.2pt] (8.754896021133032,0.25092058835854925)-- (7.174752186710168,1.1092332982817523);
+\draw [line width=1.2pt,dash pattern=on 4pt off 4pt] (1.712528154328142,0.06894725846694982)-- (11.865639039111985,0.33130154489547325);
+\draw [line width=1.2pt] (5.119534491301556,1.6569665297266845)-- (11.865639039111985,0.33130154489547325);
+\draw [line width=1.2pt] (1.712528154328142,0.06894725846694982)-- (8.580780113524357,1.2572718370740135);
+\draw [shift={(7.3725916469831345,5.981256284249301)},line width=1.2pt,dash pattern=on 4pt off 4pt]  plot[domain=3.7577798782786243:5.528106782022175,variable=\t]({1.*4.876038189743517*cos(\t r)+0.*4.876038189743517*sin(\t r)},{0.*4.876038189743517*cos(\t r)+1.*4.876038189743517*sin(\t r)});
+\begin{scriptsize}
+\draw [fill=uuuuuu] (6.707454566010934,3.3591678901243993) circle (2.0pt);
+\draw[color=uuuuuu] (6.685651535574803,3.6690198622016474) node {$A$};
+\draw [fill=uuuuuu] (3.393315919220401,3.1632582164224963) circle (2.0pt);
+\draw[color=uuuuuu] (3.199245179652681,3.4577225072972766) node {$B$};
+\draw [fill=uuuuuu] (6.870712627429188,-2.958919086761974) circle (2.0pt);
+\draw[color=uuuuuu] (6.97241223151645,-2.7151787895518416) node {$C$};
+\draw[color=black] (2.6936407947029357,2.8464694448953467) node {$\omega_1$};
+\draw[color=black] (7.70440663957802,3.993512228661931) node {$\omega_2$};
+\draw [fill=uuuuuu] (10.923409101776997,2.639483726074752) circle (2.0pt);
+\draw[color=uuuuuu] (11.122895988566595,2.6879964287170686) node {$D$};
+\draw [fill=uuuuuu] (6.75976776182244,1.3346472122191515) circle (2.0pt);
+\draw[color=uuuuuu] (6.896948890479175,1.5258609767430293) node {$E$};
+\draw [fill=uuuuuu] (6.769863235751817,0.9439523711522477) circle (2.0pt);
+\draw[color=uuuuuu] (6.610188194537528,1.0730809305193776) node {$F$};
+\draw [fill=uuuuuu] (6.789083596720062,0.2001244016812127) circle (2.0pt);
+\draw[color=uuuuuu] (6.564910189915163,0.0015014877900685064) node {$M$};
+\draw [fill=uuuuuu] (8.754896021133032,0.25092058835854925) circle (2.0pt);
+\draw[color=uuuuuu] (9.032561441834067,0.3109011860428972) node {$M_1$};
+\draw [fill=uuuuuu] (4.823271172307094,0.14932821500387372) circle (2.0pt);
+\draw[color=uuuuuu] (4.42929763856027,0.2618278681174477) node {$M_2$};
+\draw [fill=uuuuuu] (5.119534491301556,1.6569665297266845) circle (2.0pt);
+\draw[color=uuuuuu] (5.0405507009622,2.023919027589046) node {$X$};
+\draw [fill=uuuuuu] (8.580780113524357,1.2572718370740135) circle (2.0pt);
+\draw[color=uuuuuu] (8.692976407166327,1.480582972120664) node {$Y$};
+\draw [fill=uuuuuu] (7.174752186710168,1.1092332982817523) circle (2.0pt);
+\draw[color=uuuuuu] (7.168616918213366,1.420212299290844) node {$P$};
+\draw [fill=uuuuuu] (1.712528154328142,0.06894725846694982) circle (2.0pt);
+\draw[color=uuuuuu] (1.8484513750854517,0.3561791906652624) node {$N_1$};
+\draw [fill=uuuuuu] (11.865639039111985,0.33130154489547325) circle (2.0pt);
+\draw[color=uuuuuu] (12.205817078702718,0.6127545501919983) node {$N_2$};
+\draw [fill=uuuuuu] (7.821783221564824,1.1259524464692119) circle (2.0pt);
+\draw[color=uuuuuu] (7.9232503285861196,1.3447489582535685) node {$Q$};
+\end{scriptsize}
+\end{tikzpicture}
+
+\textbf{Solution.} 
+Let $\omega_1$ be the circumcircle of $ABC$ and $\omega_2$ the circumcircle of $ADC$, then these two circles are symmetric w.r.t. $AC$.
+Also notice that $BP$ passes through $M_1$, the midpoint of arc $AC$ of $\omega_1$ not containing $B$, and $DP$ passes through $M_2$, the midpoint of arc $AC$ of $\omega_2$ not containing $D$.
+
+We first start with a preliminary observation: $X$ lies on $\omega_2$ and $Y$ lies on $\omega_1$. W.L.O.G. for this section we assume that $AB\le AC$. Indeed, let $X'$ be on $BM$ satisfying $MX'\cdot MB=MA^2=MC^2$. Then $\angle X'AC=\angle MBA$ and $\angle X'CA=\angle MBC$. Thus $\angle ADC=\angle ABC=\angle MBA+\angle MBC=\angle X'AC+\angle X'CA=\pi - \angle AX'C$, so $X'$ lie on $\omega_2$. In addition, let $BM$ intersect $\omega_1$ again at $X''$, then $X'$ and $X''$ are symmetrical w.r.t. $AC$. Combining with the fact that $M_1$ and $M_2$ are also symmetrical w.r.t. $AC$ (being the midpoint of arc) we have $X'M_2=X''M_1$. Knowing that the two circles have the same radius further allows us to assert $\angle X'BP=\angle X''BM_1=\angle X'DM_2=\angle X'DP$, showing that $D, B, P, X'$ cyclic hence $X'=X$. Similarly, $Y$ lies on $\omega_1$.
+
+Next, let $N_1$ be diametrically opposite $M_1$ w.r.t. $\omega_1$ and define similarly for $N_2$. We claim that $XE$ passes through $N_2$ by claiming that $XE$ is the internal angle bisector of $\angle AXC$. Indeed, by angle bisector theorem we have $\frac{AE}{EC}=\frac{AB}{BC}$. Invoking our $X''$ from the previous section (i.e. the other intersection of $BM$ and $\omega_1$) gives $AXCX''$ parallelogram. Now invoking a little bit more trigonometric bashing we have $1=\frac{AM}{CM}=\frac{AB}{BC}\cdot\frac{\sin\angle ABM}{\sin\angle CBM}=\frac{AB}{BC}\cdot\frac{AX''}{CX''}=\frac{AB}{BC}\cdot\frac{CX}{AX},$ so $\frac{AX}{CX}=\frac{AB}{BC}=\frac{AE}{EC}$, and the conclusion follows by the angle bisector theorem. Analogously, $YF$ passes through $N_1$.
+
+Finally, considering triangle $PEF$, and letting the perpendicular from $P$ to reach $AC$ at $P_1$ we have (considering signed length) $\frac{EP_1}{FP_1}=\frac{\cot\angle FEP}{\cot\angle EFP}$. Similarly if letting perpendcular from $Q$ to reach AC at $Q_1$ we have $\frac{EQ_1}{FQ_1}=\frac{\cot\angle FEQ}{\cot\angle EFQ}$. Now $\cot\angle FEP=\cot\angle MEM_1=\frac{MM_1}{EM}$, $\cot\angle EFP=\cot\angle MFM_2=\frac{MM_2}{FM}$. Considering $MM_2=MM_1$ we have $\frac{\cot\angle FEP}{\cot\angle EFP}=\frac{FM}{EM}$. Analogously, $\cot\angle FEQ=\cot\angle FEQ=\cot\angle MEN_2=\frac{MN_2}{EM}$, and $\cot\angle EFQ=\cot\angle N_1FM=\frac{MN_1}{FM}$. Therefore we have $\frac{\cot\angle FEQ}{\cot\angle EFQ}=\frac{FM}{EM}$ since again it is not hard to verify that $MN_2=MN_1$. (For signed convention we can say that $ME<0$ if it's nearer to $A$ than $B$, and $>0$ otherwise). Therefore, $\frac{EP_1}{FP_1}=\frac{EQ_1}{FQ_1}$, so $P_1\equiv Q_1$ and the two perpendicular lines coincide.
+
+\item[\textbf{G7}]
+Let $I$ be the incentre of a non-equilateral triangle $ABC$, $I_A$ be the $A$-excentre, $I'_A$ be the reflection of $I_A$ in $BC$, and $l_A$ be the reflection of line $AI'_A$ in $AI$. Define points $I_B$, $I'_B$ and line $l_B$ analogously. Let $P$ be the intersection point of $l_A$ and $l_B$.
+
+\begin{itemize}
+\item [(a)] Prove that $P$ lies on line $OI$ where $O$ is the circumcentre of triangle $ABC$.
+\item [(b)] Let one of the tangents from $P$ to the incircle of triangle $ABC$ meet the circumcircle at points $X$ and $Y$. Show that $\angle XIY = 120^{\circ}$.
+\end{itemize}
+
+\textbf{Solution.} 
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.5cm,y=0.5cm]
+\clip(-9.784068425578555,-10.140965804211529) rectangle (28.496495861557182,7.900830581551528);
+\draw [line width=1.2pt] (7.3936864077333855,0.543416871511203) circle (2.3435633554098465cm);
+\draw [line width=1.2pt] (4.163371953821335,3.9396243640131448)-- (3.095957911065971,-1.3270607605957092);
+\draw [line width=1.2pt] (11.575141965729667,-1.5742672928016477)-- (3.095957911065971,-1.3270607605957092);
+\draw [line width=1.2pt] (4.163371953821335,3.9396243640131448)-- (11.575141965729667,-1.5742672928016477);
+\draw [line width=1.2pt] (4.163371953821335,3.9396243640131448)-- (9.053160130826601,-8.833360183928688);
+\draw [line width=1.2pt] (4.163371953821335,3.9396243640131448)-- (7.3936864077333855,0.543416871511203);
+\draw [line width=1.2pt] (-3.9735037128951296,0.5816773980697412)-- (7.3936864077333855,0.543416871511203);
+\draw [line width=1.2pt] (4.163371953821335,3.9396243640131448)-- (-3.9735037128951296,0.5816773980697412);
+\draw [line width=1.2pt] (4.163371953821335,3.9396243640131448)-- (9.3618077011955,1.7532514797246423);
+\draw [line width=1.2pt] (4.163371953821335,3.9396243640131448)-- (9.48035504203699,5.81942527058766);
+\draw [line width=1.2pt] (4.163371953821335,3.9396243640131448)-- (4.047099015150206,-0.048537432406617);
+\draw [line width=1.2pt] (4.099415080528914,1.7459036100830427) -- (3.8556856648354945,1.952818970749336);
+\draw [line width=1.2pt] (4.099415080528914,1.7459036100830427) -- (4.354785304136048,1.9382679608571916);
+\draw [line width=1.2pt] (9.48035504203699,5.81942527058766)-- (9.053160130826601,-8.833360183928688);
+\draw [line width=1.2pt] (9.260937182474935,-1.706607312390734) -- (9.017207766781517,-1.4996919517244416);
+\draw [line width=1.2pt] (9.260937182474935,-1.706607312390734) -- (9.51630740608207,-1.514242961616586);
+\draw [line width=1.2pt] (4.163371953821335,3.9396243640131448)-- (9.421081371616246,3.7863383751561503);
+\begin{scriptsize}
+\draw [fill=uuuuuu] (4.163371953821335,3.9396243640131448) circle (2.0pt);
+\draw[color=uuuuuu] (4.396384084264771,4.488867242915525) node {$A$};
+\draw [fill=uuuuuu] (3.095957911065971,-1.3270607605957092) circle (2.0pt);
+\draw[color=uuuuuu] (3.3311857736662107,-0.7705494156648485) node {$B$};
+\draw [fill=uuuuuu] (11.575141965729667,-1.5742672928016477) circle (2.0pt);
+\draw[color=uuuuuu] (11.819484811248481,-1.0368489933144878) node {$C$};
+\draw [fill=uuuuuu] (7.3936864077333855,0.543416871511203) circle (2.0pt);
+\draw[color=uuuuuu] (7.725128804885269,0.727385708614372) node {$O$};
+\draw [fill=uuuuuu] (9.053160130826601,-8.833360183928688) circle (2.0pt);
+\draw[color=uuuuuu] (9.60586957203585,-8.376731102282667) node {$I_A$};
+\draw [fill=uuuuuu] (5.461026912989256,0.5499219593246881) circle (2.0pt);
+\draw[color=uuuuuu] (5.694594525306765,1.093547627882626) node {$I$};
+\draw [fill=uuuuuu] (9.48035504203699,5.81942527058766) circle (2.0pt);
+\draw[color=uuuuuu] (9.905456596891696,6.436182904478511) node {$I_A'$};
+\draw [fill=uuuuuu] (-3.9735037128951296,0.5816773980697412) circle (2.0pt);
+\draw[color=uuuuuu] (-3.6425344160337345,1.210053693104343) node {$P_1=P$};
+\draw [fill=uuuuuu] (9.3618077011955,1.7532514797246423) circle (2.0pt);
+\draw[color=uuuuuu] (9.87216914968549,2.3751143453215144) node {$I_A''$};
+\draw [fill=uuuuuu] (7.257093521907928,-4.141719112301999) circle (2.0pt);
+\draw[color=uuuuuu] (7.492116674441834,-3.5999824281922645) node {$M$};
+\draw [fill=uuuuuu] (4.047099015150206,-0.048537432406617) circle (2.0pt);
+\draw[color=uuuuuu] (4.2965217426461555,-0.3711000491903897) node {$H$};
+\draw [fill=uuuuuu] (9.266757586431796,-1.5069674566705147) circle (2.0pt);
+\draw[color=uuuuuu] (9.489363506814133,-0.9702740989020779) node {$T$};
+\draw [fill=uuuuuu] (9.421081371616246,3.7863383751561503) circle (2.0pt);
+\draw[color=uuuuuu] (9.922100320494797,3.723255957172813) node {$U$};
+\end{scriptsize}
+\end{tikzpicture}
+
+(a) We first prove the following lemma: let $I''_A$ the point on $I_AI_A'$ satisfying $AI''_A=AI'_A$, and $I''_A\neq I'_A$ unless $AI'_A$ and $I_AI_A'$ are perpendicular to each other. Then triangles $AOI$ and $I_AAI''_A$ are similar. 
+Indeed, let $H$ be the orthocenter of triangle $ABC$, then $AH\parallel I_AI_A''$. 
+Also, $\angle OAI=\angle IAH=\angle AI_AI''_A$, so it suffices to prove that $\frac{AI}{AO}=\frac{I_AI''_A}{I_AA}$. 
+To do so, define $I_C$ has how $I_A$ and $I_B$ are defined. 
+We first notice that $I$ is the orthocenter of $I_AI_BI_C$, so $I_AA$ is an altitude of triangle $I_AI_BI_C$. 
+In addition, we know that triangles $I_AI_BI_C$ are $I_ACB$ are similar with a similitude of $\frac {I_AB}{I_AI_B}=\cos\angle BI_AC$.
+Denote by $T$ the altitude from $I_A$ to $BC$, then by the similarities of the triangles mentioned above we have 
+$\frac {I_AI'_A}{I_AA}=\frac{2I_AT}{I_AA}=2\cos\angle BI_AC$. 
+In addition, if we let $U$ to be the perpendicular from $A$ to $I_AI_A''$ we have $I'_A$ and $I''_A$ symmetric to each other w.r.t. $U$. 
+Therefore, $I_AI_A''+I_AI_A'=2I_AU=2I_AA\cos\angle AI_AI_A'=2I_AA\cos\angle AOI$. 
+So $\frac{I_AI''_A}{I_AA}=\frac{2I_AA\cos\angle AOI-I_AI_A'}{I_AA}$
+$=\frac{2I_AA\cos\angle AOI-2I_AA\cos\angle BI_AC}{I_AA}$
+$=2(\cos\angle AOI-\cos\angle BI_AC)$. 
+On the other hand, denoting $M$ as the other intersection of $AI$ and $BC$ we have 
+$MB=MC=MI=2AO\cos BAM$ (because $AO$ is the circumradius of triangle $ABC$), 
+and $AM=AO\sin\angle ABM$, 
+so $\frac{AI}{AO}=\frac{AM-MI}{AO}=\frac{2AO\cos\angle ABM-2AO\cos BAM}{AO}$
+$=2(\cos\angle ABM-\cos\angle BAM)$
+$=2(\cos\angle AOI-\cos\angle BI_AC)$
+(the equality $\angle ABM=\angle AOI$ and $\angle BAM=\angle BI_AC$ can be established via angle chasing). 
+This establishes the desired equality. 
+
+Now denote $P_1$ on $OI$ such that $I$ lies between $O$ and $P_1$ and $OI\cdot OP_1=AO$. 
+Then, triangles $AOI$ anf $AP_1O$ are similar. 
+Therefore, by the fact that $\triangle AOI\sim \triangle I_AAI''_A$ $\angle IAP_1=\angle OAP_1-\angle OAI$
+$=\angle AIO-\angle OAI$
+$=\angle I_AI''_AA-\angle OAI$
+$=180^{\circ}-\angle I_AI'_AA-\angle HAI$
+$=180^{\circ}-\angle I_AI'_AA-\angle AI_AI_A'$
+$=\angle I_A'AI_A$. 
+This means that $l_A$ passes through $P_1$ and similarly, $l_B$ passes through $P_1$. Hence $P_1=P$ and lies on $OI$. 
+
+(b) 
+
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(-0.8138091660405693,-3.0651104432757283) rectangle (16.466431254695724,5.079141998497374);
+\draw [line width=1.2pt] (6.582731062360519,1.069813550044211) circle (3.637122258760492cm);
+\draw [line width=1.2pt] (4.515703038946392,0.407310575525049) circle (1.170862934814784cm);
+\draw [line width=1.2pt] (0.779076137488415,-0.7903153922135896)-- (9.745500983360207,-0.7261666146543425);
+\draw [line width=1.2pt] (6.582731062360519,1.069813550044211)-- (6.608751575538458,-2.567215630216099);
+\draw [line width=1.2pt] (3.44598165453877,-0.7712354655175488)-- (6.608751575538458,-2.567215630216099);
+\draw [line width=1.2pt] (5.064465903538294,-1.603892691711937) -- (4.990267326538933,-1.734558404021711);
+\draw [line width=1.2pt] (3.44598165453877,-0.7712354655175488)-- (6.582731062360519,1.069813550044211);
+\draw [line width=1.2pt] (4.976326089567558,0.21408439664382672) -- (5.052386627331731,0.08449368788283629);
+\draw [line width=1.2pt] (6.582731062360519,1.069813550044211)-- (9.745500983360207,-0.7261666146543425);
+\draw [line width=1.2pt] (8.201215311360043,0.23715632384982185) -- (8.12701673436068,0.10649061154004773);
+\draw [line width=1.2pt] (6.608751575538458,-2.567215630216099)-- (9.745500983360207,-0.7261666146543425);
+\draw [line width=1.2pt] (8.139096010567245,-1.5818957680547254) -- (8.215156548331418,-1.7114864768157159);
+\draw [shift={(6.6087515755384585,-2.5672156302160922)},line width=1.2pt]  plot[domain=0.5307529852439434:2.6251480876371422,variable=\t]({1.*3.637122258760486*cos(\t r)+0.*3.637122258760486*sin(\t r)},{0.*3.637122258760486*cos(\t r)+1.*3.637122258760486*sin(\t r)});
+\draw [line width=1.2pt] (0.779076137488415,-0.7903153922135896)-- (6.582731062360519,1.069813550044211);
+\begin{scriptsize}
+\draw [fill=uuuuuu] (6.582731062360519,1.069813550044211) circle (2.0pt);
+\draw[color=uuuuuu] (6.534049586776862,1.4052126220886587) node {$O$};
+\draw [fill=uuuuuu] (4.515703038946392,0.407310575525049) circle (2.0pt);
+\draw[color=uuuuuu] (4.445394440270476,0.6839504132231442) node {$I$};
+\draw [fill=uuuuuu] (0.779076137488415,-0.7903153922135896) circle (2.0pt);
+\draw[color=uuuuuu] (0.5085048835462079,-0.6984688204357588) node {$P$};
+\draw [fill=uuuuuu] (3.44598165453877,-0.7712354655175488) circle (2.0pt);
+\draw[color=uuuuuu] (3.333448534936141,-0.41296919609315924) node {$X$};
+\draw [fill=uuuuuu] (9.745500983360207,-0.7261666146543425) circle (2.0pt);
+\draw[color=uuuuuu] (9.99009767092412,-0.6834425244177271) node {$Y$};
+\draw [fill=uuuuuu] (6.5957413189494885,-0.7487010400859457) circle (2.0pt);
+\draw[color=uuuuuu] (6.729391435011273,-0.4430217881292224) node {$N$};
+\draw [fill=uuuuuu] (6.608751575538458,-2.567215630216099) circle (2.0pt);
+\draw[color=uuuuuu] (6.609181066867021,-2.772097670924113) node {$S$};
+\draw [fill=uuuuuu] (4.524079566392375,-0.7635223954452082) circle (2.0pt);
+\draw[color=uuuuuu] (4.625709992486855,-0.5181532682193801) node {$T$};
+\end{scriptsize}
+\end{tikzpicture}
+
+We first establish a relation between the length $OI$ and the inradius $r$. 
+Let the circumradius be $R=AO=BO=CO$. Using fresh new label than (a), we denote $M$ as the second intersection of $AI$ and the circumcircle of $ABC$. 
+This $M$ is also the midpoint of arc $BC$ not containing $A$. 
+Now, $MI=MB=MC=2R\sin \angle BAI=2R\sin\frac{\angle A}{2}$, 
+$AM=AB\frac{\sin\angle ABI}{\angle AIB}$
+$=2R\sin\angle C \frac{\sin\frac 12 B}{\sin (90^{\circ}+\frac 12 C)}$
+$=2R(2\sin\angle \frac{\angle C}{2} \cos\angle \frac{\angle C}{2}) \frac{\sin\frac 12 \angle B}{\cos\frac 12 \angle C}$
+$=4R\sin\frac 12\angle B\sin\frac 12\angle C$
+so $MI\cdot AI=8R^2\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C$. 
+Meanwhile, letting $D$ be the point of tangency of the incircle to $BC$ we have 
+$r=ID=IB\sin\angle IBC=BC\frac{\sin\angle ICB}{\sin\angle CIB}\sin\frac 12\angle B$
+$=2R\sin A\frac{\sin\frac 12 C}{\sin (90^{\circ}+\frac 12 A)}\sin\frac 12\angle B$
+$=2R(2\sin\angle \frac{\angle A}{2} \cos\angle \frac{\angle A}{2})\frac{\sin\frac 12 C}{\cos\frac 12 A)}\sin\frac 12\angle B$
+$=4R\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C$. 
+Considering the fact that $-MI\cdot AI$ is the power of point of $I$ w.r.t. the circumcircle we have 
+$OI^2=R^2-MI\cdot AI$=$R^2-8R^2\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C$, 
+or $\frac{OI^2}{R^2}=1-8\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C$ 
+while $\frac {r}{R}=4\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C$ 
+so $\frac{OI^2}{R^2}=1-\frac {2r}{R}$, 
+or $\frac{r}{R}=\frac 12-\frac{OI^2}{2R^2}$, 
+or $r=\frac 12R(1-\frac{OI^2}{R^2})$ 
+(this is actually a well-known identity, the purpose of including the proof is to show the power of trigonometry in solving problems). 
+
+Now, let $T$ be the tangency point of the incircle to $XY$, and $N$ be the midpoint of $XY$. 
+Keeping in mind that $OP\cdot OI=R^2$, 
+we now have $\frac{PI}{OP}$
+$=1-\frac{OI}{OP}$
+$=1-\frac{OI}{R^2\div OI}$
+$=1-\frac{OI^2}{R^2}$. 
+Therefore $ON=IT\frac{PO}{PI}$
+$=r\frac{1}{1-\frac{OI^2}{R^2}}$
+$=\frac 12 R(1-\frac{OI^2}{R^2})\frac{1}{1-\frac{OI^2}{R^2}}$
+$=\frac 12 R$. 
+Moreover, letting $S$ be the midpoint of arc $XY$ lying on the opposite side as $I$ w.r.t. $XY$ we have 
+$O, N, S$ collinear, $ON=NS$, and $ON\perp XY$. 
+Therefore, $OX=OY=OS=XS=YS$, 
+yielding $OXS$ and $OYS$ both equilateral and 
+$\angle XOY=60^{\circ}+60^{\circ}=120^{\circ}$. 
+Additionally, $PI\cdot PO=PO^2-(IO\cdot OP)=PO^2-R^2$, 
+which is the power of point of $P$ w.r.t. the circumcircle. 
+This, in turn, is equal to the value $PX\cdot PY$, so $IOYX$ is cyclic. 
+Thus $\angle XIY=\angle XOY=120^{\circ}$. 
+
+\end{itemize}
+
+\section{Number Theory}
+\begin{itemize}
+\item[\textbf{N1}]
+For any positive integer $k$, denote the sum of digits of $k$ in its decimal representation by $S(k)$. Find all polynomials $P(x)$ with integer coefficients such that for any positive integer $n \geq 2016$, the integer $P(n)$ is positive and $$S(P(n)) = P(S(n)).$$
+
+\textbf{Solution.} 
+The answer is the constant polynomial $P(x)=c$ where $c\in\{1,2,\cdots ,9\}$, 
+or the identity polynomial $P(x)=x$. In the first case we have $S(P(n))=S(c)=c=P(\text{anything})=P(S(n))$, 
+and in the second case $S(P(n))=S(n)=P(S(n))$. 
+
+Now let $P(x)=\displaystyle\sum_{i=0}^k a_ix^i$, 
+then for sufficiently large $n$ (in particular, $10^n>max\{a_i(9^i) :i\in[0,k]\}$) and for each $c\in\{1,2,\cdots ,9\}$ we have 
+$P(c\cdot 10^n)=\displaystyle\sum_{i=0}^k a_i (c^i)(10^{ni})$. 
+Since $a_i (c^i)(10^{ni}) < 10^{(n+1)i}$ (because $a_i(c^i)<10^n$ by our choice of $n$), 
+the number $P(c\cdot 10^n)$ are in the form of $(a_kc^k)(0\cdots 0) (a_{k-1}c^{k-1})(0\cdots 0)\cdots(0\cdots 0)(a_0c^0)$ when laid in decimal form. 
+Therefore 
+$S(P(c\cdot 10^n))$
+$=\displaystyle\sum_{i=0}^k S(a_i (c^i))$, 
+and 
+$P(S(c\cdot 10^n))=P(c)=\displaystyle\sum_{i=0}^k a_i (c^i)$. 
+Knowing that $S(x)\le x$ with equality holds if and only if $0\le x\le 9$ 
+(indeed, if $k=\displaystyle\sum_{i=0}^k b_i(10^i)$ then $S(k)=\displaystyle\sum_{i=0}^k b_i$, 
+so $k-S(k)=\displaystyle\sum_{i=0}^k b_i(10^i -1)\ge 0$, 
+with equality holds iff $b_i=0$ for $i\ge 1$, )
+we have $a_i(c^i)\le 9$ for all $c\in \{0,1,\cdots 9\}$. 
+This means $k\le 1$ (if we assume that $a_k > 0$). 
+If $k=0$ then we get $a_0\le 9$, yielding the constant solution. 
+If $k=1$, then $9a_1\le 9$ (when $c=9$) and $a_1=1$, yielding $P(x)=x+c$ for some constant $c$ 
+(and since $c=a_0$ we have $c=a_0\le 9$ too). 
+This entails $S(P(n))=S(n+c)$ and $P(S(n))=S(n)+c$ for all $n\ge 2016$, 
+and letting $n=10^d-1$ we have $S(n)=9d$, and for $c\ge 1$, $S(n+c)=S(10^k-1+c)=c$, which doesn't hold for $d=5$. 
+Therefore $c=0$ and we get the identity polynomial. 
+
+\item[\textbf{N2}]
+ Let $\tau(n)$ be the number of positive divisors of $n$. Let $\tau_1(n)$ be the number of positive divisors of $n$ which have remainders $1$ when divided by $3$. Find all positive integral values of the fraction $\frac{\tau(10n)}{\tau_1(10n)}$.
+
+\textbf{Solution.} The answer is 2 and all composite numbers. 
+Let $m=10n$, with $m=3^y\cdot\displaystyle\prod_{i=1}^{k}p_i^{a_i}\cdot\displaystyle\prod_{i=1}^{l}q_i^{b_i}$ with $p_i\equiv 1\pmod{3}$ and $q_i\equiv 2\pmod{3}$. 
+Notice that $\tau(m)=(y+1)\cdot\displaystyle\prod_{i=1}^{k}(a_i+1)\cdot\displaystyle\prod_{i=1}^{l}(b_i+1)$. 
+
+Now we want to investigate all the divisors that is congruent to 1 mod 3, 
+observe that such divisors fulfill 
+$\displaystyle\prod_{i=1}^{k}p_i^{c_i}\cdot\displaystyle\prod_{i=1}^{l}q_i^{d_i}$ 
+with $c_i\le a_i$, $d_i\le b_i$ and $\displaystyle\sum_{i=1}^{l}d_i$ even. 
+We proceed with the following claim: 
+the number of combinations $(d_1, d_2, \cdots , d_l)$ satisfying $\displaystyle\sum_{i=1}^{l}d_i$ even and $d_i\le b_i$ is 
+$\lfloor\frac{\prod_{i=1}^{l}(b_i+1)}{2} \rfloor$. 
+\begin{itemize}
+\item[Case 1.] $b_i$ odd for some $i$, and w.l.o.g. let this $i$ be $l$. 
+Now, let $x$ be the number of combinations $(d_1, d_2, \cdots , d_{l-1})$ ($d_i\le b_i$) satisfying $\displaystyle\sum_{i=1}^{l-1}d_i$ even, and $z$ be the number of combinations with corresponding odd sums. 
+Considering $d_i=\{0, 2, \cdots, b_l-1\}$ and $d_i=\{1,3,\dots , b_l\}$ we have: 
+the number of combinations $(d_1, d_2, \cdots , d_{l-1})$ ($d_i\le b_i$) satisfying $\displaystyle\sum_{i=1}^{l}d_i$ even
+is $x+z+x+z+\cdots + x+z=(x+z)\cdot\frac{b_i+1}{2}$, 
+and similarly $z+x++\cdots +z+x=(x+z)\cdot\frac{b_i+1}{2}$ for odd-sum combinations. 
+Therefore there is equally many odd and even sum combinations, and we are done.
+
+\item[Case 2.] Now let $b_i$ even for all $i$. Let $O$ be number of combinations with $\displaystyle\sum_{i=1}^{l}d_i$ odd and $E$ be combinations with $\displaystyle\sum_{i=1}^{l}d_i$ even. The claim is $E-O=1$. 
+We induct on $l$. 
+Base case $l=0$ yield 1 combination for even sum and 0 combination for odd sum, vacuously. 
+Now let $l=k$ for some $k$ and we have $O'$ as the number of combinations $(d_1, d_2, \cdots , d_k)$ with $\displaystyle\sum_{i=1}^{k}d_i$ odd, and $E'$ as the number of combinations with $\displaystyle\sum_{i=1}^{l}d_i$ even. 
+Now that $b_{k+1}$ is even, using the logic above the number of even combination is 
+$E'+O'+E'+O'+\cdots +E'=E'(\frac{b_{k+1}}{2}+1)+O'(\frac{b_{k+1}}{2})$, 
+and similarly the number of combinations yielding odd sum is 
+$O'(\frac{b_{k+1}}{2}+1)+E'(\frac{b_{k+1}}{2})$.
+This yields $E-O=E'-O'$ and by induction hypothesis this number is 1, so we are done. 
+\end{itemize}
+
+Summing above, $\tau_1 (m)=\displaystyle\prod_{i=1}^{k}(a_i+1)\lfloor\frac{\prod_{i=1}^{l}(b_i+1)}{2} \rfloor$, 
+so the ratio now becomes 
+$(y+1)\dfrac{\displaystyle\prod_{i=1}^{l}(b_i+1)}{\lfloor\frac{\prod_{i=1}^{l}(b_i+1)}{2} \rfloor}$. 
+Equivalently, $2(y+1)$ when $b_i$ odd for some $b_i$, or $(y+1)\frac{2k+1}{k}$ otherwise (where $2k+1=\displaystyle\prod_{i=1}^{l}(b_i+1)$ here). 
+The first case yields that the ratio must be even; in the second case, we have $\gcd(2k+1, k)=1$ so $k|y+1$. 
+In other words, the ratio must be divisible by $2k+1$. 
+Notice, also, that $l\ge 2$ ($m=10n$ contains prime factors 2 and 5) so $2k+1=\displaystyle\prod_{i=1}^{l}(b_i+1)$ must be composite. 
+So our integer ratio cannot be an odd prime. 
+
+It remains to show that any even or composite numbers work. 
+For even numbers $2k$, simply take $10\cdot 3^{k-1}$ and by our proof the ratio is $2k$. 
+For odd composite number $xz$ with $x, z\ge 3$, take $m=2^{x-1}5^{z-1}$. 
+
+\item[\textbf{N3/IMO 4}]
+A set of postive integers is called fragrant if it contains at least two elements and each of its elements has a prime factor in common with at least one of the other elements. Let $P(n)=n^2+n+1$. What is the least possible positive integer value of $b$ such that there exists a non-negative integer $a$ for which the set $$\{P(a+1),P(a+2),\ldots,P(a+b)\}$$is fragrant?
+
+\textbf{Solution.} The answer is $b=6.$ 
+Observe that this solution works because the set $\{P(197), P(198), P(199), P(200), P(201), P(202)\}$ has 
+$P(199)\equiv P(202)\equiv P(1)=3\equiv 0\pmod{3}$, 
+$P(198)\equiv P(2)=7\equiv 0\equiv 21=P(4)\equiv P(200)\pmod {7}$, 
+$P(197)\equiv P(7)=57\equiv 0\equiv 133=P(11)\equiv P(201)\pmod{19}$. 
+
+First, notice that $P(n)-P(n-1)=n^2+n+1-(n^2-n-1)=2n$, 
+and knowing that $n^2+n+1\equiv n+n+1=2n+1\equiv 1\pmod{2}$, 
+we know that if $p|P(n)$ and $p|2n$ then $p|n$ (since $P(n)$ is relatively prime to 2), 
+and consequently $p|n^2+n$ and $p|1$, showing that $P(n)$ and $P(n-1)$ are relatively prime. 
+This means, $b=2$ fails, and $b=3$ fails too sine $P(a+1)$ and $P(a+3)$ are both relatively prime to $P(a+2)$. 
+(We will use profusely the fact that $P(a)$ and $P(a+1)$ cannot have any common prime factor throughout the solution). 
+
+Now, for $b=4$ and $b=5$ our strategy is to determine an upper bound for $\gcd(P(n), P(n+c))$ for $c=2, 3$. 
+Observe that $P(n+c)-P(n)=2cn+c^2+c=c(2n+c+1)$. 
+For $c=2$ this is the same as $2(2n+3)$. 
+If $p|P(n+2)$ and $p|P(n)$ then $p|2(2n+3)$, and therefore $p|2n+3$ with $P$ being odd at all times. 
+This entails $2n\equiv -3\pmod{p}$, 
+and $0\equiv 4P(n)=4n^+4n+1=(2n)^2+2(2n)+1\equiv (-3)^2-3+1=7\pmod{7}$. 
+Hence $p=7$ and $n\equiv 2\pmod{7}$. 
+Now for $b=4$, knowing that $P(a+2)$ is relatively prime with $P(a+1)$ and $P(a+3)$ it must have a common prime factor with $P(a+4)$, 
+and by the previous step this prime factor has to be 7. 
+Similarly $P(a+1)$ and $P(a+3)$ must both be divisible by 7. 
+This means $P(a+1), P(a+2), P(a+3), P(a+4)$ are all divisible by 7 for some $a$, contradicting that any two neighbouring elements are coprime. 
+
+Finally for $b=5$ we investigate $c=3$ as in the previous paragraph. 
+Now $3(2n+3+1)=3(2n+4)=3(2)(n+2)$. 
+If a prime $p$ satisfies $p|P(n)$ and $p|P(n+3)$ simultaneously then either $p=3$ or $p|n+2$ 
+(again $p$ must be relatively prime to 2 so this can be easily factored out). 
+In the second case we have $n\equiv =2\pmod{p}$, 
+so $P(n)\equiv P(-2)=4-2+1=3\equiv\pmod{p}$, forcing $p=3$ (no choice!) 
+Thus viewing the set $\{P(a+1), \cdots , P(a+5)\}$ 
+we know that $P(a+3)$ must have a common factor with $P(a+1)$ or $P(a+5)$, and by previous paragraph this common factor has to be 7. 
+Thus neither of $P(a+2)$ nor $P(a+4)$ can be divisible by 7, and they cannot have common prime factor (again by previous paragraph). 
+This entails $P(a+1)$ and $P(a+4)$ must have common factor, and by what we established earlier this factor must be 3. 
+Similarly, $P(a+2)$ and $P(a+5)$ must both be divisible by 3. 
+However, $P(a+1)$ and $P(a+2)$ are both divisible by 3, contradiction. 
+
+\item[\textbf{N5}]
+Let $a$ be a positive integer which is not a perfect square, and consider the equation \[k = \frac{x^2-a}{x^2-y^2}.\]Let $A$ be the set of positive integers $k$ for which the equation admits a solution with $x>\sqrt{a}$, and let $B$ be the set of positive integers for which the equation admits a solution with $0\leq x<\sqrt{a}$. Show that $A=B$.
+
+\textbf{Solution.} 
+To show that $k\in A\to k\in B$, let $x>\sqrt{a}$ for some $x$ satisfying the equation. 
+It follows that $|y|<|x|$. 
+Denote $y=x-c$ and we have $a=x^2-k(x^2-y^2)=x^2-kc(2x-c)=x^2-2kcx+kc^2$. 
+Let $x_1=x-2kc$ and $y_1=x_1+c$ and we have 
+$\dfrac{x_1^2-a}{x_1^2-y_1^2}$
+$=\dfrac{(x-2kc)^2-(x^2-kc(2x-c))}{(x_1-y_1)(x_1+y_1)}$
+$=\dfrac{-2kc(2x-2kc)+kc(2x-c)}{-c(2(x-2kc)+c)}$
+$=\dfrac{-kc(4x-4kc-2x+c)}{-c(2x-4kc)+c)}$
+$=k$. 
+This means $k$ admits $(x_1, y_1)$ as well, and from $x_1=y_1+c<y_1$ we have $x_1<\sqrt{a}$. 
+Also notice that $x\ge 2kc$ because... so $x_1\ge 0$. Therefore
+$k\in B$ too. 
+
+Conversely, we want to show that $k\in B\to k\in A$. 
+Let $x<\sqrt{a}$ for some $x$ satisfying the equation. 
+It follows that $|y|>|x|$. 
+Denote $y=x+c$ and we have $a=x^2-k(x^2-y^2)=x^2-k(-c)(2x+c)=x^2+2kcx-kc^2$. 
+Let $x_2=x+2kc$ and $y_2=x_10c$ and we have 
+$\dfrac{x_2^2-a}{x_1^2-y_2^2}$
+$=\dfrac{(x+2kc)^2-(x^2+kc(2x+c))}{(x_2-y_2)(x_2+y_2)}$
+$=\dfrac{2kc(2x+2kc)-kc(2x+c)}{c(2(x+2kc)-c)}$
+$=\dfrac{kc(4x+4kc-2x-c)}{c(2x+4kc)-c)}$
+$=k$. 
+This means $k$ admits $(x_2, y_2)$ as well, and from $x_2=y_2+c>y_2$ we have $x_1>\sqrt{a}$. Therefore
+$k\in A$ too. 
+
+\item[\textbf{N6}]
+Denote by $\mathbb{N}$ the set of all positive integers. Find all functions $f:\mathbb{N}\rightarrow \mathbb{N}$ such that for all positive integers $m$ and $n$, the integer $f(m)+f(n)-mn$ is nonzero and divides $mf(m)+nf(n)$.
+
+\textbf{Solution.}
+The only function is $f(x)=x^2, \forall x\in\mathbb{N}$. 
+In fact, $mf(m)+nf(n)=m^3+n^3=(m+n)(m^2-mn+n^2)=(m+n)(f(m)-mn+n^2)$. 
+
+Substituting $m=n=1$ gives $2f(1)-1|2f(1)$, so $2f(1)-1=\pm 1$. 
+Since $f(1) > 0$ ($f(1)\in\mathbb{N}$) we have $f(1)=1$. 
+Next, letting $n=1$ gives $f(m)-(m-1)|mf(m)+1=m(f(m)-(m-1))+m^2-m+1$, 
+so with $f(m)-(m-1)|m^2-m+1$ and $m^2-m+1=(m-\frac 12)^2+\frac 34 > 0$ we have 
+$|f(m)-(m-1)|\le m^2-m+1$ and $f(m)\le m^2$. 
+
+The next step is to show that $f(p)=p^2$ for all sufficiently large prime $p$. 
+Substituting $m=n=p$ gives $2f(p)-p^2|2pf(p)=p(2f(p)-p^2)+p^3$, so 
+$2f(p)-p^2|p^3$ and from $f(p)\le p^2$ we have 
+$2f(p)-p^2\in\{p^2, p, 1, -1, -p\}$ (again it this value cannot be $-p^2$ or lower because $f(p)>0$. 
+Therefore $f(p)\in\{p^2, \frac{p^2+p}2, \frac{p^2+1}2, \frac{p^2-1}2, \frac{p^2-p}2\}$. 
+Now we check $n=1, m=p$ again and we have (from above) $f(p)-(p-1)|p^2-p+1$. 
+We investigate the following cases: 
+\begin{itemize}
+\item [(a)] $f(p)=\frac{p^2+p}2$, 
+then $\frac{p^2+p}2-(p-1)|p^2-p+1=2(\frac{p^2+p}2-(p-1))-1$, 
+so $\frac{p^2+p}2-(p-1)\le 1, $
+which doesn't hold for $p\ge 2$. 
+
+\item [(b)] $f(p)=\frac{p^2+1}2$, 
+then $\frac{p^2+1}2-(p-1)|p^2-p+1=2(\frac{p^2+1}2-(p-1))+p-2$, 
+which means $\frac{p^2+1}2-(p-1)\le p-2$, not true for $p\ge 3$. 
+
+\item [(c)] $f(p)=\frac{p^2-1}2$, 
+then $\frac{p^2-1}2-(p-1)|p^2-p+1=2(\frac{p^2-1}2-(p-1))+p$, 
+meaning  $\frac{p^2+1}2-(p-1)\le p$, not true for $p\ge 3$. 
+
+\item [(d)] $f(p)=\frac{p^2-p}2$, 
+then $\frac{p^2-p}2-(p-1)|p^2-p+1$. 
+Observe that $2(\frac{p^2-p}2-(p-1))=p(p-1)-2(p-1)=(p-1)(p-2)$, 
+so $p-1|2(p^2-p+1)$. Now $2(p^2-p+1)\equiv 2(1^2-1+1)=2\pmod{p-1}$, 
+so $p-1\le 2$< or $p\le 3$. 
+\end{itemize}
+We therefore know that all four cases cannot hold for $p\ge 5$, so $f(p)=p^2$ for $p\ge 5$. 
+
+Now, let $m$ be arbitrary and let $n=p$ for some prime $p$ we have 
+$f(m)+p^2-mp|mf(m)+p^3=m(f(m)+p^2-mp)+p^3-mp^2+m^2p=m(f(m)+p^2-mp)+p(p^2-pm+m^2)$. 
+Consider the ratio $\dfrac{p(p^2-pm+m^2)}{f(m)+p^2-mp}$
+$=p(1+\dfrac{m^2-f(m)}{f(m)+p^2-mp})$, 
+and therefore $\dfrac{p(m^2-f(m))}{f(m)+p^2-mp}$
+must be an integer. 
+Choosing any $p>f(m)$ gives 
+$p\nmid f(m)$, and hence $p\nmid f(m)+p^2-mp$, hence $p$ and $f(m)+p^2-mp$ are relatively prime. 
+Therefore $\dfrac{m^2-f(m)}{f(m)+p^2-mp}$ is itself an integer, 
+and with $f(m)+p^2-mp$ approaching infinity as $p$ approaching infinity we know that $f(m)-m^2$ must be zero. 
+(Remember, there are infinitely many primes). 
+
+\end{itemize}
+
+
+
+\end{document}
