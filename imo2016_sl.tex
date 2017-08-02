@@ -22,6 +22,24 @@
 \item[\textbf{A1}]
 Let $a$, $b$, $c$ be positive real numbers such that $\min(ab,bc,ca) \ge 1$. Prove that $$\sqrt[3]{(a^2+1)(b^2+1)(c^2+1)} \le \left(\frac{a+b+c}{3}\right)^2 + 1.$$
 
+\textbf{Thoughts.} 
+Non-homogeneous inequality, with the relation $\min(ab,bc,ca) \ge 1$ that we aren't sure how to use it (at its first sight). 
+How should we solve it, then? 
+The way, when desperate, is to brute force the whole thing by cubing the left-hand side and trying to expand 
+$\left(\frac{a+b+c}{3}\right)^6+3\left(\frac{a+b+c}{3}\right)^4+3\left(\frac{a+b+c}{3}\right)^2+1$, 
+but let's not make our lives miserable with (probably) hundreds of terms on the right. 
+
+Instead, we start with the following observation: 
+\begin{itemize}
+\item [1.] What happens when $a=b=c$? Then the equality holds! 
+This motivates us to show that whenever $a+b+c$ is fixed, the maximal possible value of $(a^2+1)(b^2+1)(c^2+1)$ can be attained whenever $a=b=c$. With this in mind...
+\item [2.] We want to see what happens to $(a^2+1)(b^2+1)$ by ranging all possible pairs of $(a,b)$ such that $ab\ge 1$ and $a+b$ is fixed. 
+As it turns out, $(a^2+1)(b^2+1)=a^2b^2+a^2+b^2+1$ (there are only four terms so it doesn't hurt to expand). 
+Since $a+b$ is fixed in our context, we can write this in terms of $a+b$, giving 
+$a^2b^2+a^2+b^2+1=(a+b)^2+(ab-1)^2$. 
+Now it's easy to see that this value increases with $ab$ (as $ab\ge 1$). 
+\end{itemize}
+
 \textbf{Solution.} 
 We start with a preliminary observation: 
 given that $k\ge 2$, and given the set of pairs $K=\{(a,b): a+b=k, ab\ge 1\}$, 
@@ -98,6 +116,143 @@ $\le |\frac 1b-\frac 1d|$
 and from $\frac 1b<\frac 12$ we must have $\frac 1d>\frac 12$. 
 Looking back, we have $\frac 12<|\frac {a_1}{a_4}-\frac {a_2}{a_5}|=\frac bc|\frac 1a-\frac 1d|\le|\frac 1a-\frac 1d|$, 
 yet $\frac 12<\frac 1a , \frac 1d\le 1$, contradiction.
+
+\item[\textbf{A3}]
+Find all positive integers $n$ such that the following statement holds: Suppose real numbers $a_1$, $a_2$, $\dots$, $a_n$, $b_1$, $b_2$, $\dots$, $b_n$ satisfy $|a_k|+|b_k|=1$ for all $k=1,\dots,n$. Then there exists $\varepsilon_1$, $\varepsilon_2$, $\dots$, $\varepsilon_n$, each of which is either $-1$ or $1$, such that
+\[ \left| \sum_{i=1}^n \varepsilon_i a_i \right| + \left| \sum_{i=1}^n \varepsilon_i b_i \right| \le 1. \]
+
+\textbf{Solution.} 
+The answer is all odd $n$. 
+We first find a counterexample for all $n=2k$ for some $k\ge 1$ an integer. 
+Consider $a_i=1$, $b_i=0$ for all $i\in [1, 2k-1]$, 
+and $a_{2k}=0, b_{2k}=1$. 
+Then $\sum_{i=1}^n \varepsilon_i b_i=\varepsilon_{2k}$, which has absolute value of 1. 
+Also $\sum_{i=1}^n \varepsilon_i a_i=\sum_{i=1}^{2k-1} \varepsilon_i$. 
+If $x$ of the indices $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_{2k-1}$ are 1 and the rest -1, 
+then the value would be $x-(2k-1-x)=2x-2k+1$, which is an odd integer. Thus it has absolute value at least 1 too. 
+Therefore we have 
+$\left| \sum_{i=1}^n \varepsilon_i a_i \right| + \left| \sum_{i=1}^n \varepsilon_i b_i \right|\ge 1+1=2$. 
+
+Now let $n$ be odd. 
+We start with the following lemma: 
+Let $(a_i, b_i), i\in [1,m]$ satisfy $0\le a_i, b_i\le 1$ and $a_i+b_i=1, \forall i\in [1,m]$. 
+Then there exists $\varepsilon_1, \varepsilon_2, \cdots, \varepsilon_m\in \{-1, 1\}$ satisfying
+\begin{center}
+\begin{tabular}{c c c c} 
+$0\le \sum_{i=1}^m \varepsilon_i a_i, \sum_{i=1}^m \varepsilon_i b_i\le 1$
+& and & $\sum_{i=1}^m \varepsilon_i a_i +\sum_{i=1}^m \varepsilon_i b_i=1$ & if  $m$ is odd, \\ 
+$-1\le \sum_{i=1}^m \varepsilon_i a_i, \sum_{i=1}^m \varepsilon_i b_i\le 1$
+& and & $\sum_{i=1}^m \varepsilon_i a_i +\sum_{i=1}^m \varepsilon_i b_i=0$ & if  $m$ is even. \\ 
+\end{tabular} 
+\end{center}
+In the first case, we notice that the second condition can be achieved whenever exactly $\frac{m+1}2$ of $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_m$ are 1 and the rest -1. 
+For any combination of $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_m$ with exactly $\frac{m+1}{2}$ of them as 1 we have 
+$ \sum_{i=1}^m \varepsilon_i a_i  + \sum_{i=1}^m \varepsilon_i b_i $
+$=\sum_{i=1}^m \varepsilon_i$
+$=\frac{m+1}{2}-\frac{m-1}{2}=1$. 
+The aim now is to assign $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_m$ 
+in a way that exactly $\frac{m+1}2$ of them are 1, and $0\le \sum_{i=1}^m \varepsilon_i a_i\le 1$ 
+(if this is true, $0\le \sum_{i=1}^m \varepsilon_i b_i\le 1$ holds true too). 
+W.L.O.G. assume that $a_1\le a_2\le\cdots \le a_m$, and consider the numbers 
+$x_0, x_1, \cdots , x_{\frac{m-1}2}$ such that 
+\[ x_k=\sum_{i=1}^{k} -a_i+\sum_{i=k+1}^{k+\frac{m+1}{2}} a_i+\sum_{i=k+\frac{m+1}{2}+1}^{m} -a_i\]
+Notice, first, that for each $x_i$, exactly $\frac{m+1}{2}$ of the $a_i$'s has coefficient 1 and the rest -1. 
+Therefore if $0\le x_k\le 1$ for some $k$ we are done. 
+Observe also that, $x_0=\sum_{i=1}^{\frac{m+1}{2}} a_i+\sum_{i=\frac{m+1}{2}+1}^{m} -a_i$
+$\le \sum_{i=1}^{\frac{m+1}{2}} a_{\frac{m+1}{2}} +\sum_{i=\frac{m+1}{2}+1}^{m} -a_{\frac{m+1}{2}}$
+$=a_{\frac{m+1}{2}}$
+$\le 1.$
+$x_{\frac{m-1}{2}}=\sum_{i=1}^{\frac{m-1}{2}} -a_i+\sum_{i=\frac{m+1}{2}}^{m} a_i$
+$\ge \sum_{i=1}^{\frac{m-1}{2}} -a_{\frac{m+1}{2}}+\sum_{i=\frac{m+1}{2}}^{m} a_{\frac{m+1}{2}}$
+$=a_{\frac{m+1}{2}}$
+$\ge 0$. 
+Moreover, $x_k-x_{k-1}=a_{k+\frac{m+1}{2}}-a_{k}-a_{k}+a_{k+\frac{m+1}{2}}=2(a_{k+\frac{m+1}{2}}-a_{k}), $
+so $x_{k-1}\le a_k\le x_{k-1}+2$ (since $|a_i-a_j|\le 1$). 
+If $0\le x_0\le 1$ or $0\le x_{\frac{m-1}{2}}\le 1$ then we are done. 
+Otherwise we have $x_0<0$ and $x_{\frac{m-1}{2}}>1$, 
+which means there exists $k$ such that $x_k>1$ and $x_{k-1}\le 1$. 
+If $x_{k-1}\ge 0$ we are done. 
+Otherwise, we have $x_k-x_{k-1}>1$ and therefore $a_{k+\frac{m+1}{2}}-a_{k}>\frac 12$, 
+meaning that $a_{k+\frac{m+1}{2}}>\frac 12$. 
+Now let $y_k=x_k-2a_{k+\frac{m+1}{2}}$ we have $y_k\le x_{k-1}<0$ but $y_k\ge x_k-2>-1$. 
+This means $0\le -y_k\le 1$ and 
+$y_k=\sum_{i=1}^{k} a_i+\sum_{i=k+1}^{k+\frac{m+1}{2}-1} -a_i+\sum_{i=k+\frac{m+1}{2}}^{m} a_i$. 
+It is not hard to see that exactly $\frac{m+1}{2}$ of the $a_i$'s has coefficient 1 and the rest -1, so we are done. 
+
+The second case isn't much different from the first. 
+The second condition can be achieved whenever exactly half of $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_m$ are 1 and the rest -1. 
+To see why, we have 
+$ \sum_{i=1}^m \varepsilon_i a_i  + \sum_{i=1}^m \varepsilon_i b_i $
+$=\sum_{i=1}^m \varepsilon_i$
+$=\frac m2-\frac m2=0$. 
+Again w.l.o.g. let $a_1\le a_2\le\cdots \le a_m$, and consider the numbers 
+$x_0, x_1, \cdots , x_{\frac{m}2}$ such that 
+\[ x_k=\sum_{i=1}^{k} -a_i+\sum_{i=k+1}^{k+\frac{m}{2}} a_i+\sum_{i=k+\frac{m}{2}+1}^{m} -a_i\]
+Again each $x_k$ satisfies exactly $\frac m2$ have coefficient 1 and the rest -1. 
+Thus if $-1\le x_k\le 1$ for some $k$ we are done. 
+Observe also that, $x_0=\sum_{i=1}^{\frac{m}{2}} a_i+\sum_{i=\frac{m}{2}+1}^{m} -a_i$
+$\le \sum_{i=1}^{\frac{m}{2}} a_{\frac{m}{2}} +\sum_{i=\frac{m}{2}+1}^{m} -a_{\frac{m}{2}}$
+$=0$. 
+$x_{\frac{m}{2}}=\sum_{i=1}^{\frac{m}{2}} -a_i+\sum_{i=\frac{m}{2}+1}^{m} a_i$
+$\ge \sum_{i=1}^{\frac{m}{2}} -a_{\frac{m}{2}} +\sum_{i=\frac{m}{2}+1}^{m} a_{\frac{m}{2}}$
+$=0$. 
+If $-1\le x_0\le 1$ or $-1\le x_{\frac m2}\le 1$ we are done. 
+Otherwise we have $x_0<-1$ and $x_{\frac m2}>1$, 
+which allows us to pick a $k$ satisfying $x_k>1$ and $x_{k-1}\le 1$. 
+By the similar logic as in case 1 we have $0\le x_k-x_{k-1}\le 2$. 
+This means $x_{k-1}>-1$, which in turn gives $-1\le x_{k-1}\le x_k$ and we are done. 
+
+To finish up the solution, 
+we split the $a_i$'s and $b_i$'s into two groups: 
+one with $a_ib_i\ge 0$, and the other one with $a_ib_i\le 0$ (if $a_ib_i=0$ then we assign them arbitrarily). 
+W.L.O.G. let the first group be 
+$(a_i, b_i)$; $i\in [1, m]$ and the second group be $(a_i, b_i)$: $i\in [m+1, n]$. 
+For $i\in [1, m]$, we can w.l.o.g. assume that $a_i, b_i\ge 0$ (indeed, if $\varepsilon_i$ is a solution for $(a_i, b_i)$ then $-\varepsilon_i$ is a solution for $(-a_i, -b_i)$). 
+Similarly we can also assume that $i\in [m+1, n]$ we have $a_i\ge 0$ and $b_i\le 0$. 
+Also we invoke another property: if $-1\le x+y\le 1$ and $-1\le x-y\le 1$ then $|x|+|y|\le 1$. 
+Indeed, $|x|+|y|\in \{x+y, x-y, y-x, -x-y\}$ so $-1\le x+y\le 1\to -1\le -x-y\le 1$, 
+$-1\le x-y\le 1\to -1\le -x+y\le 1$ so $-1\le |x|+|y|\le 1$. 
+(Bonus: try to show that this is an if and only if condition: convince yourself that $|x|+|y|=\max \{x+y, x-y, y-x, -x-y\}$.)
+
+We split into two cases: 
+\begin{itemize}
+\item [Case 1.] $m$ is odd. 
+From our lemma, by some careful choices of $\varepsilon_i$'s we have 
+$0\le\sum_{i=1}^m \varepsilon_i a_i, \sum_{i=1}^m \varepsilon_i b_i\le 1$ and $\sum_{i=1}^m \varepsilon_i a_i +\sum_{i=1}^m \varepsilon_i b_i=1$. 
+In addition, 
+$-1\le\sum_{i=m+1}^n \varepsilon_i a_i, \sum_{i=m+1}^n \varepsilon_i (-b_i)\le 1$ and $\sum_{i=m+1}^n \varepsilon_i a_i +\sum_{i=m+1}^n \varepsilon_i (-b_i)=0$. 
+This means, $\sum_{i=m+1}^n \varepsilon_i a_i=\sum_{i=m+1}^n \varepsilon_i b_i=c$ for some $c$. 
+Also let $\sum_{i=1}^m \varepsilon_i a_i=a$ and $\sum_{i=1}^m \varepsilon_i b_i=b$, from which we know 
+$a+b=1$ and $0\le a, b\le 1$. 
+Now our term of interest $\left| \sum_{i=1}^n \varepsilon_i a_i \right| + \left| \sum_{i=1}^n \varepsilon_i b_i \right|$ becomes $|a+c|+|b+c|=|a+c|+|1-a+c|$
+If $-1\le c\le 0$, then we have 
+$a+c+b+c=1+2c$ and from $-1\le c\le 0$ we have $-1\le c\le 1$. 
+Also, $a+c-b-c=a-b=a-(1-a)=2a-1$ and from $0\le a\le 1$ we have $-1\le 2a-1\le 1$. 
+Thus we are done for the case where $c\le 0$. 
+If $c\ge 0$, we 'flip' the signs of $\varepsilon_i$ for $i\in [m+1, n]$ so that 
+$\sum_{i=m+1}^n (-\varepsilon_i a_i)=\sum_{i=m+1}^n (-\varepsilon_i) b_i=c$. 
+Now our sum becomes $|a-c|+|1-a-c|$, and we get 
+$-1=a-1+1-a-1\le a-c+1-a-c\le a-0+1-a-0=1$, and $a+c-b-c=a-b$ is also in the interval $[-1, 1]$ as before. 
+This settles our case 1. 
+
+\item [Case 2.] $m$ is even. 
+ Again by our lemma we have 
+$-1\le\sum_{i=1}^m \varepsilon_i a_i, \sum_{i=1}^m \varepsilon_i b_i\le 1$ and $\sum_{i=1}^m \varepsilon_i a_i +\sum_{i=1}^m \varepsilon_i b_i=0$. 
+In addition, 
+$0\le\sum_{i=m+1}^n \varepsilon_i a_i, \sum_{i=m+1}^n \varepsilon_i (-b_i)\le 1$ and $\sum_{i=m+1}^n \varepsilon_i a_i +\sum_{i=m+1}^n \varepsilon_i (-b_i)=1$. 
+Now, let $\sum_{i=1}^m \varepsilon_i a_i=a$ and we have $\sum_{i=1}^m \varepsilon_i b_i=-a$ ($-1\le a\le 1$), 
+let $\sum_{i=m+1}^n \varepsilon_i a_i=c$ and we have $\sum_{i=m+1}^n \varepsilon_i b_i=c-1$ ($0\le c\le 1$). 
+Again, we need to consider $|a+c|+|-a+c-1|$. 
+Observe that $a+c-a+c-1=2c-1$ and from $0\le c\le 1$ we have $-1\le 2c-1\le 1$. 
+$a+c+a-c+1=2a+1$. If $-1\le a\le 0$ we have $-1\le 2a+a\le 1$, which serves our purpose. 
+If $0\le a\le 1$, again we can reverse the signs of $a_i$ ($i\in [1,m]$) as of above so that 
+$\sum_{i=1}^m (-\varepsilon_i) a_i=-a, \sum_{i=1}^m (-\varepsilon_i) b_i=a$, 
+meaning that we need to now consider 
+$|-a+c|+|a+c-1|$. 
+Again $-a+c+a+c-1=2c-1$, giving $-1\le 2c-1\le 1$, as usual. 
+Moreover, $-a+c-a-c+1=1-2a$, which means $-1\le 1-2a\le 1$ for $0\le a\le 1$. 
+This completes the proof as well. 
+\end{itemize}
 
 \item[\textbf{A4}]
 Find all functions $f:(0,\infty)\rightarrow (0,\infty)$ such that for any $x,y\in (0,\infty)$, $$xf(x^2)f(f(y)) + f(yf(x)) = f(xy) \left(f(f(x^2)) + f(f(y^2))\right)\cdots (*).$$
@@ -1222,6 +1377,57 @@ Thus neither of $P(a+2)$ nor $P(a+4)$ can be divisible by 7, and they cannot hav
 This entails $P(a+1)$ and $P(a+4)$ must have common factor, and by what we established earlier this factor must be 3. 
 Similarly, $P(a+2)$ and $P(a+5)$ must both be divisible by 3. 
 However, $P(a+1)$ and $P(a+2)$ are both divisible by 3, contradiction. 
+
+\item[\textbf{N4}]
+Let $n, m, k$ and $l$ be positive integers with $n \neq 1$ such that $n^k + mn^l + 1$ divides $n^{k+l} - 1$. Prove that
+\begin{itemize}
+\item[$\bullet$] $m = 1$ and $l = 2k$; or
+\item[$\bullet$] $l|k$ and $m = \frac{n^{k-l}-1}{n^l-1}$.
+\end{itemize}
+
+\textbf{Solution.} We split our solution into two cases: 
+\begin{itemize}
+\item[Case 1.] $l\le k$. 
+Now from $n^k + mn^l + 1|n^{k+l} - 1$, and from the fact that $(n^l-1)(n^k + mn^l + 1)$
+$=n^{k+l}+mn^{2l}+n^l-n^k-mn^l-1$ we have 
+$(n^{k+l}+mn^{2l}+n^l-n^k-mn^l-1)-(n^{k+l} - 1)$
+$=mn^{2l}+n^l-n^k-mn^l$
+$=n^l(mn^{l}+1-n^{k-l}-m)$
+$=n^l(m(n^l-1)-(n^{k-l}-1))$
+is divisible by $n^k + mn^l + 1$. 
+Knowing that $\gcd(n, n^k + mn^l + 1)=\gcd(n, 1)=1$ we have 
+$\gcd(n^l, n^k + mn^l + 1)=1$ 
+so $m(n^l-1)-(n^{k-l}-1)$ is itself divisible by $n^k + mn^l + 1$. 
+Now, $m(n^l-1)<mn^l<n^k + mn^l + 1$ and $n^{k-l}-1\le n^k-1<n^k + mn^l + 1$, meaning that 
+$0<\frac{m(n^l-1)}{n^k + mn^l + 1}, \frac{(n^{k-l}-1)}{n^k + mn^l + 1}<1$. 
+Therefore $|\frac{m(n^l-1)-(n^{k-l}-1)}{n^k + mn^l + 1}|<1$, and therefore has to be 0. 
+We thus have 
+$m(n^l-1)=(n^{k-l}-1)$ and since $n>1$, 
+$m=\frac{n^{k-l}-1}{n^l-1}$. 
+Let $k-l=cl+d$ with $0\le d<l$, then $n^{k-l}=n^{cl}\cdot n^d\equiv(n^l)^c\cdot n^d\equiv 1\cdot n^d=n^d\pmod{n^l-1}$, 
+and from $n^d<n^l$ we have $n^d\not\equiv 1\pmod{n^l-1}$ unless $d=0$. 
+Therefore $l|k-l$, or $l|k$. 
+
+\item[Case 2.] $l\ge k$. 
+Similar to above we have 
+$(n^k-1)(n^k + mn^l + 1)-(n^{k+l}-1)$
+$=n^{2k}+mn^{k+l}+n^k-n^k-mn^l-1-(n^{k+l}-1)$
+$=n^{2k}+mn^{k+l}-mn^l-n^{k+l}$
+$=n^k(n^k-mn^{l-k}+(m-1)n^l)$ 
+is divisible by $n^k + mn^l + 1$. 
+Again by the logic above, 
+$\gcd (n^k, n^k + mn^l + 1)=1$, 
+which very well means that $n^k + mn^l + 1|n^k-mn^{l-k}+(m-1)n^l$. 
+Again we have $n^k+(m-1)n^l<n^k+mn^l+1$ and $mn^{l-k}<n^k+mn^l+1$ so by the logic above, again, 
+$n^k-mn^{l-k}+(m-1)n^l=0$. 
+Rearranging the terms give: 
+$m=\frac{n^l-n^k}{n^l-n^{l-k}}$. 
+Now, if $m\ge 2$, then we have 
+$n^l-n^k\ge 2n^l-2n^{l-k}$, or 
+$2n^{l-k}\ge n^l+n^k > n^l=n^k(n^{l-k})$, 
+or $2>n^k$, forcing $n=1$ (contradiction since $k\ge 1$). 
+Thus $m=1$ ($m$ must be positive) and we have $k=l-k$, or $l=2k$. 
+\end{itemize}
 
 \item[\textbf{N5}]
 Let $a$ be a positive integer which is not a perfect square, and consider the equation \[k = \frac{x^2-a}{x^2-y^2}.\]Let $A$ be the set of positive integers $k$ for which the equation admits a solution with $x>\sqrt{a}$, and let $B$ be the set of positive integers for which the equation admits a solution with $0\leq x<\sqrt{a}$. Show that $A=B$.
