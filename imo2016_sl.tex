@@ -38,6 +38,14 @@ As it turns out, $(a^2+1)(b^2+1)=a^2b^2+a^2+b^2+1$ (there are only four terms so
 Since $a+b$ is fixed in our context, we can write this in terms of $a+b$, giving 
 $a^2b^2+a^2+b^2+1=(a+b)^2+(ab-1)^2$. 
 Now it's easy to see that this value increases with $ab$ (as $ab\ge 1$). 
+\item [3.] Now with $a+b$ fixed, $ab$ increases when $|a-b|$ decreases. 
+The next step is to compare $f(a,b,c)$ with $f(k,k,k)$ where $k$ is the average of $a,b,c$. 
+(Here we denote $f(a,b,c)$ as $(a^2+1)(b^2+1)(c^2+1)$). 
+Ideally, we want to find $x$ and $y$ with average $k$ such that 
+$f(a,b,c)\le f(k,x,y)\le f(k,k,k)$. 
+The right inequality is easy to maintain. 
+The left inequality, however, requires some cas-by-case analysis (such as $m(a,b,c)\le k$ and $m(a,b,c)\ge k$, where $m$ denotes the median of the three variables here). 
+And finally we also need to check that $\min(kx, ky, xy)$ is maintained.
 \end{itemize}
 
 \textbf{Solution.} 
@@ -79,6 +87,31 @@ and $f(k,k,k)=(k^2+1)^3$ is precisely the cube the right hand side. Q.E.D.
  Find the smallest constant $C > 0$ for which the following statement holds: among any five positive real numbers $a_1,a_2,a_3,a_4,a_5$ (not necessarily distinct), one can always choose distinct subscripts $i,j,k,l$ such that
 \[ \left| \frac{a_i}{a_j} - \frac {a_k}{a_l} \right| \le C. \]
 
+\textbf{Thoughts.} 
+By arranging $a_i\le a_j$ and $a_k\le a_l$ we know that $C$ is bounded above by 1. A baby step, but a great start.
+
+The next sensible thing we can do is to sort the numbers in order: 
+$a_1\le a_2\le a_3\le a_4\le a_5$. 
+Also it's important to realize that $|\frac{a_1}{a_2}-\frac{a_4}{a_5}|=|\frac{a_1a_5-a_2a_4}{a_2a_5}|\ge |\frac{a_1a_5-a_2a_4}{a_4a_5}|=|\frac{a_1}{a_4}-\frac{a_2}{a_5}|$ so we just have to consider the latter. 
+In a similar fashion let's consider $|\frac{a_1}{a_3}-\frac{a_2}{a_4}|$, 
+$|\frac{a_2}{a_4}-\frac{a_3}{a_5}|$. 
+As seen below, this is just a comparison among 
+$\frac 1{bc}|\frac 1a-\frac 1d|$, $\frac 1b|\frac 1a-\frac 1c|$, $\frac 1c|\frac 1b-\frac 1d|$ 
+(as below  $a=\frac {a_2}{a_1}$, 
+$b=\frac {a_3}{a_2}$, 
+$c=\frac {a_4}{a_3}$, 
+$d=\frac {a_5}{a_4}$). 
+It's difficult to see how great the minimum of the three numbers can go, 
+but in light of the factors $\frac 1b$ and $\frac 1c$ we can try some simple cases like $b=c=1$, 
+giving $|\frac 1a-\frac 1d|$, $|\frac 1a-1|$, $|1-\frac 1d|$. 
+Considering $0\le \frac 1a, \frac 1d\le 1$ we have 
+$(1-\frac 1a)+(\frac 1a-\frac 1d)=(1-\frac 1d)$ 
+so considering that $0\le 1-\frac 1d, 1-\frac 1a\le 1$ and assuming that $\frac 1a-\frac 1d\ge 0$ we have 
+$1\ge 1-\frac 1d\ge 2\min\{1-\frac 1a, \frac 1a-\frac 1d\}$, which means one of the elements in the set must be at most $\frac 12$. 
+A similar conclusion can be reached for the case $\frac 1a-\frac 1d\le 0$. 
+Moreover, this motivates the following equality case: by setting $a=2$ and $d$ approaching infinity (and yeah, this is how the example $1, 2, 2, 2, n$ can be conjured). 
+The job now reduces to proving that $\min \{\frac 1{bc}|\frac 1a-\frac 1d|, \frac 1b|\frac 1a-\frac 1c|, \frac 1c|\frac 1b-\frac 1d|\}\le \frac 12$, which is no longer hard by case-by-case analysis as below. 
+
 \textbf{Solution.} The answer is $\frac 12$. 
 
 First, let $a_1=1, a_2=a_3=a_4=2$, $a_5=n$ for some extremely large real number $n$. 
@@ -102,16 +135,16 @@ $d=\frac {a_5}{a_4}$.
 Observe that $a, b, c, d\ge 1$. 
 Suppose that for some $a,b,c,d$, $C=\frac 12$ does not fit for any of the four distinct subscripts. 
 Now, considering $|\frac {a_1}{a_4}-\frac {a_2}{a_5}|$
-$=\frac bc|\frac 1a-\frac 1d|$
+$=\frac 1{bc}|\frac 1a-\frac 1d|$
 and from $0\le \frac 1a, \frac 1d\le 1$
 we have $\frac bc\ge \frac bc|\frac 1a-\frac 1d|>C=\frac 12$
 so $b, c<2$. 
 Next, $C<|\frac {a_1}{a_3}-\frac {a_2}{a_4}|$
-$=\frac b|\frac 1a-\frac 1c|$
+$=\frac 1b|\frac 1a-\frac 1c|$
 $\le |\frac 1a-\frac 1c|$
 and from $\frac 1c<\frac 12$ we must have $\frac 1a>\frac 12$. 
 Similarly, $C<|\frac {a_2}{a_4}-\frac {a_3}{a_5}|$
-$=\frac c|\frac 1b-\frac 1d|$
+$=\frac 1c|\frac 1b-\frac 1d|$
 $\le |\frac 1b-\frac 1d|$
 and from $\frac 1b<\frac 12$ we must have $\frac 1d>\frac 12$. 
 Looking back, we have $\frac 12<|\frac {a_1}{a_4}-\frac {a_2}{a_5}|=\frac bc|\frac 1a-\frac 1d|\le|\frac 1a-\frac 1d|$, 
@@ -120,6 +153,23 @@ yet $\frac 12<\frac 1a , \frac 1d\le 1$, contradiction.
 \item[\textbf{A3}]
 Find all positive integers $n$ such that the following statement holds: Suppose real numbers $a_1$, $a_2$, $\dots$, $a_n$, $b_1$, $b_2$, $\dots$, $b_n$ satisfy $|a_k|+|b_k|=1$ for all $k=1,\dots,n$. Then there exists $\varepsilon_1$, $\varepsilon_2$, $\dots$, $\varepsilon_n$, each of which is either $-1$ or $1$, such that
 \[ \left| \sum_{i=1}^n \varepsilon_i a_i \right| + \left| \sum_{i=1}^n \varepsilon_i b_i \right| \le 1. \]
+
+\textbf{Thoughts.} 
+One good counterexample construction can be found using the triangle inequality: 
+$ \left| \sum_{i=1}^n \varepsilon_i a_i \right| + \left| \sum_{i=1}^n \varepsilon_i b_i \right|\ge  \left| \sum_{i=1}^n \varepsilon_i a_i + \sum_{i=1}^n \varepsilon_i b_i \right|$. 
+Therefore, for the case where $a_i, b_i\ge 0$ we have: 
+$a_i+b_i=1$ 
+so the right hand side now becomes $\left| \sum_{i=1}^n \varepsilon_i \right|$. 
+When $n$ is even, we know that the condition holds only when $\sum_{i=1}^n \varepsilon_i$ is 0, which means exactly hald of the $\varepsilon_i$'is is 1 and the other -1. 
+This motivates us to think of the counterexample $(1, 0, 0, \cdots , 0)$ on one side $(0, 1, 1, \cdots, 1)$ on the other. 
+For odd $n$, we have $\sum_{i=1}^n \varepsilon_i=\pm 1$ to consider. 
+Some experimentation yields that we can have $\sum_{i=1}^n \varepsilon_i= 1$ and 
+$0\le \sum_{i=1}^n \varepsilon_i a_i\le 1$, and 
+$0\le \sum_{i=1}^n \varepsilon_i b_i\le 1$, giving 
+$| \sum_{i=1}^n \varepsilon_i a_i|+|\sum_{i=1}^n \varepsilon_i b_i|\le 1$. 
+(Well, the proof for the existence of $\varepsilon_i$'s isn't that straightforward, but so does the construction of the counterexamples $a_i$'s and $b_i$'s which is guarateed to fail. The proof of the existence of such $\varepsilon_i$'s is better explained in the solution. 
+
+In view of this we likely know that the answer *might* be positive even extended to the cases that $a_i$'s and $b_i$'s might have opposite signs for odd $n$ (and yes, once the invariant of $|a_i+b_i|=1$ or $|a_i-b_i|=1$ is observed the proof isn't that hard anymore, although still tricky). 
 
 \textbf{Solution.} 
 The answer is all odd $n$. 
@@ -310,9 +360,23 @@ and from (2), $f(x)=xf(x^2)=xf(x)^2$, or \hbox{$xf(x)=1$, or $f(x)=\frac 1x$}.
 \end{itemize}
 
 \item[\textbf{A5}]
-Consider fractions $\frac{a}{b}$ where $a$ and $b$ are positive integers.\\
-(a) Prove that for every positive integer $n$, there exists such a fraction $\frac{a}{b}$ such that $\sqrt{n} \le \frac{a}{b} \le \sqrt{n+1}$ and $b \le \sqrt{n}+1$.\\
-(b) Show that there are infinitely many positive integers $n$ such that no such fraction $\frac{a}{b}$ satisfies $\sqrt{n} \le \frac{a}{b} \le \sqrt{n+1}$ and $b \le \sqrt{n}$.
+Consider fractions $\frac{a}{b}$ where $a$ and $b$ are positive integers.
+\begin{itemize}
+\item[(a)]
+Prove that for every positive integer $n$, there exists such a fraction $\frac{a}{b}$ such that $\sqrt{n} \le \frac{a}{b} \le \sqrt{n+1}$ and $b \le \sqrt{n}+1$.
+\item[(b)]
+Show that there are infinitely many positive integers $n$ such that no such fraction $\frac{a}{b}$ satisfies $\sqrt{n} \le \frac{a}{b} \le \sqrt{n+1}$ and $b \le \sqrt{n}$. 
+\end{itemize}
+
+\textbf{Thoughts.} 
+Part (b) should very well give a hint on part (a) : $b=\lfloor\sqrt{n}+1\rfloor$ is necessary. 
+Together with another trick of arranging the natural numbers $n$ according to their integer square root 
+(i.e. $\lfloor\sqrt{n}\rfloor$) the case of $b=\lfloor\sqrt{n}+1\rfloor$ covers half of the required numbers. 
+As it turns out, the case $b=\lfloor\sqrt{n}\rfloor$ covers the remaining half, so we are practically done with part (a). 
+
+Part (b) requires some experimentation, which is not too hard is we carry on with the partition of the natural numbers according to their integer square roots. 
+Notice, also, that there is no suitable $b$ for $n=k^2+1$ for some $k$, which can be proven using the inequality 
+$(k+\frac 1k)^2>k^2+2$. This is precisely what we need to solve the problem. 
 
 \textbf{Solution.} 
 For part (a), we partion the set of positive integers according to their integer square roots, 
@@ -342,6 +406,15 @@ $(\frac ab)^2\ge (k+\frac 1k)^2=k^2+2+\frac 1{k^2} > k^2+2$, contradiction.
 \item[\textbf{A6/IMO 5}]
 The equation
 $$(x-1)(x-2)\cdots(x-2016)=(x-1)(x-2)\cdots (x-2016)$$is written on the board, with $2016$ linear factors on each side. What is the least possible value of $k$ for which it is possible to erase exactly $k$ of these $4032$ linear factors so that at least one factor remains on each side and the resulting equation has no real solutions?
+
+\textbf{Thoughts.} 2016 is the minimum--the first thing that must jump out immediately of your mind. 
+The construction should also be intuitive: we need to either have $LHS>RHS$ all the times or vice versa. 
+W.L.O.G. let's make $LHS<RHS$. One observation is that, $RHS<0$ must imply $LHS<0$, meaning that on each side there are oddly many factors with roots greater than $x$ (hence contributing to negative factors). 
+
+Thus this gives the "mod 4" construction as detailed below, because whenever $RHS$ is negative we have $x\in (4i-2, 4i-1)$ for some integer $i$, which also guarantees the negativity of $LHS$. 
+Next, it is not hard to prove that $|LHS|<|RHS|$ whenever both of them are positive, 
+so the only hard part is to prove that $|LHS|>|RHS|$ when both negative. 
+Thankfully $|\frac{(x-(4i-2))(x-(4i-1))}{(x-4i)(x-(4i-3))}|\le \frac 19$ whenever $x\in (4i-2, 4i-1)$, and we can finish off by using appropriate sum telescoping, again as detailed below. 
 
 \textbf{Solution.} The answer is 2016. 
 Anything fewer doesn't work, because for some $i$, the factor $x-i$ appears on both sides, 
@@ -407,6 +480,20 @@ and we are done. (OMG the long proof...)
 \begin{itemize}
 \item[\textbf{C1}]
  The leader of an IMO team chooses positive integers $n$ and $k$ with $n > k$, and announces them to the deputy leader and a contestant. The leader then secretly tells the deputy leader an $n$-digit binary string, and the deputy leader writes down all $n$-digit binary strings which differ from the leader’s in exactly $k$ positions. (For example, if $n = 3$ and $k = 1$, and if the leader chooses $101$, the deputy leader would write down $001, 111$ and $100$.) The contestant is allowed to look at the strings written by the deputy leader and guess the leader’s string. What is the minimum number of guesses (in terms of $n$ and $k$) needed to guarantee the correct answer?
+
+\textbf{Thoughts.} 
+This is equivalent to finding the number of possible strings said by the leader given the strings said by the deputy leader. 
+Intuitively, for each digit, there is $\frac kn$ probability of it being changed by the deputy leader (so there will be $\frac kn$ of the strings with the digit being changed). 
+From here, the string can be uniquely determined if $\frac kn\neq \frac 12$: 
+for each digit we know that it is 0 or 1.  
+In the case where $\frac kn=\frac 12$, 
+then for each digit there are equally many strings with 0 on it as those wih 1 on it. 
+Nevertheless, if we only look at the strings with leading 0, 
+then among those strings, for each of the rest of the digits there are $\frac{k-1}{n-1}$ of the strings with that digit being changed 
+(and yeah $\frac{k-1}{n-1}\neq \frac 12$) 
+so the string can be uniquely determined like above (same goes for the strings with leading 1). 
+Now we have two candidates, and the last step is to prove that it works. 
+The verification might sound difficult, but again all we need is to show that if one string works we can find another string that works too (as of below). 
 
 \textbf{Solution.} The answer is 2 for $n=2k$ and 1 otherwise. 
 
@@ -482,10 +569,56 @@ However, this implies $n$ is a power of 2 and from $a_i\ge 1$, at least two rows
 The row containing $n$ must therefore have sum at least $2n$, 
 but for $n$ a power of two the sum of divisors is $2n-1$, contradiction. 
 
+\item[\textbf{C3}]
+Let $n$ be a positive integer relatively prime to $6$. We paint the vertices of a regular $n$-gon with three colours so that there is an odd number of vertices of each colour. Show that there exists an isosceles triangle whose three vertices are of different colours.
+
+\textbf{Thoughts.} 
+This problem is hard for a C3: how are we going to use the fact that an odd number of vertices is painted for each colour? 
+Nevertheless, the fact that $3\neq n$ generated some insight for us: for each fixed segment $AB$ with endpoint of different colours there are three vertices $C_1, C_2, C_3$ such that the resulting triangle is isoceles. 
+This should motivate the double-counting solution: assuming a contradiction and we consider those isoceles triangles with exactly two colours being used, then each of these triangles has two polychromatic lines while each polychromatic line belongs to three such triangles, so we can play around with the parity to produce contradiction!
+
+\textbf{Solution.} 
+Suppose that the conclusion is false, and let $a, b, c$ be the three colours used. 
+Let $\Gamma$ be the circumcircle of the regular $n$-gon. 
+Let $N$ be the set of isoceles triangles such that each $a$ and $b$ is used at least once and the colour $c$ is not used, 
+and let $M$ be the set of unordered pairs of vertices $\{A, B\}$ such that $A$ is of colour $a$ and $B$ is of colour $b$ (vice versa) 
+
+We start with an observation: each member of $M$ is one side of exactly three triangles in $N$. 
+To see why, let $(A,B)$ be one member in $M$. From $2\nmid n$ we know that $AB$ cannot be a diameter of $\Gamma$. 
+This implies that there exists one such vertex $C_1$ satisfying $AB=AC_1$, and another vertex $C_2$ satisfying $AB=BC_2$. 
+In addition, since $n$ is odd, the perpendicular bisector of $AB$ will hit exactly one vertex in the $n$-gon, 
+so there is exactly one such $C_3$ with $AC_3=BC_3$. 
+$C_1, C_2, C_3$ are also pairwise different; otherwise $C_1=C_2=C_3$ and $ABC_1$ is equilateral, 
+contradicting the fact that $3\nmid n$. 
+Also notice that $ABC_1$, $ABC_2$, $ABC_3\in N$ because the colour $c$ is not used at $C$ (otherwise we are done since $A, B$ are of colour $a$ and $b$), and each colour $a$ and $b$ is used at least once. 
+This gives us the required three triangles. 
+
+Next, also notice that for each triangle in $N$, 
+since no colour of $c$ is used, among each $a$ and $b$, one colour is used twice and the other once. 
+This implies that each triangle in $N$ has two sides in $M$. 
+If we consider all such pairs $(x, y)$ where $x\in M, y\in N$ and $x$ is a side of $y$ then we count each element in $M$ for 3 times and each element in $N$ for 2 times. 
+Thus $2|N|=3|M|$. 
+This means $M$ is even. On the other hand we also have $|M|=|a|\cdot |b|$ where $|a|$ and $|b|$ are the number of sides with colour $a$ and $b$, respectively. This means $|a|$ or $|b|$ is even, contradiction. 
+
 \item[\textbf{C4/IMO 2}]
 Find all integers $n$ for which each cell of $n \times n$ table can be filled with one of the letters $I,M$ and $O$ in such a way that:\\
 $\bullet$ in each row and each column, one third of the entries are $I$, one third are $M$ and one third are $O$; and \\
 $\bullet$ in any diagonal, if the number of entries on the diagonal is a multiple of three, then one third of the entries are $I$, one third are $M$ and one third are $O$. 
+
+\textbf{Thoughts.} 
+The first condition already says that $3|n$, but sadly $n=3$ doesn't work (and it's extremely easy to prove that it doesn't). 
+One way to start with is, therefore, to check the smallest $n$ that works. 
+How about...making sure that if we partition the table into $3\times 3$ grids, each diagonal of the grids have exactly one of each $I, M, O$? 
+Wait a minute...we have to make sure that among the center cells of the $3\times 3$ grids, there are equally many $I$, $M$, and $O$. 
+Best to have that condition for the columns in the $3\times 3$ grids too, and we can sort out the rows later. 
+This gives $n=9$ works, and for $n=9k$ all we need to do is to replicate the table. 
+
+The proof of $9|n$ being necessary seems a little bit difficult, but the insights can be seen as we try to prove why $n=3$ fails: 
+it seems like the fault lies on the center cell. 
+As it turns out, the center cells of each $3\times 3$ grid lie on exactly two diagonals with size a multiple of 3 
+(the corner: 1 and the sides: 0). 
+This motivates us to consider just the columns and rows with indices congruent to 2 modulo 3, which works. 
+(Alternatively one can also consider the columns and rows with indices not congruent to 2 modulo 3). 
 
 \textbf{Solution.} The answer is all $n$ divisible by 9. 
 We start by showing an example for $n=9$, given below: 
@@ -556,6 +689,109 @@ Observe that for each $3\times 3$ cells we have $3+2+3+2+4+2+3+2+3=24$ markings,
 This means $8k^2=4c+2(2k^2-c)+3(k^2+c)=3c+7k^2$, or $c=\frac{k^2}{3}$. 
 Hence $3|k^2$, or $3|k$, or $9|n$. 
 
+\item[\textbf{C5}]
+Let $n \geq 3$ be a positive integer. Find the maximum number of diagonals in a regular $n$-gon one can select, so that any two of them do not intersect in the interior or they are perpendicular to each other. 
+
+\textbf{Solution.} The answer is $n-3$ for $n$ odd, and $n-2$ for $n$ even. 
+For simplicity we denote the circumcircle of the $n$-gon as $\Gamma$, and our $n$-gon be $A_1A_2\cdots A_n$. 
+
+We first shot that no two diagonals can be perpendicular for $n$ odd. 
+Indeed, in terms of cordinate geometry, let one diagonal joining $(\sin a, \cos a)$ and $(\sin b, \cos b)$ we have the gradient as 
+$\frac{\cos b-\cos a}{\sin b-\sin a}$. 
+Similarly let another diagonal with gradient 
+$\frac{\cos d-\cos c}{\sin d-\sin c}$. 
+If they are perpendicular then the gradient has product -1 (one of them might be infinity, but this means that the other one has gradient 0). 
+This gives $(\cos b-\cos a)(\cos d-\cos c)+(\sin b-\sin a)(\sin d-\sin c)=0$. 
+Using the identity of $\cos b-\cos a=-2\sin\frac{b-a}{2}\sin\frac{b+a}{2}$ and 
+$\sin b-\sin a=2\sin\frac{b-a}{2}\cos\frac{b+a}{2}$, we have 
+$\sin\frac{b-a}{2}\sin\frac{d-c}{2}(\sin\frac{b+a}{2}\sin\frac{d+c}{2}+\cos\frac{b+a}{2}\cos\frac{d+c}{2})=0$. 
+Since $0\le a,b,c,d<2\pi$, and $a\neq b, c\neq d$, 
+$\sin\frac{b-a}{2}, \sin\frac{d-c}{2}\neq 0$ so 
+$\sin\frac{b+a}{2}\sin\frac{d+c}{2}+\cos\frac{b+a}{2}\cos\frac{d+c}{2}=0$, or 
+$\cos (\frac{(b+a)-(d+c)}2)=0$, which forces 
+$\frac{(b+a)-(d+c)}2=\frac{k\pi}2$ for some odd $k$. 
+Converting $a, b, c, d$ into $\frac{2a\pi}{n}$, $\frac{2b\pi}{n}$, $\frac{2c\pi}{n}$, $\frac{2d\pi}{n}$ ($0\le a, b, c, d < n$) we get 
+$kn=2(a+b)-2(c+d)$. 
+Knowing that $k$ is odd, $n$ has to be even. 
+Thus the case where $n$ is odd reduces to finding the number of diagonals without any two of them intersecting in the interior. 
+Denoting $f(n)$ be this number and we show that $f(n)=n-3, \forall n\ge 3$. 
+Base case when $n=3$, where $f(3)=0$ as there is no diagonal in a triangle. 
+Next, let $f(n)=n-3$ for $n=3, 4, \cdots k$ for some $k\ge 3$. 
+For $n=k+1$, let one diagonal split our $n$-gon into an $x$-gon and a $y$-gon, where $x+y=n+2$ and $x, y\ge 3$. 
+Then there are extra $f(x)+f(y)=x-3+y-3=x+y-6=n-4$ diagonals that can be constructed (each diagonal must belong to only one of the polygons becaus it cannot intersect our first diagonal int he interior). 
+This gives $n-4+1=n-3$ diagonals, at most. 
+Equality can be achieved by taking diagonals $A_1A_k$, $k=3, 4, \cdots , n-1$.
+
+Now $n$ be even. Let $F$ be the set of diagonals intersecting at least one other diagonals. We show that: 
+\begin{itemize}
+\item [1.]
+Each two lines in $F$ are perpendicular or parallel to each other. 
+
+\item [2.]
+There are two lines in $F$ such that each of them intersects every other lines in $F$ that are perpendicular to itself.
+
+\item [3.]
+Let $A$ and $B$ be two consecutive endpoints of lines in $F$. 
+Then for any selected diagonal with an endpoint on the minor arc $AB$, the other the other endpoint must also lie on this minor arc too.
+
+\end{itemize}
+For the first claim, choose two lines $l_1$ and $l_2$ that intersect in the interior (they are perpendicular). 
+Now, suppose that there is a line $l_3\in F$ that is perpendicular to neither of them. 
+Then it cannot intersect either of $l_1$ and $l_2$, so there must be a line $l_4$ perpendicular to itself. 
+Now, let the endpoints of $l_1$ be $A, C$, and $l_2$ be $B$, $D$. 
+Consider $AB$: the fact that the lines intersect means that $\angle ACB=\angle ADB <90^{\circ}$, so $C$ and $D$ are on the major arc $AB$. 
+Let the endpoints of $l_3$ be $E, G$ and the endpoints of $l_4$ be $F, H$. 
+W.L.O.G. let $E, F, G, H$ be in that order (since they intersect) on our circle $\Gamma$. 
+Now, since $l_3$ and $l_4$ intersect, they must be both on the minor arc of one of $AB, BC, CD, DA$, 
+implying that $F$ and $G$ are both on the major arc of $EH$. Contradiction. 
+
+For the second claim, we notice that if we have a line joining points with polar angle $a$ and $b$, and another one $c$ and $d$, then 
+$\frac{(b+a)-(d+c)}2=\frac{k\pi}2$ for some $k$ odd. 
+Again assuming that $A_i$ has angle $\frac{2i\pi}{n}$ we get that $A_aA_b$ and $A_cA_d$ are perpendicular iff 
+$kn=2(b+a)-2(c+d)$ for some odd $k$. 
+This simply means $(b+a)-(c+d)\equiv \frac n2\pmod{n}$. 
+In a similar fashion we can also derive $(b+a)-(c+d)\equiv 0\pmod{n}$ iff $A_aA_b$ and $A_cA_d$ are parallel. 
+
+Now split the $F$ into two sets: $F_1=\{(A_aA_b): a+b\equiv 0\pmod{n}\}$ and $F_2=\{(A_aA_b): a+b\equiv \frac n2\pmod{n}\}$. 
+Not hard to see that the diagonals in the same sets are parallel to one another and any two diagonals from different sets are perpendicular to each other. 
+We claim that the two lines in $F$ are precisely the longest line in $F_1$ and the longest line in $F_2$. 
+Indeed, let $AB$ and $CD$ be parallel lines on $\Gamma$ satisfying $CD\ge AB$, 
+then $ABCD$ is an isoceles trapezoid satisfying $\angle A=\angle B\ge 90^{\circ}$ and $\angle C=angle D\le 90^{\circ}$. 
+Denote also $E$ and $F$ as the perpendiculars from $A$ and $B$ on $CD$. It follows that $E$ and $F$ are on the closed segment $CD$ itself. 
+Let $l$ be a line perpendicular to both $AB$ and $CD$, intersecting open segment $AB$ at $G$ and line $CD$ at $H$. 
+With $AE\parallel BF\parallel GH$, the fact that $G$ lies on segment $AB$ means that $H$ lies on open segment $EF$ too, 
+therefore lying on open segment $CD$ as well. 
+This means, any perpendicular line intersecting $AB$ in its interior will intersect $CD$ in its interior too. 
+Now let $l$ be the longest line in $F_1$, and $m$ be any line in $F_2$. Since there exists $n$ in $F_1$ such that $m$ intersects $n$ in its interior, and $n$ is no longer than $n$, $m$ must intersect $l$ in its interior too. This proves the claim that every line in $F_2$ intersects $l$ in its interior, and similarly every line in $F_1$ intersects the longest line in $F_2$ in its interior too. 
+
+As for the third claim, 
+denote the endpoints of the longest line in $F_1$ as $C$ and $D$, and in $F_2$ as $E$ and $F$ (which might or might not be completely distinct from $A$ and $B$). 
+Let $G$ be a point on $AB$ and presumably it's an endpoint of a selected diagonal (with $G\neq A$ and $G\neq B$). 
+W.L.O.G. we assume that $AB$ lies on minor arc $CE$ (so same goes for $G$, and the other endpoint, obviously, must also be on the minor arc $CE$). W.L.O.G. also that $C, A, G, B, E$ are on $\Gamma$ in that order.
+By the choice of $A$ and $B$ (consecutive endpoints in $F$) we know this diagonal cannot be in $F_1$ or $F_2$, so it intersects 
+none of the segment $CD$ or $EF$. 
+Suppose $H$ is a point on the minor arc $BE$, and $H\neq B$. If the line in $F$ with endpoint $B$ does not intersect $GH$, 
+then (by drawing) it intersects neither $EF$ nor $CD$, contradicting that every line in $F$ intersects either of them. 
+Therefore $H$ cannot be the endpoint of the selected diagonal, and similarly, any point on the minor arc $CA$ that is not $A$ cannot be the endpoint of the selected diagonal. Thus that point must be on minor arc $AB$. 
+
+In a similar way we can show that if $A, B, C$ are consecutive points of any diagonal in $F$ in that order, any diagonal with $B$ as endpoint must have another endpoint either in minor arc $AB$ or in minor arc $BC$. 
+Thus, if $A_{t_1}A_{t_2}\cdots A_{t_k}$ are consecutive endpoints of $F$ then any remaining diagonals must have both endpoints lying on $A_{t_i}A_{t_{i+1}}$ for some $i\in [1,k]$, indices taken modulo $k$. 
+Moreover, each endpoints belong to at most two diagonals, with at least four of them belonging exclusively to $l_1$ and $l_2$, the longest lines in $F_1$ and $F_2$ (they intersect every other lines in the opposite family of $F$ so they cannot share endpoint with other lines in $F$). 
+Since each diagonal has two endpoints, the number of elements in $F$ cannot exceed $\frac 12(1+1+1+1+2+\cdots +2)$
+$=\frac 12 (4+2(k-4))$
+$=k-2$. 
+Considering the polygon $A_{t_i}\cdots A_{t_{i+1}}$, which is a $t_{i+1}-t_{i}+1$-gon, 
+we know that $t_{i+1}-t_{i}-2$ diagonals not intersecting each other can be drawn, plus one line $A_{t_i}A_{t_{i+1}}$ to be drawn. 
+This gives $t_{i+1}-t_{i}-1$ lines, resulting in $\displaystyle\sum_{i=1}^k (t_{i+1}-t_i-1)$
+$=t_{k+1}-t_1-k$
+$=n-k$ 
+extra diagonals, 
+thus the upper bound is $n-k+k-2=n-2$. 
+
+To achieve this bound, select $A_0A_k$, where $k=\frac n2$, and $A_1A_{n-1}$. 
+Now take $A_1A_i$ with $i=3, 4, \cdots , k$ and $A_{n-1}A_i$ with $i=n-3, n-4, \cdots k+1$. 
+This gives $2+2(k-2)=2k-2=n-2$. Q.E.D.
+
 %play around with c7 characters
 \newcommand{\person}{Feridun }
 \newcommand{\pronoun}{he }
@@ -573,6 +809,24 @@ There are $n\ge 2$ line segments in the plane such that every two segments cross
 (a) Prove that \person can always fulfill \possesive wish if $n$ is odd.
 
 (b) Prove that \person can never fulfill \possesive wish if $n$ is even.
+
+\textbf{Thoughts.} 
+We wish to play parity game to prove that the \animals cannot coincide in part (a). 
+Intuitively, this makes sense: 
+for each point segment $\ell$ there are even number of intersection points, 
+which means that for each intersection point we can chacterize one side of having even number of points and the other odd 
+(excluding the point itself), giving rise of the notion "even sides" and "odd sides" as below (inspired by the case $n=3$). 
+This means for each two lines we can arrange pick one endpoints such that one endpoint is on even side and the other endpoint is on odd side (w.r.t. the intersection). 
+What if these selections conflict with each other when $n$ lines are considered together? 
+They won't, based on the Menelaus' logic below. 
+
+In part (b), things are trickier: unfortunately we cannot say that the \animals will meet just because both of them come from even side or odd side: the number of intersections must be the same. 
+This motivates another version of the solution: 
+to find cases where the other lines such that for selected rays of some two selected lines, any other lines either intersect both rays or none of them. 
+This means the \animals coming from both rays will intersect (same for the case when the \animals coming not from the rays). 
+Denoting the angles of the line to $x$-axis as $\theta_1$ and $\theta_2$, then this happens whenever either all lines have angles in $(\theta_1, \theta_2)$ or all lines have angles not in this range. 
+This shows that, if we rank the lines according to their angles, then any two lines neighbouring in ranking must have endpoints at different directions being chosen. 
+Don't forget to include the comparison between the first and the last line to arrive at contradiction!
 
 \textbf{Solution.} (a) Let the segments be $\ell_1, \ell_2, \cdots , \ell_n$. 
 Let $P_{ij}$ be the intersection of line $ij$. For each segment $\ell_i$ we aim to investigate the number of points on each side of $P_{ij}$ (other than $P_{ij}$). 
@@ -1262,14 +1516,67 @@ Thus $\angle XIY=\angle XOY=120^{\circ}$.
 \item[\textbf{N1}]
 For any positive integer $k$, denote the sum of digits of $k$ in its decimal representation by $S(k)$. Find all polynomials $P(x)$ with integer coefficients such that for any positive integer $n \geq 2016$, the integer $P(n)$ is positive and $$S(P(n)) = P(S(n)).$$
 
+\textbf{Thoughts.} 
+The first thing to try is $c\cdot 10^k$ for $c\le 9$, of course, 
+because $S(c\cdot 10^k)=c$ and it's easier to manipulate. 
+(Well I first tried $n=10^k$ that gives $S(P(10^k))=P(1)$, a constant). 
+The next thing is that, if we space $k$ big enough, the numbers are likely to be in the form 
+$(a_kc^k)(0\cdots 0)(a_{k-1}c^{k-1}(0\cdots 0)\cdots (0\cdots 0)a_0c^0$, 
+provided $a_i\ge 0$ for all $i$. 
+But we cannot simply make that assumption! 
+Fortunately, the fact that $a_i< 0$ will cause tons of trailing 9's, which will be good for a contradiction. 
+Having that in mind, we know that $P(c)$ is the sum of $a_kc^k, \cdots , a_0c^0$ and the sum of digits (as shown above) is 
+$S(a_kc^k)+\cdots +S(a_0c^0)$. 
+With the fact that $S(i)\le i$ with equality iff $i\le 9$, it's no longer difficult to complete the solution. 
+
 \textbf{Solution.} 
 The answer is the constant polynomial $P(x)=c$ where $c\in\{1,2,\cdots ,9\}$, 
 or the identity polynomial $P(x)=x$. In the first case we have $S(P(n))=S(c)=c=P(\text{anything})=P(S(n))$, 
 and in the second case $S(P(n))=S(n)=P(S(n))$. 
 
-Now let $P(x)=\displaystyle\sum_{i=0}^k a_ix^i$, 
-then for sufficiently large $n$ (in particular, $10^n>max\{a_i(9^i) :i\in[0,k]\}$) and for each $c\in\{1,2,\cdots ,9\}$ we have 
-$P(c\cdot 10^n)=\displaystyle\sum_{i=0}^k a_i (c^i)(10^{ni})$. 
+Now let $P(x)=\displaystyle\sum_{i=0}^k a_ix^i$. 
+The first thing to do is to prove that $a_i\ge 0$, $\forall i\ge 0$. 
+Indeed, let $n=c\cdot 10^m$ ($1\le c\le 9$) then we have 
+$P(c)=P(S(n))=S(P(n))=S(P(c\cdot 10^m))$. 
+Lt $d$ be such that 
+$10^{d}>max\{|a_i(9^i)| : i\in [0, k]\}$
+For $m>d$ satisfying we have 
+$P(c\cdot 10^m)=\displaystyle\sum_{i=0}^k a_i (c^i)(10^{mi})$. 
+Let $a_j<0$ for some $j$. 
+Now notice that 
+$\displaystyle\sum_{i=0}^{j-1} a_i (c^i)(10^{mi})$
+$<\displaystyle\sum_{i=0}^{j-1} 10^{d}(10^{mi})$
+$<\displaystyle\sum_{i=0}^{mj-m+d} 10^i$
+$<10^{mj-m+d+1}$
+$\le 10^{mj}$
+so
+$P(c\cdot 10^m)=\displaystyle\sum_{i=0}^k a_i (c^i)(10^{mi})$
+$=\displaystyle\sum_{i=0}^{j-1} a_i (c^i)(10^{mi})$
+$+a_j(c^j)(10^{mi})$
+$+\displaystyle\sum_{i=j+1}^{k} a_i (c^i)(10^{mi})$
+$<10^{mj}$
+$+a_j(c^j)(10^{mj})$
+$+\displaystyle\sum_{i=j+1}^{k} a_i (c^i)(10^{mi})$
+$\le\displaystyle\sum_{i=j+1}^{k} a_i (c^i)(10^{mi})$
+(the first inequality is due to our choice of $m$). 
+As $P(x)>0$ for all $x\ge 2016$, the leading coefficient is positive so we can choose $j$ such that there exists an $l\ge 1$ satisfying 
+$c_{j+l}>0$ and $c_{j+1}, c_{j+2}, \cdots c_{j+l-1}=0$. 
+In a similar way we can also deduce that 
+$P(c\cdot 10^m)$
+$>\displaystyle\sum_{i=j+l}^{k} a_i (c^i)(10^{mi})$
+$-10^{m(j+l)-m+d+1}$
+Combining the inequalities and by assuming that $c_{j+1}, c_{j+2}, \cdots c_{j+l-1}=0$, $c_j<0$ and $c_{j+l}>0$ we have 
+\[
+\displaystyle\sum_{i=j+l}^{k} a_i (c^i)(10^{mi})
+-10^{m(j+l)-m+d+1}
+<P(c\cdot 10^m)
+<\displaystyle\sum_{i=j+1}^{k} a_i (c^i)(10^{mi})
+=\displaystyle\sum_{i=j+l}^{k} a_i (c^i)(10^{mi})\]
+This means that there will be at least $m-d$ consecutive 9's as digit, meaning that $S(P(c\cdot 10^m))$ is at least $9(m-d)$. 
+It follows that $P(S(c\cdot 10^m))=P(c)\ge 9(m-d)$ for all sufficiently large $m$. 
+However, this is contradicted by the fact that $\lim_{m\to\infty}9(m-d)\to\infty$. 
+Hence $c_i\ge 0$ for all $i$. 
+
 Since $a_i (c^i)(10^{ni}) < 10^{(n+1)i}$ (because $a_i(c^i)<10^n$ by our choice of $n$), 
 the number $P(c\cdot 10^n)$ are in the form of $(a_kc^k)(0\cdots 0) (a_{k-1}c^{k-1})(0\cdots 0)\cdots(0\cdots 0)(a_0c^0)$ when laid in decimal form. 
 Therefore 
@@ -1339,6 +1646,12 @@ For odd composite number $xz$ with $x, z\ge 3$, take $m=2^{x-1}5^{z-1}$.
 
 \item[\textbf{N3/IMO 4}]
 A set of postive integers is called fragrant if it contains at least two elements and each of its elements has a prime factor in common with at least one of the other elements. Let $P(n)=n^2+n+1$. What is the least possible positive integer value of $b$ such that there exists a non-negative integer $a$ for which the set $$\{P(a+1),P(a+2),\ldots,P(a+b)\}$$is fragrant?
+
+\textbf{Thoughts.} This is  problem requiring no more than number experimentation, 
+and it's immediate to see why $P(n)$ and $P(n+1)$ are relatively prime (otherwise the answer is 2 and it's too trivial to be on the IMO), which directly gives away the fact that $b=3$ doesn't work either. 
+How about $P(n)$ and $P(n+2)$? The investigation of the first case also shows that $b=4$ fails, and further checking on $P(n)$ and $P(n+3)$ shows how $b=5$ fails too. 
+Finally, for $b=6$ the relation between $\gcd(P(n), P(n+2))$, $\gcd(P(n), P(n+3))$ and $\gcd(P(n), P(n+4))$ will be good to construct an example (which cannot be determined by brute force since it's rather big!!!)
+Ps: basic combinatorics skill needed to construct an example. 
 
 \textbf{Solution.} The answer is $b=6.$ 
 Observe that this solution works because the set $\{P(197), P(198), P(199), P(200), P(201), P(202)\}$ has 
