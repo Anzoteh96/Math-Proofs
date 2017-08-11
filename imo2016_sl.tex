@@ -15,8 +15,14 @@
 
 \title{Solution to IMO 2016 shortlisted problems.}
 \author{Anzo Teh}
-\date{25 July 2017}
+\date{\today}
 \maketitle
+
+Preface: 
+This document is a compilation of my solutions to the IMO shortlisted problems in 2016. 
+A shortcoming of providing only the solutions to the readers is that, it does not show the process of generating insights needed to solve the problems. 
+Therefore, a writeup on my own thought process is given before each solution, whenever necessary (in an effort to making it beginner-friendly). 
+
 \section{Algebra}
 \begin{itemize}
 \item[\textbf{A1}]
@@ -314,7 +320,7 @@ $=\frac xy+\frac yx$
 $=\frac{x^2}{xy}+\frac{y^2}{xy}$
 $=f(xy)\left(f(f(x^2)) + f(f(y^2))\right)$. 
 
-For the rest of the solution we proceed with the normal functional algorithmic procedure: 
+For the rest of the solution we proceed with the normal functional algorithmic procedure to show that $f(x)\equiv \frac 1x$ is the only function: 
 \begin{itemize}
 \item [Step 1.] 
 Plugging $x=y=1$ gives $f(1)f(f(1))+f(f(1))=2f(1)f(f(1))$, 
@@ -338,25 +344,37 @@ so $f(x)f(y)=1$ whenever $xy=1$.
 In other words, for all $x\in\mathbb{R}^+$, \fbox{$f(\frac 1x)=\frac 1{f(x)}$}. 
 
 \item [Step 5.]
-Having the results in Step 4 in mind, we do the following substitution: \\
-$\bullet$ Substitute $\frac 1x$ and $\frac 1x$ in place of $x$ and $y$ into (**) to turn
-$f(\frac 1x)f(\frac 1x)f(f(\frac 1{x^2})) + f(\frac 1{x^2}f(\frac 1{x^2}))$ 
-$= f(\frac 1{x^2}) \left(f(f(\frac 1{x^2})) + f(f(\frac 1{x^2}))\right)$
-into 
-$\frac 1{f(x)f(x)f(f(x^2))}+ \frac 1{f(x^2f(x^2))}$ 
-$= \frac 2{f(x^2)f(f(x^2))}\cdots (5a)$. \\
-$\bullet$ Subsitute $x=y$ into (**) we get 
-$f(x)f(x)f(f(x^2)) + f(x^2f(x^2)) = 2f(x^2) f(f(x^2))\cdots (5b).$ \\
-Comparing 5a and 5b gives 
-$\frac 1{f(x)f(x)f(f(x^2))}+ \frac 1{f(x^2f(x^2))}=\frac 2{f(x^2)f(f(x^2))}$
-$=\frac 4{f(x)f(x)f(f(x^2))+f(x^2f(x^2))}$, 
+Having the results in Step 4 in mind, we do the following substitution: 
+\begin{itemize}
+\item [5a.]
+Substitute $\frac 1x$ and $\frac 1x$ in place of $x$ and $y$ into (**) (step 4) we have
+$$f\left(\frac 1x\right)f\left(\frac 1x\right)f\left(f\left(\frac 1{x^2}\right)\right) + f\left(\frac 1{x^2}f\left(\frac 1{x^2}\right)\right)
+= f\left(\frac 1{x^2}\right) \left(f\left(f\left(\frac 1{x^2}\right)\right) + f\left(f\left(\frac 1{x^2}\right)\right)\right)$$
+\[\frac1{f(x)}\cdot \frac1{f(x)}\cdot f\left(\frac 1{f(x^2)}\right)+f\left(\frac 1{x^2f(x^2)}\right)
+=\frac1{f(x^2)}\left(2f\left(\frac 1{f(x^2)}\right)\right)\]
+\[\frac1{f(x)}\cdot \frac1{f(x)}\cdot \frac 1{f\left(f(x^2)\right)}+\frac 1{f\left(x^2f(x^2)\right)}
+=\frac1{f(x^2)}\cdot \frac 2{\left(f\left(f(x^2)\right)\right)}\]
+\[\frac 1{f(x)^2 f(f(x^2))}+ \frac 1{f(x^2f(x^2))}
+= \frac 2{f(x^2)f(f(x^2))}\]. 
+\item [5b.]
+Subsitute $x=y$ into (**) we get 
+$f(x)^2f(f(x^2)) + f(x^2f(x^2)) = 2f(x^2) f(f(x^2)).$
+\item [5c.]
+From now on denote $a=f(x)^2f(f(x^2))$ and $b=f(x^2f(x^2))$. 
+Substituting $f(x^2) f(f(x^2))\la \frac{a + b} 2$ gives 
+$\frac 1{a}+ \frac 1{b}=\frac 2{f(x^2)f(f(x^2))}=\frac 4{a+b}.$
 which we can cross multiply to get 
-$(f(x)f(x)f(f(x^2))+ f(x^2f(x^2)))^2=4(f(x)f(x)f(f(x^2))\cdot f(x^2f(x^2)))$, 
-a.k.a. $(f(x)f(x)f(f(x^2))- f(x^2f(x^2)))^2=0$. 
-Therefore $f(x)f(x)f(f(x^2))=f(x^2f(x^2))=f(x^2)f(f(x^2))$. 
-Factorizing out $f(f(x^2))$ gives $f(x)^2=f(x^2)$, 
-and from (2), $f(x)=xf(x^2)=xf(x)^2$, or \hbox{$xf(x)=1$, or $f(x)=\frac 1x$}. 
+$(a+b)^2=4ab$, or $(a-b)^2=a^2+b^2-ab=a^2+b^2+2ab-4ab=(a+b)^2-4ab=0$. 
+This yields $a-b=0$, and hence 
+$f(x)^2f(f(x^2))=a=b=f(x^2f(x^2))$. 
+Now looking back to 5(b) again we have 
+$2f(x^2) f(f(x^2)) = f(x)^2f(f(x^2)) + f(x^2f(x^2)) = f(x)^2f(f(x^2)) + f(x)^2f(f(x^2))=2f(x)^2f(f(x^2)),$ 
+so $f(x^2) f(f(x^2))=f(x)^2 f(f(x^2))$, or simply 
+$f(x^2)=f(x)^2$ (after factorizing $f(f(x^2))$ out which we assumed its non-zero. 
+Finally from step 3 again we have 
+$f(x)=xf(x^2)=xf(x)^2$, so $xf(x)=1$ and $f(x)=\frac 1x$. 
 
+\end{itemize}
 \end{itemize}
 
 \item[\textbf{A5}]
@@ -418,28 +436,52 @@ Thankfully $|\frac{(x-(4i-2))(x-(4i-1))}{(x-4i)(x-(4i-3))}|\le \frac 19$ wheneve
 
 \textbf{Solution.} The answer is 2016. 
 Anything fewer doesn't work, because for some $i$, the factor $x-i$ appears on both sides, 
-so $i$ is itself a root. 
+so $i$ is itself a root. It remains to show that 2016 is good to go. 
+We claim that the equation 
+$$\displaystyle\prod_{i=1}^{504} (x-(4i-3))(x-(4i))=\displaystyle\prod_{i=1}^{504} (x-(4i-2))(x-(4i-1))$$ 
+has no real solution by showing that the left-hand side is always strictly smaller than the right hand side, realized by the following simpler cases: 
+\begin{itemize}
+\item [Case 1.] 
+$x\in\{1,2,\cdots ,2016\}$. 
+Now, if $x=4i$ or $x=4i+1$ then LHS=0 while RHS has $2i$ negative factors (while the rest positive) hence positive, 
+so $LHS=0<RHS$. 
+If $x=4i-1$ or $x=4i-2$ then the right is 0 while the left has $2i-1$ negative factors (while the rest positive) hence negative, 
+giving $LHS<0=RHS$. 
 
-It remains to show that 2016 is good to go. 
-We claim that the equation $\displaystyle\prod_{i=1}^{504} (x-(4i-3))(x-(4i))=\displaystyle\prod_{i=1}^{504} (x-(4i-2))(x-(4i-1))$ has no real solution by showing that the left-hand side is always strictly smaller than the right hand side. 
-We first eliminate the obvious cases where $LHS>0$ while $RHS<0$. 
-Observe that whenever $x\in (4i+1, 4i+2)$ for some $i\in [0, 503]$, 
-there are $2i+1$ negative factors (and the rest $1007-2i$ positive) on the left (hence negative) while $2i$ negative factors (and the rest $1008-2i$ positive) on the right (hence positive). 
-Also whenever $x\in (4i-1, 4i)$ for some $i\in [1, 504]$, 
-there are $2i-1$ negative factors (and the rest $1009-2i$ positive) on the left (hence negative) while $2i$ negative factors (and the rest $1008-2i$ positive) on the right (hence positive). 
-Thus in both of the cases the left is less than 0 while the right is more than 0. 
-As for the endpoints $x\in\{1,2,\cdots ,2016\}$, if $x=4i$ or $x=4i+1$ then LHS=0 while RHS has $2i$ negative factors (while the rest positive) hence positive. 
-If $x=4i-1$ or $x=4i-2$ then the right is 0 while the left has $2i-1$ negative factors (while the rest positive) hence negative. 
+\item [Case 2.] $x\in (4i+1, 4i+2)$ for some integer $i\in [0, 503]$. 
+Now there are $2i+1$ negative factors (and the rest $1007-2i$ positive) on the left (hence negative) while $2i$ negative factors (and the rest $1008-2i$ positive) on the right (hence positive). This gives $LHS<0<RHS$.
 
-If $x>2016$ then we have LHS and RHS both greater than 0 (since all remaining 2016 factors are positive). 
-Nevertheless, in light of the relation 
-$(x-(4i-2))(x-(4i-1))-(x-(4i-3))(x-(4i))=(4i-1)(4i-2)-(4i-3)(4i)=2$ we have 
-$|(x-(4i-2))(x-(4i-1))|>|(x-(4i-3))(x-(4i))|$, and thus 
-$\displaystyle\prod_{i=1}^{504} |(x-(4i-3))(x-(4i))|<\displaystyle\prod_{i=1}^{504} |(x-(4i-2))(x-(4i-1))|$. 
-Since each side is positive, $\displaystyle\prod_{i=1}^{504} (x-(4i-3))(x-(4i))<\displaystyle\prod_{i=1}^{504} (x-(4i-2))(x-(4i-1))$. 
-The case $x<1$ is symmetrical and hence analogous. 
+\item [Case 3.] $x\in (4i-1, 4i)$ for some integer $i\in [1, 504]$. 
+Similar to case 2, there are $2i-1$ negative factors (and the rest $1009-2i$ positive) on the left (hence negative) while $2i$ negative factors (and the rest $1008-2i$ positive) on the right (hence positive). 
+Again $LHS<0<RHS$. 
 
-We are thus left with the trickiest case: $x\in (4i-2, 4i-1)$ for some $i\in [1, 504]$, whereby both sides are negative. 
+\item [Case 4.] $x>2016$, $x<1$, or $x\in (4j, 4j+1)$ for some integer $j\in [1, 503]$. 
+Observe the following relation:
+$$(x-(4i-2))(x-(4i-1))-(x-(4i-3))(x-(4i))=(4i-1)(4i-2)-(4i-3)(4i)=2$$ 
+We claim that for each integer $i\in [1, 504]$ we have 
+$(x-(4i-2))(x-(4i-1)), (x-(4i-3))(x-(4i))>0$. 
+If $x>2016$ we have $x-(4i-2), x-(4i-1), x-(4i-3), x-(4i) >0$. 
+If $x<1$ we have $x-(4i-2), x-(4i-1), x-(4i-3), x-(4i) <0$ (and recall that the product of two negative numbers are positive). 
+If $x\in (4j, 4j+1)$ for some integer $j\in [1, 503]$ we have: 
+$$\begin{cases} 
+x-(4i-2), x-(4i-1), x-(4i-3), x-(4i) >0 & \text{if } i\le j \\ 
+x-(4i-2), x-(4i-1), x-(4i-3), x-(4i) <0 & \text{if } i > j 
+\end{cases} $$
+Therefore we always have 
+$$|(x-(4i-2))(x-(4i-1))|>|(x-(4i-3))(x-(4i))|.$$ 
+This implies 
+$$\displaystyle\prod_{i=1}^{504} |(x-(4i-3))(x-(4i))|<\displaystyle\prod_{i=1}^{504} |(x-(4i-2))(x-(4i-1))|$$ 
+and since each side is positive, 
+$$\displaystyle\prod_{i=1}^{504} (x-(4i-3))(x-(4i))<\displaystyle\prod_{i=1}^{504} (x-(4i-2))(x-(4i-1)).$$ 
+
+This case requiries a little more manipulation than that of cases 4 and 5, but the idea is not much differen
+\end{itemize}
+
+We are now left with the trickiest case: 
+\begin{itemize}
+
+\item [Case 5.]
+$x\in (4i-2, 4i-1)$ for some $i\in [1, 504]$, whereby both sides are negative. 
 The goal is therefore to show that $|LHS|>|RHS|$.  
 We still want to keep in mind that $(x-(4i-2))(x-(4i-1))-(x-(4i-3))(x-(4i))=(4i-1)(4i-2)-(4i-3)(4i)=2$, 
 and that both $(x-(4i-2))(x-(4i-1))$ and $(x-(4i-3))(x-(4i))$ are positive for $x\not\in [4i-3, 4i]$. 
@@ -472,7 +514,9 @@ $<2$,
 Thus $\dfrac{\displaystyle\prod_{i=1}^{504} |(x-(4i-2))(x-(4i-1))|}{\displaystyle\prod_{i=1}^{504} |(x-(4i-3))(x-(4i))|}$
 $<2\times \frac{1}{9}\times 2$
 $<\frac 49$, 
-and we are done. (OMG the long proof...)
+
+\end{itemize}
+and now we are done (omg the long proof...)
 
 \end{itemize}
 
@@ -695,7 +739,7 @@ Let $n \geq 3$ be a positive integer. Find the maximum number of diagonals in a 
 \textbf{Solution.} The answer is $n-3$ for $n$ odd, and $n-2$ for $n$ even. 
 For simplicity we denote the circumcircle of the $n$-gon as $\Gamma$, and our $n$-gon be $A_1A_2\cdots A_n$. 
 
-We first shot that no two diagonals can be perpendicular for $n$ odd. 
+We first show that no two diagonals can be perpendicular for $n$ odd. 
 Indeed, in terms of cordinate geometry, let one diagonal joining $(\sin a, \cos a)$ and $(\sin b, \cos b)$ we have the gradient as 
 $\frac{\cos b-\cos a}{\sin b-\sin a}$. 
 Similarly let another diagonal with gradient 
@@ -1064,8 +1108,23 @@ and this is equivalent to $A\in S'$.
 We are now ready to justify our selection: 
 \begin{itemize}
 \item[(i)]
-In $S$ we can simply take any point as $T$, since the boundaries $x$-axis with $x\in [0, \sqrt{3}]$, $y$-axis with $y\in [0, 1], $ and the arc of the circle $(x-1)^2+y^2=4$ with $x\ge 0$ are concave. 
-In $S'$ we take $T=(3,0)$. 
+In $S$ we can simply take any point as $T$, since the boundaries $x$-axis with $x\in [0, \sqrt{3}]$, $y$-axis with $y\in [0, 1], $ and the arc of the circle $(x-1)^2+y^2=4$ with $x\ge 0$ are convex. 
+In $S'$ we take $T'=(3,0)$. 
+Let $Q'$ be in $S'$ and we want to show that the whole segment $T'Q'$ lies on $S'$. 
+Consider the region $S\cup S'$, i.e. the region bounded by $x-$ and $y-$ axes, together with the circular arc of the circle $(x-1)^2+y^2=4$. 
+This region is also convex, so with $T', Q'$ lying in the region $S\cup S'$, the entire segment is in this region too. 
+The aim is therefore to show that no point of the segment lies in the interior of $S$ or on the $y$-axis. 
+Suppose on the contrary we have $R\in S$ belonging in the segment $T'Q'$. 
+From the convexity of the region $S\cup S'$ we only need to consider the part of the line $T'Q'$ lying in this region. 
+With $R$ lying in $S$, we know that segment $T'Q'$ intersects the boundary separating $S$ and $S'$ (i.e. the circular arc) at least once, 
+and since $Q'$ is outside (or on the boundary of) the region $S$, it must intersect the boundary for another time, 
+entailing the fact that this segment has to intersect the circular arc for exactly twice. 
+Let $X$ and $X'$ be the intersections, and we have 
+$\angle BX'T'=180^{\circ}-\angle BXT'$. 
+Denoting $X'$ as the further point from $T'$ and we have $\angle BX'T'<90^{\circ}$. 
+Now consider the point $A=(0, \sqrt{3})$, and $A$ is on both $S$ and $S'$, which we have $\angle BAT'=90^{\circ}$. 
+Therefore all $X$ on the arc must sastisfying $\angle BXT'\ge \angle BAT'=90^{\circ}$ since $X$ lies inside the triangle $BAT'$ 
+(contradiction).
 
 \item[(ii)] Observe that the objective is equivalent to: 
 for each triangle $P_1P_2P_3$ there is a unique point $A$ with triangle $ABC$ quasisimilar to $P_1P_2P_3$ satisfying $AC\le AB\le BC$, 
@@ -1093,13 +1152,13 @@ This means $AC$ and $A'C$ corresponds to $P_1P_2$.
 In $ABC$, we know that $AB\le BC$ implies $AB$ corresponds to $P_1P_3$, $BC$ corresponds to $P_2P_3$;
 In $ABC$, we know that $BC\le A'B$ implies $BC$ corresponds to $P_1P_3$, $A'B$ corresponds to $P_2P_3$. 
 Therefore $\frac{AB}{BC}=\frac{P_1P_3}{P_2P_3}=\frac{BC}{A'B}$ and $BC^2=AB\cdot A'B$. 
-\end{itemize}
 
 \item [Case 4.] $P_1P_2P_3$ scalene, and let $P_1P_2<P_1P_3<P_2P_3$. 
 This means $AC$ and $A'C$ corresponds to $P_1P_2$. 
 In $ABC$, we know that $AB\le BC$ implies $AB$ corresponds to $P_1P_3$, $BC$ corresponds to $P_2P_3$;
 In $ABC$, we know that $BC\le A'B$ implies $BC$ corresponds to $P_1P_3$, $A'B$ corresponds to $P_2P_3$. 
 Therefore $\frac{AB}{BC}=\frac{P_1P_3}{P_2P_3}=\frac{BC}{A'B}$ and $BC^2=AB\cdot A'B$. 
+\end{itemize}
 \end{itemize}
 
 \item[\textbf{G4}]
