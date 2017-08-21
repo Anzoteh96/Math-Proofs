@@ -49,45 +49,70 @@ The next step is to compare $f(a,b,c)$ with $f(k,k,k)$ where $k$ is the average 
 (Here we denote $f(a,b,c)$ as $(a^2+1)(b^2+1)(c^2+1)$). 
 Ideally, we want to find $x$ and $y$ with average $k$ such that 
 $f(a,b,c)\le f(k,x,y)\le f(k,k,k)$. 
-The right inequality is easy to maintain. 
-The left inequality, however, requires some cas-by-case analysis (such as $m(a,b,c)\le k$ and $m(a,b,c)\ge k$, where $m$ denotes the median of the three variables here). 
-And finally we also need to check that $\min(kx, ky, xy)$ is maintained.
+The right inequality is easy to establish for any $x, y$ with sum $2k$, given that $\min(kx, ky, xy)\ge 1$. 
+This, however, requires us to maintain this invariant for the right inequality. 
+Additionally, for left inequality to work we need one of $k, x, y$ to be the same as one of $a, b, c$, 
+wjich requires some case-by-case analysis (i.e. $m(a,b,c)\le k$ and $m(a,b,c)\ge k$, where $m$ denotes the median of the three variables here). 
+These aren't hard, just some work needed. 
 \end{itemize}
 
 \textbf{Solution.} 
 We start with a preliminary observation: 
 given that $k\ge 2$, and given the set of pairs $K=\{(a,b): a+b=k, ab\ge 1\}$, 
-then for any $(a_1,b_1), (a_2, b_2)\in K$, 
-$(a_1^2+1)(b_1^2+1)\ge (a_2^2+1)(b_2^2+1)$ iff $|a_1-b_1|\le |a_2-b_2|$. 
+then for any $(a_1,b_1), (a_2, b_2)\in K$ we have
+\[(a_1^2+1)(b_1^2+1)\ge (a_2^2+1)(b_2^2+1) \text{ iff } |a_1-b_1|\le |a_2-b_2|.\] 
 Indeed, for $(a,b)\in K$, $(a^2+1)(b^2+1)=(a+b)^2+a^2b^2-2ab+1$
-$=k^2+(ab-1)^2$
-$=k^2+(\frac{(a+b)^2-(a-b)^2}{2}-1)^2$
-$=k^2+(\frac{k^2-(a-b)^2}{2}-1)^2$, 
-and given that $ab\ge 1$, this function is increasing in $ab$. 
+$=k^2+(ab-1)^2$. 
+In addition, $ab=\frac{(a+b)^2-(a-b)^2}{2}=\frac{k^2-(a-b)^2}{2}$
+so we have 
+\[(a_1^2+1)(b_1^2+1)-(a_2^2+1)(b_2^2+1)
+=(a_1b_1-1)^2-(a_2b_2-1)^2
+=(a_1b_1+a_2b_2-2)(a_1b_1-a_2b_2)\]
+\[=(a_1b_1+a_2b_2-2)\left(\frac{(k^2-(a_1-b_1)^2)-(k^2-(a_2-b_2)^2)}{2}\right)
+=(a_1b_1+a_2b_2-2)\left(\frac{(a_2-b_2)^2-(a_1-b_1)^2)}{2}\right).\]
+Now that $a_1b_1, a_2b_2\ge 1$, 
+$(a_1^2+1)(b_1^2+1)-(a_2^2+1)(b_2^2+1)\ge 0$ iff 
+$a_1b_1-a_2b_2\ge 0$. 
+(Technically we need to consider the case where $a_1b_1=a_2b_2=1$, which gives $a_1b_1+a_2b_2-2=0$. 
+However this will also give $a_1b_1-a_2b_2=0$ so the claim is valid.)
+This means $(a_1^2+1)(b_1^2+1)-(a_2^2+1)(b_2^2+1)\ge 0$ iff $(a_2-b_2)^2-(a_1-b_1)^2\ge 0$ 
+iff $|a_2-b_2|\ge a_1b_1|$. 
+In other words, 
 In addition, with $a+b$ fixed, this function is also dereasing in $(a-b)^2$, which turns out to also be decreasing in $|a-b|$. 
 
 Now let $a+b+c=3k$, and let $f(a,b,c)=(a^2+1)(b^2+1)(c^2+1)$. 
-W.l.o.g. assume that $a\le b\le c$. 
-Let $b\le k$, then by above, $(b^2+1)(c^2+1)\le (k^2+1)((b+c-k)^2+1)$ because 
-$b+c\ge 2k$ ($a\le k$ and $c\ge k$), and 
-$(b+c-k)-k=(b+c)-2k\le (b+c)-2b=c-b$ (since $b\le k$), 
-which follows that $k(b+c-k)\ge bc\ge 1$. 
-Likewise, if $b\ge k$ then by above, 
-$(a^2+1)(b^2+1)\le ((a+b-k)^2+1)(k^2+1)$ because 
-$b+a\le 2k$ ($a\le k$ and $c\ge k$), and 
+Notice that the left hand side is $\sqrt[3]{f(a,b,c)}$ while the right hand side is $(k^2+1)=\sqrt[3]{f(k,k,k)}$. 
+W.l.o.g. assume that $a\le b\le c$. We want to show that 
+\begin{itemize}
+\item [1.] If $b\le k$ then $f(a,b,c)\le f(a, k, b+c-k)\le f(k, k, k)$. 
+\item [2.] If $b\ge k$ then $f(a,b,c)\le f(a+b-k, k, c)\le f(k,k,k)$. 
+\end{itemize}
+
+In the first case, we have $a\le k$ so $b+c\ge 2k$, meaning that 
+$b+c-k\ge k$. 
+Moreover, $b+c-k+k=b+c$, and $(b+c-k)-k=(b+c)-2k\ge b+c-2b=c-b$. 
+Therefore $k(b+c-k)\ge bc\ge 1$ and by above, $(b^2+1)(c^2+1)\le (k^2+1)((b+c-k)^2)+1$, thus 
+$f(a,b,c)\le f(a, k, b+c-k)$. 
+In addition, $a\le k\le b+c-k$, so $\min\{ak, a(b+c-k), k(b+c-k)\}=ak\ge ab\ge 1$. 
+We also have $a+(b+c-k)=3k=k=k+k$, 
+so by the first paragraph again 
+$(a^2+1)((b+c-k)^2+1)\le (k^2+1)^2$, 
+which gives 
+$f(a, k, b+c-k)\le f(k, k, k)$. 
+
+In the second case, we have (similarly)
+$b+a\le 2k$ ($a\le k$ and $c\ge k$), which means $2k-(a+b)\ge 0$, or $k\ge a+b-k$. In addition, 
 $k-(a+b-k)=2k-(b+c)\le 2b-(a-b)=b-a$ (since $b\ge k$), 
-which follows that $k(a+b-k)\ge ab=1$. 
-Additionally, after the operation, we have $a\le k\le b+c-k$ in the first case, and $a+b-k\le k\le c$ 
-(a good question to ask might be: what if $a+b-k < 0$ in the second case? This is impossible because we only do this when $b\ge k$). 
-So we only need to verify that the first two has product at least one. 
-In case 1, $ak\ge ab=1$ and in case 2 we have already verified that $k(a+b-k)\ge ab=1$. 
-Thus $f(a,b,c)\le f(a, k, (b+c-k))$ in case 1, or $f(a,b,c)\le f((a+b-k), k, c)$ in case 2. 
-This means we can focus on the case where $b=k$. 
-Nevertheless, when $b=k$ we have $a+c=2k$ and by similar procedure we have $(a^2+1)(c^2+1)\le (k^2+1)^2$, 
-therefore we have: 
-$f(a,b,c)\le f(a, k, (b+c-k))\le f(k,k,k)$ in case 1, 
-$f(a,b,c)\le f((a+b-k), k, c)\le f(k,k,k)$ in case 2, 
-and $f(k,k,k)=(k^2+1)^3$ is precisely the cube the right hand side. Q.E.D. 
+and 
+$ab\le k(a+b-k)$ for this reason. 
+Therefore, 
+$(a^2+1)(b^2+1)\le ((a+b-k)^2+1)(k^2+1)$ 
+and we have $f(a,b,c)\le f(a+b-k, k, c)$. 
+Additionally, $a+b-k\le k\le c$ so
+$\min\{(a+b-k)k, kc, (a+b-k)c\}=(a+b-k)k\ge ab\ge 1$ (as proven above). 
+By the fact that $(a+b-k)+c=k+k$ we have, by first paragraph, 
+$((a+b-k)^2+1)(c^2+1)\le (k^2+1)^2$ so 
+$f(a+b-k, k, c)\le f(k,k,k)$. 
 
 \item[\textbf{A2}]
  Find the smallest constant $C > 0$ for which the following statement holds: among any five positive real numbers $a_1,a_2,a_3,a_4,a_5$ (not necessarily distinct), one can always choose distinct subscripts $i,j,k,l$ such that
@@ -118,7 +143,12 @@ A similar conclusion can be reached for the case $\frac 1a-\frac 1d\le 0$.
 Moreover, this motivates the following equality case: by setting $a=2$ and $d$ approaching infinity (and yeah, this is how the example $1, 2, 2, 2, n$ can be conjured). 
 The job now reduces to proving that $\min \{\frac 1{bc}|\frac 1a-\frac 1d|, \frac 1b|\frac 1a-\frac 1c|, \frac 1c|\frac 1b-\frac 1d|\}\le \frac 12$, which is no longer hard by case-by-case analysis as below. 
 
-\textbf{Solution.} The answer is $\frac 12$. 
+\textbf{Answer.} $C=\frac 12$. 
+
+\textbf{Solution.} 
+First, we show that $C\ge\frac 12$ is necessary. 
+Suppose that there exists $\epsilon >0$ such that for each $a_1,a_2,a_3,a_4,a_5$ we can choose $i, j, k, l$ with 
+$\left| \frac{a_i}{a_j} - \frac {a_k}{a_l} \right| \le \frac 12-\epsilon $. 
 
 First, let $a_1=1, a_2=a_3=a_4=2$, $a_5=n$ for some extremely large real number $n$. 
 The possible numbers of $\frac {a_i}{a_j}$ are $\frac 1n, \frac 2n, \frac 12, 1, 2, \frac n2, n$. 
@@ -130,7 +160,8 @@ Since there are three $i$'s satisfying $a_i=2$, there cannot be distinct $i,j,k,
 We therefore know that  $\frac{a_i}{a_j}=\frac {a_k}{a_l}$ is impossible, 
 and same goes to $\frac{a_i}{a_j}=\frac 1n, \frac {a_k}{a_l}=\frac 2n$. 
 We also have $n-\frac n2> \frac n2 -2 > 2-1>1-\frac 12>\frac 12-\frac 2n$ for sufficiently large real $n$, 
-and $\lim_{n\to\infty}\frac 12-\frac 2n=\frac 12$. 
+and if $\frac 12-\frac 2n > C=\frac 12-\epsilon$ then $C<n-\frac n2, \frac n2 -2, 2-1, 1-\frac 12$, 
+so $\frac 12-\frac 2n\le \frac 12-\epsilon$ for all $n$< which does not hold for $n > 2\epsilon$. 
 Therefore $C\ge \frac 12$. 
 
 Now, we show that $C=\frac 12$ fits in all situations. 
@@ -175,10 +206,11 @@ $0\le \sum_{i=1}^n \varepsilon_i b_i\le 1$, giving
 $| \sum_{i=1}^n \varepsilon_i a_i|+|\sum_{i=1}^n \varepsilon_i b_i|\le 1$. 
 (Well, the proof for the existence of $\varepsilon_i$'s isn't that straightforward, but so does the construction of the counterexamples $a_i$'s and $b_i$'s which is guarateed to fail. The proof of the existence of such $\varepsilon_i$'s is better explained in the solution. 
 
-In view of this we likely know that the answer *might* be positive even extended to the cases that $a_i$'s and $b_i$'s might have opposite signs for odd $n$ (and yes, once the invariant of $|a_i+b_i|=1$ or $|a_i-b_i|=1$ is observed the proof isn't that hard anymore, although still tricky). 
+In view of this we likely know that the answer *might* be positive even extends to the cases that $a_i$'s and $b_i$'s might have opposite signs for odd $n$. And yes, the invariant of $|a_i-b_i|=1$ or $|a_i+b_i|=1$ further motivates us to split the pairs $(a_i, b_i)$ into those with same signs and different signs. The simplified case of $a_i, b_i\ge 0$ for all $i$ also motivates us to find such $\varepsilon_i$'s such that $\sum\varepsilon_i a_i$ and $\sum\varepsilon_i b_i$ are both in $[-1, 1]$ for $a_i, b_i\ge 0, $ which we can further narrow the interal down to $[0, 1]$ for both when $m$ (the total number of summands) is odd, and $[0, 1]$ for sum of $a_i$'s and $[-1, 0]$ for sum of $b_i$'s when $m$ is even. This is all we need to prove the answer is "yes". 
+
+\textbf{Answer.} All odd $n$. 
 
 \textbf{Solution.} 
-The answer is all odd $n$. 
 We first find a counterexample for all $n=2k$ for some $k\ge 1$ an integer. 
 Consider $a_i=1$, $b_i=0$ for all $i\in [1, 2k-1]$, 
 and $a_{2k}=0, b_{2k}=1$. 
@@ -197,11 +229,11 @@ Then there exists $\varepsilon_1, \varepsilon_2, \cdots, \varepsilon_m\in \{-1, 
 \begin{tabular}{c c c c} 
 $0\le \sum_{i=1}^m \varepsilon_i a_i, \sum_{i=1}^m \varepsilon_i b_i\le 1$
 & and & $\sum_{i=1}^m \varepsilon_i a_i +\sum_{i=1}^m \varepsilon_i b_i=1$ & if  $m$ is odd, \\ 
-$-1\le \sum_{i=1}^m \varepsilon_i a_i, \sum_{i=1}^m \varepsilon_i b_i\le 1$
+$-1\le \sum_{i=1}^m \varepsilon_i a_i\le 0\le\sum_{i=1}^m \varepsilon_i b_i\le 1$
 & and & $\sum_{i=1}^m \varepsilon_i a_i +\sum_{i=1}^m \varepsilon_i b_i=0$ & if  $m$ is even. \\ 
 \end{tabular} 
 \end{center}
-In the first case, we notice that the second condition can be achieved whenever exactly $\frac{m+1}2$ of $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_m$ are 1 and the rest -1. 
+In the first case, we notice that the second condition can be achieved whenever exactly $\frac{m+1}2$ of $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_m$ are 1 and the rest $-1$. 
 For any combination of $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_m$ with exactly $\frac{m+1}{2}$ of them as 1 we have 
 $ \sum_{i=1}^m \varepsilon_i a_i  + \sum_{i=1}^m \varepsilon_i b_i $
 $=\sum_{i=1}^m \varepsilon_i$
@@ -214,26 +246,26 @@ $x_0, x_1, \cdots , x_{\frac{m-1}2}$ such that
 \[ x_k=\sum_{i=1}^{k} -a_i+\sum_{i=k+1}^{k+\frac{m+1}{2}} a_i+\sum_{i=k+\frac{m+1}{2}+1}^{m} -a_i\]
 Notice, first, that for each $x_i$, exactly $\frac{m+1}{2}$ of the $a_i$'s has coefficient 1 and the rest -1. 
 Therefore if $0\le x_k\le 1$ for some $k$ we are done. 
-Observe also that, $x_0=\sum_{i=1}^{\frac{m+1}{2}} a_i+\sum_{i=\frac{m+1}{2}+1}^{m} -a_i$
-$\le \sum_{i=1}^{\frac{m+1}{2}} a_{\frac{m+1}{2}} +\sum_{i=\frac{m+1}{2}+1}^{m} -a_{\frac{m+1}{2}}$
-$=a_{\frac{m+1}{2}}$
-$\le 1.$
-$x_{\frac{m-1}{2}}=\sum_{i=1}^{\frac{m-1}{2}} -a_i+\sum_{i=\frac{m+1}{2}}^{m} a_i$
-$\ge \sum_{i=1}^{\frac{m-1}{2}} -a_{\frac{m+1}{2}}+\sum_{i=\frac{m+1}{2}}^{m} a_{\frac{m+1}{2}}$
-$=a_{\frac{m+1}{2}}$
-$\ge 0$. 
+Observe also that, 
+\[x_0=\sum_{i=1}^{\frac{m+1}{2}} a_i+\sum_{i=\frac{m+1}{2}+1}^{m} -a_i
+\le \sum_{i=1}^{\frac{m+1}{2}} a_{\frac{m+1}{2}} +\sum_{i=\frac{m+1}{2}+1}^{m} -a_{\frac{m+1}{2}}
+=a_{\frac{m+1}{2}}
+\le 1;\]
+\[x_{\frac{m-1}{2}}=\sum_{i=1}^{\frac{m-1}{2}} -a_i+\sum_{i=\frac{m+1}{2}}^{m} a_i
+\ge \sum_{i=1}^{\frac{m-1}{2}} -a_{\frac{m+1}{2}}+\sum_{i=\frac{m+1}{2}}^{m} a_{\frac{m+1}{2}}
+=a_{\frac{m+1}{2}}
+\ge 0.\] 
+If $x_0, x_{\frac{m-1}{2}}\not\in [0, 1]$ (observe that we are done if either of them is in the interval), then $x_0<0$ and $x_{\frac{m-1}{2}}>1$. 
+This allows us to choose a $k$ such that $x_k>1$ and $x_{k-1}\le 1$. 
 Moreover, $x_k-x_{k-1}=a_{k+\frac{m+1}{2}}-a_{k}-a_{k}+a_{k+\frac{m+1}{2}}=2(a_{k+\frac{m+1}{2}}-a_{k}), $
 so $x_{k-1}\le a_k\le x_{k-1}+2$ (since $|a_i-a_j|\le 1$). 
-If $0\le x_0\le 1$ or $0\le x_{\frac{m-1}{2}}\le 1$ then we are done. 
-Otherwise we have $x_0<0$ and $x_{\frac{m-1}{2}}>1$, 
-which means there exists $k$ such that $x_k>1$ and $x_{k-1}\le 1$. 
 If $x_{k-1}\ge 0$ we are done. 
 Otherwise, we have $x_k-x_{k-1}>1$ and therefore $a_{k+\frac{m+1}{2}}-a_{k}>\frac 12$, 
 meaning that $a_{k+\frac{m+1}{2}}>\frac 12$. 
 Now let $y_k=x_k-2a_{k+\frac{m+1}{2}}$ we have $y_k\le x_{k-1}<0$ but $y_k\ge x_k-2>-1$. 
 This means $0\le -y_k\le 1$ and 
-$y_k=\sum_{i=1}^{k} a_i+\sum_{i=k+1}^{k+\frac{m+1}{2}-1} -a_i+\sum_{i=k+\frac{m+1}{2}}^{m} a_i$. 
-It is not hard to see that exactly $\frac{m+1}{2}$ of the $a_i$'s has coefficient 1 and the rest -1, so we are done. 
+\[-y_k=\sum_{i=1}^{k} a_i+\sum_{i=k+1}^{k+\frac{m+1}{2}-1} -a_i+\sum_{i=k+\frac{m+1}{2}}^{m} a_i.\] 
+Among them, $\varepsilon_1$, $\varepsilon_2$, $\cdots$, $\varepsilon_k$, $\varepsilon_{k+\frac{m+1}2}, \cdots, \varepsilon_m$ are 1 $(k+m-(k+\frac{m+1}2-1)=\frac{m+1}2$ of them) with the rest $-1$. Hence we are done. 
 
 The second case isn't much different from the first. 
 The second condition can be achieved whenever exactly half of $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_m$ are 1 and the rest -1. 
@@ -241,22 +273,27 @@ To see why, we have
 $ \sum_{i=1}^m \varepsilon_i a_i  + \sum_{i=1}^m \varepsilon_i b_i $
 $=\sum_{i=1}^m \varepsilon_i$
 $=\frac m2-\frac m2=0$. 
+With this fixed, all we need to make sure is that 
+$ \sum_{i=1}^m \varepsilon_i a_i \in [0,1]$. 
 Again w.l.o.g. let $a_1\le a_2\le\cdots \le a_m$, and consider the numbers 
 $x_0, x_1, \cdots , x_{\frac{m}2}$ such that 
 \[ x_k=\sum_{i=1}^{k} -a_i+\sum_{i=k+1}^{k+\frac{m}{2}} a_i+\sum_{i=k+\frac{m}{2}+1}^{m} -a_i\]
 Again each $x_k$ satisfies exactly $\frac m2$ have coefficient 1 and the rest -1. 
 Thus if $-1\le x_k\le 1$ for some $k$ we are done. 
-Observe also that, $x_0=\sum_{i=1}^{\frac{m}{2}} a_i+\sum_{i=\frac{m}{2}+1}^{m} -a_i$
-$\le \sum_{i=1}^{\frac{m}{2}} a_{\frac{m}{2}} +\sum_{i=\frac{m}{2}+1}^{m} -a_{\frac{m}{2}}$
-$=0$. 
-$x_{\frac{m}{2}}=\sum_{i=1}^{\frac{m}{2}} -a_i+\sum_{i=\frac{m}{2}+1}^{m} a_i$
-$\ge \sum_{i=1}^{\frac{m}{2}} -a_{\frac{m}{2}} +\sum_{i=\frac{m}{2}+1}^{m} a_{\frac{m}{2}}$
-$=0$. 
-If $-1\le x_0\le 1$ or $-1\le x_{\frac m2}\le 1$ we are done. 
-Otherwise we have $x_0<-1$ and $x_{\frac m2}>1$, 
+Otherwise, notice that
+\[x_0=\sum_{i=1}^{\frac{m}{2}} a_i+\sum_{i=\frac{m}{2}+1}^{m} -a_i
+\le \sum_{i=1}^{\frac{m}{2}} a_{\frac{m}{2}} +\sum_{i=\frac{m}{2}+1}^{m} -a_{\frac{m}{2}}
+=0;\]
+\[x_{\frac{m}{2}}=\sum_{i=1}^{\frac{m}{2}} -a_i+\sum_{i=\frac{m}{2}+1}^{m} a_i
+\ge \sum_{i=1}^{\frac{m}{2}} -a_{\frac{m}{2}} +\sum_{i=\frac{m}{2}+1}^{m} a_{\frac{m}{2}}
+=0.\]
+This forces $x_0<-1$ and $x_{\frac m2}>1$, 
 which allows us to pick a $k$ satisfying $x_k>1$ and $x_{k-1}\le 1$. 
 By the similar logic as in case 1 we have $0\le x_k-x_{k-1}\le 2$. 
-This means $x_{k-1}>-1$, which in turn gives $-1\le x_{k-1}\le x_k$ and we are done. 
+This means $x_{k-1}>-1$, which gives $-1\le x_{k-1}\le 1$. 
+If $x_{k-1}\le 0$ we are done. Otherwise, $-1\le -x_{k-1}\le 0$ and we have 
+\[-x_{k-1}=\sum_{i=1}^{k-1} a_i+\sum_{i=k}^{k+\frac{m}{2}-1} -a_i+\sum_{i=k+\frac{m}{2}}^{m} a_i.\]
+Again $\varepsilon_i=1$ for $i=1, 2, \cdots k-1$ and $k+\frac{m}{2}, \cdots, m$, which isn't that hard to verify that there are exactly $\frac m2$ of them. 
 
 To finish up the solution, 
 we split the $a_i$'s and $b_i$'s into two groups: 
@@ -265,49 +302,46 @@ W.L.O.G. let the first group be
 $(a_i, b_i)$; $i\in [1, m]$ and the second group be $(a_i, b_i)$: $i\in [m+1, n]$. 
 For $i\in [1, m]$, we can w.l.o.g. assume that $a_i, b_i\ge 0$ (indeed, if $\varepsilon_i$ is a solution for $(a_i, b_i)$ then $-\varepsilon_i$ is a solution for $(-a_i, -b_i)$). 
 Similarly we can also assume that $i\in [m+1, n]$ we have $a_i\ge 0$ and $b_i\le 0$. 
-Also we invoke another property: if $-1\le x+y\le 1$ and $-1\le x-y\le 1$ then $|x|+|y|\le 1$. 
-Indeed, $|x|+|y|\in \{x+y, x-y, y-x, -x-y\}$ so $-1\le x+y\le 1\to -1\le -x-y\le 1$, 
-$-1\le x-y\le 1\to -1\le -x+y\le 1$ so $-1\le |x|+|y|\le 1$. 
+Also notice that $|x|+|y|\in \{x+y, x-y, y-x, -x-y\}$ 
+so to prove that $|x|+|y|\le 1$ all w need to do is to prove that $-1\le x+y\le 1$ and $-1\le x-y\le 1$. 
 (Bonus: try to show that this is an if and only if condition: convince yourself that $|x|+|y|=\max \{x+y, x-y, y-x, -x-y\}$.)
 
 We split into two cases: 
 \begin{itemize}
 \item [Case 1.] $m$ is odd. 
 From our lemma, by some careful choices of $\varepsilon_i$'s we have 
-$0\le\sum_{i=1}^m \varepsilon_i a_i, \sum_{i=1}^m \varepsilon_i b_i\le 1$ and $\sum_{i=1}^m \varepsilon_i a_i +\sum_{i=1}^m \varepsilon_i b_i=1$. 
-In addition, 
-$-1\le\sum_{i=m+1}^n \varepsilon_i a_i, \sum_{i=m+1}^n \varepsilon_i (-b_i)\le 1$ and $\sum_{i=m+1}^n \varepsilon_i a_i +\sum_{i=m+1}^n \varepsilon_i (-b_i)=0$. 
-This means, $\sum_{i=m+1}^n \varepsilon_i a_i=\sum_{i=m+1}^n \varepsilon_i b_i=c$ for some $c$. 
+\begin{center}
+\begin{tabular}{c c c} 
+$0\le \sum_{i=1}^m \varepsilon_i a_i, \sum_{i=1}^m \varepsilon_i b_i\le 1$
+& and & $\sum_{i=1}^m \varepsilon_i a_i +\sum_{i=1}^m \varepsilon_i b_i=1$ ; \\ 
+$-1\le \sum_{i=m+1}^n \varepsilon_i a_i\le 0\le \sum_{i=m+1}^n \varepsilon_i (-b_i)\le 1$
+& and & $\sum_{i=m+1}^n \varepsilon_i a_i +\sum_{i=m+1}^n \varepsilon_i (-b_i)=0$. \\ 
+\end{tabular} 
+\end{center}
+This means, $\sum_{i=m+1}^n \varepsilon_i a_i=\sum_{i=m+1}^n \varepsilon_i b_i=c$ for some $c\in [-1, 0]$. 
 Also let $\sum_{i=1}^m \varepsilon_i a_i=a$ and $\sum_{i=1}^m \varepsilon_i b_i=b$, from which we know 
 $a+b=1$ and $0\le a, b\le 1$. 
 Now our term of interest $\left| \sum_{i=1}^n \varepsilon_i a_i \right| + \left| \sum_{i=1}^n \varepsilon_i b_i \right|$ becomes $|a+c|+|b+c|=|a+c|+|1-a+c|$
-If $-1\le c\le 0$, then we have 
+Now we have 
 $a+c+b+c=1+2c$ and from $-1\le c\le 0$ we have $-1\le c\le 1$. 
 Also, $a+c-b-c=a-b=a-(1-a)=2a-1$ and from $0\le a\le 1$ we have $-1\le 2a-1\le 1$. 
-Thus we are done for the case where $c\le 0$. 
-If $c\ge 0$, we 'flip' the signs of $\varepsilon_i$ for $i\in [m+1, n]$ so that 
-$\sum_{i=m+1}^n (-\varepsilon_i a_i)=\sum_{i=m+1}^n (-\varepsilon_i) b_i=c$. 
-Now our sum becomes $|a-c|+|1-a-c|$, and we get 
-$-1=a-1+1-a-1\le a-c+1-a-c\le a-0+1-a-0=1$, and $a+c-b-c=a-b$ is also in the interval $[-1, 1]$ as before. 
 This settles our case 1. 
 
 \item [Case 2.] $m$ is even. 
  Again by our lemma we have 
-$-1\le\sum_{i=1}^m \varepsilon_i a_i, \sum_{i=1}^m \varepsilon_i b_i\le 1$ and $\sum_{i=1}^m \varepsilon_i a_i +\sum_{i=1}^m \varepsilon_i b_i=0$. 
-In addition, 
-$0\le\sum_{i=m+1}^n \varepsilon_i a_i, \sum_{i=m+1}^n \varepsilon_i (-b_i)\le 1$ and $\sum_{i=m+1}^n \varepsilon_i a_i +\sum_{i=m+1}^n \varepsilon_i (-b_i)=1$. 
-Now, let $\sum_{i=1}^m \varepsilon_i a_i=a$ and we have $\sum_{i=1}^m \varepsilon_i b_i=-a$ ($-1\le a\le 1$), 
+\begin{center}
+\begin{tabular}{c c c} 
+$-1\le \sum_{i=1}^m \varepsilon_i a_i\le 0\le \sum_{i=1}^m \varepsilon_i b_i\le 1$
+& and & $\sum_{i=1}^m \varepsilon_i a_i +\sum_{i=1}^m \varepsilon_i b_i=0$ ; \\ 
+$0\le \sum_{i=m+1}^n \varepsilon_i a_i,  \sum_{i=m+1}^n \varepsilon_i (-b_i)\le 1$
+& and & $\sum_{i=m+1}^n \varepsilon_i a_i +\sum_{i=m+1}^n \varepsilon_i (-b_i)=1$. \\ 
+\end{tabular} 
+\end{center}
+Now, let $\sum_{i=1}^m \varepsilon_i a_i=a$ and we have $\sum_{i=1}^m \varepsilon_i b_i=-a$ ($-1\le a\le 0$), 
 let $\sum_{i=m+1}^n \varepsilon_i a_i=c$ and we have $\sum_{i=m+1}^n \varepsilon_i b_i=c-1$ ($0\le c\le 1$). 
 Again, we need to consider $|a+c|+|-a+c-1|$. 
 Observe that $a+c-a+c-1=2c-1$ and from $0\le c\le 1$ we have $-1\le 2c-1\le 1$. 
-$a+c+a-c+1=2a+1$. If $-1\le a\le 0$ we have $-1\le 2a+a\le 1$, which serves our purpose. 
-If $0\le a\le 1$, again we can reverse the signs of $a_i$ ($i\in [1,m]$) as of above so that 
-$\sum_{i=1}^m (-\varepsilon_i) a_i=-a, \sum_{i=1}^m (-\varepsilon_i) b_i=a$, 
-meaning that we need to now consider 
-$|-a+c|+|a+c-1|$. 
-Again $-a+c+a+c-1=2c-1$, giving $-1\le 2c-1\le 1$, as usual. 
-Moreover, $-a+c-a-c+1=1-2a$, which means $-1\le 1-2a\le 1$ for $0\le a\le 1$. 
-This completes the proof as well. 
+$a+c+a-c+1=2a+1$, and from $-1\le a\le 0$ we have $-1\le 2a+a\le 1$, which serves our purpose. 
 \end{itemize}
 
 \item[\textbf{A4}]
@@ -389,8 +423,11 @@ Show that there are infinitely many positive integers $n$ such that no such frac
 \textbf{Thoughts.} 
 Part (b) should very well give a hint on part (a) : $b=\lfloor\sqrt{n}+1\rfloor$ is necessary. 
 Together with another trick of arranging the natural numbers $n$ according to their integer square root 
-(i.e. $\lfloor\sqrt{n}\rfloor$) the case of $b=\lfloor\sqrt{n}+1\rfloor$ covers half of the required numbers. 
-As it turns out, the case $b=\lfloor\sqrt{n}\rfloor$ covers the remaining half, so we are practically done with part (a). 
+(i.e. $\lfloor\sqrt{n}\rfloor$) the case of $b=\lfloor\sqrt{n}+1\rfloor$ covers half of the required numbers 
+(i.e. those numbers in the form $n=k^2+1, k^2+3, \cdots k^2+2k-1$). 
+Therefore we only need to worry about the case $n=k^2, k^2+2, \cdots , k^2+2k$, 
+which turns out all to be comfortably settled by the case $b=\lfloor\sqrt{n}\rfloor$
+(and how do we know that? Experimenting with small numbers!). 
 
 Part (b) requires some experimentation, which is not too hard is we carry on with the partition of the natural numbers according to their integer square roots. 
 Notice, also, that there is no suitable $b$ for $n=k^2+1$ for some $k$, which can be proven using the inequality 
@@ -401,20 +438,25 @@ For part (a), we partion the set of positive integers according to their integer
 that is, the sets $S_1=\{1,2,3\}$, $S_2=\{4,5,6,7,8\}$, $S_3=\{9,10,11,12,13,14,15\}$, etc. 
 Consider $S_k=\{k^2, k^2+1, \cdots k^2+2k\}$, 
 and we claim that $b=k$ and $b=k+1$ alone will jointly work for the sets. 
-Indeed, considering $c\in [0, k]$ we have $(k+\frac ak)^2=k^2+2a+(\frac ak)^2$. 
-With $(\frac ak)^2\le 1$, we have $\sqrt{k^2+2a}\le k+\frac ak\le \sqrt{k^2+2a+1}$, 
-so $b=k$ works for $k^2, k^2+2, \cdots , k^2+2k$. 
-Meanwhile for $c\in [0, k+1]$ we have $(k+\frac a{k+1})^2=k^2+\frac{2ak}{k+1}+(\frac a{k+1})^2$
-$=k^2+2a-\frac{2a}{k+1}+(\frac a{k+1})^2$. 
-Notice that $-\frac{2a}{k+1}+(\frac a{k+1})^2=\frac{a^2-2a(k+1)}{(k+1)^2}$
-$=\frac{(a-(k+1))^2-(k+1)^2}{(k+1)^2}$
-$=\frac{(a-(k+1))^2}{(k+1)^2}-1$, 
-and with $0\le a\le k+1$ we have 
-$-1\le \frac{(a-(k+1))^2}{(k+1)^2}-1\le 0$. 
+(That is, for every positive integer $n\in S_k$, there exists such a fraction $\frac{a}{b}$ such that $\sqrt{n} \le \frac{a}{b} \le \sqrt{n+1}$ and $b \le \{k, k+1\}$). 
+Indeed, let $n=k^2+a$ with $0\le a\le 2k$. 
+If $a=2x$ for some integer $x$ then 
+$(k+\frac xk)^2=k^2+ 2k\left(\frac xk\right)+\left(\frac xk\right)^2$
+$=k^2+2x+\frac{x^2}{k^2}$
+and since $x=\frac a2\le k$ we have $\frac{x^2}{k^2}\le 1$. 
+Therefore, 
+$\sqrt{n}=\sqrt{k^2+a}\le k+\frac xk\le\sqrt{k^2+a+1}=\sqrt{n+1}$. 
+On the other hand, if $a=2x-1$ for some integer $x\in [1, k]$ we have 
+$(k+\frac x{k+1})^2=k^2+\frac{2xk}{k+1}+(\frac x{k+1})^2$
+$=k^2+2x-\frac{2x}{k+1}+(\frac x{k+1})^2$. 
+Notice that $-\frac{2x}{k+1}+(\frac x{k+1})^2=\frac{x^2-2x(k+1)}{(k+1)^2}$
+$=\frac{(x-(k+1))^2-(k+1)^2}{(k+1)^2}$
+$=\frac{(x-(k+1))^2}{(k+1)^2}-1$, 
+and with $0\le x\le k+1$ we have 
+$-1\le \frac{(x-(k+1))^2}{(k+1)^2}-1\le 0$. 
 Therefore 
-$\sqrt{k^2+2a-1}\le k+\frac a{k+1}\le \sqrt{k^2+2a+1}$, 
-and this works for $n=k^2+1$, $k^2+3$, $\cdots$, $k^2+2k-1$. 
-Therefore all elements in $S_k$ are covered. 
+$\sqrt{n}=\sqrt{k^2+2x-1}\le k+\frac x{k+1}\le \sqrt{k^2+2x}=\sqrt{n+1}$. 
+
 As for part (b) we show that there's no fraction $\frac ab$ (with $b\le k$) lying in the interval $[\sqrt{k^2+1}, \sqrt{k^2+2}]$. 
 Notice that, $k< \sqrt{k^2+1} < \sqrt{k^2+2} < \sqrt{k^2+2k+1} =k+1$. 
 Assume that $\frac ab$ satisfies this property, 
@@ -434,9 +476,13 @@ Next, it is not hard to prove that $|LHS|<|RHS|$ whenever both of them are posit
 so the only hard part is to prove that $|LHS|>|RHS|$ when both negative. 
 Thankfully $|\frac{(x-(4i-2))(x-(4i-1))}{(x-4i)(x-(4i-3))}|\le \frac 19$ whenever $x\in (4i-2, 4i-1)$, and we can finish off by using appropriate sum telescoping, again as detailed below. 
 
-\textbf{Solution.} The answer is 2016. 
-Anything fewer doesn't work, because for some $i$, the factor $x-i$ appears on both sides, 
-so $i$ is itself a root. It remains to show that 2016 is good to go. 
+\textbf{Answer.} 2016.
+
+\textbf{Solution.}  
+For each $i$, the factor $x-i$ cannt appear on both sides (otherwise $i$ will itself be a root), 
+so $x-i$ must be erased on on of the sides for each $i\in \{1, 2, \cdots , 2016\}$, forcing at least 2016 factors to be erased. 
+It remains to show that 2016 is good to go. 
+
 We claim that the equation 
 $$\displaystyle\prod_{i=1}^{504} (x-(4i-3))(x-(4i))=\displaystyle\prod_{i=1}^{504} (x-(4i-2))(x-(4i-1))$$ 
 has no real solution by showing that the left-hand side is always strictly smaller than the right hand side, realized by the following simpler cases: 
@@ -457,7 +503,7 @@ Again $LHS<0<RHS$.
 
 \item [Case 4.] $x>2016$, $x<1$, or $x\in (4j, 4j+1)$ for some integer $j\in [1, 503]$. 
 Observe the following relation:
-$$(x-(4i-2))(x-(4i-1))-(x-(4i-3))(x-(4i))=(4i-1)(4i-2)-(4i-3)(4i)=2$$ 
+$$(x-(4i-2))(x-(4i-1))-(x-(4i-3))(x-(4i))=(4i-1)(4i-2)-(4i-3)(4i)=2\cdots (*)$$ 
 We claim that for each integer $i\in [1, 504]$ we have 
 $(x-(4i-2))(x-(4i-1)), (x-(4i-3))(x-(4i))>0$. 
 If $x>2016$ we have $x-(4i-2), x-(4i-1), x-(4i-3), x-(4i) >0$. 
@@ -483,37 +529,44 @@ We are now left with the trickiest case:
 \item [Case 5.]
 $x\in (4i-2, 4i-1)$ for some $i\in [1, 504]$, whereby both sides are negative. 
 The goal is therefore to show that $|LHS|>|RHS|$.  
-We still want to keep in mind that $(x-(4i-2))(x-(4i-1))-(x-(4i-3))(x-(4i))=(4i-1)(4i-2)-(4i-3)(4i)=2$, 
-and that both $(x-(4i-2))(x-(4i-1))$ and $(x-(4i-3))(x-(4i))$ are positive for $x\not\in [4i-3, 4i]$. 
-Now, let $x\in (4i-2, 4i-1)$ for some $i\in [1, 504]$, 
-then from $(x-(4i-2))(x-(4i-1))=(x-(4i-1.5))-\frac 14\ge -\frac 14$ we get 
-$\frac{|(x-(4i-2))(x-(4i-1))|}{|(x-(4i))(x-(4i-3))|}=\frac{c}{c+2}=1-\frac{2}{c+2}\le 1-\frac 2{2+\frac 14}=\frac 19$ where $c=|(x-(4i-2))(x-(4i-1))|$. 
-Next, let's investigate $\frac{|(x-(4j-2))(x-(4j-1))|}{|(x-(4j))(x-(4j-3))|}$ 
+By (*) in case 4 we always have 
+$(x-(4j-2))(x-(4j-1))-(x-(4j-3))(x-(4j))=2$, 
+and since $x\in (4i-2, 4i-1)$, for $j > i$ we have $x-(4j-2), x-(4j-1), x-(4j-3), x-(4j)<0$ and 
+for $j<i$ we have $x-(4j-2), x-(4j-1), x-(4j-3), x-(4j)>0$. 
+This allows us to conclude that whenever $j\neq i$, we have 
+$(x-(4j-2))(x-(4j-1)), (x-(4j-3))(x-(4j))>0$. 
+First, from $(x-(4i-2))(x-(4i-1))=(x-(4i-1.5))-\frac 14\ge -\frac 14$ we get 
+\[\frac{|(x-(4i-2))(x-(4i-1))|}{|(x-(4i))(x-(4i-3))|}=\frac{c}{c+2}=1-\frac{2}{c+2}\le 1-\frac 2{2+\frac 14}=\frac 19\] 
+where $c=|(x-(4i-2))(x-(4i-1))|.$
+Next, let's investigate $\dfrac{|(x-(4j-2))(x-(4j-1))|}{|(x-(4j))(x-(4j-3))|}$ 
 for some $j<i$. 
 We know that $x>4i+1$, so 
-$(x-(4j-2))(x-(4j-1))> (4i-4j-1)(4i-4j)$ 
-and therefore 
-$\frac{|(x-(4j-2))(x-(4j-1))|}{|(x-(4j))(x-(4j-3))|}$
-$\frac{(x-(4j-2))(x-(4j-1))}{(x-(4j-2))(x-(4j-1))-2}$
-$=1+\frac 2{(x-(4j-2))(x-(4j-1))-2}$
-$<1+\frac 2{(4(i-j)-1)(4i-4j)-2}$
-$=1+\frac 1{2(4(i-j)-1)(i-j)-1}$. 
-It's also not hard to verify that $2(4(i-j)-1)(i-j)-1<(i-j+1)^2-1$ for $j\le i-1$, so we in turn have 
-$ 1+\frac 1{2(4(i-j)-1)(i-j)-1}$
-$<1+\frac 1{(i-j+1)^2-1}$
-Thus $\dfrac{\displaystyle\prod_{j=1}^{i-1} (x-(4j-2))(x-(4j-1))}{\displaystyle\prod_{j=1}^{i-1} (x-(4j-3))(x-(4j))}$
-$<\displaystyle\prod_{j=1}^{i-1}(1+\frac 2{(4i-4j-1)(4i-4j)-2})$
-$<\displaystyle\prod_{j=-\infty}^{i-1}(1+\frac 2{(4i-4j-1)(4i-4j)-2})$
-$<\displaystyle\prod_{j=-\infty}^{i-1}(1+\frac 1{(i-j+1)^2-1})$
-$=\frac{2^2}{2^2-1}\cdot\frac{3^2}{3^2-1}\cdot\cdots$
-$=\lim_{x\to\infty}2\cdot \frac{x-1}{x}$
-$=2$. 
+$(x-(4j-2))(x-(4j-1))> (4i-4j-1)(4i-4j)=4(i-j)(4(i-j)-1)$. 
+Again letting $c= (x-(4j-2))(x-(4j-1))$ we have 
+\[\frac{|(x-(4j-2))(x-(4j-1))|}{|(x-(4j))(x-(4j-3))|}
+=\frac{c}{c-2}
+=1+\frac 2{c-2}
+<1+\frac 2{4(i-j)(4(i-j)-1)-2}\]
+\[=1+\frac 1{2(i-j)(4(i-j)-1)-1}
+<1+\frac 1{(i-j+1)^2-1},\]
+the last inequality holds since for $i-j\ge 1$ we have 
+$2(i-j)(4(i-j)-1)-1-((i-j+1)^2-1)$
+$=8(i-j)^2-2(i-j)-((i-j)^2+2(i-j)+1)$
+$=7(i-j)^2-4(i-j)-1$
+$\ge 7-4-1=2$. 
+and therefore $2(4(i-j)-1)(i-j)-1>(i-j+1)^2-1$ for $j\le i-1$.
+Thus 
+\[\dfrac{\displaystyle\prod_{j=1}^{i-1} (x-(4j-2))(x-(4j-1))}{\displaystyle\prod_{j=1}^{i-1} (x-(4j-3))(x-(4j))}
+<\displaystyle\prod_{j=1}^{i-1}\left(1+\frac 1{(i-j+1)^2-1}\right)
+=\frac{2^2}{2^2-1}\cdot\frac{3^2}{3^2-1}\cdot\cdots\cdot \frac{i^2}{i^2-1}\]
+\[=\frac{2(2)}{1(3)}\cdot\cdots\cdot \frac{i(i)}{(i-1)(i+1)}
+=2\times\frac{i}{i+1}<2\]
+(notice that we dropped the modulus sign since each product is positive, as proven before).  
 Likewise, $\dfrac{\displaystyle\prod_{j=i+1}^{504} (x-(4j-2))(x-(4j-1))}{\displaystyle\prod_{j=i+1}^{504} (x-(4j-3))(x-(4j))}$
-$<2$, 
-(we can drop the modulus since they are all greater than 0. 
+$<2$. 
 Thus $\dfrac{\displaystyle\prod_{i=1}^{504} |(x-(4i-2))(x-(4i-1))|}{\displaystyle\prod_{i=1}^{504} |(x-(4i-3))(x-(4i))|}$
 $<2\times \frac{1}{9}\times 2$
-$<\frac 49$, 
+$=\frac 49<1$, 
 
 \end{itemize}
 and now we are done (omg the long proof...)
@@ -565,6 +618,13 @@ $\bullet$ each cell contains a distinct divisor;\\
 $\bullet$ the sums of all rows are equal; and\\
 $\bullet$ the sums of all columns are equal.\\
 
+\textbf{Thoughts.} 
+Prime numbers can't work (too obvious to explain), but how to generalize this idea to the general case? 
+Since the divisors are all distinct, there cannot be exactly one row or one column, which means the sum of each column and each row must be greater than $n$. 
+It might jump directly out of you that the sum of divisors of $n$ ($\sigma_1(n)$) in this case must be greater $2n$ (meaning that the sum of divisors must be greater than $2n$); we can prove even more: $\sigma_1(n)$ must be greater than both $rn$ and $cn$ where $r, c$ are the row count and column count of the rectangle, respectively. 
+Given also that $rc=\sigma_0(n)$ is the number of divisors of $n$, we know that $\sigma_1(n)>n\sqrt{\sigma_0(n)}$. 
+This turned out to be enough to produce a contradiction for those $n$ which are not powers of 2. 
+
 \textbf{Solution.} 
 The answer is $n=1$, which works with 1 being placed in a $1\times 1$ table. 
 To show that this fails for other $n$, first prime factorize it into 
@@ -579,36 +639,30 @@ Knowing that one of the cells contains $n$, the sum of each row must be greater 
 This means that the sum of each column is greater than $rn$, giving the following inequality: 
 $$\displaystyle\prod_{i=1}^k \frac{p_i^{a_i+1}-1}{p_i-1}>rn\ge\displaystyle\prod_{i=1}^k \sqrt{(a_i+1)}p_i^{a_i}$$
 or equivalently, 
-$\displaystyle\prod_{i=1}^k \frac{p_i-\frac{1}{p_i^{a_i}}}{p_i-1}>\displaystyle\prod_{i=1}^k \sqrt{(a_i+1)}$
+$\displaystyle\prod_{i=1}^k \frac{p_i-\frac{1}{p_i^{a_i}}}{(p_i-1)\sqrt{(a_i+1)}}>1$. 
+Now for each prime $p$ and positive integer $a$ we let $f(p, a)=\frac{p-\frac{1}{p^{a}}}{(p-1)\sqrt{(a+1)}}=\frac1{\sqrt{(a+1)}}\left(1+p^{-1}+\cdots +p^{-a}\right)$, and we show that 
+\begin{itemize}
+\item[1.] $f(p,a)<f(q, a)$ whenever $p>q$. 
+\item[2.] $f(2,a)\le f(2,1)=\sqrt{\frac 98}$ and $f(p,a)\le f(3,1)=\sqrt{\frac 89}$ for all $p\ge 3$. 
+\end{itemize} 
 
-Now for each prime $p$, we are interested to investigate the ratio
-$\frac{1}{p-1}(p-\frac{1}{p^{a_i}}): \sqrt{(a_i+1)}$. 
-For $p=2$ we have $(2-\frac{1}{2^{a_i}}): \sqrt{(a_i+1)}$. 
-Notice that for $a_i\ge 3$, $(2-\frac{1}{2^{a_i}})<2$ while $\sqrt{(a_i+1)}\ge 2$. 
-so the ratio is smaller than 1. 
-for $a_i=1$, $(2-\frac{1}{2^{a_i}})=\frac 32$ and $\sqrt{(a_i+1)}=\sqrt{2}$ so the ratio is $\frac 3{2\sqrt{2}}$, 
-for $a_i=2$ we have $\frac 74\div \sqrt{3}=\frac 7{4\sqrt{3}}$. 
-Knowing that $\frac 3{2\sqrt{2}}=\sqrt{\frac 98}>\sqrt{\frac {49}{16}}=\frac 7{4\sqrt{3}}$ the maximum ratio is 
-$\sqrt{\frac 98}$. 
-For $p\ge 3$ we have $\frac{1}{p-1}(p-\frac{1}{p^{a_i}})$ decreasing with $p$ with $a_i$ fixed because
-$\frac{1}{p-1}(p-\frac{1}{p^{a_i}})$
-$=1+\frac 1p+\cdots +\frac 1{p^{a_i}}$
-$\le 1+\frac 13+\cdots +\frac 1{3^{a_i}}$
-$=\frac{1}{2}(3-\frac{1}{3^{a_i}})$. 
-When $a_i=1$ the ratio is $\frac 4{3\sqrt{2}}=\sqrt{\frac 89}$, when $a_i\ge 2$ the ratio is at most 
-$\frac{1}{2}(3-\frac{1}{3^{a_i}})\div \sqrt{a_i+1}$
-$\le\frac{1}{2}(3)\div \sqrt{2+1}$
-$=\frac 3{2\sqrt{3}}$
-$=\sqrt{\frac 34}$
-$<\sqrt{\frac 89}$. 
-Thus the maximum possible ratio is $ \sqrt{\frac 89}$. 
+(1) is easy: for $p>q$ we have 
+\[f(p,a)=\frac1{\sqrt{(a+1)}}\left(1+p^{-1}+\cdots +p^{-a}\right)<\frac1{\sqrt{(a+1)}}\left(1+q^{-1}+\cdots +q^{-a}\right)=f(q,a).\]
+Now for (2), we notice that: 
+$f(2, 1)=\frac{2-\frac{1}{2}}{\sqrt{(1+1)}}=\frac3{2\sqrt{2}}=\sqrt{\frac 98}, $
+$f(2, 2)=\frac{2-\frac{1}{2^2}}{\sqrt{(2+1)}}=\frac7{4\sqrt{3}}=\sqrt{\frac {49}{48}}<\sqrt{\frac 98}, $
+and for all $a\ge 3$ we have 
+$f(2, a)=\frac{2-\frac{1}{2^a}}{\sqrt{(a+1)}}<\frac{2}{\sqrt{(3+1)}}=1<\sqrt{\frac 98}$. 
+$f(3, 1)=\frac{3-\frac{1}{3}}{2\sqrt{(1+1)}}=\frac8{6\sqrt{2}}=\sqrt{\frac 89}$, 
+and for all $a\ge 2$ we have 
+$f(3, a)=\frac{3-\frac{1}{3^a}}{2\sqrt{(a+1)}}<\frac 3{2\sqrt{2+1}}=\sqrt{\frac 34}<\sqrt{\frac 89}$. 
+By (1) we have $f(p,a)\le f(3, a)\le f(3, 1)=\sqrt{\frac 89}$ whenever $a\ge 1$ and $p\ge 3$. 
 
-Summing up, for $n$ consisting at least two distinct prime factors the ratio 
-$\displaystyle\prod_{i=1}^k \frac{p_i-\frac{1}{p_i^{a_i}}}{p_i-1}\div\displaystyle\prod_{i=1}^k \sqrt{(a_i+1)}$
-cannot exceed 
-$\sqrt{\frac 98}\times \sqrt{\frac 89}^{i-1}\le 1$, 
-contradicting that $\displaystyle\prod_{i=1}^k \frac{p_i-\frac{1}{p_i^{a_i}}}{p_i-1}>\displaystyle\prod_{i=1}^k \sqrt{(a_i+1)}$. 
-Hence $i=1$ and from the previous paragraph, $p < 3$ and thus $p=2$. 
+Summing up, recall that we always have $\displaystyle\prod_{i=1}^k f(p_i, a_i)> 1$. 
+If $p_1<p_2<\cdots <p_k$ then we have $p_i\ge 3$ for $i\ge 2$. 
+If $k\ge 2$ we have $\displaystyle\prod_{i=1}^k f(p_i, a_i)\le f(2, a_1)\cdot \displaystyle\prod_{i=2}^k f(3, a_i)\le\sqrt{\frac 98}\times \sqrt{\frac 89}^{i-1}\le 1$, 
+which is a contradiction. 
+Therefore we must have $k=1$, with $f(p_1, a_1)>1$. By (2) we have $p=2$. 
 However, this implies $n$ is a power of 2 and from $a_i\ge 1$, at least two rows must be used (we assumed $r\ge c$). 
 The row containing $n$ must therefore have sum at least $2n$, 
 but for $n$ a power of two the sum of divisors is $2n-1$, contradiction. 
@@ -664,7 +718,10 @@ As it turns out, the center cells of each $3\times 3$ grid lie on exactly two di
 This motivates us to consider just the columns and rows with indices congruent to 2 modulo 3, which works. 
 (Alternatively one can also consider the columns and rows with indices not congruent to 2 modulo 3). 
 
-\textbf{Solution.} The answer is all $n$ divisible by 9. 
+\textbf{Answer.} Any $n$ divisible by 9. 
+
+\textbf{Solution.} 
+Throughout the solution we denote the 
 We start by showing an example for $n=9$, given below: 
 \begin{center}
 \begin{tabular}{|c|c|c||c|c|c||c|c|c|}
@@ -692,6 +749,7 @@ M & O & I & O & I & M & I & M & O\\
 \end{tabular}
 \end{center}
 For $n=9k$ for some $k$ we just have to split the grid into $k^2$ $9\times 9$ grids, and fill each one with the letters above. 
+(Formally, if we lab
 For sake of verification, observe that there are exactly 3 $I$'s, 3 $M$'s and 3 $O$'s in each column or each row of a single $9\times 9$ grid. 
 Also, each diagonal is in the form of either $R_m=\{(i, j): i+j=m\}$, or $L_m=\{(i, j): i-j=m\}$, 
 for some $m$ satisfying $1\le (i, j)\le n$. 
@@ -737,27 +795,32 @@ Hence $3|k^2$, or $3|k$, or $9|n$.
 Let $n \geq 3$ be a positive integer. Find the maximum number of diagonals in a regular $n$-gon one can select, so that any two of them do not intersect in the interior or they are perpendicular to each other. 
 
 \textbf{Solution.} The answer is $n-3$ for $n$ odd, and $n-2$ for $n$ even. 
-For simplicity we denote the circumcircle of the $n$-gon as $\Gamma$, and our $n$-gon be $A_1A_2\cdots A_n$. 
+For simplicity we denote the circumcircle of the $n$-gon as $\Gamma$, and our $n$-gon be $A_0A_2\cdots A_{n-1}$, 
+with $A_i$ having coordinates $C\left(\frac{2i\pi}{n}\right)=\left(\cos\frac{2i\pi}{n}, \sin\frac{2i\pi}{n}\right)$. 
 
 We first show that no two diagonals can be perpendicular for $n$ odd. 
-Indeed, in terms of cordinate geometry, let one diagonal joining $(\sin a, \cos a)$ and $(\sin b, \cos b)$ we have the gradient as 
-$\frac{\cos b-\cos a}{\sin b-\sin a}$. 
-Similarly let another diagonal with gradient 
-$\frac{\cos d-\cos c}{\sin d-\sin c}$. 
-If they are perpendicular then the gradient has product -1 (one of them might be infinity, but this means that the other one has gradient 0). 
-This gives $(\cos b-\cos a)(\cos d-\cos c)+(\sin b-\sin a)(\sin d-\sin c)=0$. 
+Now on the circle $\Gamma$, let one diagonal joining $C(a)$ and $C(b)$, and the other joining $C(c), C(d)$, 
+with $0\le a, b, c, d<2\pi$. 
+Then the diagonals have gradients $\frac{\sin b-\sin a}{\cos b-\cos a}$ 
+and $\frac{\sin d-\sin c}{\cos d-\cos c}$. 
+If they are perpendicular then the gradient has product $-1$ (one of them might be infinity, but this means that the other one has gradient 0). 
+Therefore, 
+$\frac{(\sin b-\sin a)(\sin d-\sin c)}{(\cos b-\cos a)(\cos d-\cos c)}=-1$, or $(\cos b-\cos a)(\cos d-\cos c)+(\sin b-\sin a)(\sin d-\sin c)=0$. 
 Using the identity of $\cos b-\cos a=-2\sin\frac{b-a}{2}\sin\frac{b+a}{2}$ and 
 $\sin b-\sin a=2\sin\frac{b-a}{2}\cos\frac{b+a}{2}$, we have 
 $\sin\frac{b-a}{2}\sin\frac{d-c}{2}(\sin\frac{b+a}{2}\sin\frac{d+c}{2}+\cos\frac{b+a}{2}\cos\frac{d+c}{2})=0$. 
 Since $0\le a,b,c,d<2\pi$, and $a\neq b, c\neq d$, 
-$\sin\frac{b-a}{2}, \sin\frac{d-c}{2}\neq 0$ so 
+we have $0< \frac{|a-b|}2, \frac{|c-d|}2 < \pi$, and therefore 
+$\sin\frac{b-a}{2}, \sin\frac{d-c}{2}\neq 0$. 
+We necessarily have 
 $\sin\frac{b+a}{2}\sin\frac{d+c}{2}+\cos\frac{b+a}{2}\cos\frac{d+c}{2}=0$, or 
 $\cos (\frac{(b+a)-(d+c)}2)=0$, which forces 
 $\frac{(b+a)-(d+c)}2=\frac{k\pi}2$ for some odd $k$. 
-Converting $a, b, c, d$ into $\frac{2a\pi}{n}$, $\frac{2b\pi}{n}$, $\frac{2c\pi}{n}$, $\frac{2d\pi}{n}$ ($0\le a, b, c, d < n$) we get 
-$kn=2(a+b)-2(c+d)$. 
+Now, knowing that $a, b, c, d=\frac{2w\pi}{n}, \frac{2x\pi}{n}, \frac{2y\pi}{n}, \frac{2z\pi}{n}$ for some integers $0\le w, x, y, z<n$ we have 
+$kn=2(w+x)-2(y+z)$. 
 Knowing that $k$ is odd, $n$ has to be even. 
 Thus the case where $n$ is odd reduces to finding the number of diagonals without any two of them intersecting in the interior. 
+(The fact that a triangulation has exactly $n-3$ diagonals is well-known, but let's prove it anyway). 
 Denoting $f(n)$ be this number and we show that $f(n)=n-3, \forall n\ge 3$. 
 Base case when $n=3$, where $f(3)=0$ as there is no diagonal in a triangle. 
 Next, let $f(n)=n-3$ for $n=3, 4, \cdots k$ for some $k\ge 3$. 
@@ -776,30 +839,25 @@ There are two lines in $F$ such that each of them intersects every other lines i
 
 \item [3.]
 Let $A$ and $B$ be two consecutive endpoints of lines in $F$. 
-Then for any selected diagonal with an endpoint on the minor arc $AB$, the other the other endpoint must also lie on this minor arc too.
+Then for any selected diagonal not in $F$ with an endpoint on the minor arc $AB$ (that is different from $A$ and $B$), the other the other endpoint must also lie on this minor arc too (possibly equal to $A$ or $B$).
 
 \end{itemize}
-For the first claim, choose two lines $l_1$ and $l_2$ that intersect in the interior (they are perpendicular). 
-Now, suppose that there is a line $l_3\in F$ that is perpendicular to neither of them. 
-Then it cannot intersect either of $l_1$ and $l_2$, so there must be a line $l_4$ perpendicular to itself. 
-Now, let the endpoints of $l_1$ be $A, C$, and $l_2$ be $B$, $D$. 
-Consider $AB$: the fact that the lines intersect means that $\angle ACB=\angle ADB <90^{\circ}$, so $C$ and $D$ are on the major arc $AB$. 
-Let the endpoints of $l_3$ be $E, G$ and the endpoints of $l_4$ be $F, H$. 
-W.L.O.G. let $E, F, G, H$ be in that order (since they intersect) on our circle $\Gamma$. 
-Now, since $l_3$ and $l_4$ intersect, they must be both on the minor arc of one of $AB, BC, CD, DA$, 
-implying that $F$ and $G$ are both on the major arc of $EH$. Contradiction. 
+\emph{First claim:}
+Now let $AC$ and $BD$ be two intersecting perpendicular chords on $\Gamma$. We claim that the four endpoints split the circles into four minor arcs (that is, arcs that are less than a semicircle). 
+Let the intersection be $P$, then $\angle ACB=\angle ADB<\angle APB=90^{\circ}$, since $P$ lies on both segment $AC$ and $BD$. 
+This means that the arc $AB$ not containing $C$ and $D$ ais minor, and a similar conclusion can be achieved for other three arcs. 
+Suppose that $AC$ and $BD$ are in $F$, and let another diagonal with endpoints $E, G$ be in $F$ and perperndicular to neither of $AC$ nor $BD$. 
+This means that there necessarily exists another diagonal (with endpoints $H, J$) that intersects $EG$ in its interior (and perpendicular to it). 
+Since they do not intersect chords $AC$ and $BD$, they must lie on a minor arc (say, $AB$). 
+This instantly contradicts the fact that $E, F, G, H$ must split $\Gamma$ into four minor arcs. 
 
-For the second claim, we notice that if we have a line joining points with polar angle $a$ and $b$, and another one $c$ and $d$, then 
-$\frac{(b+a)-(d+c)}2=\frac{k\pi}2$ for some $k$ odd. 
-Again assuming that $A_i$ has angle $\frac{2i\pi}{n}$ we get that $A_aA_b$ and $A_cA_d$ are perpendicular iff 
-$kn=2(b+a)-2(c+d)$ for some odd $k$. 
-This simply means $(b+a)-(c+d)\equiv \frac n2\pmod{n}$. 
-In a similar fashion we can also derive $(b+a)-(c+d)\equiv 0\pmod{n}$ iff $A_aA_b$ and $A_cA_d$ are parallel. 
-
-Now split the $F$ into two sets: $F_1=\{(A_aA_b): a+b\equiv 0\pmod{n}\}$ and $F_2=\{(A_aA_b): a+b\equiv \frac n2\pmod{n}\}$. 
-Not hard to see that the diagonals in the same sets are parallel to one another and any two diagonals from different sets are perpendicular to each other. 
-We claim that the two lines in $F$ are precisely the longest line in $F_1$ and the longest line in $F_2$. 
-Indeed, let $AB$ and $CD$ be parallel lines on $\Gamma$ satisfying $CD\ge AB$, 
+\emph{Second claim:}
+Since every two lines in $F$ are either parallel or perpendicular to each other, 
+we can split them into two sets $F_1$ and $F_2$ such that any two diagonals are parallel to each other if and only if they belong to the same partition. 
+An example would be $F_1=\{(A_aA_b): a+b\equiv 0\pmod{n}\}$ and $F_2=\{(A_aA_b): a+b\equiv \frac n2\pmod{n}\}$, 
+valid by the identity derived in the first paragraph. 
+We claim that the longest line in $F_1$ intersects every line in $F_2$ in its interior, and similarly the longest line in $F_2$ intersects every line in $F_1$ in its interior. 
+Indeed, let $AB$ and $CD$ be parallel lines on in $F_1$ satisfying $CD\ge AB$, 
 then $ABCD$ is an isoceles trapezoid satisfying $\angle A=\angle B\ge 90^{\circ}$ and $\angle C=angle D\le 90^{\circ}$. 
 Denote also $E$ and $F$ as the perpendiculars from $A$ and $B$ on $CD$. It follows that $E$ and $F$ are on the closed segment $CD$ itself. 
 Let $l$ be a line perpendicular to both $AB$ and $CD$, intersecting open segment $AB$ at $G$ and line $CD$ at $H$. 
@@ -808,7 +866,7 @@ therefore lying on open segment $CD$ as well.
 This means, any perpendicular line intersecting $AB$ in its interior will intersect $CD$ in its interior too. 
 Now let $l$ be the longest line in $F_1$, and $m$ be any line in $F_2$. Since there exists $n$ in $F_1$ such that $m$ intersects $n$ in its interior, and $n$ is no longer than $n$, $m$ must intersect $l$ in its interior too. This proves the claim that every line in $F_2$ intersects $l$ in its interior, and similarly every line in $F_1$ intersects the longest line in $F_2$ in its interior too. 
 
-As for the third claim, 
+\emph{Third claim:} 
 denote the endpoints of the longest line in $F_1$ as $C$ and $D$, and in $F_2$ as $E$ and $F$ (which might or might not be completely distinct from $A$ and $B$). 
 Let $G$ be a point on $AB$ and presumably it's an endpoint of a selected diagonal (with $G\neq A$ and $G\neq B$). 
 W.L.O.G. we assume that $AB$ lies on minor arc $CE$ (so same goes for $G$, and the other endpoint, obviously, must also be on the minor arc $CE$). W.L.O.G. also that $C, A, G, B, E$ are on $\Gamma$ in that order.
@@ -817,9 +875,10 @@ none of the segment $CD$ or $EF$.
 Suppose $H$ is a point on the minor arc $BE$, and $H\neq B$. If the line in $F$ with endpoint $B$ does not intersect $GH$, 
 then (by drawing) it intersects neither $EF$ nor $CD$, contradicting that every line in $F$ intersects either of them. 
 Therefore $H$ cannot be the endpoint of the selected diagonal, and similarly, any point on the minor arc $CA$ that is not $A$ cannot be the endpoint of the selected diagonal. Thus that point must be on minor arc $AB$. 
+Notice that the case would be trickier if $G$ coincides with $A$ or $B$. 
+However, in this case if $A, B, C$ are consecutive points of any diagonal in $F$ in that order, $B$ can be treated as on arc $AC$, thus any diagonal with $B$ as endpoint must have another endpoint either in minor arc $AB$ or in minor arc $BC$. 
 
-In a similar way we can show that if $A, B, C$ are consecutive points of any diagonal in $F$ in that order, any diagonal with $B$ as endpoint must have another endpoint either in minor arc $AB$ or in minor arc $BC$. 
-Thus, if $A_{t_1}A_{t_2}\cdots A_{t_k}$ are consecutive endpoints of $F$ then any remaining diagonals must have both endpoints lying on $A_{t_i}A_{t_{i+1}}$ for some $i\in [1,k]$, indices taken modulo $k$. 
+To conclude the proof, if $A_{t_1}A_{t_2}\cdots A_{t_k}$ are consecutive endpoints of $F$ then any remaining diagonals must have both endpoints lying on $A_{t_i}A_{t_{i+1}}$ for some $i\in [1,k]$, indices taken modulo $k$. 
 Moreover, each endpoints belong to at most two diagonals, with at least four of them belonging exclusively to $l_1$ and $l_2$, the longest lines in $F_1$ and $F_2$ (they intersect every other lines in the opposite family of $F$ so they cannot share endpoint with other lines in $F$). 
 Since each diagonal has two endpoints, the number of elements in $F$ cannot exceed $\frac 12(1+1+1+1+2+\cdots +2)$
 $=\frac 12 (4+2(k-4))$
@@ -934,47 +993,88 @@ which contradicts our choice of making the first $\animal$ facing the direction 
 \item[\textbf{G1/IMO 1}]
 Triangle $BCF$ has a right angle at $B$. Let $A$ be the point on line $CF$ such that $FA=FB$ and $F$ lies between $A$ and $C$. Point $D$ is chosen so that $DA=DC$ and $AC$ is the bisector of $\angle{DAB}$. Point $E$ is chosen so that $EA=ED$ and $AD$ is the bisector of $\angle{EAC}$. Let $M$ be the midpoint of $CF$. Let $X$ be the point such that $AMXE$ is a parallelogram. Prove that $BD,FX$ and $ME$ are concurrent.
 
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\definecolor{xdxdff}{rgb}{0.6588235294117647,0.6588235294117647,0.6588235294117647}
+\definecolor{qqqqff}{rgb}{0.3333333333333333,0.3333333333333333,0.3333333333333333}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+\clip(-3.0588481536904415,-4.087465088698609) rectangle (15.949416309119467,4.871212597251791);
+\draw [line width=1.2pt] (3.23,-0.59) circle (3.0104152537482274cm);
+\draw [line width=1.2pt,dash pattern=on 4pt off 4pt] (6.837019243486866,0.6946592960642324) circle (3.8289603458182753cm);
+\draw [line width=1.2pt] (1.1141635269103165,-2.7314565181538035)-- (8.283544019011412,-2.850549217358141);
+\draw [line width=1.2pt] (4.798013646776459,-2.79265004173962) -- (4.696794805481305,-2.914952710025465);
+\draw [line width=1.2pt] (4.798013646776459,-2.79265004173962) -- (4.700912740440424,-2.6670530254864793);
+\draw [line width=1.2pt] (0.22,-0.54)-- (10.399380492101093,-0.709092699204337);
+\draw [line width=1.2pt] (5.408850119866141,-0.6261935235858166) -- (5.307631278570987,-0.7484961918716619);
+\draw [line width=1.2pt] (5.408850119866141,-0.6261935235858166) -- (5.311749213530106,-0.5005965073326759);
+\draw [line width=1.2pt] (10.399380492101093,-0.709092699204337)-- (8.283544019011412,-2.850549217358141);
+\draw [line width=1.2pt] (9.423485785234028,-1.8143911283912397) -- (9.305907403106831,-1.6982194353203615);
+\draw [line width=1.2pt] (9.377017108005676,-1.8614224812421178) -- (9.25943872587848,-1.7452507881712396);
+\draw [line width=1.2pt] (3.4161205556724505,2.414656243026177)-- (10.399380492101093,-0.709092699204337);
+\draw [line width=1.2pt] (3.23,-0.59)-- (1.1141635269103165,-2.7314565181538035);
+\draw [line width=1.2pt] (0.22,-0.54)-- (1.1141635269103165,-2.7314565181538035);
+\draw [line width=1.2pt] (3.4161205556724505,2.414656243026177)-- (6.24,-0.64);
+\draw [line width=1.2pt] (4.88874626384298,0.9434293305556646) -- (4.767374291829472,0.8312269124705128);
+\draw [line width=1.2pt] (6.24,-0.64)-- (1.1141635269103165,-2.7314565181538035);
+\draw [line width=1.2pt] (3.4161205556724505,2.414656243026177)-- (5.273544019011411,-2.800549217358141);
+\draw [line width=1.2pt,dash pattern=on 4pt off 4pt] (3.23,-0.59)-- (8.283544019011412,-2.850549217358141);
+\draw [line width=1.2pt] (6.24,-0.64)-- (10.399380492101093,-0.709092699204337);
+\draw [line width=1.2pt] (8.321062891036922,-0.5919131214225067) -- (8.318317601064173,-0.7571795777818301);
+\draw [line width=1.2pt] (3.23,-0.59)-- (6.24,-0.64);
+\draw [line width=1.2pt] (0.22,-0.54)-- (3.23,-0.59);
+\draw [line width=1.2pt] (5.273544019011411,-2.800549217358141)-- (8.283544019011412,-2.850549217358141);
+\draw [line width=1.2pt] (6.746863372725922,-2.74236693118393) -- (6.744118082753174,-2.907633387543253);
+\draw [line width=1.2pt] (6.812969955269651,-2.743465047173029) -- (6.810224665296903,-2.908731503532352);
+\draw [line width=1.2pt] (6.24,-0.64)-- (8.283544019011412,-2.850549217358141);
+\begin{scriptsize}
+\draw [fill=uuuuuu] (0.22,-0.54) circle (2.0pt);
+\draw[color=uuuuuu] (0.32958159837567247,-0.2610188077068794) node {$C$};
+\draw [fill=uuuuuu] (6.24,-0.64) circle (2.0pt);
+\draw[color=uuuuuu] (6.36263944961534,-0.36019236142588756) node {$F$};
+\draw [fill=uuuuuu] (3.4161205556724505,2.414656243026177) circle (2.0pt);
+\draw[color=uuuuuu] (3.4361931686236048,2.681129952623695) node {$B$};
+\draw [fill=uuuuuu] (10.399380492101093,-0.709092699204337) circle (2.0pt);
+\draw[color=uuuuuu] (10.51139978019385,-0.44283698952506095) node {$A$};
+\draw [fill=uuuuuu] (5.273544019011411,-2.800549217358141) circle (2.0pt);
+\draw[color=uuuuuu] (5.387432838045092,-2.5254816176242314) node {$D$};
+\draw [fill=uuuuuu] (3.23,-0.59) circle (2.0pt);
+\draw[color=uuuuuu] (3.3378460611855885,-0.3106055845663835) node {$M$};
+\draw [fill=uuuuuu] (8.283544019011412,-2.850549217358141) circle (2.0pt);
+\draw[color=uuuuuu] (8.395697300855009,-2.575068394483736) node {$E$};
+\draw [fill=uuuuuu] (1.1141635269103165,-2.7314565181538035) circle (2.0pt);
+\draw[color=uuuuuu] (1.2221435818467465,-2.459365915144893) node {$X$};
+\draw [fill=uuuuuu] (5.345836473089689,1.5514565181538016) circle (2.0pt);
+\draw[color=uuuuuu] (5.453548540524431,1.821625820392291) node {$G$};
+\end{scriptsize}
+\end{tikzpicture}
+
 \textbf{Solution.} 
-The fact that $\angle CBF=90^{\circ}$ and $M$ being the midpoint of $CF$ should very well suggest us to draw the circumcircle of $\triangle BCF$. 
-As it turns out, $D$ and $X$ seems to lie on this circle (and that's almost everything we need). 
-Now $\angle DCF=\angle DCA=\angle DAC=\angle BAF=\angle ABF=90^{\circ}-\frac 12\angle BFC$. 
-$DC=DA=\frac{CA}{2\cos\angle DCA}$
-                            $=\frac{CF-AF}{2\cos(90^{\circ}-\frac 12\angle BFC)}$
-                            $=\frac{CF-BF}{2\sin\frac 12\angle BFC}$
-                            $=\frac{CF-CF\cos\angle BFC}{2\sin\frac 12\angle BFC}$
-                            $=CF\cdot\frac{1-(1-2\sin ^2\frac 12\angle BFC)}{2\sin\frac 12\angle BFC}$
-                            $=CF\cdot\sin \frac 12\angle BFC$
-                            $=CF\cdot\cos (90^{\circ}-\frac 12\angle BFC)$
-                            $=CF\cdot\cos\angle DCF$.
-                            If $D'$ is on ray CD satisfying $\angle CD'F=90^{\circ}$ we have $CD'=CF\cos\angle D'CF=CF\cos\angle DCF=CD$, so
-                            $D=D'$ and $D$ lies on the circumcircle of $BCF$. 
-                            Moreover, $\angle DFC=90^{\circ}-\angle DCF=\frac 12\angle BFC=\angle BFD$, 
-                            so $BD$ and $DC$ subtend the same angle and $BD=DC$. 
+Let $\Gamma$ be the circumcircle of triangle $BCF$, which we know that $M$ is its center and $CF$ its diameter. 
+Denote $G$ as the intersection of $AB$ and $\Gamma$ other than $B$ (with $G\neq B$ unless $AB$ is tangent to $\Gamma$). 
+Since $FA=FB$, we have 
+$\angle GCA=\angle GCF=\angle GBF=\angle ABF=\angle BAF=\angle GAC$, hence $GA=GC$. 
+Now, denote $D'$ as the reflection of $G$ in $AC$, and we know that $D'$ lies on $\Gamma$. 
+Notice also that $AD'=AG=CG=CD'$, and $\angle BAC=\angle GAC=\angle D'AC$, so $D'$ fulfills $D'A=D'B$ and $AC$ is the bisector of $\angle D'AB$. 
+We therefore have $D=D'$ since there is only one such point fulfilling such property (i.e. the intersection of perpendicular bisector of $AC$ and the reflection of $AB$ in $CF$, which cannot be the same unless $AB$ is parallel or perpendicular to $AC$, which forces triangle $FAB$ and $BCF$ to be degenerate). 
+Now that we established that $D$ is on $\Gamma$, we claim that $MDEA$ is an isoceles trapezoid. 
+Indeed, $\angle AMD=\angle FMD=\angle FMG=2\angle GCF=2\angle GAF=2\angle CAD=\angle CAE=\angle MAE$, 
+and $\angle DEA=180^{\circ}-\angle DAE-\angle ADE=180^{\circ}-2\angle DAE=180^{\circ}-\angle MAE=180^{\circ}-\angle AMD$ 
+(proven). This also gives $AC\parallel ED$, and $D, E, X$ collinear. Moreover $\angle MXD=\angle MXE=\angle MAE=\angle MDX$ so $MD=MX$ and $X$ is on $\Gamma$. Therefore $CFDX$ is also an isoceles trapezoid. 
 
-Now $EA=ED$ and $\angle CAD=\angle EAD$ so $\angle EDA=\angle EAD=\angle CAD$, so $ED\parallel CM$. 
-                            With $EX\parallel AM$ we have $E, X, D$ collinear, too. 
-                            Moreover, $DE=\frac{DA}{2\cos\angle EDA}$
-                            $=\frac{DA}{2\cos\angle CAD}$
-                            $=\frac{DC}{2\cos\angle DCA}$
-                            $=\frac{CF\cos\angle DCF}{2\cos\angle DCF}$
-                            $=\frac{CF}{2}$
-                            $=CM$,
-                            so $CMED$ is a parallelogram. 
-                            Thus $\angle DEM=\angle DCM=\angle DCA=\angle CAD$, meaning that $DEMA$ is an isoceles trapezoid (so $\angle EAM=\angle EDM$). 
-                            With $AMXE$ parallelogram we also have $\angle DXM=\angle EXM=angle EAM=\angle EDM=\angle XDM$, so $MX=MD$ and $X$ lies on the circumcircle of $BCF$, too. 
-                            With $DX\parallel CF$ we conclude that $DXFC$ is an isoceles trapezoid so $CD=FX$, from previous identity we have $BD=DC$ so $FX=BD$.
-
-Finally, we already had $F,E,X$ collinear and $\angle DBA=\angle DBC+\angle CBA$
-                            $=\angle DFC+(90^{\circ}-\angle FBA)$
-                            $=\angle DFC+(\frac 12\angle BFC)$
-                            $=\angle DFC+(\angle DFC)$
-                            $=\angle DMC$, 
-                            so $B$ lies on the circle containing $D,E,A,M$ too. This means $\angle BED=\angle BMD$, 
-                            and since $BD$ and $FX$ subtend the same angle on circle $BCF$ we have 
-                            $\angle BMD=\angle FMX=\angle FEX$ (the last equality follows from that $EXFM$ is isoceles trapezoid, hence cyclic). 
-                            Therefore, $B, E, F$ are in fact collinear, and $E$ is the intersection of $DX$ and $BF$.
-                            Hence $ME$ is the common perpendicular bisector of segments $BX$ and $DF$ (since $BXFD$ is an isoceles trapezoid), 
-                            and the intersection of $BD$ and $FX$ will lie on this perpendicular bisector too.
+To finish up the solution, we claim that $EM$ is the perpendicular bisector of both $DF$ and $BX$. 
+Indeed, $M$ is on the perpendicular bisector of the two lines because $MD=MF=MB=MX$ (all four points lie on $\Gamma$). 
+Now, notice that $\angle BMD+\angle BAD=2\angle BCD+2\angle BAC=2(\angle BCF+\angle DCF+\angle BAC)$
+$=2(\angle BCF+\angle GCF+\angle GAC)=2(\angle BCF+\angle GAF+\angle GAC)=2(\angle BCF+ \angle BFC)=2(90^{\circ})=180^{\circ}$, 
+meaning that $B, D,  M, A$ are concylic. 
+Nevertheless, knowing that $AMDE$ is isoceles trapezoid, $E$ lies on this circle too. 
+Thus $\angle BED=\angle BAD=2\angle BAM=\angle BAF+\angle ABF=\angle BFM$, and coupled with the fact that $AC\parallel EX$ we have $B, F, E$ collinear. Finally, $\angle BFD=\angle BFC+\angle CFD=\angle BFC+\angle CFG=2\angle GAC+90^{\circ}-\angle GCF$
+$=2\angle GAC+90^{\circ}-\angle GAF$
+$=90^{\circ}+\angle GAC$
+$=90^{\circ}+\angle GCF$
+$=90^{\circ}+(90^{\circ}-\angle CFG)$
+$=180^{\circ}-\angle CFG$
+$=180^{\circ}-\angle CFD$
+$=\angle FDX$, 
+showing that $BFDX$ is also an isoceles trapezoid. With $BF$ and $DX$ intersecting at $E$, we conclude that $EM$ is the perpendicular bisector of both $DF$ and $BX$, and $DB$ and $FX$ will intersect on this perpendicular bisector too. 
 
 \item[\textbf{G2}]
 Let $ABC$ be a triangle with circumcircle $\Gamma$ and incenter $I$ and let $M$ be the midpoint of $\overline{BC}$. The points $D$, $E$, $F$ are selected on sides $\overline{BC}$, $\overline{CA}$, $\overline{AB}$ such that $\overline{ID} \perp \overline{BC}$, $\overline{IE}\perp \overline{AI}$, and $\overline{IF}\perp \overline{AI}$. Suppose that the circumcircle of $\triangle AEF$ intersects $\Gamma$ at a point $X$ other than $A$. Prove that lines $XD$ and $AM$ meet on $\Gamma$.
