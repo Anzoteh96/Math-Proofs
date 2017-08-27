@@ -19,10 +19,16 @@
 \maketitle
 
 Preface: 
-This document is a compilation of my solutions to the IMO shortlisted problems in 2016. 
-A shortcoming of providing only the solutions to the readers is that, it does not show the process of generating insights needed to solve the problems. 
-Therefore, a writeup on my own thought process is given before each solution, whenever necessary (in an effort to making it beginner-friendly). 
+The IMO 2016 shortlisted problems were published on July 19, 2017: after the second day of IMO 2017. As I am not involved in any IMO training, I have no access to the shortlisted problems until that day. Thereafter, I worked on the problems to the best ability possible, and decided to compile my solution to the problems here. 
 
+A shortcoming of providing only the solutions to the readers is that, it does not show the process of generating insights needed to solve the problems. 
+For problems involving functional equations (A4, N6, and the currently unolved A7), the solutions are usually intuitive because the majortiy of it is to substitute variables. 
+However, for problems like C7 (Problem 6: lines and endpoints) it may not be suggestive at all on how do we come out with the notion of "bearings" in the solution. 
+In view of this, I have a writeup on my own thought proess before each solution, in effort of making it easy for readers to understand how did I arrive at the ideas needed for the solution. 
+
+To conclude: the thought process contains the intuitive part of the writing, while the solution contains the part where mathematical rigor is maintained at the highest possible level. 
+
+\newpage
 \section{Algebra}
 \begin{itemize}
 \item[\textbf{A1}]
@@ -114,6 +120,7 @@ By the fact that $(a+b-k)+c=k+k$ we have, by first paragraph,
 $((a+b-k)^2+1)(c^2+1)\le (k^2+1)^2$ so 
 $f(a+b-k, k, c)\le f(k,k,k)$. 
 
+\newpage
 \item[\textbf{A2}]
  Find the smallest constant $C > 0$ for which the following statement holds: among any five positive real numbers $a_1,a_2,a_3,a_4,a_5$ (not necessarily distinct), one can always choose distinct subscripts $i,j,k,l$ such that
 \[ \left| \frac{a_i}{a_j} - \frac {a_k}{a_l} \right| \le C. \]
@@ -187,6 +194,7 @@ and from $\frac 1b<\frac 12$ we must have $\frac 1d>\frac 12$.
 Looking back, we have $\frac 12<|\frac {a_1}{a_4}-\frac {a_2}{a_5}|=\frac bc|\frac 1a-\frac 1d|\le|\frac 1a-\frac 1d|$, 
 yet $\frac 12<\frac 1a , \frac 1d\le 1$, contradiction.
 
+\newpage
 \item[\textbf{A3}]
 Find all positive integers $n$ such that the following statement holds: Suppose real numbers $a_1$, $a_2$, $\dots$, $a_n$, $b_1$, $b_2$, $\dots$, $b_n$ satisfy $|a_k|+|b_k|=1$ for all $k=1,\dots,n$. Then there exists $\varepsilon_1$, $\varepsilon_2$, $\dots$, $\varepsilon_n$, each of which is either $-1$ or $1$, such that
 \[ \left| \sum_{i=1}^n \varepsilon_i a_i \right| + \left| \sum_{i=1}^n \varepsilon_i b_i \right| \le 1. \]
@@ -344,6 +352,7 @@ Observe that $a+c-a+c-1=2c-1$ and from $0\le c\le 1$ we have $-1\le 2c-1\le 1$.
 $a+c+a-c+1=2a+1$, and from $-1\le a\le 0$ we have $-1\le 2a+a\le 1$, which serves our purpose. 
 \end{itemize}
 
+\newpage
 \item[\textbf{A4}]
 Find all functions $f:(0,\infty)\rightarrow (0,\infty)$ such that for any $x,y\in (0,\infty)$, $$xf(x^2)f(f(y)) + f(yf(x)) = f(xy) \left(f(f(x^2)) + f(f(y^2))\right)\cdots (*).$$
 
@@ -411,6 +420,7 @@ $f(x)=xf(x^2)=xf(x)^2$, so $xf(x)=1$ and $f(x)=\frac 1x$.
 \end{itemize}
 \end{itemize}
 
+\newpage
 \item[\textbf{A5}]
 Consider fractions $\frac{a}{b}$ where $a$ and $b$ are positive integers.
 \begin{itemize}
@@ -463,6 +473,7 @@ Assume that $\frac ab$ satisfies this property,
 then from $\frac ab > k$ and $b\le k$ we have 
 $(\frac ab)^2\ge (k+\frac 1k)^2=k^2+2+\frac 1{k^2} > k^2+2$, contradiction. 
 
+\newpage
 \item[\textbf{A6/IMO 5}]
 The equation
 $$(x-1)(x-2)\cdots(x-2016)=(x-1)(x-2)\cdots (x-2016)$$is written on the board, with $2016$ linear factors on each side. What is the least possible value of $k$ for which it is possible to erase exactly $k$ of these $4032$ linear factors so that at least one factor remains on each side and the resulting equation has no real solutions?
@@ -573,6 +584,7 @@ and now we are done (omg the long proof...)
 
 \end{itemize}
 
+\newpage
 \section{Combinatorics}
 \begin{itemize}
 \item[\textbf{C1}]
@@ -592,8 +604,9 @@ so the string can be uniquely determined like above (same goes for the strings w
 Now we have two candidates, and the last step is to prove that it works. 
 The verification might sound difficult, but again all we need is to show that if one string works we can find another string that works too (as of below). 
 
-\textbf{Solution.} The answer is 2 for $n=2k$ and 1 otherwise. 
+\textbf{Answer.} The answer is 2 for $n=2k$ and 1 otherwise. 
 
+\textbf{Solution.}
 Notice that there are $\binom nk$ strings the deputy leader can write. 
 For the $i$-th digit (for any $i\in [0, n-1]$), there are $\binom {n-1}{k-1}$ such strings with $i$-th digit differing from the original, 
 $\binom {n-1}k$ such strings with $i$-th digit equal to the original. 
@@ -612,6 +625,7 @@ With $c_0c_1\cdots c_{2k-1}$ having $k$ same digits and $k$ different digits as 
 it must have $2k-k=k$ same digits and $2k-k=k$ different digits as $b_0b_1\cdots b_{2k-1}$ too. 
 Thus $b_0b_1\cdots b_{2k-1}$ is actually another possibility. 
 
+\newpage
 \item[\textbf{C2}]
 Find all positive integers $n$ for which all positive divisors of $n$ can be put into the cells of a rectangular table under the following constraints:\\
 $\bullet$ each cell contains a distinct divisor;\\
@@ -667,6 +681,7 @@ However, this implies $n$ is a power of 2 and from $a_i\ge 1$, at least two rows
 The row containing $n$ must therefore have sum at least $2n$, 
 but for $n$ a power of two the sum of divisors is $2n-1$, contradiction. 
 
+\newpage
 \item[\textbf{C3}]
 Let $n$ be a positive integer relatively prime to $6$. We paint the vertices of a regular $n$-gon with three colours so that there is an odd number of vertices of each colour. Show that there exists an isosceles triangle whose three vertices are of different colours.
 
@@ -698,6 +713,7 @@ If we consider all such pairs $(x, y)$ where $x\in M, y\in N$ and $x$ is a side 
 Thus $2|N|=3|M|$. 
 This means $M$ is even. On the other hand we also have $|M|=|a|\cdot |b|$ where $|a|$ and $|b|$ are the number of sides with colour $a$ and $b$, respectively. This means $|a|$ or $|b|$ is even, contradiction. 
 
+\newpage
 \item[\textbf{C4/IMO 2}]
 Find all integers $n$ for which each cell of $n \times n$ table can be filled with one of the letters $I,M$ and $O$ in such a way that:\\
 $\bullet$ in each row and each column, one third of the entries are $I$, one third are $M$ and one third are $O$; and \\
@@ -749,7 +765,8 @@ M & O & I & O & I & M & I & M & O\\
 \end{tabular}
 \end{center}
 For $n=9k$ for some $k$ we just have to split the grid into $k^2$ $9\times 9$ grids, and fill each one with the letters above. 
-(Formally, if we lab
+(Formally, if we let $(i, j): 1\le i\le j\le n$ be the table coordinates then for each $1\le i, j\le 9$ and $0\le a, b\le k-1$, 
+$(i, j)$ and $(9a+i, 9b+j)$ contain the same letter). 
 For sake of verification, observe that there are exactly 3 $I$'s, 3 $M$'s and 3 $O$'s in each column or each row of a single $9\times 9$ grid. 
 Also, each diagonal is in the form of either $R_m=\{(i, j): i+j=m\}$, or $L_m=\{(i, j): i-j=m\}$, 
 for some $m$ satisfying $1\le (i, j)\le n$. 
@@ -791,10 +808,18 @@ Observe that for each $3\times 3$ cells we have $3+2+3+2+4+2+3+2+3=24$ markings,
 This means $8k^2=4c+2(2k^2-c)+3(k^2+c)=3c+7k^2$, or $c=\frac{k^2}{3}$. 
 Hence $3|k^2$, or $3|k$, or $9|n$. 
 
+\newpage
 \item[\textbf{C5}]
 Let $n \geq 3$ be a positive integer. Find the maximum number of diagonals in a regular $n$-gon one can select, so that any two of them do not intersect in the interior or they are perpendicular to each other. 
 
-\textbf{Solution.} The answer is $n-3$ for $n$ odd, and $n-2$ for $n$ even. 
+\textbf{Thoughts.} A few things must come into mind: no perpendicular diagonals for odd $n$ (proving this needs some work but not hard to think of), and for even case we will probably need perpendicular and intersecting diagonals to maximize our selection. It's also worth noting that, the more regions the diagonals split the circular arc into, the fewer available diagonals there are for us to use. 
+There are intuitively true, and it's not difficult for us to arrive at the answer (or rather, conjecture) of $n-2$. The difficult part is to make the proof rigorous---and writing down. 
+
+So how do we proceed? The first thing is to notice that those intersecting diagonals belong to just one pair of opposite class: those in the same class will be parallel to each other and perpendicular to everyone in the opposite class (not hard to see---just draw it yourself). Next, we want to find those diagonals that will intersect the most diagonals that are of the opposite class--which we can show that they will intersect all diagonals of the opposite class. And that's basically it! Simply form consider the relationship between the number of diagonals and the number of regions they split the circle into, and show that the rest of the diagonals must have diagonals lying entirely in the regions (which reduces to our simplified case of triangulation). 
+
+\textbf {Answer. }$n-3$ for $n$ odd, and $n-2$ for $n$ even. (Alternatively, $2\lfloor \frac n2\rfloor-2$). 
+
+\textbf{Solution.}
 For simplicity we denote the circumcircle of the $n$-gon as $\Gamma$, and our $n$-gon be $A_0A_2\cdots A_{n-1}$, 
 with $A_i$ having coordinates $C\left(\frac{2i\pi}{n}\right)=\left(\cos\frac{2i\pi}{n}, \sin\frac{2i\pi}{n}\right)$. 
 
@@ -825,7 +850,7 @@ Denoting $f(n)$ be this number and we show that $f(n)=n-3, \forall n\ge 3$.
 Base case when $n=3$, where $f(3)=0$ as there is no diagonal in a triangle. 
 Next, let $f(n)=n-3$ for $n=3, 4, \cdots k$ for some $k\ge 3$. 
 For $n=k+1$, let one diagonal split our $n$-gon into an $x$-gon and a $y$-gon, where $x+y=n+2$ and $x, y\ge 3$. 
-Then there are extra $f(x)+f(y)=x-3+y-3=x+y-6=n-4$ diagonals that can be constructed (each diagonal must belong to only one of the polygons becaus it cannot intersect our first diagonal int he interior). 
+Then there are extra $f(x)+f(y)=x-3+y-3=x+y-6=n-4$ diagonals that can be constructed (each diagonal must belong to only one of the polygons because it cannot intersect our first diagonal in the interior). 
 This gives $n-4+1=n-3$ diagonals, at most. 
 Equality can be achieved by taking diagonals $A_1A_k$, $k=3, 4, \cdots , n-1$.
 
@@ -906,6 +931,7 @@ This gives $2+2(k-2)=2k-2=n-2$. Q.E.D.
 \newcommand{\move}{jump }
 \newcommand{\moves}{jumps }
 
+\newpage
 \item[\textbf{C7/IMO 6}]
 There are $n\ge 2$ line segments in the plane such that every two segments cross and no three segments meet at a point. \person  has to choose an endpoint of each segment and place a \animal on it facing the other endpoint. Then \pronoun will clap \possesive hands $n-1$ times. Every time \pronoun claps, each \animal will immediately jump forward to the next intersection point on its segment. \Animals never change the direction of their jumps. \person wishes to place the \animals in such a way that no two of them will ever occupy the same intersection point at the same time.
 
@@ -930,12 +956,13 @@ This means the \animals coming from both rays will intersect (same for the case 
 Denoting the angles of the line to $x$-axis as $\theta_1$ and $\theta_2$, then this happens whenever either all lines have angles in $(\theta_1, \theta_2)$ or all lines have angles not in this range. 
 This shows that, if we rank the lines according to their angles, then any two lines neighbouring in ranking must have endpoints at different directions being chosen. 
 Don't forget to include the comparison between the first and the last line to arrive at contradiction!
+(Notice that this approach works for part (a) too; the intention is to show another soltuion that works uniquely for part (a) which gives an opporunity for some partial marks). 
 
 \textbf{Solution.} (a) Let the segments be $\ell_1, \ell_2, \cdots , \ell_n$. 
 Let $P_{ij}$ be the intersection of line $ij$. For each segment $\ell_i$ we aim to investigate the number of points on each side of $P_{ij}$ (other than $P_{ij}$). 
 Since there are $n-2$ such points (which is odd), 
 one side has even number of points and the other side odd. 
-We call this odd side of $\ell_i$ w.r.t. point $P_{ij}$. 
+We call this even and odd side of $\ell_i$ w.r.t. point $P_{ij}$, respectively. 
 
 Now place the first \animal arbitrarily on $\ell_1$. For $i\in [2, n]$ we do the following: 
 if the \animal corresponding to $\ell_1$ is place on the odd side of $\ell_1$ w.r.t. $P_{1i}$, 
@@ -978,7 +1005,7 @@ This means that $P_{ij}P_{i(i+1)}, P_{i(i+1)}P_{(i+1)j}, P_{(i+1)j}P_{ij}$ must 
 forcing $P_{ij}, P_{i(i+1)}, P_{(i+1)j}$ to be in clockwise order. 
 From here we infer that the vectors $P_{i(i+1)}P_{ij}$ and $P_{i(i+1)}P_{(i+1)j}$ either have directions ($\theta_i$, $\theta_{i+1}$) or ($\theta_i +\pi$, $\theta_{i+1} +\pi$), 
 and considering all such $j$'s, we know that there are equal number of intersection points lying on the half-line starting from $P_{i(i+1)}$ and extending in the $\theta_i$ direction, and on the half-line starting from $P_{i(i+1)}$ and extending in the $\theta_{i+1}$ direction. 
-This means that the \animals will collide when both placed in the $\theta_i, theta_{i+1}$ direction, or $\theta_i +\pi, theta_{i+1}+\pi$ direction, 
+This means that the \animals will collide when both placed in the $\theta_i, \theta_{i+1}$ direction, or $\theta_i +\pi, \theta_{i+1}+\pi$ direction, 
 forcing the directions to be  $\theta_i, \theta_{i+1}+\pi$ or  $\theta_i +\pi, \theta_{i+1}$. 
 
 Summarizing above, if we let $\theta_1$ to be the direction headed by the first \animal
@@ -988,10 +1015,13 @@ which contradicts our choice of making the first $\animal$ facing the direction 
 (The case where $\theta_1+\pi$ is chosen as the direction is completely analogous: if one configuration works, then the completely opposite configuration works too). 
 \end{itemize}
 
+\newpage
 \section{Geometry}
 \begin{itemize}
 \item[\textbf{G1/IMO 1}]
 Triangle $BCF$ has a right angle at $B$. Let $A$ be the point on line $CF$ such that $FA=FB$ and $F$ lies between $A$ and $C$. Point $D$ is chosen so that $DA=DC$ and $AC$ is the bisector of $\angle{DAB}$. Point $E$ is chosen so that $EA=ED$ and $AD$ is the bisector of $\angle{EAC}$. Let $M$ be the midpoint of $CF$. Let $X$ be the point such that $AMXE$ is a parallelogram. Prove that $BD,FX$ and $ME$ are concurrent.
+
+\textbf{Thoughts.} Right angle at $B$, and midpoint of $CF$ is given in the problem. What else could be better than drawing the circumcircle of $BCF$? And that's pretty much all we need for idea generation: as you draw the diagram you will soon realize tha $D$ and $X$ both lie on this circumcircle, and that $ED$ is parallel to $CF$ (which practically means that $M, D, E$ are collinear). The rest of the job is to prove the claims above (and there are many ways to do it; I have found two--one as detailed below, the other one using trigonometric bashing). And finally the use of the collinearity of $B, F, E$ and the fact that $BFDX$ is isoceles trapezoid is just one of the many possible ways to finish the solution. 
 
 \definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
 \definecolor{xdxdff}{rgb}{0.6588235294117647,0.6588235294117647,0.6588235294117647}
@@ -1076,8 +1106,11 @@ $=180^{\circ}-\angle CFD$
 $=\angle FDX$, 
 showing that $BFDX$ is also an isoceles trapezoid. With $BF$ and $DX$ intersecting at $E$, we conclude that $EM$ is the perpendicular bisector of both $DF$ and $BX$, and $DB$ and $FX$ will intersect on this perpendicular bisector too. 
 
+\newpage
 \item[\textbf{G2}]
 Let $ABC$ be a triangle with circumcircle $\Gamma$ and incenter $I$ and let $M$ be the midpoint of $\overline{BC}$. The points $D$, $E$, $F$ are selected on sides $\overline{BC}$, $\overline{CA}$, $\overline{AB}$ such that $\overline{ID} \perp \overline{BC}$, $\overline{IE}\perp \overline{AI}$, and $\overline{IF}\perp \overline{AI}$. Suppose that the circumcircle of $\triangle AEF$ intersects $\Gamma$ at a point $X$ other than $A$. Prove that lines $XD$ and $AM$ meet on $\Gamma$.
+
+\textbf{Thoughts. }The first thing that must naturally jump out of your mind is the spiral similarity between $XFB$ and $XEC$ (come on, two circles intersecting at $A$ and $X$). All's remaining is to trigonometric-bash the problem. 
 
 \definecolor{zzttqq}{rgb}{0.6,0.2,0.}
 \definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
@@ -1150,6 +1183,8 @@ $\angle EIC=\angle IBF=\frac12\angle B$.
 Therefore $BIF$ and $ICE$ similar, yielding $\frac{BF}{EC}=(\frac{BF}{FI})^2=(\frac{\sin\frac12\angle C}{\sin\frac12\angle B})^2$,
 now it's no longer difficult to prove that $(\frac{\sin\frac12\angle C}{\sin\frac12\angle B})^2\cdot \frac{2\sin\frac 12\angle B\cos\frac 12\angle B}{2\sin\frac 12\angle C\cos\frac 12\angle C}=\frac{\tan\frac12\angle C}{\tan\frac12\angle B}$.
 
+\newpage
+
 \item[\textbf{G3}]
 Let $B = (-1, 0)$ and $C = (1, 0)$ be fixed points on the coordinate plane. A nonempty, bounded subset $S$ of the plane is said to be nice if
 
@@ -1158,6 +1193,11 @@ $\text{(i)}$ there is a point $T$ in $S$ such that for every point $Q$ in $S$, t
 $\text{(ii)}$ for any triangle $P_1P_2P_3$, there exists a unique point $A$ in $S$ and a permutation $\sigma$ of the indices $\{1, 2, 3\}$ for which triangles $ABC$ and $P_{\sigma(1)}P_{\sigma(2)}P_{\sigma(3)}$ are similar.
 
 Prove that there exist two distinct nice subsets $S$ and $S'$ of the set $\{(x, y) : x \geq 0, y \geq 0\}$ such that if $A \in S$ and $A' \in S'$ are the unique choices of points in $\text{(ii)}$, then the product $BA \cdot BA'$ is a constant independent of the triangle $P_1P_2P_3$.
+
+\textbf{Thoughts.} 
+By letting $P_1P_2P_3$ equilateral we know that the only viable point $A$ with $ABC$ equilateral and with non-negative coordinates for $A$ is $(0, \sqrt{3})$. This also forces $BA=2$, and if for set $S$ and $S'$, the product $BA\cdot BA'$ is fixed across all such triangles $P_1P_2P_3$, then we must have $BA\cdot BA'=2\times 2=4=BC^2$. 
+
+Now this gives us an intuition on how $S$ and $S'$ *might* be constructed: if $A, A', B$ are collinear, $A$ and $A'$ are lying on the same side as $B$, and $BA\cdot BA'=BC^2$, then triangles $BCA$ and $BA'C$ are similar. What if...we try out $S$ containing all points $A$ with $BA\le 2$ (and having non-negative coordinates), and $S'$ containing the points $A'$ such that for each point $A$ in $S$ we have $BA\cdot BA'=4$. That would work, but again we need to verify it. Notice that a sensible question to ask would be: what exactly is $S'$ (given the condition above)? Now that $BA\le 2$ for $A\in S$, we know that it is bounded by a circle, and the line $y=0$, which means that $S'$ has something to do with the inversion of $y$-axis w.r.t. the circular arc $X: BX=2$ and radius 2. And yeah, $S\cup S'$ is precisely the part of this image of inversion that has nonnegative coordinates.
 
 \definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
 \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=2.0cm,y=2.0cm]
@@ -1261,8 +1301,12 @@ Therefore $\frac{AB}{BC}=\frac{P_1P_3}{P_2P_3}=\frac{BC}{A'B}$ and $BC^2=AB\cdot
 \end{itemize}
 \end{itemize}
 
+\newpage
+
 \item[\textbf{G4}]
 Let $ABC$ be a triangle with $AB = AC \neq BC$ and let $I$ be its incentre. The line $BI$ meets $AC$ at $D$, and the line through $D$ perpendicular to $AC$ meets $AI$ at $E$. Prove that the reflection of $I$ in $AC$ lies on the circumcircle of triangle $BDE$.
+
+\textbf{Thoughts.} Focusing on the circumcircle of $BDE$ (as per suggested by the problem) is itself a pain because there isn't much information we can take home regarding the point $I'$. Instead, the notion of reflection should immediately let us think of angle bisection: that $AC$ bisects $\angle BDI'$. As $DE$ is perpendicular to $AC$, line $DE$ bisects the same angle too. This realization should let us focus on the circumcircle of $BDI'$ instead: we know that $E$ lies on this circumcircle if and only if $BE=EI'$. Now the equality $BE=EI'$ is something easier to establish; we chose the method of trigonometry and introducing the point $I''$ (although direct computation *should* work too). 
 
 \definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
 \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
@@ -1316,17 +1360,19 @@ Knowing that $BP=BI+ID-PD$ and $PI''=PD+DI''=PD+DI$ it suffices to prove that $B
 
 Denote the common angles $\angle ABI, \angle IBC, \angle ICB, \angle ACI$ as $\alpha$. 
 Then, $\angle ADB=3\alpha$, and $\angle IDE=|90^{\circ}-3\alpha|$ (as we will see, we are only interested in the cosine of this angle so don't worry about the sign). 
-So $\frac{PD}{BI}$
-$=\frac{DE\cos\angle IDE}{BI}$
-$=\frac{AD\tan\angle DAI\cos\angle IDE}{BI}$
-$=\frac{AB\tan\angle DAI\cos\angle IDE\sin\angle ABD}{BI\sin\angle ADB}$
-$=\frac{BI\tan\angle DAI\cos\angle IDE\sin\angle ABD\sin\angle AIB}{BI\sin\angle ADB\sin\angle BAI}$
-$=\frac{\tan(90^{\circ}-2\alpha)\cos|90^{\circ}-3\alpha|\sin\alpha\sin(90^{\circ}+\alpha)}{\sin(3\alpha)\sin(90^{\circ}-2\alpha)}$
-$=\frac{\sin(90^{\circ}-2\alpha)\sin(3\alpha)\sin\alpha\cos\alpha}{\sin(3\alpha)\sin(90^{\circ}-2\alpha)\cos(90^{\circ}-2\alpha)}$
-$=\frac{\sin\alpha\cos\alpha}{\sin (2\alpha)}$
-$=\frac{\sin\alpha\cos\alpha}{2\sin\alpha\cos\alpha}$
-$=\frac 12$, 
+So \[\frac{PD}{BI}
+=\frac{DE\cos\angle IDE}{BI}
+=\frac{(AD\tan\angle DAI)\cos\angle IDE}{BI}
+=\frac{AB\sin\angle ABD}{\sin\angle ADB}\cdot\frac{\tan\angle DAI\cos\angle IDE}{BI}\]
+\[=\frac{BI\sin\angle AIB}{\sin\angle BAI}\cdot\frac{\tan\angle DAI\cos\angle IDE\sin\angle ABD}{BI\sin\angle ADB}
+=\frac{\tan(90^{\circ}-2\alpha)\cos|90^{\circ}-3\alpha|\sin\alpha\sin(90^{\circ}+\alpha)}{\sin(3\alpha)\sin(90^{\circ}-2\alpha)}\]
+\[=\frac{\sin(90^{\circ}-2\alpha)\sin(3\alpha)\sin\alpha\cos\alpha}{\sin(3\alpha)\sin(90^{\circ}-2\alpha)\cos(90^{\circ}-2\alpha)}
+=\frac{\sin\alpha\cos\alpha}{\sin (2\alpha)}
+=\frac{\sin\alpha\cos\alpha}{2\sin\alpha\cos\alpha}
+=\frac 12,\] 
 as $\cos|90^{\circ}-x|=\cos(90^{\circ}-x)=\sin x$, $\sin(90^{\circ}+\alpha)=\cos\alpha$ and $\tan x=\frac{\sin x}{\cos x}$. 
+
+\newpage
 
 \item[\textbf{G5}]
 Let $D$ be the foot of perpendicular from $A$ to the Euler line (the line passing through the circumcentre and the orthocentre) of an acute scalene triangle $ABC$. A circle $\omega$ with centre $S$ passes through $A$ and $D$, and it intersects sides $AB$ and $AC$ at $X$ and $Y$ respectively. Let $P$ be the foot of altitude from $A$ to $BC$, and let $M$ be the midpoint of $BC$. Prove that the circumcentre of triangle $XSY$ is equidistant from $P$ and $M$.
@@ -1379,30 +1425,34 @@ Let $D$ be the foot of perpendicular from $A$ to the Euler line (the line passin
 \end{scriptsize}
 \end{tikzpicture}
 
-\textbf{Solution.}
-We first investigate the locus of $S$. 
+\textbf{Solution 1.}
 Denote by $O$ the circumcenter and $H$ the orthocenter of triangle $ABC$
-Denote also by $E$ the midpoint of $AO$, $F$ the midpoint of $AH$, and $N$ the midpoint of $OH$ (the nine-point-center). 
+Denote also by $E$ the midpoint of $AO$, $F$ the midpoint of $AH$, $N$ the midpoint of $OH$ (the nine-point-center), and $J$ the circumcenter of $XSY$. Observe that our goal is to prove that the circumcenter of triangle $XSY$ (namely $J$) lies on the perpendicular bisector of $PM$. Considering the 9-point circle we know that $P$ and $M$ pass through the circle, so the center $N$ is on the perpendicular bisector of $PM$. Thus is suffices to prove that $J$ lies on the perpendicular from $N$ to $BC$. 
+
+Now let's break the solution into the following:
+\begin{itemize}
+\item [Lemma 1.]  $S$ lies on $EF$.\\
+Proof: 
 Obviously $S$ passes through the perpendicular bisector of $AD$, so this locus is a line. 
 In the case there the circle passes through $H$, from the fact that $\angle ADH=90^{\circ}$ we know that $S=F$.
 Similarly, if the circle passes through $O$, $S=E$ in this case with $\angle ADO=90^{\circ}$. 
 Thus the locus is actually $EF$, i.e. parallel to $OH$. 
-
-We proceed to prove that the circumcenter of triangle $XSY$ (namely $J$) lies on the perpendicular bisector of $PM$. 
-That is, the line passing through the midpoint of $OH$ (a.k.a. nine-point-center) and perpendicular to $BC$ (or parallel to $AH$). 
-We first show this in the special cases that $S$ is the midpoint of $AO$ or $AH$. 
-In the first case ($E=S$), $X$ is the midpoint of $AB$ and $Y$ is the midpoint of $AC$ (imagine the homothety centered at $A$ with factor $\frac 12$ which brings $ABC$ to $AXY$ and point $O$ to the midpoint of $AO$). 
+\item [Lemma 2.] The claim holds through in the special cases where $S\equiv E$ or $S\equiv F$.\\
+Proof:
+When $S\equiv E$, $X$ is the midpoint of $AB$ and $Y$ is the midpoint of $AC$ (imagine the homothety centered at $A$ with factor $\frac 12$ which brings $ABC$ to $AXY$ and point $O$ to the midpoint of $AO$). 
 $J$ lies on the perpendicular bisector of $XY$
 Notice that, with $XY\parallel BC$, this perpendicular bisector of $XY$ is also perpendicular to $BC$. 
 Moreover, nine-point-circle passes through the midpoints of $AB$ and $AC$, so this perpendicular bisector passes through the nine-point center. 
 Therefore the perpendicualr bisector of $XY$ is the perpendicular bisector of $PM$ itself, 
 and with $SX=SY$, $S$ (the midpoint of $AO$, a.k.a. $E$ in this case) lies on this perpendicular bisector too. 
-In the second case, $X$ and $Y$ are going to be the altitude from $C$ to $AB$, and $B$ to $AC$, respectively. 
+When $S\equiv F$, $X$ and $Y$ are going to be the altitude from $C$ to $AB$, and $B$ to $AC$, respectively. 
 Since the nine-point circle passes through the midpoint of $AH$ ($S$ in this case), $X$, $Y$, $P$, $M$, 
-$J$, the circumcenter of $XSYPM$ is the nine-point center itself. 
+ the circumcenter of $XSYPM$ (i.e. $J$) is the nine-point center itself. 
+\end{itemize}
 
-Now let's do the general case. Observe that with $E$ (midpoint of $AO$) and $N$ (midpoint of $OH$) both equidistant from $PM$ the conclusion now becomes $J$ lies on $EN$. We invoke the following two lemmas:\\ 
-$\bullet$ $\frac {SJ}{AS}=\frac {AE}{EN}$.\\
+Now let's do the general case. Observe that with $E$ (midpoint of $AO$) and $N$ (midpoint of $OH$) both equidistant from $PM$ the conclusion now becomes $J$ lies on $EN$. We first need the following: 
+\begin{itemize}
+\item [Lemma 3.] $\frac {SJ}{AS}=\frac {AE}{EN}$\\
 Proof: we have $AE=\frac 12 AO$ and $EN=AF=\frac 12 AH$, and $AS=SX=SY$, 
 so we just have to prove that 
 $\frac {SJ}{SX}=\frac {AO}{AH}$.
@@ -1413,8 +1463,8 @@ Let $T$ be the reflection of $H$ in $M$, then $HBMT$ is a parallelogram with $\a
 $\angle ABC+\angle HCB=90^{\circ}$, and similarly $\angle ACT=90^{\circ}$. 
 Therefore $A, O, T$ collinear and with $AH\parallel OM$ we have $\frac{OM}{AH}=\frac {TH}{MT}=\frac 12$. 
 We also know that $\frac {OM}{AO}=\frac {OM}{BO}=\cos\angle BOM=\cos\angle BAC$
-so $\frac {AO}{AH}=\frac {AO}{2OM}=\frac 1{2\cos\angle BAC}=\frac {SJ}{AS}$.\\ 
-$\bullet$ $\angle (HA, AS)=\angle (SJ, AO)$. (This would also imply $\angle (AO, AS)=\angle (SJ, AH)$).\\
+so $\frac {AO}{AH}=\frac {AO}{2OM}=\frac 1{2\cos\angle BAC}=\frac {SJ}{AS}$.
+\item [Lemma 4.] $\angle (HA, AS)=\angle (SJ, AO)$. (This would also imply $\angle (AO, AS)=\angle (SJ, AH)$).\\
 Proof: we use the well-known fact that the circumcenter and orthocenter of each triangle are the isogonal conjugates of each other. 
 In particular, if $\ell$ is the perpendicular from $A$ to $XY$ then $AS$ and $\ell$ are the images of each other in the reflection of the internal angle bisector of $\angle AXY$. 
 This gives $\angle (AB, AS)=\angle (\ell, AC)$. 
@@ -1422,6 +1472,7 @@ Same goes for the relation between $AH$ and $AO$, and therefore $\angle (AB, AH)
 Moreover, $SJ\perp XY$ (since $SX=SY$ and $JX\perp JY$ we know that $SJ$ must be the perpendicular bisector of $XY$). 
 Therefore $SJ\parallel \ell$. 
 Now we have $\angle (SJ, AO)=\angle (\ell, AO)=\angle (\ell, AC)+\angle (AC, AO)=\angle (AB, AS)+\angle (AH, AB)=\angle (AH, AS)$. 
+\end{itemize}
 
 To complete the proof denote $J'$ by the intersection of $SJ$ and $EN$ and we shall prove that $J=J'$ by proving that $SJ=SJ'$. 
 From the first lemma it suffices to prove that  $\frac {SJ'}{AS}=\frac {AE}{EN}$. 
@@ -1429,6 +1480,24 @@ Now $\frac {AS}{SE}=\frac{\sin\angle AES}{\sin\angle SAE}=\frac{\sin\angle AOH}{
 $\frac{SJ'}{SE}=\frac{\sin\angle SEJ'}{\sin\angle EJ'S}=\frac{\sin\angle AFE}{\sin\angle EJ'S}=\frac{\sin\angle AHO}{\sin\angle EJ'S}$. 
 Now, $\angle (EJ', J'S)=\angle (EN, SJ)=\angle (AH, SJ)=\angle (AO, AS)$ so the angles $\angle SEJ'$ and $\angle SAO$ are either equal or supplementary, hence $\sin\angle SEJ'=\sin\angle SAO$. 
 Therefore, $\frac {SJ'}{AS}=\frac {SJ'}{SE}\div \frac {AS}{SE}= \frac{\sin\angle AHO}{\sin\angle EJ'S}\div\frac{\sin\angle AOH}{\sin\angle SAO}=\frac{\sin\angle AHO}{\sin\angle AOH}=\frac{AO}{AH}=\frac {EN}{AE}$, Q.E.D.
+
+\textbf{Solution 2.} We present another proof of $NJ\perp BC$, this time involving the point $D$ itself. 
+Denote $F$ as above (the midpoint of $AH$), $X_H$ as the foot of perpendicular from $C$ to $AB$, and $Y_H$ the foor of perpendicular from $B$ to $AC$. 
+
+We firstproe that triangles $DXY$ and $DX_HY_H$ are similar. Observe that with $ADXY$ cyclic, we have $\angle (DX, XY)=\angle (DA, AY)=\angle (DA, AC)$, $\angle (DY, XY)=\angle (DA, AX)=\angle (DA, AB)$ and finally $\angle (DX, DY)=\angle (AB, AC)$ for the similar reason. 
+Now considering $X_H$ and $Y_H$, we know that from $\angle AX_HH=\angle AY_HH=\angle ADH=90^{\circ}$ we know that $A, X_H, Y_H, H, D$ concyclic. By the similar logic above, 
+$\angle (DX_H, X_HY_H)=\angle (DA, AY_H)=\angle (DA, AC)$, $\angle (DY_H, X_HY_H)=\angle (DA, AX_H)=\angle (DA, AB)$ and finally $\angle (D_HX, DY_H)=\angle (AB, AC)$ for the similar reason. 
+This gives $\angle (DX, XY)=\angle (DX_H, X_HY_H)$, $\angle (DY, XY)=\angle (DY_H, X_HY_H)$ and $\angle (DX_H, DY_H)=\angle (DX, DY)$, proving that the two triangles are similar. 
+(A plausible question would be, since we are using directed angles, what if some two angles are not equal but supplementary? 
+This wouldn't happen with the constraint that sum of angles of a triangle is $180^{\circ}$). 
+
+Now denote $\Phi$ as the spiral similarity sending triangle $DX_HY_H$ to $DXY$, so $\Phi(X_H)=X$ and $\Phi(Y_H)=Y$. Notice that, $\Phi$ sends the corresponding circumcenters as well, thus $\Phi(F)=S$. 
+This means that $\Phi(FX_HY_H)=SXY$, and this spiral similarity, again, maps their corresponding circumcenters too. 
+But we have proven in solution 1 that the circumcenter of $FX_HY_H$ is $N$, so $\Phi(N)=J$. 
+With $\Phi(D)=D$, we have $\Phi(DX_HN)=\Phi(DXJ)$. This could, in turn, be manipulated to get the fact that not only $DX_HN$ and $DXJ$ are similar, $DX_HX$ and $DNJ$ are similar too (in a similar orientation). So $\angle (DN, NJ)=\angle (DX_H, X_HX)=\angle (DX_H, X_HA)=\angle (DH, HA)=\angle (OH, HA)$, the last two equality following from the fact that $D$ lies on $OH$ and $D, X_H, A, H$ are concyclic. However we also have $\angle (DN, NJ)=\angle (OH, NJ)$ because $D$ also lies on $OH$. Thus $\angle (OH, NJ)=\angle (OH, HA)$, meaning that $NJ\parallel HA$, i.e. $HA$ and $NJ$ are both perpendicular to $BC$. 
+
+
+\newpage 
 
 \item[\textbf{G6}]
 Let $ABCD$ be a convex quadrilateral with $\angle ABC = \angle ADC < 90^{\circ}$. The internal angle bisectors of $\angle ABC$ and $\angle ADC$ meet $AC$ at $E$ and $F$ respectively, and meet each other at point $P$. Let $M$ be the midpoint of $AC$ and let $\omega$ be the circumcircle of triangle $BPD$. Segments $BM$ and $DM$ intersect $\omega$ again at $X$ and $Y$ respectively. Denote by $Q$ the intersection point of lines $XE$ and $YF$. Prove that $PQ \perp AC$.
@@ -1494,6 +1563,11 @@ We first start with a preliminary observation: $X$ lies on $\omega_2$ and $Y$ li
 Next, let $N_1$ be diametrically opposite $M_1$ w.r.t. $\omega_1$ and define similarly for $N_2$. We claim that $XE$ passes through $N_2$ by claiming that $XE$ is the internal angle bisector of $\angle AXC$. Indeed, by angle bisector theorem we have $\frac{AE}{EC}=\frac{AB}{BC}$. Invoking our $X''$ from the previous section (i.e. the other intersection of $BM$ and $\omega_1$) gives $AXCX''$ parallelogram. Now invoking a little bit more trigonometric bashing we have $1=\frac{AM}{CM}=\frac{AB}{BC}\cdot\frac{\sin\angle ABM}{\sin\angle CBM}=\frac{AB}{BC}\cdot\frac{AX''}{CX''}=\frac{AB}{BC}\cdot\frac{CX}{AX},$ so $\frac{AX}{CX}=\frac{AB}{BC}=\frac{AE}{EC}$, and the conclusion follows by the angle bisector theorem. Analogously, $YF$ passes through $N_1$.
 
 Finally, considering triangle $PEF$, and letting the perpendicular from $P$ to reach $AC$ at $P_1$ we have (considering signed length) $\frac{EP_1}{FP_1}=\frac{\cot\angle FEP}{\cot\angle EFP}$. Similarly if letting perpendcular from $Q$ to reach AC at $Q_1$ we have $\frac{EQ_1}{FQ_1}=\frac{\cot\angle FEQ}{\cot\angle EFQ}$. Now $\cot\angle FEP=\cot\angle MEM_1=\frac{MM_1}{EM}$, $\cot\angle EFP=\cot\angle MFM_2=\frac{MM_2}{FM}$. Considering $MM_2=MM_1$ we have $\frac{\cot\angle FEP}{\cot\angle EFP}=\frac{FM}{EM}$. Analogously, $\cot\angle FEQ=\cot\angle FEQ=\cot\angle MEN_2=\frac{MN_2}{EM}$, and $\cot\angle EFQ=\cot\angle N_1FM=\frac{MN_1}{FM}$. Therefore we have $\frac{\cot\angle FEQ}{\cot\angle EFQ}=\frac{FM}{EM}$ since again it is not hard to verify that $MN_2=MN_1$. (For signed convention we can say that $ME<0$ if it's nearer to $A$ than $B$, and $>0$ otherwise). Therefore, $\frac{EP_1}{FP_1}=\frac{EQ_1}{FQ_1}$, so $P_1\equiv Q_1$ and the two perpendicular lines coincide.
+
+\textbf{Note:} We present another proof of $PQ\perp AC$ after establishing the claims that $X$ on $\omega_2$, $Y$ on $\omega_1$, $XE$ passes through $N_2$ and $YF$ passes through $N_1$. Now, consider the circle containing $B, P, D, X, Y$. 
+Denoting $Q_1$ as the intersection of $XE$ with this circle we have $\angle (PQ_1, XE)=\angle (PQ_1, XQ_1)=\angle (PD, XD)=\angle (M_2D, XD)=\angle (M_2N_2, XN_2)=\angle (M_2N_2, XE)$ (because $P, D, M_2$ collinear and $X, M_2, D, N_2$ lie on the same circle $\omega_2$). Thus $PQ_1\parallel M_2N_2$. In a similar way if $Q_2$ is the intersection of $Y_F$ with the circle containing $B, P, D, X, Y$ we also have $PQ_2\parallel M_1N_1$. But with $M_1, N_2, M_2, N_2$ collinear we have: $P, Q_1, Q_2$ lying on the same line, and since all three lie on the circle $BPD$ we have $Q_1$ coincides with $Q_2$ ($P$ cannot be equal to either of them; otherwise $M_1\equiv N_2$ or $M_2\equiv N_1$ which is impossible). This gives $Q_1\equiv Q_2\equiv Q$ and since $PQ\parallel M_1N_1$ and $M_1N_1\perp AC$, we have $PQ\perp AC$. 
+
+\newpage
 
 \item[\textbf{G7}]
 Let $I$ be the incentre of a non-equilateral triangle $ABC$, $I_A$ be the $A$-excentre, $I'_A$ be the reflection of $I_A$ in $BC$, and $l_A$ be the reflection of line $AI'_A$ in $AI$. Define points $I_B$, $I'_B$ and line $l_B$ analogously. Let $P$ be the intersection point of $l_A$ and $l_B$.
@@ -1670,6 +1744,8 @@ Thus $\angle XIY=\angle XOY=120^{\circ}$.
 
 \end{itemize}
 
+
+\newpage 
 \section{Number Theory}
 \begin{itemize}
 \item[\textbf{N1}]
@@ -1756,6 +1832,9 @@ This entails $S(P(n))=S(n+c)$ and $P(S(n))=S(n)+c$ for all $n\ge 2016$,
 and letting $n=10^d-1$ we have $S(n)=9d$, and for $c\ge 1$, $S(n+c)=S(10^k-1+c)=c$, which doesn't hold for $d=5$. 
 Therefore $c=0$ and we get the identity polynomial. 
 
+
+\newpage 
+
 \item[\textbf{N2}]
  Let $\tau(n)$ be the number of positive divisors of $n$. Let $\tau_1(n)$ be the number of positive divisors of $n$ which have remainders $1$ when divided by $3$. Find all positive integral values of the fraction $\frac{\tau(10n)}{\tau_1(10n)}$.
 
@@ -1803,6 +1882,9 @@ It remains to show that any even or composite numbers work.
 For even numbers $2k$, simply take $10\cdot 3^{k-1}$ and by our proof the ratio is $2k$. 
 For odd composite number $xz$ with $x, z\ge 3$, take $m=2^{x-1}5^{z-1}$. 
 
+
+\newpage
+
 \item[\textbf{N3/IMO 4}]
 A set of postive integers is called fragrant if it contains at least two elements and each of its elements has a prime factor in common with at least one of the other elements. Let $P(n)=n^2+n+1$. What is the least possible positive integer value of $b$ such that there exists a non-negative integer $a$ for which the set $$\{P(a+1),P(a+2),\ldots,P(a+b)\}$$is fragrant?
 
@@ -1849,6 +1931,9 @@ Thus neither of $P(a+2)$ nor $P(a+4)$ can be divisible by 7, and they cannot hav
 This entails $P(a+1)$ and $P(a+4)$ must have common factor, and by what we established earlier this factor must be 3. 
 Similarly, $P(a+2)$ and $P(a+5)$ must both be divisible by 3. 
 However, $P(a+1)$ and $P(a+2)$ are both divisible by 3, contradiction. 
+
+
+\newpage
 
 \item[\textbf{N4}]
 Let $n, m, k$ and $l$ be positive integers with $n \neq 1$ such that $n^k + mn^l + 1$ divides $n^{k+l} - 1$. Prove that
@@ -1901,6 +1986,8 @@ or $2>n^k$, forcing $n=1$ (contradiction since $k\ge 1$).
 Thus $m=1$ ($m$ must be positive) and we have $k=l-k$, or $l=2k$. 
 \end{itemize}
 
+\newpage
+
 \item[\textbf{N5}]
 Let $a$ be a positive integer which is not a perfect square, and consider the equation \[k = \frac{x^2-a}{x^2-y^2}.\]Let $A$ be the set of positive integers $k$ for which the equation admits a solution with $x>\sqrt{a}$, and let $B$ be the set of positive integers for which the equation admits a solution with $0\leq x<\sqrt{a}$. Show that $A=B$.
 
@@ -1930,6 +2017,8 @@ $=\dfrac{kc(4x+4kc-2x-c)}{c(2x+4kc)-c)}$
 $=k$. 
 This means $k$ admits $(x_2, y_2)$ as well, and from $x_2=y_2+c>y_2$ we have $x_1>\sqrt{a}$. Therefore
 $k\in A$ too. 
+
+\newpage
 
 \item[\textbf{N6}]
 Denote by $\mathbb{N}$ the set of all positive integers. Find all functions $f:\mathbb{N}\rightarrow \mathbb{N}$ such that for all positive integers $m$ and $n$, the integer $f(m)+f(n)-mn$ is nonzero and divides $mf(m)+nf(n)$.
