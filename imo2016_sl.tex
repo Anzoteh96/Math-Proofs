@@ -23,7 +23,7 @@ The IMO 2016 shortlisted problems were published on July 19, 2017: after the sec
 
 A shortcoming of providing only the solutions to the readers is that, it does not show the process of generating insights needed to solve the problems. 
 For problems involving functional equations (A4, N6, and the currently unolved A7), the solutions are usually intuitive because the majortiy of it is to substitute variables. 
-However, for problems like C7 (Problem 6: lines and endpoints) it may not be suggestive at all on how do we come out with the notion of "bearings" in the solution. 
+However, for problems like C7 (Problem 6: lines and endpoints) it may not be suggestive at all on how do we come out with the notion of "bearings" in the solutions; and for N5 (set $A$ = set $B$) you'd never understand how can we come out with the alternative aprs without trying it yourself. 
 In view of this, I have a writeup on my own thought proess before each solution, in effort of making it easy for readers to understand how did I arrive at the ideas needed for the solution. 
 
 To conclude: the thought process contains the intuitive part of the writing, while the solution contains the part where mathematical rigor is maintained at the highest possible level. 
@@ -41,7 +41,7 @@ The way, when desperate, is to brute force the whole thing by cubing the left-ha
 $\left(\frac{a+b+c}{3}\right)^6+3\left(\frac{a+b+c}{3}\right)^4+3\left(\frac{a+b+c}{3}\right)^2+1$, 
 but let's not make our lives miserable with (probably) hundreds of terms on the right. 
 
-Instead, we start with the following observation: 
+Instead, we start with the following observations: 
 \begin{itemize}
 \item [1.] What happens when $a=b=c$? Then the equality holds! 
 This motivates us to show that whenever $a+b+c$ is fixed, the maximal possible value of $(a^2+1)(b^2+1)(c^2+1)$ can be attained whenever $a=b=c$. With this in mind...
@@ -58,7 +58,7 @@ $f(a,b,c)\le f(k,x,y)\le f(k,k,k)$.
 The right inequality is easy to establish for any $x, y$ with sum $2k$, given that $\min(kx, ky, xy)\ge 1$. 
 This, however, requires us to maintain this invariant for the right inequality. 
 Additionally, for left inequality to work we need one of $k, x, y$ to be the same as one of $a, b, c$, 
-wjich requires some case-by-case analysis (i.e. $m(a,b,c)\le k$ and $m(a,b,c)\ge k$, where $m$ denotes the median of the three variables here). 
+which requires some case-by-case analysis (i.e. $m(a,b,c)\le k$ and $m(a,b,c)\ge k$, where $m$ denotes the median of the three variables here). 
 These aren't hard, just some work needed. 
 \end{itemize}
 
@@ -74,8 +74,8 @@ so we have
 \[(a_1^2+1)(b_1^2+1)-(a_2^2+1)(b_2^2+1)
 =(a_1b_1-1)^2-(a_2b_2-1)^2
 =(a_1b_1+a_2b_2-2)(a_1b_1-a_2b_2)\]
-\[=(a_1b_1+a_2b_2-2)\left(\frac{(k^2-(a_1-b_1)^2)-(k^2-(a_2-b_2)^2)}{2}\right)
-=(a_1b_1+a_2b_2-2)\left(\frac{(a_2-b_2)^2-(a_1-b_1)^2)}{2}\right).\]
+\[=(a_1b_1+a_2b_2-2)\left(\frac{(k^2-(a_1-b_1)^2)-(k^2-(a_2-b_2)^2)}{2}\right)\]
+\[=(a_1b_1+a_2b_2-2)\left(\frac{(a_2-b_2)^2-(a_1-b_1)^2)}{2}\right).\]
 Now that $a_1b_1, a_2b_2\ge 1$, 
 $(a_1^2+1)(b_1^2+1)-(a_2^2+1)(b_2^2+1)\ge 0$ iff 
 $a_1b_1-a_2b_2\ge 0$. 
@@ -205,16 +205,16 @@ $ \left| \sum_{i=1}^n \varepsilon_i a_i \right| + \left| \sum_{i=1}^n \varepsilo
 Therefore, for the case where $a_i, b_i\ge 0$ we have: 
 $a_i+b_i=1$ 
 so the right hand side now becomes $\left| \sum_{i=1}^n \varepsilon_i \right|$. 
-When $n$ is even, we know that the condition holds only when $\sum_{i=1}^n \varepsilon_i$ is 0, which means exactly hald of the $\varepsilon_i$'is is 1 and the other -1. 
-This motivates us to think of the counterexample $(1, 0, 0, \cdots , 0)$ on one side $(0, 1, 1, \cdots, 1)$ on the other. 
+When $n$ is even, we know that the condition holds only when $\sum_{i=1}^n \varepsilon_i$ is 0, which means exactly half of the $\varepsilon_i$'is is 1 and the other -1. 
+This motivates us to think of the counterexample $(1, 0, 0, \cdots , 0)$ on one side $(0, 1, 1, \cdots, 1)$ on the other (and yes this counterexample is valid). 
 For odd $n$, we have $\sum_{i=1}^n \varepsilon_i=\pm 1$ to consider. 
 Some experimentation yields that we can have $\sum_{i=1}^n \varepsilon_i= 1$ and 
 $0\le \sum_{i=1}^n \varepsilon_i a_i\le 1$, and 
 $0\le \sum_{i=1}^n \varepsilon_i b_i\le 1$, giving 
-$| \sum_{i=1}^n \varepsilon_i a_i|+|\sum_{i=1}^n \varepsilon_i b_i|\le 1$. 
-(Well, the proof for the existence of $\varepsilon_i$'s isn't that straightforward, but so does the construction of the counterexamples $a_i$'s and $b_i$'s which is guarateed to fail. The proof of the existence of such $\varepsilon_i$'s is better explained in the solution. 
+$| \sum_{i=1}^n \varepsilon_i a_i|+|\sum_{i=1}^n \varepsilon_i b_i|= 1$. 
+(Well, the proof for the existence of $\varepsilon_i$'s isn't that straightforward, but so does the construction of the counterexamples $a_i$'s and $b_i$'s which is guarateed to fail). The proof of the existence of such $\varepsilon_i$'s is better explained in the solution. 
 
-In view of this we likely know that the answer *might* be positive even extends to the cases that $a_i$'s and $b_i$'s might have opposite signs for odd $n$. And yes, the invariant of $|a_i-b_i|=1$ or $|a_i+b_i|=1$ further motivates us to split the pairs $(a_i, b_i)$ into those with same signs and different signs. The simplified case of $a_i, b_i\ge 0$ for all $i$ also motivates us to find such $\varepsilon_i$'s such that $\sum\varepsilon_i a_i$ and $\sum\varepsilon_i b_i$ are both in $[-1, 1]$ for $a_i, b_i\ge 0, $ which we can further narrow the interal down to $[0, 1]$ for both when $m$ (the total number of summands) is odd, and $[0, 1]$ for sum of $a_i$'s and $[-1, 0]$ for sum of $b_i$'s when $m$ is even. This is all we need to prove the answer is "yes". 
+In view of this we likely know that the answer *might* be positive even extends to the cases that $a_i$'s and $b_i$'s might have opposite signs for odd $n$. And yes, the invariant of $|a_i-b_i|=1$ or $|a_i+b_i|=1$ further motivates us to split the pairs $(a_i, b_i)$ into those with same signs and different signs. The simplified case of $a_i, b_i\ge 0$ for all $i$ also motivates us to find such $\varepsilon_i$'s such that $\sum\varepsilon_i a_i$ and $\sum\varepsilon_i b_i$ are both in $[-1, 1]$ for $a_i, b_i\ge 0, $ which we can further narrow the interval down to $[0, 1]$ for both when $m$ (the total number of summands) is odd, and $[0, 1]$ for sum of $a_i$'s and $[-1, 0]$ for sum of $b_i$'s when $m$ is even. This is all we need to prove the answer is "yes". 
 
 \textbf{Answer.} All odd $n$. 
 
@@ -224,7 +224,7 @@ Consider $a_i=1$, $b_i=0$ for all $i\in [1, 2k-1]$,
 and $a_{2k}=0, b_{2k}=1$. 
 Then $\sum_{i=1}^n \varepsilon_i b_i=\varepsilon_{2k}$, which has absolute value of 1. 
 Also $\sum_{i=1}^n \varepsilon_i a_i=\sum_{i=1}^{2k-1} \varepsilon_i$. 
-If $x$ of the indices $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_{2k-1}$ are 1 and the rest -1, 
+If $x$ of the indices $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_{2k-1}$ are 1 and the rest $-$1, 
 then the value would be $x-(2k-1-x)=2x-2k+1$, which is an odd integer. Thus it has absolute value at least 1 too. 
 Therefore we have 
 $\left| \sum_{i=1}^n \varepsilon_i a_i \right| + \left| \sum_{i=1}^n \varepsilon_i b_i \right|\ge 1+1=2$. 
@@ -276,7 +276,7 @@ This means $0\le -y_k\le 1$ and
 Among them, $\varepsilon_1$, $\varepsilon_2$, $\cdots$, $\varepsilon_k$, $\varepsilon_{k+\frac{m+1}2}, \cdots, \varepsilon_m$ are 1 $(k+m-(k+\frac{m+1}2-1)=\frac{m+1}2$ of them) with the rest $-1$. Hence we are done. 
 
 The second case isn't much different from the first. 
-The second condition can be achieved whenever exactly half of $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_m$ are 1 and the rest -1. 
+The second condition can be achieved whenever exactly half of $\varepsilon_1, \varepsilon_2, \cdots , \varepsilon_m$ are 1 and the rest $-1$. 
 To see why, we have 
 $ \sum_{i=1}^m \varepsilon_i a_i  + \sum_{i=1}^m \varepsilon_i b_i $
 $=\sum_{i=1}^m \varepsilon_i$
@@ -356,8 +356,17 @@ $a+c+a-c+1=2a+1$, and from $-1\le a\le 0$ we have $-1\le 2a+a\le 1$, which serve
 \item[\textbf{A4}]
 Find all functions $f:(0,\infty)\rightarrow (0,\infty)$ such that for any $x,y\in (0,\infty)$, $$xf(x^2)f(f(y)) + f(yf(x)) = f(xy) \left(f(f(x^2)) + f(f(y^2))\right)\cdots (*).$$
 
+\textbf{Thoughts.} Naturally, plugging $x=y=1$, $x=1$ and $y=1$ are the first hings we need to do (since $x=0$ is disallowed here). 
+This gives us $xf(x^2)=f(x)$, after which we can (kind of) conjecture that the answer is $f(x)=\frac 1x$. 
+A few more experimentations will give an intuition that there isn't any other solution, but it's not obvious why it is so. 
+Therefore, in light of the results we have proven in steps 2 and 3 we should convert $xf(x^2)$ to $f(x)$ (nicer equation) and $f(f(y))$ to $f(y)f(f(y^2))$ (matches more closely with right-hand-side), and now we have (**). 
+It's true that $f(xy)$ looks nasty (where we do not know how to proceed), but since we know that $f(1)=1$ we should consider cases where $xy=1$, which easily gives us $f(\frac 1x)=\frac 1{f(x)}$. 
+Finally, we can compare (*) when $(x, y)$ is replaced with $(\frac 1x, \frac 1y)$ in light of what we got in step 4 (undeniably, this is a clever trick but somehow necessary because any further substitution seems hopeless at this point). 
+
+\textbf{Answer.} The only function is $f(x)\equiv \frac 1x$
+
 \textbf{Solution.} 
-The only function is $f(x)\equiv \frac 1x$, which works because 
+Our function works because
 $xf(x^2)f(f(y)) + f(yf(x))=x\frac1 {x^2} y+\frac 1 {y\frac 1{x}}$
 $=\frac xy+\frac yx$
 $=\frac{x^2}{xy}+\frac{y^2}{xy}$
@@ -382,7 +391,7 @@ which gives rise to \fbox{$xf(x^2)=f(x)$}.
 \item [Step 4.]
 Substitute $xf(x^2)\la f(x)$ (step 3), $f(f(y))\la f(y)f(f(y^2))$ (step 2), and $yf(x)\la xyf(x^2)$ (step 3) into (*) gives: 
 $$f(x)f(y)f(f(y^2)) + f(xyf(x^2)) = f(xy) \left(f(f(x^2)) + f(f(y^2))\right)\cdots(**).$$
-In the special case where $xy=1$ we have $f(x)f(y)f(f(y^2)) + f(f(x^2)) = 1 \left(f(f(x^2)) + f(f(y^2))\right)$, 
+In the special case where $xy=1$ we have \[f(x)f(y)f(f(y^2)) + f(f(x^2)) = 1 \left(f(f(x^2)) + f(f(y^2))\right),\] 
 so $f(x)f(y)=1$ whenever $xy=1$. 
 In other words, for all $x\in\mathbb{R}^+$, \fbox{$f(\frac 1x)=\frac 1{f(x)}$}. 
 
@@ -439,7 +448,7 @@ Therefore we only need to worry about the case $n=k^2, k^2+2, \cdots , k^2+2k$,
 which turns out all to be comfortably settled by the case $b=\lfloor\sqrt{n}\rfloor$
 (and how do we know that? Experimenting with small numbers!). 
 
-Part (b) requires some experimentation, which is not too hard is we carry on with the partition of the natural numbers according to their integer square roots. 
+Part (b) requires some experimentation, which is not too hard if we carry on with the partition of the natural numbers according to their integer square roots. 
 Notice, also, that there is no suitable $b$ for $n=k^2+1$ for some $k$, which can be proven using the inequality 
 $(k+\frac 1k)^2>k^2+2$. This is precisely what we need to solve the problem. 
 
@@ -480,9 +489,9 @@ $$(x-1)(x-2)\cdots(x-2016)=(x-1)(x-2)\cdots (x-2016)$$is written on the board, w
 
 \textbf{Thoughts.} 2016 is the minimum--the first thing that must jump out immediately of your mind. 
 The construction should also be intuitive: we need to either have $LHS>RHS$ all the times or vice versa. 
-W.L.O.G. let's make $LHS<RHS$. One observation is that, $RHS<0$ must imply $LHS<0$, meaning that on each side there are oddly many factors with roots greater than $x$ (hence contributing to negative factors). 
+W.L.O.G. let's make $LHS<RHS$. One observation is that, $RHS<0$ must imply $LHS<0$, meaning that on each side there are oddly many factors with roots greater than $x$ (hence contributing to negative factors). We therefore want to find a construction that satisfies the following bare minimum: as we travel along the positive $x$-axis, $LHS(x)$ must dip into negative area before $RHS(x)$ does, and $RHS(x)$ must go into positive area before $LHS(x)$ does. 
 
-Thus this gives the "mod 4" construction as detailed below, because whenever $RHS$ is negative we have $x\in (4i-2, 4i-1)$ for some integer $i$, which also guarantees the negativity of $LHS$. 
+Thus this gives the "mod 4" construction as detailed below, because whenever $RHS$ is negative we have $x\in (4i-2, 4i-1)$ for some integer $i$, which also guarantees the negativity of $LHS$. (This is also the simplest construction fulfilling the bare minimum, which turns out to work too!)
 Next, it is not hard to prove that $|LHS|<|RHS|$ whenever both of them are positive, 
 so the only hard part is to prove that $|LHS|>|RHS|$ when both negative. 
 Thankfully $|\frac{(x-(4i-2))(x-(4i-1))}{(x-4i)(x-(4i-3))}|\le \frac 19$ whenever $x\in (4i-2, 4i-1)$, and we can finish off by using appropriate sum telescoping, again as detailed below. 
@@ -500,7 +509,7 @@ has no real solution by showing that the left-hand side is always strictly small
 \begin{itemize}
 \item [Case 1.] 
 $x\in\{1,2,\cdots ,2016\}$. 
-Now, if $x=4i$ or $x=4i+1$ then LHS=0 while RHS has $2i$ negative factors (while the rest positive) hence positive, 
+Now, if $x=4i$ or $x=4i+1$ then $LHS=0$ while $RHS$ has $2i$ negative factors (while the rest positive) hence positive, 
 so $LHS=0<RHS$. 
 If $x=4i-1$ or $x=4i-2$ then the right is 0 while the left has $2i-1$ negative factors (while the rest positive) hence negative, 
 giving $LHS<0=RHS$. 
@@ -530,8 +539,6 @@ This implies
 $$\displaystyle\prod_{i=1}^{504} |(x-(4i-3))(x-(4i))|<\displaystyle\prod_{i=1}^{504} |(x-(4i-2))(x-(4i-1))|$$ 
 and since each side is positive, 
 $$\displaystyle\prod_{i=1}^{504} (x-(4i-3))(x-(4i))<\displaystyle\prod_{i=1}^{504} (x-(4i-2))(x-(4i-1)).$$ 
-
-This case requiries a little more manipulation than that of cases 4 and 5, but the idea is not much differen
 \end{itemize}
 
 We are now left with the trickiest case: 
@@ -561,10 +568,10 @@ Again letting $c= (x-(4j-2))(x-(4j-1))$ we have
 \[=1+\frac 1{2(i-j)(4(i-j)-1)-1}
 <1+\frac 1{(i-j+1)^2-1},\]
 the last inequality holds since for $i-j\ge 1$ we have 
-$2(i-j)(4(i-j)-1)-1-((i-j+1)^2-1)$
-$=8(i-j)^2-2(i-j)-((i-j)^2+2(i-j)+1)$
-$=7(i-j)^2-4(i-j)-1$
-$\ge 7-4-1=2$. 
+\[2(i-j)(4(i-j)-1)-1-((i-j+1)^2-1)
+=8(i-j)^2-2(i-j)-((i-j)^2+2(i-j)+1)\]
+\[=(i-j)(7(i-j)-4)-1
+\ge 1(7-4)-1=2\]
 and therefore $2(4(i-j)-1)(i-j)-1>(i-j+1)^2-1$ for $j\le i-1$.
 Thus 
 \[\dfrac{\displaystyle\prod_{j=1}^{i-1} (x-(4j-2))(x-(4j-1))}{\displaystyle\prod_{j=1}^{i-1} (x-(4j-3))(x-(4j))}
@@ -602,7 +609,7 @@ then among those strings, for each of the rest of the digits there are $\frac{k-
 (and yeah $\frac{k-1}{n-1}\neq \frac 12$) 
 so the string can be uniquely determined like above (same goes for the strings with leading 1). 
 Now we have two candidates, and the last step is to prove that it works. 
-The verification might sound difficult, but again all we need is to show that if one string works we can find another string that works too (as of below). 
+The verification might sound difficult, but again all we need is to show that if one string works, the string determined by flipping all digits works too.
 
 \textbf{Answer.} The answer is 2 for $n=2k$ and 1 otherwise. 
 
@@ -611,19 +618,19 @@ Notice that there are $\binom nk$ strings the deputy leader can write.
 For the $i$-th digit (for any $i\in [0, n-1]$), there are $\binom {n-1}{k-1}$ such strings with $i$-th digit differing from the original, 
 $\binom {n-1}k$ such strings with $i$-th digit equal to the original. 
 If $\frac{(n-1)!}{(k-1)!(n-k)!}=\binom {n-1}{k-1}\neq \binom {n-1}k=\frac{(n-1)!}{(k)!(n-k-1)!}$, the contestant can determine that digit by counting the number of strings with 0 in it (and the number of strings with 1 in it). 
-This happens when $(k-1)!(n-k)!\neq k!(n-k-1)!$, or $n-k\neq k$ (fatorizing factors out) or $n\neq 2k$. 
-No further guesses is needed and the contestant can get it in one try. 
+This happens when $(k-1)!(n-k)!\neq k!(n-k-1)!$, or $n-k\neq k$ (factorizing factors out) or $n\neq 2k$. 
+Since for each digit, the contestant can determine what is that digit (0 or 1) of the string, no further guess is needed and the answer is 1.
 
-If $n=2k$, then for each digit, half of the strings have one's and half have zero's. 
-The student then considers the strings with 0 on the leading digit. 
-If, the correct string has 0 on that leading digit, then for each of the written strings (with leading 0), among the remaining $2k-1$ digits there are $k-1$ being changed from the original. By the claim above the student can determine the remaining $2k-1$ digits. 
-Similar conclusion can be reached for he case with 1 as leading digit. 
+If $n=2k$, then for each digit, half of the strings written by deputy leader have one's and half have zero's. 
+The student then considers the strings with 0 as the leading digit. 
+If, the correct string has 0 on that leading digit, then for each of the written strings (with leading 0), among the remaining $2k-1$ digits there are $k-1$ being changed from the original. By the claim above (by considering just the substrings containing the last $2k-1$ digits of the original) the student can determine the remaining $2k-1$ digits. 
+Similar conclusion can be reached for the case with 1 as leading digit: $k$ digits being changed from the remaining $2k-1$ digits. 
 This gives the student the correct answer after 2 guesses. 
 To see why 2 guesses is necessary, let $a_0a_1\cdots a_{2k-1}$ be the string given by the leader, $b_0b_1\cdots b_{2k-1}$ be a string with $b_i=1-a_i$ for each $i$, $c_0c_1\cdots c_{2k-1}$ be any string written by the deputy leader. 
 Now, we have $c_i=a_i$ or $c_i=b_i$ but not both. 
 With $c_0c_1\cdots c_{2k-1}$ having $k$ same digits and $k$ different digits as $a_0a_1\cdots a_{2k-1}$, 
 it must have $2k-k=k$ same digits and $2k-k=k$ different digits as $b_0b_1\cdots b_{2k-1}$ too. 
-Thus $b_0b_1\cdots b_{2k-1}$ is actually another possibility. 
+Thus $b_0b_1\cdots b_{2k-1}$ is actually another possibility and the contestant cannot distinguish between $a_0\cdots a_{2k-1}$ and $b_0\cdots b_{2k-1}$ by just looking at the strings written by the deputy leader. 
 
 \newpage
 \item[\textbf{C2}]
@@ -635,7 +642,7 @@ $\bullet$ the sums of all columns are equal.\\
 \textbf{Thoughts.} 
 Prime numbers can't work (too obvious to explain), but how to generalize this idea to the general case? 
 Since the divisors are all distinct, there cannot be exactly one row or one column, which means the sum of each column and each row must be greater than $n$. 
-It might jump directly out of you that the sum of divisors of $n$ ($\sigma_1(n)$) in this case must be greater $2n$ (meaning that the sum of divisors must be greater than $2n$); we can prove even more: $\sigma_1(n)$ must be greater than both $rn$ and $cn$ where $r, c$ are the row count and column count of the rectangle, respectively. 
+It might jump directly out of you that the sum of divisors of $n$ (namely $\sigma_1(n)$) in this case must be greater $2n$ (meaning that the sum of divisors must be greater than $2n$); we can prove even more: $\sigma_1(n)$ must be greater than both $rn$ and $cn$ where $r, c$ are the row count and column count of the rectangle, respectively. 
 Given also that $rc=\sigma_0(n)$ is the number of divisors of $n$, we know that $\sigma_1(n)>n\sqrt{\sigma_0(n)}$. 
 This turned out to be enough to produce a contradiction for those $n$ which are not powers of 2. 
 
@@ -687,14 +694,14 @@ Let $n$ be a positive integer relatively prime to $6$. We paint the vertices of 
 
 \textbf{Thoughts.} 
 This problem is hard for a C3: how are we going to use the fact that an odd number of vertices is painted for each colour? 
-Nevertheless, the fact that $3\neq n$ generated some insight for us: for each fixed segment $AB$ with endpoint of different colours there are three vertices $C_1, C_2, C_3$ such that the resulting triangle is isoceles. 
-This should motivate the double-counting solution: assuming a contradiction and we consider those isoceles triangles with exactly two colours being used, then each of these triangles has two polychromatic lines while each polychromatic line belongs to three such triangles, so we can play around with the parity to produce contradiction!
+Nevertheless, the fact that $3\nmid n$ generated some insight for us: for each fixed segment $AB$ with endpoint of different colours there are three vertices $C_1, C_2, C_3$ such that the resulting triangle is isoceles. 
+This should motivate the double-counting solution: assuming the problem conclusion doesn't hold and we consider those isoceles triangles with exactly two colours being used, then each of these triangles has two polychromatic lines while each polychromatic line belongs to three such triangles, so we can play around with the parity to produce contradiction!
 
 \textbf{Solution.} 
 Suppose that the conclusion is false, and let $a, b, c$ be the three colours used. 
 Let $\Gamma$ be the circumcircle of the regular $n$-gon. 
 Let $N$ be the set of isoceles triangles such that each $a$ and $b$ is used at least once and the colour $c$ is not used, 
-and let $M$ be the set of unordered pairs of vertices $\{A, B\}$ such that $A$ is of colour $a$ and $B$ is of colour $b$ (vice versa) 
+and let $M$ be the set of unordered pairs of vertices $\{A, B\}$ such that $A$ is of colour $a$ and $B$ is of colour $b$ (and vice versa). 
 
 We start with an observation: each member of $M$ is one side of exactly three triangles in $N$. 
 To see why, let $(A,B)$ be one member in $M$. From $2\nmid n$ we know that $AB$ cannot be a diameter of $\Gamma$. 
@@ -737,7 +744,7 @@ This motivates us to consider just the columns and rows with indices congruent t
 \textbf{Answer.} Any $n$ divisible by 9. 
 
 \textbf{Solution.} 
-Throughout the solution we denote the 
+Throughout the solution we denote the coordinates of each cell as $(i, j):1\le i, j\le n$. 
 We start by showing an example for $n=9$, given below: 
 \begin{center}
 \begin{tabular}{|c|c|c||c|c|c||c|c|c|}
@@ -771,13 +778,14 @@ For sake of verification, observe that there are exactly 3 $I$'s, 3 $M$'s and 3 
 Also, each diagonal is in the form of either $R_m=\{(i, j): i+j=m\}$, or $L_m=\{(i, j): i-j=m\}$, 
 for some $m$ satisfying $1\le (i, j)\le n$. 
 Now for $R_m$, the size $|R_m|$ is $m-1$ for $m\le n+1$, and $2n+1-m$ for $m\ge n+1$. 
-Notice that 3 divides $|R_m|$ iff $m\equiv 1\pmod{n}$ (first case), or iff  $m\equiv 1\pmod{n}$ (second case). 
+Notice that 3 divides $|R_m|$ iff $m\equiv 1\pmod{n}$ for both of the cases ($m\le n+1$ vs $m\ge n+1$). 
 Thus it is not hard to see that the diagonals are in the form of 
 $(1, m-1), (2, m-2), \cdots (m-1, 1)$ in the first case, and 
 $(m-n, n), (m-n+1, n-1), \cdots (n, m-n)$ in the second case. 
 In each of the cases we can group them into groups of three, such that, if we further split each $9\times 9$ grids into $3\times 3$ grids, each group contains three cells along the main diagonal. 
-Nevertheless, from the construction above we see that each main diagonal in the $3\times 3$ grids have one $I$, one $M$ and one $O$. 
-Thus this set of diagonal works too. 
+Nevertheless, from the construction above we see that each main diagonal in the $3\times 3$ grids has one $I$, one $M$ and one $O$. 
+(Formally speaking, among $(k, m-k), (k+1, m-k-1), (k+2, m-k-2)$ we have an $I$, an $M$ and an $O$ for $k\equiv 1\pmod{3}$ because they lie on the main diagonal of the same $3\times 3$ square.)
+Thus this set of diagonal works. 
 A similar conclusion can be yielded for diagonals in the form of $L_m$. 
 
 To show that $9|n$ is necessary, observe from the first condition that $3|n$. 
@@ -813,9 +821,9 @@ Hence $3|k^2$, or $3|k$, or $9|n$.
 Let $n \geq 3$ be a positive integer. Find the maximum number of diagonals in a regular $n$-gon one can select, so that any two of them do not intersect in the interior or they are perpendicular to each other. 
 
 \textbf{Thoughts.} A few things must come into mind: no perpendicular diagonals for odd $n$ (proving this needs some work but not hard to think of), and for even case we will probably need perpendicular and intersecting diagonals to maximize our selection. It's also worth noting that, the more regions the diagonals split the circular arc into, the fewer available diagonals there are for us to use. 
-There are intuitively true, and it's not difficult for us to arrive at the answer (or rather, conjecture) of $n-2$. The difficult part is to make the proof rigorous---and writing down. 
+There are intuitively true, and it's not difficult for us to arrive at the answer (or rather, conjecture) of $n-2$. The difficult part is to putting these arguments down to make our proofs rigorous. 
 
-So how do we proceed? The first thing is to notice that those intersecting diagonals belong to just one pair of opposite class: those in the same class will be parallel to each other and perpendicular to everyone in the opposite class (not hard to see---just draw it yourself). Next, we want to find those diagonals that will intersect the most diagonals that are of the opposite class--which we can show that they will intersect all diagonals of the opposite class. And that's basically it! Simply form consider the relationship between the number of diagonals and the number of regions they split the circle into, and show that the rest of the diagonals must have diagonals lying entirely in the regions (which reduces to our simplified case of triangulation). 
+So how do we proceed? The first thing is to notice that those intersecting diagonals belong to just one pair of opposite classes: those in the same class will be parallel to each other and perpendicular to everyone in the opposite class (not hard to see---just draw it yourself). Next, we want to find those diagonals that will intersect the most diagonals that are of the opposite class--which we can show that they will intersect all diagonals of the opposite class. And that's basically it! Simply consider the relationship between the number of diagonals and the number of regions they split the circle into, and show that the rest of the diagonals must have diagonals lying entirely in the regions (which reduces to our simplified case of triangulation). 
 
 \textbf {Answer. }$n-3$ for $n$ odd, and $n-2$ for $n$ even. (Alternatively, $2\lfloor \frac n2\rfloor-2$). 
 
@@ -933,7 +941,7 @@ This gives $2+2(k-2)=2k-2=n-2$. Q.E.D.
 
 \newpage
 \item[\textbf{C7/IMO 6}]
-There are $n\ge 2$ line segments in the plane such that every two segments cross and no three segments meet at a point. \person  has to choose an endpoint of each segment and place a \animal on it facing the other endpoint. Then \pronoun will clap \possesive hands $n-1$ times. Every time \pronoun claps, each \animal will immediately jump forward to the next intersection point on its segment. \Animals never change the direction of their jumps. \person wishes to place the \animals in such a way that no two of them will ever occupy the same intersection point at the same time.
+There are $n\ge 2$ line segments in the plane such that every two segments cross and no three segments meet at a point. \person  has to choose an endpoint of each segment and place a \animal on it facing the other endpoint. Then \pronoun will clap \possesive hands $n-1$ times. Every time \pronoun claps, each \animal will immediately \move forward to the next intersection point on its segment. \Animals never change the direction of their jumps. \person wishes to place the \animals in such a way that no two of them will ever occupy the same intersection point at the same time.
 
 (a) Prove that \person can always fulfill \possesive wish if $n$ is odd.
 
@@ -1377,6 +1385,10 @@ as $\cos|90^{\circ}-x|=\cos(90^{\circ}-x)=\sin x$, $\sin(90^{\circ}+\alpha)=\cos
 \item[\textbf{G5}]
 Let $D$ be the foot of perpendicular from $A$ to the Euler line (the line passing through the circumcentre and the orthocentre) of an acute scalene triangle $ABC$. A circle $\omega$ with centre $S$ passes through $A$ and $D$, and it intersects sides $AB$ and $AC$ at $X$ and $Y$ respectively. Let $P$ be the foot of altitude from $A$ to $BC$, and let $M$ be the midpoint of $BC$. Prove that the circumcentre of triangle $XSY$ is equidistant from $P$ and $M$.
 
+\textbf{Thoughts.} Solution 1 is more intuitive if you are comfortable with using trigonometry to solve geometry problems, so I will write the thought process of the approach using spiral similarity as in solution 2. First, we should see how do $X$, $Y$, $S$, and $J$ (the circumcenter of $XSY$) vary as $S$ varies. The fact that $X$ and $Y$ vary along two respective straight lines and different versions of triangles $DXY$ are similar suggests to us that $S$ and $J$ should also vary along a straight line. More importantly, $DX_1X_2$ will be similar to $DJ_1J_2$ where $X_1, X_2, J_1, J_2$ are different versions of $X$ and $J$, respectively, such that $X_i$ and $J_i$ correspond to the same $i$. 
+
+Knowing that, a strategy is to prove the problem statement for one special case of pair $(X, Y)$, and show that the other $J$ lie on the perpendicular from our $J$ in this special case to $BC$. The easiest $(X, Y)$ is the altitude from $B$ and $C$ to opposite side; the corresponding $J$ is the nine-point-center (which works). Now all we need to do is to prove that for any two $J$ (namely $J_1,, J_2$) we have $J_1J_2\perp BC$, which can be established by the similarity of $DJ_1J_2$ and $DX_1X_2$ as mentioned before (with a bit of angle chasing). 
+
 \definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
 \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
 \clip(-0.780894732325327,-3.0144161105989133) rectangle (15.499927939805652,4.658806400961947);
@@ -1502,6 +1514,12 @@ With $\Phi(D)=D$, we have $\Phi(DX_HN)=\Phi(DXJ)$. This could, in turn, be manip
 \item[\textbf{G6}]
 Let $ABCD$ be a convex quadrilateral with $\angle ABC = \angle ADC < 90^{\circ}$. The internal angle bisectors of $\angle ABC$ and $\angle ADC$ meet $AC$ at $E$ and $F$ respectively, and meet each other at point $P$. Let $M$ be the midpoint of $AC$ and let $\omega$ be the circumcircle of triangle $BPD$. Segments $BM$ and $DM$ intersect $\omega$ again at $X$ and $Y$ respectively. Denote by $Q$ the intersection point of lines $XE$ and $YF$. Prove that $PQ \perp AC$.
 
+\textbf{Thoughts.} Using the notation below, the problem would have been much easier if $P$ and $Q$ are defined in terms of $E, F, M_1, M_2, N_1, N_2$ only. But this is not the case. Now let's see how can we arrive here. 
+
+We wish that $ABCD$ is cyclic to aid angle chasing, but it isn't. Nevertheless, we should immediately see that the circumcirles of $ABC$ and $ADC$ are the reflections of each other in $AC$, which, if we draw the two circles, give rise to the points $M_1$ and $M_2$. Next, drawing circle $BPD$ lets us guess that $X$ and $Y$ might lie on the two circumcircles aforementioned (which isn't that hard to prove either), and finally with angle-bisector theorem we know that $XE$ passes through $N_2$ and $YF$ passes through $N_1$. Now it's no longer difficult to finish the proof. 
+
+Each of the subproblems mentioned above are not hard to prove, but realizing them (i.e. seeing that we can break the problem doen into these subproblems) requires some insight.
+
 \definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
 \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
 \clip(-0.06077115315761548,-3.6584705525177825) rectangle (17.29579728541572,4.521755615922858);
@@ -1576,6 +1594,16 @@ Let $I$ be the incentre of a non-equilateral triangle $ABC$, $I_A$ be the $A$-ex
 \item [(a)] Prove that $P$ lies on line $OI$ where $O$ is the circumcentre of triangle $ABC$.
 \item [(b)] Let one of the tangents from $P$ to the incircle of triangle $ABC$ meet the circumcircle at points $X$ and $Y$. Show that $\angle XIY = 120^{\circ}$.
 \end{itemize}
+
+\textbf{Thoughts.} \#smh the problems concerning the concurrency of two lines on some not-so-well-blended line $OI$ are not that easy: we either manually establish the concurrency point itself or we show homothety of two triangles. Neither is easy. 
+
+In my case, the problem statement of part (b) gave me a hint on where should $P$ be. Using knowledge from Poncelet Porism, we know that there exists a $Z$ on the circumcircle of $ABC$ such that the incircle of $ABC$ and $ZXY$ coincide. 
+Therefore if $\angle XIY=120^{\circ}$ we must have $\angle XOY=120^{\circ}$ too. 
+This means, $X, O, I, Y$ lie on a circle, and we can invert it with radius $OX$ w.r.t. the circumcircle of $ABC$ to obtain line $XY$. 
+Since $P$ must lie on $OI$ and $XY$, we have the image of $P$ lying on both $OI$ and circle $IXY$, hence the image is $I$. 
+This gives us $OP\cdot OI=OX^2$. 
+
+Now that we locate the targetted $P$, it remains to prove that this $P$ lies on $l_A$. There are a few ways to establish this; one way is by trigonometry as written below (and with this, part (b) comes for free!)
 
 \textbf{Solution.} 
 \definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
@@ -1838,17 +1866,24 @@ Therefore $c=0$ and we get the identity polynomial.
 \item[\textbf{N2}]
  Let $\tau(n)$ be the number of positive divisors of $n$. Let $\tau_1(n)$ be the number of positive divisors of $n$ which have remainders $1$ when divided by $3$. Find all positive integral values of the fraction $\frac{\tau(10n)}{\tau_1(10n)}$.
 
-\textbf{Solution.} The answer is 2 and all composite numbers. 
-Let $m=10n$, with $m=3^y\cdot\displaystyle\prod_{i=1}^{k}p_i^{a_i}\cdot\displaystyle\prod_{i=1}^{l}q_i^{b_i}$ with $p_i\equiv 1\pmod{3}$ and $q_i\equiv 2\pmod{3}$. 
-Notice that $\tau(m)=(y+1)\cdot\displaystyle\prod_{i=1}^{k}(a_i+1)\cdot\displaystyle\prod_{i=1}^{l}(b_i+1)$. 
+\textbf{Thoughts.} The notion of number of divisors should immediately lead to the thoughts of prime factorizing $m=10n$, which immediately gives away the formula for $\tau(m)$. For $\tau_1(m)$ we need to realize that each such divisor has zero exponent of 3 and even sum of exponents across those prime divisors with remainder 2 mod 3. This is obviously a combinatorics problem: intuitively the number of such combinations must be about half of the original allowed combinations, but how to prove it? Knowing that "even+even=odd+odd=even" and "even+odd=odd+even=odd", one can simply use induction to finish the proof (and the construction showing that 2 and composite numbers work comes for free if we used this way!)
 
-Now we want to investigate all the divisors that is congruent to 1 mod 3, 
-observe that such divisors fulfill 
-$\displaystyle\prod_{i=1}^{k}p_i^{c_i}\cdot\displaystyle\prod_{i=1}^{l}q_i^{d_i}$ 
-with $c_i\le a_i$, $d_i\le b_i$ and $\displaystyle\sum_{i=1}^{l}d_i$ even. 
+\textbf{Answer.} All composite numbers and 2. 
+
+\textbf{Solution.} 
+Let $m=10n$, with $m=3^y\cdot\displaystyle\prod_{i=1}^{k}p_i^{a_i}\cdot\displaystyle\prod_{i=1}^{l}q_i^{b_i}$ with $p_i\equiv 1\pmod{3}$ and $q_i\equiv 2\pmod{3}$. 
+Now each divisor $d$ of $m$ must be in the form of $3^z\cdot\displaystyle\prod_{i=1}^{k}p_i^{c_i}\cdot\displaystyle\prod_{i=1}^{l}q_i^{d_i}$ satisfying\\ 
+$\bullet$ $0\le z\le y$\\
+$\bullet$ $0\le c_i\le a_i$\\
+$\bullet$ $0\le d_i\le b_i$\\
+from which we know 
+\[\tau(m)=(y+1)\cdot\displaystyle\prod_{i=1}^{k}(a_i+1)\cdot\displaystyle\prod_{i=1}^{l}(b_i+1).\]
+Now $d\equiv 0\pmod{3}$ if $z\ge 1$, and $(1)^{c_i}\cdot(-1)^{d_i}=(-1)^{d_i}\pmod{3}$ if $z=0$. 
+So each divisor $d$ counts into $\tau_1(m)$ iff the additional constraint $z=0$ and $\displaystyle\sum_{i=1}^l d_i\equiv 0\pmod{2}$ is satisfied.  
+
 We proceed with the following claim: 
 the number of combinations $(d_1, d_2, \cdots , d_l)$ satisfying $\displaystyle\sum_{i=1}^{l}d_i$ even and $d_i\le b_i$ is 
-$\lfloor\frac{\prod_{i=1}^{l}(b_i+1)}{2} \rfloor$. 
+$\lceil\frac{\prod_{i=1}^{l}(b_i+1)}{2} \rceil$. 
 \begin{itemize}
 \item[Case 1.] $b_i$ odd for some $i$, and w.l.o.g. let this $i$ be $l$. 
 Now, let $x$ be the number of combinations $(d_1, d_2, \cdots , d_{l-1})$ ($d_i\le b_i$) satisfying $\displaystyle\sum_{i=1}^{l-1}d_i$ even, and $z$ be the number of combinations with corresponding odd sums. 
@@ -1856,11 +1891,11 @@ Considering $d_i=\{0, 2, \cdots, b_l-1\}$ and $d_i=\{1,3,\dots , b_l\}$ we have:
 the number of combinations $(d_1, d_2, \cdots , d_{l-1})$ ($d_i\le b_i$) satisfying $\displaystyle\sum_{i=1}^{l}d_i$ even
 is $x+z+x+z+\cdots + x+z=(x+z)\cdot\frac{b_i+1}{2}$, 
 and similarly $z+x++\cdots +z+x=(x+z)\cdot\frac{b_i+1}{2}$ for odd-sum combinations. 
-Therefore there is equally many odd and even sum combinations, and we are done.
+Therefore there are equally many odd and even sum combinations, and we are done.
 
 \item[Case 2.] Now let $b_i$ even for all $i$. Let $O$ be number of combinations with $\displaystyle\sum_{i=1}^{l}d_i$ odd and $E$ be combinations with $\displaystyle\sum_{i=1}^{l}d_i$ even. The claim is $E-O=1$. 
 We induct on $l$. 
-Base case $l=0$ yield 1 combination for even sum and 0 combination for odd sum, vacuously. 
+Base case $l=0$ yields 1 combination for even sum and 0 combination for odd sum, vacuously. 
 Now let $l=k$ for some $k$ and we have $O'$ as the number of combinations $(d_1, d_2, \cdots , d_k)$ with $\displaystyle\sum_{i=1}^{k}d_i$ odd, and $E'$ as the number of combinations with $\displaystyle\sum_{i=1}^{l}d_i$ even. 
 Now that $b_{k+1}$ is even, using the logic above the number of even combination is 
 $E'+O'+E'+O'+\cdots +E'=E'(\frac{b_{k+1}}{2}+1)+O'(\frac{b_{k+1}}{2})$, 
@@ -1869,18 +1904,18 @@ $O'(\frac{b_{k+1}}{2}+1)+E'(\frac{b_{k+1}}{2})$.
 This yields $E-O=E'-O'$ and by induction hypothesis this number is 1, so we are done. 
 \end{itemize}
 
-Summing above, $\tau_1 (m)=\displaystyle\prod_{i=1}^{k}(a_i+1)\lfloor\frac{\prod_{i=1}^{l}(b_i+1)}{2} \rfloor$, 
+Summing above, $\tau_1 (m)=\displaystyle\prod_{i=1}^{k}(a_i+1)\lceil\frac{\prod_{i=1}^{l}(b_i+1)}{2} \rceil$, 
 so the ratio now becomes 
-$(y+1)\dfrac{\displaystyle\prod_{i=1}^{l}(b_i+1)}{\lfloor\frac{\prod_{i=1}^{l}(b_i+1)}{2} \rfloor}$. 
-Equivalently, $2(y+1)$ when $b_i$ odd for some $b_i$, or $(y+1)\frac{2k+1}{k}$ otherwise (where $2k+1=\displaystyle\prod_{i=1}^{l}(b_i+1)$ here). 
-The first case yields that the ratio must be even; in the second case, we have $\gcd(2k+1, k)=1$ so $k|y+1$. 
+$(y+1)\dfrac{\displaystyle\prod_{i=1}^{l}(b_i+1)}{\lceil\frac{\prod_{i=1}^{l}(b_i+1)}{2} \rceil}$. 
+Equivalently, $2(y+1)$ when $b_i$ odd for some $b_i$, or $(y+1)\frac{2k+1}{k+1}$ otherwise (where $2k+1=\displaystyle\prod_{i=1}^{l}(b_i+1)$ here). 
+The first case yields that the ratio must be even; in the second case, we have $\gcd(2k+1, k+1)=1$ so $k|y+1$. 
 In other words, the ratio must be divisible by $2k+1$. 
 Notice, also, that $l\ge 2$ ($m=10n$ contains prime factors 2 and 5) so $2k+1=\displaystyle\prod_{i=1}^{l}(b_i+1)$ must be composite. 
 So our integer ratio cannot be an odd prime. 
 
 It remains to show that any even or composite numbers work. 
-For even numbers $2k$, simply take $10\cdot 3^{k-1}$ and by our proof the ratio is $2k$. 
-For odd composite number $xz$ with $x, z\ge 3$, take $m=2^{x-1}5^{z-1}$. 
+For even numbers $2k$, simply take $m=10\cdot 3^{k-1}$ (i.e. $n=3^{k-1}$) we have $\tau(m)=2\times 2\times k=4k$ and $\tau_1(m)=2$ (because the only suitable divisors for $\tau_1$ are 1 and 10). 
+For odd composite number $xz$ with $x, z\ge 3$, take $m=3^{d}\cdot 2^{x-1}\cdot 5^{z-1}$ (or $n=3^d\cdot 2^{x-2}\cdot 5^{x-2}$), where $d=\lceil \frac{xz}2\rceil -1$. Now $\tau(m)=dxz$ and  $\tau_1(m)=d$, as proven above. 
 
 
 \newpage
@@ -1942,6 +1977,8 @@ Let $n, m, k$ and $l$ be positive integers with $n \neq 1$ such that $n^k + mn^l
 \item[$\bullet$] $l|k$ and $m = \frac{n^{k-l}-1}{n^l-1}$.
 \end{itemize}
 
+\textbf{Thoughts.} If we were to find all possible $n, m , k , l$, the problem would be way harder to solve. Nevertheless, the fact that the answer is 'provided' to us should give a hint on how to proceed. Bullet point 1 happens when we have $n^k+n^{2k}+1|n^{3k}-1$ and bullet poinr 2 happens when we have $n^k+n^{k-l}+\cdots +n^l+1|n^{k+l}-1$. Therefore, a natural way is to investigate both $n^{k+l}-1-(n^k-1)(n^k+mn^l+1)$ and $n^{k+l}-1-(n^l-1)(n^k+mn^l+1)$, and we can simplify the solution (by using the fact that $n$ and $n^k+mn^l+1$ are relatively prime) to $n^k+mn^l+1|mn^{l}+1-n^{k-l}-m$ and $n^k+mn^l+1|n^k-mn^{l-k}+(m-1)n^l$, depending on the cases (and it's not hard to see that the right hand size must be zero by comparing the sizes!)
+
 \textbf{Solution.} We split our solution into two cases: 
 \begin{itemize}
 \item[Case 1.] $l\le k$. 
@@ -1991,6 +2028,10 @@ Thus $m=1$ ($m$ must be positive) and we have $k=l-k$, or $l=2k$.
 \item[\textbf{N5}]
 Let $a$ be a positive integer which is not a perfect square, and consider the equation \[k = \frac{x^2-a}{x^2-y^2}.\]Let $A$ be the set of positive integers $k$ for which the equation admits a solution with $x>\sqrt{a}$, and let $B$ be the set of positive integers for which the equation admits a solution with $0\leq x<\sqrt{a}$. Show that $A=B$.
 
+\textbf{Thoughts.} Despite the short solution, it isn't that obvious to think of how should the 'complementary' pairs $(x_1, y_1)$ be 'generated' from the existing pair $(x, y)$. In view of this, let me demonstrate a real small-case example (to see how things can be suggestive in the end). 
+
+Start experimenting with numbers like $x=7, y=6$. Then $a=10$ and $k=3$ are viable solutions. As it turns out, $x=1, y=2$ is also a solution. We notice that: each pair $(x, y)$ have $|x-y|=1$ (i.e. same distance), the product of $x$'s is $7\times 1=7=10-3=a-k$ and the product of $y$'s is $2\times 6=12=10+2$. This thing doesn't seem to hold true when $|x-y|>1$, but experimenting the differences yield that the product of $x$'s is $a-k(|x-y|)^2$ (the product of $y$'s is, in general, messier and less illuminating. Nevertheless, knowing the supposed value of product of $x$'s suffices). 
+
 \textbf{Solution.} 
 To show that $k\in A\to k\in B$, let $x>\sqrt{a}$ for some $x$ satisfying the equation. 
 It follows that $|y|<|x|$. 
@@ -1999,7 +2040,7 @@ Let $x_1=x-2kc$ and $y_1=x_1+c$ and we have
 $\dfrac{x_1^2-a}{x_1^2-y_1^2}$
 $=\dfrac{(x-2kc)^2-(x^2-kc(2x-c))}{(x_1-y_1)(x_1+y_1)}$
 $=\dfrac{-2kc(2x-2kc)+kc(2x-c)}{-c(2(x-2kc)+c)}$
-$=\dfrac{-kc(4x-4kc-2x+c)}{-c(2x-4kc)+c)}$
+$=\dfrac{-kc(4x-4kc-2x+c)}{-c(2x-4kc+c)}$
 $=k$. 
 This means $k$ admits $(x_1, y_1)$ as well, and from $x_1=y_1+c<y_1$ we have $x_1<\sqrt{a}$. 
 Also notice that $x\ge 2kc$ because... so $x_1\ge 0$. Therefore
@@ -2013,7 +2054,7 @@ Let $x_2=x+2kc$ and $y_2=x_10c$ and we have
 $\dfrac{x_2^2-a}{x_1^2-y_2^2}$
 $=\dfrac{(x+2kc)^2-(x^2+kc(2x+c))}{(x_2-y_2)(x_2+y_2)}$
 $=\dfrac{2kc(2x+2kc)-kc(2x+c)}{c(2(x+2kc)-c)}$
-$=\dfrac{kc(4x+4kc-2x-c)}{c(2x+4kc)-c)}$
+$=\dfrac{kc(4x+4kc-2x-c)}{c(2x+4kc-c)}$
 $=k$. 
 This means $k$ admits $(x_2, y_2)$ as well, and from $x_2=y_2+c>y_2$ we have $x_1>\sqrt{a}$. Therefore
 $k\in A$ too. 
@@ -2023,17 +2064,27 @@ $k\in A$ too.
 \item[\textbf{N6}]
 Denote by $\mathbb{N}$ the set of all positive integers. Find all functions $f:\mathbb{N}\rightarrow \mathbb{N}$ such that for all positive integers $m$ and $n$, the integer $f(m)+f(n)-mn$ is nonzero and divides $mf(m)+nf(n)$.
 
+\textbf{Thoughts.} Again the most intuitive way is to substitute $m=n$, which gives $2f(m)-m^2|2mf(m)$, and can be translated into $2f(m)-m^2|m^3$ directly (notice that how things are easier if right hand side is defined in terms of only $m$ instead of $m$ and $f(m)$). Things are easy for $m=1$ (where $f(m)=1$). Having established that, we note the following: 
+\begin{itemize}
+\item [1.] We want to make good use of what we have, which is obviously, $f(1)=1$. With $n=1$ we have $f(m)-(m-1)|m^2-m+1$, forcing $f(m)\le m^2$. 
+\item [2.] It's tricky to locate the divisors of $m^3$ in general, but not quite when $m$ is prime. This gives rise to $|2f(p)-p^2|=p^k$ where $k=0, 1, 2, 3$. All we need to do is to use case-by-case analysis on $m=p, n=1\to$ again something we have already known. 
+\end{itemize}
+Having known that $f(p)=p^2$ for all sufficiently large primes $p$, one just need to experiment what happens when we have arbitrary $m$ and $n=$prime number (and the solution can be completed with a little bit of gimmick from here!)
+
+\textbf{Answer.} $f(x)=x^2$, $\forall x\in\mathbb{N}$. 
+
 \textbf{Solution.}
-The only function is $f(x)=x^2, \forall x\in\mathbb{N}$. 
-In fact, $mf(m)+nf(n)=m^3+n^3=(m+n)(m^2-mn+n^2)=(m+n)(f(m)-mn+n^2)$. 
+It is easy to verify that $f(x)=x^2$ fulfills the condition because for every positive integers $m$ and $n$ we have 
+$mf(m)+nf(n)=m^3+n^3=(m+n)(m^2-mn+n^2)=(m+n)(f(m)-mn+n^2)$. For the rest of the solution we will use profusely that $f(x)>0, \forall x\in\mathbb{N}$ and that $f(m)+f(n)-mn\neq 0$. 
 
-Substituting $m=n=1$ gives $2f(1)-1|2f(1)$, so $2f(1)-1=\pm 1$. 
-Since $f(1) > 0$ ($f(1)\in\mathbb{N}$) we have $f(1)=1$. 
-Next, letting $n=1$ gives $f(m)-(m-1)|mf(m)+1=m(f(m)-(m-1))+m^2-m+1$, 
-so with $f(m)-(m-1)|m^2-m+1$ and $m^2-m+1=(m-\frac 12)^2+\frac 34 > 0$ we have 
-$|f(m)-(m-1)|\le m^2-m+1$ and $f(m)\le m^2$. 
+We start with the two mini-observations: 
+\begin{itemize}
+\item [1.] Substituting $m, n\la 1$ we have $2f(1)-1|2f(1)$, or $2f(1)-1|1$. With $2f(1)-1=\pm 1$ and $f(1)>0$ we have \fbox{$f(1)=1$}. 
+\item [2.] Substituting $n\la 1$ we have $f(m)-(m-1)|mf(m)+1$. Knowing that $mf(m)+1=m(f(m)-(m-1))+m^2-m+1$ we have 
+$f(m)-(m-1)|m^2-m+1$. Now from the fact that $m^2-m+1=\left(m-\frac 12\right)^2+\frac 34$ and that $|f(m)-(m-1)|\le m^2-m+1$ we have \fbox{$f(m)\le m^2$, $\forall m\in\mathbb{N}$}. 
+\end{itemize}
 
-The next step is to show that $f(p)=p^2$ for all sufficiently large prime $p$. 
+In view of (2), we aim to show that the equality holds for all positive integers $m$. Let's now focus on proving that $f(p)=p^2$ for all sufficiently large prime $p$'s. 
 Substituting $m=n=p$ gives $2f(p)-p^2|2pf(p)=p(2f(p)-p^2)+p^3$, so 
 $2f(p)-p^2|p^3$ and from $f(p)\le p^2$ we have 
 $2f(p)-p^2\in\{p^2, p, 1, -1, -p\}$ (again it this value cannot be $-p^2$ or lower because $f(p)>0$. 
@@ -2058,21 +2109,20 @@ meaning  $\frac{p^2+1}2-(p-1)\le p$, not true for $p\ge 3$.
 then $\frac{p^2-p}2-(p-1)|p^2-p+1$. 
 Observe that $2(\frac{p^2-p}2-(p-1))=p(p-1)-2(p-1)=(p-1)(p-2)$, 
 so $p-1|2(p^2-p+1)$. Now $2(p^2-p+1)\equiv 2(1^2-1+1)=2\pmod{p-1}$, 
-so $p-1\le 2$< or $p\le 3$. 
+so $p-1\le 2$ or $p\le 3$. 
 \end{itemize}
 We therefore know that all four cases cannot hold for $p\ge 5$, so $f(p)=p^2$ for $p\ge 5$. 
 
 Now, let $m$ be arbitrary and let $n=p$ for some prime $p$ we have 
 $f(m)+p^2-mp|mf(m)+p^3=m(f(m)+p^2-mp)+p^3-mp^2+m^2p=m(f(m)+p^2-mp)+p(p^2-pm+m^2)$. 
 Consider the ratio $\dfrac{p(p^2-pm+m^2)}{f(m)+p^2-mp}$
-$=p(1+\dfrac{m^2-f(m)}{f(m)+p^2-mp})$, 
+$=p\left(1+\dfrac{m^2-f(m)}{f(m)+p^2-mp}\right)$, 
 and therefore $\dfrac{p(m^2-f(m))}{f(m)+p^2-mp}$
 must be an integer. 
 Choosing any $p>f(m)$ gives 
 $p\nmid f(m)$, and hence $p\nmid f(m)+p^2-mp$, hence $p$ and $f(m)+p^2-mp$ are relatively prime. 
-Therefore $\dfrac{m^2-f(m)}{f(m)+p^2-mp}$ is itself an integer, 
-and with $f(m)+p^2-mp$ approaching infinity as $p$ approaching infinity we know that $f(m)-m^2$ must be zero. 
-(Remember, there are infinitely many primes). 
+Therefore $\dfrac{m^2-f(m)}{f(m)+p^2-mp}$ is itself an integer. 
+Fixing $m$ and choosing $p$ sufficiently large (remembering that there are infinitely many primes) and we have $p^2-mp+f(m)>|m^2-f(m)|$, so $f(m)-m^2$ must be zero. 
 
 \end{itemize}
 
