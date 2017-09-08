@@ -22,8 +22,8 @@ Preface:
 The IMO 2016 shortlisted problems were published on July 19, 2017: after the second day of IMO 2017. As I am not involved in any IMO training, I have no access to the shortlisted problems until that day. Thereafter, I worked on the problems to the best ability possible, and decided to compile my solution to the problems here. 
 
 A shortcoming of providing only the solutions to the readers is that, it does not show the process of generating insights needed to solve the problems. 
-For problems involving functional equations (A4, N6, and the currently unolved A7), the solutions are usually intuitive because the majortiy of it is to substitute variables. 
-However, for problems like C7 (Problem 6: lines and endpoints) it may not be suggestive at all on how do we come out with the notion of "bearings" in the solutions; and for N5 (set $A$ = set $B$) you'd never understand how can we come out with the alternative aprs without trying it yourself. 
+For problems involving functional equations (A4, N6, and the currently unsolved A7), the solutions are usually intuitive because the majortiy of it is to substitute variables. 
+However, for problems like C7 (Problem 6: lines and endpoints) it may not be suggestive at all on how do we come out with the notion of "bearings" in the solutions; for N5 (set $A$ = set $B$) you'd never understand how can we come out with the alternative pairs without trying it yourself. 
 In view of this, I have a writeup on my own thought proess before each solution, in effort of making it easy for readers to understand how did I arrive at the ideas needed for the solution. 
 
 To conclude: the thought process contains the intuitive part of the writing, while the solution contains the part where mathematical rigor is maintained at the highest possible level. 
@@ -828,7 +828,7 @@ So how do we proceed? The first thing is to notice that those intersecting diago
 \textbf {Answer. }$n-3$ for $n$ odd, and $n-2$ for $n$ even. (Alternatively, $2\lfloor \frac n2\rfloor-2$). 
 
 \textbf{Solution.}
-For simplicity we denote the circumcircle of the $n$-gon as $\Gamma$, and our $n$-gon be $A_0A_2\cdots A_{n-1}$, 
+For simplicity we denote the circumcircle of the $n$-gon as $\Gamma$, and our $n$-gon be $A_0A_1\cdots A_{n-1}$, 
 with $A_i$ having coordinates $C\left(\frac{2i\pi}{n}\right)=\left(\cos\frac{2i\pi}{n}, \sin\frac{2i\pi}{n}\right)$. 
 
 We first show that no two diagonals can be perpendicular for $n$ odd. 
@@ -862,7 +862,7 @@ Then there are extra $f(x)+f(y)=x-3+y-3=x+y-6=n-4$ diagonals that can be constru
 This gives $n-4+1=n-3$ diagonals, at most. 
 Equality can be achieved by taking diagonals $A_1A_k$, $k=3, 4, \cdots , n-1$.
 
-Now $n$ be even. Let $F$ be the set of diagonals intersecting at least one other diagonals. We show that: 
+Now $n$ be even. Let $F$ be the set of diagonals intersecting at least one other diagonal. We show that: 
 \begin{itemize}
 \item [1.]
 Each two lines in $F$ are perpendicular or parallel to each other. 
@@ -872,41 +872,41 @@ There are two lines in $F$ such that each of them intersects every other lines i
 
 \item [3.]
 Let $A$ and $B$ be two consecutive endpoints of lines in $F$. 
-Then for any selected diagonal not in $F$ with an endpoint on the minor arc $AB$ (that is different from $A$ and $B$), the other the other endpoint must also lie on this minor arc too (possibly equal to $A$ or $B$).
+Then for any selected diagonal not in $F$ with an endpoint on the minor arc $AB$ (that is different from $A$ and $B$), the other endpoint must also lie on this minor arc too (possibly equal to $A$ or $B$).
 
 \end{itemize}
 \emph{First claim:}
 Now let $AC$ and $BD$ be two intersecting perpendicular chords on $\Gamma$. We claim that the four endpoints split the circles into four minor arcs (that is, arcs that are less than a semicircle). 
 Let the intersection be $P$, then $\angle ACB=\angle ADB<\angle APB=90^{\circ}$, since $P$ lies on both segment $AC$ and $BD$. 
-This means that the arc $AB$ not containing $C$ and $D$ ais minor, and a similar conclusion can be achieved for other three arcs. 
+This means that the arc $AB$ not containing $C$ and $D$ ais minor, and a similar conclusion can be achieved for three other arcs. 
 Suppose that $AC$ and $BD$ are in $F$, and let another diagonal with endpoints $E, G$ be in $F$ and perperndicular to neither of $AC$ nor $BD$. 
 This means that there necessarily exists another diagonal (with endpoints $H, J$) that intersects $EG$ in its interior (and perpendicular to it). 
 Since they do not intersect chords $AC$ and $BD$, they must lie on a minor arc (say, $AB$). 
 This instantly contradicts the fact that $E, F, G, H$ must split $\Gamma$ into four minor arcs. 
 
 \emph{Second claim:}
-Since every two lines in $F$ are either parallel or perpendicular to each other, 
-we can split them into two sets $F_1$ and $F_2$ such that any two diagonals are parallel to each other if and only if they belong to the same partition. 
+Claim 1 allows us to split them into two sets $F_1$ and $F_2$ such that any two diagonals are parallel to each other if and only if they belong to the same partition. 
 An example would be $F_1=\{(A_aA_b): a+b\equiv 0\pmod{n}\}$ and $F_2=\{(A_aA_b): a+b\equiv \frac n2\pmod{n}\}$, 
 valid by the identity derived in the first paragraph. 
 We claim that the longest line in $F_1$ intersects every line in $F_2$ in its interior, and similarly the longest line in $F_2$ intersects every line in $F_1$ in its interior. 
 Indeed, let $AB$ and $CD$ be parallel lines on in $F_1$ satisfying $CD\ge AB$, 
-then $ABCD$ is an isoceles trapezoid satisfying $\angle A=\angle B\ge 90^{\circ}$ and $\angle C=angle D\le 90^{\circ}$. 
+then $ABCD$ is an isoceles trapezoid satisfying $\angle A=\angle B\ge 90^{\circ}$ and $\angle C=\angle D\le 90^{\circ}$. 
 Denote also $E$ and $F$ as the perpendiculars from $A$ and $B$ on $CD$. It follows that $E$ and $F$ are on the closed segment $CD$ itself. 
 Let $l$ be a line perpendicular to both $AB$ and $CD$, intersecting open segment $AB$ at $G$ and line $CD$ at $H$. 
 With $AE\parallel BF\parallel GH$, the fact that $G$ lies on segment $AB$ means that $H$ lies on open segment $EF$ too, 
 therefore lying on open segment $CD$ as well. 
 This means, any perpendicular line intersecting $AB$ in its interior will intersect $CD$ in its interior too. 
-Now let $l$ be the longest line in $F_1$, and $m$ be any line in $F_2$. Since there exists $n$ in $F_1$ such that $m$ intersects $n$ in its interior, and $n$ is no longer than $n$, $m$ must intersect $l$ in its interior too. This proves the claim that every line in $F_2$ intersects $l$ in its interior, and similarly every line in $F_1$ intersects the longest line in $F_2$ in its interior too. 
+Now let $l$ be the longest line in $F_1$, and $m$ be any line in $F_2$. Since there exists $n$ in $F_1$ such that $m$ intersects $n$ in its interior, and $n$ is no longer than $l$, $m$ must intersect $l$ in its interior too. This proves the claim that every line in $F_2$ intersects $l$ in its interior, and similarly every line in $F_1$ intersects the longest line in $F_2$ in its interior too. 
 
 \emph{Third claim:} 
 denote the endpoints of the longest line in $F_1$ as $C$ and $D$, and in $F_2$ as $E$ and $F$ (which might or might not be completely distinct from $A$ and $B$). 
-Let $G$ be a point on $AB$ and presumably it's an endpoint of a selected diagonal (with $G\neq A$ and $G\neq B$). 
+Let $G$ be a point on minor arc $AB$ and presumably it's an endpoint of a selected diagonal (with $G\neq A$ and $G\neq B$). 
 W.L.O.G. we assume that $AB$ lies on minor arc $CE$ (so same goes for $G$, and the other endpoint, obviously, must also be on the minor arc $CE$). W.L.O.G. also that $C, A, G, B, E$ are on $\Gamma$ in that order.
 By the choice of $A$ and $B$ (consecutive endpoints in $F$) we know this diagonal cannot be in $F_1$ or $F_2$, so it intersects 
 none of the segment $CD$ or $EF$. 
-Suppose $H$ is a point on the minor arc $BE$, and $H\neq B$. If the line in $F$ with endpoint $B$ does not intersect $GH$, 
+Suppose $H$ is a point on the minor arc $BE$, and $H\neq B$. If the diagonal $\ell_B$ in $F$ with endpoint $B$ does not intersect $GH$, 
 then (by drawing) it intersects neither $EF$ nor $CD$, contradicting that every line in $F$ intersects either of them. 
+Therefore if $GH$ is a selected diagonal then $\ell_B$ must intersect $GH$, meaning that $GH$ is in $F$ (contradicting that $A$ and $B$ are consecutive in $F$). 
 Therefore $H$ cannot be the endpoint of the selected diagonal, and similarly, any point on the minor arc $CA$ that is not $A$ cannot be the endpoint of the selected diagonal. Thus that point must be on minor arc $AB$. 
 Notice that the case would be trickier if $G$ coincides with $A$ or $B$. 
 However, in this case if $A, B, C$ are consecutive points of any diagonal in $F$ in that order, $B$ can be treated as on arc $AC$, thus any diagonal with $B$ as endpoint must have another endpoint either in minor arc $AB$ or in minor arc $BC$. 
@@ -966,49 +966,56 @@ This shows that, if we rank the lines according to their angles, then any two li
 Don't forget to include the comparison between the first and the last line to arrive at contradiction!
 (Notice that this approach works for part (a) too; the intention is to show another soltuion that works uniquely for part (a) which gives an opporunity for some partial marks). 
 
-\textbf{Solution.} (a) Let the segments be $\ell_1, \ell_2, \cdots , \ell_n$. 
-Let $P_{ij}$ be the intersection of line $ij$. For each segment $\ell_i$ we aim to investigate the number of points on each side of $P_{ij}$ (other than $P_{ij}$). 
+\textbf{Solution.} 
+(a) Let the segments be $\ell_1, \ell_2, \cdots , \ell_n$. 
+Let $P_{ij}$ be the intersection of lines $\ell_i$ and $\ell_j$. 
+For each $i$ and $j$, consider line $\ell_i$ and point $P_{ij}$; this point separates segment $\ell_i$ into two half-open segment (open at $P_{ij}$, closed at the respective endpoints). 
+We wish to investigate the number of points $P_{ix}$ on each of the two open segments (with $x\neq j$). 
 Since there are $n-2$ such points (which is odd), 
-one side has even number of points and the other side odd. 
-We call this even and odd side of $\ell_i$ w.r.t. point $P_{ij}$, respectively. 
+one segment has even number of points and the other segment odd. 
+We call these segments even and odd side of $\ell_i$ w.r.t. point $P_{ij}$, respectively. 
+For clarity (and brevity) we even name this attribute as the parity of the open segment of $\ell_i$ w.r.t. point $P_{ij}$. 
 
-Now place the first \animal arbitrarily on $\ell_1$. For $i\in [2, n]$ we do the following: 
-if the \animal corresponding to $\ell_1$ is place on the odd side of $\ell_1$ w.r.t. $P_{1i}$, 
-\person places one \animal at the even side of $\ell_i$ w.r.t. $P_{1i}$ (and vice versa). 
-We now proceed to the following claim: 
-using the procedure detailed above, for each two distinct integers $i, j\in [1, n]$, 
-the \animals corresponding to $\l_i$ and $\l_j$ lie on different parity of $l_i$ and $l_j$, respectively, 
-both w.r.t. $P_{ij}$. 
-Indeed, consider the triangle formed by lines $\ell_1$, $\ell_i$ and $\ell_j$. 
-Menelaus' theorem says that any line either intersects none or two of the segments 
-$P_{ij}P_{1i}$, $P_{1j}P_{1i}$, $P_{ij}P_{1j}$. 
-Thus considering lines $l_k$ with $k\not\in\{1,i,j\}$ 
-we know that it has even number of total intersection points with segments $P_{ij}P_{1i}$, $P_{1j}P_{1i}$, $P_{ij}P_{1j}$. 
-If this number is even on $P_{1j}P_{1i}$, 
-then each endpoint is on the odd side of $l_1$ w.r.t. one of $P_{1j}$ and $P_{1i}$, and even on the other. 
+Now place the first \animal  on any endpoint on $\ell_1$. For $i\in [2, n]$ we do the following: 
+if the \animal corresponding to $\ell_1$ is placed on the odd side of $\ell_1$ w.r.t. $P_{1i}$, 
+\person places one \animal at the even side of $\ell_i$ w.r.t. $P_{1i}$ (and vice versa) 
+(in other words, the \animals on segments $\ell_i$ and $\ell_1$ are on sides of opposite parity w.r.t. $P_{1i}$). 
+Given our choice of placing \animals we proceed to the following claim: 
+for each two distinct integers $i, j\in [1, n]$, 
+the \animals corresponding to $\ell_i$ and $\ell_j$ lie on different parity w.r.t. $P_{ij}$. 
+Before proceeding to the claim, let's note the following observations: 
+\begin{itemize}
+\item[1.] For each $i, j, k$ with $i\neq j, k$, an endpoint on line $i$ is on a side of different parity w.r.t. $P_{ij}$ and $P_{ik}$ if and only if there are even number of intersection points $P_{il}$ ($l\neq i, j, k$) on the open segment $P_{ij}P_{ik}$.
+\item[2.] By Menelaus' theorem, any line intersects none or two of the open segments 
+$P_{ij}P_{ki}$, $P_{kj}P_{ki}$, $P_{ij}P_{kj}$ for each $i, j, k$.
+\item[3.] Consider all intersection points (with other $\ell$'s) on the triangle segments mentioned in (2.). The total quanity is even.
+\end{itemize}
+Now let's get back to the claim and for each $(i, j)$, consider the lines $\ell_1$, $\ell_i$, $\ell_j$, the intersection points $P_{1i}$, $P_{1j}$, $P_{ij}$ and the triangle determined by them. We separate in two cases:\\
+$\bullet$ Case 1: There are even number of intersection points on open segment $P_{1j}P_{1i}$.\\ 
+Each endpoint is on the odd side of $\ell_1$ w.r.t. one of $P_{1j}$ and $P_{1i}$, and even on the other (by observation 1). 
 Thus according of our choice of placing the \animals, 
-either one \animal come from the odd side of $l_i$ w.r.t. $P_{1i}$ and the other from even side of $l_j$ w.r.t. $P_{1j}$, 
-or vice versa. 
-The intersection with $P_{ij}P_{1i}$ and $P_{ij}P_{1j}$ will be both odd or both even. 
-If it's both odd and in the first case (one \animal come from the odd side of $l_i$ w.r.t. $P_{1i}$ and the other from even side of $l_j$ w.r.t. $P_{1j}$), 
-then the \animal corresponding to $i$ come from the odd side of $l_i$ w.r.t. $P_{1i}$ and the other from even side of $l_j$ w.r.t. $P_{1j}$, which works for this pair of $(i,j)$. 
-The other three subcases can be treated equally. 
-If this number is odd on $P_{ij}P_{1i}$, 
-then each endpoint is on the odd side of $l_i$ w.r.t. both $P_{1i}$ and $P_{1j}$, or vice versa (both even). 
+the \animals on $\ell_i$ and $\ell_j$ will come from sides with opposite parity w.r.t. $P_{1i}$ and $P_{1j}$, respectively.
+In addition, the number of intersection points $P_{ik}$ on segment $P_{ij}P_{1i}$ and the number of intersection points $P_{jk}$ on segment $P_{ij}P_{1j}$ will be both odd or both even. 
+W.L.O.G. assume that this quantity is both odd.
+Then by observation 1 the \animal on $\ell_i$ is on the endpoint of a side with same parity w.r.t. $P_{1i}$ and $P_{ij}$, and similarly claim for our \animal on $\ell_j$. 
+Nevertheless, from the fact that the selected endpoints on $\ell_i$ and $\ell_j$ are of opposite parity w.r.t. $P_{1i}$ and $P_{1j}$ it follows that the parities w.r.t. $P_{ij}$ will be opposite too. 
+(Similar case for the "both even" case, except the parity of the \animal 's side corresponding to $\ell_i$ and $\ell_j$ are both flipped when moved from $P_{1i}$ and $P_{1j}$ to $P_{ij}$). \\
+$\bullet$ Case 2: There are odd number of intersection points on open segment $P_{1j}P_{1i}$.\\ 
+Now each endpoint of $\ell_1$ is on the side with same parity w.r.t. $P_{1i}$ and $P_{1j}$. 
 According to our choice again, 
-both \animals come from the odd side of $l_i$ w.r.t. $P_{1i}$ and the and of $l_j$ w.r.t. $P_{1j}$, or both from the even side of their respective lines. 
-The intersection with $P_{ij}P_{1i}$ and $P_{ij}P_{1j}$ will be one odd and one even, 
-for the same endpoint w.r.t the lines $l_i$ and $l_j$, exactly one of them will change sign when switching from $P_{1i}$ to $P_{ij}$ and from $P_{1j}$ to $P_{ij}$. 
-Again this $(i, j)$ works. 
+the \animals on $\ell_i$ and $\ell_j$ will be placed on the sides with same parities w.r.t. $P_{1i}$ and $P_{1j}$, respectively (because the \animal on $\ell_i$ and \animal on $\ell_1$ have different parity w.r.t. $P_{1i}$, and similar to \animal on $\ell_j$).
+By observation 3, the number of intersection points on each of segment $P_{1i}P_{ij}$ and segment $P_{1j}P_{ij}$ have opposite parity. 
+Thus when comparing the endpoint containing \animal of $\ell_i$ w.r.t. $P_{1i}$ vs $P_{ij}$, and comparing the same for $\ell_j$ w.r.t. $P_{1j}$ vs $P_{ij}$, one pair of comparison has parity swapped and the other has parity preserved.  
+It thus follows that the endpoints of $\ell_i$ and $\ell_j$ are on the sides with opposite parities w.r.t. $P_{ij}$.  
 
-Finally, to see why the \animals won't intersect at the same time, observe that  if this happens for some of $(i, j)$, then the \animals must have encountered the same number of points before. This implies that they have to come both from the odd side or the even side of the line, contradiction. 
+Finally, suppose that two \animals intersect on $P_{ij}$ for some $i, j$, then they must have come from the sides of same parity of $\ell_i$ and $\ell_j$ w.r.t. $P_{ij}$, contradicting our mega-claim above. 
 
 (b) Let $\ell_1, \ell_2, \cdots , \ell_n$ be the segments, and let $\theta_i\in [0, \pi)$ be the angle need for $x$-axis to rotate counterclockwise to reach $\ell_i$. 
 W.L.O.G let $0=\theta_1 < \theta_2< \cdots < \theta_n$. For convinience we introduce $\ell_{n+1}=\ell_1$ with $\theta_{n+1}=\pi$. 
 
 For each segment \person has the choice of placing the \animal in the direction of $\theta_i$ or $\theta_i +\pi$ compared to the positive $x$-direction. Let's investigate $\ell_i$ and $\ell_{i+1}$ together. 
-Now, suppose that $\ell_i$ and $\ell_j$ intersect at $P_{ij}$ for some $j$; define $\ell_{(i+1)j}$ similarly. 
-We know that for each $j$ different from $i$, $i+1$, $\ell_i$, $\ell_{i+1}$ and $\ell_j$ are in that order (in anticlockwise angle, cycles allowed). 
+Let's reuse the notation $P_{ij}$ from part (a). 
+We know that for each $j\not\in\{i, i+1\}$, $\ell_i$, $\ell_{i+1}$ and $\ell_j$ are in that order (in anticlockwise angle, cycles allowed). 
 This means that $P_{ij}P_{i(i+1)}, P_{i(i+1)}P_{(i+1)j}, P_{(i+1)j}P_{ij}$ must also be in that order, 
 forcing $P_{ij}, P_{i(i+1)}, P_{(i+1)j}$ to be in clockwise order. 
 From here we infer that the vectors $P_{i(i+1)}P_{ij}$ and $P_{i(i+1)}P_{(i+1)j}$ either have directions ($\theta_i$, $\theta_{i+1}$) or ($\theta_i +\pi$, $\theta_{i+1} +\pi$), 
@@ -1019,7 +1026,7 @@ forcing the directions to be  $\theta_i, \theta_{i+1}+\pi$ or  $\theta_i +\pi, \
 Summarizing above, if we let $\theta_1$ to be the direction headed by the first \animal
 the directions must be $\theta_1, \theta_2+\pi, \theta_3, \theta_4+\pi, \cdots , \theta_n+\pi$ ($n$ is even). 
 Recall that we can also compare it with the "$n+1$-th" line (which is the first) and it has to have direction $\theta_{n+1}=\theta_1 +\pi$, 
-which contradicts our choice of making the first $\animal$ facing the direction $\theta_1$. 
+which contradicts our choice of making the first \animal facing the direction $\theta_1$. 
 (The case where $\theta_1+\pi$ is chosen as the direction is completely analogous: if one configuration works, then the completely opposite configuration works too). 
 \end{itemize}
 
@@ -1092,7 +1099,7 @@ Since $FA=FB$, we have
 $\angle GCA=\angle GCF=\angle GBF=\angle ABF=\angle BAF=\angle GAC$, hence $GA=GC$. 
 Now, denote $D'$ as the reflection of $G$ in $AC$, and we know that $D'$ lies on $\Gamma$. 
 Notice also that $AD'=AG=CG=CD'$, and $\angle BAC=\angle GAC=\angle D'AC$, so $D'$ fulfills $D'A=D'B$ and $AC$ is the bisector of $\angle D'AB$. 
-We therefore have $D=D'$ since there is only one such point fulfilling such property (i.e. the intersection of perpendicular bisector of $AC$ and the reflection of $AB$ in $CF$, which cannot be the same unless $AB$ is parallel or perpendicular to $AC$, which forces triangle $FAB$ and $BCF$ to be degenerate). 
+We therefore have $D=D'$ since there is only one such point fulfilling such property (i.e. the intersection of perpendicular bisector of $AC$ and the reflection of $AB$ in $CF$, which cannot be the same unless $AB$ is parallel or perpendicular to $AC$, which forces triangle $FAB$ and $BCF$ to be degenerate because line $AC$ will coincide with $FB$). 
 Now that we established that $D$ is on $\Gamma$, we claim that $MDEA$ is an isoceles trapezoid. 
 Indeed, $\angle AMD=\angle FMD=\angle FMG=2\angle GCF=2\angle GAF=2\angle CAD=\angle CAE=\angle MAE$, 
 and $\angle DEA=180^{\circ}-\angle DAE-\angle ADE=180^{\circ}-2\angle DAE=180^{\circ}-\angle MAE=180^{\circ}-\angle AMD$ 
@@ -1174,22 +1181,27 @@ Let $ABC$ be a triangle with circumcircle $\Gamma$ and incenter $I$ and let $M$ 
 
 \textbf{Solution.}
 W.L.O.G. let $AB<AC$. 
-First, well-known spiral similarity property should dictate the similarity of triangles $BXF$ an $CXE$, so $\frac{CX}{CE}=\frac{BX}{BF}$.
-Also, let's also invoke an identity for triangles (feel free to verify it; I'm not gonna do this):
-$$\frac{BX}{XC}\cdot \frac{\sin\angle BXD}{\sin\angle CXD}=\frac{BD}{DC}.$$Denoting $N_1$ as the other intersection of $XD$ and $\Gamma$ gives $\frac{\sin\angle BXD}{\sin\angle CXD}=\frac{BN_1}{CN_1}.$
-Similarly we have $\frac{AB}{AC}\cdot \frac{\sin\angle ABM}{\sin\angle ACM}=\frac{BM}{CM}=1$.
-ALso let $N_2$ as the other intersection of $AM$ and $\Gamma$ and we have $\frac{\sin\angle ABM}{\sin\angle ACM}=\frac{BN_2}{CN_2}.$
-Therefore all we need is $\frac{\sin\angle ABM}{\sin\angle ACM}=\frac{\sin\angle BXD}{\sin\angle CXD}$,
-and it's not hard to see that $\frac{\sin\angle ABM}{\sin\angle ACM}=\frac{AC}{AB}$,
-so we are left with proving the fact
+First, that $\angle XBF=\angle XCE$ and $\angle BXF=\angle BXC-\angle FXC=\angle BAC-\angle FXC=\angle FXE-\angle FXC=\angle CXE$ should dictate the similarity of triangles $BXF$ an $CXE$, so $\frac{CX}{CE}=\frac{BX}{BF}$. 
+In addition we have following: 
+\[\frac{BX}{XC}\cdot \frac{\sin\angle BXD}{\sin\angle CXD}
+=\frac{BX}{XC}\cdot \frac{\sin\angle BXD}{\sin\angle CXD}\cdot\frac{DX}{DX}
+=\frac{2|\triangle BXD|}{2|\triangle CXD|}
+=\frac{BD}{DC}\cdots (*).\]
+Similarly we have $\frac{AB}{AC}\cdot \frac{\sin\angle ABM}{\sin\angle ACM}=\frac{BM}{CM}=1\to \frac{\sin\angle ABM}{\sin\angle ACM}=\frac{AC}{AB}$.
+
+Denoting $N_1$ as the other intersection of $XD$ and $\Gamma$ gives $\frac{\sin\angle BXD}{\sin\angle CXD}=\frac{BN_1}{CN_1}.$
+Also let $N_2$ as the other intersection of $AM$ and $\Gamma$ and we have $\frac{\sin\angle ABM}{\sin\angle ACM}=\frac{BN_2}{CN_2}=\frac{AC}{AB}.$
+Therefore all we need is $\frac{\sin\angle ABM}{\sin\angle ACM}=\frac{\sin\angle BXD}{\sin\angle CXD}$. 
+By (*), 
+this is equivalent to
 $\frac{BF}{EC}\cdot\frac{AC}{AB}=\frac{BD}{DC}$.
 
 Now, $\frac{BD}{DC}=\frac{\tan\frac12\angle C}{\tan\frac12\angle B}$,
 $\frac{AC}{AB}=\frac{\sin\angle B}{\sin\angle C}=\frac{2\sin\frac 12\angle B\cos\frac 12\angle B}{2\sin\frac 12\angle C\cos\frac 12\angle C}$.
 Also $IE=IF$, and by angle chasing we have $\angle FIB=\angle ICE=\frac12\angle C$,
 $\angle EIC=\angle IBF=\frac12\angle B$.
-Therefore $BIF$ and $ICE$ similar, yielding $\frac{BF}{EC}=(\frac{BF}{FI})^2=(\frac{\sin\frac12\angle C}{\sin\frac12\angle B})^2$,
-now it's no longer difficult to prove that $(\frac{\sin\frac12\angle C}{\sin\frac12\angle B})^2\cdot \frac{2\sin\frac 12\angle B\cos\frac 12\angle B}{2\sin\frac 12\angle C\cos\frac 12\angle C}=\frac{\tan\frac12\angle C}{\tan\frac12\angle B}$.
+Therefore $BIF$ and $ICE$ similar, yielding $\frac{BF}{EC}=\left(\frac{BF}{FI}\right)^2=\left(\frac{\sin\frac12\angle C}{\sin\frac12\angle B}\right)^2$,
+now it's no longer difficult to prove that $\left(\frac{\sin\frac12\angle C}{\sin\frac12\angle B}\right)^2\cdot \frac{2\sin\frac 12\angle B\cos\frac 12\angle B}{2\sin\frac 12\angle C\cos\frac 12\angle C}=\frac{\tan\frac12\angle C}{\tan\frac12\angle B}$.
 
 \newpage
 
@@ -1237,7 +1249,7 @@ Now this gives us an intuition on how $S$ and $S'$ *might* be constructed: if $A
 \end{tikzpicture}
 
 \textbf{Solution.} We show that the following works: $S=\{(x,y): x\ge 0, y\ge 0, (x+1)^2+y^2\le 4\}$ and $S'=\{x\ge 0, y\ge 0, (x+1)^2+y^2\ge 4, (x-1)^2+y^2\le 4\}$. We claim that $BA\cdot BA'=4$ for those choices. 
-Denote triangles $ABC$ and $DEF$ as quasi-similar if there exists a permutation $\sigma$ of $\{D,E,F\}$ with $ABC$ and $\sigma(D)\sigma(E)\sigma(F)$ as similar. 
+Denote triangles $ABC$ and $DEF$ as \emph{quasi-similar} if there exists a permutation $\sigma$ of $\{D,E,F\}$ with $ABC$ and $\sigma(D)\sigma(E)\sigma(F)$ as similar. 
 
 We first start with the following claim: 
 for every point $A$ above $x$-axis, $A\in S$ iff $AC\le AB\le BC$ and $A'\in S'$ iff $A'C\le BC\le A'B$. \\
@@ -1245,12 +1257,12 @@ Proof: let's first investigate all points $A\in S$ and $A'\in S'$.
 Let $A=(x,y)$ be arbitrary. 
 Now, $AC\le AB\lra(x-1)^2+y^2\le  (x+1)^2+y^2\lra 0\le x$. 
 $BC\ge AB\lra 2^2\ge (x+1)^2+y^2\lra (x+1)^2+y^2\le 4$. 
-Therefore $AC\le AB\le BC$ iff $(x,y)$ satisfies both $x\ge 0$ and $(x+1)^2+y^2\le 4$ iff $(x,y)\in S$. 
+Therefore \[AC\le AB\le BC \lra (x,y) \text{ satisfies both } x\ge 0 \text{ and } (x+1)^2+y^2\le 4 \lra (x,y)\in S.\] 
 Next, $AC\le BC$ iff 
 $AC\le 2$ or $(x-1)^2+y^2\le 4$ 
 and $BC\le AB$ iff
 $(x-1)^2+y^2\ge 4$, 
-therefore $AC\le BC\le AB$ iff the two conditions are satisfied (and from here $(x-1)^2+y^2\le (x-1)^2+y^2$ so $x\ge 0$ is implied), 
+therefore $AC\le BC\le AB$ iff the two conditions are satisfied (and from here $(x-1)^2+y^2\le (x+1)^2+y^2$ so $x\ge 0$ is implied), 
 and this is equivalent to $A\in S'$. 
 
 We are now ready to justify our selection: 
@@ -1439,7 +1451,7 @@ Knowing that, a strategy is to prove the problem statement for one special case 
 
 \textbf{Solution 1.}
 Denote by $O$ the circumcenter and $H$ the orthocenter of triangle $ABC$
-Denote also by $E$ the midpoint of $AO$, $F$ the midpoint of $AH$, $N$ the midpoint of $OH$ (the nine-point-center), and $J$ the circumcenter of $XSY$. Observe that our goal is to prove that the circumcenter of triangle $XSY$ (namely $J$) lies on the perpendicular bisector of $PM$. Considering the 9-point circle we know that $P$ and $M$ pass through the circle, so the center $N$ is on the perpendicular bisector of $PM$. Thus is suffices to prove that $J$ lies on the perpendicular from $N$ to $BC$. 
+Denote also by $E$ the midpoint of $AO$, $F$ the midpoint of $AH$, $N$ the midpoint of $OH$ (the nine-point-center), and $J$ the circumcenter of $XSY$. Observe that our goal is to prove that the circumcenter of triangle $XSY$ (namely $J$) lies on the perpendicular bisector of $PM$. Considering the 9-point circle we know that $P$ and $M$ pass through the circle, so the center $N$ is on the perpendicular bisector of $PM$. Thus it suffices to prove that $J$ lies on the perpendicular from $N$ to $BC$. 
 
 Now let's break the solution into the following:
 \begin{itemize}
@@ -1449,7 +1461,7 @@ Obviously $S$ passes through the perpendicular bisector of $AD$, so this locus i
 In the case there the circle passes through $H$, from the fact that $\angle ADH=90^{\circ}$ we know that $S=F$.
 Similarly, if the circle passes through $O$, $S=E$ in this case with $\angle ADO=90^{\circ}$. 
 Thus the locus is actually $EF$, i.e. parallel to $OH$. 
-\item [Lemma 2.] The claim holds through in the special cases where $S\equiv E$ or $S\equiv F$.\\
+\item [Lemma 2.] The problem statement holds in the special cases where $S\equiv E$ or $S\equiv F$.\\
 Proof:
 When $S\equiv E$, $X$ is the midpoint of $AB$ and $Y$ is the midpoint of $AC$ (imagine the homothety centered at $A$ with factor $\frac 12$ which brings $ABC$ to $AXY$ and point $O$ to the midpoint of $AO$). 
 $J$ lies on the perpendicular bisector of $XY$
@@ -1464,7 +1476,7 @@ Since the nine-point circle passes through the midpoint of $AH$ ($S$ in this cas
 
 Now let's do the general case. Observe that with $E$ (midpoint of $AO$) and $N$ (midpoint of $OH$) both equidistant from $PM$ the conclusion now becomes $J$ lies on $EN$. We first need the following: 
 \begin{itemize}
-\item [Lemma 3.] $\frac {SJ}{AS}=\frac {AE}{EN}$\\
+\item [Lemma 3.] $\frac {SJ}{AS}=\frac {AE}{EN}$.\\
 Proof: we have $AE=\frac 12 AO$ and $EN=AF=\frac 12 AH$, and $AS=SX=SY$, 
 so we just have to prove that 
 $\frac {SJ}{SX}=\frac {AO}{AH}$.
@@ -1486,7 +1498,7 @@ Therefore $SJ\parallel \ell$.
 Now we have $\angle (SJ, AO)=\angle (\ell, AO)=\angle (\ell, AC)+\angle (AC, AO)=\angle (AB, AS)+\angle (AH, AB)=\angle (AH, AS)$. 
 \end{itemize}
 
-To complete the proof denote $J'$ by the intersection of $SJ$ and $EN$ and we shall prove that $J=J'$ by proving that $SJ=SJ'$. 
+To complete the proof, denote by $J'$ the intersection of $SJ$ and $EN$ and we shall prove that $J=J'$ by proving that $SJ=SJ'$. 
 From the first lemma it suffices to prove that  $\frac {SJ'}{AS}=\frac {AE}{EN}$. 
 Now $\frac {AS}{SE}=\frac{\sin\angle AES}{\sin\angle SAE}=\frac{\sin\angle AOH}{\sin\angle SAO}$ and 
 $\frac{SJ'}{SE}=\frac{\sin\angle SEJ'}{\sin\angle EJ'S}=\frac{\sin\angle AFE}{\sin\angle EJ'S}=\frac{\sin\angle AHO}{\sin\angle EJ'S}$. 
@@ -1494,7 +1506,7 @@ Now, $\angle (EJ', J'S)=\angle (EN, SJ)=\angle (AH, SJ)=\angle (AO, AS)$ so the 
 Therefore, $\frac {SJ'}{AS}=\frac {SJ'}{SE}\div \frac {AS}{SE}= \frac{\sin\angle AHO}{\sin\angle EJ'S}\div\frac{\sin\angle AOH}{\sin\angle SAO}=\frac{\sin\angle AHO}{\sin\angle AOH}=\frac{AO}{AH}=\frac {EN}{AE}$, Q.E.D.
 
 \textbf{Solution 2.} We present another proof of $NJ\perp BC$, this time involving the point $D$ itself. 
-Denote $F$ as above (the midpoint of $AH$), $X_H$ as the foot of perpendicular from $C$ to $AB$, and $Y_H$ the foor of perpendicular from $B$ to $AC$. 
+Denote $F$ as above (the midpoint of $AH$), $X_H$ as the foot of perpendicular from $C$ to $AB$, and $Y_H$ the foot of perpendicular from $B$ to $AC$. 
 
 We firstproe that triangles $DXY$ and $DX_HY_H$ are similar. Observe that with $ADXY$ cyclic, we have $\angle (DX, XY)=\angle (DA, AY)=\angle (DA, AC)$, $\angle (DY, XY)=\angle (DA, AX)=\angle (DA, AB)$ and finally $\angle (DX, DY)=\angle (AB, AC)$ for the similar reason. 
 Now considering $X_H$ and $Y_H$, we know that from $\angle AX_HH=\angle AY_HH=\angle ADH=90^{\circ}$ we know that $A, X_H, Y_H, H, D$ concyclic. By the similar logic above, 
@@ -1518,7 +1530,7 @@ Let $ABCD$ be a convex quadrilateral with $\angle ABC = \angle ADC < 90^{\circ}$
 
 We wish that $ABCD$ is cyclic to aid angle chasing, but it isn't. Nevertheless, we should immediately see that the circumcirles of $ABC$ and $ADC$ are the reflections of each other in $AC$, which, if we draw the two circles, give rise to the points $M_1$ and $M_2$. Next, drawing circle $BPD$ lets us guess that $X$ and $Y$ might lie on the two circumcircles aforementioned (which isn't that hard to prove either), and finally with angle-bisector theorem we know that $XE$ passes through $N_2$ and $YF$ passes through $N_1$. Now it's no longer difficult to finish the proof. 
 
-Each of the subproblems mentioned above are not hard to prove, but realizing them (i.e. seeing that we can break the problem doen into these subproblems) requires some insight.
+Each of the subproblems mentioned above are not hard to prove, but realizing them (i.e. seeing that we can break the problem into these subproblems) requires some insight.
 
 \definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
 \begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
@@ -1659,7 +1671,7 @@ Now that we locate the targetted $P$, it remains to prove that this $P$ lies on 
 (a) We first prove the following lemma: let $I''_A$ the point on $I_AI_A'$ satisfying $AI''_A=AI'_A$, and $I''_A\neq I'_A$ unless $AI'_A$ and $I_AI_A'$ are perpendicular to each other. Then triangles $AOI$ and $I_AAI''_A$ are similar. 
 Indeed, let $H$ be the orthocenter of triangle $ABC$, then $AH\parallel I_AI_A''$. 
 Also, $\angle OAI=\angle IAH=\angle AI_AI''_A$, so it suffices to prove that $\frac{AI}{AO}=\frac{I_AI''_A}{I_AA}$. 
-To do so, define $I_C$ has how $I_A$ and $I_B$ are defined. 
+To do so, define $I_C$ like how $I_A$ and $I_B$ are defined. 
 We first notice that $I$ is the orthocenter of $I_AI_BI_C$, so $I_AA$ is an altitude of triangle $I_AI_BI_C$. 
 In addition, we know that triangles $I_AI_BI_C$ are $I_ACB$ are similar with a similitude of $\frac {I_AB}{I_AI_B}=\cos\angle BI_AC$.
 Denote by $T$ the altitude from $I_A$ to $BC$, then by the similarities of the triangles mentioned above we have 
@@ -1730,24 +1742,24 @@ This means that $l_A$ passes through $P_1$ and similarly, $l_B$ passes through $
 We first establish a relation between the length $OI$ and the inradius $r$. 
 Let the circumradius be $R=AO=BO=CO$. Using fresh new label than (a), we denote $M$ as the second intersection of $AI$ and the circumcircle of $ABC$. 
 This $M$ is also the midpoint of arc $BC$ not containing $A$. 
-Now, $MI=MB=MC=2R\sin \angle BAI=2R\sin\frac{\angle A}{2}$, 
-$AM=AB\frac{\sin\angle ABI}{\angle AIB}$
-$=2R\sin\angle C \frac{\sin\frac 12 B}{\sin (90^{\circ}+\frac 12 C)}$
+Now, \[MI=MB=MC=2R\sin \angle BAI=2R\sin\frac{\angle A}{2}, 
+AM=AB\frac{\sin\angle ABI}{\angle AIB}
+=2R\sin\angle C \frac{\sin\frac 12 B}{\sin (90^{\circ}+\frac 12 C)}\]
 $=2R(2\sin\angle \frac{\angle C}{2} \cos\angle \frac{\angle C}{2}) \frac{\sin\frac 12 \angle B}{\cos\frac 12 \angle C}$
 $=4R\sin\frac 12\angle B\sin\frac 12\angle C$
 so $MI\cdot AI=8R^2\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C$. 
 Meanwhile, letting $D$ be the point of tangency of the incircle to $BC$ we have 
-$r=ID=IB\sin\angle IBC=BC\frac{\sin\angle ICB}{\sin\angle CIB}\sin\frac 12\angle B$
-$=2R\sin A\frac{\sin\frac 12 C}{\sin (90^{\circ}+\frac 12 A)}\sin\frac 12\angle B$
-$=2R(2\sin\angle \frac{\angle A}{2} \cos\angle \frac{\angle A}{2})\frac{\sin\frac 12 C}{\cos\frac 12 A)}\sin\frac 12\angle B$
-$=4R\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C$. 
+\[r=ID=IB\sin\angle IBC=BC\cdot\frac{\sin\angle ICB}{\sin\angle CIB}\cdot\sin\frac 12\angle B
+=2R\sin A\cdot\frac{\sin\frac 12 C}{\sin (90^{\circ}+\frac 12 A)}\cdot\sin\frac 12\angle B\]
+\[=2R\left(2\sin\frac{\angle A}{2} \cos\frac{\angle A}{2}\right)\cdot\frac{\sin\frac 12\angle C}{\cos\frac 12\angle A}\cdot\sin\frac 12\angle B
+=4R\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C.\]
 Considering the fact that $-MI\cdot AI$ is the power of point of $I$ w.r.t. the circumcircle we have 
 $OI^2=R^2-MI\cdot AI$=$R^2-8R^2\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C$, 
 or $\frac{OI^2}{R^2}=1-8\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C$ 
 while $\frac {r}{R}=4\sin\frac 12 \angle A\sin\frac 12\angle B\sin\frac 12\angle C$ 
 so $\frac{OI^2}{R^2}=1-\frac {2r}{R}$, 
 or $\frac{r}{R}=\frac 12-\frac{OI^2}{2R^2}$, 
-or $r=\frac 12R(1-\frac{OI^2}{R^2})$ 
+or $r=\frac 12R\left(1-\frac{OI^2}{R^2}\right)$ 
 (this is actually a well-known identity, the purpose of including the proof is to show the power of trigonometry in solving problems). 
 
 Now, let $T$ be the tangency point of the incircle to $XY$, and $N$ be the midpoint of $XY$. 
@@ -1756,7 +1768,7 @@ we now have $\frac{PI}{OP}$
 $=1-\frac{OI}{OP}$
 $=1-\frac{OI}{R^2\div OI}$
 $=1-\frac{OI^2}{R^2}$. 
-Therefore $ON=IT\frac{PO}{PI}$
+Therefore $ON=IT\cdot\frac{PO}{PI}$
 $=r\frac{1}{1-\frac{OI^2}{R^2}}$
 $=\frac 12 R(1-\frac{OI^2}{R^2})\frac{1}{1-\frac{OI^2}{R^2}}$
 $=\frac 12 R$. 
@@ -1781,20 +1793,21 @@ For any positive integer $k$, denote the sum of digits of $k$ in its decimal rep
 
 \textbf{Thoughts.} 
 The first thing to try is $c\cdot 10^k$ for $c\le 9$, of course, 
-because $S(c\cdot 10^k)=c$ and it's easier to manipulate. 
+because $S(c\cdot 10^k)=c$ and it's easier to manipulate--provided the notion of expanding the polynomial in terms of its coefficients is intuitive enough for you. 
 (Well I first tried $n=10^k$ that gives $S(P(10^k))=P(1)$, a constant). 
 The next thing is that, if we space $k$ big enough, the numbers are likely to be in the form 
 $(a_kc^k)(0\cdots 0)(a_{k-1}c^{k-1}(0\cdots 0)\cdots (0\cdots 0)a_0c^0$, 
 provided $a_i\ge 0$ for all $i$. 
 But we cannot simply make that assumption! 
-Fortunately, the fact that $a_i< 0$ will cause tons of trailing 9's, which will be good for a contradiction. 
+Fortunately, the fact that $a_i< 0$ will cause unbounded amount of trailing 9's (when $k$ is large enough), which will be good for a contradiction. 
 Having that in mind, we know that $P(c)$ is the sum of $a_kc^k, \cdots , a_0c^0$ and the sum of digits (as shown above) is 
 $S(a_kc^k)+\cdots +S(a_0c^0)$. 
 With the fact that $S(i)\le i$ with equality iff $i\le 9$, it's no longer difficult to complete the solution. 
 
+\textbf{Answer.} Either the constant polynomial $P(x)\equiv c$ where $c\in\{1,2,\cdots ,9\}$, or the identity polynomial $P(x)\equiv x$.
+
 \textbf{Solution.} 
-The answer is the constant polynomial $P(x)=c$ where $c\in\{1,2,\cdots ,9\}$, 
-or the identity polynomial $P(x)=x$. In the first case we have $S(P(n))=S(c)=c=P(\text{anything})=P(S(n))$, 
+Let's first show that they work. In the first case we have $S(P(n))=S(c)=c=P(\text{anything})=P(S(n))$, 
 and in the second case $S(P(n))=S(n)=P(S(n))$. 
 
 Now let $P(x)=\displaystyle\sum_{i=0}^k a_ix^i$. 
@@ -1802,25 +1815,25 @@ The first thing to do is to prove that $a_i\ge 0$, $\forall i\ge 0$.
 Indeed, let $n=c\cdot 10^m$ ($1\le c\le 9$) then we have 
 $P(c)=P(S(n))=S(P(n))=S(P(c\cdot 10^m))$. 
 Lt $d$ be such that 
-$10^{d}>max\{|a_i(9^i)| : i\in [0, k]\}$
+$10^{d}>\max\{|a_i(9^i)| : i\in [0, k]\}$
 For $m>d$ satisfying we have 
 $P(c\cdot 10^m)=\displaystyle\sum_{i=0}^k a_i (c^i)(10^{mi})$. 
 Let $a_j<0$ for some $j$. 
-Now notice that 
-$\displaystyle\sum_{i=0}^{j-1} a_i (c^i)(10^{mi})$
-$<\displaystyle\sum_{i=0}^{j-1} 10^{d}(10^{mi})$
-$<\displaystyle\sum_{i=0}^{mj-m+d} 10^i$
-$<10^{mj-m+d+1}$
-$\le 10^{mj}$
-so
-$P(c\cdot 10^m)=\displaystyle\sum_{i=0}^k a_i (c^i)(10^{mi})$
-$=\displaystyle\sum_{i=0}^{j-1} a_i (c^i)(10^{mi})$
-$+a_j(c^j)(10^{mi})$
-$+\displaystyle\sum_{i=j+1}^{k} a_i (c^i)(10^{mi})$
-$<10^{mj}$
-$+a_j(c^j)(10^{mj})$
-$+\displaystyle\sum_{i=j+1}^{k} a_i (c^i)(10^{mi})$
-$\le\displaystyle\sum_{i=j+1}^{k} a_i (c^i)(10^{mi})$
+Now that 
+\[\displaystyle\sum_{i=0}^{j-1} a_i (c^i)(10^{mi})
+<\displaystyle\sum_{i=0}^{j-1} 10^{d}(10^{mi})
+<\displaystyle\sum_{i=0}^{mj-m+d} 10^i
+<10^{mj-m+d+1}
+\le 10^{mj}\]
+\[\Downarrow\]
+\[P(c\cdot 10^m)=\displaystyle\sum_{i=0}^k a_i (c^i)(10^{mi})
+=\displaystyle\sum_{i=0}^{j-1} a_i (c^i)(10^{mi})
++a_j(c^j)(10^{mi})
++\displaystyle\sum_{i=j+1}^{k} a_i (c^i)(10^{mi})\]
+\[<10^{mj}
++a_j(c^j)(10^{mj})
++\displaystyle\sum_{i=j+1}^{k} a_i (c^i)(10^{mi})
+\le\displaystyle\sum_{i=j+1}^{k} a_i (c^i)(10^{mi})\]
 (the first inequality is due to our choice of $m$). 
 As $P(x)>0$ for all $x\ge 2016$, the leading coefficient is positive so we can choose $j$ such that there exists an $l\ge 1$ satisfying 
 $c_{j+l}>0$ and $c_{j+1}, c_{j+2}, \cdots c_{j+l-1}=0$. 
@@ -1841,7 +1854,7 @@ However, this is contradicted by the fact that $\lim_{m\to\infty}9(m-d)\to\infty
 Hence $c_i\ge 0$ for all $i$. 
 
 Since $a_i (c^i)(10^{ni}) < 10^{(n+1)i}$ (because $a_i(c^i)<10^n$ by our choice of $n$), 
-the number $P(c\cdot 10^n)$ are in the form of $(a_kc^k)(0\cdots 0) (a_{k-1}c^{k-1})(0\cdots 0)\cdots(0\cdots 0)(a_0c^0)$ when laid in decimal form. 
+the numbers $P(c\cdot 10^n)$ are in the form of $(a_kc^k)(0\cdots 0) (a_{k-1}c^{k-1})(0\cdots 0)\cdots(0\cdots 0)(a_0c^0)$ when laid in decimal form. 
 Therefore 
 $S(P(c\cdot 10^n))$
 $=\displaystyle\sum_{i=0}^k S(a_i (c^i))$, 
@@ -1908,8 +1921,7 @@ Summing above, $\tau_1 (m)=\displaystyle\prod_{i=1}^{k}(a_i+1)\lceil\frac{\prod_
 so the ratio now becomes 
 $(y+1)\dfrac{\displaystyle\prod_{i=1}^{l}(b_i+1)}{\lceil\frac{\prod_{i=1}^{l}(b_i+1)}{2} \rceil}$. 
 Equivalently, $2(y+1)$ when $b_i$ odd for some $b_i$, or $(y+1)\frac{2k+1}{k+1}$ otherwise (where $2k+1=\displaystyle\prod_{i=1}^{l}(b_i+1)$ here). 
-The first case yields that the ratio must be even; in the second case, we have $\gcd(2k+1, k+1)=1$ so $k|y+1$. 
-In other words, the ratio must be divisible by $2k+1$. 
+The first case yields that the ratio $2(y+1)$ must be even; in the second case, we have ratio as $(y+1)\left(2-\frac 1{k+1}\right)=2(y+1)-\frac{y+1}{k+1}$ so $k+1|y+1$ and the ratio $(y+1)\frac{2k+1}{k+1}$ is divisible by $2k+1$.  
 Notice, also, that $l\ge 2$ ($m=10n$ contains prime factors 2 and 5) so $2k+1=\displaystyle\prod_{i=1}^{l}(b_i+1)$ must be composite. 
 So our integer ratio cannot be an odd prime. 
 
@@ -1923,17 +1935,18 @@ For odd composite number $xz$ with $x, z\ge 3$, take $m=3^{d}\cdot 2^{x-1}\cdot 
 \item[\textbf{N3/IMO 4}]
 A set of postive integers is called fragrant if it contains at least two elements and each of its elements has a prime factor in common with at least one of the other elements. Let $P(n)=n^2+n+1$. What is the least possible positive integer value of $b$ such that there exists a non-negative integer $a$ for which the set $$\{P(a+1),P(a+2),\ldots,P(a+b)\}$$is fragrant?
 
-\textbf{Thoughts.} This is  problem requiring no more than number experimentation, 
-and it's immediate to see why $P(n)$ and $P(n+1)$ are relatively prime (otherwise the answer is 2 and it's too trivial to be on the IMO), which directly gives away the fact that $b=3$ doesn't work either. 
+\textbf{Thoughts.} This is a problem requiring no more than number experimentation, in the form of "for each (small) $k$, how large can $\gcd(P(n), P(n+k))$ be? 
+It's now immediate to see why $P(n)$ and $P(n+1)$ are relatively prime (otherwise the answer is 2 and it's too trivial to be on the IMO), which directly gives away the fact that $b=3$ doesn't work either. 
 How about $P(n)$ and $P(n+2)$? The investigation of the first case also shows that $b=4$ fails, and further checking on $P(n)$ and $P(n+3)$ shows how $b=5$ fails too. 
 Finally, for $b=6$ the relation between $\gcd(P(n), P(n+2))$, $\gcd(P(n), P(n+3))$ and $\gcd(P(n), P(n+4))$ will be good to construct an example (which cannot be determined by brute force since it's rather big!!!)
 Ps: basic combinatorics skill needed to construct an example. 
 
-\textbf{Solution.} The answer is $b=6.$ 
-Observe that this solution works because the set $\{P(197), P(198), P(199), P(200), P(201), P(202)\}$ has 
+\textbf{Answer.} $b=6.$
+\textbf{Solution.}
+Now $\{P(197), P(198), P(199), P(200), P(201), P(202)\}$ has 
 $P(199)\equiv P(202)\equiv P(1)=3\equiv 0\pmod{3}$, 
 $P(198)\equiv P(2)=7\equiv 0\equiv 21=P(4)\equiv P(200)\pmod {7}$, 
-$P(197)\equiv P(7)=57\equiv 0\equiv 133=P(11)\equiv P(201)\pmod{19}$. 
+$P(197)\equiv P(7)=57\equiv 0\equiv 133=P(11)\equiv P(201)\pmod{19}$, so this 6-element set is fragrant. 
 
 First, notice that $P(n)-P(n-1)=n^2+n+1-(n^2-n-1)=2n$, 
 and knowing that $n^2+n+1\equiv n+n+1=2n+1\equiv 1\pmod{2}$, 
@@ -1945,11 +1958,11 @@ This means, $b=2$ fails, and $b=3$ fails too sine $P(a+1)$ and $P(a+3)$ are both
 Now, for $b=4$ and $b=5$ our strategy is to determine an upper bound for $\gcd(P(n), P(n+c))$ for $c=2, 3$. 
 Observe that $P(n+c)-P(n)=2cn+c^2+c=c(2n+c+1)$. 
 For $c=2$ this is the same as $2(2n+3)$. 
-If $p|P(n+2)$ and $p|P(n)$ then $p|2(2n+3)$, and therefore $p|2n+3$ with $P$ being odd at all times. 
+If $p|P(n+2)$ and $p|P(n)$ then $p|2(2n+3)$, and therefore $p|2n+3$ with $P(n)$ being odd at all times. 
 This entails $2n\equiv -3\pmod{p}$, 
 and $0\equiv 4P(n)=4n^+4n+1=(2n)^2+2(2n)+1\equiv (-3)^2-3+1=7\pmod{7}$. 
 Hence $p=7$ and $n\equiv 2\pmod{7}$. 
-Now for $b=4$, knowing that $P(a+2)$ is relatively prime with $P(a+1)$ and $P(a+3)$ it must have a common prime factor with $P(a+4)$, 
+Now for $b=4$, knowing that $P(a+2)$ is relatively prime with $P(a+1)$ and $P(a+3)$, $P(a+2)$ must have a common prime factor with $P(a+4)$, 
 and by the previous step this prime factor has to be 7. 
 Similarly $P(a+1)$ and $P(a+3)$ must both be divisible by 7. 
 This means $P(a+1), P(a+2), P(a+3), P(a+4)$ are all divisible by 7 for some $a$, contradicting that any two neighbouring elements are coprime. 
@@ -1958,8 +1971,8 @@ Finally for $b=5$ we investigate $c=3$ as in the previous paragraph.
 Now $3(2n+3+1)=3(2n+4)=3(2)(n+2)$. 
 If a prime $p$ satisfies $p|P(n)$ and $p|P(n+3)$ simultaneously then either $p=3$ or $p|n+2$ 
 (again $p$ must be relatively prime to 2 so this can be easily factored out). 
-In the second case we have $n\equiv =2\pmod{p}$, 
-so $P(n)\equiv P(-2)=4-2+1=3\equiv\pmod{p}$, forcing $p=3$ (no choice!) 
+In the second case we have $n\equiv -2\pmod{p}$, 
+so $P(n)\equiv P(-2)=4-2+1=3\equiv\pmod{p}$, forcing $p=3$ (no choice!). 
 Thus viewing the set $\{P(a+1), \cdots , P(a+5)\}$ 
 we know that $P(a+3)$ must have a common factor with $P(a+1)$ or $P(a+5)$, and by previous paragraph this common factor has to be 7. 
 Thus neither of $P(a+2)$ nor $P(a+4)$ can be divisible by 7, and they cannot have common prime factor (again by previous paragraph). 
@@ -1977,7 +1990,7 @@ Let $n, m, k$ and $l$ be positive integers with $n \neq 1$ such that $n^k + mn^l
 \item[$\bullet$] $l|k$ and $m = \frac{n^{k-l}-1}{n^l-1}$.
 \end{itemize}
 
-\textbf{Thoughts.} If we were to find all possible $n, m , k , l$, the problem would be way harder to solve. Nevertheless, the fact that the answer is 'provided' to us should give a hint on how to proceed. Bullet point 1 happens when we have $n^k+n^{2k}+1|n^{3k}-1$ and bullet poinr 2 happens when we have $n^k+n^{k-l}+\cdots +n^l+1|n^{k+l}-1$. Therefore, a natural way is to investigate both $n^{k+l}-1-(n^k-1)(n^k+mn^l+1)$ and $n^{k+l}-1-(n^l-1)(n^k+mn^l+1)$, and we can simplify the solution (by using the fact that $n$ and $n^k+mn^l+1$ are relatively prime) to $n^k+mn^l+1|mn^{l}+1-n^{k-l}-m$ and $n^k+mn^l+1|n^k-mn^{l-k}+(m-1)n^l$, depending on the cases (and it's not hard to see that the right hand size must be zero by comparing the sizes!)
+\textbf{Thoughts.} If we were to find all possible $n, m , k , l$, the problem would be way harder to solve. Nevertheless, the fact that the answer is 'provided' to us should give a hint on how to proceed. Bullet point 1 happens when we have $n^k+n^{2k}+1|n^{3k}-1$ and bullet point 2 happens when we have $n^k+n^{k-l}+\cdots +n^l+1|n^{k+l}-1$. Therefore, a natural way is to investigate both $n^{k+l}-1-(n^k-1)(n^k+mn^l+1)$ and $n^{k+l}-1-(n^l-1)(n^k+mn^l+1)$, and we can simplify the solution (by using the fact that $n$ and $n^k+mn^l+1$ are relatively prime) to $n^k+mn^l+1|mn^{l}+1-n^{k-l}-m$ and $n^k+mn^l+1|n^k-mn^{l-k}+(m-1)n^l$, depending on the cases (and it's not hard to see that the right hand size must be zero by comparing the sizes!)
 
 \textbf{Solution.} We split our solution into two cases: 
 \begin{itemize}
@@ -1994,7 +2007,7 @@ $\gcd(n^l, n^k + mn^l + 1)=1$
 so $m(n^l-1)-(n^{k-l}-1)$ is itself divisible by $n^k + mn^l + 1$. 
 Now, $m(n^l-1)<mn^l<n^k + mn^l + 1$ and $n^{k-l}-1\le n^k-1<n^k + mn^l + 1$, meaning that 
 $0<\frac{m(n^l-1)}{n^k + mn^l + 1}, \frac{(n^{k-l}-1)}{n^k + mn^l + 1}<1$. 
-Therefore $|\frac{m(n^l-1)-(n^{k-l}-1)}{n^k + mn^l + 1}|<1$, and therefore has to be 0. 
+Therefore $|\frac{m(n^l-1)-(n^{k-l}-1)}{n^k + mn^l + 1}|<1$, and has to be 0 (since it is an integer). 
 We thus have 
 $m(n^l-1)=(n^{k-l}-1)$ and since $n>1$, 
 $m=\frac{n^{k-l}-1}{n^l-1}$. 
@@ -2019,7 +2032,7 @@ $m=\frac{n^l-n^k}{n^l-n^{l-k}}$.
 Now, if $m\ge 2$, then we have 
 $n^l-n^k\ge 2n^l-2n^{l-k}$, or 
 $2n^{l-k}\ge n^l+n^k > n^l=n^k(n^{l-k})$, 
-or $2>n^k$, forcing $n=1$ (contradiction since $k\ge 1$). 
+or $2>n^k$, forcing $n=1$ (contradiction). 
 Thus $m=1$ ($m$ must be positive) and we have $k=l-k$, or $l=2k$. 
 \end{itemize}
 
@@ -2032,9 +2045,11 @@ Let $a$ be a positive integer which is not a perfect square, and consider the eq
 
 Start experimenting with numbers like $x=7, y=6$. Then $a=10$ and $k=3$ are viable solutions. As it turns out, $x=1, y=2$ is also a solution. We notice that: each pair $(x, y)$ have $|x-y|=1$ (i.e. same distance), the product of $x$'s is $7\times 1=7=10-3=a-k$ and the product of $y$'s is $2\times 6=12=10+2$. This thing doesn't seem to hold true when $|x-y|>1$, but experimenting the differences yield that the product of $x$'s is $a-k(|x-y|)^2$ (the product of $y$'s is, in general, messier and less illuminating. Nevertheless, knowing the supposed value of product of $x$'s suffices). 
 
+Edit: as it turns out, we cannot take $0\le x-2kc<\sqrt{a}$ for granted: much more needs to be done. This doesn't seem to hold true for all $(x, y)$ with $x>\sqrt{a}$, but it holds for minimal such $a$. Some tedious inequality is needed as below, but this is not too hard to think of. 
+
 \textbf{Solution.} 
-To show that $k\in A\to k\in B$, let $x>\sqrt{a}$ for some $x$ satisfying the equation. 
-It follows that $|y|<|x|$. 
+To show that $k\in A\to k\in B$, let $x>\sqrt{a}$ for some $x$ satisfying the equation, such that $x$ is the minimal possible. 
+It follows that $|y|<|x|$, and w.l.o.g. we can let $y\ge 0$. 
 Denote $y=x-c$ and we have $a=x^2-k(x^2-y^2)=x^2-kc(2x-c)=x^2-2kcx+kc^2$. 
 Let $x_1=x-2kc$ and $y_1=x_1+c$ and we have 
 $\dfrac{x_1^2-a}{x_1^2-y_1^2}$
@@ -2043,21 +2058,23 @@ $=\dfrac{-2kc(2x-2kc)+kc(2x-c)}{-c(2(x-2kc)+c)}$
 $=\dfrac{-kc(4x-4kc-2x+c)}{-c(2x-4kc+c)}$
 $=k$. 
 This means $k$ admits $(x_1, y_1)$ as well, and from $x_1=y_1+c<y_1$ we have $x_1<\sqrt{a}$. 
-Also notice that $x\ge 2kc$ because... so $x_1\ge 0$. Therefore
-$k\in B$ too. 
+Now, $x_1<\sqrt{a}$ by the minimality of $x$; if $-\sqrt{a}<x_1\le 0$ then $k$ admits $(-x_1, y_1)$ and $k$ is in $B$. 
+Obviously this conclusion is also true if $0\le x_1<\sqrt{a}$. 
+If $x_1<-\sqrt{a}$, by the minimality of $x$ again, $|x_1|\ge x$, so $x_1\le -x$ and so $x-2kc\le -x$, or $x\le kc$. 
+Now $a=x^2-k(x^2-y^2)>0$, or $ky^2>(k-1)x^2$, or $x-c=y>x\sqrt{\frac{k-1}{k}}>x\cdot \frac{k-1}{k}$, so $c<\frac xk$, or $ck<x$, contradiction. Hence we must have $k\in B$. 
 
 Conversely, we want to show that $k\in B\to k\in A$. 
-Let $x<\sqrt{a}$ for some $x$ satisfying the equation. 
-It follows that $|y|>|x|$. 
+Let $0\le x<\sqrt{a}$ for some $x$ satisfying the equation; choose the maximal such $x<\sqrt{a}$ if there are many. 
+It follows that $|y|>|x|$, and again we can assume . 
 Denote $y=x+c$ and we have $a=x^2-k(x^2-y^2)=x^2-k(-c)(2x+c)=x^2+2kcx-kc^2$. 
-Let $x_2=x+2kc$ and $y_2=x_10c$ and we have 
+Let $x_2=x+2kc$ and $y_2=x_1-c$ and we have 
 $\dfrac{x_2^2-a}{x_1^2-y_2^2}$
 $=\dfrac{(x+2kc)^2-(x^2+kc(2x+c))}{(x_2-y_2)(x_2+y_2)}$
 $=\dfrac{2kc(2x+2kc)-kc(2x+c)}{c(2(x+2kc)-c)}$
 $=\dfrac{kc(4x+4kc-2x-c)}{c(2x+4kc-c)}$
 $=k$. 
-This means $k$ admits $(x_2, y_2)$ as well, and from $x_2=y_2+c>y_2$ we have $x_1>\sqrt{a}$. Therefore
-$k\in A$ too. 
+This means $k$ admits $(x_2, y_2)$ as well, and from the maximality of $x$ and that $x_2=x+c>x$ we have $x_2>\sqrt{a}$. Therefore
+$k\in A$ too (proving the inequality here is surprisingly easier!)
 
 \newpage
 
@@ -2075,7 +2092,7 @@ Having known that $f(p)=p^2$ for all sufficiently large primes $p$, one just nee
 
 \textbf{Solution.}
 It is easy to verify that $f(x)=x^2$ fulfills the condition because for every positive integers $m$ and $n$ we have 
-$mf(m)+nf(n)=m^3+n^3=(m+n)(m^2-mn+n^2)=(m+n)(f(m)-mn+n^2)$. For the rest of the solution we will use profusely that $f(x)>0, \forall x\in\mathbb{N}$ and that $f(m)+f(n)-mn\neq 0$. 
+$mf(m)+nf(n)=m^3+n^3=(m+n)(m^2-mn+n^2)=(m+n)(f(m)-mn+f(n))$. For the rest of the solution we will use profusely that $f(x)>0, \forall x\in\mathbb{N}$ and that $f(m)+f(n)-mn\neq 0$. 
 
 We start with the two mini-observations: 
 \begin{itemize}
