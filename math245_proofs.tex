@@ -1,0 +1,522 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,pgf,tikz,fullpage,parskip,esvect, multirow, bm}
+\usepackage{mathrsfs}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+ 
+%\setlength{\textheight}{9in}
+\setlength{\textheight}{10in}
+\setlength{\textwidth}{7.4in}
+\setlength{\topmargin}{-0.75in}
+\setlength{\oddsidemargin}{-0.5in}
+\setlength{\evensidemargin}{-0.5in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\inner}[2]{\langle #1, #2\rangle}
+\newcommand{\im}{\text{im}}
+
+
+\begin{document}
+
+\section{Some examples}
+\begin{enumerate}
+\item The functions below are examples of inner products:
+\begin{itemize}
+\item [(a).] $V=\bbC ([0, 1])=\{f: [0,1]\to \bbC \text{ continuous}\}.$\\
+$<f, g>=\int_0^1 f\ol{g}$
+\item [(b).] $V=M_n(\bbC), <A, B>=\tr(AB^*), $ where $B^*=\ol{B^t}$.\\
+Proof: The conditions of the inner products can be established as below: \\
+$\bullet$ $<A+B, C>=\tr((A+B)C^*)=\tr(AC^*+BC^*)=\tr(AC^*)+\tr(BC^*)=<A+C, B+C>.$\\
+$\bullet$ for any constant $c$, 
+$<cA, B>=\tr(c(AB^*))=c\tr(AB^*)=c<A, B>$. \\
+$\bullet$ $<A, B>=\tr(AB^*)=\tr(A\ol{B^t})$
+$=\sum (A\ol{B^t})_{ii}$
+$=\sum A_{ij}\ol{B^t_{ji}}$
+$=\sum A_{ij}\ol{B_{ij}}$, $\forall 1\le i, j\le n$. 
+Similarly, $<B, A>=\sum B_{ij}\ol{A_{ij}}.$
+Now for $a, b\in\bbC$ we have $\ol{a}+\ol{b}=\ol{a+b}$, $\ol{ab}=\ol{a}\ol{b}$ and $\ol{\ol{a}}=a$. 
+Therefore $\ol{a\ol{b}}=\ol{a}\ol{\ol{b}}=\ol{a}b$. 
+This gives $A_{ij}\ol{B_{ij}}=\ol{ B_{ij}\ol{A_{ij}}}$ and therefore $<A, B>=A_{ij}\ol{B_{ij}}=\ol{ B_{ij}\ol{A_{ij}}}=\ol{<B,A>}$. \\
+$\bullet$ From above, $<A, A>=\sum{A_{ij}\ol{A_{ij}}}=\sum ||A_{ij}||^2.$ This is obviously nonnegative, and it is zero if and only if all $||A_{ij}||$'s are zero, meaning that $A_{ij}$ must be itself a zero (i.e. a zero vector). 
+\end{itemize} 
+
+\item In assignment 1 problem 1, we have seen that the pairing isn't an inner product because there exists nonzero vector $\bm{x}$ satisfying $\langle \bm{x}, \bm{x}\rangle =0$. We now show that the pairing $\bm{x}^t\left(\begin{array}{c c}1 & i\\-i & 1\end{array}\right)\ol{\bm{y}}$ satisfies all other properties. 
+
+ Notice that, if $\bm{x}=\left(\begin{array}{c}x_1\\x_2\end{array}\right)$ and $\bm{y}=\left(\begin{array}{c}y_1\\y_2\end{array}\right)$ then 
+\[\langle\bm{x}, \bm{y}\rangle=\bm{x}^tA\bm{\overline{y}}
+=\left(\begin{array}{c c}x_1 & x_2\end{array}\right)
+\left(\begin{array}{c c}1 & i\\-i & 1\end{array}\right)
+\left(\begin{array}{c}\overline{y_1}\\\overline{y_2}\end{array}\right)
+=\left(\begin{array}{c c}x_1 & x_2\end{array}\right)
+\left(\begin{array}{c}\overline{y_1}+i\overline{y_2}\\ -i\overline{y_1}+\overline{y_2}\end{array}\right)
+=\left(\begin{array}{c}x_1(\overline{y_1}+i\overline{y_2})+x_2(-i\overline{y_1}+\overline{y_2})\end{array}\right)
+.\]
+We establish the following:\\
+$\bullet$ $\langle\bm{x+y}, \bm{z}\rangle = \bm{x+y}^tA\bm{\overline{z}}=(\bm{x}^t+\bm{y}^t)A\bm{\overline{z}}
+=\bm{x}^tA\bm{\overline{z}}+\bm{y}^tA\bm{\overline{z}}$
+$=\langle\bm{x}, \bm{z}\rangle+\langle\bm{y}, \bm{z}\rangle.$\\
+$\bullet$ For any constant $c$, 
+$\langle\bm{cx}, \bm{y}\rangle
+=(c\bm{x}^t)A\bm{\overline{y}}
+=c(\bm{x}^tA\bm{\overline{y}})
+=c\langle\bm{x}, \bm{y}\rangle$. \\
+$\bullet$ Before proving $\langle\bm{x}, \bm{y}\rangle=\overline{\langle\bm{x}, \bm{y}\rangle}$, we need the following properties about complex numbers: 
+for any complex numbers $a$ and $b$, we have $\overline{a}+\overline{b}=\overline{a+b}$; for any complex numbers $a$ and $b$, $\overline{a}\cdot\overline{b}=\overline {ab}$. Therefore, 
+\[\langle\bm{x}, \bm{y}\rangle=\left(\begin{array}{c}x_1(\overline{y_1}+i\overline{y_2})+x_2(-i\overline{y_1}+\overline{y_2})\end{array}\right), \langle\bm{y}, \bm{x}\rangle=\left(\begin{array}{c}y_1(\overline{x_1}+i\overline{x_2})+y_2(-i\overline{x_1}+\overline{x_2})\end{array}\right). \]
+We have $x_1\overline{y_1}=\overline{\overline{x_1}}\overline{y_1}=\overline{\overline{x_1}y_1}$, and similarly 
+$x_2\overline{y_2}=\overline{\overline{x_2}}\overline{y_2}=\overline{\overline{x_2}y_2}. $
+In addition, 
+$i(x_1\overline {y_2}-x_2\overline{y_1})
+=i(\overline{\overline{x_1}y_2}-\overline{\overline{x_2}y_1})
+=-i(\overline{\overline{x_2}y_1-\overline{x_1}y_2})
+=\overline{i}(\overline{\overline{x_2}y_1-\overline{x_1}y_2})
+=\overline{i(\overline{x_2}y_1-\overline{x_1}y_2)}. $ Therefore, 
+\[x_1(\overline{y_1}+i\overline{y_2})+x_2(-i\overline{y_1}+\overline{y_2})=x_1\overline{y_1}+x_2\overline{y_2}+i(x_1\overline {y_2}-x_2\overline{y_1})
+=\overline{\overline{x_1}y_1}+\overline{\overline{x_2}y_2}+\overline{i(\overline{x_2}y_1-\overline{x_1}y_2)}
+=\overline{\overline{x_1}y_1+\overline{x_2}y_2+i(\overline{x_2}y_1-\overline{x_1}y_2)}\]
+$=\overline{y_1(\overline{x_1}+i\overline{x_2})+y_2(-i\overline{x_1}+\overline{x_2}},$ 
+establishing the claim. \\
+$\bullet$ Now  $\langle\bm{x}, \bm{x}\rangle=\left(\begin{array}{c}x_1(\overline{x_1}+i\overline{x_2})+x_2(-i\overline{x_1}+\overline{x_2})\end{array}\right)
+=(x_1\overline{x_1}+x_2\overline{x_2}+i(x_1\overline{x_2}-x_2\overline{x_1})
+=|x_1|^2+|x_2|^2+ix_1\overline{x_2}+(-i)\overline{x_1}x_2
+=|x_1|^2+|x_2|^2+ix_1\overline{x_2}+\overline{i}\overline{x_1}\overline{\overline{x_2}}
+=|x_1|^2+|x_2|^2+ix_1\overline{x_2}+\overline{ix_1\overline{x_2}}
+=|x_1|^2+|x_2|^2+2Re(ix_1\overline{x_2})$,
+because $a+\overline{a}=2Re(a)$. 
+Now, $|2Re(ix_1\overline{x_2})|\le |2(ix_1\overline{x_2})| \le 2|x_1x_2|$ so $-2|x_1x_2|\le |2Re(ix_1\overline{x_2})|\le 2|x_1x_2|$, so 
+$|x_1|^2+|x_2|^2+2Re(ix_1\overline{x_2})\ge |x_1|^2+|x_2|^2-2|x_1||x_2|=(|x_1|-|x_2|)^2$, so the pairing is always nonnegative. 
+Notice, however, it could happen that this quantity is indeed 0 even with both $x_1, x_2$ nonzero. 
+
+\end{enumerate}
+
+\section{Proofs of identities}
+
+\begin{enumerate}
+
+\item Given basis $\{\vec{w_1}, \cdots , \vec{w_n}\}$ of an inner product space, prove that the the set of vectors $\{\vec{v_1}, \cdots , \vec{v_n}\}$ defined as $\vec{v_1}=\vec{w_1}$ and 
+\[\vec{v_k}=\vec{w_k}-\sum_{i=1}^{k-1} \frac{\langle \vec{w_k}, \vec{v_i}\rangle}{||\vec{v_i}||^2}\vec{v_i}, \qquad \forall\, k\in[2,n]\]
+is an orthogonal basis. 
+
+\textbf{Proof:}  (Credits to textbook and prof). 
+First, we prove that $\langle \vec{i}, \vec{j}=0$, $\forall i\neq j$. We also proeed by inducting on $n$. Base case where $n=1$ is trivial. Suppose the claim holds for $n=1, 2, \cdots k-1$ for some $k$, we have: for any $j<k$, 
+\[\langle \vec{v_k}, \vec{v_j}\rangle 
+= \langle \vec{w_k}-\sum_{i=1}^{k-1} \frac{\langle \vec{w_k}, \vec{v_i}\rangle}{||\vec{v_i}||^2}\vec{v_i}, \vec{v_j}\rangle
+=\langle \vec{w_k}, \vec{v_j}\rangle-\langle\sum_{i=1}^{k-1} \frac{\langle \vec{w_k}, \vec{v_i}\rangle}{||\vec{v_i}||^2}\vec{v_i}, \vec{v_j}\rangle
+=\langle \vec{w_k}, \vec{v_j}\rangle-\sum_{i=1}^{k-1} \frac{\langle \vec{w_k}, \vec{v_i}\rangle}{||\vec{v_i}||^2}\langle\vec{v_i}, \vec{v_j}\rangle\]
+\[=\langle \vec{w_k}, \vec{v_j}\rangle-\frac{\langle \vec{w_k}, \vec{v_j}\rangle}{||\vec{v_j}||^2}\langle\vec{v_j}, \vec{v_j}\rangle
+=\langle \vec{w_k}, \vec{v_j}\rangle-\langle \vec{w_k}, \vec{v_j}\rangle
+=0,
+\]
+justifying the claim. (By induction hypothesis, $\langle \vec{i}, \vec{j}\rangle=0$ for any $i<j<k$. 
+
+Next, notice that none of the vectors $\vec{v_i}$ can be zero; each of the vectors $\vec{v_k}$ can be written as the linear combination of $\vec{w_1}, \cdots , \vec{w_k}$, with the coefficient of $\vec{w_k}$ being 1. Since $\vec{w_1}, \cdots , \vec{w_k}$ are linearly independent, the claim follows. 
+
+Finally, in class we have seen that a set of nonzero orthogonal vectors must be linearly independent. Since the set of vectors 
+$\{\vec{v_1}, \cdots , \vec{v_n}\}$ has $n$ elements and are linearly independent, this set is also a basis. The conclusion follows. 
+
+\item Given a finite dimensional inner-product space $V$ and let $W$ be its subspace with orthonormal basis 
+$\{\vec{w_1}, \cdots , \vec{w_k}\}.$ 
+Then for each $\vec{v}\in V$ there exists a unique $\vec{w}\in W$ and $\vec{w'}\in W^{\perp}$ satisfying $\vec{w}+\vec{w'}=\vec{v}, $ given by the following formula:
+\[\vec{w}=\sum_{i=1}^k \frac{\langle\vec{v}, \vec{w_i}\rangle}{||\vec{w_i}||^2 }\vec{w_i},\qquad \vec{w'}=\vec{v}-\vec{w}.\]
+
+\textbf{Proof:} since a subspace (or a vector space, in general) is closed under addition, $\vec{w}$ described above is in $W$. 
+To show that $\vec{w'}\in W^{\perp}$, we notice the following for all $j\in [1,n]$: 
+\[\langle \vec{w'}, \vec{w_j} \rangle 
+= \langle \vec{v}- \sum_{i=1}^k \frac{\langle\vec{v}, \vec{w_i}\rangle}{||\vec{w_i}||^2 }\vec{w_i}, \vec{w_j} \rangle
+=\langle \vec{v}, \vec{w_j} \rangle-\langle \sum_{i=1}^k \frac{\langle\vec{v}, \vec{w_i}\rangle}{||\vec{w_i}||^2 }\vec{w_i}, \vec{w_j} \rangle
+=\langle \vec{v}, \vec{w_j} \rangle-\sum_{i=1}^k \frac{\langle\vec{v}, \vec{w_i}\rangle}{||\vec{w_i}||^2 }\langle \vec{w_i}, \vec{w_j} \rangle
+=\langle \vec{v}, \vec{w_j}\rangle-\langle \vec{v}, \vec{w_j}\rangle
+=0, 
+\]
+because $\langle \vec{w_i}, \vec{w_j} \rangle$ vanishes whenever $i\neq j$, and $\frac{\langle\vec{v}, \vec{w_j}\rangle}{||\vec{w_j}||^2 }\langle \vec{w_j}, \vec{w_j}\rangle=\langle \vec{v}, \vec{w_j}\rangle.$
+
+To show that the numbers $\vec{w}$ and $\vec{w'}$ are unique, suppose that there exists $\vec{w_1}, \vec{w_2}\in W$ and $\vec{w'_1}, \vec{w_2'}\in W^{\perp}$ satisfying 
+$\vec{w_1}+\vec{w'_1}=\vec{w_2}+\vec{w'_2}$. 
+Now, $\vec{w_1}-\vec{w_2}\in W$ and $\vec{w'_1}-\vec{w'_2}=-(\vec{w_1}-\vec{w_2})\in W^{\perp}$, which means 
+the vector $\vec{w_1}-\vec{w_2}$ is in both $W$ and $W^{\perp}$ (the product of any vector in $W$ and any scalar constant is also in $W$). 
+Notice, however, that this means $||\vec{w_1}-\vec{w_2}||=0$ by the definition of $W$ and $W^{\perp}$, so $\vec{w_1}-\vec{w_2}=0$ or $\vec{w_1}=\vec{w_2}$, showing that such pair of numbers must be unique. 
+
+\item Let $V$ be a finite dimensional transformation. Then for each transformation $T:V\to V$ there is a unique tranformation $T^*$ satisfying $\inner{T(\vec{x})}{\vec{y}}=\inner{\vec{x}}{T^*(\vec{y})}$ for all $\vec{x}, \vec{y}\in V$.  
+
+\textbf{Proof:}
+Let $n$ be the dimension of $V$, and denote $\{\vec{v}_1, \cdots , \vec{v}_n\}$ by an orthonormal basis of $V$. 
+We use the fact that each linear transformation is uniquely determined by the values of $T(\vec{v}_1), \cdots , T(\vec{v})n)$. 
+That is, for each $n$-tuples of vectors $\{\vec{w}_1. \cdots , \vec{w}_n\}$ there is a unique linear transformation $T$ such that $T(\vec{v}_i)=\vec{w}_i.$
+Suppose that numbers $a_{ij}\in\bbC, 1\le i, j\le n$ are such that 
+$T(\vec{v}_i)=\displaystyle\sum_{i=1}^n a_{ij}\vec{v}_j, $ we have, for each $i, k$, 
+$\inner{T(\vec{v}_i)}{\vec{v}_k}
+=\inner{\displaystyle\sum_{i=1}^n a_{ij}\vec{v}_j}{\vec{v}_k}
+=a_{ik}.  
+$
+Suppose that there is a linear transformation $T^*$ such that $\inner{T(\vec{x})}{\vec{y}}=\inner{\vec{x}}{T^*(\vec{y})}$ for all $\vec{x}, \vec{y}\in V$. 
+Let $b_{ij}$ be numbers such that $T^*(\vec{v}_i)=\displaystyle\sum_{i=1}^n b_{ij}\vec{v}_j$ then we have 
+$a_{ik}
+=\inner{T(\vec{v}_i)}{\vec{v}_k}
+=\inner{(\vec{v}_i)}{T^*(\vec{v}_k)}
+=\ol{\inner{T^*(\vec{v}_k)}{\vec{v}_i}}
+=\ol{\inner{\displaystyle\sum_{i=1}^n b_{kj}\vec{v}_j}{\vec{v}_i}}
+=\ol{a_{ki}}, 
+$
+therefore we must have 
+$T^*(\vec{v}_i)=\displaystyle\sum_{i=1}^n b_{ij}\vec{v}_j
+=T^*(\vec{v}_i)=\displaystyle\sum_{i=1}^n \ol{b_{ji}}\vec{v}_j. 
+$
+This uniquely defines $T^*$. 
+
+Conversely, let $T^*$ be as defined, given $T$. 
+From above we already have the relation 
+$\inner{T(\vec{v}_i)}{\vec{v}_k}=\inner{(\vec{v}_i)}{T^*(\vec{v}_k)}$ for each pair of vectors in our orthonormal basis. 
+Let $\vec{x}=\displaystyle\sum_{i=1}^n x_i\vec{v}_i$ and 
+$\vec{y}=\displaystyle\sum_{i=1}^n y_i\vec{v}_i$ then we have 
+\[\inner{T(\vec{x})}{\vec{y}}
+=\inner{T(\displaystyle\sum_{i=1}^n x_i\vec{v}_i)}{\displaystyle\sum_{i=1}^n y_i\vec{v}_i}
+=\inner{\displaystyle \sum_{i=1}^n x_iT(\vec{v}_i)}{\displaystyle\sum_{i=1}^n y_i\vec{v}_i}
+=\displaystyle \sum_{i=1}^n \displaystyle \sum_{j=1}^n x_i\ol{y_j}\inner{T(\vec{v}_i)}{\vec{v}_j}\]
+\[
+=\displaystyle \sum_{i=1}^n \displaystyle \sum_{j=1}^n x_i\ol{y_j}\inner{\vec{v}_i}{T^*(\vec{v}_j)}
+=\inner{\displaystyle \sum_{i=1}^n  x_i\vec{v}_i}{\displaystyle \sum_{j=1}^n y_jT^*(\vec{v}_j)}
+=\inner{\displaystyle \sum_{i=1}^n  x_i\vec{v}_i}{T^*(\displaystyle \sum_{j=1}^n y_j\vec{v}_j)}
+=\inner{\vec{x}}{T^*(\vec{y})}
+\]
+
+\item Let $A=[T]_\beta$ for some orthonormal basis $\beta$ is a finite dimensional space $V$. Then $[T]_\beta^*=[T^*]_\beta$. 
+
+\textbf{Proof:} Let our orthonormal basis be $\{\vec{v}_1, \cdots, \vec{v}_n\}$. 
+This proof relies on the following fact: $A_{ij}=\inner{T(\vec{v}_j)}{\vec{v}_i}.$ 
+This is because for each $j$, 
+$[T\vec{v}_j]_\beta
+=[T]_\beta[\vec{v}_j]_\beta
+=\Col_j(A)
+$
+so $\inner{T(\vec{v}_j)}{\vec{v}_i}
+=
+\displaystyle\sum_{i=1}^n A_{kj}\inner{\vec{v}_k}{\vec{v}_i}
+=A_{ij},
+$ 
+as desired. 
+Thus for each $i, j$ we have 
+$([T]_\beta^*)_{ij}
+=(A^*)_{ij}
+=\ol{A^t_{ij}}
+=\ol{A_{ji}}
+=\ol{\inner{T(\vec{v}_i)}{\vec{v}_j}}
+=\ol{\inner{\vec{v}_i}{T^*(\vec{v}_j})}
+=\inner{T^*(\vec{v}_j)}{\vec{v}_i}
+=([T^*]_\beta)_{ij}. 
+$
+
+\item A transformation $T:V\to V$ (over complex numbers) is orthogornally diagonalizable if and only if $TT^*=T^*T.$
+
+\textbf{Proof.} (Creds: both our prof and the textbook). Suppose that $[T]_\beta$ is diagonal for some orthonormal basis $\beta.$ 
+Then the following holds: 
+\[ [TT^*]_\beta=[T]_\beta[T^*]_\beta=[T]_\beta[T]^*_\beta=[T]^*_\beta[T]_\beta=[T^*]_\beta[T]_\beta= [T^*T]_\beta\]
+Notice the implicit use of the fact that $[T]^*_\beta$ is diagonal, every two diagonal matrices commute, and that $[T]^*_\beta=[T^*]_\beta$ because $\beta$ is orthonormal. 
+
+To prove the converse, we need the following Schur's lemma: 
+for each transformation $T$ whose characteristic polynomial splits there exists an orthonormal basis $\beta$ such that $[T]_\beta$ is upper triangular. 
+To prove this, let's do induction on $n$, the dimension of $T$. Base case $n=1$ is obvious. 
+The inductive step relies on the following fundamental theorem of algebra. Every complex polynomial (the characteristic polynomial, in partiular), has a complex root. Thus there exists a $z\neq 0$ such that $T(z)=\lambda z$. 
+Therefore for any $y$ we have: 
+\[0=\inner{(T-\lambda I)z}{y}=\inner{z}{(T-\lambda I)^*y}
+=\inner{z}{(T^*-\ol{\lambda} I)y}
+\]
+Therefore $z\in [im(T^*-\ol{\lambda} I)]^{\perp},$ and the rank-nullity theorem suggests the existence of an $x$ such that 
+$x\in\ker(T^*-\ol{\lambda} I)$, which means $T^*I=\ol{\lambda}x$ (which suugests that if $\lambda$ is an eigenvector of $T$ then $\ol{\lambda}$ is an eigenvector of $T^*$. )
+This means, the subspace $W=\{x\}$ is $T^*$-invariant. Since for each $g\in W^{\perp}$ we have:
+$\inner{T(g)}{x}=\inner{g}{T^*x}=\inner{g}{\ol{\lambda}x}=\lambda\inner{g}{x}=0,$ $W^{\perp}$ is $T$ invariant. 
+In addition, $\dim(W^{\perp})=\dim(V)-1=n-1$. 
+The characteristic polynomial of $T_{W^{\perp}}$ divides that of $T$, and hence splits. 
+This allows us to use our inductive hypothesis on the existence of an orthonormal basis $\beta'=\{\vec{v}_1, \cdots , \vec{v}_{n-1}\}$ such that $[T_{W^{\perp}}]_{\beta'}$ is upper triangular. 
+Combining this with our new vector $x$ we get $\beta=\{\vec{v}_1, \cdots , \vec{v}_{n-1}, \vec{x}\}$, another set of orthonormal basis (because $\{\vec{v}_1, \cdots , \vec{v}_{n-1}\in W^{\perp}\}$) and the resulting matrix $[T]_\beta$ will be upper triangular. 
+$\square$
+
+Having proven the lemma, we proceed to our main problem. Assume that $TT^*=T^*T$ as defined in our problem, and let $\beta$ be orthonormal such that $A=[T]_\beta$ is upper triangular. 
+Now, $A=[T]_\beta^*=[T^*]_\beta$ so $AA*=A*A$. 
+We will prove this directly by equating the coefficients. 
+By the upper triangularity of $A$ we have $A_{ij}=0$ for any $i>j$. Also we have: 
+\[\displaystyle\sum_{k=1}^n A_{ik}\ol{A_{jk}}=\displaystyle\sum_{k=1}^n A_{ik}A^*_{kj}=(AA^*)_{ij}=(A^*A)_{ij}=\displaystyle\sum_{k=1}^n A^*_{ik}A_{kj}=\displaystyle\sum_{k=1}^n\ol{A_{ki}}A_{kj}\]
+Suppose that for some $p\ge 0$, $A_{ij}=0$ for any $i\neq j$ and $i\le p$. ($k=0$ is the case where we haven't proven anything). 
+Now, letting $i=j=p+1$ we have:
+\[\displaystyle\sum_{k=p+1}^n |A_{(p+1)k}|=\displaystyle\sum_{k=1}^n |A_{(p+1)k}|=\displaystyle\sum_{k=1}^n A_{(p+1)k}\ol{A_{(p+1)k}}=\displaystyle\sum_{k=1}^n\ol{A_{k(p+1)}}A_{k(p+1)}
+=\displaystyle\sum_{k=1}^n|A_{k(p+1)}|=\displaystyle\sum_{k=1}^{p+1}|A_{k(p+1)}|\]
+By the inductive hypothesis, the last quantity is actually equal to $|A_{(p+1)(p+1)}|$. 
+This forces $\displaystyle\sum_{k=p+2}^n |A_{(p+1)k}|=0$, and by the positive definiteness of absolute value we have 
+$A_{(p+1)k}=0$ for all $k\neq p+1$. 
+This finishes the proof that $A$ is diagonal. Q.E.D. 
+
+\item Every eigenvector of a self-adjoint transformation is real. 
+
+\textbf{Proof:} Since $T=T^*$, $T$ is normal and hence diagonalizable in some orthonormal basis $\beta$ (allowing complex eigenvectors and eigenvalues instead of real). 
+Now $T_\beta$ is diagonal with eigenvector $\lambda_i=T_{ii}, $
+but $\lambda_i=T_{ii}=\ol{T^*_{ii}}=\ol{\lambda_i}$ so $\lambda_i$ is real. 
+
+\item Let $T:\bbR^n\to \bbR^n$ to be an orthogonal transformation. Then there exists a basis $\beta$ such that $T_\beta$ is real and block diagonal with each block having size at most 2. 
+
+\textbf{Proof: }
+Since $T$ is orthogonal, it is diagonalizable in some basis $\alpha$, although the eigenvectors or eigenvalues might be complex numbers. 
+Now for each real matrix $A$, and $A\vec{v}=\lambda\vec{v}$ for some $v$ we have 
+$\ol{A}=A$ so $A\ol{\vec{v}}=\ol{A\vec{v}}=\ol{\lambda{\vec{v}}}=\ol{\lambda}\ol{\vec{v}}$, 
+where $\ol{\vec{v}}$ is the ``coordinate-wise conjugate" of $\vec{v}$. 
+Therefore, the eigenvalues and eigenvectors of $T$ come in pairs (if complex). 
+(Notice that $\vec{v}$ can be ``stand-alone" it it's real). 
+
+Now we rearrange the basis $\alpha$ to make it 
+$\{\vec{v}_1, \ol{\vec{v}_1}, \vec{v}_3, \ol{\vec{v}_3}, \cdots ,\vec{v}_{2k-1}, \ol{\vec{v}_{2k-1}}, \vec{v}_{2k+1}, \cdots , \vec{v}_n\};$ the first $2k$ of which are complex conjugate pairs and the last $n-2k$ are real. 
+We claim that 
+\[\beta=\{\vec{v}_1+\ol{\vec{v}_1},i(\vec{v}_1-\ol{\vec{v}_1}), \cdots ,\vec{v}_{2k-1}+ \ol{\vec{v}_{2k-1}}, i(\vec{v}_{2k-1}- \ol{\vec{v}_{2k-1}}), \vec{v}_{2k+1},\cdots , \vec{v}_n\}\]
+will have $[T]_\beta$ in the form we want. 
+First, notice that $\beta$ is a real basis (proof skipped :P); second, the entries responsible for $\vec{v}_{2k+1}, \cdots , \vec{v}_n$ vanish except on the diagonals, and the diagonal entries are real eigenvalues. 
+Finally, for each $\vec{v}_i+\ol{\vec{v}_i}$ and $i(\vec{v}_i-\ol{\vec{v}_i})$, denote $W_i$ be the subspace spanned by 
+$\{\vec{v}_i, \ol{\vec{v}_i}\}$. 
+Since $\vec{v}_i$ and $\ol{\vec{v}_i}$ are the eigenvectors, $T$ is $W_i$ invariant, 
+and so the entries of $T_\beta$ respomsible for these two are block diagonal with size two. 
+Finally, these block diagonal entries are also real (resembling $2\times 2$ orthogonal matrices of rotations and reflections), 
+because the members $\vec{v}_i+\ol{\vec{v}_i}$ and $i(\vec{v}_i-\ol{\vec{v}_i})$ are real. 
+This conclude the proof. 
+
+\item Let $T:V\to V$ be a projection (in a real space). Then the following are equivalent: 
+\begin{itemize}
+\item $T$ is orthogonal projection. 
+\item $\ker (T)=\textrm{im} (T)^{\perp}$
+\item $T=T^*$. 
+\end{itemize}
+
+\textbf{Proof:} 
+We first prove the equivalence of the first two conditions. 
+The fact that $T$ is orthogonal projection means that there exists an othonormal nonzero vectors 
+$W=\{\vec{v}_1, \vec{v}_2, \cdots , \vec{v}_k\}$ such that 
+$T(\vec{x})=\sum\limits_{i=1}^k \inner{\vec{x}}{\vec{v}_i}\vec{v}_i. $
+Obviously $\textrm{im}(T)=W$ and $\ker{T}=W^{\perp}$ since 
+$T(\vec{x})=0$ iff $\inner{\vec{x}}{\vec{v}_i}$ for all $i\in [1,k]$. 
+Conversely, suppose that $\ker (T)=\textrm{im} (T)^{\perp}$. 
+Let $X=\{\vec{v}_1, \vec{v}_2, \cdots , \vec{v}_k\}$ be an orthonormal basis of the $\textrm{im} (T)$, 
+and $W=\{\vec{w}_1, \cdots , \vec{w}_m\}$ be an orthonormal basis of $\ker (T)$. 
+Then $\inner {\vec{v}_i}{ \vec{w}_j}=0,$ so it's not hard to prove that vectors in $W$ and $X$ are linearly independent of each other. 
+By rank-nullity theorem, $X\cup W$ is an orthonormal basis of $V$. 
+Since $T$ is a projections, $T(\vec{v}_i)=\vec{v}_i$ and by the definition of null space $T(\vec{w}_i)=0$. 
+Thus $T\left(\sum\limits_{i=1}^k a_i\vec{v}_i+\sum\limits_{j=1}^m b_j\vec{w}_j\right)
+=\sum\limits_{i=1}^k a_iT\left(\vec{v}_i\right)+\sum\limits_{j=1}^m b_jT\left(\vec{w}_j\right)
+=\sum\limits_{i=1}^k a_i\vec{v}_i
+=\sum\limits_{i=1}^k\inner{\sum\limits_{j=1}^k a_j\vec{v}_j}{\vec{v}_i}\vec{v}_i
+$
+,
+hence an orthogonal projection from $T$ onto $\Span\{\vec{v}_1, \vec{v}_2, \cdots , \vec{v}_k\}$. 
+
+For the equivalence of the first and the third fact, we first show (3) implies (1). 
+Now, $T=T^*$ so it's normal (and hence orthonormally diagonalizable). 
+Let $\beta$ an orthonormal basis whose members are eigenvectors of $T$. 
+Then, from the fact that $T^2=T$ we have $\lambda^2=\lambda$ for all eigenvalues $\lambda$, 
+hene $\lambda\in\{0, 1\}$. 
+Now split the basis int two parts: $W:\{\vec{x}\in\beta, \lambda=1\}$ and $X:\{\vec{x}\in\beta, \lambda=0\}.$ 
+We now see that $T$ is an orthogonal projection w.r.t. $\Span(W)$. 
+The relation (1) implies (3) is not that hard: indeed, if $T$ is an orthogonal projection w.r.t. $W$ for some subspace $W$ or $V$, then $W$, then $W^{\perp}$ is a null space of $T$. 
+Now let $\beta$ be the union of the bases of $W$ and $W^{\perp}$, then $\beta$ is itself a basis of $V$. 
+This means $T_\beta$ is diagonal, with entry 1 at cell corresponding to $W$ and 0 at cell corresponding to $W^{\perp}$, which is evidently self-adjoint. 
+
+\item We have seen the two definition of pseudoinverse in class: 
+\begin{itemize}
+\item If $A=U\Sigma V^*$ is the singular value decomposition of matrix $A$, then $A^\dagger=V\Sigma^\dagger U^*$ where $\Sigma^\dagger$ is the replacement of nonzero values in $\Sigma$ with the reciprocals. 
+
+\item If $T$ is any linear map, then $T^\dagger$ will give 0 for input in $(\im (T))^\perp$, and give $T^{-1}|_{(\ker T)^\perp}$ for input in $\im (T)$. 
+\end{itemize}
+They are equal. 
+
+\textbf{Proof: }
+Let $T:P\to W$ be any linear map, 
+and denote $B_P$ and $B_W$ as the bases of $P$ and $W$ that are used in the singular value decomposition of $T$. 
+Denote $[T]_S^R=U\Sigma V^*
+$
+as the singular value decomposition of $[T]_S^R$, and we want to prove that 
+$[T^\dagger]_R^S=V\Sigma^\dagger U^*$. 
+where $S$ is any basis of $P$ and $R$ any basis of $W$. 
+Denote $\vec{v}_1, \cdots , \vec{v}_n$ be the vectors in $B_P$ and $\vec{w}_1, \cdots , \vec{w}_m$ be the vectors in $B_W$. 
+First we need the following cheat fact: 
+$B_P$ (or $V$) contains column vectors that are either in $\ker (T)$ or $\ker (T)^\perp$, and 
+$B_W$ (or $U$) contains columns that are either in $\im (T)$ or $\im(T)^\perp$. 
+To prove this,  let $r$ be the number of nonzero entries in $\Sigma$ (and $\Sigma^\dagger$), we show that: 
+\begin{itemize}
+\item $\vec{v}_i\in \ker (T)$ if $i>r$ and $\in\ker (T)^\perp$ otherwise. 
+
+\item $\vec{w}_i\in\im (T)$ if $i<r$ and $\in\im (T)^\perp$ otherwise. 
+\end{itemize}
+Notice that $\im (T)=\Span (\{T(\vec{v}_1, \cdots , T(\vec{v})_n\})
+=\Span (\{\sigma_1\vec{w}_1, \cdots , \sigma_r\vec{w}_r, 0, 0, \cdots , 0\})
+$
+so $\vec{v}_i$ are in $\ker (T)$ iff $i>r$. For $i\le r$, since $B_P$ is orthogonal, the vectors are in $\ker (T)^\perp$. 
+Meanwhile for $\vec{w}_i$, we have seen that they are in $\im (T)$ if $i\le r$, and again since rank $(\im (T))=r$ and since $B_W$ is also orthogonal, $\vec{w}_i\in\im (T)^\perp$ for $i>r$. 
+Therefore we must have $T^\dagger (\vec{w}_i)=0$ for $i>r$, and 
+since $T(\vec{v}_i)=\sigma (\vec{w}_i)$ for $i\le r$, we must have 
+$T^\dagger (\vec{w}_i)=\sigma^{-1}\vec{v}_i$ for such $i$. 
+To finish the proof on the equality when being feed into matrices, it suffices to consider just the basis $B_W$. 
+Notice also by the definition of $U, V$ we have 
+$U^*[\vec{w}_i]_R^{B_W}=e_i$, with $e_i$ the $i$-th element in the standard coordinate (since $U$ is a change of basis matrix from $B_W$ to $R$). 
+Now there are two cases. 
+For any $i>r$ we have 
+\[V\Sigma^\dagger U^*[\vec{w}_i]_R
+=V\Sigma^\dagger e_i
+=V(0)
+=0
+\]
+and similarly for $i\le r$ we have 
+\[V\Sigma^\dagger U^*[(\vec{w}_i]_R
+=V\Sigma^\dagger e_i
+=V\sigma_i^{-1}e_i
+=\sigma_i^{-1}(\Col_V(i))
+=[\sigma(\vec{v}_i)]_S
+\]
+This gives us the desired equality. 
+Ps: we could have replaced $R$ and $S$ with $B_W$ and $B_V$, but that sounds cheating because all the matrices will be diagonal. Aha. 
+
+\item (Cayley-Hamilton Theorem) For finite-dimensional linear transformation $T: V\to V$, let $p$ be its characteristic polynomial. Then $p(T)$ is the zero tranformation.
+
+\textbf{Proof:} 
+We shall show that for each $\vec{v}\in\bbC^n$ (where $n\times n$ is the dimension of $T$) we have 
+$p(A)(\vec{v})=0$. W.L.O.G. let $\vec{v}\neq 0$.  
+Now consider the subspace $W$ of $\bbC^n$ spanned by $\{T^i(\vec{v}): i\ge 0\}.$ 
+Since $\bbC^n$ is finite dimensional, there must exists $k$ such that 
+$\{T^i(\vec{v}): 0\le i\le k\}$ is linearly dependent. We denote $k$ (notation abuse alert! But don't care :P) as the minimum of such index such that the set is linearly dependent, then 
+$\{T^i(\vec{v}): 0\le i\le k-1\}$ is linearly independent. 
+We claim that this $\{T^i(\vec{v}): 0\le i\le k-1\}$ is a basis of $W$. 
+It suffices to prove that $m\ge k\to T^m(\vec{v})\in\Span (\{T^i(\vec{v}): 0\le i\le k-1\}).$ 
+Indeed, if $T^m(\vec{v})=\displaystyle\sum_{i=0}^{k-1}a_iT^i(\vec{v})$, then 
+$T^{m+1}(\vec{v})=\displaystyle\sum_{i=0}^{k-1}a_iT(T^i(\vec{v}))
+=\displaystyle\sum_{i=1}^{k}a_iT^i(\vec{v})
+$
+but we have assume that $T^k(\vec{v})$ is in the span of the set, so $T^{m+1}(\vec{v})$ is also in the span of the set. 
+The conclusion follows from inductive hypothesis. 
+
+Now, We know that $T$ restricted to $W$ is $W$ invariant, and $[T|_W]$ in our basis has the following form: 
+
+\[
+\left(
+\begin{array}{cccccc}
+0 & 0 & 0 & \cdots & 0 & -a_0\\
+1 & 0 & 0 & \cdots & 0 & -a_1\\
+0 & 1 & 0 & \cdots & 0 & -a_2\\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & 0 & \cdots & 1 & -a_{k-1}\\
+\end{array}
+\right)
+\]
+We need the following: the characteristic polynomial in the form: 
+
+\[
+\left |
+\begin{array}{cccccc}
+-\lambda & 0 & 0 & \cdots & 0 & -a_0\\
+1 & -\lambda & 0 & \cdots & 0 & -a_1\\
+0 & 1 & -\lambda & \cdots & 0 & -a_2\\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & 0 & \cdots & 1 & -a_{k-1}-\lambda\\
+\end{array}
+\right |
+\]
+Doesn't seem easy to start from, so we induce on $k$ to claim that this is 
+$q(\lambda)=(-1)^k\displaystyle\sum_{i=0}^k a_i\lambda^i$ (with $a_k = 1$ for ease of computation). 
+Base case $k=1$ we have 
+$-\lambda-a_0 = (-1)(\lambda + a_0)$. 
+Now suppose that the claim is true for $k-1$ for some $k\ge 2$, then the characteristic polynomial is actually 
+\[-\lambda
+\left |
+\begin{array}{ccccc}
+-\lambda & 0 & \cdots & 0 & -a_1\\
+1 & -\lambda & \cdots & 0 & -a_2\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & 1 & -a_{k-1}-\lambda\\
+\end{array}
+\right |
++
+(-1)^{k-1}(-a_0)
+\left |
+\begin{array}{ccccc}
+1 & -\lambda & 0 & \cdots & 0\\
+0 & 1 & -\lambda & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+0 & 0 & 0 & \cdots & 1\\
+\end{array}
+\right |
+\]
+By induction hypothesis the first term is given by 
+$(-\lambda)(-1)^{k-1}\displaystyle\sum_{i=1}^k a_i\lambda^i$ and 
+since it's not hard to see that the second matrix has determinant 1, then second term is actually $(-1)^ka_0$. 
+Thus we have 
+$(-\lambda)(-1)^{k-1}\displaystyle\sum_{i=1}^k a_i\lambda^i+(-1)^ka_0
+=(-1)^k\displaystyle\sum_{i=0}^k a_i\lambda^i
+$
+as desired. 
+The matrix also implies that $T^k(\vec{v})=-(\displaystyle\sum_{i=0}^{k-1} a_iT^{i}(\vec{v}))$. 
+Therefore, 
+$(-1)^kq(T)(\vec{v})
+=\displaystyle\sum_{i=0}^k a_iT^{i}(\vec{v}))
+=\displaystyle\sum_{i=0}^{k-1} a_iT^{i}(\vec{v}))-(\displaystyle\sum_{i=0}^{k-1} a_iT^{i}(\vec{v}))
+=0, 
+$
+because $a_k=1$ by our convention. 
+This completes our proof. 
+
+Finally, extend the basis of $W$ to form a basis of $V$ and since $T$ is $W$ invariant, when $T$ is written in the full basis of $V$ we get 
+$
+\left(
+\begin{array}{cc}
+A & B\\
+0 & C\\
+\end{array}
+\right)
+$
+and so the characteristic polynomial would be 
+$
+\left |
+\begin{array}{cc}
+A-\lambda I & B\\
+0 & C -\lambda I\\
+\end{array}
+\right |,
+$
+which is 
+$\det(A-\lambda I)\det(C-\lambda I)$. 
+However, $q(\lambda)=\det(A-\lambda I)$ so $q$ divides $p$ and since $q(T)(\vec{v})=0$, we must have 
+$p(T)(\vec{v})=0$ too. 
+
+\textbf{Corollary.} If $T$ is nilpotent, the $T^n=0$ if $n$ is the dimension of $T$. 
+
+\item For any transformation $T$ of $V\to V$ over $\bbC$, denote $K_\lambda$ as the generalized eigenspace of an eigenvalue $\lambda$. 
+Then $V$ is isomorphic to the direct sums of all the generalized eigenspace of $T$. 
+
+\textbf{Proof:} 
+Let $(x-a_1)^{m_1}\cdot(x-a_k)^{m_k}$ be the characteristic polynomial of $T$, then 
+$(T-a_1I)^{m_1}\cdot(T-a_kI)^{m_k}=0$ by Cayley-Hamilton theorem. 
+Let $n$ be the dimension of $V$, which is also 
+$m_1+m_2+\cdots +m_k$. 
+This means that 
+$\dim(\ker((T-a_1I)^{m_1}))+\cdots + \dim(\ker((T-a_kI)^{m_k}))\ge n$. 
+Now, let's show that the kernels are disjoint. 
+Suppose that $\vec{v}$ satisfies $(T-a_iI)^{c}(\vec{v})=0$ and $(T-a_jI)^{d}(\vec{v})=0.$ 
+Since $(T-a_iI)^{c}$ and $(T-a_jI)^{d}$ has no roots in common, there exists constants polynomials $p$ and $q$ such that 
+$p(T)(T-a_iI)^{c}+q(T)(T-a_jI)^{d}=I,$ so adding them up yields $I(\vec{v})=0$, so $\vec{v}=0$. 
+This, in turns, means that, $\dim(\ker((T-a_1I)^{m_1}))+\cdots + \dim(\ker((T-a_kI)^{m_k}))\le n$ (recall the assumption that 
+the kernel is always a subspace of $V$). 
+Therefore $\dim(\ker((T-a_1I)^{m_1}))+\cdots + \dim(\ker((T-a_kI)^{m_k}))= n$, and by the fact that each of the kernel is disjoint, we can conclude that $V$ is isomorphic to the direct sum of each of these generalized eigenspaces. 
+
+\end{enumerate}
+\end{document}
