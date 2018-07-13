@@ -1,0 +1,82 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+
+
+\title{Solution to IMO 2017 shortlisted problems.}
+\author{Anzo Teh}
+\date{\today}
+\maketitle
+
+\newpage
+\section{Algebra}
+\begin{enumerate}
+	\item[\textbf{A1}]Let $a_1,a_2,\ldots a_n,k$, and $M$ be positive integers such that
+	$$\frac{1}{a_1}+\frac{1}{a_2}+\cdots+\frac{1}{a_n}=k\quad\text{and}\quad a_1a_2\cdots a_n=M.$$If $M>1$, prove that the polynomial
+	$$P(x)=M(x+1)^k-(x+a_1)(x+a_2)\cdots (x+a_n)$$has no positive roots.
+	
+	\textbf{Solution.} We will actually prove that $(x+a_1)(x+a_2)\cdots (x+a_n) > M(x+1)^k$ for all $x > 0$. 
+	Now, dividing by $M$ on both sides (i.e. dividing by $a_1a_2\cdots a_n$ on the left hand side) (bearing in mind that $M$ is positive) we get that the desired inequality is equivalent to 
+	$(1+\frac{x}{a_1})(1+\frac{x}{a_2})\cdots (1+\frac{x}{a_n}) = \frac{x+a_1}{a_1}\cdot\frac{x+a_2}{a_2}\cdots \frac{x+a_n}{a_n} > (x+1)^k$. 
+	
+	Before we proceed, we prove a key fact: for all $x > 0$ and all $i$ we have $(1+\frac{x}{a_i})^{a_i} \ge 1+x$, with equality happening if and only if $a_i = 1$. Here I will show two proofs to it: 
+	\begin{itemize}
+		\item Expanding the left hand side (thankfully $a_i$ is a positive integer) gives 
+		\[(1+\frac{x}{a_i})^{a_i}=\sum_{j=0}^{a_i}\binom{a_i}{j}x^j=1+x+\sum_{j=2}^{a_i}\binom{a_i}{j}x^j\]
+		Clearly the last term is positive if $x>0$ and $a_i>1$. 
+		\item Consider the expression $f(x)=(1+\frac{x}{a_i})^{a_i} - (1+x)$, where $f(0)=0$ and $f'(x)=(1+\frac{x}{a_i})^{a_i-1}-1$. This derivative is positive if $x>0$ and $a_i-1>0$ (i.e. $a_i=1$), which will follow that $f(x)>0$ for all $x>0$ if $a_i>1$. 
+	\end{itemize}
+Thus we have $(1+\frac{x}{a_i}) \ge (1+x)^{\frac{1}{a_i}}$ for all $x>0$ with equality iff $a_i=1$. This means, 
+$(1+\frac{x}{a_1})(1+\frac{x}{a_2})\cdots (1+\frac{x}{a_n}) \ge (x+1)^{\frac{1}{a_1}+\frac{1}{a_2}+\cdots + \frac{1}{a_n}}=(x+1)^k$, with equality iff $a_i=1$ for all $i$. This cannot happen, otherwise $M=1$. So the strict inequality always hold. 
+\end{enumerate}
+
+\section{Combinatorics}
+\begin{enumerate}
+	\item[\textbf{C1}]
+\end{enumerate}
+
+\section{Geometry}
+\begin{enumerate}
+	\item[\textbf{G1}]
+\end{enumerate}
+
+\section{Number Theory}
+\begin{enumerate}
+	\item[\textbf{N1}](IMO \#1) For each integer $a_0 > 1$, define the sequence $a_0, a_1, a_2, \ldots$ for $n \geq 0$ as
+	$$a_{n+1} = 
+	\begin{cases}
+	\sqrt{a_n} & \text{if } \sqrt{a_n} \text{ is an integer,} \\
+	a_n + 3 & \text{otherwise.}
+	\end{cases}
+	$$Determine all values of $a_0$ such that there exists a number $A$ such that $a_n = A$ for infinitely many values of $n$.
+	
+	\textbf{Answer.} All $n$ divisible by 3. \\
+	\textbf{Solution.} 
+	For the first part we show the that if $3\nmid a_0$, then $a_i\equiv 2\pmod{3}$ for some $i$. Notice first that if $3\nmid a_i$ then $3\nmid a_{i+1}$ (regardless whether $a_i$ is a perfect square). If $a_0$ has remainder 2 modulo 3 we are done. Otherwise, $a_0\equiv 1\pmod{3}$ so $a_0+3k$ is a perfect square for some $k$. Find the minimal such $k$, and we have $a_k=a_0+3k=c^2$ for some $c$, and $a_{k+1}=c$. If $c\equiv 2\pmod{3}$ we are done. Otherwise, we have $c\ge 4$ and $c-2\equiv 2\pmod{3}$ so $(c-2)^2\equiv 1\pmod{3}$, showing that $a_0\ge (c-2)^2+3$. With $c\ge 4$ we have $(c-2)^2+3 > c$, so $a_0>a_{k+1}$. Letting $0=b_0$ and $b_1, b_2, \cdots$ be indices such that $a_{b_i}$ is a perfect square yields that $a_{b_0}>a_{b_1}>\cdots$, so this sequence must terminate, meaning that we have $a_i\equiv 2\pmod{3}$ for some $i$. Now it's easy to prove that this $a_i$ cannot be a perfect square, so for all $j>0$ we have $a_{i+j}=a_i+3j$, showing that all numbers appear a finite number of times. 
+	
+	For the case where $3|a_0$ we will do something similar: keep looking for the next square. Again let $k$ be the least index with $a_k$ a perfect square, say, $c^2$. Then $a_0\ge (c-3)^2+3$ because $3|c$. Now if $c>3$ then $c=a_{k+1}>a_0$, so again constructing the sequence $b_0, b_1, \cdots$ gives $a_{b_0}>a_{b_1}>\cdots$, hence it must terminate. The only way to terminate is when $c\le 3$, in which the equality must hold since $a_i>0$ for all $i$. Hence the sequence goes $3\to 6\to 9\to 3\to 6\to 9$, so each of $3, 6, 9$ appears infinitely many times. 
+	
+	\item[\textbf{N2}]Let $ p \geq 2$ be a prime number. Eduardo and Fernando play the following game making moves alternately: in each move, the current player chooses an index $i$ in the set $\{1,2,\ldots, p-1 \}$ that was not chosen before by either of the two players and then chooses an element $a_i$ from the set $\{0,1,2,3,4,5,6,7,8,9\}$. Eduardo has the first move. The game ends after all the indices have been chosen .Then the following number is computed:
+	$$M=a_0+a_110+a_210^2+\cdots+a_{p-1}10^{p-1}= \sum_{i=1}^{p-1}a_i10^i$$
+	The goal of Eduardo is to make  $M$ divisible by $p$, and the goal of Fernando is to prevent this.
+	
+	Prove that Eduardo has a winning strategy.
+	
+	\textbf{Solution.} If $p=2$ or $p=5$, Eduardo just have to choose $a_0=0$ and the games is his, forever. Hence from now on we assume that $\gcd(p, 10)=1$. Eduardo first lets $a_{p-1}=0$. Then he considers $10^j\pmod{p}$ for $j=0, \cdots , p-2$, and consider the minimum $k$ such that $10^k=1\pmod{p}$. Now two cases arise: 
+	\begin{itemize}
+		\item If $k$ is even, then it must happen that $10^{k/2}\equiv -1\pmod{p}$. Now pair the indices $0, 1, \cdots , p-2$ in the following manner: if $j=ak+b$ with $0\le b<k$ then pair $j$ with $j + k/2$ if $b<k/2$, and with $j - k/2$ otherwise. Now notice that if $j, \ell$ are a pair then $10^j$ and $10^{\ell}$ are negatives of each other, and these pairs form a partition of the numbers $0, 1, \cdots , p - 2$. Now at each turn, Fernando chooses $j$ and $a_j$, and is $j$ is paired with $\ell$ then Eduardo chooses $\ell$ with $a_\ell = a_j$, so that $a_j10^j+a_\ell10^{\ell}\equiv 0\pmod{p}$. This will allow $p|M$ in the end. 
+		\item Otherwise, let $b_j=10^j$ for all $0, 1, \cdots , k-1$. Notice that $(p-1)/k$ must be even, so for each $j$ there are an even number of indices $\ell$ with $10^{\ell}\equiv b_j\pmod{p}$. Now for each $j$ and all such $(p-1)/k$ $\ell$'s, we pair the indices arbitrarily (so that there are $(p-1)/2k$ pairs). Each time when when Fernando chooses $j$ and $a_j$, and suppose that $j$ is paired with some $\ell$, Eduardo chooses $a_\ell=9-a_j$, so that the contribution to $M$ mod $p$ is $9b_j$. Therefore, the resulting $M$ has congruence $\sum 9*(p-1)*b_j/(2k)=9*(p-1)/2k\sum b_j$. If $p=3$ the factor 9 already implies $3|M$. Otherwise, notice that $(p-1)/k\sum b_j=\sum_{i=0}^{p-2}10^{j}=\frac{10^{p-1}-1}{10-1}$, which is divisible by $p$ since $p|10^{p-1}-1$ by Fermat's little theorem, and $p\nmid 9=10-1$ for $p\neq 3$. Since $(p-1)/k$ is not a multiple of $p$, $\sum b_j$ is a multiple of $p$, and so is $9*(p-1)/2k\sum b_j$ and $M$. 
+	\end{itemize}
+	\end{enumerate}
+
+\end{document}
