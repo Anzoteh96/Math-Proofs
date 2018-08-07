@@ -1,0 +1,416 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\sgn}{\text{sgn}}
+
+\section{Putnam 2017}
+\begin{enumerate}
+\item[\textbf{A1}]Let $S$ be the smallest set of positive integers such that
+
+\begin{enumerate}
+	\item $2$ is in $S,$
+	\item $n$ is in $S$ whenever $n^2$ is in $S,$ and
+	\item $(n+5)^2$ is in $S$ whenever $n$ is in $S.$
+	\end{enumerate}
+
+Which positive integers are not in $S?$
+
+(The set $S$ is ``smallest" in the sense that $S$ is contained in any other such set.)
+
+\textbf{Answer.} 1 and all integers divisible by 5. \\
+\textbf{Solution.} To show that all numbers not in the above category must be in $S$, we note the following lemma: if $n$ is in $S$ for some $n$, then by (c), $(n+5)^2$ is in $S$ and by (b), $n+5$ is in $S$. Hence by repeated iteration of this process, we get 
+\[n\in S\to n+5k\in S, \forall k\ge 0\cdots (d)\]
+Thus starting from $2\in S$ as of (a), we get $2+5k\in S\forall k\ge 0$. Now (a) and (c) combined imply that $7^2=49\in S$, too. By (c) again, $(49+5)^2=54^2\in S$ too. Notice that $56^2-54^2=2\times 110$ is divisible by 5 and is nonnegative, so $56^2\in S$ by (d) again. By (b), $56\in S$ and by (d) again, $9^2=81=56+5(5)\in S$ and $11^2=121=56+5(13)\in S$, so by (b), $9, 11\in S$. By (b) again, $\sqrt{9}=3\in S$. Finally, since $11\in S$, by (d) again, $11+5=16\in S$, so by (b), $\sqrt{16}=4\in S$. Similarly, $11+5(5)=36\in S$, by (d) again. Thus $\sqrt{36}=6\in S$. Since $2, 3, 4, 6\in S$ so by (d), $2+5k, 3+5k, 4+5k, 6+5k\in S$. These are all the numbers that are not 1 and not divisible by 5. 
+
+To show that $S_1\{a: a>1, 5\nmid a\}$ is valid, let $a$ be arbitrary integer in $S_1$. Clearly, $2\in S_1$, so (a) is satisfied. If $a=k^2$ for some $k$, then from $a>1$ then $k=\sqrt{a}>1$. Since $5\nmid a, 5\nmid\sqrt{a}=k$ too. So $5\nmid k$. Hence (b) is fulfilled. Finally, $(a+5)^2>a>1$, and from $5\nmid a$, we have $5\nmid a+5$. As 5 is a prime number, $5\nmid (a+5)^2$ too. Thus (c) is also fulfilled. 
+
+\item[\textbf{A2}]
+Let $Q_0(x)=1$, $Q_1(x)=x,$ and
+\[Q_n(x)=\frac{(Q_{n-1}(x))^2-1}{Q_{n-2}(x)}\]for all $n\ge 2.$ Show that, whenever $n$ is a positive integer, $Q_n(x)$ is equal to a polynomial with integer coefficients.
+
+\textbf{Solution.} We show that $Q_n(x)=xQ_{n-1}(x)-Q_{n-2}(x)$ for all $n\ge 2$ via induction. For $n=2$ (base case), we have $Q_2(x)=x^2-1=x(x)-1=xQ_1(x)-Q_0(x)$. Now suppose that $Q_{n-1}(x)=xQ_{n-2}(x)-Q_{n-3}(x)$ for some $n\ge 3$. We consider the following: 
+\begin{flalign*}
+	Q_{n-1}^2(x)-1&=(xQ_{n-2}(x)-Q_{n-3}(x))Q_{n-1}-1\\
+	&=xQ_{n-2}(x)Q_{n-1}(x)-Q_{n-3}(x)Q_{n-1}(x)-1\\
+	&=xQ_{n-2}(x)Q_{n-1}(x)-(Q_{n-3}(x)Q_{n-1}(x)+1)\\
+	&=xQ_{n-2}(x)Q_{n-1}(x)-Q_{n-2}^2(x)\\
+	&=Q_{n-2}(x)(xQ_{n-1}(x)-Q_{n-2}(x))
+\end{flalign*}
+notice the use of the fact $Q_{n-3}(x)Q_{n-1}(x)+1=Q_{n-2}^2(x)$ as followed form the definition $Q_{n-1}(x)=\frac{(Q_{n-2}(x))^2-1}{Q_{n-3}(x)}$> Therefore we have $Q_n(x)=\frac{(Q_{n-1}(x))^2-1}{Q_{n-2}(x)}=xQ_{n-1}(x)-Q_{n-2}(x)$. By inductive hypothesis, we get $Q_n(x)=xQ_{n-1}(x)-Q_{n-2}(x)$ for all $n\ge 2$. Since $Q_0$ and $Q_1$ are 
+
+\item[\textbf{A3}]
+Let $a$ and $b$ be real numbers with $a<b,$ and let $f$ and $g$ be continuous functions from $[a,b]$ to $(0,\infty)$ such that $\int_a^b f(x)\,dx=\int_a^b g(x)\,dx$ but $f\ne g.$ For every positive integer $n,$ define
+\[I_n=\int_a^b\frac{(f(x))^{n+1}}{(g(x))^n}\,dx.\]Show that $I_1,I_2,I_3,\dots$ is an increasing sequence with $\displaystyle\lim_{n\to\infty}I_n=\infty.$
+
+\textbf{Solution.} First, we notice the following use of the Cauchy-Schawz inequality in the form of integrals: 
+\[I_{n-1}\cdot I_{n+1}=\int_a^b\frac{(f(x))^{n}}{(g(x))^{n-1}}\,dx\cdot \int_a^b\frac{(f(x))^{n+2}}{(g(x))^{n+1}}\,dx
+\ge \left(\int_a^b\frac{(f(x))^{n+1}}{(g(x))^n}\,dx\right)^2
+=I_n^2
+\]
+In particular, substituting $n=0$ we get $I_{-1}I_1\ge I_0$. Now $I_{0}=\int_a^b f(x)dx$ and $I_{-1}=\int_a^b g(x)dx$, so $I_0=I_{-1}$, and thus $I_1\ge I_0$. Since $f(x)$ and $g(x)$ are both continuous on $[a, b]$, so is the function $\frac{f(x)^2}{g(x)}$, so equality can only hold if and only if $\frac{f(x)^2}{g(x)}\div g(x)$ is constant on $[a, b]$. This requires $|f(x)|=|g(x)|$ on $[a, b]$, which becomes $f(x)=g(x)$ since both positive returns only positive values. However, this is not true since $f\neq g$. 
+
+So $I_1>I_0$, and denote the ratio $\frac{I_1}{I_0}=c>1$. We will in fact claim that $\frac{I_{n+1}}{I_n}\ge c$ for all $n\ge 0$, which will finish the proof since $I_n\ge c^nI_0$ and $\lim_{n\to\infty}c^n=\infty$ as $c>1$. The base case is given as $\frac{I_1}{I_0}=c$. If $\frac{I_{n}}{I_{n-1}}\ge c$ for some $n\ge 1$, then from the Cauchy-schawrz inequality we had before, $I_{n-1}I_{n+1}\ge I_n^2$ means that $\frac{I_{n+1}}{I_n}\ge \frac{I_n}{I_{n-1}}=c$. Hence we completed our inductive hypothesis, and concludes the proof. 
+
+\item[\textbf{B2}]Suppose that a positive integer $N$ can be expressed as the sum of $k$ consecutive positive integers
+\[N=a+(a+1)+(a+2)+\cdots+(a+k-1)\]for $k=2017$ but for no other values of $k>1.$ Considering all positive integers $N$ with this property, what is the smallest positive integer $a$ that occurs in any of these expressions?
+
+\textbf{Answer.} $a=16$ \\
+\textbf{Solution.} $N$ can be written as sum of $k$ consecutive positive integers if and only if $N=\frac{k(2a+k-1)}{2}$ for some positive integer $a$. This means $N$ need to satisfy the following properties: 
+\begin{enumerate}
+	\item $N\ge \frac{k(k+1)}{2}$
+	\item $k|N$ for $k$ odd, and $k|N-\frac{k}{2}$ when $k$ is even. 
+\end{enumerate}
+The second condition is due to the fact that, when considering mod $k$, $a, a+1, \cdots , a+k-1$ is congruent to $1, 2, \cdots , k$ in some order, and thus $N\equiv \frac{k(k+1)}{2}\pmod{k}$. If $k$ is odd then this is divisible by 0; converse ly if $k$ is even, then $k+1$ is odd so it's congruent to $\frac{k}{2}$. 
+
+Coming back to the problem, we need one such $N$ that can be written as sum of $k$ consecutive integers. Denote $N=2017\cdot m$ with $m\ge 1009$. Now consider the case when $m\le 1024$. If $m$ has an odd divisor that's greater than 1, say $q$, then $q|N$ too, and since $N\ge \frac{2017(2018)}{2}ge \frac{q\cdot (q+1)}{2}$ (since $q\le m< 2017$), it can be written as the sum of $q$ integers, too. This $m$ will then not be valid. This happens when $m\le 1024$ and has an odd divisor $>1$, which is equivalent to the fact that it is not a power of 2. Hence $m\ge 1024$. 
+
+To show that $m=1024$ is good, observe that its only odd divisors are 1 and 2017, so if $q$ is odd and it can be written as sum of $q$ consecutive numbers, then $q=1$ or $q=2017$. Now suppose that $q$ is even, whereby we have $N\equiv \frac{q}{2}\pmod{q}$. This means that $2N\equiv 0\pmod{q}$, i.e. $q=2^k 2017^{\ell}$ with $1\le k\le 11$ and $0\le\ell\le 1$. With $q\nmid N$ we must have $k=11$, so the only choice is $q=2^{11}$ and $q=2^{11}\cdot 2017$. However, $q\ge 2048$ so $N\ge \frac{2048(2049)}{2}=1024\cdot 2049>1024\cdot 2017$, contradiction. Hence $k=2017$ is the only possibility here. Since $2a+k-1=2048$ in this case, $a=16$. 
+
+\item[\textbf{B5}]A line in the plane of a triangle $T$ is called an equalizer if it divides $T$ into two regions having equal area and equal perimeter. Find positive integers $a>b>c,$ with $a$ as small as possible, such that there exists a triangle with side lengths $a,b,c$ that has exactly two distinct equalizers.
+
+\textbf{Answer.} $9, 8, 7$ \\
+\textbf{Solution.} Throughout the solution we focus on lines that split $T$ into equal perimeter. This line is only meaningful if it either passes through two of the sides of the triangle, or it passes through a vertex and its opposite side. In the second case, the fact that this line is an equalizer means that it has to be a median of a side, say having length $c$. Let $m$ to be the length of median, then the perimeter of the first triangle is $a+\frac c2+m$ and the second, $b+\frac c2 + m$. But since $a\neq b$, this cannot be an equalizer. 
+
+So now each equalizer must pass through exactly two of the sides (it has to be 2 or 0 by menelaus' theorem, and the case of 0 is impossible since it doesn't divide $T$ at all). 
+From now on, denote $s=\frac{a+b+c}{2}$, the semiperimeter. 
+We consider each of the three cases (following $a>b>c$):
+\begin{enumerate}
+	\item If the line passes through sides with length $b$ and $c$, let the line cut the first side into a smaller triangle of length $b_1$, $c_1, m$, with $b_1$ on the $b$-side and $c_1$ on the $c$-side. This splits $T$ into a triangle of perimeter $b_1+c_1+m$ and a quadrilateral of length $a+m+(b-b_1)+(c-c_1)$, which means $b_1+c_1=\frac{a+b+c}{2}=s$, and the ratio of area of smaller triangle to the bigger one is $\frac{b_1c_1}{bc}$ (for the case of equalizer, this ratio must be $\frac 12$). Given that $b-1+c_1=s$, we have $b_1c_1=\frac{s^2-(b_1-c_1)^2}{4}$. Now considering all such lines on the two sides satisfying the perimeter constraint, we have $b_1\le b$ and $c_1\le c$, which means we have $c_1\ge (s-b)$ and $b_1\le s-c$. Thus $b_1-c_1$ has to lie in the interval $[s-2c, 2b-s]$. Given that $b<a$ and $c<a$, when $b_1=b$ we have $c_1=s_b$ so the ratio of the triangle area is now $\frac{s-b}{c}=\frac{a+c-b}{2c}>\frac 12$ since $a>b$. Similarly when $c_1=c$ we have $b_1=s-c$ and the resulting ratio is $\frac{a+b-c}{2b}>\frac 12$ since $a>c$. Therefore we get $\frac{s^2-(b_1-c_1)^2}{4}>\frac 12 bc$ when $b_1-c_1\in\{s-2c, 2b-s\}$. For all $x\in [s-2c, 2b-s]$ we either have $|x|\le s-2c$ or $|x|\le 2b-s$, so we always have $\frac{s^2-(b_1-c_1)^2}{4}>\frac 12 bc$. Hence no equalizer in this case. 
+	
+	\item Similar to the case above we consider what happened when it passes through length $a$ and $c$. Now denote $a_1$ and $c_1$ like above; we get that $a_1-c_1$ is in the interval $[s-2c, 2a-s]$. Now when $a_1=a$ the resulting ratio is $\frac{(s-a)}{c}=\frac{b+c-a}{2c}<\frac 12$ while if $c_1=c$ the ratio is $\frac{s-c}{a}=\frac{a+b-c}{2a}>\frac 12$. Thus the value $a_1c_1=\frac{s^2-(a_1-c_1)^2}{4}>\frac 12 ac$ when $a_1-c_1=s-2c$ while is $<\frac 12 ac$ when $a_1-c_1=2a-s$. Therefore considering $x$ that satisfies $\frac{s^2-x^2}{4}=\frac 12 ac$, we get $|x|< 2a-s$ while $|x|>s-2c$. This implies that there's exactly one such $x$ in the interval $[s-2c, 2a-s]$, and has one equalizer. 
+	
+	\item Finally, let the line cuts the sides $a$ and $b$ which forms a smaller triangle with length $a_1$ on side $a$ and $b_1$ on side $b$, then $a_1-b_1\in [s-2b, 2a-s]$. When $a_1=a$ we have $b_1=s-a$ and the area ratio becomes $\frac{s-a}{b}=\frac{b+c-a}{2b}<\frac 12$, and similarly for $b_a=b$ we get $a_1=s-b$, so the ratio becomes $\frac{s-b}{a}=\frac{c+a-b}{2a}<\frac 12$. Thus $\frac{s^2-(a_1-c_1)^2}{4}<\frac 12 ac$ when $a_1-c_1$ is at these extreme points. If $s^2<2ac$ then there's no equalizer in this case; if $s^2=2ac$ then equalizer exists when $a_1=c_1$ (here, $0\in [s-2b, 2a-s]$ since $s-2b=\frac{a+c-3b}{2}<\frac{a-2b}{2}<0$) as $2b>b+c>a$ by triangle inequality, and $2a-s=\frac{3a-b-c}{2}>\frac{3a-a-a}{2}>0$); if $s^2>2ac$, denote $x$ as the two solutions to $s^2-x^2=2ac$. From our example we have $|x|<|s-2b|$, $|x|<|2a-s|$ and $s-2b<0<2a-s$ so both solutions lie in the interval $[s-2b, 2a-s]$. In this case we have two equalizers. 
+\end{enumerate}
+Now knowing all the cases above, there must be exactly 1 equalizer in the second case, and exactly 1 equalizer in the third case. The third case implies that $a_1=b_1=\frac{s}{2}$, which entails (by the equality of area) $\frac{s^2}{4}=\frac 12 ab$, or $(a+b+c)^2=8ab$. For $8ab$ to be a square, we need $ac=2\cdot k^2$ for some $k$, bearing in mind that $2a>2b>a$. Considering $k=1, 2, \cdots$, the smallest $k$ that has this property is when $a=9, b=8$, forcing $c=7$. For $k\ge 7$ we have $a>k\sqrt{2}=7\sqrt{2}>9$, so $a=9$ is the smallest possible answer. 
+\end{enumerate}
+
+\section{Putnam 2016}
+\begin{enumerate}
+	\item[\textbf{A1}]Find the smallest positive integer $j$ such that for every polynomial $p(x)$ with integer coefficients and for every integer $k,$ the integer
+	\[p^{(j)}(k)=\left. \frac{d^j}{dx^j}p(x) \right|_{x=k}\](the $j$-th derivative of $p(x)$ at $k$) is divisible by $2016.$
+	
+	\textbf{Answer.} $j=8$. \\
+	\textbf{Solution.} Consider $p(x)=x^j$, and we know that $p^{(j)}(x)=j(j-1)\cdots 1=j!$. The condition implies that $2016|j!$. Since $7!=5040$ is not divisible by 2016, and $j!|7!$ for $j\le 7$, we know that $2016\nmid j!$ for $j\le 7$. So $j\ge 8$. 
+	
+	Now suppose that $j\ge 8$. Let $p(x)=\displaystyle\sum_{i=0}^{n} a_ix^i$. Notice that differentiating the term $x^i$ $j$ times gives $i(i-1)\cdots (i-j+1)x^{i-j}$; in particular, this term is 0 if $i\le 7$. Hence multiplying each term by $a_i$ and summing them up we get 
+	\[p^{(j)}(x)=\sum_{i=j}^{n} i(i-1)\cdots (i-j+1)a_ix^{i-j}\]
+	Notice that we omit all terms with $i<j$ since they contribute 0 to the sum anyway, with reasons explained above. Observe also that the coefficient of $x^{i-j}$ in this derivative is $i(i-1)\cdots (i-j+1)=j!\dbinom{i}{j}$, hence is divisible by $j!$. For $j\ge 8$, $2016|40320=8!|j!$, so each term 
+	$i(i-1)\cdots (i-j+1)a_ix^{i-j}$ is divisible by 2016 whenever $x$ is an integer (in particular this holds true for $x=k$). Hence any $j\ge 8$ works, and so the required $j$ is 8. 
+	
+	\item[\textbf{A2}]Given a positive integer $n,$ let $M(n)$ be the largest integer $m$ such that
+	\[\binom{m}{n-1}>\binom{m-1}{n}.\]Evaluate
+	\[\lim_{n\to\infty}\frac{M(n)}{n}.\]
+	
+	\textbf{Answer.} $\dfrac{3+\sqrt{5}}{2}$\\
+	\textbf{Solution.} $m=n$ works since the left hand side is $n$ while the right hand side is $0$, so $m>n$ and we can then assume that $m$ is positive below. 
+	We first try to consider the following inequality: 
+	\[\frac{m!}{(n-1)!(m-n+1)!}>\frac{(m-1)!}{n!(m-n-1)!}\]
+	Cancelling factors, we are left with $\dfrac{m}{(m-n)(m-n+1)}>\dfrac{1}{n}$, so $(m-n)(m-n+1)>mn$. Expanding this, we get 
+	\[m^2-m(3n-1)+(n^2-n)<0\]
+	Using the formula for quadratic inequality, we get 
+	\[m\in\left(\frac{(3n-1)-\sqrt{(3n-1)^2-4(n^2-n)}}{2}, \frac{(3n-1)+\sqrt{(3n-1)^2+4(n^2-n)}}{2}\right)\]
+	This means that $M(n)$ is the unique integer lying in the interval 
+	$[\frac{(3n-1)+\sqrt{(3n-1)^2+4(n^2-n)}}{2} - 1, \frac{(3n-1)+\sqrt{(3n-1)^2+4(n^2-n)}}{2})$
+	, which also means
+	\[\frac{M(n)}{n}\in \left[\frac{(3-\frac 1n)+\sqrt{(3-\frac 1n)^2-4(1-\frac 1n)}}{2} - \frac 1n, \frac{(3-\frac 1n)+\sqrt{(3-\frac 1n)^2-4(1-\frac 1n)}}{2}\right)\]
+	now $\lim_{n\to \infty} \frac{(3-\frac 1n)+\sqrt{(3-\frac 1n)^2-4(1-\frac 1n)}}{2} - \frac 1n
+	=\frac{3+\sqrt{3^2-4}}{2}=\frac{3+\sqrt{5}}{2}$ and $\lim_{n\to \infty} \frac{(3-\frac 1n)+\sqrt{(3-\frac 1n)^2-4(1-\frac 1n)}}{2}
+	=\frac{3+\sqrt{3^2-4}}{2}=\frac{3+\sqrt{5}}{2}$. By Squeeze's theorem, we get $\lim_{n\to\infty}\frac{M(n)}{n}=\frac{3+\sqrt{5}}{2}$, as desired. 
+	
+	\item[\textbf{A3}]
+	Suppose that $f$ is a function from $\mathbb{R}$ to $\mathbb{R}$ such that
+	\[f(x)+f\left(1-\frac1x\right)=\arctan x\]for all real $x\ne 0.$ (As usual, $y=\arctan x$ means $-\pi/2<y<\pi/2$ and $\tan y=x.$) Find
+	\[\int_0^1f(x)\,dx.\]
+	
+	\textbf{Answer.} $\frac{3\pi}{8}$. \\
+	\textbf{Solution.} We first focus on the case $x\neq 0, 1$. 
+	Plugging $1-\frac1x$ into the equation above we get $f\left(1-\frac1x\right)+f\left(-\frac{1}{x-1}\right)=\arctan \left(1-\frac1x\right)$ and plugging $-\frac{1}{x-1}$ we get $f\left(-\frac{1}{x-1}\right)+f(x)=\arctan(-\frac{1}{x-1})$. Thus adding all these we get: 
+	\[2\left(f(x)+f\left(1-\frac1x\right)+f\left(-\frac{1}{x-1}\right)\right)=\arctan x + \arctan \left(1-\frac1x\right) + \arctan\left(-\frac{1}{x-1}\right)\]
+	Thus for all $x\neq 0, 1$ we have 
+	\[f(x)=\frac{\arctan x - \arctan \left(1-\frac1x\right) + \arctan\left(-\frac{1}{x-1}\right)}{2}\]
+	First, notice that $\arctan$ is an odd function (well-known), so $- \arctan \left(1-\frac1x\right)= \arctan \left(\frac1x -1\right)=\arctan \left(\frac{1-x}{x}\right)$, so we may rewrite $f(x)$ as 
+	$\frac{\arctan x + \arctan \left(\frac{1-x}{x}\right) + \arctan\left(\frac{1}{1-x}\right)}{2}$
+	 Second, we consider the following: 
+	\[f(1-x)=\dfrac{\arctan (1-x) + \arctan \left(\frac{x}{1-x}\right) + \arctan\left(\frac{1}{x}\right)}{2}\]
+	Then, we use the fact that if $a>0$, $\arctan a+\arctan \frac{1}{a}=\frac{\pi}{2}$. This gives 
+	\[f(x)+f(1-x)=\frac{\arctan x + \arctan \left(\frac{1-x}{x}\right) + \arctan\left(\frac{1}{1-x}\right)+\arctan (1-x) + \arctan \left(\frac{x}{1-x}\right) + \arctan\left(\frac{1}{x}\right)}{2}\]
+	$=\frac{3(\frac{\pi}{2})}{2}=\frac{3\pi}{4}$. 
+	So $\int_0^1 f(x)+f(1-x)dx=\int_0^1 \frac{3\pi}{4}dx=\frac{3\pi}{4}$ (notice that all the computations are not valid when $x=0$ or 1, but the integral is still good even when we remove the two points 0 and 1 from our computation since a finite set of points do not influence the integral, or the integrability of the expression). We also have $\int_0^1 f(x)dx=\int_0^1 f(1-x)dx$, so the required answer is $f(x)=\frac{3\pi}{8}$. 
+	
+	\item[\textbf{A4}]Consider a $(2m-1)\times(2n-1)$ rectangular region, where $m$ and $n$ are integers such that $m,n\ge 4.$ The region is to be tiled using tiles of the two types shown:
+	\[
+	\begin{picture}(140,40)
+	
+	\put(0,0){\line(0,1){40}}
+	\put(0,0){\line(1,0){20}}
+	\put(0,40){\line(1,0){40}}
+	\put(20,0){\line(0,1){20}}
+	\put(20,20){\line(1,0){20}}
+	\put(40,20){\line(0,1){20}}
+	\multiput(0,20)(5,0){4}{\line(1,0){3}}
+	\multiput(20,20)(0,5){4}{\line(0,1){3}}
+	
+	\put(80,0){\line(1,0){40}}
+	\put(120,0){\line(0,1){20}}
+	\put(120,20){\line(1,0){20}}
+	\put(140,20){\line(0,1){20}}
+	\put(80,0){\line(0,1){20}}
+	\put(80,20){\line(1,0){20}}
+	\put(100,20){\line(0,1){20}}
+	\put(100,40){\line(1,0){40}}
+	\multiput(100,0)(0,5){4}{\line(0,1){3}}
+	\multiput(100,20)(5,0){4}{\line(1,0){3}}
+	\multiput(120,20)(0,5){4}{\line(0,1){3}}
+	
+	\end{picture}
+	\](The dotted lines divide the tiles into $1\times 1$ squares.) The tiles may be rotated and reflected, as long as their sides are parallel to the sides of the rectangular region. They must all fit within the region, and they must cover it completely without overlapping.
+	
+	What is the minimum number of tiles required to tile the region?
+	
+	\textbf{Answer.} $mn$. \\
+	\textbf{Solution.} We first consider the region as $(i, j)$ with $1\le i\le 2m-1$ and $1\le j\le 2n-1$. We also label each square as types 1, 2, 3, 4 accoridng to the following rule: 
+	\begin{enumerate}
+		\item Type 1: Both $i, j$ odd.
+		\item Type 2: $i$ even, $j$ odd. 
+		\item Type 3: $i$ odd, $j$ even. 
+		\item Type 4: Both $i, j$ even.
+	\end{enumerate}
+	Now there are $mn$ type 1 cells, $(m-1)n$ type 2 cells, $m(n-1)$ type 3 cells, and $(m-1)(n-1)$ type 4 cells. 
+	
+	Now name the first type of tile as 3-tile and the second type of tile as 4-tile. We first show that each tile covers cells of different type. Consider the 3-tile, and suppose the cell of the tile where its opposite is empty (in our example, it is the top left corner) covers the cell $(i, j)$. The other cells that are being covered are $(i\pm 1, j)$ and $(i, j\pm 1)$. These two cells do not have the same type as $(i, j)$ since for each of them, it cannot happen that both cooridnates have the same parity as that of $(i, j)$. $(i\pm 1, j)$ and $(i, j\pm 1)$ also have different types since $i$ and $i\pm 1$ must have different parity (same for $j$ and $j\pm 1$). For the 4-tile, we argue by considering the Manhattan distance of each cell of the tile. Two cells of the same type must have even distance in both coordinates, and hence an even Manhattan distance. Here in this 4-tile, the only two pairs of cells with even Manhattan distance are diasonally apart, with distance 1 in each of the two coordinates (for both pairs). Hence they cannot have the same type either. 
+	
+	Having established the above, we know that each 4-tile covers each type of cell exactly once, and each 3-tile covers 3 of the types of the cells exactly once. Let $a$ be the number of 4-tiles, and $b_1+b_2+b_3+b_4=b$ be the number of 3-tiles, with $b_i$ signifying the number of 3-tiles that do not cover any cell of type $i$. Therefore we have the following: $4a+3b=(2m-1)(2n-1)$, and 
+	$a+b-b_1=mn, a+b-b_2=(m-1)n, a+b-b_3=m(n-1)$, and $a+b-b_4=(m-1)(n-1)$. Thus we know that $b_2-b_1=n, b_3-b_1=m$ and $b_4-b_1=m+n-1$. This forces $b=b_1+b_2+b_3+b_4\ge n+m+n+m-1=2(m+n)-1$, and so $4(a+b)=4a+3b+b\ge (2m-1)(2n-1)+2(m+n-1)=4mn$ and we have the number of tiles is $a+b$, which is at least $mn$. 
+	
+	\item[\textbf{A5}]Suppose that $G$ is a finite group generated by the two elements $g$ and $h,$ where the order of $g$ is odd. Show that every element of $G$ can be written in the form
+	\[g^{m_1}h^{n_1}g^{m_2}h^{n_2}\cdots g^{m_r}h^{n_r}\]with $1\le r\le |G|$ and $m_n,n_1,m_2,n_2,\dots,m_r,n_r\in\{1,-1\}.$ (Here $|G|$ is the number of elements of $G.$)
+	
+	\textbf{Solution.} We first let $S$ to be the set of elements in $G$ that can be written in the desired form, but with the condition $1\le r\le G$ relaxed. To start with, $gh, g^{-1}h, gh^{-1}, g^{-1}h^{-1}\in S$. We also have $S$ closed in multiplication. 
+	Now if $x=g^{m_1}h^{n_1}g^{m_2}h^{n_2}\cdots g^{m_r}h^{n_r}\in S$ then $x^{-1}=(g^{m_1}h^{n_1}g^{m_2}h^{n_2}\cdots g^{m_r}h^{n_r})^{|G|-1}\in S$ too, so we have $(g^{-1}h)^{-1}=h^{-1}g\in S$, and thus $ghh^{-1}g=g^2\in S$. Since the order of $G$ is odd, we also have $g=(g^2)^{\frac{ord(g)+1}{2}}\in S$, and $gg^{-1}h=h\in S$. Since $g$ and $h$ generate $G$, all elements in $G$ are in $S$. 
+	
+	It remains to show that the restriction $1\le r\le |G|$ can be imposed. For the identity element $e$ we observe that $(gh)^|G|=e$ (just to consider the possibility of $r=0$). Otherwise, if $x=g^{m_1}h^{n_1}g^{m_2}h^{n_2}\cdots g^{m_r}h^{n_r}$ with $r>|G|$, and suppose that this $r$ is the minimal number of index needed to represent $x$ in our desired form, then considering the element $x_k=g^{m_1}h^{n_1}g^{m_2}h^{n_2}\cdots g^{m_k}h^{n_k}$, and by the fact that $r>|G|$, we have $x_i=x_j$ for some $1\le i\neq j\le r$. This way, we also have 
+	$x=g^{m_1}h^{n_1}g^{m_2}h^{n_2}\cdots g^{m_i}h^{n_i}g^{m_{j+1}}h^{n_{j+1}}\cdots g^{m_r}h^{n_r}$, contradicting the minimality of $r$. 
+	
+	\item[\textbf{B2}]Define a positive integer $n$ to be squarish if either $n$ is itself a perfect square or the distance from $n$ to the nearest perfect square is a perfect square. For example, $2016$ is squarish, because the nearest perfect square to $2016$ is $45^2=2025$ and $2025-2016=9$ is a perfect square. (Of the positive integers between $1$ and $10,$ only $6$ and $7$ are not squarish.)
+	
+	For a positive integer $N,$ let $S(N)$ be the number of squarish integers between $1$ and $N,$ inclusive. Find positive constants $\alpha$ and $\beta$ such that
+	\[\lim_{N\to\infty}\frac{S(N)}{N^{\alpha}}=\beta,\]or show that no such constants exist.
+	
+	\textbf{Answer.}$\alpha=\frac 34, \beta = \frac 43$\\
+	\textbf{Solution.} 
+	We first consider the number of squarish numbers between 1 and $n^2$. Consider the number between $(k-1)^2+1$ to $k^2$ for some $k$, inclusive. For each of the numbers $m\in [(k-1)^2+1, k(k-1)]$, the closest square is $(k-1)^2$. For each of the numbers $m\in [k(k-1)+1, k^2]$, the closest square is $k^2$. In the first category, the distance from $(k-1)^2$ is $1, 2, \cdots , k-1$, so there are $\lfloor \sqrt{k - 1}\rfloor$ squarish numbers. In the second category, the distance to $k^2$ is $k-1, k-2, \cdots , 0$, so the number of squarish numbers is then $\lfloor \sqrt{k - 1}\rfloor + 1$. Therefore we have the sum as 
+	\[S(n^2)=\sum_{k=1}^n 2\lfloor \sqrt{k - 1}\rfloor + 1\]
+	The next thing is to evaluate the expression $\sum _{k=1}^n \lfloor{\sqrt{k-1}}\rfloor$. 
+	Again we use the following inequality: 
+	$\sum _{k=1}^n (\sqrt{k-1}-1)<\sum _{k=1}^n \lfloor{\sqrt{k-1}}\rfloor\le \sum _{k=1}^n \sqrt{k-1}$. Since $\sqrt{x}$ is also an increasing function, we have the following: 
+	\[\int_0^{n-1}\sqrt{x}dx\le\sum _{k=1}^n \sqrt{k-1}=\sum _{k=0}^{n-1} \sqrt{k}\le\int_0^{n}\sqrt{x}dx\]
+	(we are using the fact that $\int_{k-1}^{k}f(x)dx\le f(k)\le \int_{k}^{k+1} f(x)dx$ for $f$ increasing, so $\int_{0}^{n-1}f(x)dx\le \sum_{k=0}^{n-1} f(k)\le \int_{0}^{n} f(x)dx$, given that $f(0)=0$ for $f(x):=\sqrt{x}$). By evaluating the intergral $\int_0^{n}\sqrt{x}dx=\frac{2}{3}n^{3/2}$, we have
+	\begin{flalign*}
+	\frac{4}{3}(n-1)^{3/2} - n&\le (\sum _{k=1}^n 2\sqrt{k-1}) - n\\
+	&= \sum _{k=1}^n (2(\sqrt{k-1}-1)+1)\\
+	&<\sum _{k=1}^n (2\lfloor{\sqrt{k-1}}\rfloor+1)\\
+	&\le \sum _{k=1}^n (2\sqrt{k-1}+1)\\
+	&=n+2\sum _{k=1}^n \sqrt{k-1}\\
+	&=\frac{4}{3}n^{3/2} + n\\
+	\end{flalign*} 
+	meaning that $S(n^2)\in[\frac{4}{3}(n-1)^{3/2} - n, \frac{4}{3}n^{3/2} + n]$. 
+	Also notice that $S(n)$ is increasing with $n$ (we need it in the rest of the proof). 
+	If we consider $N$ in general, then $\lfloor\sqrt{N}\rfloor^2\le N\le \lceil\sqrt{N}\rceil$. Thus 
+	\[\frac{4}{3}(\lfloor\sqrt{N}\rfloor-1)^{3/2} - \lfloor\sqrt{N}\rfloor\le S(\lfloor\sqrt{N}\rfloor)\le S(n) \le S(\lceil\sqrt{N}\rceil)\le \frac{4}{3}(\lceil\sqrt{N}\rceil)^{3/2} + \lceil\sqrt{N}\rceil\]
+	again we note that $\lfloor\sqrt{N}\rfloor>\sqrt{N}-1$ and $\lceil\sqrt{N}\rceil<\sqrt{N}+1$. 
+	Thus we get 
+	$\frac{4}{3}(\sqrt{N}-2)^{3/2} - \sqrt{N} \le S(N)\le \frac{4}{3}(\sqrt{N} + 1)^{3/2} + \sqrt{N} + 1$. Notice also that \[\lim_{N\to\infty}\frac{\frac{4}{3}(\sqrt{N}-2)^{3/2} - \sqrt{N}}{N^{3/4}}=\frac 43 = \lim_{N\to\infty}\frac{\frac{4}{3}(\sqrt{N} + 1)^{3/2} + \sqrt{N} + 1}{N^{3/4}}\], so the limit must exist by Squueze's theorem and equal to $\frac 43$, as desired. 
+	
+	\item[\textbf{B4}]Let $A$ be a $2n\times 2n$ matrix, with entries chosen independently at random. Every entry is chosen to be $0$ or $1,$ each with probability $1/2.$ Find the expected value of $\det(A-A^t)$ (as a function of $n$), where $A^t$ is the transpose of $A.$
+	
+	\textbf{Answer.}\\
+	\textbf{Solution.} Denote $a_{ij}$ as the $(i, j)$-th entry of $A$, and $b_{ij}$ as the $(i, j)$-th entry of $A-A^t$. Notice that $b_{ij}=a_{ij}-a_{ji}$, which has $\frac 12$ chance of being zero, and $\frac 14$ chance of being -1, and $\frac 14$ chance of being 1, if $i\neq j$. If $i=j$ then $b_{ij}=0$ at all times. 
+	
+	Now consider $\det(A-A^t)=\sum_{\sigma\in S}\sgn(\sigma)\prod_{i=1}^{2n}b_{i\sigma(i)}$ where $S$ is the set of permutations of $\{1, 2, \cdots , n\}$, $\sigma$ is its permutation, and $\sgn=1$ if $\sigma$ is even, and $-1$ otherwise. The task is to find $E(\sum_{\sigma\in S}\sgn(\sigma)\prod_{i=1}^{2n}b_{i\sigma(i)})$, whixh is equal to $\sum_{\sigma\in S}\sgn(\sigma)E(\prod_{i=1}^{2n}b_{i\sigma(i)})$ by the linearity of expectation. Hence we can go ahead and investigate $E(\prod_{i=1}^{2n}b_{i\sigma(i)})$ individually for each of the $(2n)!$ permutations $\sigma$. We note the following: 
+	\begin{enumerate}
+		\item If $\sigma(i)=i$ for some $i$, then $b_{i\sigma(i)}=0$ at all times, so $\prod_{i=1}^{2n}b_{i\sigma(i)}=0$, and the expected value of this term is 0. 
+		\item If $\sigma(\sigma(k))\neq k$ for some $k$, then the factor $b_{\sigma(k)k}$ is not present in the term $\prod_{i=1}^{2n}b_{i\sigma(i)}$. Recall that $b_{ij}$ is dependent with $b_{kl}$ if and only if $\{i, j\}\neq \{k, l\}$, so $b_{k\sigma(k)}$ is indepdendent from $b_{i\sigma(i)}$ for all $i\neq k$, and is thus independent to $\prod_{i=1, i\neq k}^{2n}b_{i\sigma(i)}$. 
+		Now by the independence of $b_{k\sigma(k)}$ from the rest of the terms we get 
+		\[E(\prod_{i=1}^{2n}b_{i\sigma(i)})=E(b_{k\sigma(k)})E(\prod_{i=1, i\neq k}^{2n}b_{i\sigma(i)})
+		=0E(\prod_{i=1, i\neq k}^{2n}b_{i\sigma(i)})=0\]
+		since $E(b_{ij})=0(\frac 12)+1(\frac 14)-1(\frac 14)=0$ for all $i, j$. Hence this gives a 0 expectation too. 
+		\item Finally, assume that the two scenarios above do not happen, so for all $i$ we have $\sigma(i)\neq i$ but $\sigma(\sigma(i))=i$. This means that for each $i$, there are $\frac 12$ chance where $b_{i\sigma(i)}=b_{\sigma(i)i}=0$, $\frac 14$ chance when $b_{i\sigma(i)}=-b_{\sigma(i)i}=1$, and $\frac 14$ chance when $b_{i\sigma(i)}=-b_{\sigma(i){i}}=-1$. Now in the first case the product $b_{i\sigma(i)}b_{\sigma(i)i}=0$ while in the second and third case this product is $-1$, so the expected value of this product is $-\frac 12$. Since each such product is independent of all other $b_{j\sigma{j}}$ and $b_{\sigma{j}j}$, the expectation is then 
+		\[E(\prod_{i=1}^{2n}b_{i\sigma(i)})=\prod E(b_{i\sigma(i)}b_{\sigma(i)i})=\left(-\frac 12\right)^n\]
+	\end{enumerate}
+    The task now is to consider all permutations falling into the third category. First, this gives rise to $n$ distinct orbits, so the parity of permutation is congruent to $2n-n=n\pmod{2}$, and thus $\sgn(\sigma)=(-1)^n$ for all such $\sigma$. Second, the number of such permutations depends on the pairing of the $2n$ numbers, so this is exactly the ways to split these numbers into pairs. In general we have the number of pairs as: 
+    \[\frac{\displaystyle\prod_{i=1}^n\dbinom{2i}{2}}{n!}=\dfrac{(2n)!}{2^n n!}\]
+    Hence the final expected value is $(\dfrac 12)^n \cdot \dfrac{(2n)!}{2^n n!}=\dfrac{(2n)!}{4^n n!}$. 
+		
+\end{enumerate}
+
+\section{Putnam 2015}
+\begin{enumerate}
+	\item [\textbf{A1}] Let $A$ and $B$ be points on the same branch of the hyperbola $xy=1.$ Suppose that $P$ is a point lying between $A$ and $B$ on this hyperbola, such that the area of the triangle $APB$ is as large as possible. Show that the region bounded by the hyperbola and the chord $AP$ has the same area as the region bounded by the hyperbola and the chord $PB.$
+	
+	\textbf{Solution.} Let the coordinates of $A$ to be $(x_A, \frac 1{x_A})$ and the coordinates of $B$ to be $(x_B, \frac 1{x_B})$. Same goes for $(x_P, \frac 1{x_P})$. Thus the area is given by: 
+	\[\frac 12 |\frac{x_A}{x_B} +\frac{x_B}{x_P} + \frac{x_P}{x_A} - \frac{x_B}{x_A} -\frac {x_P}{x_B} -\frac {x_A}{x_P}|\]
+	Ignoring absolute value, differentiating with respect to $x_P$ we get that any stationary point happens when $(x_B-x_A)\left(\frac{1}{x_P^2}-\frac{1}{x_Ax_B}\right)=0$. This happens when $x_P=\pm\sqrt{x_Ax_B}$. W.l.o.g. we assume that both $x_A$ and $x_B$ are both positive, and thus $x_P$ must also be positive. Thus $x_P=\sqrt{x_Ax_B}$. Also w.l.o.g. we assume that $x_A<x_P<x_B$. Since the area is the lowest possible (i.e. 0) when $x_P=x_A$ or $x_P=x_B$, and positive at other times, and also since $x_P=\sqrt{x_Ax_B}$ is the only stationary point, this area must be nondecreasing in the interval $x_P\in (x_A, \sqrt{x_Ax_B})$  and nonincreasing in the interval $x_P\in (\sqrt{x_Ax_B}, x_B)$, we know that $x_P=\sqrt{x_Ax_B}$ is indeed the point where the area attains the maximum. Now the area of bounded by the hyperbola and the chord $AP$ is given by the following: 
+	\[\frac 12 (x_P-x_A)\left(\frac{1}{x_P}+\frac{1}{x_A}\right)-\int_{x_A}^{x_P}\frac{1}{x}dx
+	=\frac 12 \left(\frac{x_P}{x_A}-\frac{x_A}{x_P}\right)-(\ln x_P -\ln x_A)
+	\]
+	substituting $x_P=\sqrt{x_Ax_B}$ we get 
+	\[\frac 12 \left(\frac{\sqrt{x_Ax_B}}{x_A}-\frac{x_A}{\sqrt{x_Ax_B}}\right)-(\ln \sqrt{x_Ax_B} -\ln x_A)
+	=\frac 12 \left(\sqrt{\frac{x_B}{x_A}}-\sqrt{\frac{x_A}{x_B}}\right)-\frac 12(\ln x_B-\ln x_A)
+	\]
+	Similarly the area bounded by $PB$ and the hyperbola is given by 
+	\[\frac 12 (x_B-x_P)\left(\frac{1}{x_P}+\frac{1}{x_B}\right)-\int_{x_P}^{x_B}\frac{1}{x}dx
+	=\frac 12 \left(\frac{x_B}{x_P}-\frac{x_P}{x_B}\right)-(\ln x_B -\ln x_P)
+	\]
+	and since $x_P=\sqrt{x_Ax_B}$ we get 
+	\[\frac 12 \left(\frac{x_B}{\sqrt{x_Ax_B}}-\frac{\sqrt{x_Ax_B}}{x_B}\right)-(\ln x_B -\ln \sqrt{x_Ax_B})
+	=\frac 12 \left(\sqrt{\frac{x_B}{x_A}}-\sqrt{\frac{x_A}{x_B}}\right)-\frac 12(\ln x_B-\ln x_A)
+	\]
+	hence showing that they have the same area. 
+	
+	\item[\textbf{A2}]Let $a_0=1,a_1=2,$ and $a_n=4a_{n-1}-a_{n-2}$ for $n\ge 2.$
+	
+	Find an odd prime factor of $a_{2015}.$
+	
+	\textbf{Answer.} 181. \\
+	\textbf{Solution.} The characteristic polynomial of this recurrence equation is $x^2-4x+1=0$, which has roots $\frac{4\pm\sqrt{4^2-4}}{2}=2\pm\sqrt{3}$. Thus $a_n=a(2+\sqrt{3})^n+b(2-\sqrt{3})^n$, and since $a+b=1$ and $a(2+\sqrt{3})+b(2-\sqrt{3})=2$, we get $a=b=\frac 12$. Thus we have $a_n=\frac 12 ((2-\sqrt{3})^n + (2+\sqrt{3})^n)$. 
+	Now $\frac{a_{2015}}{a_5}=\sum_{i=0}^{402}(-1)^{i}(2-\sqrt{3})^{5i}(2-\sqrt{3})^{2010+5i}$, and since both $a_{2015}$ and $a_5$ are both integers, this expression must also be a rational number. From the right hand side we can also deduce that this ratio is in the form of $x+y\sqrt{3}$ with $x, y$ both integers and since $x+y\sqrt{3}\in \mathbb{Q}$, $y=0$ hence $\frac{a_{2015}}{a_5}$ is actually an integer. So it suffices to find a prime factor of $a_5$. Finally, since $a_5=362=2\times 181$ and 181 is a prime, this is a possible answer. 
+	
+	\item[\textbf{A3}]Compute \[\log_2\left(\prod_{a=1}^{2015}\prod_{b=1}^{2015}\left(1+e^{2\pi iab/2015}\right)\right)\]Here $i$ is the imaginary unit (that is, $i^2=-1$).
+	
+	\textbf{Answer.} \\
+	\textbf{Solution.} Since $e^x = e^{2\pi i + x}$, we will consider everything in the cycle of $2\pi i$. In this context, if $ab\equiv k\pmod{2015}$, and let $ab-k=2015c$ with $c$ an integer, then $e^{2\pi iab/2015}=e^{2\pi i(k+2015c)/2015}=e^{2\pi ik/2015}e^{2\pi ic}=e^{2\pi ik/2015}$. Thus we can consider everything modulo 2015. 
+	
+	Let $d=\gcd(a, 2015)$. Then $2015|ab$ if and only if $c=\frac{2015}{d}|b$. In addition, $\{a, 2a, \cdots ca\} = \{d, 2d, \cdots , cd=2015\}$ in modulo 2015. Thus we have 
+	\[\prod_{b=1}^{2015}\left(1+e^{2\pi iab/2015}\right)=\left(\prod_{b=1}^{c}\left(1+e^{2\pi ibd/2015}\right)\right)^d=\left(\prod_{b=1}^{e}\left(1+e^{2\pi ib/c}\right)\right)^d\]
+	Bearing in mind that $c$ is odd, we now investigate this sum. Now, it is given that $\prod_{b=1}^{c}\left(x-e^{2\pi ib/c}\right)=x^c-1$, since $e^{2\pi b/c}$ are all the roots of unity for $b=1, 2, \cdots , c$. Substituting $c=-1$ we get $\prod_{b=1}^{e}\left(-1-e^{2\pi ib/c}\right)=x^c-1=-1-1=-2$ since $c$ is odd. 
+	Reversing the sign we get $\prod_{b=1}^{e}\left(1+e^{2\pi ib/c}\right)=(-2)(-1)^{c}=2$. Therefore we have $\prod_{b=1}^{2015}\left(1+e^{2\pi iab/2015}\right)=2^d$. Summing up we get 
+	\[\log_2\left(\prod_{a=1}^{2015}\prod_{b=1}^{2015}\left(1+e^{2\pi iab/2015}\right)\right) =\log_2\left(\prod_{a=1}^{2015}2^{\gcd(2015, a)}\right)
+	=\sum_{a=1}^{2015} \gcd(2015, a)\]
+	By the Euler's totient function, there are $\phi(2015)=\phi(5\cdot 13\cdot 31)=4\cdot 12\cdot 30=1440$ such $a$'s with $\gcd(a, 2015)=1$. The number of $a$'s with $\gcd(a, 2015)=d$ is $\phi(\frac{2015}{d})$, so this gives the total as 
+	\begin{flalign*}
+	\sum_{a=1}^{2015} \gcd(2015, a)&=\sum_{d|2015} \phi(d)\frac{2015}{d}\\
+	&=1440+4(12\cdot 30)+13(4)(30)+5(13)(30)+4(13)(31)+5(12)(31)+5(13)(30)+5(13)(31)\\
+	&=13725\\
+	\end{flalign*}
+
+	\item[\textbf{A5}] Let $q$ be an odd positive integer, and let $N_q$ denote the number of integers $a$ such that $0<a<q/4$ and $\gcd(a,q)=1.$ Show that $N_q$ is odd if and only if $q$ is of the form $p^k$ with $k$ a positive integer and $p$ a prime congruent to $5$ or $7$ modulo $8.$
+	
+	\textbf{Solution.} We first eliminate the case where $q=pr$ with $p>1, r>1$ and $\gcd(p, r)=1$. First w.l.o.g. (to make our computations easier) that $r$ is a prime power, say $s^k$. We first calculate the number $M_p$ of integers $a$ with $0<a<q/4=pr/4$ and $\gcd(a, p)=1$. Notice that $a<pr/4$ if and only if $a/p<r/4$. Consider the numbers in the intervals $[1, p], [p+1, 2p], \cdots , [(d-1)p+1, dp]$ where $d=\lfloor r/4 \rfloor$. Each number mentioned is less than $q/4$, and in each category, there are $\phi(p)$ numbers relatively prime to $p$. So these sets contributed $\phi(p)\cdot d$ to $M_p$, which is even since $\phi(p)$ is always even for $p>2$. It remains to investigate contribution of the interval $[dp, (d+1)p]$ to $M_q$. Now $dp+k<q/4$ if and only if $k<(r/4 - \lfloor r/4 \rfloor)p$. If $r\equiv 1\pmod{4}$ then the bound is $p/4$, in which case the contribution is precisely $N_p$. Otherwise, the bound is $3p/4$, and the contribution is precisely $\phi(p)-N_p$. Thus $M_q\equiv N_p\pmod{2}$, as always. 
+	
+	To investigate the relation between $M_q$ and $N_q$, we note that if a number counts into $N_q$, then it counts into $M_q$. Conversely, an integer $a$ counts into $M_q$ but not $N_q$ if and only if $a=st$ with $\gcd(t, p)=1$ and $t<q/4s=ps^{k-1}/4$. To count the number of such $t$, we notice that the number of such $t$ with $t\le p\lfloor s^{k-1}/4\rfloor$ is $\lfloor s^{k-1}/4\rfloor\phi(p)$, which is again even. As of the case above, it remains to consider the contribution of such $t$ in the next set of $p$ numbers. Similar to above, if $s^{k-1}\equiv 1\pmod{4}$ then this contribution is $N_p$, and if $s^{k-1}\equiv 3\pmod{4}$ then this contribution is $\phi(p)-N_p$. In either case it's congruent to $N_p\pmod{2}$. Thus $N_q\equiv M_q-N_p\equiv N_p-N_p=0\pmod{2}$. 
+	
+	Thus the case of $q$ having more than two primes have been eliminated. If $q=1$ then $N_1=0$, which serves as an edge case. If $q=p^k$ with $k\ge 1$, then $N_q$ is the number of the integers between 1 and $\lfloor q/4\rfloor$ minus the number of integers in this range and divisible by $p$. This gives the bound $\lfloor (p^k)/4\rfloor-\lfloor (p^{k-1})/4\rfloor$. Letting $p^{k-1}=4\ell+a$ with $a\in\{1, 3\}$ we get $\lfloor (p^{k-1})/4\rfloor=\ell$ and $\lfloor (p^k)/4\rfloor=\lfloor p(4\ell+a)/4\rfloor=\ell p+\lfloor ap/4\rfloor$. Since $p$ is odd we have $\lfloor (p^k)/4\rfloor-\lfloor (p^{k-1})/4\rfloor=\ell(p-1)+\lfloor ap/4\rfloor\equiv \lfloor ap/4\rfloor\pmod{2}$. If $a=1$, then $\lfloor p/4\rfloor$ is odd if and only if $p\equiv 5, 7\pmod{8}$. If $a=3$, then again writing $p=8c+d$ we get $\lfloor 3(8c+d)/4\rfloor=6c+\lfloor 3d/4\rfloor\equiv \lfloor 3d/4\rfloor\pmod{2}$ we only need to consider the cases where $d\in \{1, 3, 5, 7\}$, which gives the values $\lfloor 3/4\rfloor, \lfloor 9/4\rfloor, \lfloor 15/4\rfloor, \lfloor 21/4\rfloor=0, 2, 3, 5$. Hence only $p\equiv 5, 7\pmod{8}$ satisfies this condition. 
+	
+	\item[\textbf{B3}] Let $S$ be the set of all $2\times 2$ real matrices \[M=\begin{pmatrix}a&b\\c&d\end{pmatrix}\]whose entries $a,b,c,d$ (in that order) form an arithmetic progression. Find all matrices $M$ in $S$ for which there is some integer $k>1$ such that $M^k$ is also in $S.$
+	
+	\textbf{Answer.} $M=\begin{pmatrix}a&a\\a&a\end{pmatrix}$ and $M=\begin{pmatrix}-3a&-a\\a&3a\end{pmatrix}$ for any real number $a$. \\
+	\textbf{Solution.} If $M=\begin{pmatrix}a&a\\a&a\end{pmatrix}$ then $M^2=\begin{pmatrix}a&a\\a&a\end{pmatrix}
+	\begin{pmatrix}a&a\\a&a\end{pmatrix}
+	=\begin{pmatrix}2a^2&2a^2\\2a^2&2a^2\end{pmatrix}
+	$
+	which is also in $S$. Hence now we only consider those $M$ with nonzero common difference. 
+	
+	First, consider $M=\begin{pmatrix}a&a+d\\a+2d&a+3d\end{pmatrix}$ with $d$ as the common difference, then the characteristic polynomial is $x^2-(2a+3d)x-2d^2$, which has discriminant $(2a+3d)^2+8d^2>0$. Hence $M$ has two real and distinct eigenvalues, which implies that $M$ is diagonalizable. Write $M=PDP^{-1}$ where $P$ is the matrix determined by $M$'s eigenvectors, and $D$ is the diagonal matrix symbolizing the eigenvalues. We proceed with the following claim: 
+	
+	\emph{Lemma}: If $M^k\in S$ with $k\ge 1$, then $M^k=cM$ for some constant $c$. \\
+	\emph{Proof}: First, notice that $S$ is closed under matrix addition (that is, if $M_1$ and $M_2$ are both in $S$ then $aM_1+bM_2\in S$ for all constants $a$ and $b$). Next, we also have $M^k=(PDP^{-1})^k=PD^kP^{-1}$ with $D^k$ remains diagonal. Suppose that there exist real constants $a$ and $b$ such that $aD+bD^k=I$ with $I$ being the identity matrix. Then $aM+bM^k=P(aD)P^{-1}+P(bD^k)P^{-1}=PIP^{-1}=I$, which is not in $S$. So in this case, either $M$ or $M^k$ cannot be in $S$. This happens if the eigenvalues of $M$ and $M^k$, when each treated as a 2-dimensional vector, is linearly independent. That is, if $a, b$ are the eigenvalues of $M$, then $a^k$ and $b^k$ are the eigenvalues of $M^k$ and thus 
+	$\begin{pmatrix}
+	a & a^k \\ b & b^k
+	\end{pmatrix}$
+	is linearly independent. To have $M$ and $M^k$ both in $S$, this matrix
+	$\begin{pmatrix}
+	a & a^k \\ b & b^k
+	\end{pmatrix}$
+	must be linearly dependent, i.e. $ab^k-a^kb=0$, or $ab(a^{k-1}-b^{k-1})=0$. If $a=0$ or $b=0$, then $M$ has determinant 0, which implies that $-2d^2=\det(M)=0$, so the common difference is 0, contradiction (this case has been handled in the beginning of the proof). Hence we have $a^{k-1}=b^{k-1}$, which means $|a|=|b|$. The case where $a=b$ means $D=aI$ and so $M=aI\not\in S$, so $a=-b$. 
+	
+	Going back to the proof, we now know that the eigenvalues of $M$ are in the form of $e, -e$ for some $e$. This forces the characteristic polynomial of $M$ to be $x^2+e^2$, which also implies that $2a+3d=0$ in the beginning. Therefore we have $M=\begin{pmatrix}-3a&-a\\a&3a\end{pmatrix}$ for some real number $a$. To show that this is a valid example, $M^3=8a^3\begin{pmatrix}-3&-1\\1&3\end{pmatrix}$ which is indeed in $S$. 
+	
+	\item[\textbf{B5}]Let $P_n$ be the number of permutations $\pi$ of $\{1,2,\dots,n\}$ such that \[|i-j|=1\text{ implies }|\pi(i)-\pi(j)|\le 2\]for all $i,j$ in $\{1,2,\dots,n\}.$ Show that for $n\ge 2,$ the quantity \[P_{n+5}-P_{n+4}-P_{n+3}+P_n\]does not depend on $n,$ and find its value.
+	
+	\textbf{Answer.} This value is always 4. \\
+	\textbf{Solution.} For each $n$ we denote $Q_n$ as the number of permutations satisfying the conditions $i-j|=1\text{ implies }|\pi(i)-\pi(j)|\le 2$ and $\pi(n)=n$. Fix $n$, and we consider the number of such permutations when $\pi(n)=k$ for each $k=1, 2, \cdots , n$. When $k=n$ this number is $Q_n$ as defined, and by symmetry this holds true when $k=1$. Hence we proceed to consider the cases when $\pi(n)=2, \cdots , n-1$. Now, denote $\pi(n)=k$ and we have we consider any $j$ satisfying $\pi(j)<k$ and $\pi(j+1)>k$. Since $\pi(j+1)-\pi(j)\le 2$, we must have $\pi(j)=k-1$ and $\pi(j+1)=k+1$. Similarly, if $\pi(j)>k$ and $\pi(j+1)<k$ then we must have $\pi(j)=k+1$ and $\pi(j+1)=k-1$. Since permutation is a bijection, exactly one of the above happens and exactly one $j$ satisfies this condition. Thus the numbers $\pi(1), \cdots , \pi(n-1)$ are partitioned into two consecutive regions, one with values $<k$ and the other $>k$. In other words exactly one of the following holds: $\pi(j)<k$ for all $1\le j\le k-1$ and $\pi(j)>k$ for all $k\le j\le n$, or $\pi(j)>k$ for all $1\le j\le n-k$, and $\pi(j)<k$ for $n-k+1\le j\le n-1$. In the first case, $\pi(k-1)$ must be equal to $k-1$ and $\pi(k)=k+1$, so this gives $Q_{k-1}$ ways to arrange $\pi(1), \cdots \pi(k-1)$. We now claim that there's only one way to arrange $\pi(k), \cdots , \pi(n-1)$ given the constraint. To begin with, since $\pi(n)=k$ and $\pi(k)=k+1$ and everything in between has $\pi(j)>k$, we have 
+	$\pi(n-1)=k+2, \pi(k+1)=k+3$. Repeating the process gives a unique arrangement given by 
+	$\pi(k), \cdots , \pi(n-1)=k+1, k+3, \cdots n-1, n, n-2, \cdots k+2$ for $k\equiv n\pmod{2}$, and $\pi(k), \cdots , \pi(n-1)=k+1, k+3, \cdots , n-2, n, n-1, \cdots , k+2$ otherwise. This gives a total of $Q_{k-1}$. For the second case, similarly, we have $Q_{n-k}$ ways of arranging the first $n-k$ permutation numbers, and exactly 1 way for the next $k-1$ numbers. Thus summing above and considering all $k$ we get, for all $n\ge 2$,  
+	\[P_n=2Q_n+\sum_{i=2}^{n-1}Q_{k-1}+Q_{n-k}=2(Q_n+\sum_{i=1}^{n-2} Q_i)\]
+	Now the desired value becomes 
+	$2(Q_{n+5}+\sum_{i=1}^{n+3} Q_i )- 2(Q_{n+4}+\sum_{i=1}^{n+2} Q_i)-2(Q_{n+3}+\sum_{i=1}^{n+1} Q_i)+2(Q_n+\sum_{i=1}^{n-2} Q_i)
+	=2(Q_{n+5}-Q_{n+4}-Q_{n+1}-Q_{n-1})
+	$
+	To calculate the above, we find an iterative formula for $Q_n$ for all $n\ge 4$. Since $\pi(n)=n$, we have $\pi(n-1)=n-1$ or $n-2$. For $\pi(n-1)=n-1$, $Q_{n-1}$ permutation arises as claimed above. For $\pi(n-1)=n-2$, we can use the argument above to establish that $Q_{n-3}+Q_1$ permutations arise. Thus $Q_n=Q_{n-1}+Q_{n-3}+Q_1$. This means that for all $n\ge 2$ we have 
+	$2(Q_{n+5}-Q_{n+4}-Q_{n+1}-Q_{n-1})
+	=2(Q_{n+4}+Q_{n+2}+Q_1-Q_{n+4}-Q_{n+1}-Q_{n-1})
+	=2(Q_{n+1}+Q_{n-1}+Q_1+Q_1-Q_{n+1}-Q_{n-1})
+	=4Q_1.
+	$
+	It's not hard to see that $Q_1=1$ so our desired answer must be 4. 
+	
+\end{enumerate}
+
+\section{Putnam 2014}
+\begin{enumerate}
+	\item [\textbf{A1}]Prove that every nonzero coefficient of the Taylor series of $(1-x+x^2)e^x$ about $x=0$ is a rational number whose numerator (in lowest terms) is either $1$ or a prime number.
+	
+	\textbf{Solution.} We consider the expansion $(1-x+x^2)\displaystyle\sum_{i=0}^{\infty} \frac{1}{i!}x^i$. The coefficient of the constant term is 1 and the coefficient of the $x$-term is $\frac{1}{2}-1=-\frac{1}{2}$. The conefficient of $x^{k+1}$ for all $k\ge 1$ is given by $\frac{1}{(k+1)!}-\frac{1}{k!}+\frac{1}{(k-1)!}
+	=\frac{1-(k+1)+k(k+1)}{(k+1)!}
+	=\frac{k^2}{(k+1)!}
+	=\frac{k}{(k-1)!(k+1)}
+	$
+	If $k$ is prime we are done. 
+	Now assume that it's not. If $k$ is not a prime power, write $k=ab$ with $1<a, b<k$ and $\gcd(a, b)=1$ (for example, let $p$ to be a prime divisor of $k$ and let $r$ to be the maximum power of $p$ dividing $k$. Then since $k$ is not a prime power, $p^r<k$ and $k/(p^r)$ is relatively prime to $p^r$ by the maximality of $r$). Since $a, b<k$, $a|(k-1)!$ and $b|(k-1)!$ and with $\gcd(a, b)=1$, this implies that $k=ab|(k-1)!$. Otherwise, $k=p^r$ for some prime $p$ and $r\ge 2$. Using the formula $v_p((r)!)=\sum_{i=1}^\infty\lfloor\frac{r}{p^i}\rfloor$, we have 
+	$v_p((k-1)!)=\sum_{i=1}^\infty\lfloor\frac{k-1}{p^i}\rfloor
+	=\sum_{i=1}^\infty\lfloor\frac{p^r-1}{p^i}\rfloor
+	=p^{r-1}-1+p^{r-2}-1+\cdots + (p-1)
+	\ge 1+1+\cdots + 1
+	= r-1
+	$
+	since $p\ge 2$. Thus $p^{r-1}|(k-1)!$ and so when taking the lowest term the numerator can either be 1 or $p$. 
+	
+	\item[\textbf{A2}]Let $A$ be the $n\times n$ matrix whose entry in the $i$-th row and $j$-th column is \[\frac1{\min(i,j)}\] for $1\le i,j\le n.$ Compute $\det(A).$
+	
+	\textbf{Answer.} $\frac{1}{n[(n-1)!]^2}$\\
+	\textbf{Solution.} We use the well-known matrix identity that row reduction preserves determinant, and we will do row reduce profusely. For brevity, we will denote $f(i)=\frac{1}{i}$ for all $i\ge 1$. Denoting $a_{ij}$ as the $i$-th row and the $j$-th column. Then we have $a_{ij}=f(\min(i, j))$. 
+	
+	Now, for each iteration stepped $i$, denoting row $i$ as $r_i$ and we will do $r_{j}:=r_{j}-r_i$ for all $j\ge i$. We show that after the $k$-th iteration below would be the value for $a_{ij}$: 
+	\begin{itemize}
+		\item For $i=1$, we have $a_{ij}=f(1)$ as always. 
+		\item For $i\le k$, we have $a_{ij}=0$ for all $j<i$, and $a_{ij}=f(i)-f(i-1)$ for all $j\ge i$. 
+		\item For $i>k$, $a_{ij}=0$ for $j\le k$, and $a_{ij}=f(\min(i, j))-f(k)$ otherwise. 
+	\end{itemize}
+    To prove this by inducting on $k$, the base case is given when all the numbers after the first row are subtracted by the corresponding number in the first row, so for $i>1$, $a_{ij}$ becomes $a_{ij}=f(\min(i, j))-f(1)$, and the condition above is satisfied. Suppose that the conjecture holds after $k$-th step for some $k$. At $k+1$-th step, all rows after the $k+1$-th row is subtracted against the corresponding index in $k+1$-th row. The $k+1$-th row is given by the following: 
+    \[\begin{pmatrix}0 & \cdots 0 & f(k+1)-f(k) & \cdots f(k+1)-f(k)\end{pmatrix}\]
+    where the first $k$ entries are 0. Now after the $k+1$-th iteration, for all $i>k+1$, if $j\le k$ then $a_{ij}$ becomes $0-0=0$ and if $j>k$ we have $a_{ij}$ becomes $(f(\min(i, j))-f(k))-f(k+1)-f(k)=f(\min(i, j))-f(k+1)$. This entry is 0 if $j=k+1$ since $i>k+1$. For all $i\le k$ the rows are unaffected by this row reduction, so we still have $a_{ij}=0$ for all $j<i$, and $a_{ij}=f(i)-f(i-1)$ for all $j\ge i$. Thus the claim is proven. 
+    
+    To finish the proof, after $n-1$ iterations, we have, for all $j<i$, $a_{ij}=0$. Thus $A$ is no upper triangular, and the determinant is simply the product of the diagonal entries. We also have $a_{ii}=1$ for $i=1$ and $f(i)-f(i-1)$ for $i\ge 2$. Now $f(i)-f(i-1)=\frac{1}{i}-\frac{1}{i-1}=-\frac{1}{i(i-1)}$. Hence we have 
+    \[\det(A)=\prod_{i=2}^n -\frac{1}{i(i-1)}= - (-1)^{n-1}=\frac{1}{n[(n-1)!]^2}\]
+\end{enumerate}
+
+\section{Putnam 2013}
+\begin{enumerate}
+	\item [\textbf{A1}] Recall that a regular icosahedron is a convex polyhedron having 12 vertices and 20 faces; the faces are congruent equilateral triangles. On each face of a regular icosahedron is written a nonnegative integer such that the sum of all $20$ integers is $39.$ Show that there are two faces that share a vertex and have the same integer written on them.
+	
+	\textbf{Solution.} Each face corresponds to exactly 3 vertices, so on average each vertex corresponds to $20\times 3\div 12=5$ faces. Since this icosahedron is regular, each vertex corresponds to 5 faces. Suppose that for each vertex, the number written is different. Then the sum of the 5 faces joining a vertex is at least $0+1+2+3+4=10$. Since each vertex corresponds to 3 faces and there are 12 vertices, the total sum of 20 faces is at least $10\times 12\div 3=40$, contradiction. 
+	
+	\item[\textbf{A2}]Let $S$ be the set of all positive integers that are not perfect squares. For $n$ in $S,$ consider choices of integers $a_1,a_2,\dots, a_r$ such that $n<a_1<a_2<\cdots<a_r$ and $n\cdot a_1\cdot a_2\cdots a_r$ is a perfect square, and let $f(n)$ be the minimum of $a_r$ over all such choices. For example, $2\cdot 3\cdot 6$ is a perfect square, while $2\cdot 3,2\cdot 4, 2\cdot 5, 2\cdot 3\cdot 4,$ $2\cdot 3\cdot 5, 2\cdot 4\cdot 5,$ and $2\cdot 3\cdot 4\cdot 5$ are not, and so $f(2)=6.$ Show that the function $f$ from $S$ to the integers is one-to-one.
+	
+	\textbf{Solution.} Suppose that $f(k_1)=f(k_2)$ for some $k_1 < k_2$. Let $k_1<a_1<\cdots <a_r=f(k_1)$ and $k_2<b_1<\cdots<b_s=f(k_2)$ be such choices for $k_1$ and $k_2$. Given that $k_1\cdot a_1\cdots a_r$ and $k_2\cdot b_1\cdots b_s$ are both perfect square, their product $k_1\cdot a_1\cdots a_r\cdot k_2\cdot b_1\cdots b_s$ is also a perfect square. Suppose that some number $g$ appears in both sequence $\{a_i\}$ and $\{b_i\}$, then removing $g$ from the combined sequence $k_1\cdot a_1\cdots a_r$ and $k_2\cdot b_1\cdots b_s$ yields that $k_1\cdot a_1\cdots a_r\cdot k_2\cdot b_1\cdots b_s/g^2$ is still a perfect square. Now, we remove all such repeated elements and sort the numbers, we get $k_1<c_1<\cdots <c_t$, since $k_1$ only appears once ($k_1<k_2$) and since $a_r=b_s$, this number is removed from both sides and $c_t<a_r=f(k_1)$, contraidcting the minimality of $a_r$. 
+	
+	\item[\textbf{A3}]Suppose that the real numbers $a_0,a_1,\dots,a_n$ and $x,$ with $0<x<1,$ satisfy \[\frac{a_0}{1-x}+\frac{a_1}{1-x^2}+\cdots+\frac{a_n}{1-x^{n+1}}=0.\] Prove that there exists a real number $y$ with $0<y<1$ such that \[a_0+a_1y+\cdots+a_ny^n=0.\]
+	
+	\textbf{Solution.} First, since $0<x<1$, each sequence $1-x^n=1+x^n+x^{2n}+x^{3n}+\cdots$ converges absolutely. Hence we are free to permute the sequence and get the sum in the following sense: 
+	\[0=\frac{a_0}{1-x}+\frac{a_1}{1-x^2}+\cdots+\frac{a_n}{1-x^{n+1}}
+	=\sum_{i=1}^n a_i \left(\sum_{j=0}^{\infty} x^{ij}\right)
+	=\sum_{j=0}^{\infty} \left(\sum_{i=0}^n a_i(x^{j})^i\right)
+	\]
+	Let $b_j=\sum_{i=0}^n a_i(x^{j})^i$ for all $j\ge 0$, then it follows that $\sum_{i=0}^\infty b_j$ also converges absolutely to 0. Now let $k$ to be the minimal index such that $b_k\neq 0$. If $b_j=0$ for some $j>k$ then we are done, since we can just pick $y=x^j$ and since $j>k\ge 0$, $y\in (0, 1)$. Otherwise, since $\sum_{i=k}^\infty b_j=\sum_{i=0}^\infty b_j=0$, there exists a $j\ge k$ such that $b_j<0$ and $b_{j+1}>0$, or vice versa. In either case, $a_0+a_1y+\cdots+a_ny^n=0$ for some $y\in (x^{j+1}, x^{j})$, which obviously lies in $(0, 1)$. 
+\end{enumerate}
+\end{document}
