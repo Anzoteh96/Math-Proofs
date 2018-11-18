@@ -8,9 +8,45 @@
 \setlength{\parskip}{0.1in}
 \setlength{\parindent}{0in}
 
-\begin{document}
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
 \newcommand{\la}{\leftarrow}
 \newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+
+\begin{document}
+
 \newcommand{\sgn}{\text{sgn}}
 
 \section{Putnam 2017}
@@ -392,6 +428,21 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
     
     To finish the proof, after $n-1$ iterations, we have, for all $j<i$, $a_{ij}=0$. Thus $A$ is no upper triangular, and the determinant is simply the product of the diagonal entries. We also have $a_{ii}=1$ for $i=1$ and $f(i)-f(i-1)$ for $i\ge 2$. Now $f(i)-f(i-1)=\frac{1}{i}-\frac{1}{i-1}=-\frac{1}{i(i-1)}$. Hence we have 
     \[\det(A)=\prod_{i=2}^n -\frac{1}{i(i-1)}= - (-1)^{n-1}=\frac{1}{n[(n-1)!]^2}\]
+    
+    \item[\textbf{B2}]Suppose that $f$ is a function on the interval $[1,3]$ such that $-1\le f(x)\le 1$ for all $x$ and $\displaystyle \int_1^3f(x)\,dx=0.$ How large can $\displaystyle\int_1^3\frac{f(x)}x\,dx$ be?
+    
+    \textbf{Answer.} $\ln\frac 43$. \\
+    \textbf{Solution.} Equality can be attained by taking $f(j)=1$ for all $1\le j<2$ and $f(j)=-1$ for all $2\le j\le 3$. We show that this is the maximum by the following: if $g(x)$ is defined as $\displaystyle \int_1^xf(y)\,dy$, we have $g(1)=g(3)=0$. Also since $f(x)\in [-1, 1]$ for all $x\in [1, 3]$, and by Mean value theorem, we have , for every $x$ in the said interval, $g'(c)=f(c)=\frac{g(x)-g(1)}{x-1}$ for some constant $c$ in the interval $(1, x)$, so $|\frac{g(x)}{x-1}|\le 1$. Similarly $|\frac{g(x)}{x-3}|\le 1$. This means that $g(x)\le x-1$ and $g(x)\le 3-x$ must hold simultaneously. Using this fact and integrating by parts give: 
+    \begin{flalign*}
+    \int_1^3\frac{f(x)}{x}\,dx&=\frac{g(x)}{x}|_1^3 +\int_1^3\frac{g(x)}{x^2}\,dx\\
+    &=(0-0)+\int_1^3\frac{g(x)}{x^2}\,dx\\
+    &\le \int_1^2\frac{x-1}{x^2}\,dx+\int_2^3\frac{3-x}{x^2}\,dx\\
+    &=[\ln x + \frac 1x]_1^2+[-\frac 3x-\ln x]_2^3\\
+    &=\ln 2 -\ln 1+\frac 12 - 1 +\frac 32-1-\ln 3+\ln 2\\
+    &=\ln \frac 43
+    \end{flalign*}
+    as desired. 
+    
 \end{enumerate}
 
 \section{Putnam 2013}
@@ -412,5 +463,164 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
 	=\sum_{j=0}^{\infty} \left(\sum_{i=0}^n a_i(x^{j})^i\right)
 	\]
 	Let $b_j=\sum_{i=0}^n a_i(x^{j})^i$ for all $j\ge 0$, then it follows that $\sum_{i=0}^\infty b_j$ also converges absolutely to 0. Now let $k$ to be the minimal index such that $b_k\neq 0$. If $b_j=0$ for some $j>k$ then we are done, since we can just pick $y=x^j$ and since $j>k\ge 0$, $y\in (0, 1)$. Otherwise, since $\sum_{i=k}^\infty b_j=\sum_{i=0}^\infty b_j=0$, there exists a $j\ge k$ such that $b_j<0$ and $b_{j+1}>0$, or vice versa. In either case, $a_0+a_1y+\cdots+a_ny^n=0$ for some $y\in (x^{j+1}, x^{j})$, which obviously lies in $(0, 1)$. 
+	
+	\item[\textbf{A4}] A finite collection of digits $0$ and $1$ is written around a circle. An arc of length $L\ge 0$ consists of $L$ consecutive digits around the circle. For each arc $w,$ let $Z(w)$ and $N(w)$ denote the number of $0$'s in $w$ and the number of $1$'s in $w,$ respectively. Assume that $|Z(w)-Z(w')|\le 1$ for any two arcs $w,w'$ of the same length. Suppose that some arcs $w_1,\dots,w_k$ have the property that \[Z=\frac1k\sum_{j=1}^kZ(w_j)\text{ and }N=\frac1k\sum_{j=1}^k N(w_j)\] are both integers. Prove that there exists an arc $w$ with $Z(w)=Z$ and $N(w)=N.$
+	
+	\item[\textbf{B1}] For positive integers $n,$ let the numbers $c(n)$ be determined by the rules $c(1)=1,c(2n)=c(n),$ and $c(2n+1)=(-1)^nc(n).$ Find the value of \[\sum_{n=1}^{2013}c(n)c(n+2).\]
+	
+	\textbf{Answer.} $-1$. \\
+	\textbf{Solution.}
+	\begin{flalign*}
+	\sum_{n=1}^{2013}c(n)c(n+2)
+	&=c(1)c(3)+\sum_{n=1}^{1006}c(2n)c(2n+2)
+	+\sum_{n=1}^{1006}c(2n+1)c(2n+3)\\
+	&=c(1)c(3)+\sum_{n=1}^{1006}c(n)c(n+1)
+	+\sum_{n=1}^{1006}(-1)^nc(n)(-1)^{n+1}c(n+1)\\
+	&=c(1)c(3)+\sum_{n=1}^{1006}c(n)c(n+1)
+	+\sum_{n=1}^{1006}(-1)^{2n+1}c(n)c(n+1)\\
+	&=c(1)c(3)+\sum_{n=1}^{1006}c(n)c(n+1)
+	-\sum_{n=1}^{1006}c(n)c(n+1)\\
+	&=c(1)c(3)\\
+	&=c(1)(-1)^1c(1)\\
+	&=-1
+	\end{flalign*}
+	
+	
+	\item[\textbf{B2}] Let $C=\bigcup_{N=1}^{\infty}C_N,$ where $C_N$ denotes the set of 'cosine polynomials' of the form \[f(x)=1+\sum_{n=1}^Na_n\cos(2\pi nx)\] for which:
+	
+	(i) $f(x)\ge 0$ for all real $x,$ and\\
+	(ii) $a_n=0$ whenever $n$ is a multiple of $3.$
+	
+	Determine the maximum value of  $f(0)$ as $f$ ranges through $C,$ and prove that this maximum is attained.
+	
+	\textbf{Answer.} 3.\\
+	\textbf{Solution. }Consider the following:
+	\begin{flalign*}
+	f(x)&=1+\frac 43 \cos(2\pi x)+\frac 23\cos(4\pi x)\\
+	&=1+\frac 43 \cos(2\pi x)+\frac 23 (2\cos^2(2\pi x)-1)\\
+	&=\frac 13 (1+4\cos(2\pi x)+4\cos^2 (2\pi x))\\
+	&=\frac 13 (1+2\cos(2\pi x))^2\\
+	\end{flalign*}
+	which is clearly nonnegative all the time. We also have $f(0)=1+\frac 43+\frac 23=3$, establishing the equality. To show that 3 is indeed the maximum, it suffices to show that $\sum_{n=1}^N a_n\le 2$ at all times. But plugging $x=\frac 13$ gives $\cos(\frac 23 n\pi)=-\frac 12$ if $n$ is not divisible by 3, and 1 otherwise. Considering that $a_n=0$ whenever $n$ is a multiple of 3, we have $f(\frac 13)=1-\frac 12 \sum_{n=1}^N a_n\ge 0.$ Thus $\sum_{n=1}^N a_n\le 2$ must hold. Finally note the motivation to get the example $f(x)$ as shown in the beginning: we simply find a suitable $a$ such that $2ax^2+(2-a)x+(1-a)$ is always nonnegative, which is essentially asking for the discriminant $(2-a)^2-4(2a)(1-a)\le 0$, and we get $a=\frac 23$ as the sole answer. 
+\end{enumerate}
+
+\section{Putnam 2012}
+\begin{enumerate}
+	\item [\textbf{A1}]Let $d_1,d_2,\dots,d_{12}$ be real numbers in the open interval $(1,12).$ Show that there exist distinct indices $i,j,k$ such that $d_i,d_j,d_k$ are the side lengths of an acute triangle.
+	
+	\textbf{Solution.} We sort the numbers into $d_1 \le d_2 \le \cdots \le d_{12}$. Suppose otherwise, then $d_i^2+d_{i+1}^2\le d_{i+2}^2$. From $d_1, d_2 > 1$ we have $d_3>\sqrt{2}$, $d_4 > \sqrt{3}$, $d_5>\sqrt{5}$, $d_6 > \sqrt{8}$, $d_7 > \sqrt{13}$, $d_8 > \sqrt{21}$, $d_9 > \sqrt{34}$, $d_{10} > \sqrt{55}$, $d_{11} > \sqrt{89}$, $d_{12}>\sqrt{144}=12$, contradiction. 
+	
+	\item[\textbf{A2}] Let $*$ be a commutative and associative binary operation on a set $S.$ Assume that for every $x$ and $y$ in $S,$ there exists $z$ in $S$ such that $x*z=y.$ (This $z$ may depend on $x$ and $y.$) Show that if $a,b,c$ are in $S$ and $a*c=b*c,$ then $a=b.$
+	
+	\textbf{Solution.} Now we suppose that $a*c=b*c$. Let $x$ be the element satisfying $a*x=b$, $y$ be the element satisfying $a*y=a$, then we have
+	\[(x * a) * c = (a * x) * c = b * c = a * c = (a * y) * c= (y * a) * c \]
+	and by the commutativity and associativity of $*$ we can arrange this into $x * (a * c) = y * (a * c)$. Now let $d$ be the element such that $(a * c) * d = a$ we have $b = x * a = x * (a * c) * d = y * (a * c) * d = y * a = a$, as desired. 
+	
+	\item[\textbf{A5}]Let $\mathbb{F}_p$ denote the field of integers modulo a prime $p,$ and let $n$ be a positive integer. Let $v$ be a fixed vector in $\mathbb{F}_p^n,$ let $M$ be an $n\times n$ matrix with entries in $\mathbb{F}_p,$ and define $G:\mathbb{F}_p^n\to \mathbb{F}_p^n$ by $G(x)=v+Mx.$ Let $G^{(k)}$ denote the $k$-fold composition of $G$ with itself, that is, $G^{(1)}(x)=G(x)$ and $G^{(k+1)}(x)=G(G^{(k)}(x)).$ Determine all pairs $p,n$ for which there exist $v$ and $M$ such that the $p^n$ vectors $G^{(k)}(0),$ $k=1,2,\dots,p^n$ are distinct.
+	
+	\textbf{Answer.} All $n=1$ with any prime $p$, together with $n=2, p=2$. 
+	
+	\textbf{Solution.} For $n=1$, taking $M=v=
+	\begin{pmatrix}
+	1
+	\end{pmatrix}
+	$ gives us the desired solution since $G^{(k)}(0)=
+	\begin{pmatrix}
+	k
+	\end{pmatrix}
+	$. For $n=2$ and $p=2$, take $M=
+	\begin{pmatrix}
+	1 & 1\\
+	0 & 1\\
+	\end{pmatrix}
+	$ and $v=
+	\begin{pmatrix}
+	0\\
+	1\\
+	\end{pmatrix}
+	$ gives us
+	$G^{(1)}(0)=
+	\begin{pmatrix}
+	0\\
+	1\\
+	\end{pmatrix}
+	$, 
+	$G^{(2)}(0)=
+	\begin{pmatrix}
+	1\\
+	0\\
+	\end{pmatrix}
+	$,
+	$G^{(3)}(0)=
+	\begin{pmatrix}
+	1\\
+	1\\
+	\end{pmatrix}
+	$,
+	$G^{(4)}(0)=
+	\begin{pmatrix}
+	0\\
+	0\\
+	\end{pmatrix}
+	$, establishing the claim. 
+	
+	To show that these are the only pairs, we first expand $G^{(k)}(0)$ in the `brute-force' manner, meaning that $G^{(k)}(0)=(1+M+M^2+\cdots + M^{k-1})v$. By Cayley-Hamilton theorem, if $P(x)$ is the characteristic polynomial of $M$, then $P$ has degree $n$ and $P(M)=0$. Hence it suffices to consider the remainder of $1+M+M^2+\cdots + M^{k-1}$ when divided by $P(x)$. Now, denote the remainder of $1+M+M^2+\cdots + M^{k-1}$ as $a_0+a_1M+\cdots + a_{n-1}M^{n-1}$. By our assumption, each of the $p^n$ vectors are distinct, so this polynomial remainder must also be distinct as $k$ varies across $1, 2, \cdots , p^n$. Denoting $Q_k(x)$ as the remainder of $1+x+\cdots + x^{k-1}(x)$. Then we have $Q_k(x)\equiv 1+xQ_{k-1}(x)\pmod{P(x)}$ for all $k\ge 1$, with $Q_0(x)=0$. It then follows that $Q_k(x)$ are all distinct for $k=1, 2, \cdots , p^n$ and since there are exactly $p^n$ elements in the set $\{\sum_{j=0}^{n-1}a_jx^j, a_j\in\bbF_p\}$, each element in the set occurs exactly once in $Q_1, Q_2, \cdots , Q_{p^n}$ and since $Q_k=1+xQ_{k-1}$, $Q_1, Q_2, \cdots , Q_{p^n}$ form a cycle, and considering $Q_0=0$ we have $Q_{p^n}=0$ too. 
+	
+	The relation $Q_{p^n}=0$ implies that $P(x)|1+x+\cdots x^{k-1}$ if and only if $p^n|k$. We first claim that $1+x+\cdots x^{p^n-1}=(x-1)^{p^n-1}$. Indeed, the coefficient of $x^k$ in this polynomial is \[(-1)^k\dbinom{p^n-1}{k}
+	=(-1)^k \prod_{j=1}^k\left(\frac{p^n-j}{j}\right)
+	=(-1)^k \prod_{j=1}^k\left(\frac{p^n}{j}-1\right)
+	\]
+	since $j$ is not divisible by $p^n$, $\frac{p^n-j}{j}$ can be treated as an integer modulo $p$. In fact, $\frac{p^n}{j}$ is 0 modulo $p$ since $j$ is not divisible by $n$, so $\left(\frac{p^n}{j}-1\right)\equiv -1\pmod{p}$. This means that 
+	\[(-1)^k \prod_{j=1}^k\left(\frac{p^n}{j}-1\right)\equiv (-1)^k \prod_{j=1}^k(-1)=(-1)^{2k}=1\]
+	and therefore $(x-1)^{p^n-1}= 1+x+\cdots + x^{p^n-1}$ when considering elements in $\bbF_p[x]$, as desired. This means that $Q_{p^n-1}$ has 1 as root, repeated $p^n-1$ times, and so the only possible $P(x)$ (which must have degree $n$) is $(x-1)^n$. Nevertheless, our computation above also suggests that $1+x+\cdots + x^{p^k-1}=(x-1)^{p^k-1}$ for all $k\ge 1$, too, so $P(x)|Q_{p^k-1}$ whenever $p^k-1\ge n$. This should not happen for $k<n$; otherwise $Q_{p^k-1}=0$ for all such $k$ and we have $G^{(p^k)}(0)=0$. Therefore we need to have $p^{n-1}-1<n$, or $p^{n-1}\le n$. This holds whenever $n=1$, and when $n=2$ we need $p\le 2$, i.e. $p=2$. For $n\ge 3$, we have $2^{n-1}>n$ (can be proven by induction) so no prime can satisfy this. This completes the proof, QED. 
+	
+	\item [\textbf{B1}]Let $S$ be a class of functions from $[0,\infty)$ to $[0,\infty)$ that satisfies:
+	
+	(i) The functions $f_1(x)=e^x-1$ and $f_2(x)=\ln(x+1)$ are in $S;$
+	
+	(ii) If $f(x)$ and $g(x)$ are in $S,$ the functions $f(x)+g(x)$ and $f(g(x))$ are in $S;$
+	
+	(iii) If $f(x)$ and $g(x)$ are in $S$ and $f(x)\ge g(x)$ for all $x\ge 0,$ then the function $f(x)-g(x)$ is in $S.$
+	
+	Prove that if $f(x)$ and $g(x)$ are in $S,$ then the function $f(x)g(x)$ is also in $S.$
+	
+	\textbf{Solution.} Now  suppose that $f(x)\in S$ and $g(x)\in S$, we have $f_2(f(x))=\ln(f(x)+1)\in S$ and $f_2(g(x))=\ln(g(x)+1)\in S$. By (ii), we can add them up and obtain $\ln(f(x)+1)\ln(g(x)+1)=\ln((f(x)+1)(g(x)+1))\in S$ and by (i) and (ii) again, $f_1(\ln((f(x)+1)(g(x)+1)))
+	=e^{\ln((f(x)+1)(g(x)+1))}-1=(f(x)+1)(g(x)+1)-1=f(x)g(x)+f(x)+g(x)\in S$. By (ii) we have $f(x)+g(x)\in S$ and since $f(x), g(x)$ are both nonnegatively valued, $f(x)g(x)\ge 0$ and so $f(x)g(x)=(f(x)g(x)+f(x)+g(x))-(f(x)+g(x))\in S$. 
+	
+	\item[\textbf{B2}] Let $P$ be a given (non-degenerate) polyhedron. Prove that there is a constant $c(P)>0$ with the following property: If a collection of $n$ balls whose volumes sum to $V$ contains the entire surface of $P,$ then $n>c(P)/V^2.$
+	
+	\textbf{Solution.} The power-mean inequality says that, if $r_1, r_2, \cdots , r_n$ are the radii of the given circles, then considering the quadratic mean and cubic mean gives
+	\[\sqrt[3]{\frac{\sum_{i=1}^n r_i^3}{n}}\ge \sqrt{\frac{\sum_{i=1}^n r_i^2}{n}}\]
+	Raising each part to the sizth power gives $\left(\dfrac{\sum_{i=1}^n r_i^3}{n}\right)^2\ge \left(\dfrac{\sum_{i=1}^n r_i^2}{n}\right)^3$, which means $n(\sum_{i=1}^n r_i^3)^2\ge (\sum_{i=1}^n r_i^2)^3\cdots (*)$. 
+	
+	Having established (*), denote $A$ as the surface area of our polyhedron, $k$ as the number of faces of the polyhedron, and $A_i$ as the total surface area covered by the spheres. Since the spheres jointly cover the polyhedron, we must have $\sum_{i=1}^n A_i\ge A$. On the other hand, since the $i$-th sphere has radius $r_i$, for each face of the polyhedron, the coverage of that sphere with this surface is at most $\pi r_i^2$ (since each face is part of some plane in the space, and the interesection of a plane and a sphere of radius $r$, if they do intersect, is a circle, and has area at most $\pi r^2$.) This gives $A_i\le kr_i$, considering all faces. Thus we have the following: 
+	\[A\le \sum_{i=1}^n A_i\le k\pi \sum_{i=1}^n r_i^2, \qquad \sum_{i=1}^n r_i^2\ge \left(\frac{A}{k\pi}\right)\]
+	The total volume $V$ is given by $\frac 43 \pi \sum_{i=1}^n r_i^3$, so we have the following: 
+	\[nV^2 = n\left(\frac 43 \pi \sum_{i=1}^n r_i^3\right)^2\ge \left(\frac 43 \pi \right)^2 \left(\sum_{i=1}^n r_i^2\right)^3 \ge \frac {16}{9} \pi ^2 \left(\frac{A}{k\pi}\right)^3=\frac{16}{9}\cdot \frac{A^3}{k^3\pi}\]
+	The rightmost quantity above is positive since $P$ is not degenerate, and so we can take $c(P)$ to be any constant in the interval $\left(\frac{16}{9}\cdot \frac{A^3}{k^3\pi}\right)$. 
+	
+	\item[\textbf{B3}]A round-robin tournament among $2n$ teams lasted for $2n-1$ days, as follows. On each day, every team played one game against another team, with one team winning and one team losing in each of the $n$ games. Over the course of the tournament, each team played every other team exactly once. Can one necessarily choose one winning team from each day without choosing any team more than once?
+	
+	\textbf{Answer.} Yes. \\
+	\textbf{Solution.} We will proceeed by inducting on $n$. The case where $n=1$ is trivial since we simply choose the winning team on the only match. Now suppose that for some $n\ge 2$, for any $k<n$ and any round-robin tournament of $2k$ teams of $2k-1$ days, we can always choose a unique winning team each day. We proceed with the following cases: 
+	\begin{enumerate}
+		\item Suppose that there is a $k\in [1, 2n-1]$ and a subset of $k$ teams such that, the number of days in which at least one of the $k$ teams win the game in that day is $\ell$ and $\ell < k$. If $k=1$ then this team (namely $T$) loses in all the $2n-1$ days, so we can choose the team that beats $T$ in each day, and these $2n-1$ teams selected are different. Otherwise, each of the matches between the $k$ teams have exactly 1 winner, so they must happen within the $\ell$ days. Considering the matches between Team $i$ and team $j$ for $j\in [1, k]\backslash \{i\}$, which must happen on $k-1$ different days, we know that $\ell = k-1$. By considering the matches between the $k$ teams, there are $\dbinom{k}{2}\div (k-1)=\frac{k}{2}$ matches in each of the $k-1$ days, hence $k$ must be even. By induction hypothesis, since $k<2n-1$, we can choose a winner in each of the $k-1$ days such that the $k-1$ winners chosen are all distinct, and are part of the $k$ teams we mentioned before. In the rest of the $2n-k$ teams, fix one of the teams from the $k$ teams (say, Team 1) which loses in all $2n-k$ matches. We then pick the player who beats Team 1 every day in the $2n-k$ days. Each of the $2n-k$ teams are different, and are also different from the $k-1$ teams we picked in the initial $k-1$ days. This concludes the inductive proof for this part. 
+		
+		\item Now suppose that for each $k<2n$ and for each subset of $k$ teams, the number of days in which at east one of the $k$ teams win the game in that day is at least $k$. Pick $2n-1$ teams from the $2n$ teams arbitrarily. Now consider the bipartite graph consisting the said $2n-1$ teams and $2n-1$ days, with two vertices being connected by an edge if and only if the team wins on the day. By assumption, any $k$ teams are paired jointly to at least $k$ days. By Hall's lemma, there exists a matching between the players and the days. This also finishes the inductive proof. 
+	\end{enumerate}
+	
+	\item[\textbf{B6}]Let $p$ be an odd prime number such that $p\equiv 2\pmod{3}.$ Define a permutation $\pi$ of the residue classes modulo $p$ by $\pi(x)\equiv x^3\pmod{p}.$ Show that $\pi$ is an even permutation if and only if $p\equiv 3\pmod{4}.$
+	
+	\textbf{Solution.} Since $\pi(0)=0$ (identity), removal of 0 from our consideration does not affect the parity of $\pi$. Hence we consider the numbers $1, 2, \cdots , p-1$, which are all invertible elements in $\mathbb{Z}_p$. We shall first say that $\pi$ is indeed a permutation since 3 is relatively prime to $p-1=\Phi(p)$. Now for each number $x$ we consider the permutation orbit formed by $x$, and the length of the orbit $\ell$ is the smallest positive integer such that $\pi^\ell{x}=x$. On the other hand $\pi^{k}(x)=x^{3^k}$ as defined (taking modulo $p$), so $\ell$ is the minimal positive $k$ satisfying $x^{3^{k}}=x$. Dividing by $x$ (allowed since $x$ is invertible in $\bbZ_p$) yields $x^{3^k - 1}\equiv 1\pmod{p}$ so we have $\ell$ as the smallest $k$ with $\ord_p(x)|3^k-1$, which means $\ell$ is the order of 3 modulo $\ord_p(x)$. 
+	
+	Now that $\Phi(p)=p-1$, consider the primitive root $g$ and $\{1, 2, \cdots , p-1\}=\{1, g, g^2, \cdots , g^{p-2}\}$. The order of $g^k$ is the minimal $\ell$ such that $p-1|k\ell$, which is $\frac{p-1}{\gcd(p-1, k)}$. Therefore for each divisor $x$ of $p-1$ the number of elements with order $x$ is $\phi(x)$. As discussed above, for each number $y$ with order $x$ modulo $p$, the length of orbit of $y$ is $\ord_x(3)$, which means that the number of different orbits containing all numbers of order $x$ is $\frac{\phi(x)}{\ord_x(3)}$, and here comes the total number of orbits arising fro $\pi$: 
+	\[\sum_{x|p-1} \frac{\phi(x)}{\ord_x(3)}\]
+	The next task is to determine the parity of this number, which we will do this by grouping all the divisors of $p-1$ based on the largest odd factor of $x$. To be precise, if $q$ is the largest exponent of 2 dividing $p-1$ then for each off factor $y$ of $p-1$ we consider the sum $\sum_{j=0}^q \frac{\phi(2^j y)}{\ord_{2^j y}(3)}$. Assuming $y\neq 1$, since $y$ is odd (relatively prime to $2^j$), $\phi(2^j y)=\phi(2^j)\phi(y)=2^{j-1}\phi(y)$ and $\ord_{2^j y}(3)=\lcm(\ord_{2^j}(3), \ord_{y}(3))$ (all assuming $j\ge 1$). Knowing that $q\ge 1$, $\lcm(\ord_{2^j}(3), \ord_{y}(3))|\ord_{2^j}(3)\ord_{y}(3)$, and $\ord_{y}(3)|\phi(y)$, $\ord_{2^j}(3)|\phi(2^j)$, we have the following observation: if $\frac{\phi(y)}{\ord_{y}(3)}$ is even, then for all $j\ge 1$ we have  
+	\[\frac{\phi(2^j)\phi(y)}{\ord_{2^j}(3)\ord_{y}(3)}|\frac{\phi(2^j)\phi(y)}{\lcm(\ord_{2^j}(3), \ord_{y}(3))}=\frac{\phi(2^j y)}{\ord_{2^j y}(3)}\]
+	and since $\frac{\phi(2^j)}{\ord_{2^j}(3)}$ is an integer, the expression above is even. Otherwise, $\frac{\phi(y)}{\ord_{y}(3)}$ is odd. We first notice that $2^1||3-1$, $2^3||3^2-1$ and if $2^k|3^{\ell}-1$ then $2^{k+1}|2(3^{2\ell}-1)|(3^{\ell}-1)(3^{\ell}+1)$ so we have, for $j\ge 2$, $\ord_{2^j} (3)\le 2^{j-2}$. This means that $2|\frac{\phi(2^j)}{\ord_{2^j} (3)}$. This leaves us with $j=0$ and $j=1$, and we assumed that for $j=0$ the fraction is odd. For $j=1$ we have $\phi(2y)=\phi(y)$ and $\ord_{2y}(3)=\ord_{y}(3)$ since for $k\ge 1$, $y|3^k-1$ implies $2y|3^k-1$. Hence the fraction is also odd when $j=1$. So this gives an even sum in total, considering $y$ fixed and $j=0, 1, \cdots , q$. 
+	
+	It remains to consider the case $y=1$, which gives us the following sum: 
+	\[\sum_{j=0}^{q}\frac{\phi(2^q)}{\ord_{2^j}(3)}\]
+	Now this sum is 1 when $j=0, 1, 2$ and 2 otherwise, so if $q\ge 2$ this sum is odd and if $q=1$ this sum is even. The first case corresponds to the case where $4|p-1$, and since we have an odd number of orbits, $\pi$ is odd. The second case corresponds to the case where $4\nmid p-1$ and since we have a n even number of orbits, $\pi$ is even. 
 \end{enumerate}
 \end{document}
