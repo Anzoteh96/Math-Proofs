@@ -429,6 +429,34 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
     To finish the proof, after $n-1$ iterations, we have, for all $j<i$, $a_{ij}=0$. Thus $A$ is no upper triangular, and the determinant is simply the product of the diagonal entries. We also have $a_{ii}=1$ for $i=1$ and $f(i)-f(i-1)$ for $i\ge 2$. Now $f(i)-f(i-1)=\frac{1}{i}-\frac{1}{i-1}=-\frac{1}{i(i-1)}$. Hence we have 
     \[\det(A)=\prod_{i=2}^n -\frac{1}{i(i-1)}= - (-1)^{n-1}=\frac{1}{n[(n-1)!]^2}\]
     
+    \item[\textbf{A4}] Suppose $X$ is a random variable that takes on only nonnegative integer values, with $E[X]=1,$ $E[X^2]=2,$ and $E[X^3]=5.$ (Here $E[Y]$ denotes the expectation of the random variable $Y.$) Determine the smallest possible value of the probability of the event $X=0.$
+    
+    \textbf{Answer.} $\dfrac 13$. \\
+    \textbf{Solution.} (by Kiran Kedlaya, modified) We let $a_i=P(X=i)$ for each $i\ge 0$ (which means $a_i\ge 0$ for each $i$). Consider the power series $f(x)=\displaystyle\sum_{n=0}^{\infty}a_nx^n$, and we have $f(1)=1$. 
+    By the problem condition, we also have 
+    \begin{itemize}
+    	\item $f'(x)=\displaystyle\sum_{n=0}^{\infty}na_nx^{n-1}$, so $f'(1)=\displaystyle\sum_{n=0}^{\infty}na_n=E(X)=1$
+    	
+    	\item $f''(x)=\displaystyle\sum_{n=0}^{\infty}n(n-1)a_nx^{n-2}$, so
+    	$f''(1)=\displaystyle\sum_{n=0}^{\infty}n(n-1)a_n
+    	=\displaystyle\sum_{n=0}^{\infty}n^2a_n-\displaystyle\sum_{n=0}^{\infty}na_n
+    	=E(X^2)-E(X)
+    	=2-1=1
+    	$
+    	
+    	\item $f'''(x)=\displaystyle\sum_{n=0}^{\infty}n(n-1)(n-2)a_nx^{n-3}$ so 
+    	$f'''(1)=\displaystyle\sum_{n=0}^{\infty}(n^3-3n^2+2n)a_n
+    	=E(X^3)-3E(X^2)+2E(X)
+    	=5-3(2)+2(1)=1
+    	$
+    \end{itemize}  
+	Now we can rearrange $f(x)$ into $f(x)=\displaystyle\sum_{n=0}^{\infty} f^{(n)}(1)\dfrac{(x-1)^n}{n!}$, i.e. the Taylor's series. We also have, by Taylor's series, $f(x)=f(1)+f'(1)(x-1)+f''(1)\dfrac{(x-1)^2}{2!}+f'''(1)\dfrac{(x-1)^3}{3!}+f^{(4)}(c)\dfrac{(x-1)^4}{4!}$, with $c$ some value in $(1, x)$ or $(x, 1)$ depending whether $x<1$ or $1<x$. Thus in particular $a_0=f(0)=f(1)-f'(1)+\dfrac{f''(1)}{2}-\dfrac{f'''(1)}{6}+\dfrac{f^{(4)}(c)}{24}
+	=1-1+\dfrac{1}{2}-\dfrac{1}{6}+\dfrac{f^{(4)}(c)}{24}
+	=\dfrac{1}{3}+\dfrac{f^{(4)}(c)}{24}
+	$
+	for some $c\in (0, 1)$. 
+	We also note that $f^{(4)}(x)=\displaystyle\sum_{n=0}^{\infty}n(n-1)(n-2)(n-3)a_nx^{n-4}$ and for $x\ge 0$ and $n\ge 0$, the quantities $n(n-1)(n-2)(n-3)$, $a_n$, and $x^{n-4}$ are all nonnegative. Thus $f^{(4)}(x)\ge 0$ for all $x\ge 0$, and in particular $\dfrac{f^{(4)}(c)}{24}\ge 0$. Thus we have $f(0)=\dfrac{1}{3}+\dfrac{f^{(4)}(c)}{24}\ge \dfrac 13$, with equality holding when $a_0=\frac 13, a_1=\frac 12$ and $a_3=\frac 16$ and $a_n=0$ for other $n$'s. 
+    
     \item[\textbf{B2}]Suppose that $f$ is a function on the interval $[1,3]$ such that $-1\le f(x)\le 1$ for all $x$ and $\displaystyle \int_1^3f(x)\,dx=0.$ How large can $\displaystyle\int_1^3\frac{f(x)}x\,dx$ be?
     
     \textbf{Answer.} $\ln\frac 43$. \\
@@ -442,6 +470,22 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
     &=\ln \frac 43
     \end{flalign*}
     as desired. 
+    
+    \item[\textbf{B3}] Let $A$ be an $m\times n$ matrix with rational entries. Suppose that there are at least $m+n$ distinct prime numbers among the absolute values of the entries of $A.$ Show that the rank of $A$ is at least $2.$
+    
+    \textbf{Solution.} 
+    By the theorem of unique prime factorization, if $p, q, r, s$ are prime numbers with $pq=rs$ then $p=r$, $q=s$ or $p=s, q=r$ (so the four numbers cannot be pairwise distinct). 
+    The fact that there's at least one prime (and hence nonzero) number in $A$ implies that the rank of $A$ cannot be zero, so we can now assume that the rank of $A$ is 1, which is equivalent to assuming that there exists rational numbers $a_1, a_2, \cdots , a_m, b_1, b_2, \cdots , b_n$ such that $A_{ij}=a_ib_j$. 
+    
+    Now consider a graph $(V, E)$ with $n$ vertices. and we consider adding coloured edge by the following mechanism: for a row $i$, if $x_1<x_2<\cdots < x_k$ are the all the indices such that $A_{ix_j}$ are among the $m+n$ distinct prime numbers, then we add an edge coloured $i$ between $x_j$ and $x_{j+1}$ for each $1\le j\le k-1$. This means if row $i$ has $i_k$ prime numbers the there will be $i_k-1$ edges coloured $i$. Our colouring also ensures that there will be no monochromatic cycle in our graph, and there are at least $\displaystyle\sum_{k=1}^m (i_k-1)=(\displaystyle\sum_{k=1}^m i_k)-m=(m+n-m)=n$. 
+    
+    We first see what happens if there are two vertices $c_1, c_2$ with two edges coloured $k_1$ and $k_2$. This means $A_{k_ic_j}=a_{k_i}b_{c_j}$ are all prime numbers for all combinations of $i\in \{1, 2\}$ and $j\in \{1, 2\}$. Notice also that $A_{k_1c_1}A_{k_2c_2}=a_{k_1}b_{c_1}a_{k_2}b_{c_2}=a_{k_1}b_{c_2}a_{k_1}b_{c_2}=A_{k_1c_2}A_{k_2c_1}$, contradicting that the four prime numbers must be pairwise distinct. 
+    
+    Hence we know that there is at most an edge between two vertices, and since there are exactly $n$ vertices and at least $n$ edges, there exists a cycle comprising at least two different colours (since we have proven that there cannot be a monochromatic cycle above). Let $x_1, x_2, \cdots , x_k$ to be the cycle, with $x_ix_{i+1}$ connected by colour $r_i$ for each $1\le i\le k$. For each $i$, $A_{r_ix_i}$ and $A_{r_ix_{i+1}}$ are both primes, and let $p_{r_ix_i}, p_{r_ix_{i+1}}$ be the primes. Now $\frac{p_{r_ix_i}}{p_{r_ix_{i+1}}}=\frac{A_{x_ii}}{A_{x_i(i+1)}}=\frac{a_{x_i}b_i}{a_{x_i}b_{i+1}}=\frac{b_i}{b_{i+1}}$ (the fact that both entries are prime, i.e. nonzero, means that we don't have to worry about the validity of division). 
+	Thus we have 
+	\[1=\displaystyle\prod_{i=1}^k\frac{b_i}{b_{i+1}}=\displaystyle\prod_{i=1}^k \frac{p_{r_ix_i}}{p_{r_ix_{i+1}}}
+	\]
+	and by the theorem of unique prime factorization, $\displaystyle\prod_{i=1}^k p_{ii}$ and $\displaystyle\prod_{i=1}^k p_{(i+1)i}$ also implies that $\{p_{r_ix_i}: 1\le i\le k\}=\{p_{r_ix_{i+1}}\}: 1\le i\le k\}$. Since $p_{r_ix_i}$ corresponds to the entry $(r_i, x_i)$ and $p_{r_ix_{i+1}}$ the entry $(r_i, x_{i+1})$, and each $x_1, x_2, \cdots , x_k$ assumed to be distinct and each of the $m+n$ primes are distinct, we have $p_{r_ix_{i+1}}=p_{r_{i-1}x_i}$, $r_i=r_{i-1}$, so $r_1= r_2 = \cdots = r_k$. This also means that the only possibility is all edges of the cycle coloured the same colour $r_1$, contradiction. 
     
 \end{enumerate}
 
@@ -502,6 +546,30 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
 	&=\frac 13 (1+2\cos(2\pi x))^2\\
 	\end{flalign*}
 	which is clearly nonnegative all the time. We also have $f(0)=1+\frac 43+\frac 23=3$, establishing the equality. To show that 3 is indeed the maximum, it suffices to show that $\sum_{n=1}^N a_n\le 2$ at all times. But plugging $x=\frac 13$ gives $\cos(\frac 23 n\pi)=-\frac 12$ if $n$ is not divisible by 3, and 1 otherwise. Considering that $a_n=0$ whenever $n$ is a multiple of 3, we have $f(\frac 13)=1-\frac 12 \sum_{n=1}^N a_n\ge 0.$ Thus $\sum_{n=1}^N a_n\le 2$ must hold. Finally note the motivation to get the example $f(x)$ as shown in the beginning: we simply find a suitable $a$ such that $2ax^2+(2-a)x+(1-a)$ is always nonnegative, which is essentially asking for the discriminant $(2-a)^2-4(2a)(1-a)\le 0$, and we get $a=\frac 23$ as the sole answer. 
+	
+	\item[\textbf{B5}] Let $X=\{1,2,\dots,n\},$ and let $k\in X.$ Show that there are exactly $k\cdot n^{n-1}$ functions $f:X\to X$ such that for every $x\in X$ there is a $j\ge 0$ such that $f^{(j)}(x)\le k.$
+	
+	[Here $f^{(j)}$ denotes the $j$th iterate of $f,$ so that $f^{(0)}(x)=x$ and $f^{(j+1)}(x)=f\left(f^{(j)}(x)\right).$]
+	
+	\textbf{Solution.} We perform induction on $n$ and $n-k$. When $k=n$ (when $n-k=0$) then any function $f:X\to X$ works, so there are $n^n$ such functions; when $k=n-1$, the only requirement is that $f(n)\neq n$ so there are $(n-1)n^{n-1}$ such functions. 
+	
+	Thus now consider any $k\le n-2$. Observe that since $f^{0}(x)=x$, there is no restriction on $f(1), f(2), \cdots , f(k)$, giving $n^k$ choices to each of them. We first make a following detour to a lemma: there exists $x>k$ with $f(x)\le k$. Suppose not, then we have $f:\{k+1, \cdots , n\}\to \{k+1, \cdots , n\}$ and for each $x>k$ we have $f^{(j)}(x)>k$ for any $j\ge 0$, contradiction. 
+	
+	Now fix $m\in [1, n-k]$ such that exactly $m$ of the numbers $k<x\le n$ have $f(x)\le k$. This gives rise of $\dbinom{n-k}{m}$ ways to choose those $x$, and each of them takes values $\{1, 2, \cdots , k\}$, giving rise to $k^m$ of them. Now w.l.o.g. assume that those $m$ elements are $k+1, \cdots , k+m$. 
+	 To see how would $f(x)$ looks like for the other $x>k+m$'s, consider the problem of $g:\{1, 2, \cdots , n-k\}\to \{1, 2, \cdots , n-k\}$ where for each $x$, $g^{(j)}(x)\le m$ for some $j\ge 0$. Here, $g(1), \cdots g(m)$ can be arbitrary, (i.e. $(n-k)^m$ choices), and by the induction hypothesis $n-k<n$ since $k\ge 1$, the number of such $g$'s is $m\cdot (n-k)^{n-k-1}$, meaning that there are $(n-k)^{n-k-m-1}$ choices for $g(m+1), \cdots , g(n-k)$. Thus going back to our original problem here, we consider $f|_{k+m+1, \cdots , n}$ such that $f^{(j)}(x)\le k+m$ for some $j$ (this is because, given that $f(x)>k$ for all $x>k+m$, if $j_0$ is the minimum $j$ with $f^{(j_0)}(x)\le k$ then $f^{(j_0-1)}(x)\in \{k+1, \cdots , k+m\}$). This gives $m\cdot (n-k)^{(n-k-m-1)}$ choices on $f|_{k+m+1, \cdots , n}$, giving rise of $\dbinom{n-k}{m}\cdot k^m\cdot m\cdot (n-k)^{(n-k-m-1)}$ of them in total. 
+	 
+	 Hence considering all such $m\in [1, n-k]$ gives 
+	 
+	 \begin{flalign*}
+	 	\displaystyle\sum_{m=1}^{n-k}\dbinom{n-k}{m}\cdot k^m\cdot m\cdot (n-k)^{(n-k-m-1)}
+	 	&=\displaystyle\sum_{m=1}^{n-k}\dfrac{(n-k)!}{m!(n-k-m)!}\cdot k^m\cdot m\cdot (n-k)^{(n-k-m-1)}
+	 	\\&=\displaystyle\sum_{m=1}^{n-k}\dfrac{(n-k)(n-k-1)!}{(m-1)!(n-k-m)!}\cdot k^{m-1}\cdot k\cdot (n-k)^{(n-k-m-1)}
+	 	\\&=k\displaystyle\sum_{m=1}^{n-k}\dbinom{n-k-1}{m-1}\cdot k^{m-1}(n-k)^{(n-k-m)}
+	 	\\&=k(k+n-k)^{m-k-1}
+	 	\\&=kn^{n-k-1}
+	 \end{flalign*}
+	 so combining with the arbitrary choice of $f|_{1, 2, \cdots , k}$ we have $kn^{n-k-1}n^k=kn^{n-1}$, as desired. 
+	
 \end{enumerate}
 
 \section{Putnam 2012}
