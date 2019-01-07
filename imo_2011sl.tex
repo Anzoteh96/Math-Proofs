@@ -1,0 +1,355 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\section*{Algebra}
+\begin{enumerate}
+	\item [\textbf{A1}] (IMO 1). Given any set $A = \{a_1, a_2, a_3, a_4\}$ of four distinct positive integers, we denote the sum $a_1 +a_2 +a_3 +a_4$ by $s_A$. Let $n_A$ denote the number of pairs $(i, j)$ with $1 \leq  i < j \leq 4$ for which $a_i +a_j$ divides $s_A$. Find all sets $A$ of four distinct positive integers which achieve the largest possible value of $n_A$.
+	
+	\textbf{Answer.} All sets in the form $\{d, 5d, 7d, 11d\}$ and $\{d, 11d, 19d, 29d\}$ with $d\in\bbN$. \\
+	\textbf{Solution.} We first show that $n_A\le 4$. Since the numbers are distinct, we can order them as $a_1<a_2<a_3<a_4$ and we have $a_3+a_4<s_A=a_1+a_2+a_3+a_4<a_3+a_4+a_3+a_4=2(a_3+a_4)$ we have $a_3+a_4\nmid s_A$. Similarly $a_2+a_4<s_A=a_1+a_2+a_3+a_4<a_2+a_2+a_4+a_4=2(a_2+a_4)$ we also have $a_2+a_4\nmid s_A$. 
+	Therefore to achieve the maximum we need $n_A=4$ (as we will show later that this is attainable), we need all $a_1+a_2, a_1+a_3, a_1+a_4, a_2+a_3$ to divide $s_A$. We can also see that this condition forces $a_1+a_4$ and $a_2+a_3$ to divide each other, and therefore these two sums must be equal, i.e. $a_1+a_4=a_2+a_3=s_A$. 
+	
+	Now there must exist integers $k$ and $\ell$ such that $s_A=k(a_1+a_2)=\ell(a_1+a_3)$, so $a_1+a_2=\frac 1k s_A$ and $a_1+a_3=\frac 1{\ell} s_A$. Adding these up gives $\frac {s_A}{2}=a_2+a_3<2a_1+a_2+a_3=s_A(\frac 1k + \frac 1{\ell})$ and we have both $a_1+a_2<a_2+a_3$ and $a_1+a_2<a_2+a_3$, so $k, \ell>2$. However $\frac 1k + \frac 1{\ell}>\frac 12$ we can easily see the the smaller of them, i.e. $\ell$, must be equal to 3, and $k$ must be equal to 4 or 5. 
+	
+	If $k=4$ then we can solve $a_1, a_2, a_3, a_4=(d, 5d, 7d, 11d)$ and if $k=5$ we can solve $a_1, a_2, a_3, a_4=(d, 11d, 19d, 29d)$. It's not hard to show that these answers work. 
+	
+	Remark 1: my solution in the real contest is way messier than this, where I wrote $a_4=a_2+a_3-a_1$ and solve the other variables in terms of $k$ and $\ell$ (though it worked in the end). 
+	
+	Remark 2: the relation $\frac 1k + \frac 1{\ell}>\frac 12$ also (kind of) resembles the reason why there are only 5 platonic solids. 
+	
+	\item[\textbf{A2}] Determine all sequences $(x_1,x_2,\ldots,x_{2011})$ of positive integers, such that for every positive integer $n$ there exists an integer $a$ with \[\sum^{2011}_{j=1} j  x^n_j = a^{n+1} + 1\]
+	
+	\textbf{Answer.} The only possible sequence is $x_1=1$ and $a=x_2=\cdots = x_{2011}=2+3+\cdots + 2011$. \\
+	\textbf{Solution.} First, for each $j$ we have $\sum^{2011}_{j=1} j  x^n_j - 1\ge jx_j^n$ since each term is positive. Also using the notion of limits $\lim_{n\to\infty} (jx_j^n)^{\frac{1}{n+1}}=\lim_{n\to\infty}  j^{\frac{1}{n+1}}x_j^{\frac{n}{n+1}}=j^0x_j^1=x_j$, so we can conclude that $a\ge x_j$ for $n$ sufficiently large. In other words, for $n$ sufficiently large we have $a\ge X=\max\{x_1, x_2, \cdots, x_{2011}\}$. 
+	On the other hand we have $\sum^{2011}_{j=1} j  x^n_j-1 \le X^n(1+\cdots + 2011)-1<CX^n$ where $C=1+\cdots + 2011$. 
+	As usual $\lim_{n\to\infty}(CX^n)^{\frac{1}{n+1}}=C^{\frac{1}{n+1}}X^{\frac{n}{n+1}}=C^0X^1=X$ so we have $a\le X$ too for $n$ sufficiently large, too. Hence we have $a=X$ for all sufficiently large $n$. 
+	
+	Now we have $X^{n+1}=\sum^{2011}_{j=1} j  x^n_j - 1$, and dividing each side by $X^n$ we have 
+	$X=\sum^{2011}_{j=1}j\left(\frac{x_j}{X}\right)^n-\left(\frac{1}{X}\right)^n$ for all sufficiently large $n$. Since each $x_j\le X$, $j\left(\frac{x_j}{X}\right)^n$ converges to $j$ if $x_j=X$ and 0 if $x_j<X$ (when $n\to\infty$). 
+	Thus it's not hard to see that
+	\[
+		X=\lim_{n\to\infty}\sum^{2011}_{j=1}j\left(\frac{x_j}{X}\right)^n-\left(\frac{1}{X}\right)^n
+		=\dsum_{1\le j\le 2011, x_j=X} j
+	\]
+	and therefore for $n$ sufficiently large we have 
+	\begin{flalign*}
+		\dsum_{1\le j\le 2011, x_j=X} j &= \sum^{2011}_{j=1}j\left(\frac{x_j}{X}\right)^n-\left(\frac{1}{X}\right)^n
+		\\& =\dsum_{1\le j\le 2011, x_j=X} j \left(\frac{x_j}{X}\right)^n + \dsum_{1\le j\le 2011, x_j < X} j \left(\frac{x_j}{X}\right)^n - \left(\frac{1}{X}\right)^n
+		\\& =\dsum_{1\le j\le 2011, x_j=X} j + \dsum_{1\le j\le 2011, x_j < X} j \left(\frac{x_j}{X}\right)^n - \left(\frac{1}{X}\right)^n
+	\end{flalign*}
+	which we can conclude that $\dsum_{1\le j\le 2011, x_j < X} j \left(\frac{x_j}{X}\right)^n - \left(\frac{1}{X}\right)^n=0$ for all sufficiently large $n$. Multiplying by $X^n$ again we get $1=\dsum_{1\le j\le 2011, x_j < X} jx_j^n$ for all sufficiently large $n$. Thus the only $j$ that can have $x_j<X$ is $j=1$, in which $x_1=1$. The other $j$ has $x_j=X=\dsum_{1\le j\le 2011, x_j=X} j = 2+\cdots + 2011$, as desired. 
+	
+	\item[\textbf{A5}] Prove that for every positive integer $n,$ the set $\{2,3,4,\ldots,3n+1\}$ can be partitioned into $n$ triples in such a way that the numbers from each triple are the lengths of the sides of some obtuse triangle.
+	
+	\textbf{Solution.} 
+	The idea is to form the triples $(a, b, c)$ such that, if $a<b<c$ then $c-b\in\Theta(a)$ as compared to other $a$ (and when $n$ grows big). We form the $n$ triples in the following way: all the $n$ smallest numbers $2, \cdots , n+1$ will be in different triples as the smallest element in the triple. For the remaining $2n$ numbers, we need the following: let $k$ be the greatest number such that $2^0+2^1+\cdots + 2^k\le n$, then $n=2^0+2^1+\cdots + 2^k+\ell$ with $\ell < 2^{k+1}$. 
+	We now sort $2^0, \cdots , 2^k, \ell$ in nondecreasing order $a_1, a_2, \cdots , a_{k+1}$ ($\ell$ could be 0 for degenerate case, and we shall omit it for time being). 
+	For each $i=1, 2, \cdots , n$, let $j$ be the minimal index with $a_1+a_2+\cdots + a_j\le i$. 
+	We now name the $i$-th triple as follow: let $a_1+\cdots + a_{j-1}=p$, then the $i$-th triple is $(i+1, n+1+2p+(i-p), n+1+2p+a_j+(i-p))$. 
+	
+	To show that this triple works, we first need to see that it's disjoint and all within the range $\{2, 3, \cdots , 3n+1\}$. Observe that the first element $i+1$ corresponds to the $i$-th triple, so they are in the range $\{2, \cdots , n+1\}$. Then, the partition of $a_1, a_2, \cdots , a_{k+1}$ puts them into $k+1$ different ``buckets''. In the explanation above, $i$ is in the $j$-th bucket and the middle elements in this $j$-th bucket are in between $n+1+2p+1$ to $n+1+2p+a_j$ (inclusive) and the largest elements in this bucket are in between $n+1+2p+a_j+1$ and $n+1+2p+2a_j$, so recall that $p=a_1+\cdots + a_{j-1}$ we infer that the numbers are all distinct from $n+1+2(a_1+\cdots + a_{j-1})+1$ too $n+1+2(a_1+\cdots + a_j)$. The largest possible number (considering all $j$'s) is then $n+1+2(a_1+\cdots + a_{k+1})=n+1+2n=3n+1$, completing the claim. 
+	
+	We now show that the resulting triples are the side lengths of obtuse triangles. To this end, if $a<b<c$ are the elements of the triples then we need $c-b<a$ but then $(c-b)(c+b)=c^2-b^2>a^2$. 
+	Let's use the example from above, i.e. our description. In the triple $(i+1, n+1+2p+(i-p), n+1+2p+a_j+(i-p))$ we have $a=i+1$, $b=n+1+2p+(i-p)$ and $c=n+1+2p+a_j+(i-p)$. 
+	We have $c-b=a_j$. 
+	Recall also that, $a_1+a_2+\cdots + a_{j-1}<i\le a_1+a_2+\cdots + a_j$. 
+	For $a_j>1$, $m$ is the biggest number such that $2^m<a_j$ then the numbers $1, 2, \cdots , 2^{m}$ must all appear before $a_j$ so $a_1+\cdots + a_{j-1}\ge 1+\cdots + 2^{m}=2^{m+1}-1$. 
+	By the maximality of $m$ we also have $a_j\le 2^{m+1}$, and since $i>a_1+\cdots + a_{j-1}\ge 2^{m+1}-1$, $i\ge 2^{m+1}$ and so $a=i+1>2^{m+1}\ge a_j=c-b$, so $(a, b, c)$ is indeed side of a triangle. 
+	
+	To see from above that $(a, b, c)$ is indeed obtuse, we have 
+	$c^2-b^2=(c-b)(c+b)=a_j(a_j+2(n+1+2p+(i-p)))$ and we need to show that this is strictly greater than $a^2=(i+1)^2$. We first notice that $i$ is at most $a_1+a_2+\cdots + a_j$, therefore: 
+	\begin{flalign*}
+		\frac{i+1}{a_j}&\le \frac{a_1+a_2+\cdots + a_j+1}{a_j}
+		\\&=\frac{a_1+a_2+\cdots + a_{j-1} + 1}{a_j}+1
+	\end{flalign*}
+	If $a_j$ is not in the form $2^m$ then $a_j=2^{j-2}+c$ with $a_{\ell}=2^{\ell-1}$ for $\ell<j$ so $a_1+a_2+\cdots + a_{j-1} + 1=1+2+\cdots + 2^{j-2}+1=2^{j-1}$ so $\frac{a_1+a_2+\cdots + a_{j-1} + 1}{a_j}+1=\frac{2^{j-1}}{\frac{2^{j-2}}+c}+1\le 2+1=3$;
+	otherwise $a_j=2^m$ and $a_1+\cdots +a_j\le 1+2+\cdots +2^{m}=2^{m+1}-1$ so in this case we also have 
+	$\frac{a_1+a_2+\cdots + a_{j-1} + 1}{a_j}+1\le 3$, too. 
+	This means, $i+1\le 3a_j$. 
+	Next, we investigate the number $a_j+2(n+1+2p+(i-p))=a_j+2(n+1)+4p+2(i-p)\ge a_j+2i+4p+2(i-p)$. 
+	We have $i-p\ge 1$ since $p=a_1+\cdots +a_{j-1}<i$. 
+	Also, recall that $i+1\le a_1+a_2+\cdots + a_j + 1$ so 
+	$a_j+4p=a_j+4(a_1+\cdots + a_{j-1})\ge a_j+a_1+\cdots a_{j-1}$, with equality only if $a_1+\cdots + a_{j-1}=p=0$. This only happens when $i=1$, in which case we have $(2, n+2, n+3)$ which is obtuse since $(n+3)^2-(n+2)^2=2n+5>4$. 
+	For $i>1$ we have $p\ge 1$ so $a_j+4(a_1+\cdots + a_{j-1}) \ge a_j+a_1+\cdots a_{j-1} + 3>i+1$, so 
+	$a_j+4p>i+1$ and $2(n+1)+2(i-p)\ge 2i+2$, resulting in $a_j+2(n+1+2p+(i-p))>3(i+1)$. 
+	Summarizing above, we have $c-b=a_j\ge \frac{i+1}{3}=\frac{a}{3}$ and $c+b>3(i+1)=3a$. 
+	Thus $c^2-b^2=(c-b)(c+b)>\frac{a}{3}\times 3a=a^2$, as desired. 
+	
+	\item[\textbf{A6}] Let $f : \mathbb R \to \mathbb R$ be a real-valued function defined on the set of real numbers that satisfies
+	\[f(x + y) \leq yf(x) + f(f(x))\]
+	for all real numbers $x$ and $y$. Prove that $f(x) = 0$ for all $x \leq 0$.
+	
+	\textbf{Solution.} As per the official solution, we need to first show that $f(x)\le 0$ for all $x$. 
+	Let $x_0$ be a number such that $f(x_0)>0$. Then $f(x_0+y)\le yf(x_0)+f(f(x_0))$. 
+	This means, for each threshold $M$, for all $y<\frac{M-f(f(x_0))}{f(x_0)}$ we have $f(x_0+y)\le yf(x_0)+f(f(x_0))<M$. This means, for all sufficiently small $x$ we have $f(x)<M$. 
+	Now, if $x+y=x_0$ then $yf(x) + f(f(x))\ge f(x_0)>0$. 
+	Choose $x$ such that $y=x_0-x>0$ (i.e. $x<x_0$) and $x$ small enough such that $f(x), f(f(x))<0$. 
+	(That is, if $m_0$ is such that $f(x)<0$ for all $x<m_0$ and $m_1$ is such that $f(x)<m_0$ for all $x<m_1$ then we choose $x<\min\{m_0, m_1, x_0\}$ so $f(x)<0$ and $f(f(x))<0$, too. 
+	Now, $y=x_0-x>0$, $f(x)<0$ and $f(f(x))<0$ so $yf(x)+f(f(x))<0$ but then $f(x+y)=f(x_0)>0$, contradiction. 
+	
+	Having established this, we need to show that 0 is a value of $f$. Suppose not, then $f(x)<0$ for all $x$. 
+	We notice that $f(f(x))< 0$ so $f(x+y)\le yf(x)+f(f(x))< yf(x)$. 
+	This means $f(x+y)<yf(x)<f(x)$ if $y\ge 1$, or equivalently $f(x-1)>f(x)$. Consider, for now, the number $f(-1)$. Then for all $x\le -2$ we have $f(x)>f(-1)$. So by choosing $x<\min\{f(-1), -2\}$ we have $f(x)>f(-1)>x$, i.e. $f(x)>x$. 
+	Consider one such $x_2$ and by the lemma above, $f(x_2-1)>f(x_2)>x_2$. 
+	Plugging $y=0$ gives $f(x_2-1)\le f(f(x_2-1))$. But since $f(x_2-1)>x_2$, $f(f(x_2-1))<f(x_2-1)$, which is a contradiction. Thus $f$ cannot be all negative. 
+	
+	Now that $f(x_1)=0$ for some $x_1$, by plugging $y=0$ we get $f(x_1)\le f(f(x_1))$, i.e. $f(0)\ge 0$ so $f(0)=0$ by the first lemma. Now for all $x>0$ we have $0=f(0)=f(x-x)\le xf(-x)+f(f(x))\le xf(-x)$ since $f(f(x))\le 0$. Since $x$ is positive, $f(-x)$ must be nonnegative. Since $f(-x)$ is also nonpositive, we have $f(-x)=0$ for all $x>0$, so $f(x)=0$ for all $x<0$. 
+	
+\end{enumerate}
+
+\section*{Combinatorics}
+\begin{enumerate}
+	\item [\textbf{C1}] (IMO 4) Let $n > 0$ be an integer. We are given a balance and $n$ weights of weight $2^0, 2^1, \cdots, 2^{n-1}$. We are to place each of the $n$ weights on the balance, one after another, in such a way that the right pan is never heavier than the left pan. At each step we choose one of the weights that has not yet been placed on the balance, and place it on either the left pan or the right pan, until all of the weights have been placed.
+	Determine the number of ways in which this can be done.
+	
+	\textbf{Answer.} $1\times 3 \times \cdots \times (2n-1)$. \\
+	\textbf{Solution.} The key to the problem is to notice that if $a_1, a_2, \cdots , a_k$ are distinct nonnegative integers and $M=\max\{a_1, \cdots , a_k\}$ then $2^{M}\le 2^{a_1}+\cdots + 2^{a_k}\le 2^{M+1}-1<2^{M+1}$. 
+	Therefore, a sequence is valid if and only if at each time, either the right pan is empty, or both pans are nonempty and the heaviest weight on the left pan is heavier than the heaviest weight on the right pan.
+	We can also see that the pans can never be of the same weight for this reason, unless both pans are empty. 
+	
+	Having known these, we can use induction to show that if $f(n)$ is the number of ways when $n$ is the number weights, then $f(1)=1$ and $f(n)=(2n-1)f(n-1)$. 
+	Base case $n=1$ is simple: the only weight can only be added on the left. 
+	Now consider a sequence of $n$ weights $n\ge 2$ and consider the lightest of the weights (i.e. 1). By removing this weight from the sequence, we see that both pans contain weights in the set $\{2^1, \cdots , 2^{n-1}\}$, and moreover the pans have a weight difference of at least 2. Therefore, adding the weight 1 on either side will never change the validity of the pans (i.e. the left pan is heavier before the addition of 1 iff the left pan becomes heavier after that). 
+	We then infer that a valid sequence of $n$ weights comes from the valid sequence of $n - 1$ weights, with 1 inserted. This 1 can be inserted anywhere in the sequence and on any pan, except that if it's the first to be placed it has to be on the left pan. This gives $2n-1$ ways, making $f(n)=(2n-1)f(n-1)$. 
+	
+	It's also technically possible to induct on the heaviest weight, i.e. the one with weight $2^{n-1}$. 
+	For each $1\le k\le n$, suppose that this weight is the $k$-th weight to be placed onto the pans. We notice the following: 
+	\begin{itemize}
+		\item This heaviest weight must be on the left. 
+		
+		\item The $k - 1$ previous weights must follow the rule of "max of left $>$ max of right", so within the $k-1$ weights themselves, there are $f(k-1)$ ways to arrange them. Notice that we also have $\dbinom{n-1}{k-1}$ to choose those $k-1$ weights from the $n-1$ remaining weights. 
+		
+		\item Finally, the $n-k$ subsequent weights can be placed arbitrarily. This gives $(n-k)!$ permutations of the $n-k$ weights, each with 2 possible choices, left or right. 
+	\end{itemize}
+	Thus considering all these we have the summation $\dsum_{k=1}^{n} f(k-1)\dbinom{n-1}{k-1}(n-k)!2^{n-k}=\dsum_{k=1}^{n} f(k-1)2^{n-k}\dfrac{(n-1)!}{(k-1)!}$, with $f(0)=1$ by convention (we used the fact that $\dbinom{n-1}{k-1}=\dfrac{(n-1)!}{(k-1)!(n-k)!}$). 
+	If we look at the term $f(k-1)2^{n-k}\dfrac{(n-1)!}{(k-1)!}$ more carefully, by the assumption $f(k-1)=1\times 3\times \cdot\times (2k-3)$ we have 
+	\begin{flalign*}
+		f(k-1)2^{n-k}\dfrac{(n-1)!}{(k-1)!}&=1\times 3\times \cdots\times (2k-3) 2^{n-k} k\times (k+1)\times\cdots \times (n-1)\\
+		&=1\times 3\times \cdots \times (2k-3) \times 2k \times (2k+2)\times \cdots \times (2n-2)
+	\end{flalign*}
+	The final (and ultimate) computation requires us to do some telescoping sum. 
+	Fixing $n$, let $g(k)=1\times 3\times \cdots (2k-3)\times 2k \times (2k+2)\times \cdots \times (2n-2)$, then we show that $g(1)+\cdots + g(k)=1\times 3\times \cdots \times (2k-1) \times 2k \times (2k+2)\times \cdots \times (2n-2)$. 
+	Again we can do induction on $k$: $g(1)=2\times \cdots \times (2n-2)=1\times 2\times \cdots \times (2n-2)$ and 
+	\begin{flalign*}
+		g(0)+\cdots + g(k)+g(k+1)&=1\times 3\times \cdots \times (2k-1) \times 2k \times (2k+2)\times \cdots \times (2n-2) \\
+		&+ 1\times 3\times \cdots \times (2k-1) \times (2k+2) \times (2k+2)\times \cdots \times (2n-2)
+		\\&=1\times 3\times \cdots \times (2k-1) \times (2k+1) \times (2k+2)\times \cdots \times (2n-2)
+	\end{flalign*}
+	as desired. Thus letting $k=n$ we have $f(n)=g(1)+\cdots + g(n)=1\times 3\times \cdots \times (2n-1)$, as desired. 
+	
+	\item[\textbf{C7}] On a square table of $2011$ by $2011$ cells we place a finite number of napkins that each cover a square of $52$ by $52$ cells. In each cell we write the number of napkins covering it, and we record the maximal number $k$ of cells that all contain the same nonzero number. Considering all possible napkin configurations, what is the largest value of $k$?
+	
+	\textbf{Answer.} $2011^2-2\times 17\times 2011 + 38 \times 17^2 = 3986729$. \\
+	\textbf{Solution.} An example has been shown in the official solution, whereby a total of $39^2$ napkins is used: label the napkins as $(i, j)$ with $1\le i, j\le 39$ (notice that $2011=38\times 52+35$). If $i+j\le 39$ then $(i, j)$ covers row from $52(i-1)+1$ to $52i$ and $52(j-1)+1$ to $52j$, inclusive; 
+	if $i+j=40$ $(i, j)$ covers row from $52(i-1)+1$ to $52i$ and $52(j-1)-16$ to $52j-17$, inclusive (except $(39, 1)$ which covers the bottom left corner, as in the next case); finally if $i+j\ge 41$ then $(i, j)$ covers fow from $52(i-1)-16$ to $52i-17$ and $52(j-1)-16$ to $52j-17$. 
+	This way, all squares have frequency 1 except the following cells: those in the form $52(i-1)+k, 52(39-i)+\ell$ and $52(i-1)+\ell$, $52(39-i)+k$ for $1\le i\le 39$, $1\le k\le 52$ (but $52(i-1)+k\le 2011$) and $36\le k\le 52$. 
+	The first case corresponds to $2011\times 17$ of the cells; same goes to the second case. But then for the case $k\ge 36$ we double-counted so the number of cells not with frequency 1 is $2\times 17\times 2011-38\times 17^2$. 
+	
+	To show that this is indeed an upper bound, for each row, now, we investigate those cells with frequency the same frequency $k>0$. Also we classify the cells into four categories: for a cell $(i, j)$ with remainder $(i', j')$ when divided by 52 ($1\le i', j'\le 52$) we have category 1: $1\le i', j'\le 35$, category 2: $1\le i'\le 35$, $36\le j'\le 52$, category 3: $36\le i'\le 52$, $1\le j'\le 35$ and category 4: $36\le i', j'\le 52$. 
+	Consider each row $r$ with cells $(r, j)$, $1\le j\le 2011$. 
+	We notice that for each $1\le j'\le 52$, there are 38 cells congruent to $j'$ mod 52 if $36\le j'\le 52$ and 39 cells congruent to $j'$ otherwise. 
+	We also notice that, consider each cell with coordinates modulo 52, for each $(i', j')\in \mathbb{Z}_{52}^2$, each napkin covers $(i', j')$ exactly once. 
+	This means that if the number of napkins covering row $r$ is strictly less than $39k$, then for each $1\le j' \le 35$ there is at least one cell congruent to $j'$ mod 52 that has frquency strictly less than $k$; call those cells deficient. 
+	Analogously, if the number of napkins covering row $r$ is strictly more than $38k$, then for each $36\le j' \le 52$ there is at least one cell congruent to $j'$ mod 52 that has frquency strictly more than $k$; call those cells excessive. 
+	Since at least one of the scenarios above happen, we infer that for each row either there's at least 35 deficient cells or 17 excessive cells; moreover the 35 deficient cells are of category 1 if $1\le r'\pmod{52}\le 35$ and category 3 otherwise; the 17 excessive cells are of category 2 if $1\le r'\pmod{52}\le 35$ and category 4 otherwise. 
+	In a similar way, for each column $c$ there's also either at least 35 deficient cells (category 1 or 2 depending on $c$), or at least 17 excessive cells (category 3 or 4 depending on $c$). 
+	
+	Now let $d$ and $e$ be rational numbers such that there are exactly $35d$ deficient type 1 cells and $17e$ excessive type 4 cells. Since there are $35\times 39$ rows (and respectively columns) that are of remainder $1\le r\le 35$, there must be at least $17(35\times 39-d)$ excessive type 2 cells (by considering the rows) and similarly $17(35\times 39-d)$ excessive type 3 cells. Likewise, since there are $17\times 38$ rows (and respectively columns), there must be at least $\max\{35(17\times 38-e), 0\}$ deficient type 2 cells and similarly $\max\{35(17\times 38-e), 0\}$ deficient type 3 cells. 
+	The cells in the two scnearios are mutually disjoint: the deficient and excessive cells of same category can't overlap since we cannot have the frequency of some cell to be $>k$ an $<k$ simultaneously
+	The cells with frquency not $k$ induced by $d$ in category 1 is at least 
+	\begin{flalign*}
+		35d+2\times 17(35\times 39-d)
+		&=2\times 17\times 35\times 39 +d
+		\\&\ge 2\times 17\times 35\times 39
+	\end{flalign*}
+	The cells with frquency not $k$ induced by $e$ in category 4 is lower-bounded by $17e+2\max\{35(17\times 38-e), 0\}$. When $e\le 17\times 38$ we have $17e+2\times 35\times 17\times 38 - 70e = 2\times 35\times 17\times 38 - 53e \ge 2\times 35\times 17\times 38 - 53(17\times 38) = 17^2\times 38$; when $e\ge 17\times 38$ this count is simply $17(17\times 38)$. Hence the lower bound here is $38\times 17^2$. 
+	
+	Summing up, a lower bound of the cells with frequency not $k$ is $2\times 17\times 35\times 39 + 38\times 17^2 = 17(2\times 35\times 39 + 38\times 17)=17(2011-38\times 17)$, as desired. 
+	
+\end{enumerate}
+
+\section*{Geometry}
+\begin{enumerate}
+	\item[\textbf{G2}] Let $A_1A_2A_3A_4$ be a non-cyclic quadrilateral. Let $O_1$ and $r_1$ be the circumcentre and the circumradius of the triangle $A_2A_3A_4$. Define $O_2,O_3,O_4$ and $r_2,r_3,r_4$ in a similar way. Prove that
+	\[\frac{1}{O_1A_1^2-r_1^2}+\frac{1}{O_2A_2^2-r_2^2}+\frac{1}{O_3A_3^2-r_3^2}+\frac{1}{O_4A_4^2-r_4^2}=0.\]
+	
+	\textbf{Solution.} Let diagonals $A_1A_3$ and $A_2A_4$ meet at point $P$. Notice that the quantity $O_iA_i-r_i^2$ is actually the power of point from $A_i$ to the circumcircle of triangle not containing $A_i$. To meaningfully compute these power of points, we need to consider the ``signed lengths'' of $PA_1, PA_2, PA_3, PA_4$: if for some angle, $\angle A_i>180^{\circ}$ (i.e. noncovex) then we let $PA_i<0$. 
+	
+	Now consider $PA_1$. We have $A_1A_3=PA_1+PA_3$, and if $Y$ is the second intersection of the circle $A_2A_3A_4$ and $A_1A_3$ then power of point theorm (on point $P$) says $PA_2PA_4=PA_3PY$. Consequently, the power of point of $A_1$ to this circle is $A_1A_3\cdot (PA_1-PY)=(PA_1+PA_3)\cdot (PA_1-\frac{PA_2PA_4}{PA_3})=(PA_1+PA_3)(\frac{PA_1PA_3-PA_2PA_4}{PA_3})$. This gives 
+	$\frac{1}{O_1A_1^2-r_1^2}=\frac{PA_3}{(PA_1+PA_3)(PA_1PA_3-PA_2PA_4)}$. 
+	Similarly, $\frac{1}{O_2A_2^2-r_2^2}=\frac{PA_4}{(PA_2+PA_4)(PA_2PA_4-PA_1PA_3)}$, 
+	$\frac{1}{O_3A_3^2-r_3^2}=\frac{PA_1}{(PA_1+PA_3)(PA_1PA_3-PA_2PA_4)}$ and 
+	$\frac{1}{O_4A_4^2-r_4^2}=\frac{PA_2}{(PA_2+PA_4)(PA_2PA_4-PA_1PA_3)}$. 
+	Thus the desired sum becomes 
+	\begin{flalign*}
+		\frac{1}{O_1A_1^2-r_1^2}+\frac{1}{O_2A_2^2-r_2^2}+\frac{1}{O_3A_3^2-r_3^2}+\frac{1}{O_4A_4^2-r_4^2}
+		&=\frac{PA_1+PA_3}{(PA_1+PA_3)(PA_1PA_3-PA_2PA_4)}
+		\\& + \frac{PA_2+PA_4}{(PA_2+PA_4)(PA_2PA_4-PA_1PA_3)}
+		\\&=\frac{1}{PA_1PA_3-PA_2PA_4} + \frac{1}{PA_2PA_4-PA_1PA_3}
+		\\&=\frac{1}{PA_1PA_3-PA_2PA_4} - \frac{1}{PA_1PA_3-PA_2PA_4} 
+		\\&= 0
+	\end{flalign*}
+	as desired. 
+	
+	\item[\textbf{G6}] Let $ABC$ be a triangle with $AB=AC$ and let $D$ be the midpoint of $AC$. The angle bisector of $\angle BAC$ intersects the circle through $D,B$ and $C$ at the point $E$ inside the triangle $ABC$. The line $BD$ intersects the circle through $A,E$ and $B$ in two points $B$ and $F$. The lines $AF$ and $BE$ meet at a point $I$, and the lines $CI$ and $BD$ meet at a point $K$. Show that $I$ is the incentre of triangle $KAB$.
+	
+	\textbf{Solution.} To show that $BI$ bisects $\angle ABK$ is the same as showing that $BE$ bisects $\angle ABD$. If $D'$ is the second intersection of $AB$ and the circle $BEDC$ then $D$ and $D'$ are symmetric to each other in the line $AE$, hence $ED=ED'$ and so $\angle ABE=\angle D'BE=\angle EBD$, establishing the claim.
+	
+	To finish the rest, we consider a third circle centered at $D$ and passes through $C$ and $A$. We claim that $F$ is on this circle too by showing that $DA=DF$. Now by angle chasing we have $\angle ADB=180^{\circ}-\angle BDC=180^{\circ}-\angle BEC=refl\angle BEC - 180^{\circ}=2\angle AEB-180^{\circ}=2\angle AFB-180^{\circ}=2(180^{\circ}-\angle AFD)-180^{\circ}=180^{\circ}-2\angle AFD$ (the refl notation means reflex angle). 
+	Thus, $\angle ADB=180^{\circ}-2\angle AFD$ and we have $\angle AFD+\angle FAD=2\angle AFD$, so $\angle AFD=\angle FAD$ so $DA=DF$, as claimed. 
+	
+	Now, we consider the three circles: $BEDC$, $AEFB$ and $AFC$, with the first two given in the problem and third defined on our own. The first two circles have $BE$ as the radical axis, and the last two has $AF$ as the radical axis. Hence, the intersection, $I$, is the radical center of the three circles. Since $C$ is on both circles $BEDC$ and $AFC$, $CI$ is the radical axis of these two circles. This means, if $O$ is the center of the circle $BEDC$ then $DO\perp CI$. Since $O$ is the center of $BDC$ we have $\angle CDO+\angle DBC=90^{\circ}$; since $DO\perp CI$ we have $\angle CDO+\angle DCI=90^{\circ}$. 
+	Therefore $\angle DBC=\angle DCI=\angle DCK$, and equivalently, $\angle DKC=\angle DCB$. 
+	Knowing this, the last part is to observe the following: 
+	\begin{flalign*}
+		\angle ABI+\angle FIK&=\frac{\angle ABF}{2}+(180^{\circ}-\angle IFK-\angle IKF)
+		\\&=\frac{\angle ABC-\angle DBC}{2}+(180^{\circ}-\angle AFD-\angle DKC)
+		\\&=\frac{\angle ABC-\angle DBC}{2}+(180^{\circ}-\frac{180^{\circ}-\angle ADF}{2}-\angle DCB)
+		\\&=\frac{\angle ABC-(180^{\circ}-\angle BDC - \angle DCB)}{2}+(180^{\circ}-\frac{\angle BDC}{2}-\angle DCB)
+		\\&=90^{\circ}-\frac{\angle DCB}{2}+\frac{\angle ABC}{2}
+		\\&= 90^{\circ}
+	\end{flalign*}
+	which shows that the line $KI$ passes through the circumcenter $O'$ of the triangle $AIB$. 
+	Thus considering the circumcircle of triangle $AO'B$, we see that, if $K'$ is the second intersection of the line $KI$ with this circle (other then $O'$) then $I$ is the incenter of triangle $K'AB$, and therefore $\angle ABI=\angle IBK'$ but as shown before, $\angle ABI=\angle IBK$, so $\angle IBK=\angle IBK'$ and since both $K$ and $K'$ are on $KI$, we have $K=K'$, showing that $I$ is indeed the incenter of $KAB$. 
+	
+	\item [\textbf{G7}] Let $ABCDEF$ be a convex hexagon all of whose sides are tangent to a circle $\omega$ with centre $O$. Suppose that the circumcircle of triangle $ACE$ is concentric with $\omega$. Let $J$ be the foot of the perpendicular from $B$ to $CD$. Suppose that the perpendicular from $B$ to $DF$ intersects the line $EO$ at a point $K$. Let $L$ be the foot of the perpendicular from $K$ to $DE$. Prove that $DJ=DL$.
+	
+	
+	
+	\item[\textbf{G8}] (IMO 6)
+	Let $ABC$ be an acute triangle with circumcircle $\Gamma$. Let $\ell$ be a tangent line to $\Gamma$, and let $\ell_a, \ell_b$ and $\ell_c$ be the lines obtained by reflecting $\ell$ in the lines $BC$, $CA$ and $AB$, respectively. Show that the circumcircle of the triangle determined by the lines $\ell_a, \ell_b$ and $\ell_c$ is tangent to the circle $\Gamma$.
+	
+	\textbf {Solution.} (cited directly from my notes for the IMO training camp). 
+	
+	\usetikzlibrary{arrows}
+	
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{xdxdff}{rgb}{0.6588235294117647,0.6588235294117647,0.6588235294117647}
+	\definecolor{qqqqff}{rgb}{0.3333333333333333,0.3333333333333333,0.3333333333333333}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=0.5cm,y=0.5cm]
+	\clip(-2.787913411858677,-11.505541434031079) rectangle (34.61700525997879,6.611449609632774);
+	\fill[color=uuuuuu,fill=uuuuuu,fill opacity=0.1] (8.989011148746778,4.700989741570521) -- (-0.5368788928682983,-1.1794237425742722) -- (11.11957705177755,-6.822854600128423) -- cycle;
+	\draw(3.9505227834021883,1.0865696007367804) circle (1.6076404873839587cm);
+	\draw [dotted] (6.386536470021772,-1.7390394147486157) circle (3.4729976240866263cm);
+	\draw (-1.9026785109951698,-2.022543540932911)-- (10.273116764048051,-2.244504508564252);
+	\draw (2.800647559664868,4.0892048960298295)-- (1.3261535628491259,-2.081404147180008);
+	\draw (2.800647559664868,4.0892048960298295)-- (10.273116764048051,-2.244504508564252);
+	\draw (-1.9026785109951698,-2.022543540932911)-- (7.100984717263056,0.4442135079049559);
+	\draw (8.989011148746778,4.700989741570521)-- (-1.9026785109951698,-2.022543540932911);
+	\draw (-0.5368788928682983,-1.1794237425742722)-- (11.11957705177755,-6.822854600128423);
+	\draw (8.989011148746778,4.700989741570521)-- (11.11957705177755,-6.822854600128423);
+	\draw [color=uuuuuu] (8.989011148746778,4.700989741570521)-- (-0.5368788928682983,-1.1794237425742722);
+	\draw [color=uuuuuu] (-0.5368788928682983,-1.1794237425742722)-- (11.11957705177755,-6.822854600128423);
+	\draw [color=uuuuuu] (11.11957705177755,-6.822854600128423)-- (8.989011148746778,4.700989741570521);
+	\draw (2.800647559664868,4.0892048960298295)-- (11.11957705177755,-6.822854600128423);
+	\draw (-0.5368788928682983,-1.1794237425742722)-- (6.541355622787623,-0.8175356865481822);
+	\draw (6.541355622787623,-0.8175356865481822)-- (8.989011148746778,4.700989741570521);
+	\begin{scriptsize}
+	\draw [fill=qqqqff] (2.800647559664868,4.0892048960298295) circle (2.5pt);
+	\draw[color=qqqqff] (3.099295526926176,4.692414651686334) node {$A$};
+	\draw [fill=qqqqff] (1.5673936018816261,-1.071838852473516) circle (2.5pt);
+	\draw[color=qqqqff] (1.79825487747096,-0.4792219298981409) node {$B$};
+	\draw [fill=qqqqff] (7.100984717263056,0.4442135079049559) circle (2.5pt);
+	\draw[color=qqqqff] (7.42525568636477,0.6917146546115516) node {$C$};
+	\draw [fill=xdxdff] (3.8919189463350277,-2.1281772535249255) circle (2.5pt);
+	\draw[color=xdxdff] (4.107602030253969,-1.5525804656986921) node {$T$};
+	\draw [fill=uuuuuu] (-1.9026785109951698,-2.022543540932911) circle (1.5pt);
+	\draw[color=uuuuuu] (-1.8771849572400259,-1.455002416989551) node {$A'$};
+	\draw [fill=uuuuuu] (1.3261535628491259,-2.081404147180008) circle (1.5pt);
+	\draw[color=uuuuuu] (1.635624796289058,-1.6176324981714527) node {$C'$};
+	\draw [fill=uuuuuu] (10.273116764048051,-2.244504508564252) circle (1.5pt);
+	\draw[color=uuuuuu] (10.61280527753005,-1.7802625793533546) node {$B'$};
+	\draw [fill=uuuuuu] (-0.5368788928682983,-1.1794237425742722) circle (1.5pt);
+	\draw[color=uuuuuu] (-0.8038264214394724,-0.5767999786072818) node {$B_1$};
+	\draw [fill=uuuuuu] (8.989011148746778,4.700989741570521) circle (1.5pt);
+	\draw[color=uuuuuu] (9.279238611838453,5.245356927704799) node {$C_1$};
+	\draw [fill=uuuuuu] (11.11957705177755,-6.822854600128423) circle (1.5pt);
+	\draw[color=uuuuuu] (11.425955683439561,-6.2688528199738425) node {$A_1$};
+	\draw [fill=uuuuuu] (6.541355622787623,-0.8175356865481822) circle (1.5pt);
+	\draw[color=uuuuuu] (6.6121052804552605,-1.1947942870985084) node {$I$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	Because we are using Casey's theorem, please expect some ratio bashing (including the notorious trigonometry!) Denote $A_1$, $B_1$, $C_1$ as $\ell_b\cap \ell_c$, $\ell_a\cap \ell_c$, $\ell_a\cap \ell_b,$ respectively. We claim that $AA_1$, $BB_1$, $CC_1$ concur on $\Gamma$.
+	
+	Now denote the intersection of $BC, CA, AB$ with $\ell$ as $A',B'$ and $C'$, respectively. let us consider triangle $B_1A'C'$. Since $A'B$ bisects $\angle B_1A'C'$ and $C'B$ bisects $\angle B_1C'A'$, we know that $B$ is either the incenter or excenter of $B_1A'C'$ and it follows that $B_1B$ bisects angle $A'B_1C'$, which then follows that (well known: verify it yourself!) $BB_1$ passes through the circumentre of $BA'C'$. Using th notation of directed angles it follows that $\angle (BB_1,AB)=\angle (BB_1,BC')=90^{\circ}-\angle (A'C',A'B)=90^{\circ}-\angle (\ell, BC)$ and $\angle (BB_1,BC)=\angle (BB_1,BA')=90^{\circ}-\angle (A'C',C'B)=90^{\circ}-\angle (\ell,AB)$. In a similar way, $\angle (CC_1,AC)=90^{\circ}-\angle (\ell, BC)$ and $\angle (CC_1,BC)=90^{\circ}-\angle (\ell, AC).$ Now $\angle (BB_1,CC_1)=\angle (BB_1, BC)-\angle (CC_1, BC)$=$(90^{\circ}-\angle (\ell,AB))-(90^{\circ}-\angle (\ell,AC))=\angle (AB, AC)$, yielding that $BB_1$ and $CC_1$ indeed intersect on $\Gamma$. The concurrence of $AA_1, BB_1$ and $CC_1$ (namely $I$) follows from the fact that they intersect at either the incenter or excenter of triangle $A_1B_1C_1$, hence we are done.
+	
+	Now we need the fact that $I$ is the incenter (not excentre opposite to any of the sides), given that $ABC$ is an acute triangle. Now let's investigate the relationship between $\angle A$, $\angle B$, $\angle C$ (of $\triangle ABC$) and $\angle A_1$, $\angle B_1$, $\angle C_1$ (of $\triangle A_1B_1C_1$). Take $B$ again. If $\angle A'BC'<90^{\circ}$ then $\angle B=\angle A'BC'$, and it can be verified that $B$ is now the excentre of $\triangle B_1A'C'$ and $\angle B_1A'C'=180^{\circ}-2\angle A'BC=180^{\circ}-2\angle B$. On the other hand, if $\angle A'BC$ is obtuse then $\angle B=180^{\circ}-\angle A'BC$ and $B$ is the incenter of $\triangle B_1A'C'$ so $\angle B_1A'C'=2\angle A'BC-360^{\circ}=2(180^{\circ}-\angle B)-180^{\circ}=180^{\circ}-2\angle B.$ So $\angle B_1$ is either $2\angle B$ or $180^{\circ}-2\angle B$, depending whether $BB_1$ is the external or internal angle bisector of angle $B_1$, respectively. Same goes for line angles $A_1$ and $C_1$. If $I$ is the excentre, then exactly two of the lines $AA_1$, $BB_1$, $CC_1$ are the external angle bisectors of the respective angles. So let say $AA_1$ and $BB_1$ are the external angle bisectors of angles $A_1$ and $B_1$ then angles $A_1$, $B_1$, $C_1$ are $2\angle A$, $2\angle B$ and $180^{\circ}-2\angle C$ respectively. As the three angles sum up to $180^{\circ}$ and $\angle A+\angle B+\angle C=180^{\circ},$ comparing the two equations yields $\angle C=90^{\circ}$ (contradiction).
+	
+	Now let's proceed to the solving of the main problem. Denote $T$ as the tangent point of $\ell$ and $\Gamma$, and $a,b,c$ as $\angle (TA,\ell),\angle (TB,\ell),\angle (TC,\ell)$. Speaking in modulo $180^{\circ}$, $\angle A$ is congruent to $b-c$, so $\sin\angle A$=$|\sin (b-c)|$. Similarly $\sin\angle B$=$|\sin (c-a)|$ and $\sin\angle C$=$|\sin (a-b)|.$ (we can change the $\pm$ sign to modulus, though). By applying Casey's theorem to degenerate circles $A_1, B_1, C_1$ and circle $\Gamma$ we need one of $A_1B_1\cdot t(C_1)$, $C_1A_1\cdot t(B_1)$, $B_1C_1\cdot t(A_1)$ to be the sum of the other two, which is evident, if, by changing some of the terms into its negative, the resulting three terms add up to 0. ($t(K)$ is the length of tangent from point $K$ to $\Gamma$.) Notice that it is the ratio $A_1B_1\cdot t(C_1)$ : $C_1A_1\cdot t(B_1)$ : $B_1C_1\cdot t(A_1)$ that matters, so we can divide each of them by a constant whenever necessary.
+	
+	By power of point theorem we have $t(A_1)=\sqrt {A_1I\cdot A_1A}.$ Define $r$ as the inradius of triangle $A_1B_1C_1$ and $r_A$ the distance from $A$ to lines $A_1B'$, $A_1C'$ and $B'C'$ (or $\ell$) (the distance to the three lines are the same because $A$ is the incentre or excentre of $A_1B'C'$.) Now $A_1A=\dfrac{r_A}{\sin AA_1B'}=\dfrac{r_A}{\sin (90^{\circ}-\angle A)}=\dfrac{r_A}{\cos \angle A}$ as $\angle A_1=180^{\circ}-2\angle A.$ Similarly $\angle A_1I=\dfrac{r}{\cos \angle A}$ so $t(A_1)=\sqrt {A_1I\cdot A_1A}=\dfrac{\sqrt{r\cdot r_A}}{\cos \angle A}$. Now $B_1C_1=D\sin\angle A_1=D\sin\angle (180^{\circ}-2\angle A)=D\sin 2\angle A,$ where $D$ is the diameter of circumcircle $A_1B_1C_1$ so $B_1C_1\cdot t(A_1)=D\sin 2\angle A\cdot \dfrac{\sqrt{r\cdot r_A}}{\cos \angle A}=2D\sin \angle A\cdot\sqrt{r\cdot r_A}.$ The original ratio now becomes $\sin \angle A\cdot\sqrt{r_A}$ : $\sin \angle B\cdot\sqrt{r_B}$ : $\sin \angle C\cdot\sqrt{r_C}$ by eliminating constants $D$ and $r$. Now if $d$ is the diameter of $\Gamma$ then it is not hard to notice that $r_A$=distance from $A$ to $\ell$=$TA\sin\angle (TA,\ell)$=$(d\sin a)\cdot\sin a=d\sin^{2} a.$ Meanwhile $\sin\angle A=|\sin (b-c)|.$ So our original ratio becomes $\sin a\cdot|\sin (b-c)|$ : $\sin a\cdot|\sin (c-a)|$ : $\sin c\cdot|\sin (a-b)|$. But $\sin a\cdot\sin (b-c)+\sin a\cdot\sin (c-a)+\sin c\cdot\sin (a-b)=0,$ which confirms the identity we want to prove. $\blacksquare$
+	
+	Errata: when we did the power of point theorem we ignored the sign convention: the power of points (``square of length of tangents'') could be negative (inside the circle $ABC$) and that could potentially jeopardize our argument. We show that this can be ruled out given that $ABC$ is acute: that is, $A_1, B_1, C_1$ will always be outside circle $ABC$. (To be continued :) )
+	
+\end{enumerate}
+
+\section*{Number Theory}
+\begin{enumerate}
+	\item [\textbf{N1}] For any integer $d > 0,$ let $f(d)$ be the smallest possible integer that has exactly $d$ positive divisors (so for example we have $f(1)=1, f(5)=16,$ and $f(6)=12$). Prove that for every integer $k \geq 0$ the number $f\left(2^k\right)$ divides $f\left(2^{k+1}\right).$
+	
+	\textbf{Solution.} Recall that each positive integer can be written as a nonnegative but finite length of product of primes, i.e. each $n\in\bbN$ can be written uniquely (up to reordering) as $\dprod_{i=1}^k p_i^{\alpha_i}$, and we also know that in this case the number of divisors of $n$ is $\dprod_{i=1}^k (\alpha_i+1)$. Thus, if $n$ has $2^k$ positive divisors then each $\alpha_i+1$ must be a power of 2. 
+	
+	In view of this, for each $k$, we can write $f(2^k)$ as 
+	$\dprod_{i=1}^m p_i^{2^{d_i}-1}$ with $\dsum_{i=1}^m d_i=k$. 
+	Now let $f(2^{k+1})=\dprod_{i=\ell}^m q_i^{2^{e_i}-1}$ with $\dsum_{i=1}^{\ell} e_i=k+1$. By inserting ``trivial factors'' into each $f(2^k)$ and $f(2^{k+1})$ (i.e. multiply by 1 = $p^0=p^{2^0-1}$ for arbitrary $p$) we may assume that they have the following form: 
+	$f(2^k)=\dprod_{i=1}^m p_i^{2^{d_i}-1}$ and $f(2^{k+1})=\dprod_{i=1}^m p_i^{2^{e_i}-1}$, with $\dsum_{i=1}^m d_i=k$ and $\dsum_{i=1}^m e_i=k+1$. 
+	
+	Since $\dsum e_i>\dsum d_i$, there exists an index $j$ such that $e_j>d_j$. In particular, since $d_j\ge 0$, $e_j\ge 1$. Now let $d_i'=d_i$ if $i\neq j$, and $d_j'=d_j+1$. Then $\dsum_{i=1}^m d_i'=k+1$ and 
+	$\dprod_{i=1}^m p_i^{2^{d_i'}-1}=p_j^{2^{d_j}}\dprod_{i=1}^m p_i^{2^{d_i}-1}=p_j^{2^{d_j}}f(2^k)$ has $2^{k+1}$ positive divisors. By the definition of $f$ we have $p_j^{2^{d_j}}f(2^k)\ge f(2^{k+1})$, 
+	i.e. $p_j^{2^{d_j}}\ge \frac{f(2^{k+1})}{f(2^k)}$. 
+	Similarly, define $e_i'$ as $e_i'=e_i$ if $i\neq j$, and $e_j'=e_j-1$. 
+	Then $\dsum_{i=1}^m e_i'=k$ and $\dprod_{i=1}^m p_i^{2^{e_i'}-1}=p_j^{2^{-e_j'}}\dprod_{i=1}^m p_i^{2^{e_i}-1}=p_j^{2^{-e_j'}} f(2^{k+1})$ has $2^k$ positive divisors (recall that $e_j\ge 1$ so $e_j'\ge 0$). 
+	Again by the definition of $f$ we have $p_j^{2^{-e_j'}} f(2^{k+1})\ge f(2^k)$, or 
+	$\frac{f(2^{k+1})}{f(2^k)}\ge p_j^{2^{e_j'}}. $ 
+	Combining these two inequalities we have $p_j^{2^{e_j'}}\le \frac{f(2^{k+1})}{f(2^k)}\le p_j^{2^{d_j}}$, so $e_j'\le d_j$. However, we have $e_j>d_j$, so $e_j'=e_j-1\ge d_j$, and therefore $p_j^{2^{e_j'}}=p_j^{2^{d_j}}$. 
+	Thus all inequalities above become equality and thus $\frac{f(2^{k+1})}{f(2^k)}= p_j^{2^{d_j}}$, i.e. $f(2^k)\mid f(2^{k+1})$. 
+	
+	\item[\textbf{N2}] Consider a polynomial $P(x) =  \prod^9_{j=1}(x+d_j),$ where $d_1, d_2, \ldots d_9$ are nine distinct integers. Prove that there exists an integer $N,$ such that for all integers $x \geq N$ the number $P(x)$ is divisible by a prime number greater than 20.
+	
+	\textbf{Solution.} First, for each $j$, we consider the remainder of $\frac{P(x)}{x+d_j}$ when being divided by $x+d_j$. As each $d_j$ is distinct, the remainder is nonzero. Since $\deg(x+d_j)=1$, the remainder has degree 0, hence must in the form of $c_j$ for some nonzero integer constant $c_j$ (that is, $\frac{P(x)}{x+d_j}=Q_j(x)(x+d_j)+c_j$ for some polynomial $Q_j(x)$; such $Q_j(x)$ has integer coefficient since $x+d_j$ is monic). Now for each $x_0$, the number $\frac{P(x_0)}{x_0+d_j}$ is divisible by $x_0+d_j$ if and only if $c_j$ is divisible by $x_0+d_j$ (we have $Q_j(x_0)$ an integer). This is false for all $x_0>|c_j|-d_j$, so in terms of integers we have $x_0+d_j\nmid \frac{P(x)}{x+d_j}$ for $x_0$ sufficiently large. This also means that there exists a prime number $p(x_0, j)$ such that $v_{p(x_0, j)}(x_0+d_j)> v_{p(x_0, j)}\left(\frac{P(x_0)}{x_0+d_j}\right)=\dsum_{1\le i\le 9, i\neq j} v_{p(x_0, j)}(x_0+d_i)$ (here $v_p(q)$ is the highest exponent of the prime $p$ dividing the number $q$). 
+	Since $v_p(q)\ge 0$ for all primes $p$ and all integers $q$, we have $v_{p(x_0, j)}(x_0+d_j)>v_{p(x_0, j)}(x_0+d_i)$ for all $i\neq j$. 
+	Consider $N=\max\{|c_j|-d_j\}+1$, then for all $x_0\ge N$ and for each $j$ there exists a prime $p(x_0, j)$ such that $v_{p(x_0, j)}(x_0+d_j)>v_{p(x_0, j)}(x_0+d_i)$ for all $i\neq j$. 
+	All such primes $p(x_0, j)$ must therefore be distinct (if $p(x_0, j)=p(x_0, i)$ for some $i\neq j$ then $v_{p(x_0, j)}(x_0+d_j)>v_{p(x_0, j)}(x_0+d_i)$ and $v_{p(x_0, j)}(x_0+d_i)>v_{p(x_0, j)}(x_0+d_j)$ hold simultaneously, which is absurd), and since $v_{p(x_0, j)}(x_0+d_j)\ge 1$ for each $j$, $P(x_0)$ is divisible by $p(x_0, j)$ for each $j$. In particular, $P(x_0)$ has at least 9 distinct prime divisors, so one of them must be greater than 20 (since there are exactly 8 prime numbers less than 20). 
+	
+	\item[\textbf{N4}] For each positive integer $k,$ let $t(k)$ be the largest odd divisor of $k.$ Determine all positive integers $a$ for which there exists a positive integer $n,$ such that all the differences
+	
+	\[t(n+a)-t(n); t(n+a+1)-t(n+1), \ldots, t(n+2a-1)-t(n+a-1)\] are divisible by 4.
+	
+	\textbf{Answer.} $a=1, 3, 5$. For each of those we can choose the pairs $(a, n)=(1, 1), (3, 1), (5,4)$. \\
+	\textbf{Solution.} It now remains to show that these are all the possible $a$'s. If $a$ is even, then among the numbers $n, n+1, \cdots , n+a-1$, exactly one of them, say $ka+\frac{a}{2}$, must be congruent to $\frac{a}{2}$ modulo $a$. Now consider $t(ka+\frac{a}{2}+a)-t(ka+\frac{a}{2})$. 
+	Now $ka+\frac{a}{2}=\frac{a}{2}(1+2k)$ and $ka+\frac{a}{2}+a=\frac{a}{2}(3+2k)$ so $t(ka+\frac{a}{2}+a)=t(\frac{a}{2})(3+2k)$ and $t(ka+\frac{a}{2})=t(\frac{a}{2})(1+2k)$ and therefore 
+	$t(ka+\frac{a}{2}+a)-t(ka+\frac{a}{2})=2t(\frac{a}{2})$ and since $t(\frac{a}{2})$ is odd, $4\nmid 2t(\frac{a}{2})$. Hence $a$ cannot be even. 
+	
+	Next, let $a\ge 7$ be odd. Now one of $n$ and $n+a$ is odd, while the other is even. W.l.o.g. let $n$ be odd, then $n, n+2, n+4, n+6$ are all odd, and therefore $t(n+k)=n+k$ for all $k=0, 2, 4, 6$. 
+	Now $n+a, n+2+a, n+4+a, n+6+a$ are all even, and since $4\mid t(n+a+k)-t(n+k)=t(n+a+k)-(n+k)$ for $k=0, 2, 4, 6$. Since $n\equiv n+4$ and $n+2\equiv n+6$, we have $t(n+a)\equiv t(n+a+4)\pmod{4}$ and $t(n+a+2)\equiv t(n+a+6)\pmod{4}$. If $n+a\equiv 2\pmod{4}$ then so is $n+a+4$, and therefore $t(n+a+4)-t(n+a)=(\frac{n+a+4}{2})-(\frac{n+a}{2})=2\not\equiv 0\pmod{4}$, contradiction. 
+	If $n+a\equiv 0\pmod{4}$, then $n+a+2\equiv n+a+6\equiv 2\pmod{4}$, so $t(n+a+6)-t(n+a+2)=\frac{n+a+6}{2}-\frac{n+a+2}{2}=2\not\equiv 0\pmod{4}$, another contradiction. Therefore $a<7$ is necessary. 
+	
+	\item[\textbf{N5}] (IMO 5) Let $f$ be a function from the set of integers to the set of positive integers. Suppose that, for any two integers $m$ and $n$, the difference $f(m) - f(n)$ is divisible by $f(m- n)$. Prove that, for all integers $m$ and $n$ with $f(m) \leq f(n)$, the number $f(n)$ is divisible by $f(m)$.
+	
+	\textbf{Solution.} We first notice that $f(m-0)\mid f(m)-f(0)$ so $f(0)$ is divisible by $f(m)$ for all integers $m$. Also, $f(-n)=f(0-n)\mid f(0)-f(n)$ and since $f(0)$ is divisible by $f(n)$ from just now we have $f(-n)\mid f(n)$. Similarly $f(n)\mid f(-n)$ and since both are positive, we have $f(n)=f(-n)$ for all $n$. Notice also that for all $k\ge 0$ we have $f((k+1)n - kn) = f(n)\mid f((k+1)n) - f(kn)$ and by considering $k=1$ as base case and perform induction from there, we have $f(n)\mid f(kn)$ for all $k\ge 1$. But since $f$ is an even function with $f(n)=f(-n)$ for all $n$, we have $f(n)\mid f(kn)$ for all $k$. 
+	
+	Now consider $m, n$ arbitrary, and let $\gcd(m, n)=d$. By Euclidean algorithm there exist integers $a$ and $b$ such that $am+bn=d$. We know by above, $f(d)\mid f(am)$ and $f(d)\mid f(bn)$. This gives us the following relation: 
+	\[f(am)=f(d-bn)\mid f(d)-f(bn);\quad
+	  f(bn)=f(d-am)\mid f(d)-f(am)
+	\]
+	W.L.O.G. let $f(bn)\le f(am)$, then since $f(d)$ and $f(am)$ are both positive, we have $|f(d)-f(am)|<\max\{f(d), f(am)\}\le f(bn)$ (we have $f(d)\mid f(bn)$ so $f(d)\le f(bn)$, too. This means that the only possibility is $f(d)-f(am)=0$, so $f(d)=f(am)$. But then $f(d)\mid f(m)\mid f(am)=f(d)$ so we also have $f(d)=f(m)$. Finally, $f(m)=f(d)\mid f(n)$ since $d\mid n$, completing the problem solution. 
+	
+\end{enumerate}
+
+\end{document}
