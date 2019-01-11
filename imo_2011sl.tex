@@ -90,7 +90,7 @@
 	Summarizing above, we have $c-b=a_j\ge \frac{i+1}{3}=\frac{a}{3}$ and $c+b>3(i+1)=3a$. 
 	Thus $c^2-b^2=(c-b)(c+b)>\frac{a}{3}\times 3a=a^2$, as desired. 
 	
-	\item[\textbf{A6}] Let $f : \mathbb R \to \mathbb R$ be a real-valued function defined on the set of real numbers that satisfies
+	\item[\textbf{A6}] (IMO 3) Let $f : \mathbb R \to \mathbb R$ be a real-valued function defined on the set of real numbers that satisfies
 	\[f(x + y) \leq yf(x) + f(f(x))\]
 	for all real numbers $x$ and $y$. Prove that $f(x) = 0$ for all $x \leq 0$.
 	
@@ -109,6 +109,32 @@
 	Plugging $y=0$ gives $f(x_2-1)\le f(f(x_2-1))$. But since $f(x_2-1)>x_2$, $f(f(x_2-1))<f(x_2-1)$, which is a contradiction. Thus $f$ cannot be all negative. 
 	
 	Now that $f(x_1)=0$ for some $x_1$, by plugging $y=0$ we get $f(x_1)\le f(f(x_1))$, i.e. $f(0)\ge 0$ so $f(0)=0$ by the first lemma. Now for all $x>0$ we have $0=f(0)=f(x-x)\le xf(-x)+f(f(x))\le xf(-x)$ since $f(f(x))\le 0$. Since $x$ is positive, $f(-x)$ must be nonnegative. Since $f(-x)$ is also nonpositive, we have $f(-x)=0$ for all $x>0$, so $f(x)=0$ for all $x<0$. 
+	
+	\item [\textbf{A7}] Let $a,b$ and $c$ be positive real numbers satisfying $\min(a+b,b+c,c+a) > \sqrt{2}$ and $a^2+b^2+c^2=3.$ Prove that
+	
+	\[\frac{a}{(b+c-a)^2} + \frac{b}{(c+a-b)^2} + \frac{c}{(a+b-c)^2} \geq \frac{3}{(abc)^2}.\]
+	
+	\textbf{Solution.} We first show that $a+b-c, b+c-a, c+a-b$ are all positive. Suppose otherwise, then if $c=\max\{a, b, c\}$ then $c\ge a+b$. Now that $a+b>\sqrt{2}$, and $a^2+b^2\ge \frac{(a+b)^2}{2}>1$, so $a^2+b^2+c^2>1+(a+b)^2>1+2=3$, contradicting that $a^2+b^2+c^2=3$. Hence these three quantities mentioned must all be positive. 
+	
+	Now we can write $a=x+y, b=x+z, c=y+z$ for some $x, y, z > 0$, i.e. $a, b, c$ are sides of a triangle. 
+	This transforms the inequality into $\frac{x+y}{(2z)^2} + \frac{x+z}{(2y)^2} + \frac{y+z}{(2x)^2} \geq \frac{3}{(x+y)^2(x+z)^2(y+z)^2}$. We also have $(x+y)^2+(y+z)^2+(z+x)^2=3$ so $x^2+y^2+z^2+xy+yz+zx=\frac 32$. 
+	Since it's not hard to show that $xy+yz+zx\le x^2+y^2+z^2$ (i.e. $xy+yz+zx\le 34$), we have 
+	\[(x+y+z)^2 = x^2+y^2+z^2+2(xy+yz+zx)=\frac 32 + xy+yz+yz \le \frac 32 + \frac 34 = \frac 94\]
+	and consequently $x+y+z\le \frac 32$. 
+	This means $\frac{x+y}{(2z)^2} + \frac{x+z}{(2y)^2} + \frac{y+z}{(2x)^2}\ge \frac 23 (x+y+z)(\frac{x+y}{(2z)^2} + \frac{x+z}{(2y)^2} + \frac{y+z}{(2x)^2})$ and thus it suffices to show that this is $\ge$ the right hand side. 
+	Multiplying RHS by $\frac {1}{27} ((x+y)^{2}+(y+z)^{2}+(z+x)^{2})^{3}$ to homogenize it, and cancelling the denominators, we have the following to prove: 
+	\begin{flalign*}
+	3(x+y+z)(x^{2}y^{2}(x+y)+y^{2}z^{2}(y+z)+z^{2}x^{2}(z+x))(x+y)^2(x+z)^2(y+z)^2\\
+	\ge 2x^2y^2z^2((x+y)^{2}+(y+z)^{2}+(z+x)^{2})^{3}
+	\end{flalign*}
+	Denoting $\sum$ by the symmetric sum, we have the left-hand-side as 
+	\[3\sum x^{8}y^{4}z^{0}+6\sum x^{8}y^{3}z^{1}+3\sum x^{8}y^{2}z^{2}+12\sum x^{7}y^{5}z^{0}+33\sum x^{7}y^{4}z^{1}+39\sum x^{7}y^{3}z^{2}\]\[+9\sum x^{6}y^{6}z^{0}+69\sum x^{6}y^{5}z^{1}+102\sum x^{6}y^{4}z^{2}+51\sum x^{6}y^{3}z^{3}+69\sum x^{5}y^{5}z^{2}+153\sum x^{5}y^{4}z^{3}\]\[+27\sum x^{4}y^{4}z^{4}
+	\]
+	and the right hand side as 
+	\[
+	8\sum x^{8}y^{2}z^{2}+48\sum x^{7}y^{3}z^{2}+96\sum x^{6}y^{4}z^{2}+72\sum x^{6}y^{3}z^{3}\]\[+56\sum x^{5}y^{5}z^{2}+240\sum x^{5}y^{4}z^{3}+56\sum x^{4}y^{4}z^{4}
+	\]
+	Muirhead now settles everything. 
 	
 \end{enumerate}
 
@@ -151,6 +177,55 @@
 		\\&=1\times 3\times \cdots \times (2k-1) \times (2k+1) \times (2k+2)\times \cdots \times (2n-2)
 	\end{flalign*}
 	as desired. Thus letting $k=n$ we have $f(n)=g(1)+\cdots + g(n)=1\times 3\times \cdots \times (2n-1)$, as desired. 
+	
+	\item[\textbf{C2}] Suppose that $1000$ students are standing in a circle. Prove that there exists an integer $k$ with $100 \leq k \leq 300$ such that in this circle there exists a contiguous group of $2k$ students, for which the first half contains the same number of girls as the second half.
+	
+	\textbf{Solution.} Now consider the students as numbers $x_1, \cdots , x_{1000}$, indices taken modulo 1000, with boys representing 0 and girls representing 1.  We are to find an $\ell$ and $k$ (with $k$ within the constraint) such that $\dsum_{i=\ell}^{\ell+k-1}x_i=\dsum_{i=\ell+k}^{\ell+2k-1}x_i$. 
+	Consider, now, the $\ell_0$ such that $\dsum_{i=\ell_0}^{\ell+100-1}x_i$ is the maximum, then 
+	$\dsum_{i=\ell_0}^{\ell_0+100-1}x_i\ge\dsum_{i=\ell_0+k}^{\ell_0+200-1}x_i$ and 
+	$\dsum_{i=\ell_0-100}^{\ell_0-1}x_i\le\dsum_{i=\ell_0}^{\ell_0+100-1}x_i$. 
+	We shall consider the count $c(\ell)=\dsum_{i=\ell}^{\ell+100-1}x_i-\dsum_{i=\ell+k}^{\ell+200-1}x_i$ as $\ell$ ranges from $\ell_0-100$ to $\ell$. 
+	Now, $c(\ell_0-100)\le 0$ and $c(\ell_0+100)\ge 0$. 
+	If $c(\ell)=0$ for some $\ell$ then we are done, so assume they are all nonzero between $\ell_0-100$ and $\ell_0$. The inequality also suggests that $c(\ell)$ changes sign somewhere. 
+	
+	Consider, now, an $\ell$ such that $c(\ell)<0$ and $c(\ell+1)>0$, which also means $c(\ell+1)-c(\ell)\ge 1+1=2$. 
+	We recognize that 
+	\begin{flalign*}
+		c(\ell+1)-c(\ell)
+		&=(\dsum_{i=\ell+1}^{\ell+100}x_i-\dsum_{i=\ell+k+1}^{\ell+200}x_i) - (\dsum_{i=\ell}^{\ell+100-1}x_i-\dsum_{i=\ell+k}^{\ell+200-1}x_i)\\
+		&=-x_{\ell}+2x_{\ell+100}-x_{\ell+200}\\
+		\le -0+2(1)-(0)\\
+		=2
+	\end{flalign*}
+	so all the inequalities above are inequality, and $x_{\ell}=x_{\ell+200}=0$, $x_{\ell+100}=1$. 
+	In addition, we have $\dsum_{i=\ell+1}^{\ell+99}x_i=\dsum_{i=\ell+101}^{\ell+199}x_i$. 
+	
+	Let $p$ be the maximal integer such that $x_{\ell+200}=\cdots = x_{\ell+200+p-1}=0$, and also $x_{\ell}=\cdots = x_{\ell-p+1}=0$. By above, $p\ge 1$. 
+	We now notice that, for $k=100+p$, $\dsum_{\ell+100}^{\ell+200+p-1}x_i=1+\dsum_{i=\ell+101}^{\ell+199}x_i + \dsum_{i=\ell+200}^{\ell+200+p-1}0=1+\dsum_{i=\ell+101}^{\ell+199}x_i$. 
+	Similarly, we have $\dsum_{\ell-p}^{\ell+99}x_i=x_{\ell-p}+\dsum_{\ell-p+1}^{\ell} 0 + \dsum_{\ell+1}^{\ell+99}x_i=x_{\ell-p}+ \dsum_{\ell+1}^{\ell+99}x_i$. 
+	Assume that $p\le 200$. If $x_{\ell-p}=1$ then by $\dsum_{i=\ell+1}^{\ell+99}x_i=\dsum_{i=\ell+101}^{\ell+199}x_i$ then $x_{\ell-p}+ \dsum_{\ell+1}^{\ell+99}x_i=1+\dsum_{i=\ell+101}^{\ell+199}x_i$ and we get a contagious pair of $100+p$ students each with same sum, solving the problem. 
+	Otherwise, $x_{\ell-p}=0$. 
+	By considering $\dsum_{\ell+101}^{\ell+200+p}x_i$ and $\dsum_{\ell-p+1}^{\ell+100}x_i$ we can either conclude that either these two are the contagious pair of $100+p$ elements, or $x_{\ell+200+p}=0$. Now if none of the $100+p$-pairs works, we have $x_{\ell-p}=x_{\ell+200+p}=0$, which contradicts the maximality of $p$. 
+	
+	Now suppose that $p>200$ instead, which means there are a consecutive row of $201$ 0's. Simply consider 200 of them, split them into contagious pairs of 100 0's each, and we are done. 
+	
+	\item[\textbf{C6}] Let $n$ be a positive integer, and let $W = \ldots x_{-1}x_0x_1x_2 \ldots$ be an infinite periodic word, consisting of just letters $a$ and/or $b$. Suppose that the minimal period $N$ of $W$ is greater than $2^n$.
+	
+	A finite nonempty word $U$ is said to appear in $W$ if there exist indices $k \leq \ell$ such that $U=x_k x_{k+1} \ldots x_{\ell}$. A finite word $U$ is called ubiquitous if the four words $Ua$, $Ub$, $aU$, and $bU$ all appear in $W$. Prove that there are at least $n$ ubiquitous finite nonempty words.
+	
+	\textbf{Solution.} For each positive integer $k$ we consider the words appearing in $W$ of length $k$; by the periodity of $W$ we also know that such set (of words of length $k$) is finite and won't exceed $N$. Of all such words, we also record the number of times each word appear as $x_{\ell}x_{\ell+1}\cdots x_{\ell+k-1}$ for $\ell=0, 1, \cdots , N-1$ (we only need to consider the first $N$ words and the others are just periodically repeating) and record $M(k)$, the highest of those frequencies with respect to $k$. The key to this problem is to exploit the properties of $M(k)$: 
+	\begin{itemize}
+		\item We first show that $M(N)=1$. Otherwise, there's a word appearing at least two times. Now, let $x_{k}x_{k+1}\cdots x_{k+N-1}=x_{\ell}x_{\ell+1}\cdots x_{\ell+N-1}$ with $0\le k<l\le N-1$. 
+		This means, $x_{k+i}=x_{\ell+i}$ for all $i=0, 1, \cdots , N-1$. But since $W$ is periodic with period $N$, for each $i\in\mathbb{Z}$, choose $i'\equiv i\pmod{N}$ and $0\le i'<N$ and we have 
+		$x_{k+i}=x_{k+i'}=x_{\ell+i'}=x_{\ell+i}$, so $W$ is also periodic with period $\ell-k$. But $0<\ell-k<N$, contradicting the minimality of $N$. Therefore $M(N)=1$. 
+		
+		\item Next, we see how $M(k)$ compares to $M(k+1)$. We show that $M(k)\le 2M(k+1)$. Indeed, if $U$ is a word of length $k$ with frequency $M(k)$, then one of $Ua$ and $Ub$ must have frequency at least $\frac{M(k)}{2}$, so $M(k+1)\ge \frac{M(k)}{2}$, as claimed. 
+		
+		\item We should also see what happens if $M(k)>M(k+1)$ for some $k$, and we claim that the word $U$ of length $k$ and frequency $M(k)$ is ubiquituous. Now, the sum of frequencies of $Ua$ and $Ub$ is $M(k)$ and since $M(k+1)<M(k)$, both the frequencies are strictly less than $M(k)$. 
+		Hence both the frequencies must also be at least 1. Similarly, both the frequencies of $aU$ and $bU$ must also be at least 1, so $U$ is ubiquituous. In essence this means if $M(k+1)<M(k)$ then there exists a word of length $k$ that is ubiquituous. 
+		
+	\end{itemize}
+	In view of the last bullet point it suffices to show that there are at leaast $n$ numbers $k$ such that $M(k+1)<M(k)$. That is, the function $M(k)$ decreases at least $k$ times. We first notice that $M(1)=\max \{freq(a), freq(b)\}\ge \frac{N}{2}>\frac{2^n}{2}=2^{n-1}$, and $M(N)=1$. Also, whenever $M$ decreases, it never decreases more than half based on the second bullet point. It follows that it must decrease at least $\log_2(M(1))>\log_2(2^{n-1})=n-1$ times, i.e. decrease at least $n$ times, which finishes the claim. 
 	
 	\item[\textbf{C7}] On a square table of $2011$ by $2011$ cells we place a finite number of napkins that each cover a square of $52$ by $52$ cells. In each cell we write the number of napkins covering it, and we record the maximal number $k$ of cells that all contain the same nonzero number. Considering all possible napkin configurations, what is the largest value of $k$?
 	
@@ -206,6 +281,63 @@
 	\end{flalign*}
 	as desired. 
 	
+	\item[\textbf{G5}] Let $ABC$ be a triangle with incenter $I$ and circumcircle $\omega$. Let $D$ and $E$ be the second intersection points of $\omega$ with the lines $AI$ and $BI$, respectively. The chord $DE$ meets $AC$ at a point $F$, and $BC$ at a point $G$. Let $P$ be the intersection point of the line through $F$ parallel to $AD$ and the line through $G$ parallel to $BE$. Suppose that the tangents to $\omega$ at $A$ and at $B$ meet at a point $K$. Prove that the three lines $AE, BD,$ and $KP$ are either parallel or concurrent.
+	
+	\textbf {Solution}: (Cited directly from my notes to the IMO training camp). Let's split the problems into two parts:
+	\\ \emph{Part 1: prove that $K, I, P$ are collinear.}
+	\\Proof: First notice that $\angle DEB=\angle DAB=\frac{\angle A}{2}=\angle CAD=\angle CED$ and similarly $\angle CDE=\frac{\angle B}{2}=\angle EDA$. Therefore $\triangle CED\cong\triangle IED$ and $ED$ is the perpendicular bisector of segment $CI$. This entails that $CF=CG$ and $\angle CFG=\angle CGF=\angle IFG=\angle IGF=90^{\circ}-\frac{\angle C}{2}.$Knowing that $FP\parallel AI$ and $GP\parallel BI$, we want to prove that $\angle FPI=\angle AIK$, or equivalently $\angle GPI=\angle BIK$. It suffices to prove that $\frac{\sin\angle FPI}{\sin\angle GPI}=\frac{\sin\angle AIK}{\sin\angle BIK}$.
+	
+	\usetikzlibrary{arrows}
+	\pagestyle{empty}
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{qqqqff}{rgb}{0.3333333333333333,0.3333333333333333,0.3333333333333333}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+	\clip(-3.527272727272727,-3.39454545454545) rectangle (17.381818181818183,6.732727272727267);
+	\draw(2.162839829942502,1.4242993272629518) circle (3.618338460700848cm);
+	\draw (0.6181818181818187,4.696363636363633)-- (3.861297172049131,-1.7706366459970866);
+	\draw (-0.7636363636363631,-0.7036363636363628)-- (3.5405214941984724,4.770097654741744);
+	\draw (3.5405214941984724,4.770097654741744)-- (3.861297172049131,-1.7706366459970866);
+	\draw (0.6181818181818187,4.696363636363633)-- (5.5636363636363635,2.66);
+	\draw (-0.7636363636363631,-0.7036363636363628)-- (5.5636363636363635,2.66);
+	\draw (0.6181818181818187,4.696363636363633)-- (-0.7636363636363631,-0.7036363636363628);
+	\draw (3.604442394979802,3.466726928270348)-- (4.190404128514835,2.298277988671306);
+	\draw (3.6927826311665535,1.6654369525663366)-- (4.190404128514835,2.298277988671306);
+	\draw (3.604442394979802,3.466726928270348)-- (1.733588662509991,2.472163880836684);
+	\draw (1.733588662509991,2.472163880836684)-- (3.6927826311665535,1.6654369525663366);
+	\draw (0.6181818181818187,4.696363636363633)-- (-3.3336448230410487,2.830807184592077);
+	\draw (-3.3336448230410487,2.830807184592077)-- (-0.7636363636363631,-0.7036363636363628);
+	\draw [domain=0.6181818181818187:17.381818181818183] plot(\x,{(--13.67878875800446--0.07373401837811144*\x)/2.922339676016654});
+	\draw [domain=-0.7636363636363631:17.381818181818183] plot(\x,{(-4.069071630730523-1.0670002823607239*\x)/4.624933535685494});
+	\draw [dash pattern=on 5pt off 5pt,domain=-3.3336448230410487:17.381818181818183] plot(\x,{(--19.523868632187387-0.532529195920771*\x)/7.5240489515558835});
+	\begin{scriptsize}
+	\draw [fill=qqqqff] (0.6181818181818187,4.696363636363633) circle (2.5pt);
+	\draw[color=qqqqff] (0.7454545454545459,5.02363636363636) node {$A$};
+	\draw [fill=qqqqff] (-0.7636363636363631,-0.7036363636363628) circle (2.5pt);
+	\draw[color=qqqqff] (-0.6363636363636358,-0.37636363636363585) node {$B$};
+	\draw [fill=qqqqff] (5.5636363636363635,2.66) circle (2.5pt);
+	\draw[color=qqqqff] (5.6909090909090905,2.987272727272725) node {$C$};
+	\draw [fill=uuuuuu] (1.733588662509991,2.472163880836684) circle (1.5pt);
+	\draw[color=uuuuuu] (1.854545454545455,2.7327272727272707) node {$I$};
+	\draw [fill=uuuuuu] (3.861297172049131,-1.7706366459970866) circle (1.5pt);
+	\draw[color=uuuuuu] (3.9818181818181824,-1.5218181818181804) node {$D$};
+	\draw [fill=uuuuuu] (3.5405214941984724,4.770097654741744) circle (1.5pt);
+	\draw[color=uuuuuu] (3.6727272727272733,5.02363636363636) node {$E$};
+	\draw [fill=uuuuuu] (3.604442394979802,3.466726928270348) circle (1.5pt);
+	\draw[color=uuuuuu] (3.727272727272728,3.7145454545454517) node {$F$};
+	\draw [fill=uuuuuu] (3.6927826311665535,1.6654369525663366) circle (1.5pt);
+	\draw[color=uuuuuu] (3.818181818181819,1.9145454545454532) node {$G$};
+	\draw [fill=uuuuuu] (-3.3336448230410487,2.830807184592077) circle (1.5pt);
+	\draw[color=uuuuuu] (-3.2,3.078181818181816) node {$K$};
+	\draw [fill=uuuuuu] (4.190404128514835,2.298277988671306) circle (1.5pt);
+	\draw[color=uuuuuu] (4.3090909090909095,2.550909090909089) node {$P$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	Now from the corollary we have: $$\frac{\sin\angle FPI}{\sin\angle GPI}=\frac{FI}{GI}\cdot\frac{\sin\angle PFI}{\sin\angle PGI}=\frac{\sin (\angle CFI-\angle CFP)}{\sin(\angle CGI-\angle CGP)}=\dfrac{\sin (180^{\circ}-\angle C-\frac{\angle A}{2})}{\sin (180^{\circ}-\angle C-\frac{\angle B}{2})}=\dfrac{\sin (\angle C+\frac{\angle A}{2})}{\sin (\angle C+\frac{\angle B}{2})}$$ (Why? Recall that $FP\parallel AI\Rightarrow \angle CFP=\angle CAI$, $GP\parallel BI\Rightarrow\angle CPG=\angle CBI$, and that $CFIG$ is a rhombus so $FI=GI$). Then $$\frac{\sin\angle AIK}{\sin\angle BIK}=\frac{AK}{BK}\cdot\frac{\sin\angle IAK}{\sin\angle IBK}=\dfrac{\sin (\angle C+\frac{\angle A}{2})}{\sin (\angle C+\frac{\angle B}{2})}=\frac{\sin\angle FPI}{\sin\angle GPI},$$ as desired. (Don't ask me why $AK=BK$. You should know it.)
+	
+	\emph{Part 2: prove that $AE, BD$ and $KI$ are concurrent (or parallel).}
+	\\Proof: For convenience we assume that $AE$ and $BD$ are not parallel; the limit case (i.e. parallel) happens when $\angle C=60^{\circ}$ and quadrilateral $AIBK$ is cyclic, which is left as an exercise (no trigo needed because angle chasing method becomes straightforward). Now let $AE$ and $BD$ intersect at $Q$. We need $\frac{\sin\angle AKQ}{\sin\angle BKQ}=\frac{\sin\angle AKI}{\sin\angle BKI}$, or $\frac{AQ}{BQ}\cdot\frac{\sin\angle QAK}{\sin\angle QBK}=\frac{AI}{BI}\cdot\frac{\sin\angle IAK}{\sin\angle IBK}$. Now $\frac{AQ}{BQ}=\frac{\sin\angle QBA}{\sin\angle QAB}=\frac{\sin\angle DBA}{\sin\angle EAB}=\frac{DA}{EB}$ and $\angle QAK=\angle EAK=180^{\circ}-\angle EBA$ so $\sin\angle EAK=\sin\angle EBA$. Similarly $\sin\angle QBK=\sin\angle DAB$. Thus, $$\frac{\sin\angle QAK}{\sin\angle QBK}=\frac{\sin\angle EBA}{\sin\angle DAB}=\frac{AI}{BI}=\dfrac{\sin\frac{\angle B}{2}}{\sin\frac{\angle A}{2}}$$ and $\frac{\sin\angle IAK}{\sin\angle IBK}=\frac{\sin\angle DAK}{\sin\angle EBK}=\frac{AD}{EB}.$ Therefore $\frac{AQ}{BQ}\cdot\frac{\sin\angle QAK}{\sin\angle QBK}=\frac{\sin\frac{\angle B}{2}}{\sin\frac{\angle A}{2}}\cdot\frac{AD}{EB}=\frac{AI}{BI}\cdot\frac{\sin\angle IAK}{\sin\angle IBK}$. $\blacksquare$
+	
 	\item[\textbf{G6}] Let $ABC$ be a triangle with $AB=AC$ and let $D$ be the midpoint of $AC$. The angle bisector of $\angle BAC$ intersects the circle through $D,B$ and $C$ at the point $E$ inside the triangle $ABC$. The line $BD$ intersects the circle through $A,E$ and $B$ in two points $B$ and $F$. The lines $AF$ and $BE$ meet at a point $I$, and the lines $CI$ and $BD$ meet at a point $K$. Show that $I$ is the incentre of triangle $KAB$.
 	
 	\textbf{Solution.} To show that $BI$ bisects $\angle ABK$ is the same as showing that $BE$ bisects $\angle ABD$. If $D'$ is the second intersection of $AB$ and the circle $BEDC$ then $D$ and $D'$ are symmetric to each other in the line $AE$, hence $ED=ED'$ and so $\angle ABE=\angle D'BE=\angle EBD$, establishing the claim.
@@ -229,6 +361,28 @@
 	
 	\item [\textbf{G7}] Let $ABCDEF$ be a convex hexagon all of whose sides are tangent to a circle $\omega$ with centre $O$. Suppose that the circumcircle of triangle $ACE$ is concentric with $\omega$. Let $J$ be the foot of the perpendicular from $B$ to $CD$. Suppose that the perpendicular from $B$ to $DF$ intersects the line $EO$ at a point $K$. Let $L$ be the foot of the perpendicular from $K$ to $DE$. Prove that $DJ=DL$.
 	
+	\textbf{Solution.} Let the circumradius of $ACE$ to be $R$, and the radius of $\omega$ to be $r$. Then the distance of sides $AB, BC, CD, DE, EF, FA$ to $O$ is $r$ and therefore we have $\cos\angle BAO=\cos \angle OAF=\cos \angle OEF=\cos \angle OED=\cos \angle DCO=\cos \angle OCB=\frac{r}{R}$, so $\angle BAO=\angle OAF=\angle OEF=\angle OED=\angle DCO=\angle OCB$; denote this common angle as $\theta$. 
+	We also have $BA=BC$, $DC=DE$, $FE=FA$: we have $OC=OA$ and $\angle OCB=\angle OCA$ so it's not hard to see that $CBO$ and $ABO$ must be congruent. The other equivalences can be established similarly. 
+	Having known these, consider $DJ$ and $DL$ in terms of signed lengths, and let $CJ$ be positive iff $J$ is on ray $DC$ beyond $C$; similarly let $FL$ be positive iff $L$ is on ray $DF$ beyond $F$. Then we have $DJ=DC+CJ$ and $DL=DE+EL$, so it suffices to prove that $CJ=EL$. 
+	Moreover, in terms of unsigned length we have $|CJ|=|BC|\cdot |\cos BCJ|$ and we can infer that $CJ>0$ iff $\cos BCJ>0$ ($\cos BCD<90^{\circ}$ means that $J$ will be on the same side as $D$ w.r.t. $C$ so $CJ<0$ in this case). 
+	Thus $CJ=BC\cdot \cos BCJ=-BC\cos BCD=-BC\cos 2\theta$. 
+	Also since $\theta<90^{\circ}$, if $K$ extends beyond $OE$ then $\angle KEL=\angle OED=\theta$ and in this case $EL=EK\cos\theta > 0$, so $EL>0$ iff $K$ extends beyond $OE$, so we have to do our computation in that direction. 
+	
+	The immediate previous argument means that when considering the lengths $DK$ and $FK$ we have $\angle DEK=180^{\circ}-\theta$ so 
+	\[DK^2=DE^2+EK^2-2DE\cdot EK\cdot \cos(180^{\circ}-\theta)=DE^2+EK^2+2DE\cdot EK\cdot \cos\theta\] and \[FK^2=FE^2+EK^2+2FE\cdot EK\cdot \cos\theta\] 
+	We can then conclude that 
+	\[
+	DK^2-FK^2=DE^2-FE^2+2EK\cos\theta(DE-FE)
+	\]
+	The condition $BK\perp DF$ also implies $BD^2-BF^2=KD^2-KF^2$ but according to cosine rule, we have \[BD^2=BC^2+CD^2-2\cdot BC\cdot CD\cdot \cos 2\theta\qquad
+	  BF^2=BA^2+AF^2-2\cdot BA\cdot AF\cdot \cos 2\theta
+	\]
+	and bearing in mind that $BC=BA$, the difference in square becomes 
+	\[BD^2-BF^2 = CD^2-AF^2-2\cdot BC \cos 2\theta (CD-AF)
+	\]
+	and coupling with the fact that $CD=DE$ and $AF=FE$, and that the two sum of squares are the same we have 
+	$DE^2-FE^2+2EK\cos\theta(DE-FE)=CD^2-AF^2-2\cdot BC \cos 2\theta (CD-AF)$ so $EK\cos\theta(DE-FE)=-BC \cos 2\theta (DE-FE)$. We may assume that $CD\neq AF$, otherwise $K$ won't be uniquely determined. This allows us to cancel $DE-FE$ from the equation and we have $EK\cos\theta = -BC\cos 2\theta$. 
+	Finally, recall that $CJ=-BC\cos 2\theta$ and $EL=EK\cos\theta$ so we in turn have $EL=EK\cos\theta = -BC\cos 2\theta=CJ$, as desired. 
 	
 	
 	\item[\textbf{G8}] (IMO 6)
@@ -326,6 +480,25 @@
 	Since $v_p(q)\ge 0$ for all primes $p$ and all integers $q$, we have $v_{p(x_0, j)}(x_0+d_j)>v_{p(x_0, j)}(x_0+d_i)$ for all $i\neq j$. 
 	Consider $N=\max\{|c_j|-d_j\}+1$, then for all $x_0\ge N$ and for each $j$ there exists a prime $p(x_0, j)$ such that $v_{p(x_0, j)}(x_0+d_j)>v_{p(x_0, j)}(x_0+d_i)$ for all $i\neq j$. 
 	All such primes $p(x_0, j)$ must therefore be distinct (if $p(x_0, j)=p(x_0, i)$ for some $i\neq j$ then $v_{p(x_0, j)}(x_0+d_j)>v_{p(x_0, j)}(x_0+d_i)$ and $v_{p(x_0, j)}(x_0+d_i)>v_{p(x_0, j)}(x_0+d_j)$ hold simultaneously, which is absurd), and since $v_{p(x_0, j)}(x_0+d_j)\ge 1$ for each $j$, $P(x_0)$ is divisible by $p(x_0, j)$ for each $j$. In particular, $P(x_0)$ has at least 9 distinct prime divisors, so one of them must be greater than 20 (since there are exactly 8 prime numbers less than 20). 
+	
+	\item[\textbf{N3}] Let $n \geq 1$ be an odd integer. Determine all functions $f$ from the set of integers to itself, such that for all integers $x$ and $y$ the difference $f(x)-f(y)$ divides $x^n-y^n.$
+	
+	\textbf{Answer.} $f(x)=\pm x^d+c$ for any $d$ a positive divisor of $n$ and $c$ any constant. It's not hard to see that this works because $x^d-y^d\mid x^n-y^n$. \\
+	\textbf{Solution.} It now remains to see that these are all the functions that work. First, notice that if $f$ is a function satisfying the condition, and $c$ is an arbitrary constant, then $g(x):=f(x)+c$ is also a working function. Hence we can assume that $f(0)=0$. 
+	
+	Consider any prime $p$. We have $f(p)\mid p^n$ and $f(-p)\mid (-p)^n$. Thus each $f(p)$ and $f(-p)$ must be in the form $\pm p^d$ for some nonnegative integer $d\le n$. 
+	Considering that there are only finitely many nonnegative integers $d\le n$, and that there are infinitely many primes, there exists a $d_0$ such that, either $f(p)=p^{d_0}$ for infinitely many primes $p$, or $f(p)=-p^{d_0}$ for infinitely many primes $p$. 
+	
+	Let's assume the first case, and notice that for each nonzero integer $y$, we have $f(p)-f(y)\mid p^n-y^n$. 
+	Since there's infinitely many $p$ with $f(p)=p^{d_0}$, we have $p^{d_0}-f(y)\mid p^n-y^n$ for infinitely many $p$. Consider the polynomial $q(x)=x^{d_0}$ we have $q(x)-f(y)\mid x^n-y^n$ for infinitely many $x$, too. If $r(x)$ is the remainder polynomial of $x^n-y^n$ when divided by $q(x)-f(y)$, then $q(x)-f(y)\mid r(x)$ for infinitely many positive integers $x$. But since $\deg(r)-\deg(q)$, $|r(x)|<|q(x)-f(y)|$ for all sufficiently large $x$, so we must have $r(x)=0$ for infinitely many $x$ (i.e. whenever $|r(x)|<|q(x)-f(y)|$ and $q(x)-f(y)\mid r(x)$). The only possibility is $r\equiv 0$, so $q(x)-f(y)\mid x^n-y^n$ as a polynomial. 
+	Consider any complex solution $x_0$ to the solution $x^{d_0}=f(y)$, then $x_0^{d_0}-f(y)=0$ and therefore $x_0^n-y^n=0$, too, by the divisibility of polynomial (so $x_0^n=y^n$). We now have the following observations: 
+	\begin{itemize}
+		\item If $x^{d_0}=f(y)$ and $\epsilon$ is a root of unity of degree $d_0$, then $(\epsilon x_0)^{d_0}=f(y)$ and therefore $(\epsilon x_0)^{n}=y^n$. Thus $x_0^{n}=\epsilon^nx_0^n$. Since $x_0\neq 0$ as assumed (otherwise $f(y)=0$ and by the injectivity of $f$ we have $y=0$), we have $\epsilon^n=1$. Thus $\epsilon^{d_0}=1\to \epsilon^n=1$ for all complex number $\epsilon$, which happens only when $d_0\mid n$. 
+		
+		\item The above also implies that $d_0$ is odd, so the equation $x^{d_0}=f(y)$ actually has a unique real solution $x_0$ (recall that the mapping $x\to x^{d_0}$ for an odd $d_0$ is bijective if viewed from reals to reals). Consider one such $x_0$ and since $x_0^n=y^n$ too, we have $x_0=y$ since $n$ is also odd. Thus $f(y)=y^{d_0}$, as confirmed. 
+		
+	\end{itemize}
+	Thus we have shown that $f(x)=x^{d_0}$ for some $d_0\mid n$ in the first case, i.e. infinitely many primes $p$ satisfying $f(p)=p^{d_0}$. The second case is similar, and we get $f(x)=-x^{d_0}$ for some $d_0\mid n$. 
 	
 	\item[\textbf{N4}] For each positive integer $k,$ let $t(k)$ be the largest odd divisor of $k.$ Determine all positive integers $a$ for which there exists a positive integer $n,$ such that all the differences
 	
