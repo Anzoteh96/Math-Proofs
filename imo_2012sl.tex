@@ -1,0 +1,364 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\section*{Algebra}
+\begin{enumerate}
+	\item [\textbf{A1}] (IMO 4)
+	Find all functions $f:\mathbb Z\rightarrow \mathbb Z$ such that, for all integers $a,b,c$ that satisfy $a+b+c=0$, the following equality holds:
+	\[f(a)^2+f(b)^2+f(c)^2=2f(a)f(b)+2f(b)f(c)+2f(c)f(a).\]
+	
+	\textbf{Answer.} There are three families of functions, with $c$ denoting any integer constant: 
+	\begin{itemize}
+		\item $f(n) = cn^2$. 
+		\item $f(n)=0$ if $n$ even, or $c$ if $n$ odd. 
+		\item $f(n)=c$ if $n$ odd, $4c$ if $4\mid n-2$, $0$ if $4\mid n$. 
+	\end{itemize}
+	We can verify that those work (although in the actual IMO a detail verification is needed...erm screw that).\\
+	\textbf{Solution.} Plugging $a=b=c=0$ gives $3f(0)^2=6f(0)^2$ which forces $f(0)=0$. 
+	Plugging $(a, b, c)=(0, n, -n)$ gives $f(n)^2+f(-n)^2=2f(n)f(-n)$, i.e. $(f(n)-f(-n))^2=0$. This forces $f(n)=f(-n)$, so $f$ is an even function. 
+	
+	Now we proceed with the following by considering $c=-(a+b)$, bearing in mind that $f(c)=f(-c)$, too. We now have the following: 
+	\[
+	f(a+b)^2-2f(a+b)(f(a)+f(b))+(f(a)^2+f(b)^2 - 2f(a)f(b))=0
+	\]
+	which is essentially solving the quadratic equation on $f(a+b)$. Using the quadratic formula (and bearing in mind that $f(a)^2+f(b)^2 - 2f(a)f(b)=(f(a)-f(b))^2$) we have: 
+	\begin{flalign*}
+		f(a+b)&=\frac{2(f(a)+f(b))\pm \sqrt{4(f(a)+f(b))^2 - 4(f(a)-f(b))^2}}{2}
+		\\&=(f(a)+f(b))\pm \sqrt{4f(a)f(b)}
+		\\&=(f(a)+f(b))\pm 2\sqrt{f(a)f(b)}
+	\end{flalign*}
+	In particular, if $f(b)=0$ then $f(a+b)=f(a)$ so $f$ is of period $b$. Hence $f(1)=0$ implies $f\equiv 0$ (which can be put into any category above). We thus assume that $f(1)\neq 0$ in the future. 
+	
+	Now we see what happens when we fix $f(1)$. We have $f(2)=2f(1)\pm 2\sqrt{f(1)^2}=2f(1)\pm 2f(1)$, i.e. $f(2)=0$ or $f(2)=4f(1)$. 
+	In the first case, by setting $b=2$ we have $f(a+2)=f(a)\pm 2\sqrt{0}=f(a)$, so $f(a+2)=f(a)$. 
+	We now infer that $f(a)=0$ if $a$ even, and $f(a)=f(1)$ if $a$ odd. 
+	
+	Otherwise, we assume that $f(2)=4f(1)$. Then $f(3)=f(1)+f(2)\pm\sqrt{f(1)f(2)}$, and setting $f(2)=4f(1)$ we have $5f(1)\pm\sqrt2{4f(1)^2}=5f(1)\pm 4f(1)$, so we have two cases, depending whether $f(3)=f(1)$ or $f(3)=9f(1)$. 
+	
+	In the first case, $f(3)=f(1)$. We have $f(4)=f(1)+f(3)\pm 2\sqrt{f(1)f(3)}=2f(1)\pm 2f(1)$, which is equal to either $0$ or $4f(1)$. Also $f(4)=f(2)+f(2)\pm 2\sqrt{f(2)^2}=2f(2)\pm 2f(2)$ which is either $0$ or $4f(2)=16f(1)$. Since both $f(4)\in \{0, 4f(1)\}$ and $f(4)\in \{0, 16f(1)\}$, we have $f(4)=0$ and therefore $f$ is of period 4, in the form $c, 4c, c, 0$, etc. 
+	
+	Otherwise, $f(3)=9f(1)$. Now $f(k)=k^2f(1)$ for $k=0, 1, 2, 3$. We now show that this is true for all integer $k$. Since $f$ is even, we only need to prove this for all $k>0$. 
+	We use induction: suppose that $f(n)=n^2f(1)$ for all $n=0, 1, \cdots , k$, with $k\ge 3$. We now consider $f(k+1)$: 
+	\begin{itemize}
+		\item considering $f(1)$ and $f(k)$, we have $f(k+1)=f(1)+f(k)\pm 2\sqrt{f(1)f(k)}=f(1)+k^2f(1)\pm 2\sqrt{k^2f(1)}=f(1)(1+k^2\pm 2k)=f(1)(k\pm 1)^2$, i.e. either $f(1)(k+1)^2$ or $f(1)(k-1)^2$. 
+		
+		\item considering $f(2)$ and $f(k-1)$, we have $f(k+1)=f(2)+f(k-1)\pm 2\sqrt{f(2)f(k-1)}=f(1)(2^2+(k-1)^2\pm 2(2)(k-1))=f(1)((k-1)\pm 2)^2$, i.e. $f(1)(k+1)^2$ or $f(1)(k-3)^2$. 
+		
+	\end{itemize}
+	We thus infer than $f(k+1)=f(1)(k+1)^2$, done. 
+	
+	\item[\textbf{A3}] (IMO 2) Let $n\ge 3$ be an integer, and let $a_2,a_3,\ldots ,a_n$ be positive real numbers such that $a_{2}a_{3}\cdots a_{n}=1$. Prove that
+	\[(1 + a_2)^2 (1 + a_3)^3 \dotsm (1 + a_n)^n > n^n.\]
+	
+	\textbf{Solution.} As per official solution, we will show that $f_k(x)=\frac{(x+1)^k}{x}\ge \frac{k^k}{(k-1)^{k-1}}$ with equality if and only if $x=\frac{1}{k-1}$. 
+	Consider the derivative w.r.t. $x$: \[f_k'(x)=\frac{xk(x+1)^{k-1}-(x+1)^k}{x^2}=\frac{(x+1)^{k-1}}{x^2}(xk-(x+1))=\frac{(x+1)^{k-1}}{x^2}((k-1)x-1)\] 
+	Since $\frac{(x+1)^{k-1}}{x^2}>0$, we have $f_k'(x)>0$ iff $(k-1)x-1>0$, i.e. $x>\frac{1}{k-1}$. Also $f_k'(x)<0$ iff $(k-1)x-1<0$, i.e. $x<\frac{1}{k-1}$. Thus $f_k$ is increasing when $x>\frac{1}{k-1}$ and $f_k$ is decreasing when $x<\frac{1}{k-1}$. We conclude that $f_k$ attains it minimum point at $x=\frac{1}{k-1}$, with $f_k(\frac{1}{k-1})=\frac{(1+1/(k-1))^k}{1/(k-1)}=\frac{k^k}{(k-1)^{k-1}}$. 
+	
+	Now, having established this, we have 
+	\[\dprod_{k=2}^n (1+a_k)^k
+	=\dprod_{k=2}^n \frac{(1+a_k)^k}{a_k}
+	\ge \dprod_{k=2}^n\frac{k^k}{(k-1)^{k-1}}
+	=\frac{n^n}{1^1}
+	=n^n
+	\]
+	(since $\prod a_k=1$). However, if the equality were to hold, we have $a_k=\frac{1}{k-1}$, so $\prod a_k = \frac{1}{(k-1)!}<1$, which is a contradiction. Hence the equality cannot hold, so the inequality must be strict. 
+	
+	\item[\textbf{A4}] Let $f$ and $g$ be two nonzero polynomials with integer coefficients and $\deg f>\deg g$. Suppose that for infinitely many primes $p$ the polynomial $pf+g$ has a rational root. Prove that $f$ has a rational root.
+	
+	\textbf{Solution.} Let $p_1<p_2<\cdots$ be a sequence of prime numbers and $\{r_k\}_{k\ge 1}$ be the sequence of rational numbers, such that $(p_nf+g)(r_n)=0$. 
+	
+	We first show that the sequence $\{r_n\}$ must be bounded. Notice that $\{p_k\}_{k\ge 0}\to\infty$, and $p_n|f(r_n)|=|g(r_n)|$. Let $M_1$ be a real number such that $f(x), g(x)\neq 0$ for all $x>M_1$, and let $M_2$ be a real number such that $|f(x)|>|g(x)|$ for all $x>M_2$ (this is true since $\deg(f)>\deg(g)$ and therefore $\frac{|f|}{|g|}\to\infty$). 
+	From $p_n|f(r_n)|=|g(r_n)|$ (since $p_n\ge 1$ for primes $p_n$) we have $|f(r_n)|\le |g(r_n)|$ since $|\cdot|$ is nonnegative. 
+	We therefore know that $r_n\le\max\{M_1, M_2\}$ for all $n\ge 1$, and therefore $\{r_n\}$ is bounded. 
+	
+	Now, since $\{r_n\}$ is bounded, it has a convergent subsequence. By extracting the convergent subsequence and the corresponding $p_n$ responsible for them, may as well assume that $\{r_n\}$ is itself convergent, and let $\{r_n\}\to r_0$. We show that $r_0$ is rational and $f(r_0)=0$. Now that $f$ and $g$ are polynomials, they are continuous functions. Suppose that $f(r_0)>0$. Since $\{r_n\}\to r_0$, there exists an $N$ such that $f(r_n)>\frac{f(r_0)}{2}$. Since $\{r_n\}$ is also convergent (and bounded), $\{g(r_n)\}$ is also bounded: let $N$ be such that $|g(r_n)|<N$ for all $n\ge 1$. Since $\{p_n\}$ is increasing sequences of primes, it's also unbounded. Thus, there exists $p_n$ that's greater than $\frac{2N}{f(r_0)}$. Now, $p_n|f_n(r_n)|=|g_n(r_n)|$. However, 
+	\[p_n|f_n(r_n)|>p_n|\frac{f(r_0)}{2}| > \frac{2N}{f(r_0)} \cdot \left|\frac{f(r_0)}{2}\right| = N > |g_n(r_n)|
+	\]
+	which is a contradiction. Hence we cannot have $f(r_0)>0$. Similarly we cannot have $f(r_0)<0$. Therefore $f(r_0)=0$. 
+	
+	Now since $\{r_n\}$ is a rational sequence, let's write $r_n=\frac{u_n}{v_n}$ with $p_n, q_n$ integers. By the rational root theorem, we have $v_n\mid p_na_k$ and $u_n\mid p_na_0+b_0$ where $a_k$ is the leading coefficient of $f$ (recall that $\deg f > \deg g$) and $a_0, b_0$ the constant coefficient of $f$ and $g$, respectively. 
+	For clarity, let's focus on all $n$ such that $p_n>a_k$. Since $p_n$ is increasing sequence of primes, there's a $N$ such that $p_n>a_k$ for all $n\ge N$. We may now assume that $N=1$ (by truncating all the first $N-1$ terms) and that $p_n>a_k$ for all $n\ge 1$. 
+	
+	If $p_n\nmid v_n$ for infinitely many $v_n$, then $v_n\mid a_k$ for those all those $n$'s. Since there are infinitely many of those $n$'s, and $a_k$ has only finitely many divisors, there must be infinitely many $v_n$'s that are the same. Let $\{r_{n_k}\}$ be the subsequence such that $v_{n_k}$ are the same, say $v_0$. Since this subsequence also converges to $r_0$, $u_{n_k}$ must be the same (say $u_0$) for sufficiently large $k$, too. This forces $r_0=u_0/v_0$, and is thus rational. 
+	
+	Thus $p_n\mid v_n$ for all but finitely many $v_n$. Again by extracting the appropriate subsequence we may assume $p\mid v_n$ for all $n$. Let $v_n=p_nw_n$, then from $v_n\mid pa_k$ we have $w_n\mid a_k$. Again by the logic above, there are infinitely $w_n$ that are the same, say, $w_0$. Since $u_n\mid p_na_0+b_0$, we can write $u_n= \frac{p_na_0+b_0}{d_n}$, and therefore we have $r_n=\frac{u_n}{v_n}=\frac{p_na_0+b_0}{d_np_nw_n}$, with infinitely many of the $w_n$ equal to $w_0$. In other words we have yet another subsequence $r_n=\frac{p_na_0+b_0}{d_np_nw_0}$ converging to $r_0$, i.e. $\frac{p_na_0+b_0}{d_np_n}=\frac{a_0}{d_n}+\frac{b_0}{d_np_n}$ converging to $r_0w_0$. 
+	If $d_n$ is unbounded, this gives a subsequence of $\frac{p_na_0+b_0}{d_np_n}$ converging to 0, so $r_0=0$. Otherwise, there exists infinitely many $d_n$ that's the same, say $d_0$, so we have $\frac{p_na_0+b_0}{d_np_n}=\frac{p_na_0+b_0}{d_0p_n}$ which converges to $\frac{a_0}{d_0}$ and therefore $r_0=\frac{a_0}{d_0w_0}$, establishing the claim. 
+	\end{enumerate}
+	
+	\section*{Combinatorics}
+	\begin{enumerate}
+		\item [\textbf{C1}] Several positive integers are written in a row. Iteratively, Alice chooses two adjacent numbers $x$ and $y$ such that $x>y$ and $x$ is to the left of $y$, and replaces the pair $(x,y)$ by either $(y+1,x)$ or $(x-1,x)$. Prove that she can perform only finitely many such iterations.
+		
+		\textbf{Solution.} Let $M$ be the maximum of the $n$ numbers. We first notice that at each step, the two numbers $y<x\le M$ is changed to either $y+1$ and $x$ or $x-1$ and $x$. Since $y<x$, $y+1\le x\le M$, so neither $y+1, x, x-1$ can exceed $M$. Thus after any iterations, no number can exceed $M$, and thus the sum of the $n$ numbers is bounded by $Mn$. 
+		On the other hand, after each iteration, the sum of the $n$ numbers either increases by 1 (in the case of $(y+1, x)$), or $x-y-1$ (in the case of $(x-1, x)$). Since $x-y-1\ge 0$ (as $x>y$), the sum of the numbers never decrease. But since the sum of the numbers cannot exceed $Mn$ either, it can only increase finitely many times (each increase adds to the sum by at least 1 since the numbers are all positive integers). 
+		
+		Thus if Alice were to do it infinitely many times, after one point the sum of the numbers remain the same. This falls into the case of $(x, y)\to (x-1, x)$ and when $x-y-1=0$, i.e. $y=x-1$. This is basically swapping the two adjacent numbers $(x, y)\to (y, x)$, subject to the constraint $y=x-1$. 
+		We see that the set of the numbers (along with their frequency) do not change, so all those iterations are basically permutations of the numbers. 
+		
+		Let's now order the permutations of $n$ numbers in the following way: if $\sigma$ and $\gamma$ are two permutations, let $k_0$ be the leftmost index such that $\sigma(k_0)\neq \gamma(k_0)$. We say that $\sigma<\gamma$ iff $\sigma(k_0)<\gamma(k_0)$. Since $y<x$, each iteration changes the arrangement of the $n$ numbers to a smaller permutation. But since there are only $n!$ permutation, there's only finitely many possible such iterations too. This proves the problem. 
+		
+		\item [\textbf{C2}] Let $n \geq 1$ be an integer. What is the maximum number of disjoint pairs of elements of the set $\{ 1,2,\ldots , n \}$ such that the sums of the different pairs are different integers not exceeding $n$?
+		
+		\textbf{Answer.} $\lfloor \frac{2n-1}{5}\rfloor$\\
+		\textbf{Solution.} Suppose that we have $k$ such pairs of numbers, then the $2k$ numbers must have sum at least $1+2+\cdots + 2k=k(2k+1)$. 
+		Since these $k$ pairs have sum that are different integers not exceeding $n$, the sum is at most $n+(n-1)+\cdots + (n-k+1)=\frac{k}{2}\cdot (2n-k+1)$. 
+		Thus, $k(2k+1)\le \frac{k}{2}\cdot (2n-k+1)$, which is the same as 
+		$2(2k+1)\le 2n-k+1$. 
+		Rearranging yields $5k\le 2n-1$, i.e. $k\le \frac{2n-1}{5}$. Since $k$ must be an integers, 
+		$k\le \frac{2n-1}{5}$. 
+		
+		Now we show that this is an attainable bound, which we split into two cases: 
+		\begin{itemize}
+			\item For $n=5m+1$ and $5m+2$, we have (in both cases) $\lfloor \frac{2n-1}{5}\rfloor=2m$. 
+			Consider the first $4m$ numbers and we pair them in the following fashion: 
+			\[
+			(1, 4m-1), (2, 4m-3), \cdots , (m, 2m+1), (m+1, 4m), (m+2, 4m-2), \cdots , (2m, 2m+2)
+			\]
+			these give the sum as following: 
+			\[4m, 4m-1, \cdots , 3m+1, 5m+1, 5m, \cdots , 4m+2
+			\]
+			so these are $2m$ pairs of sum $3m+1, 3m+2, \cdots , 4m, 4m+2, 4m+3, \cdots , 5m, 5m+1$ which are all distinct and at most $5m+1\le n$. 
+			
+			\item Now for $n=5m+3, 5m+4, 5m+5$, $\lfloor \frac{2n-1}{5}\rfloor=2m+1$. 
+			We now need the first $4m+2$ numbers and consider the following pairing: 
+			\[
+			(1, 3m+2), (2, 3m+3), \cdots , (m+1, 4m+2), 
+			(m+2, 2m+2), (m+3, 2m+3), \cdots , (2m+1, 3m+1)
+			\]
+			these give the sum as the following:
+			\[(3m+3), (4m+5), \cdots , (5m+1), (5m+3), 
+			(3m+4), (3m+6), \cdots , (5m+2)
+			\]
+			which are the distinct $2m+1$ sums of all integers in the range $3m+3, 3m+4, \cdots , 5m+3$. 
+		\end{itemize}
+		
+		\item [\textbf{C4}]
+		Players $A$ and $B$ play a game with $N \geq 2012$ coins and $2012$ boxes arranged around a circle. Initially $A$ distributes the coins among the boxes so that there is at least $1$ coin in each box. Then the two of them make moves in the order $B,A,B,A,\ldots $ by the following rules:\\
+		(a) On every move of his $B$ passes $1$ coin from every box to an adjacent box.\\
+		(b) On every move of hers $A$ chooses several coins that were not involved in $B$'s previous move and are in different boxes. She passes every coin to and adjacent box.
+		Player $A$'s goal is to ensure at least $1$ coin in each box after every move of hers, regardless of how $B$ plays and how many moves are made. Find the least $N$ that enables her to succeed.
+	\end{enumerate}
+	
+	\section*{Geomtery}
+	\begin{enumerate}
+	\item[\textbf{G1}] (IMO 1) Given triangle $ABC$ the point $J$ is the centre of the excircle opposite the vertex $A.$ This excircle is tangent to the side $BC$ at $M$, and to the lines $AB$ and $AC$ at $K$ and $L$, respectively. The lines $LM$ and $BJ$ meet at $F$, and the lines $KM$ and $CJ$ meet at $G.$ Let $S$ be the point of intersection of the lines $AF$ and $BC$, and let $T$ be the point of intersection of the lines $AG$ and $BC.$ Prove that $M$ is the midpoint of $ST.$
+	
+	\textbf{Solution.} We first show that $A, F, L, J$ lie on a circle. Now that $BK$ and $BM$ are both tangent to the excircle $\omega$ of $ABC$, we have $\angle BKJ=BMJ=90^{\circ}$, and moreover $MJ=MK$, so $M$ and $K$ are symmetric w.r.t. $BJ$. 
+	This means, $BJ\perp MK$. By some angle chasing we have 
+	\begin{flalign*}
+		\angle JFL &= \angle JFM
+		\\ &=90^{\circ} - \angle KMF 
+		\\ &= 90^{\circ} - (180^{\circ} - \angle KML) 
+		\\ &= 90^{\circ} - 180^{\circ} + (180^{\circ} - \frac 12 \angle KJL)
+		\\ &= 90^{\circ} - \frac 12 (180^{\circ} - \angle KAL)
+		\\ &=\frac 12\angle KAL
+		\\ &= \angle LAJ
+	\end{flalign*}
+	so $A, F, L, J$ are indeed concyclic. Since $\angle ALJ=90^{\circ}$, $\angle AFJ=90^{\circ}$, too, and thus $AS\perp BJ$. Combined with $MK\perp BJ$ we have $AS\parallel MK$. 
+	But then $BK=BM$ so $BA=BS$, too. This gives $MS=MB+BS=BK+BA=AK$. 
+	
+	Similarly, $MT=AL$. Since $AK$ and $AL$ are both tangents to $\omega$, we have $AK=AL$, so $MS=MT$. Since $M, S, T$ are all on $BC$, they are collinear, so $M$ is indeed the midpoint of $ST$. 
+	
+	\item[\textbf{G2}] Let $ABCD$ be a cyclic quadrilateral whose diagonals $AC$ and $BD$ meet at $E$. The extensions of the sides $AD$ and $BC$ beyond $A$ and $B$ meet at $F$. Let $G$ be the point such that $ECGD$ is a parallelogram, and let $H$ be the image of $E$ under reflection in $AD$. Prove that $D,H,F,G$ are concyclic.
+	
+	\textbf{Solution.} Since $G$ and $H$ lie on the different side of $DF$, we are proving that $\angle DHF+\angle DGF=180^{\circ}$, which is the same as proving $\angle DEF+\angle DGF=180^{\circ}$. 
+	
+	There are a few ways to prove this (one of which is the trigonometric bash I submitted as my homework), but one way is to explore the similarities arising from the fact that $ABCD$ is cyclic. 
+	Now, by some angle chasing we have (note the use of equal angle at parallelograms, and the use of exterior angle $\angle EDC + \angle ECD = \angle AED$ and $\angle FDE+\angle AED=\angle FAE$)
+	\[
+	\angle FDG = \angle FDE+\angle EDC + \angle CDG
+	= \angle FDE+\angle EDC + \angle ECD
+	= \angle FDE+\angle AED
+	= \angle FAE
+	= \angle FBE
+	\]
+	with the last equality following from the $ABCD$ is cyclic. 
+	In addition, 
+	\begin{flalign*}
+		\frac{FD}{DG}
+		&=\frac{FD}{CE}
+		\\ & =\frac{FB\sin \angle FBD / \sin \angle FDB}{BE \sin\angle EBC / \sin\angle BCE} \text{ (sin rule on triangle} FBD)
+		\\ & =\frac{FB\sin \angle EBC / \sin \angle BCE}{BE \sin\angle EBC / \sin\angle BCE} (\angle BCE=\angle FDB)
+		\\ &=\frac{FB}{BE}
+	\end{flalign*}
+	so together with $\angle FDG=\angle FBE$, we can conclude that triangles $FDG$ and $FBE$ are similar. 
+	In particular, $\angle DGF=\angle BEF$. But since $B, E, D$ are on a straight line in that order, we have $\angle BEF + \angle FED=180^{\circ}$, and therefore $\angle DGF + \angle FED=180^{\circ}$. 
+	
+	\item[\textbf{G3}] In an acute triangle $ABC$ the points $D,E$ and $F$ are the feet of the altitudes through $A,B$ and $C$ respectively. The incenters of the triangles $AEF$ and $BDF$ are $I_1$ and $I_2$ respectively; the circumcenters of the triangles $ACI_1$ and $BCI_2$ are $O_1$ and $O_2$ respectively. Prove that $I_1I_2$ and $O_1O_2$ are parallel.
+	
+	\textbf{Solution.} There are two things we need to prove: 
+	\begin{itemize}
+		\item Let $I$ be the incenter of triangle $ABC$. Then $CI\perp I_1I_2$. 
+		
+		\item $CI$ is also the radical axis of the circumcircles of $ACI_1$ and $BCI_2$. 
+	\end{itemize}
+	Once we establish the two, it will follow that $CI\perp O_1O_2$, and therefore with $CO\perp I_1I_2$ we have $O_1O_2\parallel I_1I_2$. 
+	
+	We will in fact show an overarching claim: $ABI_2I_1$ is cyclic. We have learned so many times that $DFCB$ is cyclic because $\angle CFB=\angle CDB=90^{\circ}$, therefore $\angle ADF=\angle ACB$, meaning that triangles $ADF$ and $ACB$ are similar. Moreover, their similitude is $\frac{AF}{AB}=\cos\angle CAB$. Thus, $\frac{AI_1}{AI}=\cos\angle CAB$, too. But then $I$ and $I_1$ both lie on the internal angle bisector of $\angle CAB$, so we have 
+	\[II_1=IA-I_1A=IA(1-\cos\angle CAB)=IA(2\sin^2\frac{\angle CAB}{2})
+	=2IA\sin^2 \angle IAB
+	\]
+	(notice the use of double angle formula: $\cos 2x=1-2\sin^2 x$)
+	and similarly $II_2=2IB\sin^2\angle IBA$. Thus we now have 
+	\[
+	\frac{II_1\cdot IA}{II_2\cdot IB}
+	=\frac{2IA\sin^2\angle IAB\cdot\angle IA}{2IB\sin^2\angle IBA\cdot IB}
+	=\frac{IA^2}{IB^2}\cdot\frac{\sin^2\angle IAB}{\sin^2\angle IBA}
+	=\frac{\sin^2\angle IBA}{\sin^2\angle IAB}\cdot\frac{\sin^2\angle IAB}{\sin^2\angle IBA}
+	=1
+	\]
+	(notice the use of sine rule on triangle $IAB$ in the second last equality). 
+	Thus $II_1\cdot IA=II_2\cdot IB$, and so by power of point theorem $I_1ABI_2$ is cyclic. 
+	Moreover, the power of point from $I$ to the circumcircle of $ACI_1$ and $BCI_2$ are $II_1\cdot IA$ and $II_2\cdot IB$, respectively. 
+	Since these two are equal, $I$ has equal power from the two circles, and hence lie on the radical axis of the two circles. Since $C$ lies on both the circles, $CI$ is the radical axis of these two circles. 
+	Finally, if $G$ is the intersection from $CI$ to $I_1I_2$ then (the second equality is the exterior angle)
+	\[\angle I_1IG+\angle II_1G
+	=(\angle ICA+\angle IAC)+\angle IBA
+	=\frac{\angle BCA +\angle BAC + \angle CBA}{2}
+	=\frac{180^{\circ}}{2}
+	=90^{\circ}
+	\]
+	which shows that $CI$ and $I_1I_2$ are indeed perpendicular. 
+	
+	\item[\textbf{G4}] Let $ABC$ be a triangle with $AB \neq AC$ and circumcenter $O$. The bisector of $\angle BAC$ intersects $BC$ at $D$. Let $E$ be the reflection of $D$ with respect to the midpoint of $BC$. The lines through $D$ and $E$ perpendicular to $BC$ intersect the lines $AO$ and $AD$ at $X$ and $Y$ respectively. Prove that the quadrilateral $BXCY$ is cyclic.
+	
+	\textbf{Solution.} W.L.O.G. assume $AB<AC$. 
+	We first notice that, if $M$ is the second intersection of the angle bisector $AD$ of $\angle BAC$ and the circumcircle of $ABC$, then $BM=MC$, and therefore the perpendicular from $M$ to $BC$ (say, $M_1$) will be the midpoint of $BC$. 
+	Since $DM_1=M_1E$, we also have $DM=MY$. 
+	
+	We now show that $AD\cdot DM=XD\cdot EY$. Now, $EY=DY\cos \angle DYE=2DM\cos\angle DYE$. 
+	Moreover, we can use the well-known fact that the perpendicular from $A$ to $BC$ and $AO$ are the isogonal conjugate (i.e. the reflection in $AD$) and since $DX\perp BC$, we have $\angle XAD=\angle XDA$. Since $XD\perp EY$, too, $\angle XDA=\angle EYD$. 
+	This also means $DX=XA$, and that $AD=2DX\cos\angle EYD$, and thus $DX=\frac{AD}{2\cos\angle EYD}$. Therefore we have 
+	\[XD\cdot EY=\frac{AD}{2\cos\angle EYD}\cdot 2DM\cos\angle DYE=AD\cdot DM
+	\]
+	but by the power of point theorem (since $ABMC$ is cyclic) we have $AD\cdot DM=BD\cdot DC$. It follows that $XD\cdot EY=BD\cdot DC$ too. 
+	
+	Now reflect $Y$ in the perpendicular bisector of $BC$ to get $Y'$ and we have $XD\cdot DY'=BD\cdot DC$ since $X, D, Y'$ would be collinear. It follows that $BXCY'$ is cyclic. 
+	But then $BCYY'$ is also cyclic (isoceles trapezoid), so the conclusion follows. 
+	
+	\item[\textbf{G5}] (IMO 5) Let $ABC$ be a triangle with $\angle BCA=90^{\circ}$, and let $D$ be the foot of the altitude from $C$. Let $X$ be a point in the interior of the segment $CD$. Let $K$ be the point on the segment $AX$ such that $BK=BC$. Similarly, let $L$ be the point on the segment $BX$ such that $AL=AC$. Let $M$ be the point of intersection of $AL$ and $BK$.
+	
+	\textbf{Solution.} Let $Y$ to be the orthocenter of triangle $AXB$. Since $YX$ is perpendicular to $AB$, $Y, X, C, D$ are collinear. Now, consider the circle $\omega_A$ centered at $A$ with radius $AC$, and circle $\omega_B$ centered at $B$ with radius $BC$. We now consider the pole $P'$ of $BX$ with respect to $\omega_A$. This pole $P'$ lies on the polar of $B$. Since $\angle BCA=90^{\circ}$, $BC$ is tangent to $\omega_A$ and since $CD$ is perpendicular to $AB$, $CD$ is indeed to polar of $B$ and $P'$ is on $CD$. 
+	Moreover, by the definition of pole, $P'$ also lies on perpendicular line from $A$ to $BX$. Thus $P'A\perp BX$ and $P'X\perp AB$, showing that $P'$ is the orthocenter of $AXB$. Thus $P'=Y$, too, i.e. $Y$ is the pole of $BX$ w.r.t. $\omega_A$. Similarly $Y$ is also the pole of $AX$ w.r.t. $\omega_B$. But since $L$ is on both $BX$ and $\omega_A$, $YL$ is tangent to $\omega_A$, and similarly $YK$ is tangent to $\omega_B$. But since $Y$ is on $CD$, the radical axis of $\omega_A$ and $\omega_B$, we have $YK=YL$. Finally, $MK^2=YM^2-YK^2=YM^2-YL^2=ML^2$ so $MK=ML$ (we use the fact that $\angle YKM=\angle YLM=90^{\circ}$). 
+	
+	\item[\textbf{G6}] Let $ABC$ be a triangle with circumcenter $O$ and incenter $I$. The points $D,E$ and $F$ on the sides $BC,CA$ and $AB$ respectively are such that $BD+BF=CA$ and $CD+CE=AB$. The circumcircles of the triangles $BFD$ and $CDE$ intersect at $P \neq D$. Prove that $OP=OI$.
+	
+\end{enumerate}
+
+\section*{Number Theory}
+\begin{enumerate}
+	\item [\textbf{N1}] Call admissible a set $A$ of integers that has the following property:
+	If $x,y \in A$ (possibly $x=y$) then $x^2+kxy+y^2 \in A$ for every integer $k$.
+	Determine all pairs $m,n$ of nonzero integers such that the only admissible set containing both $m$ and $n$ is the set of all integers.
+	
+	\textbf{Answer.} All $(m, n)$ satisfying $\gcd(m, n)=1$. \\
+	\textbf{Solution.} First, let $d=\gcd(m, n)$. The set $d\bbZ=\{dn: n\in\bbZ\}$ contains $m$ and $n$, and is admissible since $d\mid x$ and $d\mid y$ implies that for all $k\in\bbZ$ we have $x^2, kxy, y^2$ are all divisible by $d$, so $d\mid x^2+kxy+y^2$. 
+	So we need $d=1$ for $d\bbZ=\bbZ$. 
+	
+	On the other hand, suppose $\gcd(m, n)=1$. Letting $x=y=m$ we have $m^2+km^2+m^2=(k+2)m^2\in A$, so $m^2\bbZ\subseteq A$, and similarly $n^2\bbZ\subseteq A$. Since $\gcd(m^2, n^2)=1$ too, we can find $a$ and $b$ such that $am^2+bn^2=1$, by Euclidean theorem. Also $am^2, bn^2$ both $\in A$. 
+	Now let $x=am^2$ and $y=bn^2$ and $k=2$ we have $(x+y)^2=x^2+2xy+y^2\in A$ but since $x+y=1$ we have $1\in A$. Finally, letting $x=y=1$ we have $1+k+1=k+2\in A$ for every integer $k$, so $A=\bbZ$. 
+	
+	\item[\textbf{N2}] Find all triples $(x,y,z)$ of positive integers such that $x \leq y \leq z$ and
+	\[x^3(y^3+z^3)=2012(xyz+2).\]
+	
+	\textbf{Answer.} The only such triple is $(2, 251, 252)$. \\
+	\textbf{Solution.} The left hand side is divisible by $x$ while the right hand side is congruent to $2012(2)=4024$ modulo $x$. We therefore have $x\mid 4024=503\times 2^3$, with 503 being a prime. 
+	Next, we show that $x$ cannot be divisible by 4. Suppose it is, then the left-hand-side is divisible by $4^3=64$, and $4\mid x$ implies $503\times 2^3\times 2^2=2012(4)\mid 2012xyz$ so $2012xyz$ is divisible by $2^5=32$. It then follows that $4024$ is divisible by 32 (since $32\mid 64$) too, which is a contradiction. 
+	Finally, we show that $x$ cannot be greater than $\sqrt[3]{2012}$. 
+	For all $x\ge 2$ we have $xyz+2\le z^3+2<z^3+y^3$ since $x\le y\le z$, so either $x=1$ or $x^3<2012$, as claimed. 
+	Thus the maximal possible $x$ is 11, but since it also has to be a divisor of $8\times 503$ and cannot be divisible by 4, we have either $x=1$ or $x=2$. 
+	
+	If $x=1$, we essentially have $y^3+z^3=2012(yz+2)$, and notice that $y^3+z^3$ is divisible by 2012. Since $503$ is a prime that's $\equiv 2\pmod{3}$, we have $y^3\equiv z^3\pmod{503}\to y\equiv z\pmod{503}$, so here $y^3\equiv(-z)^3\to y\equiv -z$, meaning $503\mid y+z$. 
+	In addition, $y^3+z^3$ is even, so $y+z$ must also be even ($y$ and $z$ must be of the same parity). 
+	It then follows that $y+z$ is divisible by 1006. 
+	Let $y+z=1006k$, and $y^3+z^3=(y+z)(y^2-yz+z^2)=1006k(y^2-y(1006k-y)+(1006k-y)^2)$ while $2012(yz+2)=2012(y(1006k-y)+2)$. This gives $k(y^2-y(1006k-y)+(1006k-y)^2)=2(y(1006k-y)+2)$. 
+	\begin{itemize}
+		\item If $k=1$, we have 
+		$(y^2-y(1006-y)+(1006-y)^2)=2(y(1006-y)+2)$, i.e. 
+		$3y^2-3018y+1006^2=-2y^2+2012y+4$, i.e. 
+		$5y^2-5030y+(1006^2-4)=0$. 
+		This reduces to a quadratic equation in $y$ with discriminant 
+		$5030^2-4(5)(1006^2-4)=5\times 1006^2+80=4(5)(503^2+4)$. 
+		We see that $503^2+4\equiv 4+4\equiv 3$ modulo 5, so this discriminant is divisible by 5 but not $5^2$, and thus not a perfect square. It follows that this quadratic equation has no integer solution. 
+		
+		\item If $k=2$ we have 
+		$y^2-y(2012-y)+(2012-y)^2 = y(2012-y)+2$, so 
+		$3y^2-3(2012)y+2012^2=2012y-y^2+2$, i.e. 
+		$4y^2-4(2012)y+(2012^2-2)=0$. 
+		Again we treat it as a quadratic equation with discriminant 
+		$4^2(2012^2)-4(2012^2-2)=4(4(2012^2)-(2012^2-2))$. Since $4\mid 2012$, we see the term $4(2012^2)-(2012^2-2)$ is divisible by 2 but not 4, hence cannot be a perfect square. This also means that $4(4(2012^2)-(2012^2-2))=2^2(4(2012^2)-(2012^2-2))$ cannot be a perfect square, showing that once again this qudratic equation cannot have solution. 
+		
+		\item Let's see what happens as $k\ge 3$. 
+		We have $y+z=1006k$ and therefore by the power-mean inequality, 
+		$y^3+z^3\ge 2(\frac{y+z}{2})^3=\frac{(1006k)^3}{4}=2\times 503^3\times k^3$. 
+		On the other hand, on the right hand side we have 
+		$2012(yz+2)\le 2012(\frac{(y+z)^2}{4}+2)=2012(\frac{(1006k)^2}{4}+2)=2012(503^2k^2+2)$. Combining these two inequalities give 
+		\[2\times 503^3\times k^3\le 2012(503^2k^2+2)\stackrel{\div 1006}{\to}
+		503^2\times k^3\le 2(503^2k^2+2)
+		\]
+		This means, $503^2k^2(k-2)\le 4$, and 
+		we see that this inequality fails when $k\ge 3$, so no solution for $k\ge 3$. 
+		
+	\end{itemize}
+	We now proceed to the second case: $x=2$, i.e. $8(y^3+z^3)=2012(2yz+2)$, or $y^3+z^3=503(yz+1)$. By the same logic as above, we need $503\mid y+z$. 
+	If $y+z=503k$ then by the power-mean inequality (again) we have 
+	$y^3+z^3\ge \frac{503^3k^3}{4}$ and 
+	$503(yz+1)\le 503(\frac{503^2k^2}{4}+1)$, so 
+	\[\frac{503^3k^3}{4}\le 503(\frac{503^2k^2}{4}+1)
+	\stackrel{\times 4\div 503}{\to}
+	503^2k^3\le 503^2k^2+4
+	\]
+	which implies $503^2k^2(k-1)\le 4$, as well. Again from here we can see $k\le 1$ so we only need to care about this case. Knowing this, we have $x+y=503$ and therefore $y^2-yz+z^2=yz+1$ becomes $(y-z)^2=1$. Since $z\ge y$, we have $z-y=1$ and $z+y=503$. This implies $y=251$ and $z=252$. We can check that this triple $(x, y, z)=(2, 251, 252)$ fulfills the problem condition, and is thus the only triple of our interest. 
+	
+	\item [\textbf{N3}] Determine all integers $m \geq 2$ such that every $n$ with $\frac{m}{3} \leq n \leq \frac{m}{2}$ divides the binomial coefficient $\binom{n}{m-2n}$.
+	
+	\textbf{Answer.} All $m$'s that are prime. \\
+	\textbf{Solution.} We use the following formula to calculate the highest power of a prime $p$ dividing $n!$ : 
+	\[
+	v_p(n!)=\dsum_{k=1}^{\infty}\left\lfloor \frac{n}{p^k}\right\rfloor
+	\]
+	and notice that $\binom{n}{m-2n}=\frac{n!}{(m-2n)!(3n-m)!}$. 
+	
+	We first see what happens when $m$ is prime. Then for all $n$ within the stipulated condition we have $n<m$ and so $\gcd(n, m)=1$. Choose any $n$ arbitrary, subject to the inequality constraint. 
+	Let $p$ to be any prime dividing $n$ and let $k_0=v_p(n)$. We now have 
+	\[v_p\left(\frac{n!}{(m-2n)!(3n-m)!}\right)
+	= v_p(n!) - v_p((m-2n)!) - v_p((3n-m)!)
+	= \dsum_{k=1}^{\infty}\left\lfloor \frac{n}{p^k}\right\rfloor - \left\lfloor \frac{m-2n}{p^k}\right\rfloor - \left\lfloor \frac{3n-m}{p^k}\right\rfloor
+	\]
+	We first notice that for each $k$, $\left\lfloor \frac{n}{p^k}\right\rfloor - \left\lfloor \frac{m-2n}{p^k}\right\rfloor - \left\lfloor \frac{3n-m}{p^k}\right\rfloor\ge 0$ since $\lfloor a+b\rfloor \ge \lfloor a\rfloor + \lfloor b\rfloor$ for all real numbers $a$ and $b$. 
+	It now remains to show that for all $k\le k_0$ we have $\left\lfloor \frac{n}{p^k}\right\rfloor - \left\lfloor \frac{m-2n}{p^k}\right\rfloor - \left\lfloor \frac{3n-m}{p^k}\right\rfloor \ge 1$. 
+	Since $p^{k_0}\mid v_p(n)$, $\frac{n}{p^k}$ is an integer and therefore $\left\lfloor \frac{n}{p^k}\right\rfloor  = \frac{n}{p^k}$. 
+	However, as $\gcd(n, m)=1$, $m$ is not divisible by $p$ and so neither is $m-2n$ nor $3n-m$. 
+	We therefore have $\left\lfloor \frac{m-2n}{p^k}\right\rfloor < \frac{m-2n}{p^k}$ and 
+	$\left\lfloor \frac{3n-m}{p^k}\right\rfloor < \frac{3n-m}{p^k}$. Therefore, 
+	\begin{flalign*}
+	\left\lfloor \frac{n}{p^k}\right\rfloor - \left\lfloor \frac{m-2n}{p^k}\right\rfloor - \left\lfloor \frac{3n-m}{p^k}\right\rfloor
+	&= \frac{n}{p^k} - \left\lfloor \frac{m-2n}{p^k}\right\rfloor - \left\lfloor \frac{3n-m}{p^k}\right\rfloor
+	\\& > \frac{n}{p^k} - \frac{m-2n}{p^k} -  \frac{3n-m}{p^k}
+	\\& > 0
+	\end{flalign*}
+	and since the floor functions are integers, so is the differences and sums among them. Therefore $\left\lfloor \frac{n}{p^k}\right\rfloor - \left\lfloor \frac{m-2n}{p^k}\right\rfloor - \left\lfloor \frac{3n-m}{p^k}\right\rfloor\ge 1$ for all $k\le k_0$, establishing the claim. 
+	Therefore this identity holds when $m$ is prime. 
+	
+	Next, let's see what happens if $m$ is composite. If $m$ is divisible by 2, choosing $n=\frac{m}{2}$ gives $\dbinom{n}{m-2n}=\dbinom{n}{0}=1$ so we have $n\nmid 1$. If $m$ is divisible by 3, choosing $m=\frac{m}{3}$ gives $\dbinom{n}{m-2n}=\dbinom{n}{n}=1$ so we have $n\nmid 1$, too. We can therefore assume that the smallest prime dividing $m$ is at least 5. 
+	
+	\item[\textbf{N6}] Let $x$ and $y$ be positive integers. If ${x^{2^n}}-1$ is divisible by $2^ny+1$ for every positive integer $n$, prove that $x=1$.
+	
+\end{enumerate}
+
+\end{document}
