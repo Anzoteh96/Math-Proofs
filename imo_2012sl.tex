@@ -150,11 +150,21 @@
 		\item [\textbf{C4}]
 		Players $A$ and $B$ play a game with $N \geq 2012$ coins and $2012$ boxes arranged around a circle. Initially $A$ distributes the coins among the boxes so that there is at least $1$ coin in each box. Then the two of them make moves in the order $B,A,B,A,\ldots $ by the following rules:\\
 		(a) On every move of his $B$ passes $1$ coin from every box to an adjacent box.\\
-		(b) On every move of hers $A$ chooses several coins that were not involved in $B$'s previous move and are in different boxes. She passes every coin to and adjacent box.
+		(b) On every move of hers $A$ chooses several coins that were not involved in $B$'s previous move and are in different boxes. She passes every coin to an adjacent box.
+		
 		Player $A$'s goal is to ensure at least $1$ coin in each box after every move of hers, regardless of how $B$ plays and how many moves are made. Find the least $N$ that enables her to succeed.
+		
+		\textbf{Answer.} $2(2012)-2=4022$. \\
+		\textbf{Solution.} (Modified from the solution submitted as homework) The condition that $A$ can only move coins that are not involved in $B$'s previous moves and are in different boxes can be reformulated as, $A$ can choose boxes that had two coins before $B$'s immediate prior move, and move one coin from each chosen boxes to an adjacent box. 
+		
+		We will now design a strategy for $A$ when $N=4022$ by having her to maintain the following invariant after each step of hers: all boxes have exactly two coins except two of them, say, box $B_x$ and $B_y$, and $x\not\equiv y\pmod{2}$. Now, for each of the 2010 boxes $B_k$ that are not $B_x$ or $B_y$, $A$ can do the following: if $B$ moved a coin from $B_k$ to $B_{k+\epsilon}$ with $\epsilon=\pm 1$, then $A$ moves a coin from $B_k$ to $B_{k-\epsilon}$. 
+		To show that this invariant is maintained, suppose, for time being, that the boxes $B_x$ and $B_y$ are involved in $A$'s move as well. For each box $B_k$, each $A$ and $B$ moves a coin from $B_k$ to an adjacent box, so there's an outflow of two coins by this consideration. 
+		Nevertheless, considering the move from $B_{k-1}$, among the two moves $B_{k-1}\to B_k$ and $B_{k-1}\to B_{k-2}$, exactly one move is done by $B$ and the other by $A$. Same goes to the two moves $B_{k+1}\to B_k$ and $B_{k+1}\to B_{k+2}$, so these give a total inflow of two coins by the two players. Hence the net flow of coins is zero, which restores our configuration to the initial configuration before $B$'s move. Now, excluding $B_x$ and $B_y$ from the operation means that we need to undo the moves by $B_x$ and $B_y$ to an adjacent box. That is, moving an adjacent coin from $B_{x\pm 1}$ to $B_x$ and $B_{y\pm 1}$ to $B_y$. Since $x$ and $y$ are of different parity, $B_{x\pm 1}$ and $B_{y\pm 1}$ cannot be the same regardless of the choices of the signs, and moreover $x\pm 1$ and $y\pm 1$ have different signs. Therefore, $B_{x\pm 1}$ and $B_{y\pm 1}$ are the only two boxes with one coin each, and our invariant is maintained. 
+		
+		
 	\end{enumerate}
 	
-	\section*{Geomtery}
+	\section*{Geometry}
 	\begin{enumerate}
 	\item[\textbf{G1}] (IMO 1) Given triangle $ABC$ the point $J$ is the centre of the excircle opposite the vertex $A.$ This excircle is tangent to the side $BC$ at $M$, and to the lines $AB$ and $AC$ at $K$ and $L$, respectively. The lines $LM$ and $BJ$ meet at $F$, and the lines $KM$ and $CJ$ meet at $G.$ Let $S$ be the point of intersection of the lines $AF$ and $BC$, and let $T$ be the point of intersection of the lines $AG$ and $BC.$ Prove that $M$ is the midpoint of $ST.$
 	
@@ -258,6 +268,96 @@
 	
 	\item[\textbf{G6}] Let $ABC$ be a triangle with circumcenter $O$ and incenter $I$. The points $D,E$ and $F$ on the sides $BC,CA$ and $AB$ respectively are such that $BD+BF=CA$ and $CD+CE=AB$. The circumcircles of the triangles $BFD$ and $CDE$ intersect at $P \neq D$. Prove that $OP=OI$.
 	
+	\textbf{Solution.} (Modified from the solution I submitted to my homework for the IMO 2013 training camp). 
+	Let $M_A, M_B, M_C$ be the midpoints of sides $BC, CA, AB$, respectively, and let $D'$, $E'$, $F'$ be the reflections of $D, E, F$ in $M_A, M_B, M_C$, respectively. 
+	We first show that the circumcircles of $AE'F', BF'D'$ and $CD'E'$ intersect at $I$. 
+	
+	By Miquel's theorem, they do have a common point. We first show that $I$ lies on the circumcircle of $AE'F'$; the other two facts would be similar. 
+	From the length relation above, we have $AD+AE=BC$, so $AD'+AE'=(AB+AC)-BC$ by the definition of ``reflection in the midpoint''. If $T_A, T_B, T_C$ denotes the tangency points of the incircle of $ABC$ with the sides $BC, CA, AB$, then we also have $ATB+AT_C=(AB+AC)-BC$ (exercise :P). 
+	Therefore, $T_BE'=T_CF'$, and moreover $E'$ lies on the segment $AT_B$ if and only if $F'$ lies on the segment $T_CB$ (refer this as the ``side manipulation'' later). 
+	From the fact that $IT_B=IT_C$ and $\angle IT_BA=\angle IT_CA$ we can then conclude that $\angle IE'T_B=\angle IF'T_C$ since the triangle $IE'T_B$ and $IF'T_C$ would be similar. By the ``side manipulation'' fact, however, we get $\angle AF'I$ and $\angle AE'I$ supplementary, so the lemma follows. 
+	
+	Now to prove the main problem, we shall make a bolder claim as follows. By the definition of reflection again, reflecting any line passing through $D'$ in the perpendicular bisector of $BC$ will produce a line passing through $D$ (infer similarly for the other two). 
+	Now reflect the lines $D'I, E'I, F'I$ in the perpendicular bisectors of $BC, CA, AB$, respectively to get lines $\ell_A, \ell_B, \ell_C$ passing through $D, E, F$. We will prove that these three lines intersect at $I$. 
+	
+	To show this, from before we have (using oriented angles from now on) $\angle (IT_C, IT_B)=\angle (AB, AC)=\angle(F'I, E'I)$ by the cyclicity of $AE'IF'$ and $AT_BIT_C$, so by doing some appropriate substraction we have $\angle(F'I, I_TC)=\angle (E'I, IT_B)=\angle (D'I, IT_A)$ (we extend the claim to something analogous). 
+	By the definition of reflection, $\angle(F'I, IT_C), \angle (E'I, IT_B), \angle (D'I, IT_A)$ are each equal to $\angle(IT_C, \ell_C), \angle (IT_B, \ell_B), \angle (IT_A, \ell_A)$, which are in turn equal to\\ $\angle(OM_C, \ell_C), \angle (OM_B, \ell_B), \angle (OM_A, \ell_A)$ since $OM_A$ and $IT_A$ are both perpendicular to $BC$ (similarly to the other two). These angle must all be the same, as it turns out. 
+	
+	Now assume, for a moment, that the lines $ID'$ and $OM_A$ intersect at $K_A$, then $K_A$ is on $\ell_A$, too. Define $\ell_B$ and $\ell_C$ similarly. By the angle condition above, $K_A, K_B, K_C$ could simultaneously be the point of infinity; in this case it's not hard to show that $P$ is the reflection of $I$ in $O$, hence $OP=OI$ must hold here. We would therefore now assume that this is not the case, so $K_A, K_B, K_C$ are all points in the non-projective plane. 
+	Now we have the following refined equality: 
+	\[
+	\angle(F'I, IT_C)=\angle(IK_C, K_CM_C) = \angle(IK_C, K_CO) = \angle(E'I, IT_B)=\angle(IK_B, K_BM_B)=\angle (IK_B, K_BO)
+	\]
+	where we used the fact that the perpendicular bisectors of the sides concur at $O$. 
+	We therefore have $K_B, K_C, I, O$ concyclic, and similarly $K_A$ would be on this circle too. 
+	If $P'$ is another point on this circle with $OP'=OI$ then it's not hard to see that $P'$ is on the three lines $\ell_A, \ell_B, \ell_C$, and moreover $P'$ is on the circles $AEF, BDF, CDE$. It follows that $P'=P$ and therefore $OI=OP$. Q.E.D. 
+	
+	\item[\textbf{G8}] Let $ABC$ be a triangle with circumcircle $\omega$ and $\ell$ a line without common points with $\omega$. Denote by $P$ the foot of the perpendicular from the center of $\omega$ to $\ell$. The side-lines $BC,CA,AB$ intersect $\ell$ at the points $X,Y,Z$ different from $P$. Prove that the circumcircles of the triangles $AXP$, $BYP$ and $CZP$ have a common point different from $P$ or are mutually tangent at $P$.
+	
+	\textbf{Solution.} Let $AD$, $BE$, $CF$ be the radical axis of $\omega$ and circles $AXP$, $BYP$ and $CZP$, respectively, with $D, E, F$ on $\ell$. Since $P$ does not lie on $\omega$, each of $D, E, F$ must be distinct from $P$. We show that these three lines concur: if $Q$ is the common intersection point, then it will be on the radical center of the three circles $AXP$, $BYP$, $CZP$. Then both $P$ and $Q$ are on the radical center, showing that these three circles are indeed coaxial. 
+	
+	To start with, for each point $Q$ denote by $f(Q)=OQ^2-r^2$ the power of point of point $Q$ with respect to $\omega$, with $O$ being the center of $\omega$ and $r$ its radius. If $Q$ is on $\ell$, we also have $f(Q)=OQ^2-r^2=PQ^2+PO^2-r^2=PQ^2+f(P)$. 
+	Now consider point $D$, with $f(D)=PD^2+f(P)$. Since it's on the radical axis of $\omega$ and $AXP$, we have $f(D)=DP\cdot DX$. Since $f(D)=PD^2+f(P)>PD^2$ (because $f(P)>0$: $P$ is outside $\omega$), we have $DA>DP$ and we can write $DX=DP+PX$ (i.e. $P$ lies between $D$ and $X$). 
+	Thus $PD^2+f(P)=DP\cdot (DP+PX)=DP^2+DP\cdot PX$, and therefore $f(P)=DP\cdot PX$. Similarly we have 
+	\[
+	f(P)=DP\cdot PX=EP\cdot PY=FP\cdot PZ (*)
+	\]
+	with $P$ lying between $E$ and $Y$, between $F$ and $Z$, too. 
+	
+	Now we can proceed by the trigonometric version of Ceva's version. But we somehow need to be careful about the sign convention here. We'll have these in mind: 
+	\begin{itemize}
+		\item To prove concurrency of $AD, BE, CF$ we will need (considering sign conventions)
+		\[
+		\dfrac{\sin\angle BAD}{\sin\angle CAD}\cdot\dfrac{\sin\angle ACF}{\sin\angle BCF}\cdot\dfrac{\sin\angle CBE}{\sin\angle ABE} = 1
+		\]
+		
+		\item Considering the triangle $ZAY$ with cevian $AD$: 
+		\[
+		\dfrac{AZ}{AY}\cdot \dfrac{\sin\angle BAD}{\sin\angle CAD}\sigma(A) = \dfrac{ZD}{DY}
+		\]
+		with $\sigma (A)$ being $1$ if the angle domain $\angle BAC$ is the same (or opposite) as the angle domain $\angle YAZ$ and $-1$ they are adjacent, 
+		and similarly 
+		\[
+		\dfrac{CY}{CX}\cdot \dfrac{\sin\angle ACF}{\sin\angle BCF}\sigma(C) = \dfrac{YF}{FX}\qquad
+		\dfrac{BX}{BZ}\cdot \dfrac{\sin\angle CBE}{\sin\angle ABE}\sigma(B) = \dfrac{XE}{EZ}
+		\]
+		
+		\item Above, we have $AZ, AY, CY, CZ, BX, BZ$ all unsigned (positive) but fraction $\dfrac{ZD}{DY}$ is positive iff $D$ lies between $Z$ and $Y$ and negative otherwise (i.e. follow the normal rule of signed convention). Also, by sine rule on triangle $AYZ$ we have $\dfrac{AZ}{AY} = \dfrac{\sin\angle AYZ}{\sin\angle AZY}$ and similarly $\dfrac{BX}{BZ}=\dfrac{\sin\angle BZX}{\sin\angle BXZ}$ and $\dfrac{CY}{CX}=\dfrac{\sin\angle CXY}{\sin\angle CYX}.$ 
+		But since $B, C, X$ are collinear, we have $\angle CXY$ and $\angle BXZ$ either equal or complementary (depending on the sides of $\ell$ where $Y$ and $Z$ lie on). In either case $\sin\angle CXY = \sin\angle BXZ$. Similarly, $\sin\angle CYX = \sin\angle AYZ$ and $\sin\angle AZY=\sin\angle BZX$. This gives 
+		\[
+		\dfrac{AZ}{AY}\cdot\dfrac{BX}{BZ}\cdot\dfrac{CY}{CX}=\dfrac{\sin\angle AYZ}{\sin\angle AZY}\cdot\dfrac{\sin\angle BZX}{\sin\angle BXZ}\cdot\dfrac{\sin\angle CXY}{\sin\angle CYX}=1
+		\]
+		
+	\end{itemize}
+	Thus it all reduces to proving that 
+	\[\sigma(A)\sigma(B)\sigma(C) = \dfrac{XE}{EZ}\cdot\dfrac{YF}{FX}\cdot\dfrac{ZD}{DY}
+	\]
+	We first determine the ratio of right hand side in terms of linear coordinates (as they all lie on $\ell$). W.L.O.G, too, let $P$ to have coordinate 0, and let the coordinates of $X, Y, Z$ to be $x, y, z$. 
+	Then by the property (*), we have the coordinates $d, e, f$ of $D, E, F$ as 
+	\[
+	-\dfrac{f(P)}{x}\qquad -\dfrac{f(P)}{y}\qquad -\dfrac{f(P)}{z}
+	\]
+	respectively. We also know that the sign convention of length ratio goes as, $\dfrac{XE}{EZ}$ is positive if and only if $E$ lies on the segment $XZ$. So the ratio now becomes 
+	\[
+	\dfrac{XE}{EZ}\cdot\dfrac{YF}{FX}\cdot\dfrac{ZD}{DY}
+	=\dfrac{e-x}{z-e}\cdot\dfrac{f-y}{x-f}\cdot\dfrac{d-z}{y-d}
+	=\dfrac{-\frac{f(P)}{y}-x}{z+\frac{f(P)}{y}}\cdot\dfrac{-\frac{f(P)}{z}-y}{x+\frac{f(P)}{z}}\cdot\dfrac{-\frac{f(P)}{x}-z}{y+\frac{f(P)}{x}}
+	=-1
+	\]
+	To play around with the values $\sigma(A), \sigma(B), \sigma(C)$, however, we need to determine them with respect to the positions of $X, Y, Z$ (e.g. where $X$ is at ray $BC$ beyond $C$ or ray $CB$ beyond $B$). From Menelaus' theorem applied to $\ell$ and triangle $ABC$ we have, in unsigned terms, 
+	\[
+	\dfrac{|ZA|}{|ZB|}\cdot\dfrac{|YC|}{|YA|}\cdot\dfrac{|XB|}{|XC|}=1
+	\]
+	We say a ratio is big if it's $>1$ and small if it's $-1$. Two big or two small ratios are in the same category, and a big ratio is in a different category than a small one. 
+	
+	We have $\dfrac{|ZA|}{|ZB|}>1$ iff $Z$ on ray $AB$ beyond $B$ and $<1$ iff on ray $BA$ beyond $A$. 
+	Now, $\sigma(A)$ depends on the positions of $Y$ and $Z$: angle domain $\angle YAZ$ on the angle domain $\angle BAC$ iff $Y$ and $Z$ are both ``far away'' from $A$ ($Y$ on ray $AC$ beyond $C$, $Z$ on ray $AB$ beyond $B$), and therefore $\dfrac{|ZA|}{|ZB|}>1$ and $\dfrac{|YC|}{|YA|}<1$. 
+	Similarly, we can deduce that these two angle domains are opposite of each other if $\dfrac{|ZA|}{|ZB|}<1$ and $\dfrac{|YC|}{|YA|}>1$ and adjacent to each other iff the ratios are both $>1$ or $<1$.
+	Therefore, $\sigma(A)=-1$ iff the corredponsing ratios are in the same category, and 1 iff different. Similar for the other two. Since the three ratios have product 1, we must have one big two small, or two big one small. Either way, from the three pairs of ratios, two of them are of the different category and the other pair same (i.e. for (big, big, small) we have two (big, small) pair and one (big, big) pair). 
+	Thus one of $\sigma(A), \sigma(B), \sigma(C)$ is $-1$ and the other two 1, and $\sigma(A)\sigma(B)\sigma(C)=-1$. 
+	
+	Remark: I gave a solution involving inverting around $P$ to a math olympiad tutoring class. The solution turned out to be essentially the same, but that way it's more natural to see how should the ratios be manipulated. 
+	
 \end{enumerate}
 
 \section*{Number Theory}
@@ -357,7 +457,52 @@
 	
 	Next, let's see what happens if $m$ is composite. If $m$ is divisible by 2, choosing $n=\frac{m}{2}$ gives $\dbinom{n}{m-2n}=\dbinom{n}{0}=1$ so we have $n\nmid 1$. If $m$ is divisible by 3, choosing $m=\frac{m}{3}$ gives $\dbinom{n}{m-2n}=\dbinom{n}{n}=1$ so we have $n\nmid 1$, too. We can therefore assume that the smallest prime dividing $m$ is at least 5. 
 	
+	\item[\textbf{N4}] An integer $a$ is called friendly if the equation $(m^2+n)(n^2+m)=a(m-n)^3$ has a solution over the positive integers.\\
+	a) Prove that there are at least $500$ friendly integers in the set $\{ 1,2,\ldots ,2012\}$.\\
+	b) Decide whether $a=2$ is friendly.
+	
+	\item[\textbf{N5}] For a nonnegative integer $n$ define $\operatorname{rad}(n)=1$ if $n=0$ or $n=1$, and $\operatorname{rad}(n)=p_1p_2\cdots p_k$ where $p_1<p_2<\cdots <p_k$ are all prime factors of $n$. Find all polynomials $f(x)$ with nonnegative integer coefficients such that $\operatorname{rad}(f(n))$ divides $\operatorname{rad}(f(n^{\operatorname{rad}(n)}))$ for every nonnegative integer $n$.
+	
+	\textbf{Answer.} All polynomials in terms of $f(n):=cn^k$ for any $c, k\in\bbN_0$. \\
+	\textbf{Solution.} If $f$ has a positive coefficient $a_k$ at $x^k$ (meaning that $f$ is nonzero), then $f(n)\ge a_kn^k>0$ for all $n>0$. Hence, for all $n>0$ this essentially means that for any prime $p$, $p\mid f(n)\to p\mid f(n^{\operatorname{rad}(n)})$. 
+	
+	We first see what happens when $p\nmid n$ but $p\mid f(n)$ for some $n$. Here' an important identity on polynomials with integer coefficient that I would like to quote: 
+	\[m-n\mid f(m)-f(n), \forall m, n\in\bbZ\cdots (*)
+	\]
+	Having this in mind, let $p-1=p_1^{\alpha_1}\cdots p_k^{\alpha_k}$ be the prime decomposition of $p-1=\phi(p)$. We are to create a sequence of numbers $n_0=n, n_1, \cdots n_{\alpha_1+\cdots + \alpha_k}$ such that: 
+	\begin{itemize}
+		\item for each $i$, $p\mid f(n_i)$. 
+		\item Let $i=\alpha_1+\cdots + \alpha_m+c$ with $m\le k$ and $c\le\alpha_{m+1}$ (or $m=k$ and $c=0$), then $n_i$ is a $p_1^{\alpha_1}\cdots p_m^{\alpha_m}\cdot p_{m+1}^{c}$-th residue of $p$. 
+	\end{itemize}
+	We do induction on $i$, with $i=0$ being true: the second point is vacuously true, and the first point follows from the assumption. 
+	Next, suppose that $n_i$ satisfies these conditions. Since each $p_j$ is a divisor of $p-1$, they are relatively prime to $p$. Hence, for each $j$, we can find $\ell$ such that $n_i+\ell p$ is divisibly by $p_j$. Denote, for now, $m=n_i+\ell p$. But by the condition (*), $\ell p\mid f(n_i+\ell p)-f(n_i)$, and with $p\mid f(n_i)$ we have $p\mid f(n_i +\ell p)=f(m)$ and therefore $p\mid f(m^{\operatorname{rad}(m)})$. 
+	Since $n_i$ (and $m$) are $p_1^{\alpha_1}\cdots p_m^{\alpha_m}\cdot p_{m+1}^{c}$-th residue of $p$, $m^{\operatorname{rad}(m)}$, having $\operatorname{rad}(m)$ divisible by $p_j$, is then a $p_1^{\alpha_1}\cdots p_m^{\alpha_m}\cdot p_{m+1}^{c}\cdot p_j$-th residue of $p$. 
+	We can then assign $p_j$ according to the following cases: 
+	\begin{itemize}
+		\item If $i=\alpha_1+\cdots + \alpha_{m+1}$ for some $m$ (i.e. $c=\alpha_{m+1}$) we can assign $j=m+2$. 
+		
+		\item Otherwise, $0\le c<m+2$ so $j=m+1$. 
+	\end{itemize}
+	This finishes the induction step. 
+	
+	Now, $m=n_{\alpha_1+\cdots \alpha_k}$ is a $p_1^{\alpha_1}\cdots p_k^{\alpha_k}$ residue of $p$, hence must be congruent to 1 modulo $p$ by Fermat's Little Theorem. 
+	Since we also have $p\mid f(m)$ and $p\mid m-1$, by the identity (*) we have $p\mid m-1\mid f(m)-f(1)$ so $p\mid f(1)$. We therefore conclude that if $f$ is a nonzero polynomial, all primes $p$ with $p\mid f(n)$ for some $n$ with $p\nmid n$ must also satisfy $p\mid f(1)$, hence there must be finitely many of them. 
+	
+	Finally, for nonzero $f$ we write $f=x^kg$ for some $k$ with $g(0)\neq 0$. We claim that $g$ must be constant. Let $a_0\neq 0$ (i.e. $a_0>0$) be the constant term of $g$. Let $h(n) = g(na_0|)/a_0$, then $h(0)=1$ and if $g_k$ is the coefficient of $x^k$ in $g(x)$, we have $g_k(na_0)^k/a_0=g_ka_0^kn^k/a_0$, so the coefficient of $x^k$ in $h(k)$ is $g_ka_0^{k-1}$. Thus $h$ is also a polynomial with integer coefficients. If $h$ is nonconstant, by Schur's theorem there exists infinitely prime $p$ such that $p\mid h(n)$ for some $n$, i.e. $p\mid g(na_0)\mid f(na_0)$. 
+	Moreover, since $h(0)=1$, we have $p\nmid n$. This means there are infinitely many prime $p$ with $p\mid f(na_0)$ but $p\nmid n$. Since $a_0$ is nonzero, it has only finitely many prime divisors, and therefore infinitely many of the prime $p$ satisfying the previous condition do not divide $f(na_0)$ either. This would make those $p$ divide $f(1)$, which is a contradiction. Hence, $h$ must be a constant, which means $g$ is also a constant too. We now have $f(n)=cx^k$, as desired. 
+	
 	\item[\textbf{N6}] Let $x$ and $y$ be positive integers. If ${x^{2^n}}-1$ is divisible by $2^ny+1$ for every positive integer $n$, prove that $x=1$.
+	
+	\textbf{Solution.} As the first step, we show that, if $x>1$, then for each $k, \ell$ satisfying $1<k<2^\ell$ and $k$ odd, the set of prime numbers dividing $x^{2^n}-1$ for some $x$ is finite. 
+	To see this, we do the following expansion: 
+	\[
+	x^{2^n}-1=(x-1)(x+1)(x^2+1)\cdots (x^{2^{n-1}}+1)
+	\]
+	We now claim that all odd primes dividing $x^{2^k}+1$ must have remainder 1 modulo $2^{k+1}$. To see this, let $p$ odd and $p\mid x^{2^k}+1$ for some $x$, so $-1$ is a $2^k$-th power residue modulo $p$. 
+	If $\ell$ is the highest power of 2 dividing $p-1$ (meaning $\frac{p-1}{2^\ell}$) is odd then from $x^{2^k}\equiv -1$ we have $(x^{2^k})^{\frac{p-1}{2^{\ell}}}\equiv (-1)^{\frac{p-1}{2^{\ell}}}=-1$. If $\ell\le k$ then $(x^{2^k})^{\frac{p-1}{2^{\ell}}}=x^{(p-1)(2^{k-\ell})}$ with exponent divisible by $p-1$, hence $x^{(p-1)(2^{k-\ell})}\equiv 1$ by Fermat's Little theorem, which is a contradiction to this equivalence actually being $-1$. So we need $\ell>k$, i.e. $p-1$ must be divisible by $2^{k+1}$, as claimed. 
+	
+	Thus from above, if $p\mid x^{2^n}-1$, and $2^{k}\nmid p-1$, then from $p\nmid x^{2^\ell}+1$ for all $\ell\ge k$ we have $p\mid (x-1)(x+1)(x^2+1)\cdots (x^{2^{k-1}}+1) = x^{2^k}-1$. 
+	This means that if $p\mid x^{2^n}-1$ for some $n$ then $p$ is a positive divisor of $x^{2^k}-1$. This last number is positive if $x>1$, hence having finitely many positive divisors (and so finitely many $p$ satisfies this property). 
 	
 \end{enumerate}
 

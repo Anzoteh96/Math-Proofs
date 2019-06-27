@@ -1,0 +1,303 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage[utf8]{inputenc}
+%\setlength{\textheight}{9in}
+\setlength{\textheight}{10in}
+\setlength{\textwidth}{7.4in}
+%\setlength{\textwidth}{7.9in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.75in}
+\setlength{\oddsidemargin}{-0.5in}
+\setlength{\evensidemargin}{-0.5in}
+%\setlength{\oddsidemargin}{-0.75in}
+%\setlength{\evensidemargin}{-0.75in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+\usepackage{fancyheadings}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+
+\begin{document}
+\section*{Algebra}
+\begin{enumerate}
+	\item [\textbf{A1}] (IMO 1) Find all function $f:\mathbb{R}\rightarrow\mathbb{R}$ such that for all $x,y\in\mathbb{R}$ the following equality holds \[
+	f(\left\lfloor x\right\rfloor y)=f(x)\left\lfloor f(y)\right\rfloor \] where $\left\lfloor a\right\rfloor $ is greatest integer not greater than $a.$
+	
+	\textbf{Solution.} Plugging $x=y=0$ gives $f(0)=f(0)\lfloor f(0)\rfloor$, i.e. $f(0)(\lfloor f(0)\rfloor-1)=0$. 
+	This means either $f(0)=0$ or $\lfloor f(0)\rfloor=1$. 
+	
+	In the second case with $\lfloor f(0)\rfloor=1$, plugging just $y=0$ gives $f(0)=f(x)\lfloor f(0)\rfloor=f(x)$, so $f(x)=f(0)$ for all $x$ and we have $f\equiv c$ for some constant $c\in [1, 2)$. Otherwise, $f(0)=0$. 
+	Let $0\le x<1$ be arbitrary, then $\lfloor x\rfloor =0$ so in this case plugging $y=x$ gives $0=f(0)=f(x)\lfloor f(x)\rfloor $, meaning that 
+	$f(x)=0$ or $\lfloor f(x)\rfloor =0$, though the first condition actually means $\lfloor f(x)\rfloor =0$ too. 
+	Therefore $0\le x<1$ means $\lfloor f(x)\rfloor =0$ for all $x$. 
+	Now for any real number $z$, choose an integer $x$ such that $|x|>|z|$ and both $x$ and $z$ have the same sign. Then $0<z/x<1$. Let $y=z/x$ and we have 
+	$f(z)=f(xy)=f(\lfloor x\rfloor y)=f(x)\left\lfloor f(y)\right\rfloor =f(x)(0)=0$, so $f\equiv 0$. 
+	
+	Finally, to show these work, if $f\equiv 0$ then LHS=RHS=0 and if $f\equiv c$ for some $c\in [1, 2)$ we have LHS=RHS$=c$. 
+	
+	\item[\textbf{A2}] Let the real numbers $a,b,c,d$ satisfy the relations $a+b+c+d=6$ and $a^2+b^2+c^2+d^2=12.$ Prove that
+	\[36 \leq 4 \left(a^3+b^3+c^3+d^3\right) - \left(a^4+b^4+c^4+d^4 \right) \leq 48.\]
+	
+	\textbf{Solution.} For the right inequality, all we need is the following AM-GM inequality: 
+	\begin{flalign*}
+	\frac{a^4+b^4+c^4+d^4+48}{2}
+	&=\frac{(a^4+4a^2)+(b^4+4b^2)+(c^4+4c^2)+(d^4+4d^2)}{2}\\
+	&=\ge \sqrt{4a^6} + \sqrt{4b^6} + \sqrt{4c^6}+\sqrt{4d^6}\\
+	&=\ge 2|a^3| + 2|b^3| + 2|c^3| + 2|d^3|\\
+	&\ge 2a^3+2b^3+2c^3+2d^3
+	\end{flalign*}
+	rearranging gives $4 \left(a^3+b^3+c^3+d^3\right) - \left(a^4+b^4+c^4+d^4 \right) \leq 48$. 
+	
+	For the left inequality, we notice the following: $(a-1)^4=(a^4-4a^3)+6a^2-6a+1$ and if we denote $S_k=a^k+b^k+c^k+d^k$ we have $(a-1)^4+(b-1)^4+(c-1)^4+(d-1)^4=S_4-4S_3+6S_2-6S_1+4=S_4-4S_3+6(12)-4(6)+4=S_4-4S_3+52$. 
+	This means, \[4S_3-S_4=52-\left[(a-1)^4+(b-1)^4+(c-1)^4+(d-1)^4\right]\]
+	On the other hand, 
+	$(a-1)^2+(b-1)^2+(c-1)^2+(d-1)^2=S_2-2S_1+4=12-2(6)+4=4$. Considering the following identity for all reals $x_1, \cdots , x_n$
+	\[
+	\left(\displaystyle\sum_{i=1}^n x_i^2\right)^2
+	=\displaystyle\sum_{i=1}^n x_i^4 + 2\displaystyle\sum_{i < j} x_ix_j
+	\ge \displaystyle\sum_{i=1}^n x_i^4
+	\]
+	(since all squares are nonnegative), we have $(a-1)^4+(b-1)^4+(c-1)^4+(d-1)^4\le ((a-1)^2+(b-1)^2+(c-1)^2+(d-1)^2)^2=4^2=16$, so $4S_3-S_4\ge 52-16=36$, as desired. 
+	
+	\item[\textbf{A4}] A sequence $x_1, x_2, \ldots$ is defined by $x_1 = 1$ and $x_{2k}=-x_k, x_{2k-1} = (-1)^{k+1}x_k$ for all $k \geq 1.$ Prove that $\forall n \geq 1$ $x_1 + x_2 + \ldots + x_n \geq 0.$
+	
+	\textbf{Solution.} Let $s_n=x_1 + x_2 + \ldots + x_n$. Suppose on the contrary, there exists $n$ such that $s_n<0$. Choose the smallest such $n$. Note that all $x_i$'s are $\pm 1$, so it must be that $s_{n-1}=0$ and $x_n=-1$. In addition, $s_n\equiv n\pmod{2}$ since all terms are $\pm 1$, so $n$ must be odd. We follow up with the following observations: 
+	\begin{itemize}
+		\item $x_{4k+1}=(-1)^{2k+1+1}x_{2k+1}=x_{2k+1}$ while $x_{4k+2}=-x_{2k+1}$, so $s_{4k}=s_{4k+2}$ for all $k\ge 0$. 
+		
+		\item $x_{4k-1}=(-1)^{2k+1}x_{2k}=-x_{2k}=x_{4k}$, so we actually have: 
+		\[
+		s_{4k}=\displaystyle\sum_{i=1}^k x_{4i-3}+x_{4i-2}+x_{4i-1}+x_{4i}
+		=\displaystyle\sum_{i=1}^k x_{2i-1}-x_{2i-1}-x_{2i}-x_{2i}
+		=-2\displaystyle\sum_{i=1}^k x_{2i}
+		=2\displaystyle\sum_{i=1}^k x_{i}
+		=2s_k
+		\]
+	\end{itemize}
+	In particular, if $s_{4k}=0$, so is $s_k$ and therefore $k$ is even. 
+	
+	If $n-1=4k$ for some $k$, then $0=s_{n-1}=s_{4k}=s_k$ and $s_n=x_n=x_{4k+1}=(-1)^{2k+2}x_{2k+1}=x_{2k+1}=(-1)^{k+2}x_{k+1}=x_{k+1}$ (since $k$ is even), and if $n-1=4k+2$ for some $k$ then $0=s_{4k+2}=s_{4k}=s_k$ and 
+	$s_n=x_n=x_{4k+3}=(-1)^{2k+3}x_{2k+2}=-x_{2k+2}=x_{k+1}$. 
+	In both cases we have $s_n=x_{k+1}$ and since $s_k=0$, $x_{k+1}=s_{k+1}$ too. Since $s_n=-1$, we must have $s_{k+1}=-1$, too. 
+	By the minimality of $n$, we have $4k+1\le n\le k+1$, which can only happen when $k=0$. However, when $k=0$, we have $s_1=x_1=1$, contradiction. This means $s_n$ must be nonnegative for all $n$. 
+	
+\end{enumerate}
+	
+\section*{Combinatorics}
+\begin{enumerate}
+	\item [\textbf{C2}] On some planet, there are $2^N$ countries $(N \geq 4).$ Each country has a flag $N$ units wide and one unit high composed of $N$ fields of size $1 \times 1,$ each field being either yellow or blue. No two countries have the same flag. We say that a set of $N$ flags is diverse if these flags can be arranged into an $N \times N$ square so that all $N$ fields on its main diagonal will have the same color. Determine the smallest positive integer $M$ such that among any $M$ distinct flags, there exist $N$ flags forming a diverse set.
+	
+	\textbf{Answer.} $M=2^{N-2}+1$. \\
+	\textbf{Solution.} $M=2^{N-2}$ is not enough: consider all the $2^{N-2}$ distinct flags where the top field is blue and the bottom field is yellow. No matter how we choose the $N$ flags and arrange them, the top top-left corner of the diagonal will be blue and the bottom-right yellow. 
+	
+	To show that $M=2^{N-2}+1$ is enough, consider an arbitrary set of $M$ flags. 
+	Consider a bipartite graph with one side being the $M$ flags and the other side being the $k$ fields. In a blue matching, an edge exists between a flag and the $i$-th node if and only if the $i$-field of the flag is blue. Define yellow matching similarly. The goal is to find either a blue or yellow matching such that all the nodes on the right (the fields) are matched. 
+	By Hall's marriage theorem, this is possible if and only if for any $k$ with $1\le k\le N$ and any subset of fields of size $k$, at least $k$ of the flags have an edge to at least one of the $k$ fields. 
+	
+	Suppoe the condition fails for blue matching. That is, there exists $k$ fields such that less than $k$ flags have at least one of the $k$ fields being blue. W.L.O.G. let the $k$ fieids be the first $k$ fields. 
+	Now, we know that all but at most $k-1$ of the flags have the first $k$ fields being yellow, while there are $2^{N-k}$ distinct flags with first $k$ fields being yellow. Thus we have $2^{N-2}+1\le 2^{N-k}+k-1$. 
+	Since $2^{N-k}<2^{N-k+1}$ for all real numbers $k$, for $k\le N$, both $2^{N-k}$ and $2^{N-k+1}$ are integers, we have $2^{N-k}\le 2^{N-k+1}-1$ and therefore $2^{N-k}+k-1\le 2^{N-k+1}-1+k-1 = 2^{N-(k-1)}+(k-1)-1$, which means that the function $2^{N-k}+k-1$ is decreasing. 
+	But when $k=2$ we have $2^{N-k}+k-1=2^{N-2}+1$, so we have $k=2$ here. We now split into cases: 
+	\begin{itemize}
+		\item If $k=1$, then all the $M$ flags have top field yellow. Consider, now, the Hall condition on the yellow matching, and consider an arbitrary subset of $\ell$ fields. If this $\ell$ fields contain the first field then all (i.e. $2^{N-2}+1\ge N$) flags match to the first field and the Hall condition is easily satisfied. Otherwise, among the $2^{N-1}$ flags with first field yellow, there are only $2^{N-1-\ell}$ flags with all of the $\ell$ fields blue. In addition, $2^{N-2}+1-(2^{N-1-\ell}+\ell)\le 2^{N-2}+1-(2^{N-1-1}+1)=0$ (we use the fact from above that $2^{N-\ell}+\ell$ is decreasing), hence always nonnegative. 
+		This means, there will always be $\ell$ flags with at least one of the $\ell$ fields yellow. 
+		
+		\item If $k=2$, then all (exept possible one) flags have top two fields yellow, meaning we have at least $2^{N-2}$ flags with top two fields yellow. However, there are only $2^{N-2}$ distinct flags with the top two fields yellow, so we have all the distinct collection of flags with the first two fields yellow. 
+		Now, choose two of the $2^{N-2}$ flags arbitrarily, and for $3\le i\le N$, the $i$-th flag is choosen as the one with 1st, 2nd, $i$-th field yellow and the rest blue. This gives the desired diagonalization. 
+	\end{itemize}
+	
+	\item [\textbf{C3}]2500 chess kings have to be placed on a $100 \times 100$ chessboard so that
+	\begin{itemize}
+		\item no king can capture any other one (i.e. no two kings are placed in two squares sharing a common vertex);
+		\item each row and each column contains exactly 25 kings.
+	\end{itemize}
+	
+	Find the number of such arrangements. (Two arrangements differing by rotation or symmetry are supposed to be different.)
+	
+	\textbf{Answer.} There are (only) two such arrangements. \\
+	\textbf{Solution.} Now, parition our chessboard into $2500$ $2\times 2$ squares and call each of them megasquare. We call the $2\times 100$ squares containing the 50 megasquares a megarow, and define a megacolumn similarly. Within each megasquare, any two of the four squares share a vertex, so one megasquare cannot have more than a king. Since we need 2500 chess kings in total, each megasquare must have exactly a king. 
+	
+	Now, we have four types of megasquares: top-left (TL), top-right (TR), bottom-left (BL), bottom-right (BR), depending where we put our king. TL megasquares and TR megasquares are called T-megasquares, define B-, L-, R- megasquares similarly. We need the following lemmas: 
+	
+	\emph{Step 1.} Each megarow consists of 25 T-megasquares and 25 B-megasquares. This is because each row contains exactly 25 kings. Similarly, each megacolumn consists of 25 L-megasquares and 25 R-megasquares. This means the number of T-, B-, L-, R-megsquares are each $25\times 50=1250$. 
+	
+	\emph{Step 2.} Consider any B-megasquare $M_1$, and consider either of the two bottom squares of the megasquare (the bottom row). If there is a megasquare $M_2$ located below this megasquare, each square of the top row of this megasquare will have a common vertex with the bottom row of the original megasquare. Hence, this megasquare must also be a B-megasquare. 
+	
+	\emph{Step 3.} With steps 1 and steps 2 in mind, consider the top megarow, with 25 of them being B-megasquares. For each of the B-megasquares, by the lemma above, all the 49 megasquares below it (in the same row) must also be B-megasquares, so these 25 megarows will have all B-megasquares. These 25 megarows give rise of $25\times 50$ megasquares, and therefore the remaining 25 megarows must all be T-megasquares. This means the notion of T- and B-megacolumns are well-defined: the megarow with either all T-megasquares or B-megasquares. Similarly the notion of L- and R-megarows are also well-defined. 
+	
+	\emph{Step 4.} Obviously, the intersection of a T-megacolumn and a L-megarow is a TL-megasquare (and similarly for other combinations). Now that there are 25 T- and 25 B-megacolumns, we consider the adjacent megarows of different types: either T-megacolumn followed by B-megacolumn or vice versa. Consider also the adjacent megarows of different type: either L-megarow followed by R-megrow or vice versa. Their intersections together give rise of 4 megasquares. The bottom-right corner of the top-left megasquare shares a vertex with the top-left corner of the bottom-right corner, so the condition that top-left megasquare is BR and the bottom-right megasquare is TL cannot happen simultaneously: in other words, we cannot have B-megacolumn left to T-megacolumn and R-megarow above L-megarow simultaneously (call this a BT-switch and RL-switch). 
+	Similarly, by considering the top-right and bottom-left megasquares we cannot have 	TB-switch and LR-switch simultaneously. 
+	
+	\emph{Step 5.} Now consider the 50 megacolumns from left to right. If the switch happens more than once, then the switches must alternate, which means both TB- and BT-switch must happen. Given that either LR- or RL-switch must also happen, this violates our finding in step 4. Hence only once switch can happen, which means that the leftmost 25 megacolumns are T-types and rightmost 25 megacolumns B-types, or vice versa. Similarly, only one switch (LR- or RL) can happen, which means the uppermost 25 megarows are L and bottommost R, or vice versa. In the case where the leftmost 25 megacolumns are T-types and rightmost 25 megacolumns B-types, TB-switch happens so LR-switch cannot happen: it must be an RL switch. In the other case, BT-switch happens so we must only have RL-switch. Each of these cases give rise of one configuration, so two configurations are possible. 
+	
+	To show that these two configurations work, each megasquare has only a king, so any two kings that could possibly attack each other must be put in two different megasquares. These two megasquares must also share a vertex, which gives two main cases to consider:
+	\begin{itemize}
+		\item One is above the other, hence in the same megacolumn. By our construction, each megacolumn is either T-type of B-type, so either both are on the top row of their respective megacolumns or on the bottom row, hence cannot attack each other. The case where one is to the left of the other is completely analogous. 
+		
+		\item The two megasquares share exactly one vertex, and WLOG (the other case is similar) let's say one is on the top left of the other. If the kings were to attack, then we have BT-switch and RL-switch simultaneously. Both our configurations avoid that. 
+	\end{itemize}
+\end{enumerate}
+
+\section*{Geometry}
+\begin{enumerate}
+	\item [\textbf{G1}] Let $ABC$ be an acute triangle with $D, E, F$ the feet of the altitudes lying on $BC, CA, AB$ respectively. One of the intersection points of the line $EF$ and the circumcircle is $P.$ The lines $BP$ and $DF$ meet at point $Q.$ Prove that $AP = AQ.$
+	
+	\item [\textbf{G2}] (IMO 4) Let $P$ be a point interior to triangle $ABC$ (with $CA \neq CB$). The lines $AP$, $BP$ and $CP$ meet again its circumcircle $\Gamma$ at $K$, $L$, respectively $M$. The tangent line at $C$ to $\Gamma$ meets the line $AB$ at $S$. Show that $SC = SP$ if and only if $MK = ML$.
+	
+	\textbf{Solution.} Now we have the following equivalence: 
+	\[MK=ML\lra \angle MLK=\angle MKL \lra \angle MLB + \angle KLB = \angle LKA + \angle AKM\]
+	\[\lra \angle MCB + \angle KAB = \angle LBA + \angle ACM
+	\lra \angle PCB + \angle PAB = \angle PBA + \angle ACP
+	\]
+	
+	\item [\textbf{G3}] Let $A_1A_2 \ldots A_n$ be a convex polygon. Point $P$ inside this polygon is chosen so that its projections $P_1, \ldots , P_n$ onto lines $A_1A_2, \ldots , A_nA_1$ respectively lie on the sides of the polygon. Prove that for arbitrary points $X_1, \ldots , X_n$ on sides $A_1A_2, \ldots , A_nA_1$ respectively,
+	\[\max \left\{ \frac{X_1X_2}{P_1P_2}, \ldots, \frac{X_nX_1}{P_nP_1} \right\} \geq 1.\]
+	
+	\item [\textbf{G4}] (IMO 2) Given a triangle $ABC$, with $I$ as its incenter and $\Gamma$ as its circumcircle, $AI$ intersects $\Gamma$ again at $D$. Let $E$ be a point on the arc $BDC$, and $F$ a point on the segment $BC$, such that $\angle BAF=\angle CAE < \dfrac12\angle BAC$. If $G$ is the midpoint of $IF$, prove that the meeting point of the lines $EI$ and $DG$ lies on $\Gamma$. 
+\end{enumerate}
+	
+	
+\section*{Number Theory}
+\begin{enumerate}
+	\item [\textbf{N1}] Find the least positive integer $n$ for which there exists a set $\{s_1, s_2, \ldots , s_n\}$ consisting of $n$ distinct positive integers such that
+	\[ \left( 1 - \frac{1}{s_1} \right) \left( 1 - \frac{1}{s_2} \right) \cdots \left( 1 - \frac{1}{s_n} \right) = \frac{51}{2010}.\]
+	
+	\textbf{Answer.} 39. \\
+	\textbf{Solution.} We need $s_1>1$ since $s_1=0$ will make the product equal 0. If we sort $s_1, s_2, \cdots$ in increasing order then we have $s_i\ge i+1$ for all $i$ and therefore 
+	\[
+	\displaystyle\prod_{i=1}^n \left(1-\frac {1}{s_i}\right)
+	\ge \displaystyle\prod_{i=1}^n\left(1-\frac {1}{i+1}\right)
+	=\displaystyle\prod_{i=1}^n\left(\frac {i}{i+1}\right)
+	=\dfrac{1}{n+1}
+	\]
+	and therefore $\dfrac{51}{2010}\ge \dfrac{1}{n+1}$, i.e. $n+1\ge \dfrac{2010}{51}=39+\dfrac{21}{51}$. Thus $n\ge 39$. 
+	
+	Now let's show that $n=39$ works. They are the numbers $2, 3, ..., 33$, $35, 36, 37, 38, 39, 40, 67$. 
+	
+	\item [\textbf{N2}] Find all pairs $(m,n)$ of nonnegative integers for which \[m^2 + 2 \cdot 3^n = m\left(2^{n+1} - 1\right).\]
+	
+	\textbf{Answer.} $(6, 3), (9, 3), (9, 5), (54, 5)$\\
+	\textbf{Solution.} Solving the quadratic equation in $m$ gives $m=\dfrac{2^{n+1}-1 \pm \sqrt{(2^{n+1}-1)^2 - 8\cdot 3^n}}{2}$, so the term $(2^{n+1}-1)^2 - 8\cdot 3^n$ needs to be a perfect square. Now, if $(2^{n+1}-1)^2 - 8\cdot 3^n = a^2$ then $(2^{n+1}-1-a)(2^{n+1}-1+a)=8\cdot 3^n$. We now have the following observation: 
+	
+	\begin{itemize}
+		\item Given that $2^{n+1}-1-a\equiv 2^{n+1}-1+a\pmod{2}$, both must be even for their product to be divisible by 8. This means one of the numbers $2^{n+1}-1-a$ and $2^{n+1}-1+a$ must be $2\cdot 3^{n_1}$ and the other $4\cdot 3^{n_2}$, with $n_1+n_2=n$. 
+		
+		\item Adding $2^{n+1}-1-a$ and $2^{n+1}-1+a$ together gives $2(2^{n+1}-1)=2\cdot 3^{n_1}+4\cdot 3^{n_2}$, so $2^{n+1}-1=2\cdot 3^{n_1}+2\cdot 3^{n_2}$, and therefore $3^{\min(n_1, n_2)}\mid 2^{n+1}-1$. 
+	\end{itemize}
+	
+	We now consider the following lemma: for each $k\ge 1$, the order of $2$ modulo $3^k$ is $2\cdot 3^{k-1}$. We will prove by induction that the minimum $\ell$ with $3^k\mid 2^{\ell}-1$ is $\ell=2\cdot 3^{k-1}$ and at the same time for this $\ell$, $3^{k+1}\nmid 2^{\ell}-1$. 
+	
+	Base case: $k=1$ we have $2^1-1$ not divisible by 3, and $2^2-1$ divisible by 3 not 9. Now suppose that this is true for some $k\ge 1$, such that $\ell=2\cdot 3^{k-1}$ we have $3^k\mid 2^{\ell}-1$ but $3^{k+1}\nmid 2^{\ell}-1$. Let $2^{\ell}=3^kx+1$ with $3\nmid x$. Let $\ell_1$ be the smallest number with $3^{k+1}\mid 2^{\ell_1}-1$; we have $\ell\mid \ell_1$ so let $\ell_1=y\ell$. This means: 
+	\[
+	2^{\ell_1}-1 = 2^{y\ell}-1=(3^kx+1)^y-1 = \displaystyle\sum_{i=1}^y \dbinom{y}{i}(3^kx)^i
+	\]
+	and for the purpose of modulo $3^{k+2}$, for all $k\ge 1$ we have $3k\ge k+2$ so we have 
+	\[
+	\displaystyle\sum_{i=1}^y \dbinom{y}{i}(3^kx)^i\equiv 
+	\dbinom{y}{2}(3^kx)^2 + \dbinom{y}{1}(3^kx)
+	\pmod{3^{k+2}}
+	\]
+	now if this is divisible by $3^{k+1}$, since $2k\ge k+1$, we have $\dbinom{y}{2}(3^kx)^2 + \dbinom{y}{1}(3^kx)\equiv 3^kxy\pmod{3^{k+1}}$. This means $3\mid xy$ and with $3\nmid x$ we have $3\mid y$. Thus the smallest such $y$ is $y=3$. Now, for this $y=3$ we have 
+	\[
+	\displaystyle\sum_{i=1}^y \dbinom{y}{i}(3^kx)^i\equiv 
+	\dbinom{3}{2}(3^kx)^2 + \dbinom{3}{1}(3^kx)
+	=3(3^{2k})x^2+3^{k+1}x
+	=3^{k+1}(3^kx^2+x)
+	\pmod{3^{k+2}}
+	\]
+	and since $3^kx^2+x\equiv x\not\equiv 0\pmod{3}$, we have $3^{k+2}\nmid 2^{3\ell}-1$, as desired. 
+	
+	Now going back to the problem, where we left off at $3^{\min(n_1, n_2)}\mid 2^{n+1}-1$. If $k=\min(n_1, n_2)$ then we have $2\cdot 3^{k-1}\mid n+1$. In particular, $n+1\ge 2\cdot 3^{k-1}$.  Moreover, we have 
+	\[2^{n+1}-1= 3^{n_1}+2\cdot 3^{n_2}\le 3^{n-k}+2\cdot 3^k > 3^{n-k}
+	\]
+	In other words $8^{(n+1)/3}>2^{n+1}-1 > 3^{n-k}=9^{(n-k)/2}$ so $\dfrac{n+1}{3}> \dfrac{n-k}{2}$, i.e. $2n+2> 3n-3k$ so $n<3k+2$. On the other hand we have $n+1\ge 2\cdot 3^{k-1}$ so $2\cdot 3^{k-1} -1 \le n\le 3k+1$. It's not hard to see that this only works when $k\ge 2$. We would now have the $2^{n+1}-1>3^{n-k}\ge 3^{n-2}$ but by above, $n<3k+2\ge 3(2)+2=8$ so we only need to test all $n\le 7$. Nevertheless, for $n=6, 7$ we have $n+1=7, 8$ which is not divisible by 6, so for them $k\ge 1$ and $3(1)+2=5<6$ so these cases can be disregarded and we have $n\le 5$ to test. 
+	
+	Recall that the discriminant is $(2^{n+1}-1)^2-8\cdot 3^n$. For $n=0, 1, 2, 3, 4, 5$ these discriminants are $-7, -15, -23, 9, 313, 2025$, so only $n=3, 5$ work as perfect squares. Plugging these into the quadratic formula we have: 
+	\[
+	n=3: \dfrac{2^{3+1}-1 \pm \sqrt{(2^{3+1}-1)^2 - 8\cdot 3^n}}{2} = \dfrac{15\pm 3}{2}=6, 9;
+	n = 5: \dfrac{2^{5+1}-1 \pm \sqrt{(2^{5+1}-1)^2 - 8\cdot 3^n}}{2} = \dfrac{63\pm 45}{2} = 9, 54. 
+	\]
+	Since these are obtained from the quadratic equations, they work as fine, giving us our desired pairs. 
+	
+	\item [\textbf{N4}]Let $a, b$ be integers, and let $P(x) = ax^3+bx.$ For any positive integer $n$ we say that the pair $(a,b)$ is $n$-good if $n | P(m)-P(k)$ implies $n | m - k$ for all integers $m, k.$ We say that $(a,b)$ is $very \ good$ if $(a,b)$ is $n$-good for infinitely many positive integers $n.$
+	\begin{enumerate}
+		\item Find a pair $(a,b)$ which is 51-good, but not very good.
+		\item Show that all 2010-good pairs are very good.
+		\end{enumerate}
+	
+	\textbf{Solution.} (b) Let $(a, b)$ be 2010-good. We split this into the following steps: 
+	
+	\emph{Step 1.} It's also 67-good. \\
+	Proof: Now, $\{P(0), \cdots , P(2009) \pmod{2010}\}=\{0, 1, \cdots , 2009\}$. In particular, since $67\mid 2010$, the numbers $0, 1, \cdots , 66$ appears the same number of times (i.e. 30) in the sequence $i\pmod{67}$ with $i=0, 1, \cdots , 2009$. 
+	Bearing in mind that $n-m\mid P(n)-P(m)$ for all $n\neq m$ and all integer polynomials $P$, if we consider the sequence $P(0), \cdots , P(2009)$ modulo 67, it will simply be $P(0), \cdots , P(66)$ repeated 30 times. But since $P(0), \cdots , P(2009)$ modulo 67 is also $0, 1, \cdots , 66$ repeated 30 times, we have $\{P(0), \cdots , P(66)\pmod{67}\}=\{0, \cdots, 66\}$. Hence $(a, b)$ is 67-good. 
+	
+	\emph{Step 2.} $67\mid a$ and $67\nmid b$. \\
+	Proof: now that $(a, b)$ is 67-good, for each $m, n$ with $67\nmid m-n$ we have $67\nmid P(m)-P(n)=a(m^3-n^3)+b(m-n)=(m-n)(a(m^2-mn+n^2)+b)$, i.e. $67\nmid a(m^2+mn+n^2)+b$. We now have two cases: 
+	\begin{itemize}
+		\item If $67\mid b$ then $P(m)-P(n)\equiv a(m^3-n^3)\pmod{67}$. Choose $n=1$ and $m=g^{22}$ where $g$ is a primitive root modulo 67, then $m^3\equiv g^{66}\equiv 1\equiv n^3\pmod{67}$, so $67\mid P(m)-P(n)$. But then $67\nmid m-n$ since $m\not\equiv 1\pmod{67}$. Thus this case gives rise of a contradiction. 
+		
+		\item Now assume $67\nmid b$. We recall the identity $67\nmid a(m^2+mn+n^2)+b$ for all $m\not\equiv n\pmod{67}$. 
+		If, there exist $x$ such that $67\mid a(3x^2)+b$, from $b\not\equiv 0$ we have $3ax^2\not\equiv 0$ and therefore $x\not\equiv 0$. 
+		Now, choose $m=2x$ and $n=-x$ we have $a((2x)^2-2x^2+x^2)+b=3ax^2+b\equiv 0\pmod{67}$. 
+		But $m-n=3x\not\equiv 0\pmod{67}$, contradicting that $(a, b)$ is good. 
+		Thus we can further assume that $67\nmid a(m^2+mn+n^2)+b$ for any integer pairs $(m, n)$. 
+		
+		We now claim that $\{m^2+mn+n^2:m, n\in\bbZ\}$ attains all integers in $\bbZ_{67}$. For $0$ it's easy: take $m=n=0$. Choosing $m=0$ we have $n^2$, which gives all the quadratic residues modulo 67. Choosing $m=n$ we have $3m^2$, which gives $3\times$ all the quadratic residues modulo 67. 
+		Now, $8^2=64\equiv-3\pmod{67}$ is a quadratic residue modulo 67, and since $67\equiv 3\pmod{4}$, $-1$ is a quadratic non-residue modulo 67, and therefore $3=(-1)(-3)$ is also a quadratic non-residue modulo 67. 
+		Thus for all $n$ with $67\nmid 67$, $3n^2$ is a quadratic non-residue mod 67, so $\{3n^2: n=1, \cdots , 66\}$ covers all quadratic non-residues modulo 67. Thus, 
+		$(m, n)=(0, 0), (0, n), (n, n)$ together covers all integers in $\bbZ_{67}$. 
+		
+		If $67\nmid a$, then we can choose a number $x$ such that $67\mid ax+b$. From the previous point, there exists $m, n$ such that $m^2+mn+n^2\equiv x\pmod{67}$, and thus $67\mid a(m^2+mn+n^2)+b$, which is a contradiction. 
+		Therefore, we need $67\mid a$. 
+	\end{itemize}
+	
+	Combining the two cases yuelds the results of this lemma. 
+	
+	\emph{Step 3.} $(a, b)$ is $67^k$ good for all $k\ge 1$, which finishes the solution. \\
+	Proof: Let's say, $67^k\mid P(m)-P(n)=a(m^3-n^3)+b(m-n)=(m-n)(a(m^2+mn+n^2)+b)$. 
+	In modulo $67$, we have $67\mid a$ but $67\nmid b$, so $a(m^2+mn+n^2)+b\equiv b\not\equiv 0\pmod{67}$. This means, $a(m^2+mn+n^2)+b$ is relatively prime to $67$, and therefore same to $67^k$. This means, $67^k\mid m-n$, as desired. 
+	
+\end{enumerate}
+	
+	\end{document}

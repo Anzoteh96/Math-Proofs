@@ -1,0 +1,135 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solution to APMO 2019 Problems}
+\author{Anzo Teh}
+\date{\today}
+\maketitle
+
+\begin{enumerate}
+	\item [Problem 1.] The fact that $f(a)+b\mid a^2+f(a)f(b)$ implies that
+	\[f(a)+b\mid a^2+f(a)f(b)-f(b)(f(a)+b)=a^2-bf(b)\dots (*)
+	\] Plugging $a=b=1$ gives $f(1)+1\mid 1-f(1)$, which also means $f(1)+1\mid 2$. Given that $f(1)+1\le 2$ and $f(1)\ge 1$ (since it's a positive integer), we have $f(1)=1$. 
+	
+	Now we show by induction on $n$ that $f(n)=n$ for all $n\in\mathbb{N}$, with the base case done above. Assume for some $n$ that $f(n)=n$. 
+	Now, plugging $b=n+1$ and $a=1$ into (*) gives $n+2=f(1)+(n+1)\mid 1-(n+1)f(n+1)$  and since $n+1\equiv -1\pmod{n+2}$, we have $1-(n+1)f(n+1)\equiv 1+f(n+1)\pmod{n+2}$, meaning that $n+2\pmod 1+f(n+1)$. 
+	Since $f(n+1)>0$, we have $1+f(n+1)\ge n+2$, i.e. $f(n+1)\ge n+1$. 
+	On the other hand, plugging $a=n+1$ and $b=n$ gives the following: 
+	\[f(n+1)+n\mid (n+1)^2-nf(n)=(n+1)^2-n^2=2n+1
+	\]
+	so $f(n+1)+n\le 2n+1$, and therefore $f(n+1)\le n+1$. Combining the two inequalities we have that $f(n+1)=n+1$. This finishes the inductive step. 
+	
+	Finally, to show that the identity function works, we have $f(a)+b=a+b$ and $a^2+f(a)f(b)=a^2+ab=a(a+b)$. 
+	
+	\item [Problem 2.] Assume that $\{a_n\}$ is a sequence of integers. We first show that for each $k$ there exists $\ell\ge k$ such that $2^{m-1}\le a_{\ell}< 2^m$. If $a_k$ satisfies this property we are done. Otherwise we have the following cases: 
+	\begin{itemize}
+		\item $a_{k}\ge 2^m$. Let $m_1\ge m$ be such that $2^{m_1}\le a_k<2^{m_1+1}$. Iterating $a_{\ell+1}:=a_{\ell}/2$ for $m_1-m+1$ times gives $2^{m-1}\le a_{k+m_1-m+1}<2^m$. 
+		
+		\item $a_k < 2^{m-1}$. Then $a_{k+1}=a_k^2+2^m>2^m$ and the rest is taken care as of the previous case. 
+	\end{itemize}
+	This means we can create a subsequence $\{a_{x_n}\}$ from the sequence $\{a_n\}$ such that $x_n$ are all the numbers satisfying $2^{m-1}\le a_{x_n}<2^m$. 
+	
+	Now, consider the sequence $\{b_n\}$ with $b_n=v_2(a_{x_n})$, the highest power of 2 dividing $a_{x_n}$. This sequence $b_n$ cannot decrease forever (since it has to be nonnegative for $a_{x_n}$ to be a positive integer). Let $k$ to be such that $b_{k+1}\ge b_k$. We notice the following: $a_{x_{n+1}}=(a_{x_n}^2+2^m)/2^x$ where $x$ is the minimum index such that 
+	$(a_{x_n}^2+2^m)/2^x<2^m$. 
+	However, since $a_{x_n}\ge 2^{m-1}$, we have $a_{x_n}^2+2^m\ge 2^{2m-2}+2^m=2^m(2^{m-2}+1)$ so $2^x>2^{m-2}+1$, and therefore $x\ge m-1$. 
+	Consequently, we have 
+	\[v_2(a_{x_{n+1}})=v_2((a_{x_n}^2+2^m)/2^x)=v_2(a_{x_n}^2+2^m)-x\le v_2(a_{x_n}^2+2^m) -(m-1)
+	\]
+	and in the context of $k$, $v_2(a_{x_k})\le v_2{a_{x_{k+1}}}\le v_2(a_{x_n}^2+2^m) -(m-1)$. 
+	
+	We now have three cases:
+	\begin{itemize}
+		\item Case 1: $v_2(a_{x_k})<m/2$. This means that $v_2(a_{x_k}^2)<m$ and therefore $v_2(a_{x_k}^2+2^m)=v_2(a_{x_k}^2)=2v_2(a_{x_k})$. 
+		Consequently $v_2(a_{x_n}^2+2^m) -(m-1) = 2v_2(a_{x_n})-(m-1)\ge v_2(a_{x_n})$, or $v_2(a_{x_n})\ge m-1$. But we have assumed that $v_2(a_{x_k})<m/2$ so $m-1 < m/2$, i.e. $m<2$. 
+		
+		\item Case 2: $v_2(a_{x_k})>m/2$. This means that $v_2(a_{x_k}^2)>m$ and therefore $v_2(a_{x_k}^2+2^m)=m$. This means that $v_2(a_{x_k}^2+2^m) -(m-1)=m-(m-1)=1\ge v_2(a_{x_k})>m/2$, so $m<2$, too. 
+		
+		\item Case 3: $v_2(a_{x_k})=m/2$. Write $a_{x_k}=2^{m/2}y$ with $y$ odd, then $a_{x_k}^2+2^m=2^m(y^2+1)$, with $y^2+1$ even. However, since $-1$ is not a quadratic residue mod 4, we have $v_2(y^2+1)=1$ and therefore $v_2(a_{x_k}^2+2^m)=m+1$. Now $(m+1)-(m-2)\ge m/2$, so $m\le 4$. 
+	\end{itemize}
+	The case $m=1$ means that the only possible $a_{x_n}$ at all times is 1 (since it's the only positive integer smaller than 2). However, $a_{x_n+1}=1^2+2=3$ and $a_{x_n+2}=3/2$ is not an integer. Hence the case $m=1$ is out. This leaves with $m\ge 2$, and only case 3 is valid here, which also means only $m$ even needs to be considered: $m=2$ and $m=4$. 
+	If $m=4$, the only $a_{x_k}$ with $2^3\le a_{x_k}<2^4$ and $v_2(a_{x_k})=m/2=2$ is 12, which follows the following progression: $a_{x_k+1}=12^2+16=160$, then $80, 40, 20, 10, 10^2+16=116, 29, 29/2$, showing that $12$ fails here. Hence $m=4$ doesn't work either. 
+	
+	Hence only $m=2$ works, with the only possible $a_{x_k}=2$, which will then follow the $2, 8, 4, 2, 8, 4$ cycle and thus works. Now, to find such suitable $a_1$, let's consider the following:
+	\begin{itemize}
+		\item If $a_1<4$, we already know $a_1=2$ works. Now $a_1=1$ means $a_2=1+4=5, a_3=5/2$; and $a_1=3$ means $a_2=9+4=13$, $a_3=13/2$. So only $a_1=2$ works. 
+		
+		\item If $a_1\ge 4$ then if $a_k$ is the smallest $k$ with $a_k=2$ then $a_1=2\cdot 2^{k-1}=2^k$, so any power of 2. 
+	\end{itemize}
+	This gives $m=2$ and $a_1=2^k$ ($k\ge 1$) as the only possible solutions. 
+	
+	\item[Problem 3.]
+	Let the line passing through $B$ and parallel to $AM$ intersect $\Gamma$ again at $V$, and line passing through $C$ and parallel to $AM$ intersect $\Gamma$ again at $U$. Let $UV$ intersect $BC$ again at $W$ and let $AW$ intersect $\Gamma$ again at $T$. $U$ and $V$ do not depend on $P$ (given that $A, B, C$ are fixed), and neither do the points $W$ and $T$. We show that the circle $AXY$ passes through $T$, thus solving the problem. 
+	
+	First, notice that $D, P, U$ are collinear. Since $AP\parallel CU$, we have $\angle(BM, AP)=\angle (BC, AP) = \angle (BC, CU)$ and since $B, C, D, U$ is concyclic and so are points $B, D, P, M$, $\angle (BC, CU)=\angle (BD, DU)$ and $\angle (BD, DP)=\angle (BM, MP)=\angle (BM, AP)$. Thus $\angle (BD, DU)=\angle (BM, AP)=\angle (BD, DP)$, showing that $\angle(DU, DP)=0$ and so $D, U, P$ must be on the same line, and similarly for points $C, P, V$. Next, since $\angle (BD, DP)=\angle (BM, MP)=\angle (CM, MP)=\angle (CX, XP)=\angle (CX, DP)$ (since $D, P, X$ collinear), we have $BD\parallel CX$ and similarly $CE\parallel BY$. 
+	
+	Let $CX$ and $BY$ intersect at $R$, and $BD$ and $CE$ intersect at $Q$. Since $BD$ is the radical axis of $\Gamma$ and circle $BPM$, and $CE$ the radical axis of $\Gamma$ and circle $CPM$, $Q$ is the radical center of these circles, hence on $PM$ the radical axis of $BMP$ and $CPM$. Since $BQCR$ is a parallelogram, $R$ is also on $PM$. Now consider the following: 
+	\[\angle (YP, PX)=\angle (EP, PD)=\angle (EP, PM)+\angle (PM, PD)=\angle(EC, CM)+\angle (BM, BD)
+	\]
+	\[
+	=\angle (EC, CD)=\angle (EQ, QB)=\angle (BR, RC)=\angle (RY, RX)
+	\]
+	which shows that $R, Y, P, X$ are concyclic. Furthermore, we also have 
+	\[\angle (BY, YX)=\angle (RY, YX)=\angle (RP, PX)=\angle (MP, PX)=\angle (MC, CX)=\angle(BC, CX)
+	\]
+	showing that $B, Y, X, C$ are also concyclic. 
+	Finally, with $BD\parallel CX$ and $CE\parallel BY$ we also have 
+	\[
+	\frac{DP}{PE}=\frac{DP}{PQ}\div \frac{PE}{PQ}=\frac{PX}{PR}\div \frac{PY}{PR}=\frac{PX}{PY}
+	\]
+	and therefore there exists a constant $k$ such that $PX=kPD$ and $PY=kPE$. Since $D, E, U, V$ are concyclic on $\Gamma$ with the intersection $P$, we have $PX\cdot PU=kPD\cdot PU=kPE\cdot PV=PY\cdot PE$, showing that $Y, X, U, V$ are also concyclic. 
+	
+	We can now complete our solution. $UV$ is the radical axis of circle $YXUV$ and $\Gamma$, $XY$ is the radical axis of circle $YXUV$ and $YXBC$, and $BC$ is the radical axis of circle $YXBC$ and $\Gamma$. Thus, $UV, BC, XY$ concur at pre-defined point $W$. Moreover, $XY$ is the radical axis of the circles $AXY$ and $YXBC$ and again $BC$ is the radical axis of $YXBC$ and $\Gamma$. Again, the radical axis of $AXY$ and $\Gamma$, $XY$ and $BC$ will concur at the same point $W$. Since $T$ is the second intersection of $\Gamma$ and $AW$, we have $T$ as the second intersection of $\Gamma$ and $AXY$, so $T$ is on triangle $AXY$. Q.E.D. 
+	
+	\item[Problem 5.]
+	Now plug $x=y=0$ we have $f(f(0))=f(f(0))+3f(0)$ so $f(0)=0$. Plugging only $y=0$ gives $f(x^2)=f(f(x))+2f(0)=f(f(x))$ so $f(f(x))=f(x^2)$ for all $x$. 
+	Also, we have the following:
+	\[f(x^2+f(y))=f(f(x))+f(y^2)+2f(xy)=f(x^2)+(y^2)+2f(xy)\]
+	\[=f(y^2)+f(x^2)+2f(yx)=f(f(y))+(x^2)+2f(yx)=f(y^2+f(x))
+	\]
+	so $f(x^2+f(y))=f(y^2+f(x))$. 
+	In addition, we have $f(x^2)+(y^2)+2f(xy)=f(x^2+f(y))=f((-x)^2+f(y))=f((-x)^2)+(y^2)+2f(-xy)$ so $f(-xy)=f(xy)$ for all $x$ and $y$. Letting $y=1$ yields $f(x)=f(-x)$, showing that $f$ is an even function. Combining this with $f(0)=0$, we only need to consider those $x$ with $x>0$. 
+	
+	Now suppose that for some $x_1, x_2\ge 0$ we have $f(x_1)=f(x_2)$ but $x_1\neq x_2$. 
+	This means that $f(x_1^2)=f(f(x_1))=f(f(x_2))=f(x_2^2)$. Fix $y$, and consider the following separately:
+	\[
+	f(y^2+f(x_1)) = f(y^2)+f(x_1^2)+2f(yx_1)
+	\]
+	\[
+	f(y^2+f(x_2)) = f(y^2)+f(x_2^2)+2f(yx_2)
+	\]
+	and comparing both sides, we have $f(x_1y)=f(x_2y)$ for all $y$. If $x_1=0$ then we have $f(0)=f(x_2y)$ for all $y$ and combining this with $x_2>0$ we have $f(x)=0$ for all $x$. 
+	Thus we can assume $0<x_1<x_2$. We now consider the following equivalence:
+	\[f((x_1z)^2+f(y))=f(y^2+f(x_1z))=f(y^2+f(x_2z))=f((x_2z)^2+f(y))
+	\]
+	where $z$ is arbitrary real number (we have shown before that $f(x_1z)=f(x_2z)$ for any real $z$. 
+	Suppose that $f(y)<0$ for this $y$. Let $z$ be such that $(x_1z)^2+f(y)=0$, or $x_1z=\sqrt{-f(y)}$ (we can find such $z$ since $x_1>0$). Then $f((x_1z)^2+f(y))=f((x_2z)^2+f(y))=0$. Since $(x_2z)^2+f(y)\neq 0$ as $x_1\neq x_2$ and both $x_1, x_2>0$, we have $f(c)=0$ for some $c\neq 0$ and by above this applies $f\equiv 0$. 
+	Thus we can assume that $f(y)\ge 0$. If $f$ is not identically 0, choose $y$ such that $f(y)>0$. Suppose also that $x_1>x_2$ and consider the following ratio: $r=\dfrac{x_1^2z^2+f(y)}{x_2^2z^2+f(y)}$. By the fact that $f(x_1)=f(x_2)\to f(x_1z)=f(x_2z)$ for all $z$, we have $f(x)=f(kx)$ for all $x$ where $k=x_1/x_2$. We also know that, as $z$ varies in $[0, \infty)$, the ratio varies continuously in $[1,x_1^2/x_2^2)$. For any $r\in [1,x_1^2/x_2^2)$ we have $f(x)=f(rx)$ for all $x$; this also holds for $r=x_1^2/x_2^2$ since $f(x_1^2)=f(x_2^2)$. Hence for all $x$, $f$ is constant in the interval $[x, Rx]$ with $R=x_1^2/x_2^2$ and considering this for all $x>0$ we conclude that $f$ takes constant value on $\mathbb{R}^+$. 
+	If this constant $c=0$ then $f\equiv 0$; otherwise, by before we can assume $c>0$ ($c<0$ leads to the $f\equiv 0$ conclusion too). If $c>0$, $f$ is defined by $f(x)=0$ for $x=0$ and $c$ otherwise, giving the following for any pairs of $x, y>0$
+	\[f(x^2+f(y))=f(x^2+c)=c; f(f(x))+f(y^2)+2f(xy)=f(c)+c+2c=4c
+	\]
+	so $c=4c$ forcing $c=0$. 
+	
+	Now assumt that there's no $x_1\neq x_2$, both nonnegative, such that $f(x_1)=f(x_2)$. This means that $f$ is injective on $\mathbb{R}_{\ge 0}$. Going back to the function $f(f(x))=f(x^2)$ and the fact that $f$ is even, we consider $x>0$. If $f(x)>0$, then from the injectivity of $f$ on $\mathbb{R}^+$ we have $f(x)=x^2$. Otherwise, $f(x)<0$ and by the even function property $f$ is injective on nonpositive reals too. Given also that $f(x^2)=f(-x^2)=f(f(x))$ we have $f(x)=-x^2$. This limits our function to, for each $x$, $f(x)=\pm x^2$. 
+	If $x>0$ is a number such that $f(x)=-x^2$, letting $x=y$ gives $0= f(0)=f(x^2-x^2)=f(f(x))+3f(x^2)=4f(x^2)$ (recall that $f(f(x))=f(x^2)$) so $4f(x^2)=0$, which is a contradiction since $x^2\neq 0$ and $f(x^2)=0$ means $f\equiv 0$. Hence $f$ must be $x^2$. 
+	
+	It turns out that $0$ and $x^2$ both works: the first gives 0 on both sides; the second gives $(x^2+y^2)^2$ on both sides. 
+	
+\end{enumerate}
+
+\end{document}

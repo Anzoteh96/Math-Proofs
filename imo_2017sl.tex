@@ -194,6 +194,32 @@ Summarizing above, we will have $\sum_{i=1}^8\dbinom{n}{i}$ numbers represented 
     \textbf{Solution.} Suppose first that $n$ is composite, and write $n=ab$ with $1<a, b<n$. We gave a counterexample that makes this statement fail. Consider the sequence $a, a, \cdots a, 0$, which has sum $a(n-1)$ which has remainder $-a\neq 0$ mod $n$. If $1\le i\le n-b$ then $a_i+a_{i+1}+\cdots + a_{i+b-1}=a+a+\cdots + a=ab=n$ which is divisible by $n$< so such $i$ won't work. Otherwise, if $n-b\le i\le n$ then $a_i+\cdots + a_{i+b}=a_i+\cdots + a_n+a_1+\cdots +a_{i + b - n}=ab=n$, so such $i$ won't work either. Thus we have just found a counterexample sequence such that none of the $i$'s work. 
     
     Conversely, if $n$ is a prime, we consider the sequence on a circle. Let $r$ to be the remaidner of $a_1+\cdots +a_n\pmod{n}$, and we have $\gcd(r, n)=1$. Consider the new sequence $a_1, a_1+a_2, \cdots a_1+\cdots +a_n, a_1+\cdots + a_n+a_1, \cdots , \underbrace{a_1+\cdots+a_n}_{\text{$n$ times}}$. If this sequence is named as $b_1, b_2, \cdots b_{n^2}$ then $b_{n+i}-b_i=r\pmod{n}$. Thus for all $i$ the sequence $\{b_i, b_{i+n}, \cdots b_{i + (n-1)n}\}$ leaves distinct remainders mod $n$, and each remainder $0, 1, \cdots n-1$ appears $n$ times in $b_1, b_2, \cdots b_{n^2}$. Since $b_{n^2}=n(a_1+\cdots a_n)=0\pmod{n}$, we can, again, wrap them on a circle. Now consider $\{i:b_i=0\}$. Since there are $n$ such $i$'s on the circle on $n^2$ numbers, there are two consecutive such $i$'s that are at least $n$ steps apart. If there's no condecutive such $i$'s that are more than $n$ steps apart, then any two consecutive $i$'s must be exactly $n$ steps apart, so $0=b_i=b_{n+i}=\cdots=b_{n(n-1)+i}$, contraidcting $b_{n+i}-b_i=r\pmod{n}$. So we have $b_i=b_j=0$ with $j-i>n$, with $b_k\neq 0$ for all $i<k<j$. Thus we can choose $a_{i+1}, a_{i+1}+a_{i+2}, \cdots, a_{i+1}+\cdots a_{i+n}$ that are exactly $b_{k}-b_i$ for all $i+1\le k\le i+n$, and none of them is divisible by $n$. 
+    
+    \item[\textbf{N5}] Find all pairs $(p,q)$ of prime numbers which $p>q$ and
+    $$\frac{(p+q)^{p+q}(p-q)^{p-q}-1}{(p+q)^{p-q}(p-q)^{p+q}-1}$$is an integer.
+    
+    \textbf{Answer.} $(p, q)=(3, 2)$. \\
+    \textbf{Solution.} The aforementioned pair claims that $5^1-1|5^5-1$, which holds true because $5^5-1=3124=778\times 4$. We now show there are no other pairs. For the rest of the part, $D=(p+q)^{p-q}(p-q)^{p+q}-1$. 
+    
+    Now suppose that $D|(p+q)^{p+q}(p-q)^{p-q}-1$, we also have 
+    $D|((p+q)^{p+q}(p-q)^{p-q}-1) - ((p+q)^{p-q}(p-q)^{p+q}-1)
+    =(p+q)^{p-q}(p-q)^{p-q}((p+q)^{2q}-(p-q)^{2q}). 
+    $
+    Since $\gcd(p+q, D)=1$ and $\gcd(p-q, D)=1$, this also implies that $D|(p+q)^{2q}-(p-q)^{2q}$. We first use this to eliminate the case when $q=2$ but $p > 3$: observe that $(p-q)^{2q} < (p-q)^{p+q} <= D$. If $(p+q)^{2q}>=D+1$ then we have $(p+q)^{2q}\ge (p+q)^{p-q}(p-q)^{p+q}$, a.k.a. $(p+q)^{3q-p}\ge (p-q)^{p+q}$ which means $3q\ge p$, hence $p\le 5$. For $p=5$ we have $7\ge 3^{7}$, which is absurd. Hence $(p+q)^{2q} <= D$ in the primes we are considering, and with $(p-q)^{2q}<D$ we will need $(p+q)^{2q}=(p-q)^{2q}$, contradiction since this implies $p+q=p-q$. 
+    
+    Hence we now assume (legitimately) that $p$ and $q$ are both odd. Recalling that $(p+q)^{2q}\equiv (p-q)^{2q}\pmod{D}$ and $p+q, p-q$ are both relatively prime to $D$, we will proceed by considering their order mod $D$. Now, we have $D|(p+q)^{2(p-q)}(p-q)^{2(p+q)}-1$ (since $(p+q)^{p-q}(p-q)^{p+q}\equiv 1\pmod{D}$ and we are squaring this left hand side term), leading to the following: 
+    \[1\equiv (p+q)^{2(p-q)}(p-q)^{2(p+q)}= (p+q)^{2(p-q)}(p-q)^{2p}(p-q)^{2q}\equiv (p+q)^{2(p-q)}(p-q)^{2p}(p+q)^{2q}\]
+    $\equiv (p+q)^{2p}(p-q)^{2p}$
+    To simplify our arithmetic, we will consider negative exponents of $p+q$ and $p-q$ mod $D$ as well, given that they are relatively prime to $D$ (and hence inverse mod $D$ exists). The the first statement $(p+q)^{2q}\equiv (p-q)^{2q}\pmod{D}$ simply means $1\equiv (p+q)^{2q}(p-q)^{-2q}\pmod{D}$. 
+    Returning to the original statement where $(p+q)^{p-q}(p-q)^{p+q}\equiv 1\pmod{D}$, and raising it to the power of $p$ we have $(p+q)^{p^2-pq}(p-q)^{p^2+pq}\equiv 1\pmod{D}$. Both $p-q$ and $p+q$ are even, so $2p|p^2-pq$, and thus $(p+q)^{p^2-pq}(p-q)^{p^2-pq}\equiv 1\pmod{D}$. This would imply that $(p-q)^{2pq}\equiv 1\pmod{D}$, so 
+    the order of $(p-q)$ mod $D$ divides $2pq$, and same goes for $p+q$ by a similar argument (by raising our expression to the power of $q$, for example). 
+    
+    We will keep our focus on $(p+q)^{p-q}(p-q)^{p+q}\equiv 1\pmod{D}$, this time raising it to the power of $\frac{pq+1}{2}$ ($pq$ is odd). Since $p$ and $q$ are both odd, exactly one of $p-q$ and $p+q$ is divisible by 4. Consider the case where $4|p+q$. Now, $(p+q)(\frac{pq+1}{2})
+    \equiv \frac{p+q}{2}\pmod{2pq}$ and $(p-q)(\frac{pq+1}{2})
+    \equiv \frac{p-q}{2}+pq\pmod{2pq}$. Thus, 
+    $(p+q)^{\frac{p-q}{2}+pq}(p-q)^{\frac{p+q}{2}}\equiv 1\pmod{D}$. Multiplying this by $[(p+q)(p-q)]^{pq}\equiv 1$ and taking each exponent mod $2pq$ gives 
+    $(p+q)^{\frac{p-q}{2}}(p-q)^{\frac{p+q}{2} + pq}\equiv 1\pmod{D}$. Raising this expression to the power of $p$ again, $(p+q)^{\frac{p(p-q)}{2}}(p-q)^{\frac{p(p+q)}{2} + p^2q}\equiv 1\pmod{D}$ and notice that $\frac{p(p+q)}{2} + p^2q= \frac{p(p-q)}{2}+pq+p^2q$ and since $2pq|pq(1+p)=pq+p^2q$ (again $p+1$ is odd). Thus we have $(p+q)^{\frac{p(p-q)}{2}}(p-q)^{\frac{p(p-q)}{2}}\equiv 1\pmod{D}$. 
+    Since $\gcd(\frac{p-q}{2}, 2q)=1$, we can find $k$ with $\frac{k(p-q)}{2}\equiv 1\pmod {2q}$. Thus this gives $(p+q)^{p}(p-q)^{p}\equiv 1\pmod{D}$. In the same way this can be established in the case where $4|p-q$ and $4\nmid p+q$ (so $(p+q)^{p}(p-q)^{p}\equiv 1\pmod{D}$ regardless). By this, we also get $(p+q)^{p-q}(p-q)^{p+q} ((p+q)^{p}(p-q)^{p})^{-1}=(p+q)^{-q}(p-q)^{q}\equiv 1\pmod{D}$. 
 	\end{enumerate}
 
 \end{document}
