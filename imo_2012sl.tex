@@ -457,9 +457,30 @@
 	
 	Next, let's see what happens if $m$ is composite. If $m$ is divisible by 2, choosing $n=\frac{m}{2}$ gives $\dbinom{n}{m-2n}=\dbinom{n}{0}=1$ so we have $n\nmid 1$. If $m$ is divisible by 3, choosing $m=\frac{m}{3}$ gives $\dbinom{n}{m-2n}=\dbinom{n}{n}=1$ so we have $n\nmid 1$, too. We can therefore assume that the smallest prime dividing $m$ is at least 5. 
 	
+	Having this in mind, let $m$ composite and $p$ any prime divisor. Let $m=pq$ and since $m$ is divisible by neither 2 nor 3, $q\ge 5$. Consider, now, plugging $n=p\left(\dfrac{q-1}{2}\right)$. Then given $p\mid n$, we have $p\mid \dbinom{n}{m-2n}=\dbinom{p\left(\dfrac{q-1}{2}\right)}{p}$. By Lucas' theorem, this is the same as $\dbinom{\left(\dfrac{q-1}{2}\right)}{1}=\dfrac{q-1}{2}$ modulo $p$. We therefore need $p\mid q-1$. 
+	Assuming this, and given $p$ and $q$ both odd, we have $q\ge 2p+1\ge2(5)+1=11$. This means, $\frac{q-3}{2} > \frac{q}{3}$ (equality holds when $q=9$ here), so we can now consider $n=p\left(\dfrac{q-3}{2}\right)$, giving rise to $p\mid \dbinom{n}{m-2n}=\dbinom{p\left(\dfrac{q-3}{2}\right)}{3p}$. 
+	Since $3\nmid p$, by Lucas' theorem again this is congruent to $\dbinom{\left(\dfrac{q-3}{2}\right)}{3}$ modulo $p$. But then 
+	\[
+	\dbinom{\left(\dfrac{q-3}{2}\right)}{3}
+	=\frac{(q-3)(q-5)(q-7)}{2^3\cdot 3!}
+	\]
+	so one of $q-3, q-5, q-7$ must be divisible by $p$. 
+	With $q\equiv 1\pmod{p}$ as assumed, this is the same as saying that either 2, 4, 6 must be divisible by $p$ contradicting that $p$ is a prime greater than 3. 
+	
 	\item[\textbf{N4}] An integer $a$ is called friendly if the equation $(m^2+n)(n^2+m)=a(m-n)^3$ has a solution over the positive integers.\\
 	a) Prove that there are at least $500$ friendly integers in the set $\{ 1,2,\ldots ,2012\}$.\\
 	b) Decide whether $a=2$ is friendly.
+	
+	\textbf{Solution.} (a) Plugging $m=2k-1$ and $n=k-1$ gives $a = 4k-3$ which works for all $k\ge 2$ so we have $5, 9, 13, \cdots , 2009$ all friendly, i.e. a total of 502 of them here. 
+	
+	Nb. if you ask ``what's the motivation behind?" then all I can tell is, set $m-n=k$ and we want the left hand size to be divisible by $k^3$. We need, now, $k\mid n+2+n+k$ so $n\equiv 0, -1\pmod{k}$. But then $n\equiv -1$ has the bonus of making it divisible by $k^2$, and turned out, $k\mid m^2+n$ in this case too. 
+	
+	(b) The answer is no. Like above, write $m=n+k$ and we need to solve $((n+k)^2+n)(n^2+n+k)=2k^3$. 
+	Writing in cubic equation in $k$, this gives \[k^3-n(n+3)k^2-n(n+1)(2n+1)k-n^2(n+1)^2=0\]
+	and we need to find $n>0$ such that the equation has an integer root in $k$. 
+	From $k^3-n(n+3)k^2>0$ we have $k>n(n+3)$ (since $k$ and $n$ are both positive). 
+	
+	
 	
 	\item[\textbf{N5}] For a nonnegative integer $n$ define $\operatorname{rad}(n)=1$ if $n=0$ or $n=1$, and $\operatorname{rad}(n)=p_1p_2\cdots p_k$ where $p_1<p_2<\cdots <p_k$ are all prime factors of $n$. Find all polynomials $f(x)$ with nonnegative integer coefficients such that $\operatorname{rad}(f(n))$ divides $\operatorname{rad}(f(n^{\operatorname{rad}(n)}))$ for every nonnegative integer $n$.
 	

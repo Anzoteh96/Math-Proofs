@@ -44,6 +44,8 @@
 \newcommand{\qubits}[1]{|{#1}\rangle}
 \newcommand{\ord}{\mathrm{ord}}
 \newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
 
 \begin{document}
 
@@ -289,6 +291,28 @@ In particular, substituting $n=0$ we get $I_{-1}I_1\ge I_0$. Now $I_{0}=\int_a^b
 
 So $I_1>I_0$, and denote the ratio $\frac{I_1}{I_0}=c>1$. We will in fact claim that $\frac{I_{n+1}}{I_n}\ge c$ for all $n\ge 0$, which will finish the proof since $I_n\ge c^nI_0$ and $\lim_{n\to\infty}c^n=\infty$ as $c>1$. The base case is given as $\frac{I_1}{I_0}=c$. If $\frac{I_{n}}{I_{n-1}}\ge c$ for some $n\ge 1$, then from the Cauchy-schawrz inequality we had before, $I_{n-1}I_{n+1}\ge I_n^2$ means that $\frac{I_{n+1}}{I_n}\ge \frac{I_n}{I_{n-1}}=c$. Hence we completed our inductive hypothesis, and concludes the proof. 
 
+\item[\textbf{A4}] A class with $2N$ students took a quiz, on which the possible scores were $0,1,\dots,10.$ Each of these scores occurred at least once, and the average score was exactly $7.4.$ Show that the class can be divided into two groups of $N$ students in such a way that the average score for each group was exactly $7.4.$
+
+\textbf{Solution.} The total score of the group is $14.8N=\frac{74N}{5}$, which is an integer since all individual scores are integers. Since $\gcd(74, 5)=1$, we have $N=5k$ for some integer $k$. This means $14.8N=14.8(5k)=74k$, which is even. Thus the goal now becomes finding a group of $N$ students where the total score is $7.4N$, which is $37k$, an integer. 
+
+Let $x_1\le\cdots\le x_{2N}$ be the scores of students. Let $m=x_1+\cdots + x_N$ and $M=x_{N+1}+\cdots x_{2N}$. Since $m+M=14.8N$ and from $x_i\le x_{N+i}$ we have $m\le M$, we have $m\le x\le M$. We will show that for any integer $x\in \{m, m+1, \cdots , M-1, M\}$ it is possible to choose a group of $N$ students such that the total score in this group is $x$, thereby showing that it is possible to choose a group of $N$ students with the total group score of $7.4N$. 
+
+We first notice that for all $1\le i < N$, $0\le x_{i+1}-x_{i}\le 1$. The left inequality is obvious by our sorting algorithm. Suppose that $x_{i+1}-x_i\ge 2$ for some $i$. By our sorting algorithm, again, nobody scored $x_i + 1, \cdots , x_{i+1}-1$. We now define a sequence of $N^2+1$ numbers $y_0, y_1, \cdots , y^{N^2}$ as follows: 
+\begin{itemize}
+	\item $y_0=x_1+x_2+\cdots + x_N$
+	\item For some $i<N^2$, denote $y_i=x_{a_1}+x_{a_2}+\cdots + x_{a_N}$ for some $1\le a_1<a_2<\cdots < a_N\le 2N$. If there exists $j<N$ such that $a_{j+1}-a_j>1$, then denote $y_{j+1} = x_{a_1}+x_{a_2}+\cdots + x_{a_j + 1} + x_{a_{j+1}}+\cdots x_{a_N}$ (basically, shift one of the indices to the right by 1). 
+	Otherwise, denote $y_i = x_{a_1}+x_{a_2}+\cdots + x_{a_N+1}$. 
+\end{itemize}
+We first show that this construction sequence is legitimate: that is, when $i<2N$, either such $j$ can be found or $a_N < 2N$ (so $x_{a_N+1}$ exists). To see why, we consider the sum of indices $S(i)=a_1+a_2+\cdots +a_N$ when $y_i=x_{a_1}+\cdots + x_{a_N}$. 
+When $i=0$ then sum is $S(0)=1+\cdots + N=\frac{N(N+1)}{2}$, and whenever the sequence $y_i$ and $y_{i+1}$ are both legitimate, $S(i+1)-S(i)=1$. Thus, the recursion from $y_i$ to $y_{i+1}$ is legitimate if and only if $y_i$ is not $x_{N+1}+\cdots + x_{2N}$. If such $i$ exists, then $S(i)=(N+1)+\cdots + (2N)=\frac{N(3N+1)}{2}=S(0)+N^2$. It then follows that such $i$ must be at least $N^2$ for this to happen. 
+The converse is also true: we have $y_{N^2}=x_{N+1}+\cdots + x_{2N}$. 
+
+In addition, for each $0\le i < 2N$, by the construction above there exists index $j$ such that $y_{i+1}-y_i = x_{j+1}-x_j$. By an earlier lemma, $0\le x_{j+1}-x_j\le 1$, so $0\le y_{i+1}-x_i\le 1$. We also have $y_0=x_1+\cdots +x_N=m$ and $y_{N^2}=X_{N+1}+\cdots + x_{2N}=M$, which means:
+\[
+m=y_0\le y_1\le \cdots \le y_{N^2}\le M
+\]
+which means the set $\{y_0, \cdots , y_{N^2}\}$ is precisely the set of integers in the interval $[m, M]$, inclusive. 
+
 \item[\textbf{B2}]Suppose that a positive integer $N$ can be expressed as the sum of $k$ consecutive positive integers
 \[N=a+(a+1)+(a+2)+\cdots+(a+k-1)\]for $k=2017$ but for no other values of $k>1.$ Considering all positive integers $N$ with this property, what is the smallest positive integer $a$ that occurs in any of these expressions?
 
@@ -303,6 +327,40 @@ The second condition is due to the fact that, when considering mod $k$, $a, a+1,
 Coming back to the problem, we need one such $N$ that can be written as sum of $k$ consecutive integers. Denote $N=2017\cdot m$ with $m\ge 1009$. Now consider the case when $m\le 1024$. If $m$ has an odd divisor that's greater than 1, say $q$, then $q|N$ too, and since $N\ge \frac{2017(2018)}{2}ge \frac{q\cdot (q+1)}{2}$ (since $q\le m< 2017$), it can be written as the sum of $q$ integers, too. This $m$ will then not be valid. This happens when $m\le 1024$ and has an odd divisor $>1$, which is equivalent to the fact that it is not a power of 2. Hence $m\ge 1024$. 
 
 To show that $m=1024$ is good, observe that its only odd divisors are 1 and 2017, so if $q$ is odd and it can be written as sum of $q$ consecutive numbers, then $q=1$ or $q=2017$. Now suppose that $q$ is even, whereby we have $N\equiv \frac{q}{2}\pmod{q}$. This means that $2N\equiv 0\pmod{q}$, i.e. $q=2^k 2017^{\ell}$ with $1\le k\le 11$ and $0\le\ell\le 1$. With $q\nmid N$ we must have $k=11$, so the only choice is $q=2^{11}$ and $q=2^{11}\cdot 2017$. However, $q\ge 2048$ so $N\ge \frac{2048(2049)}{2}=1024\cdot 2049>1024\cdot 2017$, contradiction. Hence $k=2017$ is the only possibility here. Since $2a+k-1=2048$ in this case, $a=16$. 
+
+\item[\textbf{B3}] Suppose that $$f(x) = \sum_{i=0}^\infty c_ix^i$$is a power series for which each coefficient $c_i$ is $0$ or $1$. Show that if $f(2/3) = 3/2$, then $f(1/2)$ must be irrational.
+
+\textbf{Solution.} Consider $c=f(1/2)$, and consider the binary representation of $c$. We know that if $c$ is rational, then the binary digits (after decimal point) is eventually periodic. We show that this is the same for the sequence $\{c_i\}$ too. 
+
+Clearly, if $c<2$ and $c=\overline{d_0.d_1d_2d_3\cdots}$, is the binary representation, then putting $c_i=d_i$ we have $\sum_{i=0}^\infty c_ix^i=c$, too (The case $c\ge 2$ happens only when $c\ge 2$, but then $c=f(1/2)\le 1+1/2+1/4+\cdots = 2$, so equality must hold and we have $c_i=1$ for all $i$, and therefore $\{c_i\}$ is periodic). 
+If $\{c_i\}$ is indeed the binary representation we are done. 
+Now, suppose that $\{c_i\}$ is not the binary representation: this means $c$ has more than 1 way to be represented as the power series. 
+Let $\{c_i\}$ and $\{d_i\}$ to be two different representations and let $n_0$ be the minimum index such that $c_{n_0}\neq d_{n_0}$. WLOG let $c_{n_0}=0$ and $d_{n_0}=1$. Then 
+\[
+\sum_{i=n_0 + 1}^\infty c_i/2^i = c - \sum_{i=0}^{n_0-1} c_i/2^i = 1/2^{n_0}+\sum_{i=n_0+1}^\infty d_i/2^i 
+\]
+But then 
+\[
+\sum_{i=n_0 + 1}^\infty c_i/2^i\le \sum_{i=n_0 + 1}^\infty 1/2^i
+=1/2^{n_0}
+\le 1/2^{n_0}+\sum_{i=n_0+1}^\infty d_i/2^i
+\]
+therefore equality must hold: $c_i=0$ and $d_i=1$, both for all $i>n_0$. Thus both $\{c_i\}$ and $\{d_i\}$ is eventually periodic with period 1 (and we are done). 
+
+Now, given that $\{c_i\}$ is eventually periodic: there is an $n_0\ge 0$ and $m\ge 1$ such that for all $n\ge n_0$ we have $c_n=c_{n+m}$. 
+We now have 
+
+\begin{flalign*}
+	f(2/3)&=\dsum_{i=0}^{\infty}\frac{2^ic_i}{3^i}
+	\\&=\dsum_{i=0}^{n_0-1}\frac{2^i3^{n_0-1-i}c_i}{3^{n_0-1}}
+	+\dsum_{i=n_0}^{\infty}\frac{2^ic_i}{3^i}
+	\\&=\dsum_{i=0}^{n_0-1}\frac{2^i3^{n_0-1-i}c_i}{3^{n_0-1}}
+	+\dsum_{i=n_0}^{n_0+m-1}c_i\left(\frac{2^i}{3^i}+\frac{2^{i+m}}{3^{i+m}}+\frac{2^{i+2m}}{3^{i+2m}}+\cdots\right)
+	\\&=\dsum_{i=0}^{n_0-1}\frac{2^i3^{n_0-1-i}c_i}{3^{n_0-1}}
+	+\dsum_{i=n_0}^{n_0+m-1}c_i\cdot \frac{2^i}{3^i} \cdot \frac{3^m}{3^m-2^m}
+\end{flalign*}
+and since for each $i$ and $m$, all $3^{n_0-1}, 3^i$ and $3^m-2^m$ are odd, the quantity $f(2/3)$ can be written as $p/q$ with $q$ odd. However, given that $f(2/3)=1/2$ and $1/2$ doesn't have this property (2 is even and 1/2 is irreducible: if $q$ is odd then $\frac q2$ is not an integer), this is a contradiction. Thus $\{c_i\}$ cannot be eventually periodic and the conclusion follows. 
+
 
 \item[\textbf{B4}]Evaluate the sum
 \[\sum_{k=0}^{\infty}\left(3\cdot\frac{\ln(4k+2)}{4k+2}-\frac{\ln(4k+3)}{4k+3}-\frac{\ln(4k+4)}{4k+4}-\frac{\ln(4k+5)}{4k+5}\right)\]\[=3\cdot\frac{\ln 2}2-\frac{\ln 3}3-\frac{\ln 4}4-\frac{\ln 5}5+3\cdot\frac{\ln 6}6-\frac{\ln 7}7-\frac{\ln 8}8-\frac{\ln 9}9+3\cdot\frac{\ln 10}{10}-\cdots.\]
@@ -499,6 +557,48 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
     The task now is to consider all permutations falling into the third category. First, this gives rise to $n$ distinct orbits, so the parity of permutation is congruent to $2n-n=n\pmod{2}$, and thus $\sgn(\sigma)=(-1)^n$ for all such $\sigma$. Second, the number of such permutations depends on the pairing of the $2n$ numbers, so this is exactly the ways to split these numbers into pairs. In general we have the number of pairs as: 
     \[\frac{\displaystyle\prod_{i=1}^n\dbinom{2i}{2}}{n!}=\dfrac{(2n)!}{2^n n!}\]
     Hence the final expected value is $(\dfrac 12)^n \cdot \dfrac{(2n)!}{2^n n!}=\dfrac{(2n)!}{4^n n!}$. 
+    
+    \item[\textbf{B5}] Find all functions $f$ from the interval $(1,\infty)$ to $(1,\infty)$ with the following property: if $x,y\in(1,\infty)$ and $x^2\le y\le x^3,$ then $(f(x))^2\le f(y) \le (f(x))^3.$ 
+    
+    \textbf{Answer.} $f(x)=x^c$ for any constant $c>0$. \\
+    \textbf{Solution.} We first show that the aforementioned functions satisfy the problem condition. Indeed, given that $x^2\le y\le x^3$ for any pairs of $x, y\in (1, \infty)$, from $x^2\le y$ and $c>0$ we have $(x^{2})^c\le y^c$, and from $y\le x^3$ we have $y^c\le (x^3)\le c$, as desired. 
+    
+    To show that there's no other suitable functions, denote $g:(0, \infty)\to\infty$ by $g(x)=\log f(e^x)$. Then the condition now becomes: if $e^{2x}\le 3^y\le e^{3x}$ then $2\log(f(e^x))\le \log(f(e^y))\le 3\log(f(e^x))$. In other words, if $2x\le y\le 3x$ then $2g(x)\le g(y)\le 3g(x)$. Notice that if a function $g$ is such a solution, then for any constant $c>0$, $cg$ is also a solution. Hence we can assume that $g(1)=1$. 
+    
+    We now show that $g(x)=x$ for all $x>0$. Before that, let's show a lemma: 
+    
+    \emph{Lemma (a)}. Let $4\le x\le 3^n$. Then $f(x)\le 3^nf(1)$. \\
+    Proof: Let $k$ be the integer satisfying $3^{k-1}<x\le 3^k$ with $k\le n$. Then $3^{\frac{k-1}{k}}<\sqrt[k]{x}\le 3$. If $k\ge 3$ then $3^{\frac{k-1}{k}}>3^{\frac{2}{3}}=\sqrt[3]{9}>2$ and if $k=2$ then $4\le x\le 9$ and $2\le \sqrt{x}\le 3$. In either case, $2\le \sqrt[k]{x}\le 3$. This gives 
+    \[
+    f(x)=f(x^{\frac{1}{k}}x^{\frac{k-1}{k}})\le 3f(x^{\frac{k-1}{k}})
+    =3f(x^{\frac{1}{k}}x^{\frac{k-2}{k}})\le 3^2f(x^{\frac{k-2}{k}})
+    \le\cdots \le 3^kf(x)\le 3^nf(x)
+    \]
+    as desired (since $k\le n$). 
+    
+    \emph{Lemma (b)}. Let $x\ge 2^n$ with $n\ge 2$. Then $f(x)\ge 2^nf(1)$. \\
+    Proof: the trick is essentially the same: let $k$ be the integer satisfying $2^k\le x<2^{k+1}$, then $2\le \sqrt[k]{x}<2^{1+1/k}\le 2^{\frac{3}{2}}=\sqrt{8}<3$. This means 
+    \[
+    f(x)=f(x^{\frac{1}{k}}x^{\frac{k-1}{k}})\ge 2f(x^{\frac{k-1}{k}})
+    =2f(x^{\frac{1}{k}}x^{\frac{k-2}{k}})\ge 2^2f(x^{\frac{k-2}{k}})
+    \le\cdots \le 2^kf(x)\ge 2^nf(x)
+    \]
+    since $k\ge n$ in this case. 
+    
+    To solve this problem, we also need another lemma: 
+    
+    \emph{Lemma 2}. Let $x$ be an irrational number, then $\{\{nx\}: n = 1, 2, \cdots \}$ is dense in $(0, 1)$ (i.e., the fractional part of the number). \\
+    Proof: Let $(a, b)\subseteq (0, 1)$ be an interval of length $\varepsilon>0$, and let $N>\frac{1}{\varepsilon}$ be an integer. 
+    Consider the $\{\{nx\}: n = 1, 2, \cdots , N+1\}$. Since $x$ is irrational, all the $\{nx\}$ are different. By pigeonhole principle, there exists $m, n\le N+1$ such that $0<|\{mx\}-\{nx\}|<\varepsilon$. From here, we can conclude that $0<\{(m-n)x\}<\varepsilon$. 
+    Consider, now, any $k\ge 1$ and the quantity $\{kx\}$. If $\{kx\}\in (a, b)$ then we are done. Otherwise, we first consider the case where $m>n$. If $\{kx\}\le a$ let $\ell$ be the minimum positive integer such that $\{kx\}+\ell\{(m-n)x\}>a$. Then since $\{(m-n)x\}<\varepsilon$, the minimality of $\ell$ suggests that $\{kx\}+\ell\{(m-n)x\}< a + varepsilon=b$, so $\{(k + \ell(m-n))x\}\in (a, b)$. 
+    Otherwise, $\{kx\}\ge b$, in which case we have to consider $\ell$ as the minimum positive integer such that $\{kx\}+\ell\{(m-n)x\}> 1 + a$. Since a similar analysis shows that $1+a< \{kx\}+\ell\{(m-n)x\} < 1+b$, we have $\{(k + \ell(m-n))x\}\in (a, b)$. 
+    This is valid since $m>n$ and therefore $k + \ell(m-n)>0$. 
+    In the case where $m<n$, if $\{kx\}\le b$ then let $\ell$ be the minimum positive integer such that $\{kx\}-\ell\{(m-n)x\}<b$. By the similar proof before we would have $\{kx\}-\ell\{(m-n)x\} > a$ too, so $\{(k + \ell(n-m))x\}\in (a, b)$. 
+    Otherwise, $\{kx\}\le a$ and let $\ell$ be the minimum positive integer such that $\{kx\}-\ell\{(m-n)x\} < -(1-b)$. By the similar proof before we would have $\{kx\}-\ell\{(m-n)x\} > -(1-a)$ so $-(1-a)<\{kx\}-\ell\{(m-n)x\} < -(1-b)$ and hence $\{(k + \ell(n-m))x\}\in (a, b)$, as desired. 
+    Notice we actually showed something slightly stronger (well not quite) -- for each open interval $(a, b)\in (0, 1)$ and $k\ge 1$ there exists $\ell\in k$ such that $\{\ell x\}\in (a, b)$. 
+    
+    We are ready to go back to the proof now, which we assumed $g(1)=1$. Suppose there exists $x_0$ with $g(x_0)>x_0$. Let $g(x_0)=cx_0$ with $c>1$. If $n, m\ge 2$ are such that $2^nx_0\le 3^m$, then choosing $y\in [2^nx_0, 3^m]$ and by lemma 1 we have $g(y)\ge 2^ng(x_0)=2^ncx_0$ and $g(y)\le 3^mg(1)=3^m$. Therefore, $2^ncx_0\le g(y)\le 3^m$, or $2^ncx_0\le 3^m$. This means that whenever $n, m\ge 2$ are integers such that $2^nx_0\le 3^m$ (or $n\log 2 + \log x_0\le m\log 3$) we have $2^nx_0c\le 3^m$ (or $n\log 2 + \log x_0 + \log c \le m\log 3$). This is to mean that there cannot exist $m, n\ge 2$ such that $m\log 3 - n\log 2\in [\log x_0, \log x_0 + \log c]$. 
+    Let $q$ be an integer that is greater than 2, $2\log 3/log 2$ and $2\log 2/log 3$. Given that $\log 2/\log 3$ is irrational, 
 		
 \end{enumerate}
 
@@ -583,6 +683,7 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
 	must be linearly dependent, i.e. $ab^k-a^kb=0$, or $ab(a^{k-1}-b^{k-1})=0$. If $a=0$ or $b=0$, then $M$ has determinant 0, which implies that $-2d^2=\det(M)=0$, so the common difference is 0, contradiction (this case has been handled in the beginning of the proof). Hence we have $a^{k-1}=b^{k-1}$, which means $|a|=|b|$. The case where $a=b$ means $D=aI$ and so $M=aI\not\in S$, so $a=-b$. 
 	
 	Going back to the proof, we now know that the eigenvalues of $M$ are in the form of $e, -e$ for some $e$. This forces the characteristic polynomial of $M$ to be $x^2+e^2$, which also implies that $2a+3d=0$ in the beginning. Therefore we have $M=\begin{pmatrix}-3a&-a\\a&3a\end{pmatrix}$ for some real number $a$. To show that this is a valid example, $M^3=8a^3\begin{pmatrix}-3&-1\\1&3\end{pmatrix}$ which is indeed in $S$. 
+	
 	
 	\item[\textbf{B5}]Let $P_n$ be the number of permutations $\pi$ of $\{1,2,\dots,n\}$ such that \[|i-j|=1\text{ implies }|\pi(i)-\pi(j)|\le 2\]for all $i,j$ in $\{1,2,\dots,n\}.$ Show that for $n\ge 2,$ the quantity \[P_{n+5}-P_{n+4}-P_{n+3}+P_n\]does not depend on $n,$ and find its value.
 	
@@ -699,6 +800,58 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
 	\[1=\displaystyle\prod_{i=1}^k\frac{b_i}{b_{i+1}}=\displaystyle\prod_{i=1}^k \frac{p_{r_ix_i}}{p_{r_ix_{i+1}}}
 	\]
 	and by the theorem of unique prime factorization, $\displaystyle\prod_{i=1}^k p_{ii}$ and $\displaystyle\prod_{i=1}^k p_{(i+1)i}$ also implies that $\{p_{r_ix_i}: 1\le i\le k\}=\{p_{r_ix_{i+1}}\}: 1\le i\le k\}$. Since $p_{r_ix_i}$ corresponds to the entry $(r_i, x_i)$ and $p_{r_ix_{i+1}}$ the entry $(r_i, x_{i+1})$, and each $x_1, x_2, \cdots , x_k$ assumed to be distinct and each of the $m+n$ primes are distinct, we have $p_{r_ix_{i+1}}=p_{r_{i-1}x_i}$, $r_i=r_{i-1}$, so $r_1= r_2 = \cdots = r_k$. This also means that the only possibility is all edges of the cycle coloured the same colour $r_1$, contradiction. 
+	
+	\item[\textbf{B4}] Show that for each positive integer $n,$ all the roots of the polynomial \[\sum_{k=0}^n 2^{k(n-k)}x^k\] are real numbers.
+	
+	\textbf{Solution.} Let $f(x)$ be the polynomial, which obviously takes positive values when $x\ge 0$. Consider, now, all $x$'s with $x=-(2^m)$. Then 
+	\[
+	f(x) = \sum_{k=0}^n 2^{k(n-k)}x^k = \sum_{k=0}^n 2^{k(n-k)}(-2^m)^k
+	=\sum_{k=0}^n (-1)^k 2^{k(n+m-k)}
+	\]
+	We first notice that when $k$ varies, $k(n+m-k)$ takes maximum value when $k=\frac{n+m}{2}$. For this reason, we focus on $m=-n, -n + 2, \cdots, n - 2, n$, whereby $k(n+m-k)=(\frac{n+m}{2})^2 - (\frac{n+m}{2}-k)^2$, and therefore $f(x)=f(-2^m) = 2^{(\frac{n+m}{2})^2}\displaystyle\sum_{k=0}^{n} (-1)^k 2^{- (\frac{n+m}{2}-k)^2}$. Our only interest is the sign of this term, and since the sign of $ 2^{(\frac{n+m}{2})^2}\displaystyle\sum_{k=0}^{n} (-1)^k 2^{- (\frac{n+m}{2}-k)^2}$ is the same as the sign of $\displaystyle\sum_{k=0}^{n} (-1)^k 2^{- (\frac{n+m}{2}-k)^2}$, we will focus on the latter. 
+	
+	We isolate the cases $n\le 2$ first. For $n=1$ all we have is $x+1$ so $x=-1$ is a solution, obviously. When $n=2$ we have $x^2+2x+1=(x+1)^2$, so $-1$ is a double root. Thus we only deal with $n=3$ here. We recall that if $a_1, a_2, \cdots , a_k$ are distinct nonnegative numbers then $\dsum_{i=1}^k 2^{-a_i} < \dsum_{i=1}^\infty 2^{-i} = 1$. Now we have the following cases to consider: 
+	\begin{itemize}
+		\item Case 1: $m=\pm n$. In the $+n$ case we have \[\displaystyle\sum_{k=0}^{n} (-1)^k 2^{- (\frac{n+m}{2}-k)^2} = \displaystyle\sum_{k=0}^{n} (-1)^k 2^{- (n-k)^2}=(-1)^n + (-1)^{n-1}2^{-1}
+		+(-1)^{n-2}2^{-4}+\cdots + (-1)^0 2^{-n^2}
+		\]
+		and by the lemma we had, 
+		$|(-1)^{n-1}2^{-1}
+		+(-1)^{n-2}2^{-4}+\cdots + (-1)^0 2^{-n^2}|\le 2^{-1}+2^{-4}+\cdots + 2^{-n^2} < 1$
+		so $(-1)^{n-1}2^{-1}
+		+(-1)^{n-2}2^{-4}+\cdots + (-1)^0 2^{-n^2}\in (-1, 1)$ which means 
+		$\displaystyle\sum_{k=0}^{n} (-1)^k 2^{- (n-k)^2}$ has the same sign as $(-1)^n$. 
+		Similarly, when $m=-n$ the expression \[
+		\displaystyle\sum_{k=0}^{n} (-1)^k 2^{- (\frac{n+m}{2}-k)^2}
+		=\displaystyle\sum_{k=0}^{n} (-1)^k 2^{-k^2}
+		\]
+		has the same sign as $(-1)^0=1$ (i.e. positive). 
+		
+		\item Case 2: now $-n<m<n$ and $n$ has the same parity as $n$. 
+		Then $\displaystyle\sum_{k=0}^{n} (-1)^k 2^{- (\frac{n+m}{2}-k)^2}$ has the following form: 
+		\[
+		(-1)^0 2^{-(\frac{n+m}{2})^2} + (-1)^1 2^{-(\frac{n+m}{2} - 1)^2} +\cdots + (-1)^{(n+m)/2}2^0 + \cdots + (-1)^n 2^{-(\frac{n+m}{2} - n)^2} 
+		\]
+		W.L.O.G. assume $m\le 0$; the other case is symmetric to this. We notice that $(\frac{n+m}{2} - k)^2 = (\frac{n+m}{2} - (n+m -k))^2$, and moreover $n+m$ is even so $k$ and $n+m-k$ has the same parity. This means we can group these terms together for $k=0, 1, \cdots , \frac{n+m}{2}-1$ to get 
+		\begin{flalign*}
+			\dsum_{i=0}^{\frac{n+m}{2}-1}((-1)^i  + (-1)^{n+m-i}) 2^{-(\frac{n+m}{2}-i)^2}
+			+(-1)^{\frac{n+m}{2}}
+			+ \dsum_{i=n+m+1}^{n}(-1)^{i}2^{-(\frac{n+m}{2}-i)^2}
+			\\=(-1)^{\frac{n+m}{2}} + 2\dsum_{i=0}^{\frac{n+m}{2}-1}(-1)^i2^{-(\frac{n+m}{2}-i)^2}
+			+ \dsum_{i=n+m+1}^{n}(-1)^{i}2^{-(\frac{n+m}{2}-i)^2}
+			\\=(-1)^{\frac{n+m}{2}}+2(-1)^{\frac{n+m}{2} - 1} 2^{-1} + 2\dsum_{i=0}^{\frac{n+m}{2}-2}(-1)^i2^{-(\frac{n+m}{2}-i)^2}
+			+ \dsum_{i=n+m+1}^{n}(-1)^{i}2^{-(\frac{n+m}{2}-i)^2}
+			\\2\dsum_{i=0}^{\frac{n+m}{2}-2}(-1)^i2^{-(\frac{n+m}{2}-i)^2}
+			+ \dsum_{i=n+m+1}^{n}(-1)^{i}2^{-(\frac{n+m}{2}-i)^2}
+			\\\dsum_{i=0}^{\frac{n+m}{2}-2}(-1)^i2^{-(\frac{n+m}{2}-i)^2+1}
+			+ \dsum_{i=n+m+1}^{n}(-1)^{i}2^{-(\frac{n+m}{2}-i)^2}
+		\end{flalign*}
+		(basically, the two terms beside $(-1)^{(n+m)/2}$ are $(-1)^{(n+m)/2-1}2^{-1}+(-1)^{(n+m)/2+1}2^{-1}$ and therefore vanishes). 
+		We recognize that the exponents $-(\frac{n+m}{2}-i)^2+1$ with $i=0, \cdots , \frac{n+m}{2}-2$ are different numbers in the range $[-(\frac{n+m}{2})^2+1, -3]$ and $-(\frac{n+m}{2}-i)^2$ with $i=n+m+1, n$ are different numbers in the range $[-(\frac{m-n}{2})^2, -(-\frac{m+n}{2}-1)^2]$ and $-(-\frac{m+n}{2}-1)^2 < -(\frac{n+m}{2})^2+1$ are disjoint, which means together all these exponents represent different negative numbers. Therefore by the lemma above, the sign with follow the dominating one, i.e. $(-1)^{(n+m+2)/2}$, i.e. $(-1)^{(n+m)/2}$. This conclusion will hold for $m>0$ too. 
+	\end{itemize}
+	Summarizing above, we know that when $x=2^{m}$ for $m=-n, -n+2, \cdots , n-2, n$, $f(x)$ follows the sign of $(-1)^{(n+m)/2}$. In particular, $(-1)^{(n+m)/2}$ and $(-1)^{(n+m+2)/2}$ have different signs, so there is a root between $(-2^{m+2}, -2^m)$. 
+	Considering $m=-n, \cdots , -n+2$ we know that there are roots in the intervals 
+	$(-2^{n}, -2^{n-2}), (-2^{n-2}, \cdots , -2^{n-4}), \cdots , (-2^{-n+2}, -2^{-n})$ which are $n$ disjoint intervals, hence at least $n$ real roots. On the other hand, $f$ is a polynomail with degree $n$, hence only at $n$ roots in total. Thus all roots are real. 
     
 \end{enumerate}
 
@@ -776,6 +929,48 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
 	&=\frac 13 (1+2\cos(2\pi x))^2\\
 	\end{flalign*}
 	which is clearly nonnegative all the time. We also have $f(0)=1+\frac 43+\frac 23=3$, establishing the equality. To show that 3 is indeed the maximum, it suffices to show that $\sum_{n=1}^N a_n\le 2$ at all times. But plugging $x=\frac 13$ gives $\cos(\frac 23 n\pi)=-\frac 12$ if $n$ is not divisible by 3, and 1 otherwise. Considering that $a_n=0$ whenever $n$ is a multiple of 3, we have $f(\frac 13)=1-\frac 12 \sum_{n=1}^N a_n\ge 0.$ Thus $\sum_{n=1}^N a_n\le 2$ must hold. Finally note the motivation to get the example $f(x)$ as shown in the beginning: we simply find a suitable $a$ such that $2ax^2+(2-a)x+(1-a)$ is always nonnegative, which is essentially asking for the discriminant $(2-a)^2-4(2a)(1-a)\le 0$, and we get $a=\frac 23$ as the sole answer. 
+	
+	\item[\textbf{B3}] Let $P$ be a nonempty collection of subsets of $\{1,\dots,n\}$ such that:
+	\begin{itemize}
+		\item[(i)] if $S,S'\in P,$ then $S\cup S'\in P$ and $S\cap S'\in P,$ and
+		\item [(ii)] if $S\in P$ and $S\ne\emptyset,$ then there is a subset $T\subset S$ such that $T\in P$ and $T$ contains exactly one fewer element than $S.$
+	\end{itemize}
+	
+	Suppose that $f:P\to\mathbb{R}$ is a function such that $f(\emptyset)=0$ and \[f(S\cup S')= f(S)+f(S')-f(S\cap S')\text{ for all }S,S'\in P.\] Must there exist real numbers $f_1,\dots,f_n$ such that \[f(S)=\sum_{i\in S}f_i\] for every $S\in P?$
+	
+	\textbf{Answer.} Yes. \\
+	\textbf{Solution.} Let $S_0$ be the subset such that $|S_0|\ge |S|$ for all $S\in P$. We first show that $S\subseteq S_0$ for all $S\in P$. Indeed, for an arbitrary set $S\in P$, we have $S\cup S_0\in P$ and $|S\cup S_0|\ge |S_0|$. By the maximality of $S_0$ we must have $|S\cup S_0|=|S_0|$, which can only happen when $S\subseteq S_0$, as desired. 
+	
+	Now, w.l.o.g. let $S_0=\{1, 2, \cdots , k\}$. By (ii) there exists $S_1\subseteq S_0$ with one element fewer than $S_0$; w.l.o.g. let it be $\{1, 2, \cdots , k-1\}$. Continuing this trend we can assume that for all $0\le i\le k$, $S_{k-i}=\{1, 2, \cdots , i\}\in P$. Consider, now, $f_1, f_2, \cdots , f_n$ such that $f_i = f(S_{k-i})-f(S_{k-i+1})$ for $i=1, 2, \cdots , k$, and arbitrary for $i=k+1, \cdots , n$. 
+	The identity $f(S)=\sum_{i\in S}f_i$ holds when $S=S_0, S_1, \cdots, S_k$ with $S_k$ being the empty set (because $f(\emptyset)=0$). 
+	
+	To show that this identity holds for all $S\in P$, we first notice that $S\subseteq S_0=\{1, 2, \cdots , k\}$, so only $f_1, \cdots , f_k$ matter. We will proceed using the following premise with parameter $p=0, 1, \cdots , k$: the $f(S)=\sum_{i\in S} f_i$ identity holds for all $p$-element subsets $S$. We are to prove this statement for all $p=0, 1, \cdots , k$, and we will proceed by induction. 
+	
+	Base case: when $p=0$ we have emptyset (proven above), and when $p=1$ we have $S=\{j\}$ for some $1\le j\le k$. We have $S_{k-j}=\{1, 2, \cdots , j\}$ and $S_{k-j+1}=\{1, 2, \cdots , j-1\}$. Moreover, $f(S_{k-j+1})=\dsum_{i=1}^{j-1} f_i$ and $f(S_{k-j})=\dsum_{i=1}^j$ by how $f_i$'s are defined. Now by the definition of $f$, 
+	\[
+	f(S_{k-j}) = f(S\cup S_{k-j+1}) = f(S)+f(S_{k-j+1}) - f(S\cup S_{k-j+1})
+	\]
+	since $S=\{j\}$. Considering that $S\cup S_{k-j+1}=\emptyset$, we have $f(S\cup S_{k-j+1})=0$ and therefore 
+	\[
+	f(S)=f(S_{k-j}) - f(S_{k-j+1}) = \dsum_{i=1}^{j} f_i - \dsum_{i=1}^{j-1} f_i = f_j
+	\]
+	as desired. 
+	
+	Now let $2\le q\le p$ be such that the preimise is true for all $p=1, 2, \cdots , q-1$. Consider, now, any $q$-element subset $S=\{a_1, a_2, \cdots , a_q\}$. By condition (ii), there exists a subset of $S$ in $P$ with one fewer element; w.l.o.g. let it be $\{a_1, \cdots , a_{q-1}\}$. Consider, now, the set $S_{k-a_q}=\{1, 2, \cdots , a_q\}\in P.$ Consider now the two equations: 
+	\[
+	f(S_{k-a_q}\cup \{a_1, \cdots , a_{q-1}\}) = f(S_{k-a_q}) + f(\{a_1, \cdots , a_{q-1}\}) - f(S_{k-a_q}\cap \{a_1, \cdots , a_{q-1}\})
+	\]
+	\[
+	f(S_{k-a_q}\cup \{a_1, \cdots , a_{q}\}) = f(S_{k-a_q}) + f(\{a_1, \cdots , a_{q}\}) - f(S_{k-a_q}\cap \{a_1, \cdots , a_{q}\})
+	\]
+	First, notice that $\{a_1, \cdots , a_{q-1}\}$ and $\{a_1, \cdots , a_{q}\}$ differ only by an element $a_q$, and since $a_q\in S_{k-a_q}$, we have $\{1, 2, \cdots , a_q\}\cup \{a_1, \cdots , a_{q-1}\} = \{1, 2, \cdots , a_q\}\cup \{a_1, \cdots , a_{q}\}$. 
+	Comparing the two equations now give
+	\[
+	f(\{a_1, \cdots , a_{q}\}) - f(\{a_1, \cdots , a_{q-1}\}) = f(S_{k-a_q}\cap \{a_1, \cdots , a_{q}\}) - f(S_{k-a_q}\cap \{a_1, \cdots , a_{q-1}\})
+	\]
+	Since $a_q\in S_{k-a_q}$, we have $S_{k-a_q}\cap \{a_1, \cdots , a_{q-1}\}\subset S_{k-a_q}\cap \{a_1, \cdots , a_{q}\}$, differing only by an element $a_q$. 
+	If $\{a_1, \cdots , a_q\}=S_{k-a_q}$ then the condition $f(S)=\dsum_{f_i\in S}f_i$ holds for this $S=\{a_1, \cdots, a_q\}$. 
+	Otherwise, $S_{k-a_q}\cap \{a_1, \cdots , a_{q}\}$ will have less than $q$ elements. By the induction hypothesis, $f(S_{k-a_q}\cap \{a_1, \cdots , a_{q}\}) - f(S_{k-a_q}\cap \{a_1, \cdots , a_{q-1}\})=f_{a_q}$, and therefore $f(\{a_1, \cdots , a_{q}\}) = f(\{a_1, \cdots , a_{q-1}\}) + f_{a_q}$. But by induction hypothesis again $f(\{a_1, \cdots , a_{q-1}\}) = f_{a_1} + \cdots + f_{a_{q-1}}$, and from here the conclusion follows. 
 	
 	\item[\textbf{B5}] Let $X=\{1,2,\dots,n\},$ and let $k\in X.$ Show that there are exactly $k\cdot n^{n-1}$ functions $f:X\to X$ such that for every $x\in X$ there is a $j\ge 0$ such that $f^{(j)}(x)\le k.$
 	
@@ -961,6 +1156,46 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
 		
 		\item Now suppose that for each $k<2n$ and for each subset of $k$ teams, the number of days in which at east one of the $k$ teams win the game in that day is at least $k$. Pick $2n-1$ teams from the $2n$ teams arbitrarily. Now consider the bipartite graph consisting the said $2n-1$ teams and $2n-1$ days, with two vertices being connected by an edge if and only if the team wins on the day. By assumption, any $k$ teams are paired jointly to at least $k$ days. By Hall's lemma, there exists a matching between the players and the days. This also finishes the inductive proof. 
 	\end{enumerate}
+
+	\item[\textbf{B4}] Suppose that $a_0=1$ and that $a_{n+1}=a_n+e^{-a_n}$ for $n=0,1,2,\dots.$ Does $a_n-\log n$ have a finite limit as $n\to\infty?$ (Here $\log n=\log_en=\ln n.$)
+	
+	\textbf{Answer.} Yes, and the limit is in fact 0. \\
+	\textbf{Solution.} First we notice it's obvious that the sequence $\{a_n\}$ is increasing since $a_{n+1}>a_n$ for each $n$. 
+	We also note that, the function $x+e^{-x}$ has derivative $1-e^{-x}$ and therefore has staionary point at $x=0$. For $x>0$ this derivative is positive, hence $x+e^{-x}$ is increasing when $x>0$. 
+	Suppose that the limit doesn't exist. That is, either there exists $m>0$ such that $a_n-\log n\ge m$ for infinitely many $n$ or there exists $m<0$ such that $a_n-\log n\le m$ for infinitely many $n$. We will deal with each case separately. 
+	
+	In the first case, we show that if $n$ is any number such that $a_{n_0}-\log {n_0}\ge m$, then there must exists $n_1>n$ with $a_{n_1}-\log {n_1}< m$. Suppose otherwise, then $a_n-\log n\ge m$ for all $n\ge n_0$. For all such $n$ we have 
+	\begin{flalign*}
+		a_{n+1}-\log (n+1)
+		&=(a_n-\log n) +e^{-a_n} - \log\left(\frac{n+1}{n}\right)
+		\\&\le (a_n-\log n) +e^{-(m+\log n)} - \log\left(\frac{n+1}{n}\right)
+		\\&= (a_n-\log n) + e^{-m}\cdot\frac 1n - \log\left(1+\frac{1}{n}\right)
+	\end{flalign*}
+	and on the other hand we have, for all $x\in (-1, 1)$, the Taylor expansion of $\log (1+x)$ as $\displaystyle\sum_{j=1}^{\infty} (-1)^{j-1}\dfrac{x^j}{j}$. In terms of Taylor approximation (into finite terms) this translates into $(1+h(x))x$ with $h(x)\to 0$ as $x\to 0$. Thus, 
+	$a_{n+1}-\log (n+1)= (a_n-\log n)+\frac1n (e^{-m}-1 - h(\frac 1n))$. 
+	Given that $e^{-m}<1$ and that $h(\frac 1n)\to 0$ as $n\to \infty$, for sufficiently large $n$ we have 
+	$e^{-m}-1 - h(\frac 1n) < \frac{e^{-m}-1}{2}$. 
+	If $n_0$ is such that all $n\ge n_0$ has such property, we have $(a_{n+1}-\log (n+1)) - (a_n - \log n) \le \frac 1n \cdot \frac{e^{-m}-1}{2}$ and therefore 
+	\[
+	(a_{n+k}-\log (n+k)) - (a_n - \log n) \le \frac{e^{-m}-1}{2}\sum_{i=0}^{k-1}\frac{1}{n+i}
+	\]
+	but then the series $\{\frac 1n\}$ diverges so as $k\to\infty$, $(a_{n+k}-\log (n+k)) - (a_n - \log n)\to -\infty$, which is a contradiction. Thus for all $n$ with $a_n-\log n\ge m$ there is an $n_1>n$ with $a_{n_1}-\log n_1 < m$. 
+	
+	Now with the claim above established, suppose, still, there are infinitely many $n$ such that $a_n-\log n\ge m$. For each such $n$, let $b(n)$ be any integer greater than $n$ with $a_{(b(n))} - \log b(n) < m$. 
+	Notice also from earlier that $x+e^{-x}$ is increasing with $x>0$, and therefore 
+	\begin{flalign*}
+	a_{b(n) + 1} - \log (b(n) + 1) =
+	&=a_{(b(n))} - \log b(n) +e^{a_{b(n)}} - \log (1+\frac{1}{b(n)})
+	\\&\le m + e^{-m-\log b(n)}- \log (1+\frac{1}{b(n)})
+	\\&=m + e^{-m}\cdot \frac{1}{b(n)}-\log (1+\frac{1}{b(n)})
+	\\&=m + \frac{1}{b(n)}(e^{-m}-1-h(1/b(n)))
+	\end{flalign*}
+	with $h$ being the function introduced above. Using the assumption that there are infinitely many $n$ with such property, we can find $n$ such that $e^{-m}-1-h(1/n)<0$ as $e^{-m}<1$ and $h(1/n)\to 0$. 
+	Therefore, $b(n)$ must also follow such property (as $b(n)>n$), and therefore $m + \frac{1}{b(n)}(e^{-m}-1-h(1/b(n))) < m$. 
+	This means for $n$ sufficiently large, once $a_{b(n)} - \log (b(n)) < m$ we have $a_{b(n) + 1} - \log (b(n) + 1) < m$, and this trend stays forever, contradicting our assumption. 
+	
+	The opposite case is the similar except flipping sign. Now that $m<0$, we have $e^{-m}>1$ and the assumption that $a_n-\log n\le m$ for all $n\ge n_0$ leads to the case $a_{n+1}-\log (n+1) \ge (a_n-\log n) + e^{-m}\cdot\frac 1n - \log\left(1+\frac{1}{n}\right) = (a_n-\log n) + \frac 1n (e^{-m}-1-h(1/n))$ but then $h(1/n)\to 0$, and $\{\frac 1n\}$ diverges which will lead $a_{n}-\log n\to +\infty$, a contradiction. 
+	Thus for each $n$ with $a_n-\log n\le m$ there's $b(n)$ with $a_{b(n)}-\log b(n)>m$, which also means (by the increasing property of $x+e^{-x}$) $a_{b(n) + 1} - \log (b(n) + 1) \ge m + \frac{1}{b(n)}(e^{-m}-1-h(1/b(n)))$ and for $n$ sufficiently large, $e^{-m}-1-h(1/b(n))>0$. Q.E.D. 
 	
 	\item[\textbf{B6}]Let $p$ be an odd prime number such that $p\equiv 2\pmod{3}.$ Define a permutation $\pi$ of the residue classes modulo $p$ by $\pi(x)\equiv x^3\pmod{p}.$ Show that $\pi$ is an even permutation if and only if $p\equiv 3\pmod{4}.$
 	
@@ -1116,7 +1351,19 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
 	
 	\item[\textbf{B1}] Let $h$ and $k$ be positive integers. Prove that for every $\varepsilon >0,$ there are positive integers $m$ and $n$ such that \[\varepsilon < \left|h\sqrt{m}-k\sqrt{n}\right|<2\varepsilon.\]
 	
-	\textbf{Solution.} 
+	\textbf{Solution.} We first show that for all $\varepsilon>0$, there exists $m$ and $n$ such that $0<\left|h\sqrt{m}-k\sqrt{n}\right|<2\epsilon$. 
+	
+	Let $d > 0$ be the greatest common divisor of $h^2$ and $k^2$. By Euclid's algorithm, there exists $m_0$ and $n_0$ such that $h^2m_0-k^2n_0=d$. And if $m_0$ and $n_0$ are such solutions, other solutions can be obtained by changing $(m_0, n_0)$ with $(m_0+xk^2/d, n_0+xh^2/d)$ for all $x\ge 0$. 
+	
+	We now proceed to another crucial observation: $\lim_{N\to \infty}\sqrt{N+d}-\sqrt{N}=0$. To this end, notice that for each $\varepsilon>0$, we have $(\sqrt{N}+\varepsilon)^2=N+\varepsilon^2 + 2\varepsilon\sqrt{N}>N+2\varepsilon\sqrt{N}$, so choosing $N$ such that $d<2\varepsilon\sqrt{N}$ (i.e. $N>(\frac{d}{4\varepsilon^2})$) we get $(\sqrt{N}+\varepsilon)^2 > N+d$ and therefore $\sqrt{N+d}-\sqrt{N}<\varepsilon$ for all such $N$. 
+	This means, fixing $N_0$ such that $0<\sqrt{N+d}-\sqrt{N}<\varepsilon$ for all $N>N_0$ and choosing $x$ such that $n_0+xh^2/d>N$ we have $0<h\sqrt{m_0+xk^2/d} - k\sqrt{n_0+xh^2/d} < \varepsilon$. In other words, there exists $m_1$ and $n_1$ such that $0<h\sqrt{m_1} - k\sqrt{n_1}<\varepsilon$ (by assigning $m_1 = m_0+xk^2/d$ and $n_1 = n_0+xh^2/d$). 
+	
+	Finally, since $0 < h\sqrt{m_1} - k\sqrt{n_1}$, let $c = \varepsilon / h\sqrt{m_1} - k\sqrt{n_1}$. Consider the number $g = \lfloor c\rfloor + 1$. From the choices of $m_1$ and $n_1$, we also have $c>1$, and from $ c < g = \lfloor c\rfloor + 1\le c+1$ we have $1 < g/c < 2$. 
+	Thus, making $m=g^2m_1$ and $n=g^2n_1$ we get 
+	\[
+	h\sqrt{m} - k\sqrt{n} = g(h\sqrt{m_1} - k\sqrt{n_1}) = \varepsilon\cdot (g/c)
+	\]
+	and with $g/c\in (1, 2)$ we gave $h\sqrt{m} - k\sqrt{n}\in (\varepsilon, 2\varepsilon)$. 
 	
 	\item[\textbf{B2}] Let $S$ be the set of all ordered triples $(p,q,r)$ of prime numbers for which at least one rational number $x$ satisfies $px^2+qx+r=0.$ Which primes appear in seven or more elements of $S?$
 	
@@ -1131,6 +1378,122 @@ Now knowing all the cases above, there must be exactly 1 equalizer in the second
 	
 	Thus a prime $r\not\in \{2, 5\}$ will appear two times when $2r+1$ is prime, when $r+2$ being a prime, when $\frac{r-1}{2}$ is a prime, when $r-2$ is a prime. If $r$ were to appear at least 7 times, then all conditions must hold. If $r\ge 7$, then one of $r-2, r, r+2$ must be divisible by 3, contradiction. Hence $r\ge 7$ is impossible. When $r=3$, $r-2=1$ is not prime. Now we claim that the primes 2 and 5 are possible: we have an example $(2, 5, 2)$ as above and since $2r+1=11, 5+2=7, 5-2=3$ are primes, we can do $(2, 11, 5), (5, 11, 2), (2, 7, 5), (5, 7, 2), (2, 5, 3), (3, 5, 2)$. These give the 7 occurences of 2 and 5. 
 	
+	\item[\textbf{B3}] Let $f$ and $g$ be (real-valued) functions defined on an open interval containing $0,$ with $g$ nonzero and continuous at $0.$ If $fg$ and $f/g$ are differentiable at $0,$ must $f$ be differentiable at $0?$
+	
+	\textbf{Answer.} Yes. \\
+	\textbf{Solution.} We need to see if $\lim_{x\to 0}\frac{f(x)-f(0)}{x}$ is defined. By the rules of limits we have 
+	\[
+	\lim_{x\to 0}\frac{f(x)g(x)-f(0)g(0)}{x}=(fg)'(0)\]
+	\[
+	\lim_{x\to 0}\frac{f(x)g(0)-f(0)g(x)}{x}=\lim_{x\to 0}\frac{f(x)/g(x)-f(0)/g(0)}{x}\cdot \lim_{x\to 0} g(0)g(x)
+	=(f/g)'(0) \cdot g(0)^2
+	\]
+	Adding the two limits up give
+	\begin{flalign*}
+		(fg)'(0) + (f/g)'(0) \cdot g(0)^2
+		&=\lim_{x\to 0}\frac{f(x)g(x)-f(0)g(0)}{x} + \lim_{x\to 0}\frac{f(x)g(0)-f(0)g(x)}{x}
+		\\&=\lim_{x\to 0}\frac{(f(x)-f(0))(g(x)+g(0))}{x} 
+	\end{flalign*}
+	and since $\lim_{x\to 0}g(x)+g(0)=2g(0)\neq 0$ (before $f$ is continuous at 0), we have 
+	\begin{flalign*}
+		f'(0)
+		&=\lim_{x\to 0}\frac{f(x)-f(0)}{x}
+		\\&=\lim_{x\to 0}\frac{(f(x)-f(0))(g(x)+g(0))}{x}\div \lim_{x\to 0}(g(x)+g(0))
+		\\&=(fg)'(0) + (f/g)'(0) \cdot g(0)^2 \div 2g(0)
+	\end{flalign*}
+	as desired. 
 		
+\end{enumerate}
+
+\section*{Putnam 2010}
+\begin{enumerate}
+	\item [\textbf{A1}] Given a positive integer $n,$ what is the largest $k$ such that the numbers $1,2,\dots,n$ can be put into $k$ boxes so that the sum of the numbers in each box is the same?
+	
+	[When $n=8,$ the example $\{1,2,3,6\},\{4,8\},\{5,7\}$ shows that the largest $k$ is at least 3.]
+	
+	\textbf{Answer.} $\lfloor\frac{n+1}{2}\rfloor$.\\
+	\textbf{Solution.} The sum in each box is at least $n$ since this must be the case for the box containing $n$. Since the total sum of the $n$ numbers is $\frac{n(n+1)}{2}$, the number of boxes cannot exceed $\frac{n+1}{2}$, so the answer is at most $\lfloor\frac{n+1}{2}\rfloor$. 
+	
+	To see this is achievable, we split into cases where $n$ is even and $n$ is odd. When $n$ is odd, we can do $\{n\}, \{1, n-1\}, \{2, n-2\}, \cdots, \{\frac{n-1}{2}, \frac{n+1}{2}\}$. 
+	When $n$ is even, the example $\{1, n\}, \{2, n-1\}, \cdots , \{\frac{n}{2}-1, \frac{n}{2}+1\}$ gives the example of $\frac{n}{2}=\lfloor\frac{n+1}{2}\rfloor$ boxes. 
+	
+	\item [\textbf{A2}]
+	Find all differentiable functions $f:\mathbb{R}\to\mathbb{R}$ such that
+	\[f'(x)=\frac{f(x+n)-f(x)}n\]
+	for all real numbers $x$ and all positive integers $n.$
+	
+	\textbf{Answer.} All linear functions $f(x)=mx+c$ in which case $f'(x)=\frac{f(x+n)-f(x)}n=m$\\
+	\textbf{Solution.} To show that $f$ must be linear, we notice that for each $x$, $f'(x)=f(x+1)-f(x)=\frac{f(x+2)-f(x)}2$ so this gives the relation $f(x+2)-f(x)=2(f(x+1)-f(x))$, and therefore $f'(x+1)=f(x+2)-f(x+1)=f(x+1)-f(x)=f'(x)$. 
+	
+	We now introduce the function $g(x)=f(x+1)-f(x)$. Notice that: 
+	
+	\begin{flalign*}
+		g'(x)&=\lim_{\epsilon\to 0}\frac{g(x+\epsilon)-g(x)}{\epsilon}
+		\\&=\lim_{\epsilon\to 0}\frac{f(x+1+\epsilon)-f(x+\epsilon)-f(x+1)+f(x)}{\epsilon}
+		\\&=\lim_{\epsilon\to 0}\frac{f(x+1+\epsilon)-f(x+1)}{\epsilon}-\frac{f(x+\epsilon)-f(x)}{\epsilon}
+		\\&=f'(x+1)-f'(x)
+		\\&=0
+	\end{flalign*}
+	since $f'(x+1)=f'(x)$ for all $x$. Therefore $g$ is a constant function, meaning that, $f(x+1)-f(x)$ is constant. But since $f(x+1)-f(x)=f'(x)$, $f'(x)$ is also a constant, which means that $f$ has to be linear. 
+	
+	\item [\textbf{A3}]
+	Suppose that the function $h:\mathbb{R}^2\to\mathbb{R}$ has continuous partial derivatives and satisfies the equation
+	\[h(x,y)=a\frac{\partial h}{\partial x}(x,y)+b\frac{\partial h}{\partial y}(x,y)\]
+	for some constants $a,b.$ Prove that if there is a constant $M$ such that $|h(x,y)|\le M$ for all $(x,y)$ in $\mathbb{R}^2,$ then $h$ is identically zero.
+	
+	\textbf{Solution.} Fix a point $(x_0, y_0)\in\bbR^2$. Denote $g(z)=h(x_0+az, y_0+bz)$. We have the following: 
+	\begin{flalign*}
+		g'(z)&=\lim_{\epsilon\to 0}\frac{g(z+\epsilon)-g(z)}{\epsilon}
+		\\&=\lim_{\epsilon\to 0}\frac{h(x_0+a(z+\epsilon), y_0+b(z+\epsilon))-h(x_0+az, y_0+bz)}{\epsilon}
+		\\&=a\frac{\partial h}{\partial x}(x_0+az,y_0+bz)+b\frac{\partial h}{\partial y}(x_0+az,y_0+bz)
+		\\&=h(x_0+az,y_0+bz)
+		\\&=g(z)
+	\end{flalign*}
+	So the condition $g'(z)=g(z)$ holds for all $z\in\bbR$. It follows from the identity of differential equation that the solution to $g$ is $g(z)=Ae^z$ for all $z\in\bbR$. Since $h$ us bounded in $\bbR^2$, so is $g$ and the only possibility is $A=0$. Thus $g\equiv 0$ and in particular, $g(0)=h(x_0, y_0)=0$. 
+
+	
+	\item [\textbf{A4}]
+	Prove that for each positive integer $n,$ the number $10^{10^{10^n}}+10^{10^n}+10^n-1$ is not prime.
+	
+	\textbf{Solution.} Let $k$ be the maximum positive integer such that $2^k\mid n$. We claim that the number $10^{10^{10^n}}+10^{10^n}+10^n-1$ is divisible by $10^{2^k}+1$. It suffices to show that $10^{10^{10^n}}$ and $10^{10^n}$ are congruent to 1 modulo $p$ whereas $10^n$ congruent to 1. 
+	
+	Now, $n=d\cdot 2^k$ for some odd number $d$. Therefore $10^{n}=10^{d\cdot 2^k}\equiv (-1)^d=-1\pmod{10^{2^k}+1}$ since $d$ is odd. On the other hand, $10^{10^n}=10^{2^n\cdot 5^n}$ and from $n=d\cdot 2^k\ge 2^k>k$ we have $n\ge k+1$, so $2^{k+1}\mid 2^n\cdot 5^n$. Since $10^{2^{k+1}}\equiv(-1)^2=1\pmod{10^{2^k}+1}$ we have $10^{10^n}\equiv 1\pmod{10^{2^k}+1}$, and similarly for $10^{10^{10^n}}$. 
+	
+	Finally, it's not hard to see that $10^{10^{10^n}}+10^{10^n}+10^n-1 > 10^{2^k}+1$ because $n\ge 2^k$ and $10^{10^{10^n}}$ and $10^{10^n}$ are both strictly greater than $1$ (because $n$ is positive so $10^n>1$ and so is $10^{10^n}$ and $10^{10^{10^n}}$). Therefore
+	$10^{10^{10^n}}+10^{10^n}+10^n-1 > 1+1+\cdot 10^n-1=10^n+1=10^{2^k}+1$. 
+	
+	\item [\textbf{A5}]
+	Let $G$ be a group, with operation $*$. Suppose that
+	
+	(i) $G$ is a subset of $\mathbb{R}^3$ (but $*$ need not be related to addition of vectors);
+	
+	(ii) For each $\mathbf{a},\mathbf{b}\in G,$ either $\mathbf{a}\times\mathbf{b}=\mathbf{a}*\mathbf{b}$ or $\mathbf{a}\times\mathbf{b}=\mathbf{0}$ (or both), where $\times$ is the usual cross product in $\mathbb{R}^3.$
+	
+	Prove that $\mathbf{a}\times\mathbf{b}=\mathbf{0}$ for all $\mathbf{a},\mathbf{b}\in G.$
+	
+	\textbf{Solution.} Let $\mathbf{e}\in\bbR^3$ be the identity element in the group. If $\mathbf{e}\times\mathbf{a}\neq\mathbf{0}$ for some $\mathbf{a}\in G$, then $\mathbf{e}\times\mathbf{a}=\mathbf{e} * \mathbf{a}=\mathbf{a}$. Since both $\mathbf{e}$ and $\mathbf{a}$ are not parallel and nonzero, $\mathbf{a}=\mathbf{e}\times\mathbf{a}$ is perpendicular to $\mathbf{a}$, which is impossible for $\mathbf{a}$ nonzero. 
+	Hence, for all $\mathbf{a}\in G$ we have $\mathbf{e}\times\mathbf{a}=\mathbf{0}$. 
+	
+	Now if $\mathbf{e}$ is not the zero vector, then from $\mathbf{e}\times\mathbf{a}=\mathbf{0}$ for all $\mathbf{a}\in G$ all such $\mathbf{a}$'s are either 0 or parallel to $\mathbf{e}$. In this case, the condition $\mathbf{a}\times\mathbf{b}=\mathbf{0}$ for all $\mathbf{a},\mathbf{b}\in G.$ We can now assume that $\mathbf{e}=\mathbf{0}$. 
+	
+	Suppose there are $\mathbf{a}$ and $\mathbf{b}\in G$ such that $\mathbf{a}\times\mathbf{b}\neq \mathbf{0}$. From (ii), $\mathbf{a}*\mathbf{b}=\mathbf{a}\times\mathbf{b}\in G$ and is perpendicular to $\mathbf{a}$ and $\mathbf{b}$, i.e. there exists a vector in $G$ that is perpendicular to $\mathbf{a}$. Thus we can choose $\mathbf{a}$ and $\mathbf{b}$ (in the beginning) such that they are perpendicular to each other, and we will now assume that $\mathbf{a}$ and $\mathbf{b}$ are perpendicular to each other. 
+	
+	Let $\mathbf{a}\times \mathbf{b}=\mathbf{c}=-\mathbf{b}\times\mathbf{a}$. Since $\mathbf{e}=0$, we have $(\mathbf{a}\times \mathbf{b}) * (\mathbf{b}\times\mathbf{a}) =\mathbf{0}$ and with $\mathbf{a}\times\mathbf{b}=\mathbf{a}*\mathbf{b}$ as of above (and similarly $\mathbf{b}\times\mathbf{a}=\mathbf{b}*\mathbf{a}$) we get 
+	$\mathbf{0}=\mathbf{a}*\mathbf{b}*\mathbf{b}*\mathbf{a}$ (notice the omission of brackets because $*$ is associative). 
+	``Multiplying'' both sides by $-\mathbf{a}$ from the left and $\mathbf{a}$ from the right gives $\mathbf{b}^2 * \mathbf{a}^2=\mathbf{0}$ (second power means multiplication by itself), i.e. $\mathbf{b}^2$ and $\mathbf{a}^2$ are inverses of each other. But since $\mathbf{c}$ is perpendicular to $\mathbf{a}$ and $\mathbf{b}$, a similar conclusion yields $\mathbf{c}^2$ and $\mathbf{a}^2$ are inverses of each other, and so are $\mathbf{c}^2$ and $\mathbf{b}^2$. With $\mathbf{a}^2$, $\mathbf{b}^2$ and $\mathbf{c}^2$ being inverses of one another, the only possibility is all of them being $\mathbf{0}$. 
+	
+	Since $\mathbf{a}$ and $\mathbf{c}$ are also perpendicular to each other, we get $\mathbf{a}\times \mathbf{c}=\mathbf{a} * \mathbf{c}=\mathbf{a} * \mathbf{a} * \mathbf{b}=\mathbf{0} * \mathbf{b}=\mathbf{b}$. Similarly, $\mathbf{c}\times \mathbf{b}=\mathbf{a}$. Denote $\mathbf{i}$, $\mathbf{j}$ and $\mathbf{k}$ as the vectors parallel to $x, y, z$ axes, respectively. By rotating $\mathbf{a}$ and $\mathbf{b}$, we can assume that $\mathbf{a}=x\mathbf{i}$ and $\mathbf{b}=y\mathbf{j}$, making $\mathbf{c}=xy(\mathbf{i}\times \mathbf{j})=(xy)\mathbf{k}$. 
+	But then $y\mathbf{j}=\mathbf{b}=\mathbf{a}\times\mathbf{c}=x^2y\mathbf{i}\times\mathbf{k}=- x^2y\mathbf{j}$, so $y=-x^2y$, or $x^2=-1$ because $y\neq 0$. This is impossible since this forces $x=\sqrt{-1}$, which is imaginary. This contradiction shows that there cannot be $\mathbf{a}$ and $\mathbf{b}$ with nonzero cross products. 
+	
+	\item [\textbf{B1}]
+	Is there an infinite sequence of real numbers $a_1,a_2,a_3,\dots$ such that
+	\[a_1^m+a_2^m+a_3^m+\cdots=m\]
+	for every positive integer $m?$
+	
+	\item [\textbf{B2}]
+	Given that $A,B,$ and $C$ are noncollinear points in the plane with integer coordinates such that the distances $AB,AC,$ and $BC$ are integers, what is the smallest possible value of $AB?$
+	
+	\item [\textbf{B3}]
+	There are 2010 boxes labeled $B_1,B_2,\dots,B_{2010},$ and $2010n$ balls have been distributed among them, for some positive integer $n.$ You may redistribute the balls by a sequence of moves, each of which consists of choosing an $i$ and moving exactly $i$ balls from box $B_i$ into any one other box. For which values of $n$ is it possible to reach the distribution with exactly $n$ balls in each box, regardless of the initial distribution of balls?
 \end{enumerate}
 \end{document}

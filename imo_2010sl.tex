@@ -57,6 +57,7 @@
 \newcommand{\<}{\langle}
 \renewcommand{\>}{\rangle}
 \newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\dsum}{\displaystyle\sum}
 
 \begin{document}
 \section*{Algebra}
@@ -183,6 +184,14 @@
 \begin{enumerate}
 	\item [\textbf{G1}] Let $ABC$ be an acute triangle with $D, E, F$ the feet of the altitudes lying on $BC, CA, AB$ respectively. One of the intersection points of the line $EF$ and the circumcircle is $P.$ The lines $BP$ and $DF$ meet at point $Q.$ Prove that $AP = AQ.$
 	
+	\textbf{Solution.} We let $P_1$ to be the $P$ closer to $B$ and $P_2$ the further one, and define $Q_1$ and $Q_2$ correspondingly. Now, 
+	\[\angle Q_1PA=\pi - \angle APB = \angle ACB = \angle BFD = \angle AFQ_1
+	\]
+	so quadrilateral $Q_1P_1FA$ is cyclic. Moreover $\angle ACB = \angle AFE$ since $BCFE$ is cyclic. With respect to the circumcircle of $Q_1P_1FA$, $AP_1$ subtends $\angle AFP_1=\pi - \angle AFE=\pi-\angle ACB$ and $AQ_1$ subtends $\angle AFQ_1=\angle ACB$, hence supplementary and therefore $AP_1=AQ_1$. 
+	
+	Regarding $P_2$ and $Q_2$, we also have 
+	$\angle AP_2B=\angle AP_2Q_2=\angle ACB =\angle AFD=\angle AFQ_2$ and therefore $Q_2P_2FA$ is cyclic. Using the well-known fact that $AF$ is the external angle bisector of $\angle DFE$ which is identical to $\angle Q_2EP_2$ due to collinearity, and that this external angle bisector intersects the circumcircle of $Q_2FP_2$ at $A$, we must have $AP_2=AQ_2$. (Essentially, the idea of solving these two are similar, but worded rather differently). 
+	
 	\item [\textbf{G2}] (IMO 4) Let $P$ be a point interior to triangle $ABC$ (with $CA \neq CB$). The lines $AP$, $BP$ and $CP$ meet again its circumcircle $\Gamma$ at $K$, $L$, respectively $M$. The tangent line at $C$ to $\Gamma$ meets the line $AB$ at $S$. Show that $SC = SP$ if and only if $MK = ML$.
 	
 	\textbf{Solution.} Now we have the following equivalence: 
@@ -194,7 +203,74 @@
 	\item [\textbf{G3}] Let $A_1A_2 \ldots A_n$ be a convex polygon. Point $P$ inside this polygon is chosen so that its projections $P_1, \ldots , P_n$ onto lines $A_1A_2, \ldots , A_nA_1$ respectively lie on the sides of the polygon. Prove that for arbitrary points $X_1, \ldots , X_n$ on sides $A_1A_2, \ldots , A_nA_1$ respectively,
 	\[\max \left\{ \frac{X_1X_2}{P_1P_2}, \ldots, \frac{X_nX_1}{P_nP_1} \right\} \geq 1.\]
 	
+	\textbf{Solution.} We have $\dsum_{i=1}^n \angle X_iPX_{i+1}=\dsum_{i=1}^n \angle P_iPP_{i+1}=2\pi$ with indices taken modulo $n$. This implies an index $j$ (again taken modulo $n$) with $\angle X_iPX_{i+1} \ge \angle P_iPP_{i+1}$. We show that this follows that $XX_{i+1}\ge PP_{i+1}$. 
+	
+	Consider the circle $A_{i+1}P_iP_{i+1}$; its diameter is the segment $A_{i+1}P$. Moreover, from the sine rule extended to the circumcircle of $A_iPP_{i+1}$ we have 
+	\[A_{i+1}P=\dfrac{A_{i+1}P}{\sin \angle A_{i+1}P_iP}=\dfrac{P_iP_{i+1}}{\sin\angle P_iA_{i+1}P_{i+1}}=\dfrac{P_iP_{i+1}}{\sin\angle A_iA_{i+1}P_{i+2}}\]
+	and similarly if $A_{i+1}X$ were to be the diameter of the circle $A_{i+1}X_iX_{i+1}$ then 
+	\[A_{i+1}X=\dfrac{A_{i+1}X}{\sin \angle A_{i+1}X_iX}=\dfrac{X_iX_{i+1}}{\sin\angle X_iA_{i+1}X_{i+1}}=\dfrac{X_iX_{i+1}}{\sin\angle A_iA_{i+1}A_{i+2}}\]
+	Now,  $\angle X_iPX_{i+1} \ge \angle P_iPP_{i+1} = \angle X_iXX_{i+1}$, the last equality are both the same as $\pi - \angle A_iA_{i+1}A_{i+2}$. This means, with respect to the circle $A_{i+1}X_iXX_{i+1}$, $P$ is either on or inside the circle. From the fact that $A_{i+1}X$ is the dimater of the circle we have that $A_{i+1}P\le A_{i+1}X$, and therefore $P_iP_{i+1}\le X_iX_{i+1}$. 
+	
 	\item [\textbf{G4}] (IMO 2) Given a triangle $ABC$, with $I$ as its incenter and $\Gamma$ as its circumcircle, $AI$ intersects $\Gamma$ again at $D$. Let $E$ be a point on the arc $BDC$, and $F$ a point on the segment $BC$, such that $\angle BAF=\angle CAE < \dfrac12\angle BAC$. If $G$ is the midpoint of $IF$, prove that the meeting point of the lines $EI$ and $DG$ lies on $\Gamma$. 
+	
+	\textbf{Solution.} Let $EI$ intersect $\Gamma$ again at $H$ (this $H$ is unique once $A, B, C, E$ are fixed). All we need to show is that $D, G, H$ are collinear. 
+	
+	Now, we have $\angle BAF=\angle CAE$ and since $DI$ bisects $\angle BAC$, we also have $\angle FAI=\angle EAI=\angle DHI$; the last equality follows from that $A, H, D, E$ are concyclic. 
+	This means if $J$ is the intersection of $HD$ and $AF$ then $\angle JHI=\angle JAI$ and therefore $J, H, A, I$ are concyclic. 
+	
+	Now, extend $AJ$ to intersect $\Gamma$ again at $K$, we get $\angle AKE=\angle AHE=\angle AHI=\angle AJI$, showing that $JI\parallel KE$. With $\angle KBC=\angle KAC=\angle BAE=\angle BCE$ we have $KE\parallel BC$ too and therefore $JI\parallel BC$. 
+	This means, if $AD$ and $BC$ intersect at $L$ we have $\frac{FJ}{JA}=\frac{LI}{IA}$. 
+	Finally, using the well-known fact $BI=DI=IC$, and that $\angle LBD=\angle CAD=\angle LAB$, so $DBL$ and $DAB$ are, in fact, similar. This means that $DI^2=BI^2=DL\cdot DA$, i.e. $\frac{DI}{DL}=\frac{DA}{DI}$. Therefore, 
+	\[
+	\frac{FJ}{JA}=\frac{LI}{IA}=\frac{DI-DL}{DA-DI}=\frac{DI(1-DL/DI)}{DA(1-DI/DA)}=\frac{DI}{DA}
+	\]
+	and by Menelaus theorem on $\triangle FIA$, the line $DJ$ will intersect $FI$ in its midpoint, i.e. $G$. 
+	
+	\item[\textbf{G5}] Let $ABCDE$ be a convex pentagon such that $BC \parallel AE,$ $AB = BC +  AE,$ and $\angle ABC = \angle CDE.$ Let $M$ be the midpoint of $CE,$ and let $O$ be the circumcenter of triangle $BCD.$ Given that $\angle DMO = 90^{\circ},$ prove that $2 \angle BDA = \angle CDE.$
+	
+	\textbf{Solution.} Denote the reflection of $D$ in $M$ as $F$. Since $M$ is the common midpoint of lines $CE$ and $DF$, $CDEF$ is a parallelogram. Moreover, from $\angle DMO=90^{\circ}$ we get $MO$ as the perpendicular bisector of $DF$, hence $DO=FO$. This means $F$ lies on the cirumcenter of triangle $BCD$. 
+	
+	The other observation is that, if $G$ on segment $AB$ is such that $BC=BG$, then from $AB=BC+AE$ we have $GA=AE$. But since $BC\parallel AE$, we have $\angle CBG+\angle GAE=180^{\circ}$ and therefore 
+	\[
+	\angle CGE = 180^{\circ} - \angle CGB - \angle AGE = 180^{\circ} - (90^{\circ} - \angle CBG/2) - (90^{\circ} - \angle GAE / 2) = 90^{\circ}
+	\]
+	which means $CE$ is the diameter of the circumcircle of $CGE$. With $M$ as the midpoint of $CE$ we have $CM=MG=ME$. From $BG=BC$, too, $MB$ is the perpendicular bisector of $CG$; in particular, $MB\perp CG$ and similarly $MA\perp EG$ and with $CG\perp EG$ we have $MA\perp MB$. That is, $\angle AMB=90^{\circ}$. We also have $MB$ bisects $\angle ABC$ for this reason. 
+	
+	Now with the first two points set up, define $H$ as the point on ray $BD$ and satisfying $BH=BF$. Let $L$ be the intersection of $AM$ and $FH$. We claim that $M$ is the midpoint of $AL$. 
+	Let $N$ be the midpoint of $FH$, and by $BF=BH$ we have $BN\perp FH$, or $\angle BNL=90^{\circ} = \angle BML$, which means $B, N, M, L$ are concyclic. Since $M$ is the midpoint of $FD$, we also have $MN\parallel HD$, and therefore $\angle BFH=\angle BHF=\angle KHD=\angle HNM = \angle LBM$, the last equality following from that $B, N, M, L$ concyclic. In addition, from the fact that $MB$ bisects $\angle ABC$ we have \[\angle MBC=\frac 12 \angle ABC=\frac 12 \angle CDE = \frac 12(180^{\circ}  - \angle FCD)
+	=\frac 12(180^{\circ}  - \angle FBD) = \angle BFH=\angle MBL
+	\]
+	(we subtly used the fact that $FCDE$ is a parallelogram and that $F, B, C, D$ are concyclic). 
+	This means that $B, L, C$ are actyally collinear! I.e. $BM$ bisects $\angle ABL$ too, so with $A, M, L$ collinear by definition and that $BM\perp AL$ we have $AM=ML$ as required. 
+	
+	Finally, with $M$ as the common midpoint of $AL$ and $DF$, $AFLD$ is a parallelogram. Thus 
+	\[\angle BDA=\angle BDF+\angle FDA = \angle HDF + \angle LFD = \angle BHF = \frac 12 CDE
+	\]
+	(the last step is due to the previous equation), as desired. 
+	
+	\item [\textbf{G7}] Three circular arcs $\gamma_1, \gamma_2,$ and $\gamma_3$ connect the points $A$ and $C.$ These arcs lie in the same half-plane defined by line $AC$ in such a way that arc $\gamma_2$ lies between the arcs $\gamma_1$ and $\gamma_3.$ Point $B$ lies on the segment $AC.$ Let $h_1, h_2$, and $h_3$ be three rays starting at $B,$ lying in the same half-plane, $h_2$ being between $h_1$ and $h_3.$ For $i, j = 1, 2, 3,$ denote by $V_{ij}$ the point of intersection of $h_i$ and $\gamma_j$ (see the Figure below). Denote by $\widehat{V_{ij}V_{kj}}\widehat{V_{kl}V_{il}}$ the curved quadrilateral, whose sides are the segments $V_{ij}V_{il},$ $V_{kj}V_{kl}$ and arcs $V_{ij}V_{kj}$ and $V_{il}V_{kl}.$ We say that this quadrilateral is $circumscribed$ if there exists a circle touching these two segments and two arcs. Prove that if the curved quadrilaterals $\widehat{V_{11}V_{21}}\widehat{V_{22}V_{12}}, \widehat{V_{12}V_{22}}\widehat{V_{23}V_{13}},\widehat{V_{21}V_{31}}\widehat{V_{32}V_{22}}$ are circumscribed, then the curved quadrilateral $\widehat{V_{22}V_{32}}\widehat{V_{33}V_{23}}$ is circumscribed, too.
+	
+	\textbf{Solution.} 
+	Consider $\gamma_1, \gamma_2, \gamma_3$ as in the problem, and consider the following claim: consider $O_1$ as the set of all circles tangent to $\gamma_1$ externally and to $\gamma_2$ internally, and $O_2$ as the set of all circles tangent to $\gamma_2$ externally and to $\gamma_3$ internally. If the exsimilicenter (that is, the intersection of common external tangent) of $\omega_1$ and $\omega_2$ lies on $AC$ for \emph{some} $\omega_1\in O_1$ and $\omega_2\in O_2$, then the exsimilicenter of $\omega_1$ and $\omega_2$ lies on $AC$ for \emph{all} $\omega_1\in O_1$ and $\omega_2\in O_2$. 
+	
+	To show this, consider $\omega_A$ and $\omega_B$ both in $O_1$. Let $A_1$ and $A_2$ be the tangency points of $\omega_A$ with $\gamma_1$ and $\gamma_2$, respectively. Define $B_1$ and $B_2$ similarly. By Monge Alembert's theorem, $A_1$ and $A_2$ passes through the insimilicenter of the circles determined by arcs $\gamma_1$ and $\gamma_2$; we name them as $\Gamma_1$ and $\Gamma_2$. 
+	
+	Let the intersection of $A_1A_2$ and $B_1B_2$ as $X$, the insimilicenter of $\Gamma_1$ and $\Gamma_2$. By this definition, if $A_2X$ intersects $\Gamma_2$ at $A_2'$ again and $B_2X$ intersects $\Gamma_2$ again at $B_2'$ then $\dfrac{A_1X}{A_2X'}=\dfrac{B_1X}{B_2X'}=\dfrac{r_1}{r_2}$ with $r_1, r_2$ denoting the radii of $\Gamma_1$ and $\Gamma_2$ respectively. We now have: 
+	\[
+	XA_1\cdot XA_2 = \dfrac{A_1X}{A_2X'} (XA_2' \cdot XA_2) = \dfrac{A_1X}{A_2X'} (XB_2' \cdot XB_2)
+	= \dfrac{B_1X}{B_2X'} (XB_2' \cdot XB_2) = XB_1\cdot XB_2
+	\]
+	where the equality $XA_2' \cdot XA_2 = XB_2' \cdot XB_2$ follows from the fact that $A_2, B_2, A_2' B_2'$ all on $\Gamma_2$ and that $A_2A_2'$ and $B_2B_2'$ intersect at $X$. 
+	Therefore, $A_1, A_2, B_1, B_2$ are concyclic. Now, consider this circle containing the four points as $\Gamma_0$, we know that $\Gamma_0$ and $\Gamma_1$ intersect at $A_1B_1$, $\Gamma_0$ and $\Gamma_2$ at $A_2B_2$, $\Gamma_1$ and $\Gamma_2$ at $AC$. This means $A_1B_1$ and $A_2B_2$ concur on $AC$ by the radical axis theorem. 
+	Finally, $A_1$, $B_1$ are the exsimilicenters of $\Gamma_1$ and $\omega_A, \omega_B$, respectively, so by Monge-Alembert theorem again the exsimilicenter of $\omega_A$ and $\omega_B$ must be on $A_1B_1$. Similarly, the same exsimilicenter must be on $A_2B_2$ (except $A_2, B_2$ are actually the insimilicenters of $\Gamma_2$ and the $\omega$s). This means $A_1B_1$ and $A_2B_2$ intersect at the the exsimilicenter of $\omega_1$ and $\omega_2$: in other words, by the previous points, $\omega_1$ and $\omega_2$ have exsimilicenter on $AC$. 
+	By a similar logic, any two difference circles in $O_2$ also have their exsimilicenter on $AC$. 
+	
+	Now, suppose that $\omega_1$ and $\omega_2$ are such that the exsimilicenter lies on $AC$, say $B$. 
+	Consider all $\omega_2'\in O_2$ varying from $A$ to $C$. From above, the exsimilicenter of $\omega_2$ and $\omega_2'$ will also lie on $AC$ (except when $\omega_2=\omega_2'$). At most one of the circle $\omega_2'$ will have their exsimilicenter coincide with $B$. In other words, for all $\omega_2'$ except this circle and the circle coincide with $\omega_2$, the exsimilicenter of $\omega_2$ and $\omega_2'$ lies on $AC$ other than $B$. By Monge-Alembert theorem again, the exsimilicenter of $\omega_1$ and $\omega_2'$ will also be on $AC$ for all those $\omega_2'$. As $\omega_2'$ varies continuously, the exsimilicenter of $\omega_1$ and $\omega_2'$ will also vary continuously. This means that this exsimilicenter of the two circles will also be on $AC$ even for the two edge cases. 
+	Finally, if $\omega_1'$ is any other circle in $O_1$, then a similar logic yields that $\omega_1'$ and $\omega_2'$ have exsimilicenters on $AC$, which solves the lemma. 
+	
+	Now go back to the problem. Despite the fancy formulation of the problem, really all we need is this: let the circle inscribed in $\widehat{V_{11}V_{21}}\widehat{V_{22}V_{12}}$ as $\omega_{11}$ and $\widehat{V_{12}V_{22}}\widehat{V_{23}V_{13}}$ as $\omega_{12}$; their exsimilicenters intersect at $B$. Let the circle inscribed in $\widehat{V_{21}V_{31}}\widehat{V_{32}V_{22}}$ be $\omega_{21}$, and let $\omega_{22}$ to be the unique circle tangent to $h_2$, $\gamma_2$ and $\gamma_3$. By our lemma above, the exsimilicenter must be on $AC$. Since $h_2$ is an external common tangent of $\omega_{21}$ and $\omega_{22}$ and $h_2$ intersect $AC$ at $B$, $B$ is indeed the exsimilicenter. Thus, the other common tangent must also pass through $B$, and so must be $h_3$. This means $h_3$ is also tangent to $\omega_{22}$. In other words, $\widehat{V_{22}V_{32}}\widehat{V_{33}V_{23}}$ is circumscribed. Q.E.D. 
+	
 \end{enumerate}
 	
 	
@@ -213,7 +289,9 @@
 	\]
 	and therefore $\dfrac{51}{2010}\ge \dfrac{1}{n+1}$, i.e. $n+1\ge \dfrac{2010}{51}=39+\dfrac{21}{51}$. Thus $n\ge 39$. 
 	
-	Now let's show that $n=39$ works. They are the numbers $2, 3, ..., 33$, $35, 36, 37, 38, 39, 40, 67$. 
+	Now let's show that $n=39$ works. They are the numbers $2, 3, ..., 33$, $35, 36, 37, 38, 39, 40, 67$, which telescopes into this somewhat nice form: 
+	\[\frac {1}{33}\cdot\frac{34}{40}\cdot\frac{66}{67}=\frac{17}{670}=\frac{51}{2010}
+	\]
 	
 	\item [\textbf{N2}] Find all pairs $(m,n)$ of nonnegative integers for which \[m^2 + 2 \cdot 3^n = m\left(2^{n+1} - 1\right).\]
 	
@@ -255,7 +333,7 @@
 	
 	Recall that the discriminant is $(2^{n+1}-1)^2-8\cdot 3^n$. For $n=0, 1, 2, 3, 4, 5$ these discriminants are $-7, -15, -23, 9, 313, 2025$, so only $n=3, 5$ work as perfect squares. Plugging these into the quadratic formula we have: 
 	\[
-	n=3: \dfrac{2^{3+1}-1 \pm \sqrt{(2^{3+1}-1)^2 - 8\cdot 3^n}}{2} = \dfrac{15\pm 3}{2}=6, 9;
+	n=3: \dfrac{2^{3+1}-1 \pm \sqrt{(2^{3+1}-1)^2 - 8\cdot 3^n}}{2} = \dfrac{15\pm 3}{2}=6, 9;\]\[
 	n = 5: \dfrac{2^{5+1}-1 \pm \sqrt{(2^{5+1}-1)^2 - 8\cdot 3^n}}{2} = \dfrac{63\pm 45}{2} = 9, 54. 
 	\]
 	Since these are obtained from the quadratic equations, they work as fine, giving us our desired pairs. 
@@ -266,7 +344,16 @@
 		\item Show that all 2010-good pairs are very good.
 		\end{enumerate}
 	
-	\textbf{Solution.} (b) Let $(a, b)$ be 2010-good. We split this into the following steps: 
+	\textbf{Solution.} 
+	(a) (Courtesy of the official solution). The desired pair is $x^3-51^2x=x(x^2-51)$. Since $P(0)=P(51)$, it is only $m$-good for $m$ that are divisors of 51, i.e. finite. 
+	On ther other hand, to show it's 51-good, notice that $x^3-51x^2\equiv x^3\pmod{17}$. 
+	\begin{itemize}
+		\item $x^3\equiv 0, 1, 2$ for $x=0, 1, 2\pmod{3}$ so it's 3-good. 
+		\item If $x^3\equiv y^3\pmod{17}$ (here assume $x, y\neq 0$; the 0 case can be isolated), then rasing both sides to the power of 11 we have $x^{33}\equiv y^{33}\pmod{17}$. But by Fermat's little theorem we have $x^{32}\equiv y^{32}=1$ so $x\equiv x^{33}\equiv y^{33}\equiv y$, so this is also 17-good. 
+	\end{itemize}
+	Finally, as $lcm(3, 17)=51$ and $(a, b)$ is both 3- and 17-good, it's 51-good. 
+	
+	(b) Let $(a, b)$ be 2010-good. We split this into the following steps: 
 	
 	\emph{Step 1.} It's also 67-good. \\
 	Proof: Now, $\{P(0), \cdots , P(2009) \pmod{2010}\}=\{0, 1, \cdots , 2009\}$. In particular, since $67\mid 2010$, the numbers $0, 1, \cdots , 66$ appears the same number of times (i.e. 30) in the sequence $i\pmod{67}$ with $i=0, 1, \cdots , 2009$. 

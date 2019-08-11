@@ -265,6 +265,29 @@
 	\]
 	and therefore $k<\sqrt[3]{6n}$. 
 	
+	\item[\textbf{C6}] In some country several pairs of cities are connected by direct two-way flights. It is possible to go from any city to any other by a sequence of flights. The distance between two cities is defined to be the least possible numbers of flights required to go from one of them to the other. It is known that for any city there are at most $100$ cities at distance exactly three from it. Prove that there is no city such that more than $2550$ other cities have distance exactly four from it.
+	
+	\textbf{Solution.} Let's ditch the city and flight notion and instead use the graph theory ones: vertices and edge. Let $V$ and $E$ be the set of vertices, in the said graph, respectively. Consider any node $v_0$, and consider the set $S_i: \{v\in V: d(v, v_0)=i\}$ for $i=1, 2, 3, 4$ (where $d(u, v)$ denoting distance of $u$ and $v$). We note the following: 
+	\begin{itemize}
+		\item The non-strict triangle inequality holds: if we can go from $u$ to $v$ in $d(u, v)$ steps and $v$ to $w$ in $d(v, w)$ steps, using the shortest route from $u$ to $v$ and then from $v$ to $w$ we can go from $u$ to $w$ in $d(u, w)$ steps. This means, $d(u, w)\le d(u, v)+d(v, w)$. 
+		
+		\item Consider any $v\in S_n$, and let $v_0, v_1, \cdots , v_n=v$ be such a path of length $n$. For each $0\le i\le n$, this path from $v_0$ to $v_i$ has length $i$ so for each $i$, $d(v_0, v_i)\le i$. Conversely, $n=d(v_0, v_n)\le d(v_0, v_i)+d(v_i, v_n)\le d(v_0, v_i)+(n-i)$ since the path $v_i, \cdots , v_n$ takes $n-i$ steps. This means $d(v_0, v_i)\ge i$ and therefore $d(v_0, v_i)=i$ for all $i\le n$. 
+	\end{itemize}
+	Now let $S_4=v_1, v_2, \cdots , v_m$ and for each $v_i$ consider its shortest path from $v_0$: $v_0=v_{0, i}, v_{1, i}, v_{2, i}, v_{3, i}, v_{4, i}=v_i$. Consider all such $v_{0, i}, v_{1, i}, v_{2, i}, v_{3, i}$. If, say, $v_{3, i}=v_{3, j}$ then $v_{0, i}, v_{1, i}, v_{2, i}, v_{3, j}, v_{4, j}$ is also a shortest path. Similarly $v_{2, i}=v_{2, j}$ implies that $v_{0, i}, v_{1, i}, v_{2, j}, v_{3, j}, v_{4, j}$ is a shortest path. 
+	This means we can assume that if $v_{1, i}\neq v_{1, j}$ then $v_{2, i}\neq v_{2, j}$ and $v_{3, i}\neq v_{3, j}$. 
+	Consider the set $T: \{v_{1, 1}, \cdots , v_{1, m}\}$, and suppose that it has $n$ distinct elements. 
+	Consider, now, an arbitrary vertex $v_{1, i}$ and let $T_i = \{v_{4, j}: v_{1, i}=v_{1, j}\}\subseteq S_4$. 
+	From the definition of shortest path, for each $v_{4, j}\in T_i$ we have $d(v_{1, j}, v_{4, j})=4-1=3$. 
+	Consider, also, any $k\neq i$ with $v_{1, k}\neq v_{1, i}$, and the vertices $v_{2, k}, v_{3, k}$ and $v_{4, k}$. We claim that $v_{1, j}$ has a distance exactly three with at least one of those vertices. 
+	Now, $d(v_{1, j}, v_{4, k})\ge d(v_0, v_{4, k}) - d(v_0, v_{1, j})=4-1=3$. If it's greater than 3 than we have 
+	$4\le d(v_{1, j}, v_{4, k})\le d(v_{1, j}, v_{3, k}) + d(v_{3, k}, v_{4, k}) = d(v_{1, j}, v_{3, k}) + 1$, so $d(v_{1, j}, v_{3, k})\ge 3$. Again if $d(v_{1, j}, v_{3, k}) > 3$ we have $d(v_{1, j}, v_{2, k})\ge 3$ by a similar logic, but then by triangle inequality again $d(v_{1, j}, v_{2, k})\le d(v_{1, j}, v_0)+d(v_0, v_{2, k})=1+2=3$ so the equality must hold. 
+	
+	To summarize, let $v_{1, a_1}, \cdots , v_{1, a_n}$ be distinct elements in $T$. For each $a_i$, it has distance exactly 3 with each vertex in $|T_{a_i}|$, and with at least one member among $v_{2, a_j}, v_{3, a_j}$ and $v_{4, a_j}$ for any $j\neq i$. By our assumption, for each $j\neq i$ we have $v_{x, a_j}\neq v_{y, a_i}$ for $x, y\in \{1, 2, 3, 4\}$. This means that it has distance 3 with at least $|T_{a_i}|+(n-1)$ elements, which is at most 100. This means $|T_{a_i}|\le 100-n+1$. In addition, $T_{a_1}, \cdots , T_{a_n}$ together represent the partition of $S_4$, we have 
+	\[
+	|S_4|=\dsum_{i=1}^n |T_{a_i}|\le \dsum_{i=1}^n (100-n+1) = n(100-n+1)
+	\]
+	The last expression obtains its maximum when $n=101/2$; for $n$ integer the maximum is when $n=50$ or $51$, in which case $n(100-n+1)=50\times 51 = 2550$. Thus $|S_4|\le 2550$ as desired. 
+	
 \end{enumerate}
 
 \section*{Geometry}
