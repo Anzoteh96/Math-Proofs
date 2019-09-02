@@ -241,6 +241,78 @@
 	Having established this, let $n_0$ be such that $x_{n_0}=0$. Then $0=x_{n_0}=\cos(F_{n_0}\theta)$, meaning that $F_{n_0}\theta=(\frac{2k_0+1}{2})\pi$ for some integer $k_0$. 
 	This also means that $\theta = (\frac{2k_0+1}{2F_{n_0}})\pi$. We first recall that for any integer $m$, the Fibonacci sequence is periodic modulo $m$: indeed, if we write the Fibonacci sequence modulo $m$ and consider all pairs $(F_n, F_{n+1})$, then there are at most $m^2$ distinct elements from the pairs, and thus there are some that are the same. If $(F_{k}, F_{k+1})=(F_{\ell}, F_{\ell+1})$ modulo $m$ for some $k<\ell$, then we can inductively show (both forward and backward) that $F_{k+x}=F_{\ell+x}$ for any integer (positive or negative) $x$. Now if $p_0$ is the period of the Fibonacci sequence when $m=4F_0$ then $F_{k+p_0}\equiv F_k\pmod{4F_{n_0}}$ for all $k$, and therefore $(F_{k+p_0}-F_k)\theta = (F_{k+p_0}-F_k)(\frac{2k_0+1}{2F_{n_0}})\pi$ is an integer multiple of $2\pi$. Since $\cos$ is periodic modulo $2\pi$, we have $\cos (F_{k+p_0}\theta) = \cos(F_k\theta)$, and thus $x_k=x_{k+p_0}$. 
 	
+	\item[\textbf{B5}] Let $f = (f_1, f_2)$ be a function from $\mathbb{R}^2$ to $\mathbb{R}^2$ with continuous partial derivatives $\tfrac{\partial f_i}{\partial x_j}$ that are positive everywhere. Suppose that
+	\[\frac{\partial f_1}{\partial x_1} \frac{\partial f_2}{\partial x_2} - \frac{1}{4} \left(\frac{\partial f_1}{\partial x_2} + \frac{\partial f_2}{\partial x_1} \right)^2 > 0\]everywhere. Prove that $f$ is one-to-one.
+	
+	\textbf{Solution.} Suppose that $f(x_0, y_0)=f(x_0+a, y_0+b)$ for some $a, b\in\bbR^2$. 
+	 We consider the following: if $g_1(z)=f_1(x_0+za, y_0+zb)$ then $g_1'(z)=a\tfrac{\partial f_1}{\partial x_1}(x_0+za, y_0+zb) + b\tfrac{\partial f_1}{\partial x_2}(x_0+za, y_0+zb)$, then 
+	\begin{flalign*}
+	0&=f_1(x_0+a, y_0+b)-f_1(x_0, y_0)
+	\\&=g_1(1)-g_1(0)
+	\\&=\int_0^1 g_1'(z)dz
+	\\&=\int_0^1 a\tfrac{\partial f_1}{\partial x_1}(x_0+za, y_0+zb) + b\tfrac{\partial f_1}{\partial x_2}(x_0+za, y_0+zb)dz
+	\\&=a\int_0^1\tfrac{\partial f_1}{\partial x_1}(x_0+za, y_0+zb)dz + 
+	      b\int_0^1\tfrac{\partial f_1}{\partial x_2}(x_0+za, y_0+zb)dz
+	\end{flalign*}
+	and similarly, $a\int_0^1\tfrac{\partial f_2}{\partial x_1}(x_0+za, y_0+zb)dz + b\int_0^1\tfrac{\partial f_2}{\partial x_2}(x_0+za, y_0+zb)dz = 0$. 
+	Denote $x(z)=x_0+za$ and $y(z)=y_0+zb$, and 
+	the matrix $\begin{pmatrix}
+	\int_0^1\tfrac{\partial f_1}{\partial x_1}(x(z), y(z))dz & \int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z))dz \\
+	\int_0^1\tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz & \int_0^1\tfrac{\partial f_2}{\partial x_2}(x(z), y(z))dz \\
+	\end{pmatrix}$ as $M$, we have the following: 
+	\[
+	M
+	\begin{pmatrix}
+	a\\b\\
+	\end{pmatrix}
+	=\begin{pmatrix}
+	0\\0\\
+	\end{pmatrix}
+	\]
+	
+	We claim that $M$ is invertible, thereby showing that $\begin{pmatrix}
+	a\\b\\
+	\end{pmatrix}$ must be $\begin{pmatrix}
+	0\\0\\
+	\end{pmatrix}$ and thus $f$ is injective. 
+	This is the same as showing that the determinant of $M$ is nonzero. We will in fact show that it is positive. On one hand, the integral Cauchy-Schawz inequality says that
+	\[
+	\int_0^1\tfrac{\partial f_1}{\partial x_1}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_2}(x(z), y(z))dz
+	\ge \left(\int_0^1 \sqrt{\tfrac{\partial f_1}{\partial x_1}(x(z), y(z))\tfrac{\partial f_2}{\partial x_2}(x(z), y(z))}dz\right)^2
+	\]
+	(we are allowed to use square roots since all partial derivatives are positive). 
+	On the other hand using the inequality $AB\le \frac{(A+B)^2}{4}$ for all $A, B\in\bbR$ we also have 
+	\begin{flalign*}
+		\int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z))dz
+		\int_0^1\tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz
+		&\le \frac{(\int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z))dz + \int_0^1\tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz)^2}{4}
+		\\&=\frac{(\int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z)) + \tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz)^2}{4}
+		\\&=\left( \int_0^1\frac12(\tfrac{\partial f_1}{\partial x_2}(x(z), y(z)) + \tfrac{\partial f_2}{\partial x_1}(x(z), y(z)))dz\right)^2
+	\end{flalign*}
+	The given inequality implies that for all $z\in[0, 1]$ we have (moving one term to the other side and take square roots on both sides)
+	\[\sqrt{\frac{\partial f_1}{\partial x_1}(x(z), y(z)) \frac{\partial f_2}{\partial x_2}(x(z), y(z))}
+	> \frac 12 \left(\frac{\partial f_1}{\partial x_2}(x(z), y(z)) + \frac{\partial f_2}{\partial x_1}(x(z), y(z))\right)
+	\]
+	and by the continuity of partial derivatices we have 
+	\[
+	\int_0^1\sqrt{\frac{\partial f_1}{\partial x_1}(x(z), y(z)) \frac{\partial f_2}{\partial x_2}(x(z), y(z))}dz
+	> \int_0^1 \frac 12 \left(\frac{\partial f_1}{\partial x_2}(x(z), y(z)) + \frac{\partial f_2}{\partial x_1}(x(z), y(z))\right)dz
+	\]
+	and hence 
+	\[
+	\int_0^1\tfrac{\partial f_1}{\partial x_1}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_2}(x(z), y(z))dz
+	> \int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz
+	\]
+	and therefore 
+	\[\det(M)=\int_0^1\tfrac{\partial f_1}{\partial x_1}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_2}(x(z), y(z))dz
+	- \int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz
+	>0\]
+	
 \end{enumerate}
 
 \section{Putnam 2017}

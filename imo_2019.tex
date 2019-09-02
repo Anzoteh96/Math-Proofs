@@ -1,0 +1,368 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\begin{document}
+
+\newcommand{\sgn}{\text{sgn}}
+
+\begin{enumerate}
+	\item Let $\mathbb{Z}$ be the set of integers. Determine all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that, for all integers $a$ and $b$, $$f(2a)+2f(b)=f(f(a+b)).$$
+	
+	\textbf{Answer.} $f\equiv 0$ (the zero function) or $f(n)=2n+c$ for all $n\in\bbZ$ with $c$ an arbitrary integer constant. It's east to verify that these functions work. 
+	
+	\textbf{Solution.} We consider the following for each $n\in\bbZ$, substituting $(a, b)=(0, n)$ and $(1, n-1)$: 
+	\[
+	f(2(0)) + 2f(n) = f(f(n)) = f(2(1))+2f(n-1)
+	\]
+	which means $f(n)-f(n-1)=\frac{f(2)-f(0)}{2}$, which is fixed. As $f$ is defined only on $\bbZ$, we can dedue right away that $f$ is linear. 
+	
+	Now write $f(n)=mn+c$ with $m$ being the gradient and $c$ being the intercept of linear equation, the desired equation now becomes: 
+	\[m(2a)+c + 2(mb+c) = f(m(a+b)+c) = m(m(a+b)+c)+c
+	\]
+	or rather, $2m(a+b)+3c = m^2(a+b) + (m+1)c$ for all $a$ and $b$. Pushing everything to one side we get 
+	\[
+	(2m-m^2)(a+b)+(3-m-1)c = 0
+	\]
+	Since this must be true for all integers $a$ and $b$, $m(2-m)=2m-m^2=0$ which means $m=0$ or $m=2$. 
+	If $m=0$ then $0=(3-1)c=2c$ so $c=0$. If $m=2$ then there's no additional restriction on $c$. This completes the proof. 
+	
+	\item In triangle $ABC$, point $A_1$ lies on side $BC$ and point $B_1$ lies on side $AC$. Let $P$ and $Q$ be points on segments $AA_1$ and $BB_1$, respectively, such that $PQ$ is parallel to $AB$. Let $P_1$ be a point on line $PB_1$, such that $B_1$ lies strictly between $P$ and $P_1$, and $\angle PP_1C=\angle BAC$. Similarly, let $Q_1$ be the point on line $QA_1$, such that $A_1$ lies strictly between $Q$ and $Q_1$, and $\angle CQ_1Q=\angle CBA$.
+	
+	Prove that points $P,Q,P_1$, and $Q_1$ are concyclic.
+	
+	\textbf{Solution.} An equivalent thing would be proving that lines $PP_1$, $QQ_1$ and the radical axis of circumcircles of $CPP_1$ and $CQQ_1$ are either concurrent or parallel. Let $R$ be the second intersection of circles $CPP_1$ and $CQQ_1$; $CR$ is the radical axis of these two circles. 
+	
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\clip(-7.15619773709833,-2.5202000865062124) rectangle (7.51584566044878,7.800438805304492);
+	\draw [line width=2pt] (-0.27988493874496984,0.5754215142011392) circle (1.7045490987050795cm);
+	\draw [line width=2pt] (-2.2713193938781733,2.99411753214173) circle (1.9535396557480333cm);
+	\draw [line width=2pt] (1.997812906644998,4.014730283983758) circle (3.010919266101753cm);
+	\draw [line width=2pt] (-0.98,4.46)-- (-3.46,-0.62);
+	\draw [line width=2pt] (-3.46,-0.62)-- (4.46,-0.62);
+	\draw [line width=2pt] (4.46,-0.62)-- (-0.98,4.46);
+	\draw [line width=2pt] (-2.4064370344866473,1.5381047841967077)-- (0.3292709038781583,-1.0165636582468978);
+	\draw [line width=2pt] (1.7557079383648053,1.9053315575563952)-- (0.3292709038781583,-1.0165636582468978);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-1.5320316419621107,6.7690992243217245)-- (0.3292709038781583,-1.0165636582468978);
+	\draw [line width=2pt] (-1.9097884095473938,1.0743226123784344)-- (1.3500185320574543,1.0743226123784344);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-1.5320316419621107,6.7690992243217245)-- (-1.9097884095473938,1.0743226123784344);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-1.5320316419621107,6.7690992243217245)-- (1.3500185320574543,1.0743226123784344);
+	\begin{scriptsize}
+	\draw [fill=black] (-3.46,-0.62) circle (2.5pt);
+	\draw[color=black] (-3.348718794578975,-0.3235776196681234) node {$A$};
+	\draw [fill=black] (4.46,-0.62) circle (2.5pt);
+	\draw[color=black] (4.573068895351404,-0.3235776196681234) node {$B$};
+	\draw [fill=black] (-0.98,4.46) circle (2.5pt);
+	\draw[color=black] (-0.7964526902528144,4.613592877225106) node {$C$};
+	\draw [fill=black] (0.18906974729241918,3.368295162454874) circle (2.5pt);
+	\draw[color=black] (0.3471856734343177,3.7070502718633547) node {$A_1$};
+	\draw [fill=black] (-1.796091723827167,2.7883282431282232) circle (2.5pt);
+	\draw[color=black] (-1.6472080583615347,3.1352310900197886) node {$B_1$};
+	\draw [fill=black] (-1.9097884095473938,1.0743226123784344) circle (2.5pt);
+	\draw[color=black] (-1.8006229608073694,1.3779331165493172) node {$P$};
+	\draw [fill=uuuuuu] (1.3500185320574543,1.0743226123784344) circle (2pt);
+	\draw[color=uuuuuu] (1.4629304184949343,1.3500394979228016) node {$Q$};
+	\draw [fill=uuuuuu] (0.3292709038781583,-1.0165636582468978) circle (2pt);
+	\draw[color=uuuuuu] (0.4448133386271217,-0.7419818990658547) node {$S$};
+	\draw [fill=uuuuuu] (-0.4566282761699269,2.2707826623262775) circle (2pt);
+	\draw[color=uuuuuu] (-0.3501547922285677,2.5494650988629646) node {$R$};
+	\draw [fill=uuuuuu] (-1.659376889314633,4.849338154517583) circle (2pt);
+	\draw[color=uuuuuu] (-1.5077399652289576,5.157518440442156) node {$P_1$};
+	\draw [fill=uuuuuu] (-0.7551651030072344,5.234052597957362) circle (2pt);
+	\draw[color=uuuuuu] (-0.5175165039876602,5.422507817394052) node {$Q_1$};
+	\draw [fill=uuuuuu] (-1.5320316419621107,6.7690992243217245) circle (2pt);
+	\draw[color=uuuuuu] (-1.6611548676747925,7.165858981551266) node {$D$};
+	\draw [fill=uuuuuu] (-2.4064370344866473,1.5381047841967077) circle (2pt);
+	\draw[color=uuuuuu] (-2.288761286771389,1.810284205260306) node {$T$};
+	\draw [fill=uuuuuu] (1.7557079383648053,1.9053315575563952) circle (2pt);
+	\draw[color=uuuuuu] (1.867387888579408,2.1729012474050067) node {$U$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	Now, let $S$ be the second intersection of $CR$ and circle $PQR$. We claim that $SP\parallel BC$ and $SQ\parallel AC$. For this part only, let's use directed angles for the sake of clarity. Observe that: 
+	\[\angle(CA, AB)=\angle (CP_1, P_1P) = \angle (CR, RP) = \angle(RS, RP)=\angle (QS, QP) = \angle (QS, AB)
+	\]
+	with the first equality following from $\angle PP_1C =\angle BAC$ and the last equality from $QP\parallel AB$. Thus $CA$ and $QS$ are parallel, and similarly so are lines $SP$ and $BC$. Thus we will focus on proving that $PP_1, QQ_1, CS$ are either concurrent or parallel. 
+	
+	Let $SP$ intersect $AC$ at $T$, and $QP$ intersect $BC$ at $U$. THis means $CTSU$ is a parallelogram. The fact that $PP_1, QQ_1, CS$ are parallel is actually the same as the below equality:
+	\[
+	\frac{SP}{PT}\cdot \frac{TB_1}{B_1C}\cdot \frac{CA_1}{A_1U}\cdot \frac{UQ}{QS}=1
+	\]
+	notice that we need to be careful of the sign convention, though it's quite clear that $P$ is between $T$ and $S$ and $Q$ is between $U$ and $S$, so the first and the last ratio can be easily made positive. 
+	We now let $\frac{TB_1}{B_1C}$ be postive if $B_1$ lies between $T$ and $C$ and negative otherwise, similarly $\frac {CA_1}{A_1U}$ be positve if $A_1$ between $C$ and $U$ and negative otherwise. This allows us to adopt the convention that $TB_1=TC-B_1C$ and $UA_1=UC-A_1C$. 
+	
+	Since $PQ\parallel AB$, $SP\parallel BC$ and $SQ\parallel AC$, the triangles $SPQ$ and $CBA$ are in fact similar. Thus $\frac{SP}{SQ}=\frac{BC}{AC}$. Since $CU=TS$ and $CT=US$, we in fact have $\frac{SP}{ST}\div \frac{SQ}{SU}=\frac{BC}{CU}\div\frac{AC}{CT}$. 
+	In addition, we have the following identity: 
+	\[
+	\frac{PT}{A_1C}=\frac{AT}{AC}\qquad \frac{UQ}{B_1C} = \frac{BU}{BC}
+	\]
+	thus allowing us to write 
+	\[
+	A_1C = PT\cdot\frac{AC}{AT}=PT\cdot\frac{AC}{AC-TC}\qquad
+	B_1C = UQ\cdot \frac{BC}{BU} = UQ\cdot \frac{BC}{BC-CU}
+	\]
+	and therefore
+	\begin{flalign*}
+	\frac{SP}{PT}\cdot \frac{TB_1}{B_1C}\cdot \frac{CA_1}{A_1U}\cdot \frac{UQ}{QS}
+	&=\frac{SP}{QS}\cdot \frac{CT-B_1C}{\frac{BC}{BC-CU}}\cdot \frac{\frac{AC}{AC-TC}}{CU-CA_1}
+	\\&=\frac{SP}{QS}\cdot \frac{CT(1-B_1C/CT)}{\frac{BC}{BC-CU}}\cdot \frac{\frac{AC}{AC-TC}}{CU(1-CA_1/CU)}
+	\\&=\frac{BC}{AC}\cdot \frac{CT(1-\frac{UQ}{US}\cdot \frac{BC}{BC-CU})}{\frac{BC}{BC-CU}}\cdot \frac{\frac{AC}{AC-TC}}{CU(1-\frac{PT}{ST}\cdot\frac{AC}{AC-TC})}
+	\\&=(\frac{BC}{CU}\div\frac{AC}{CT})\cdot 
+	\frac{1-(1-\frac{SQ}{SU})\cdot \frac{BC}{BC-CU}}{\frac{BC}{BC-CU}}\cdot 
+	\frac{\frac{AC}{AC-TC}}{1-(1-\frac{SP}{ST})\cdot\frac{AC}{AC-TC}}
+	\\&=\frac{CT}{CU}\cdot 
+	\frac{1-(1-\frac{SQ}{SU})\cdot \frac{BC}{BC-CU}}{\frac{1}{BC-CU}}\cdot 
+	\frac{\frac{1}{AC-TC}}{1-(1-\frac{SP}{ST})\cdot\frac{AC}{AC-TC}}
+	\\&=\frac{CT}{CU}\cdot 
+	\frac{1-(1-\frac{SQ}{SU})\cdot \frac{BC}{BC-CU}}{AC-TC}\cdot 
+	\frac{BC-CU}{1-(1-\frac{SP}{ST})\cdot\frac{AC}{AC-TC}}
+	\\&=\frac{CT}{CU}\cdot 
+	\frac{BC-CU-(1-\frac{SQ}{SU})\cdot BC}{AC-TC-(1-\frac{SP}{ST})\cdot AC}
+	\\&=\frac{CT}{CU}\cdot 
+	\frac{\frac{SQ}{SU}\cdot BC - CU}{\frac{SP}{ST}\cdot AC - TC}
+	\\&=\frac{\frac{SQ}{SU}\cdot \frac{BC}{CU} - 1}{\frac{SP}{ST}\cdot\frac{AC}{CT} - 1}
+	\end{flalign*}
+	To show that this ratio is indeed 1, it suffices to show that $\frac{SQ}{SU}\cdot \frac{BC}{CU}=\frac{SP}{ST}\cdot\frac{AC}{CT}$. With $CT=SU$ and $CU=ST$, and that $\frac{SP}{SQ}=\frac{BC}{AC}$ (i.e. $SP\cdot AC=SQ\cdot BC$), we have 
+	\[
+	\frac{SQ}{SU}\cdot \frac{BC}{CU}
+	=\frac{SP}{SU}\cdot\frac{AC}{CU}
+	=\frac{SP}{CT}\cdot\frac{AC}{ST}
+	\]
+	as desired. 
+	
+	\item A social network has $2019$ users, some pairs of whom are friends. Whenever user $A$ is friends with user $B$, user $B$ is also friends with user $A$. Events of the following kind may happen repeatedly, one at a time:
+	Three users $A$, $B$, and $C$ such that $A$ is friends with both $B$ and $C$, but $B$ and $C$ are not friends, change their friendship statuses such that $B$ and $C$ are now friends, but $A$ is no longer friends with $B$, and no longer friends with $C$. All other friendship statuses are unchanged.
+	Initially, $1010$ users have $1009$ friends each, and $1009$ users have $1010$ friends each. Prove that there exists a sequence of such events after which each user is friends with at most one other user.
+	
+	\textbf{Solution.} (Reproduced from AoPS) For a connected component $C$ of a graph, call it good if either $|C|\le 2$, or $|C|$ is not a clique and not all vertices have even degree. One can easily prove that the initial graph has a single connected component (otherwise, take the smaller component which has at most $1009$ vertices and therefore having degree at most $1008$), and obviously not a clique. For each good connected component of size at least 3, we show that we can make a move as described in the problem statement such that either the connected component is preserved, or the move splits it into two good components (in the latter case, the resulting component will still be good because as Swistak mentioned, the each move preserves the degree of each vertex, and the total number of edges decreases by 1, hence cannot be a clique).
+	
+	Consider any good component $C$ of size at least 3. For each two vertices $(u, v)$, denote the distance $d(u, v)$ as the length of the shortest path from $u$ and $v$. Choose two of them, $A_0, A_n$ such that $d(u, v)=n$ and is the maximal possible within that component. Moreover, let $A_0, A_1, \cdots , A_n$ to be a path of length $n$. By the definition of distance, $A_i$ and $A_j$ is not connected by an edge if $|i-j|>1$. In addition, $n\ge 2$ since $C$ is not a clique.
+	
+	Now, one possible candidate (call this "candidate move") is to consider edges $A_0A_1$ and $A_1A_2$, and remove them, resulting in a new edge $A_0A_2$. If $A_1$ is still connected to $A_0$, or $A_1$ has no other vertices connected to itself, then we are good. Otherwise, $A_1$ will have another neighbour, $B$.
+	
+	We first claim that in this "supposedly new" component, $A_1$ has distance 1 with all other vertices, Otherwise, choose $B$ and $C$ such that there are edges $A_1B$ and $BC$ but not $A_1C$. Now these $B$ and $C$ are isolated from $A_0, A_2, \cdots , A_n$. In the original graph, any path from $A_n$ to $C$ must pass through $A_1$ (length $n-1$), and from $A_1$ it takes exactly two steps to reach $C$. Thus $d(A_n, C)$ in the pre-move configuration is $n+1$, contradicting the maximality of $n$.
+	
+	Back to the original configuration; we know that originally, the neighbours of $A_1$ are $A_0, A_2$, and a bunch of $B_1, \cdots, B_k$ ($k\ge 1$) which will be isolated from $A_0, A_2, \cdots , A_n$ should we use the candidate move. In addition, by the immediate previous claim, $B_i$ has no other neighbours other than $B_j$ ($j\neq i$) and $A_1$. There are three cases:
+	
+	Case 1. $k=1$. This means the degree of $A_1$ is 3. We now disconnect $A_1B_1$ and $A_1A_0$, resulting in new edge $B_1A_0$. If this were to split things up into two components, then $B_1, A_0$ are in the same component, while $A_1, A_2, \cdots , A_n$ are in the other. Both $B_1$ and $A_1$ now have degree 1, so both components are guaranteed to be good.
+	
+	Case 2. $k\ge 2$ and each $B_i$ has degree 1. The previous algorithm will still work: disconnect $A_1B_1$ and $A_1A_0$ with new edge $B_1A_0$. Again if this were to split things up into two components then $B_1$ and $A_1$ are in different components. Now $B_1$ has degree 1; $B_2$ has degree 1 too and is in $A_1$'s component, so both components are good too.
+	
+	Case 3. Some $B_i$ has degree more than 1. WLOG let $B_1$ to have degree more than 1, and by before's observation, $B_1$ has no other neighbour other than some other $B_j$'s and $A_1$. Therefore there's another $B_j$ that's $B_1$'s neighbour, say, $B_2$. Same algorithm, cut $A_1B_1$, $A_1A_0$, add $B_1A_0$. Now $A_0B_1B_2A_1$ is a path, so the original component remains connected.
+	
+	Finally, notice that we always perform such a move above until we run out of connected components of size $\ge 3$. This will eventually happen since each move decreases the number of edges in the graph by 1, thus cannot happen forever. At this stage, each vertex will have degree at most 1, as desired.
+	
+	\item Find all pairs $(k,n)$ of positive integers such that \[ k!=(2^n-1)(2^n-2)(2^n-4)\cdots(2^n-2^{n-1}). \]
+	
+	\textbf{Answer.} $(1, 1), (3, 2)$. \\
+	\textbf{Solution.} It's obvious that the answers above satisfy the condition, and we will show that these are the only pairs. By considering the power of 2 dividing both sides (denote by $v_2(\cdot)$) we have the $v_2$ of right hand side as 
+	
+	\[=\dsum_{i=0}^{n-1}v_2(2^n-2^i)=\dsum_{i=0}^{n-1} i = \frac{n(n-1)}{2}\]
+	
+	On the other hand we have 
+	\[
+	v_2(k!)=\dsum_{i=1}^{\infty}\lfloor \frac{k}{2^i}\rfloor
+	< \dsum_{i=1}^{\infty}\frac{k}{2^i}
+	=k
+	\]
+	hence $k > \frac{n(n-1)}{2}$. 
+	
+	Now we compare the size of both sides: on right hand side we have 
+	\[
+	\dprod_{i=1}^{n-1} (2^n-2^i) \le \dprod_{i=1}^{n-2} 2^n \cdot (2^{n-1}) = 2^{n^2 - 1}
+	\]
+	while for $k > 16$ (valid for $n\ge 7$ as of the first identity) we have 
+	\[
+	k! = 15! \cdot \dprod_{i=16}^k \ge 15!\cdot 2^4 = 15!\cdot 2^{4(k-15)}
+	\]
+	and we have $15!=7!\cdot 8\cdot\cdots\cdot 15 > 5040\cdot 8^8 > 2^12\cdot 8^8=2^36$ so we in fact have $k! > 2^{4(k-15) + 36} = 2^{4(k-6)}$. 
+	This means, $2^{4(k-6)} < k! \le 2^{n^2 - 1}$ and therefore $4(k-6)< n^2-1$. 
+	But then $k \ge \frac{n(n-1)}{2} + 1$ so 
+	\[
+	4(\frac{n(n-1)}{2} + 1 - 6) \le 4(k-6)< n^2-1
+	\]
+	Or rather, $2n(n-1)-20 < n^2-1$ or $n^2-2n = n(n-2) < 19$. Since $n(n-2)$ is an increasing functin and when $n=7$ we have $7(5)=35>19$, this inequality is false for $n\ge 7$. 
+	
+	We therefore only need to consider $n\le 6$. When $n\ge 5$, the factor 31 is present on the right hand side (via $2^n-2^{n-5}=2^{n-5}(2^5-1)$) and 31 is prime, so $k\ge 31$ here. This means 
+	$100=4(31-6) < n^2-1$, which is only true when $n\ge 11$ so this case is eliminated. 
+	To consider the rest manually: 
+	\begin{itemize}
+		\item $n=1$ gives $1=1!$ and $n=2$ gives $2\times 3=6=3!$. 
+		\item $n=3$ gives $7\times 6\times 4=168$ which lies strictly between $5!=120$ and $6!=720$. 
+		\item $n=4$ gives $15\times 14\times 12\times 8=20160$ which lies strictly between $7!=5040$ and $8!=40320$. 
+	\end{itemize}
+	Hence only $n=1, 2$ work. 
+	
+	\item The Bank of Bath issues coins with an $H$ on one side and a $T$ on the other. Harry has $n$ of these coins arranged in a line from left to right. He repeatedly performs the following operation: if there are exactly $k>0$ coins showing $H$, then he turns over the $k$th coin from the left; otherwise, all coins show $T$ and he stops. For example, if $n=3$ the process starting with the configuration $THT$ would be $THT \to HHT  \to HTT \to TTT$, which stops after three operations.
+	
+	(a) Show that, for each initial configuration, Harry stops after a finite number of operations.
+	
+	(b) For each initial configuration $C$, let $L(C)$ be the number of operations before Harry stops. For example, $L(THT) = 3$ and $L(TTT) = 0$. Determine the average value of $L(C)$ over all $2^n$ possible initial configurations $C$.
+	
+	\textbf{Answer.} The expected value, $E(L(C))=\frac{n(n+1)}{4}$. \\
+	\textbf{Solution.} Let's induce on $n$ and denote $f(n)$ as the answer for $n$. It's obvious that when $n=1$, $E(C)=\frac{0+1}{2}=\frac 12$, corresponding to the configuration $T$ and $H$, respectively. We'll show that $f(n+1)=f(n)+\frac{n+1}{2}$ which completes the solution. 
+	For clarity sake, denote $op(C)$ as the configuration by applying the operation on $C$. 
+	
+	Let $A_0$ be the set of sequence of $n+1$ coins ending on a $T$, and $A_1$ be the set of sequence of $n+1$ coins ending on a $H$. Also, for each set $S$ of sequences of coins let $L(S)$ be the expected value of number of operations needed (that is, $L(S)=\frac{1}{|S|}\dsum_{C\in S}L(C)$). 
+	We have the relation $f(n+1)=\frac{L(A_0)+L(A_1)}{2}$ since $A_0$ and $A_1$ have the same size, each being $2^n$. 
+	
+	Let $B_0$ be the set of sequence of $n$ coins. We first define a mapping $\gamma$ from $A_0$ to $B_0$ as follows: for each $C\in A_0$, let $C'$ be the sequence in $B_0$ that is $C$ with the last $T$ removed. Then $\gamma(C)=C'$. This mapping is clearly bijective. We claim that $\gamma(op(C))=op(\gamma(C))$ if $C$ has at least a head. Notice that $C$ and $C'$ each has the same number of heads, say $k$, so in the operation, the $k$-th coin from the left in each $C$ and $C'=\gamma(C)$ are flipped. 
+	Since the first $n$ coins of $C$ and $\gamma(C)$ are the same, so are the first $n$ coins of $op(C)$ and $op(\gamma(C))$. Since $k\le n$, the last tail of $C$ is not flipped in getting into $op(C)$, hence $\gamma(C)=op(\gamma(C))$. 
+	Continuing this iteration, we find that $L(C)=L(C')$ and therefore aggregating this for all configurations $C\in A_0$ we have $L(A_0)=L(B_0)=f(n)$. 
+	
+	Computing $L(A_1)$ is trickier. Again, define a mapping $\sigma$ from $A_1$ to $B_0$ such that for each $C$ in $A_1$, $\sigma(C)$ is obtainly by the following algorithm: take $C$, drop the last $H$, invert the coin sequence and flip all the coins (formally, $\sigma(s_0s_1\cdots s_{n-1}H)=\ol{s_{n-1}\cdots s_1s_0}$ where $\ol{H}=T$ and $\ol{T}=H$). 
+	Again this mapping is bijective. 
+	We claim that if $C$ has at least a tail, then $\sigma(op(C))=op(\sigma(C))$. 
+	Let $1\le k\le n$ be the number of heads in $C$, and let $C=s_0s_1\cdots s_{n-1}H$. 
+	Then $op(C)=s_0\cdots \ol{s_{k-1}}s_k\cdots s_{n-1}H$. 
+	Excluding the last head, $C$ actually has $k-1$ heads and $n-k+1$ tails, which means that $\sigma(C)=\ol{s_{n-1}\cdots s_1s_0}$ has $n-k+1$ heads and $k-1$ tails, which means that $op(\sigma(C))=\ol{s_{n-1}\cdots\ol{s_{k-1}}\cdots s_1s_0}=\ol{s_{n-1}\cdots}s_{k-1}\ol{\cdots s_1s_0}$, which establishes that $\sigma(op(C))=op(\sigma(C))$. 
+	If $m$ is the number operations needed for $\sigma(C)$ to reach all $T$, $op^{m}(\sigma(C))=TT\cdots T$ and from above we can deduce that $op^{m}(\sigma(C))=\sigma(op^{m}(C))=TT\cdots T$, we have $op^{m}(C)=HH\cdots H$ (i.e. $n+1$ $H$'s). 
+	It's now not hard to see that the subsequent moves on $op^{m}(C)$ are to flip the rightmost possible $H$, and there are $n+1$ of them, hence $L(C)=m+n+1=L(\sigma(C))+n+1$. 
+	Aggregating this over all $C$ in $A_1$ we get $L(A_1)=L(B_0)+n+1=f(n)+n+1$. 
+	
+	Summarizing above we have $f(n+1)=\frac{L(A_0)+L(A_1)}{2}=\frac{f(n)+f(n)+n+1}{2}=f(n)+\frac{n+1}{2}$, as desired. 
+	
+	\item Let $I$ be the incentre of acute triangle $ABC$ with $AB\neq AC$. The incircle $\omega$ of $ABC$ is tangent to sides $BC, CA$, and $AB$ at $D, E,$ and $F$, respectively. The line through $D$ perpendicular to $EF$ meets $\omega$ at $R$. Line $AR$ meets $\omega$ again at $P$. The circumcircles of triangle $PCE$ and $PBF$ meet again at $Q$.
+	
+	Prove that lines $DI$ and $PQ$ meet on the line through $A$ perpendicular to $AI$.
+	
+	\textbf{Solution.} (Reproduced from AoPS) Here's a solution using inversion and trigonometric bashing: by inverting in $\omega$ we turn the problem into the follows: keep $A, D, E, F, P$ as they are, $A_1, B_1, C_1$ as midpoints of $EF, DF, DE$. Let the circumcircles of triangles $PC_1E$ and $PB_1F$ meet again on $Q_1$. Let $\gamma$ be the circle with diameter $A_1I$. Prove that the second intersection of circumcircle of $PQ_1I$ and line $DI$ (or $I$ if tangent) meet on $\gamma$. The last statement (to prove) is the same as proving that the radical axis of $\gamma$, circumcircles of triangles $PC_1E$ and $PB_1F$ lie on line $DI$. Equivalently, the radical axis of $PC_1E$ and $\gamma$, and the radical axis of $PB_1F$ and $\gamma$ concur on $DI$. This last statement is our focus. W.L.O.G. assume $AB<AC$, so $DF<DE$ too and we know $DEF$ is acute. In this setting (details skipped), $P$ will lie on minor arc $DF$, and in particular $P, D, F$ are different points.
+	
+	We need to identify those radical axes, and for each of them it's defined based on two points. We first focus on finding the radical axis of $PB_1F$ and $\gamma$. We need the following lemma:
+	
+	Lemma: $A$ is on the radical axis of $\omega$ and $\gamma$.\\
+	Proof: The power of point of $A$ to $\omega$ is $AE=AF$; to $\gamma$ is $AA_1\cdot AI$. But then $AA_1\perp EF$ and $\angle AFI=90^{\circ}$, the conclusion follows by similarity of triangles. This means the radical axis is actually line through $A$ perpendicular to $AA_1$ (parallel to $EF$, in other words), let's name it $\ell$.
+	
+	Consider, now, the circles $PB_1F$, $\gamma$ and $\omega$. The radical axis of $\omega$ and $\gamma$ has been established above; the one for $\omega$ and $PB_1F$ is $PF$, so one such point must be $X=\ell\cap PF$. Consider, now, the circles $PB_1F$, $\gamma$ and the circle $B_1FA_1I$ (the four points are concylic bcz $\angle FB_1I=\angle FA_1I$). The radical axis of $\gamma$ and $B_1FA_1I$ is $A_1I$; the one for $PB_1F$ and $B_1FA_1I$ is $B_1F$ which is $DF$. Thus $M=DF\cap A_1I$ is the radical centre of the three circles, hence on the radical axis of $\gamma$ and $PB_1F$. The radical axis, therefore, is $XM$ (we need to be careful in showing $X\neq M$; suppose $X=M$, then the fact that both pass through $F$ via $FP$ and $FD$ and that $F, D, P$ are not collinear because they are different point on $\omega$ means $X=M=F$. But the power of point of $F$ to $FPB_1$ is 0 while to $\gamma$ is $A_1F\neq 0$, assuming nondegenerate here).
+	In a similar fashion, if $Y=\ell\cap PE$ and $N=DE\cap A_1I$ then $YN$ is the radical axis of $\gamma$ and $PC_1E$.
+	
+	We are left with proving that $YN, XM, DI$ are concurrent, which we will use bashing (trigonometric) here! Extend line $MFD$ to meet $\ell$ at $X_1$ and $NED$ to meet $\ell$ at $Y_1$. We now have $MF>DF$ and $NE<DE$ According to our assumption, $X$ will be between $P$ and $X_1$ and $MX$ will be in the angle domain of $\angle AMX_1$. So goes to segment $DI$ so $MX$ will intersect segment $DI$ (and not anything outside). Similarly, $Y_1$ will be between $A$ and $Y$, which also means $NY$ is outside angle domain $\angle ANY_1$. But then segment $DI$ won't be on the angle domain either so $YN$ intersects $DI$ in its segment. These realization are here to free us from using signed convention later (well we could but I am lazy now).
+	
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+\clip(-10.971232482661602,-5.9877742343874925) rectangle (1.8020795587887677,8.162301979195165);
+\draw [line width=2pt] (-3.175194024761697,0.6174435442270204) circle (2.5239023008529298cm);
+\draw [line width=2pt] (-3.2875970123808482,1.4537217721135103) circle (0.8437983799834406cm);
+\draw [line width=2pt] (-3.6780175212591555,4.358450358168106)-- (-5.26,2.04);
+\draw [line width=2pt] (-3.6780175212591555,4.358450358168106)-- (-1.54,2.54);
+\draw [line width=2pt] (-5.309949062990211,4.139104720838663)-- (1.0636561864489869,4.9957720930751135);
+\draw [line width=2pt] (-5.309949062990211,4.139104720838663)-- (-5.189978087598803,-0.9026643481241512);
+\draw [line width=2pt] (-5.189978087598803,-0.9026643481241512)-- (1.0636561864489869,4.9957720930751135);
+\draw [line width=2pt] (-5.26,2.04)-- (-2.602099088136349,-3.646382784265583);
+\draw [line width=2pt] (-3.4209726555438467,-1.8944632392547163)-- (-1.54,2.54);
+\draw [line width=2pt] (-3.4,2.29)-- (-2.602099088136349,-3.646382784265583);
+\draw [line width=2pt] (-5.26,2.04)-- (-1.54,2.54);
+\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-3.175194024761697,0.6174435442270204)-- (-3.4209726555438467,-1.8944632392547163);
+\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-5.309949062990211,4.139104720838663)-- (-2.602099088136349,-3.646382784265583);
+\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-3.374966370957255,-1.424269805561595)-- (1.0636561864489869,4.9957720930751135);
+\begin{scriptsize}
+\draw [fill=black] (-5.26,2.04) circle (2.5pt);
+\draw[color=black] (-5.100863026486058,2.4544671822297284) node {$F$};
+\draw [fill=black] (-1.54,2.54) circle (2.5pt);
+\draw[color=black] (-1.391248451573825,2.9516320221664163) node {$E$};
+\draw [fill=black] (-3.4209726555438467,-1.8944632392547163) circle (2.5pt);
+\draw[color=black] (-3.265177463642891,-1.4846080880378763) node {$D$};
+\draw [fill=uuuuuu] (-3.6780175212591555,4.358450358168106) circle (2pt);
+\draw[color=uuuuuu] (-3.5328816082241863,4.729952411170723) node {$A$};
+\draw [fill=uuuuuu] (-3.4,2.29) circle (2pt);
+\draw[color=uuuuuu] (-3.1886905651910924,2.722171326811022) node {$A_1$};
+\draw [fill=uuuuuu] (-4.340486327771924,0.07276838037264188) circle (2pt);
+\draw[color=uuuuuu] (-4.125655071225626,0.5040512717088756) node {$B_1$};
+\draw [fill=uuuuuu] (-2.4804863277719233,0.3227683803726419) circle (2pt);
+\draw[color=uuuuuu] (-2.270847783769509,0.7526336916772196) node {$C_1$};
+\draw [fill=uuuuuu] (-3.175194024761697,0.6174435442270204) circle (2pt);
+\draw[color=uuuuuu] (-3.0165950436745455,0.9820943870326141) node {$I$};
+\draw [fill=uuuuuu] (-4.0755114192899775,2.9753051630164946) circle (2pt);
+\draw[color=uuuuuu] (-3.9153161004831794,3.3531882390383565) node {$R$};
+\draw [fill=uuuuuu] (-5.189978087598803,-0.9026643481241512) circle (2pt);
+\draw[color=uuuuuu] (-5.043497852647209,-0.5285218573903994) node {$P$};
+\draw [fill=uuuuuu] (-5.309949062990211,4.139104720838663) circle (2pt);
+\draw[color=uuuuuu] (-5.158228200324907,4.519613440428278) node {$X$};
+\draw [fill=uuuuuu] (1.0636561864489869,4.9957720930751135) circle (2pt);
+\draw[color=uuuuuu] (1.2093060957873283,5.360969323398058) node {$Y$};
+\draw [fill=uuuuuu] (-2.602099088136349,-3.646382784265583) circle (2pt);
+\draw[color=uuuuuu] (-2.442943305286056,-3.2820502016551325) node {$M$};
+\draw [fill=uuuuuu] (-2.977953185105246,-0.8500283028169765) circle (2pt);
+\draw[color=uuuuuu] (-2.825377797545049,-0.4711566835515508) node {$N$};
+\draw[color=black] (-2.0222653638011634,4.500491715815329) node {$l$};
+\end{scriptsize}
+\end{tikzpicture}
+	
+	Now a not-so-well-known trigonometric identity says that considering the triangle $AFX_1$ and the cevian $FX$ we get $\frac{AX}{XX_1}=\frac{AF}{FX_1}\cdot \frac{\sin\angle AFX}{\sin\angle XFX_1}$. Considering the triangle $AMX_1$ and cevian $MX$ we get $\frac{AX}{XX_1}=\frac{AM}{MX_1}\cdot \frac{\sin\angle AMX}{\sin\angle XMX_1}$. Finally, if $MX$ intersects $DI$ at $Z_1$, considering triangle $MDI$ and the cevian $MZ_1$ we get, $\frac{IZ_1}{Z_1D}=\frac{MI}{MD}\cdot \frac{\sin\angle AMX}{\sin\angle XMX_1}$. Thus we have
+	\[
+	\frac{IZ_1}{Z_1D}=\frac{MI}{MD}\cdot \frac{\sin\angle AMX}{\sin\angle XMX_1}
+	=\frac{MI}{MD}\cdot \frac{AX}{XX_1}\div \frac{AM}{MX_1}
+	=\frac{MI}{MD}\frac{AF}{FX_1}\cdot \frac{\sin\angle AFX}{\sin\angle XFX_1}\div \frac{AM}{MX_1}
+	\]and similarly if $NY$ intersects $DI$ at $Z_2$ we get
+	\[
+	\frac{IZ_2}{Z_2D}
+	=\frac{NI}{ND}\frac{AE}{EY_1}\cdot \frac{\sin\angle AEY}{\sin\angle YEY_1}\div \frac{AN}{NY_1}
+	\]so we need to prove the two ratios are equal (and this would be sufficient since we know that $Z_1$ and $Z_2$ are both on segment $DI$, i.e.
+	\[
+	\frac{MI}{MD}\frac{AF}{FX_1}\cdot \frac{\sin\angle AFX}{\sin\angle XFX_1}\div \frac{AM}{MX_1}
+	=\frac{NI}{ND}\frac{AE}{EY_1}\cdot \frac{\sin\angle AEY}{\sin\angle YEY_1}\div \frac{AN}{NY_1}
+	\]First, notice that $AF=AE$, so these can be cancelled out. Next, $\angle AFX=\angle FEP$ and $\angle AEY=\angle EFP$, but then by sine rule $\sin\angle FEP/\sin\angle EFP=FP/EP$. These two angles are on numerators of two different sides so they can be replaces with $FP$ and $EP$, respectively. Then, $\angle XFX_1=\angle FPD=\angle PED = \angle YEY_1$, again can be cancelled.
+	Also, since $\ell\parallel EF$ we have $FX_1/EY_1=DF/DE$.
+	Thus we now need to check the following:
+	\[
+	\frac{MI}{MD}\frac{1}{DF}\cdot \frac{FP}{1}\div \frac{AM}{MX_1}
+	=(?)\frac{NI}{ND}\frac{1}{DE}\cdot \frac{EP}{1}\div \frac{AN}{NY_1}
+	\]Next, $AM/MX_1$ is actually $\cos \angle AMX_1=\sin \angle DFA_1=\sin\angle DFE$ and similarly $AN/NY_1=\sin \angle DEA_1=\sin\angle DEF$ (notice the implicit use of the fact that $A_1I\perp EF$ and $A_1I\perp XY=\ell$. But then by sine rule $\sin\angle DFE/\sin\angle DEF=DE/DF$. Thus we have the equation to prove above becomes the following:
+	\[
+	\frac{MI}{MD}\frac{1}{DF}\cdot \frac{FP}{1}\div DE
+	=(?)\frac{NI}{ND}\frac{1}{DE}\cdot \frac{EP}{1}\div DF
+	\]so now it suffices to show that
+	\[
+	\frac{MI}{MD}\cdot FP
+	=(?)\frac{NI}{ND}\cdot EP
+	\]Using sine rule again, $\frac{MI}{MD}=\frac{\sin\angle MDI}{\sin\angle MID}$ and $\frac{NI}{ND}=\frac{\sin\angle NDI}{\sin\angle NID}$. But then both $\angle MID$ and $\angle NID$ are angle between $DI$ and $IM$ so they must be either equal or supplementary, hence having equal since. We now reduce everything to the following: $\sin\angle MDI\cdot FP=(?)\sin\angle NDI\cdot EP$.
+	But now, $\sin\angle MDI=\sin\angle IDF$ and notice that $\angle IDF=90^{\circ}-\angle DEF=\angle EDR=\angle EFR$ so $\sin\angle MDI=\angle EFR$ and $\sin\angle NDI=\sin\angle FER$ for the similar reason. But then $\sin\angle EFR/\sin\angle FER = ER/FR$ so we are left with proving that $ER\cdot FP=FR/cdot EP$. But this follows from the fact that $PEFR$ is a harmonic quadrilateral!
+\end{enumerate}
+
+\end{document}
