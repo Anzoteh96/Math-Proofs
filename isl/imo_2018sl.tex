@@ -1,0 +1,450 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{{\mathbb N}}
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bbQ}{{\mathbb Q}}
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\bbH}{{\mathbb H}}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\powset}{\mathcal{P}}
+\newcommand{\dsum}{\displaystyle\sum}
+
+
+\title{Solution to IMO 2018 shortlisted problems.}
+\author{Anzo Teh}
+\date{\today}
+\maketitle
+
+\textbf{Preface}: It's coronavirus lockdown period, and I'm bored. Hence this project. 
+
+\newpage
+\section*{Algebra}
+\begin{enumerate}
+	\item [\textbf{A1}] Let $\mathbb{Q}_{>0}$ denote the set of all positive rational numbers. Determine all functions $f:\mathbb{Q}_{>0}\to \mathbb{Q}_{>0}$ satisfying $$f(x^2f(y)^2)=f(x)^2f(y)$$for all $x,y\in\mathbb{Q}_{>0}$. 
+	
+	\textbf{Answer.} The only function is the constant function $f(x)=1$. \\
+	\textbf{Solution.} It's not hard to see that the aforementioned function works, so let's show that it's the only working function. 
+	Substituting $x=\frac{1}{f(y)}$ gives $f(1)=f(\frac{1}{f(y)})^2f(y)$ and substituting $y=1$ gives $f(\frac{1}{f(1)})^2=1$ (since all function values are positive, hence nonzero), and therefore $f(\frac{1}{f(1)})=1$. 
+	This means there's a value $c_0$ such that $f(c_0)=1$. Therefore plugging $y=c_0$, we get $f(x^2)=f(x)^2$ for all $x$, and this gives 
+	\[
+	f(x)^2f(y)=f(x^2f(y)^2)=f((xf(y))^2)=f(xf(y))^2
+	\]
+	and since both $f(xf(y))^2$ and $f(x)^2$ are squares of positive rationals, $f(y)$ is also a square of positive rationals for all $y$. 
+	
+	Now suppose that $f(x)\neq 1$ for some $x$. Then there is a maximum positive integer $n$ such that for all $x\in\mathbb{Q}^+$, $f(x)$ is a $2^n$-th power of a rational. 
+	This means for all $y\in\mathbb{Q}^+$, 
+	\[
+	f(y)=\frac{f(xf(y))^2}{f(x)^2}
+	\]
+	is a square of the $2^n$-th power of a rational number. This gives $f(y)$ as a $2^{n+1}$-th power of a rational, contradiction. 
+	
+	\item [\textbf{A2}] (IMO 2) Find all integers $n \geq 3$ for which there exist real numbers $a_1, a_2, \dots a_{n + 2}$ satisfying $a_{n + 1} = a_1$, $a_{n + 2} = a_2$ and
+	$$a_ia_{i + 1} + 1 = a_{i + 2},$$for $i = 1, 2, \dots, n$.
+	
+	\textbf{Answer.} All $n$ that are multiples of 3. \\
+	\textbf{Solution.} (Paraphrased and copy-pasted from my solution on AoPS). 
+	For $3\mid n$ we have the construction that's a repetition of $(2, -1, -1)$. 
+	For the rest of the solutions we visualize the numbers on a circle. 
+	We'll now eliminate the following cases: 
+	
+	Case $a_i=0$ for some $i$; by the cyclic condition above we may assume that $a_1=0$. 
+	Then we must have $a_2=a_3=1$ and $a_4=2$, etc. Now some inductive statement shows that if $a_i, a_{i+1}>0$ then $a_{i+2}>0$, and we also have $a_2>0$ too. Hence $a_i>0$ for all $i>0$, including when $i=n+1$, contradiction.
+	
+	Case consecutive positive numbers. That is, $a_i, a_{i+1}>0$ for some $i$. Again here we consider indices mod $n$. Now $a_{i+2}>1$, and therefore $a_{i+3}>1$. Subsequently, we have $a_{i+4}=a{i+2}a{i+3}+1>a{i+2}a{i+3}\ge a{i+3}\ge 1$, which shows that this sequence is actually increasing after $a_{i+3}$. This cannot happen since the sequence of real numbers are on a circle.
+	
+	This therefore imply that between any two positive numbers there must be at least one negative number; if $a_{i}, a_{i+1}<0$ then $a_{i+2}=a_{i}a_{i+1}+1>1$, so there must be at most two negative numbers between any two consecutive positive numbers. As the goal is to show that there are exactly two negative numbers between any two consecutive positive numbers, it suffices to show that the configuration $+-+$ cannot happen. To do this we do 'backtracking', i.e. consider $a_i, a_{i-1}, a_{i-2}$, etc, given the circular structure of our sequence.
+	
+	Now suppose that $a_{i+2}>0$ and $a_{i+1}<0$ and $a_i>0$. We first see that $a_ia_{i+1}<0$ so $a_{i+2}<1$. Also $a_{i+3}<0$ by the ''no consecutive positive'' lemma we established in the beginning. This means, $a_{i+1}a_{i+2}<-1$ and with $a_{i+2}<1$ (comparing modulus) we get $a_{i+1}<-1$, actually. Now that $a_i=\frac{a_{i+2}-1}{a_{i+1}}$ with $|a_{i+2}-1|<1$ (since $0<a_{i+2}<1$) and $|a_{i+1}|>1$ as proven we have $|a_i|<1$; combining this with $a_i>0$ we get $0<a_i<1$. Going a bit further, $a_{i-1}=\frac{a_{i+1}-1}{a_{i}}$; $a_{i+1}<0$ so $|a_{i+1}-1|=|a_{i+1}|+1$; and $0<a_i<1$ so $|a_{i-1}|=\frac{|a_{i+1}-1|}{|a_{i}|}>|a_{i+1}|+1$, and bear in mind that $a_{i-1}<0$ here. Therefore $a_{i-1} <a_{i+1}-1$, i.e. getting more negative. Continuing this backtracking process, we see that the numbers must be alternating in sign, with positive numbers bounded above by 1, and negative numbers given by $a_{i-1} <a_{i+1}-1$ whenever both numbers are negative. This cannot happen on a circle, reaching our contradiction.
+	
+	\item [\textbf{A3}] 
+	Given any set $S$ of postive integers, show that at least one of the following two assertions holds:
+	
+	(1) There exist distinct finite subsets $F$ and $G$ of $S$ such that $\sum_{x\in F}1/x=\sum_{x\in G}1/x$;
+	
+	(2) There exists a positive rational number $r<1$ such that $\sum_{x\in F}1/x\neq r$ for all finite subsets $F$ of $S$.
+	
+	\textbf{Solution.} Suppose that there exists a set $S$ such that bpth (1) and (2) fail. That is, finite subset sums are pairwise distinct (or injective, if you like), and for each $r<1$ there's finite $F$ with $\sum_{x\in F}1/x=r$. 
+	This second contrapositive can be extended to include $r=0$ as all we need is the empty set. 
+	This $S$ is infinite because there are at most $2^n$ subset sums that can be attained by a set of size $n$ and there are infinitely many positive rational numbers $r<1$. Since $S\subseteq\bbN$, it's countable so we can enumerate $S\backslash\{1\}$ as $\{a_1<a_2<a_3<\cdots\}$. 
+	
+	Denote $s(F)$ as $\dsum_{x\in F}\frac 1x$, and $t(F)=\{s(G): G\subseteq F\}$
+	Given that for all $r<\frac{1}{a_1}$ there is $F$ such that $s(F)=r$, such $F$ must not contain $a_1$ (here, $a_1>1$). 
+	Thus $\{r\in\bbQ^+: r<\frac{1}{a_1}\}\subseteq t(S\backslash\{1, a_1\})$. 
+	Now consider the sum $s(S\backslash\{1, a_1\})$. If this diverges, or is $>\frac{1}{a_1}$, then we can choose $N$ (minimal possible) such that 
+	\[
+	s(\{a_2, \cdots , a_N\})=\dsum_{i=2}^N \frac{1}{a_i}\ge \frac{1}{a_1}
+	\]
+	and by the minimality of $N$, $s(\{a_2, \cdots , a_N\})<\frac{1}{a_N}+\frac{1}{a_1}<\frac{2}{a_1}$. 
+	Therefore $0\le s(\{a_2, \cdots , a_N\}) - \frac{1}{a_1}<\frac 1{a_1}$. 
+	By assumption, there's a finite set $F_0\subseteq \{a_2, a_3, \cdots\}$ with $s(F_0)=s(\{a_2, \cdots , a_N\})-\frac{1}{a_1}$, so $s(F_0\cup \{a_1\})=s(\{a_2, \cdots , a_N\})$. 
+	But $F_0\cup \{a_1\}\neq \{a_2, \cdots , a_N\}$ as one contains $a_1$ while ther other does not, contradiction. 
+	Therefore, $s(S\backslash\{1, a_1\})\le \frac{1}{a_1}$ and since $t(S\backslash\{1, a_1\})\supseteq\{r\in\bbQ: r<\frac{1}{a_1}\}$, equality must hold, and so $s(S\backslash\{1, a_1\})= \frac{1}{a_1}$. 
+	This means $s(S\backslash\{1\})= \frac{1}{a_1}+\frac{1}{a_1}=\frac{2}{a_1}\le \frac{2}{2}=1$ (as $a_1\ge 1$). 
+	But then we have 
+	\[
+	t(S\backslash\{1\})\supseteq \{r\in\bbQ: r<1\}
+	\]
+	(a set that includes 1 cannot have reciprocal sum less than 1), we have $a_1=2$ and consequently 
+	\[
+	s(S\backslash\{1, a_1\})=s(S\backslash\{1, 2\})=\frac 12
+	\]
+	Now, we repeat the above for $a_2$, and the same logic can be applied to get 
+	\[
+	s(S\backslash\{1, a_1, a_2\})=\frac{1}{a_2}=s(S\backslash\{1, a_1\})-\frac{1}{a_2}=\frac 12-\frac{1}{a_2}
+	\]
+	which means $a_2=4$. Continuing this, we get $a_i=2^i$ for all $i\ge 1$. 
+	But then for finite $F$, the denominator of $s(F)$ is a power of 2 in this case, contradiction. 
+\end{enumerate}
+
+\section*{Combinatorics}
+\begin{enumerate}
+	\item[\textbf{C1}] Let $n\geqslant 3$ be an integer. Prove that there exists a set $S$ of $2n$ positive integers satisfying the following property: For every $m=2,3,...,n$ the set $S$ can be partitioned into two subsets with equal sums of elements, with one of subsets of cardinality $m$.
+	
+	\textbf{Solution.} 
+	We use the following: 
+	\[
+	\{2\cdot 3^{n-1}, 3^{n-1}, 2\cdot 3^{n-2}, 3^{n-2}, \cdots , 2\cdot 3, 3, a, b\}
+	\]
+	where $a$ and $b$ are simply any pair of numbers such that the sum of the set is $2\cdot 3^n$. This is possible because the first $2(n-1)$ elements have sum 
+	\[
+	3^n+3^{n-1}+\cdots + 3^2 = 3^2(\frac{3^{n-1}-1}{3-1})=\frac{3\cdot 3^{n}-9}{2}<2\cdot 3^n
+	\]
+	(To avoid $a, b$ being the same as any other elements in the set we could just take $a, b$ both not divisible by 3). 
+	A set with $m$ elements can be taken as: 
+	\[
+	\{2\cdot 3^{n-1}, 2\cdot 3^{n-2}, \cdots , 2\cdot 3^{n-m+1}, 3^{n-m+1}\}
+	\]
+	which all has sum $3^n$. 
+	
+	\item[\textbf{C3}]Let $n$ be a given positive integer. Sisyphus performs a sequence of turns on a board consisting of $n + 1$ squares in a row, numbered $0$ to $n$ from left to right. Initially, $n$ stones are put into square $0$, and the other squares are empty. At every turn, Sisyphus chooses any nonempty square, say with $k$ stones, takes one of these stones and moves it to the right by at most $k$ squares (the stone should say within the board). Sisyphus' aim is to move all $n$ stones to square $n$.
+	Prove that Sisyphus cannot reach the aim in less than
+	\[ \left \lceil \frac{n}{1} \right \rceil + \left \lceil \frac{n}{2} \right \rceil + \left \lceil \frac{n}{3} \right \rceil + \dots + \left \lceil \frac{n}{n} \right \rceil \]turns. (As usual, $\lceil x \rceil$ stands for the least integer not smaller than $x$. )
+	
+	\textbf{Solution.} Label the stones as $1, 2, \cdots , n$. At each turn, all it matters is the square where a stone is chosen to be thrown (and not a particular stone from that square). 
+	Therefore we can assume that at each turn when a particular square is chosen, the stone with the largest label in the square is chosen to be moved. If the square has $k$ stones, then the stone with largest label has at label at least $k$ but it can only be moved at most $k$ steps. We then conclude that for each stone with label $i$, it can only be moved by at most $i$ steps to the right. 
+	
+	Thus we conclude that $ \left \lceil \frac{n}{i} \right \rceil$ steps is required to move stone labelled $i$ from 0 to $n$, and summing up gives the inequality. 
+\end{enumerate}
+
+\section*{Geometry}
+\begin{enumerate}
+	\item[\textbf{G1}] (IMO 1) Let $\Gamma$ be the circumcircle of acute triangle $ABC$. Points $D$ and $E$ are on segments $AB$ and $AC$ respectively such that $AD = AE$. The perpendicular bisectors of $BD$ and $CE$ intersect minor arcs $AB$ and $AC$ of $\Gamma$ at points $F$ and $G$ respectively. Prove that lines $DE$ and $FG$ are either parallel or they are the same line.
+	
+	\textbf{Solution.} 
+	(Paraphrased from my post on AoPS). 
+	Skipping angle-chasing algebra here, it suffices to show that $\angle AFD=\angle AGE$. We first show that these two angles must be at most $90^{\circ}$. To begin with, the fact that $D$ lies on line segment $AB$ means that $\angle AFD\le \angle AFB=180^{\circ}-\angle ACB$, so we may assume that $\angle ACB<90^{\circ}$. Next, we have $BF=FD$ (by the definition of perpendicular bisector), and $\angle FBA\le angle ACB$ (think of the angle subtended by $AB$ and angle subtended by $AF$). This gives $\angle BFD\ge 180^{\circ}-2\angle ACB$ and thus $\angle AFD\le \angle ACB\le 90^{\circ}$. Similarly $\angle AGE\le 90^{\circ}$. Now that the $\sin$ function is injective in $[0, 90^{\circ}]$, it's enough to prove that $\sin\angle AFD=\sin\angle AGE$. This isn't hard either: by sine rule we have
+	\[\frac{\sin\angle AFD}{AD}=\frac{\sin\angle FAD}{FD}=\frac{\sin\angle FAB}{FB}=\frac{\sin\angle GAC}{GC}=\frac{\sin\angle GAE}{GE}=\frac{\sin\angle AGE}{AE}\]where the desired equality follows from that $AD=AE$. (Notice the implicit use of the facts $FD=FB, GC=GE$, and $\frac{\sin\angle FAB}{FB}=\frac{\sin\angle GAC}{GC}$ follows from that $FB$ and $GC$ are chords of the same circle. 
+	
+	\item [\textbf{G2}] Let $ABC$ be a triangle with $AB=AC$, and let $M$ be the midpoint of $BC$. Let $P$ be a point such that $PB<PC$ and $PA$ is parallel to $BC$. Let $X$ and $Y$ be points on the lines $PB$ and $PC$, respectively, so that $B$ lies on the segment $PX$, $C$ lies on the segment $PY$, and $\angle PXM=\angle PYM$. Prove that the quadrilateral $APXY$ is cyclic.
+	
+	\textbf{Solution.} Consider the circumcircle $\Gamma$ of $PXY$, and consider the antipode $D$ of $P$ w.r.t. $\Gamma$. Consider $A_1$ as the second intersection of $DM$ and $\Gamma$. We'll show that $A=A_1$. 
+	
+	Let's first see how would $A$ be defined if only $P, X, Y, M$ are given: we have $BM=MC$ so $PM$ is the median line to $BC$. With $AP\parallel BC$, the lines $(PA, PM; PB, PC)$ is a harmonic bundle. 
+	Therefore the line $PA$ can be constructed this way, and also $PA\perp AM$ since $PA\parallel BC$ and $AM \perp BC$. Therefore all it remains to show is that $(PA_1, PM; PB, PC)$ is harmonic bundle, and that $PA_1\perp A_1M$, The second relation $PA_1\perp A_1M$, or equivalently $\angle PA_1M=90^{\circ}$, follows from that $PM$ is the antipode of $\Gamma$ so we're left with showing $(PA_1, PM; PB, PC)$ is harmonic bundle. 
+	
+	Using directed angles, $\angle (A_1P, PX)=\angle (A_1D, DX)$ and $\angle(A_1P, PY)=\angle(A_1D, DY)$. Using the relation $\angle PXM=\angle PYM$, and $\angle PXD=\angle PYD=90^{\circ}$, we have $\angle MXD=\angle MYD$. 
+	We also have the relation (consider the concurrent lines $DM, MX, MY$ and the triangle $DXY$)
+	\begin{flalign*}
+	1&=\frac{\sin\angle XDM}{\sin\angle YDM}
+	\cdot\frac{\sin\angle DYM}{\sin\angle XYM}
+	\cdot\frac{\sin\angle MXY}{\sin\angle MXD}
+	\\&=\frac{\sin\angle XDM}{\sin\angle YDM}
+	\cdot\frac{\sin\angle MYD}{\sin\angle MXD}
+	\cdot\frac{\sin\angle MXY}{\sin\angle XYM}
+	\\&=\frac{\sin\angle XDM}{\sin\angle YDM}
+	\cdot\frac{\sin\angle MXY}{\sin\angle MYX}
+	\end{flalign*}
+	due to Ceva
+	because $\angle MYD=\angle MXD$. By looking at point $M$ and triangle $PXY$ we also have 
+	\begin{flalign*}
+	1&=\frac{\sin\angle MXY}{\sin\angle MYX}
+	\cdot\frac{\sin\angle MYP}{\sin\angle YPM}
+	\cdot\frac{\sin\angle XPM}{\sin\angle PXM}
+	\\&=\frac{\sin\angle MXY}{\sin\angle MYX}
+	\cdot\frac{\sin\angle XPM}{\sin\angle YPM}
+	\end{flalign*}
+	because $\angle MYP=\angle PXM$. Thus considering the two equations give 
+	\[
+	\frac{\sin\angle XDM}{\sin\angle YDM}=\frac{\sin\angle XPM}{\sin\angle YPM}
+	\]
+	and by the earlier directed angle identity 
+	\[
+	\frac{\sin\angle XPA_1}{\sin\angle YPA_1}
+	=\frac{\sin\angle XDM}{\sin\angle YDM}=\frac{\sin\angle XPM}{\sin\angle YPM}
+	\]
+	which then show that $(PA_1, PM; PX, PY)$ is a harmonic bundle. 
+	
+	\item[\textbf{G6}] (IMO 6) A convex quadrilateral $ABCD$ satisfies $AB\cdot CD = BC\cdot DA$. Point $X$ lies inside $ABCD$ so that \[\angle{XAB} = \angle{XCD}\quad\,\,\text{and}\quad\,\,\angle{XBC} = \angle{XDA}.\]Prove that $\angle{BXA} + \angle{DXC} = 180^\circ$.
+	
+	\textbf{Solution.} Now consider the second intersection (namely $Y$) of the circles $ABX$ and $CDX$, we get (using oriented angles to prevent case distinction) $\angle(YB, YX)=\angle (AB, AX)=\angle (CD, CX)=\angle (YD, YX)$ (the first and the last inequality follows from that $A, B, Y, X$ and $C, D, Y, X$ are each concyclic; the middle one follows from the problem condition). Thus we get that $YD, YB$ are actually the same line (so $Y, D, B$ collinear). Also from we have $\angle XBC=\angle XDA$ which translates into $\angle(XB, BC)=\angle XD, AD)$ so we get $\angle (AY, YX)=\angle (AB, BX)=\angle (AB, BC)-\angle(XB, BC)$ and $\angle (CD, AD)-\angle (XD, AD)=\angle (CD, DX)=\angle (CY, YX)$ This gives the important property:
+	\[\angle (AY, CY)=\angle(AY, YX)-\angle (CY, YX)=\angle (AB, BC)-\angle (CD, AD)\]Now the condition $AB\cdot CD=\angle BC\cdot DA$ means that the tangents to triangle $ABD$ and the tangents to triangle $BCD$ will intersect at a point $Z$ on line $BD$ (think of Appolonius circle) and by the properties of tangents we have $\angle(BD, AD)=\angle (AB, BZ)$ so $\angle (AB, BD)-\angle (BD, AD)=\angle(AB, BD)-\angle(AB, AZ)=\angle (AZ, BD)$ and similarly we have $\angle (BD, BC)-\angle (CD, BD)=\angle (BD, CZ)$ so adding these two up we get
+	\[\angle (AY, CY)=\angle (AB, BC)-\angle (CD, AD) = \angle (AB, BD)-\angle (BD, AD) + \angle (BD, BC)-\angle (CD, BD) 
+	\]\[
+	= \angle (AZ, BD) + \angle (BD, CZ) = \angle (AZ, CZ)\]
+	Thus $Y$ lies on the circle $ACZ$, and the fact that $Z$ is the centre of Appolonius circle means that $AZ=ZC$. WLOG assume that $Z$ is closer to $B$ than $D$. Now $\angle BXA=\angle BYA=\angle AYZ=\angle ZCA=\angle ZAC=\angle ZYC=180^{\circ}-\angle DYC=\angle DXC$, the second last inequality follows from our earlier claim that $B, Y, D$ are collinear. So $\angle BXA+\angle DXC=180^{\circ}$, Q.E.D.
+	
+	\item[\textbf{G7}] Let $O$ be the circumcentre, and $\Omega$ be the circumcircle of an acute-angled triangle $ABC$. Let $P$ be an arbitrary point on $\Omega$, distinct from $A$, $B$, $C$, and their antipodes in $\Omega$. Denote the circumcentres of the triangles $AOP$, $BOP$, and $COP$ by $O_A$, $O_B$, and $O_C$, respectively. The lines $\ell_A$, $\ell_B$, $\ell_C$ perpendicular to $BC$, $CA$, and $AB$ pass through $O_A$, $O_B$, and $O_C$, respectively. Prove that the circumcircle of triangle formed by $\ell_A$, $\ell_B$, and $\ell_C$ is tangent to the line $OP$.
+	
+	\textbf{Solution.} The solution will be elaborated, but the end goal is to prove that the point of tangency will be the point $P$. 
+	
+	First, denote $\ell$ as the perpendicular bisector of $OP$, then $O_A, O_B$ and $O_C$. 
+	We'll use the fact that the orthocenter and circumcenter are harmonic conjugates of each other w.r.t. a triangle. 
+	Let's first do some angle chasing: given that $OA=OP=OB$, $OO_A, OO_B$ is internal angle bisector of $\angle OAP$ and $\angle OPB$, respectively. 
+	If $m_C$ is the perpendicular bisector of $AB$ then $m_C$ is also the angle bisector of $\angle AOB$ and some angle chasing yields that $m_C$ and $OP$ are conjugates w.r.t. $\angle O_AOO_B$. 
+	Since $OP\perp O_AO_B$, the circumcenter of $OO_AO_B$ lies on $m_C$, which is perpendicular to $AB$ and therefore parallel to $\ell_C$. 
+	
+	We now consider the point $O$, the line $\ell$ with points $O_A, O_B, O_C$ on it, and the lines $\ell_A, \ell_B, \ell_C$. Consider the point $C_1$ as the intersection of $\ell_A$ and $\ell_B$; we first show that $O_A, O_B, C_1, P$ are concyclic. Since $O$ and $P$ are symmetric w.r.t. $\ell$, $\angle(O_AP, O_BP)=-\angle(O_AO, O_BO)$. If we name $m_A, m_B$ as how we name $m_C$ before (that is, these lines pass through $O$, and contain the circumcenters of triangles $OO_BO_C$, $OO_CO_A$ and $OO_AO_B$, respectively), then $\ell_A\parallel m_A$ and similarly for the others. Therefore: 
+	\[
+	\angle(O_AC_1, O_BC_1)=\angle(\ell_A, \ell_B)=\angle(m_A, m_B)
+	\]
+	The last angle might be hard to gauge, but given $m_A$ contain the circumcenter of triangle $OO_BO_C$, it also contains the antipode of $O$ w.r.t. this circumcircle, namely, $X_A$. This means $90^{\circ}=\angle(OO_B, O_BX_A)=\angle(OO_C, O_CX_A)$. This gives
+	\[
+	\angle(m_A, OO_C)
+	=\angle(OX_A, OO_C)
+	=\angle(O_BX_A, O_BO_C)
+	\]\[
+	=\angle(O_BX_A, OO_B)+\angle(OO_B, O_BO_C)
+	=90^{\circ}+\angle(OO_B, O_BO_C)
+	=90^{\circ}+\angle(OO_B, \ell)
+	\]
+	and similarly $\angle(m_B, OO_C)=90^{\circ}+\angle(OO_A, \ell)$. Therefore 
+	\[
+	\angle(m_A, m_B)
+	=\angle(m_A, OO_C)-\angle(m_B, OO_C)
+	=\angle(OO_B, \ell)-\angle(OO_A, \ell)
+	=\angle(OO_B, OO_A)
+	=\angle(O_AP, O_BP)
+	\]
+	which then gives $\angle(O_AP, O_BP)=\angle(m_A, m_B)=\angle(O_AC_1, O_BC_1)$ so $C_1$ lies on the circle $O_AO_BP$, as claimed. 
+	
+	Define $A_1, B_1$ similarly above and we get identities like above; we are now in a position to show that $P$ lies on the circumcircle of $A_1B_1C_1$. To see why: 
+	\[
+	\angle(C_1P, A_1P)
+	=\angle(C_1P, PO_B)-\angle(A_1P, PO_B)
+	=\angle(C_1O_A, O_AO_B)-\angle(A_1P_C, O_BO_C)
+	\]\[
+	=\angle(C_1O_A, \ell)-\angle(A_1P_C, \ell)
+	=\angle(C_1O_A, A_1P_C)
+	=\angle(C_1B_1, A_1B_1)
+	\]
+	which shows $C_1, B_1, A_1, P$ are indeed concyclic. 
+	To show that $OP$ is tangent to this circle, we need to show that $\angle(A_1P, OP)=\angle(A_1C_1, C_1P)$. 
+	We first have 
+	\[
+	\angle(A_1P, OP)
+	=\angle(A_1P, A_1O_B)+\angle(A_1O_B, OP)
+	=\angle(O_CP, O_CO_B)+\angle(\ell_B, OP)
+	\]
+	Notice that the last equality is the same as $\angle(O_CP, O_CO_B)+\angle(\ell_B, OP)=\angle(O_CP, \ell)+\angle(\ell_B, OP)=-\angle(OO_C, \ell)+\angle(\ell_B, OP)$ as $O$ and $P$ are symmetric w.r.t $\ell$. 
+	But by before, $\angle(m_B, OO_C)=90^{\circ}+\angle(OO_A, \ell)$ so by similar logic $90^{\circ}+\angle(OO_C, \ell)=\angle(m_B, OO_A)=\angle(\ell_B, OO_A)$. Thus 
+	\[
+	\angle(A_1P, OP)=-\angle(OO_C, \ell)+\angle(\ell_B, OP)
+	90^{\circ}-\angle(\ell_B, OO_A)+\angle(\ell_B, OP)
+	=90^{\circ}+\angle(OO_A, OP)
+	=\angle(OO_A, \ell)
+	\]
+	the last equality because $OP$ perpendicular $\ell$. 
+	Meanwhile, 
+	\[
+	\angle(A_1C_1, C_1P)
+	=\angle(\ell_B, C_1P)
+	=\angle(\ell_B, O_AC_1)+\angle (O_AC_1, C_1P)
+	\]\[
+	=\angle(\ell_B, \ell_A)+\angle (\ell, O_BP)
+	=\angle(OO_A, OO_B)+\angle (OO_B, \ell)
+	=\angle(OO_A, \ell)
+	\]
+	where $\angle(\ell_B, \ell_A)=\angle(O_BP, \angle O_AP)=\angle(OO_A, OO_B)$ and $\angle (\ell, O_BP)=\angle (OO_B, \ell)$ are because $O$ and $P$ are symmetric w.r.t. $\ell$. Thus $\angle(A_1P, OP)=\angle(OO_A, \ell)=\angle(A_1C_1, C_1P)$, Q.E.D. 
+	\end{enumerate}
+
+\section*{Number Theory}
+\begin{enumerate}
+	\item[\textbf{N1}] Determine all pairs $(n, k)$ of distinct positive integers such that there exists a positive integer $s$ for which the number of divisors of $sn$ and of $sk$ are equal.
+	
+	\textbf{Answer.} All pairs $(n, k)$ such that neither of them divides each other. \\
+	\textbf{Solution.} If $k\mid n$ then $sk$ is a proper divisor of $sn$, so $sn$ always has strictly more divisors than $sk$. 
+	
+	\item[\textbf{N2}] Let $n>1$ be a positive integer. Each cell of an $n\times n$ table contains an integer. Suppose that the following conditions are satisfied:
+	\begin{itemize}
+		\item Each number in the table is congruent to $1$ modulo $n$.
+		\item The sum of numbers in any row, as well as the sum of numbers in any column, is congruent to $n$ modulo $n^2$.
+	\end{itemize}
+	
+	Let $R_i$ be the product of the numbers in the $i^{\text{th}}$ row, and $C_j$ be the product of the number in the $j^{\text{th}}$ column. Prove that the sums $R_1+\cdots R_n$ and $C_1+\cdots C_n$ are congruent modulo $n^4$.
+	
+	\textbf{Solution.} A routine algebra exercise. The $ij$-th entry can be written as $na_{ij}+1$ for some positive integer $a_{ij}$, which satisfies that for all $i$ and $j$, 
+	\[
+	n\mid \displaystyle\sum_{k=1}^n a_{ik}\qquad
+	n\mid \displaystyle\sum_{k=1}^n a_{ij}
+	\]
+	We also have 
+	\[
+	R_i = \displaystyle\prod_{k=1}^n (na_{ik}+1)
+	\equiv 1 + n\displaystyle\sum_{k=1}^n a_{ik} + n^2 \displaystyle\sum_{1\le k<\ell\le n} a_{ik}a_{i\ell}
+	+n^3 \displaystyle\sum_{1\le k<\ell<m\le n} a_{ik}a_{i\ell}a_{im}
+	\]\[
+	C_j = \displaystyle\prod_{k=1}^n (na_{kj}+1)
+	\equiv 1 + n\displaystyle\sum_{k=1}^n a_{kj} + n^2 \displaystyle\sum_{1\le k<\ell\le n} a_{kj}a_{\ell j}
+	+n^3 \displaystyle\sum_{1\le k<\ell<m\le n} a_{kj}a_{\ell j}a_{mj}
+	\]
+	both taken modulo $n^4$. 
+	We now compare the coefficients of $1, n, n^2, n^3$ in $R_1+\cdots R_n$ and $C_1+\cdots C_n$. 
+	We will, in fact, show that the difference of each term is divisible by $n^4$. 
+	The coefficient of 1 in both expressions are $n$, and the coefficient of $n$ in $R_1+\cdots R_n$ is: 
+	\[
+	\displaystyle\sum_{i=1}^n \displaystyle\sum_{k=1}^n a_{ik}
+	=\displaystyle\sum_{j=1}^n \displaystyle\sum_{k=1}^n a_{kj}
+	\]
+	which is the also the coefficeint of $n$ in $R_1+\cdots R_n$. 
+	Next, we notice that 
+	\[
+	\displaystyle\sum_{1\le k<\ell\le n} a_{ik}a_{i\ell}
+	=\frac 12 \left((\displaystyle\sum_{k=1}^n a_{ik})^2 - \displaystyle\sum_{k=1}^n a_{ik}^2\right)
+	\]
+	so summing this across all $i$ gives the coefficient of $n^2$ in $R_1+\cdots R_n$ as 
+	\[
+	\frac 12 \left(\displaystyle\sum_{i=1}^n(\displaystyle\sum_{k=1}^n a_{ik})^2 - \displaystyle\sum_{i=1}^n\displaystyle\sum_{k=1}^n a_{ik}^2\right)
+	\]
+	and similarly for $C_1+\cdots C_n$: 
+	\[
+	\frac 12 \left(\displaystyle\sum_{j=1}^n(\displaystyle\sum_{k=1}^n a_{kj})^2 - \displaystyle\sum_{j=1}^n\displaystyle\sum_{k=1}^n a_{kj}^2\right)
+	\]
+	Notice that $\displaystyle\sum_{i=1}^n\displaystyle\sum_{k=1}^n a_{ik}^2=\displaystyle\sum_{j=1}^n\displaystyle\sum_{k=1}^n a_{kj}^2$ are simply sum of squares of all $a_{ik}$ so it suffices to show that $2n^2$ divides 
+	\[
+	\displaystyle\sum_{i=1}^n(\displaystyle\sum_{k=1}^n a_{ik})^2
+	-\displaystyle\sum_{j=1}^n(\displaystyle\sum_{k=1}^n a_{kj})^2
+	\]
+	By before, $n\mid \displaystyle\sum_{k=1}^n a_{ik}$ and $n\mid \displaystyle\sum_{k=1}^n a_{ij}$ so we can name $\displaystyle\sum_{k=1}^n a_{ik}=nr_i$ and $\displaystyle\sum_{k=1}^n a_{ij}=nc_j$. Substituting this and factoring $n^2$ term, all it needs is to show that 
+	\[
+	2\mid \displaystyle\sum_{i=1}^n r_i^2
+	-\displaystyle\sum_{j=1}^n c_j^2
+	\]
+	However, $r_i$ and $r_i^2$ have the same parity, and $\displaystyle\sum_{i=1}^n r_i=\displaystyle\sum_{j=1}^n c_j$ is the sum of all the $a_{ij}$s. Therefore 
+	\[
+	 \displaystyle\sum_{i=1}^n r_i^2\equiv \displaystyle\sum_{i=1}^n r_i=\displaystyle\sum_{j=1}^n c_j
+	 \equiv \displaystyle\sum_{j=1}^n c_j^2\pmod{2}
+	\]
+	as desired. 
+	
+	Finally we need to tackle the coefficient of $n^3$. 
+	Again we have that for a set of variables $x_1, \cdots , x_n$ then 
+	\[
+	\dsum_{i<j<k}x_ix_jx_k
+	=\frac 16 \left(\left(\dsum_{i=1}^n x_i\right)^3 - \dsum_{i=1}^n x_i^3 - 3\dsum_{i\neq j}x_i^2 x_j\right)
+	=\frac 16 \left(S_1^3 - S_3 - 3\dsum_{i=1}^nx_i^2(S_1-x_i)\right)
+	\]\[
+	=\frac 16 (S_1^3 + 2S_3 - 3S_1S_2)
+	\]
+	where $S_k$ is the sum of $k$-th power $\dsum_{i=1}^n x_i^k$. 
+	Using the $r_i$ and $c_j$ notations before we now have the coefficient of $n^3$ in $R_i$ as 
+	\[
+	\dsum_{i\le k<\ell<m\le n}a_{ik}a_{il}a_{im}
+	=\frac 16 ((nr_i)^3 + 2\dsum_{k=1}^na_{ik}^3 - 3nr_iS_{i}^{r(2)})
+	\]
+	where $S_{i}^{r(2)}$ is simply the sum of square of squares of row $i$. 
+	Similarly the coefficeint of $n^3$ in $C_j$ is 
+	\[
+	\frac 16 ((nc_j)^3 + 2\dsum_{k=1}^na_{kj}^3 - 3nc_jS_{j}^{c(2)})
+	\]
+	with the $c$ in $S_{j}^{c(2)}$ denoting the notion of column. Thus we are essentially comparing 
+	\[
+	\frac 16 (n^3\dsum_{i=1}^n r_i^3 + 2\dsum_{i=1}^n\dsum_{k=1}^na_{ik}^3 - 3n\dsum_{i=1}^nr_iS_{i}^{r(2)})
+	\]
+	vs 
+	\[
+	\frac 16 (n^3\dsum_{j=1}^n c_j^3 + 2\dsum_{j=1}^n\dsum_{k=1}^na_{kj}^3 - 3n\dsum_{j=1}^nc_jS_{j}^{c(2)})
+	\]
+	now $\dsum_{i=1}^n\dsum_{k=1}^na_{ik}^3=\dsum_{j=1}^n\dsum_{k=1}^na_{kj}^3$ because they are just the sum of cubes of all $a_{ij}$s. 
+	The other two terms on each side has factor $n$ so it suffices to show that $\dsum_{i=1}^n r_i^3\equiv \dsum_{j=1}^n c_j^3\pmod{6}$, and $\dsum_{i=1}^nr_iS_{i}^{r(2)}\equiv \dsum_{j=1}^nc_jS_{j}^{c(2)}\pmod{2}$. 
+	The first one is due to the fact that for all integers $k$, $k^3\equiv k\pmod{6}$ and therefore 
+	\[
+	\dsum_{i=1}^n r_i^3\equiv \dsum_{i=1}^n r_i=\dsum_{j=1}^n c_j\equiv \dsum_{j=1}^n c_j^3\pmod{6}
+	\]
+	where the middle equality is because they are the same as the overall sum of squares on grid. 
+	The second one is due to the fact that $S_{i}^{r(2)}$ is the sum of squares of row which has same parity of sum of row $r_i$ so in mod 2 (and also $x\equiv x^3\pmod{2}$), 
+	\[
+	\dsum_{i=1}^nr_iS_{i}^{r(2)}
+	\equiv \dsum_{i=1}^nr_i r_i(r_i^2)
+	=\dsum_{i=1}^nr_i^3
+	\equiv \dsum_{i=1}^n r_i
+	=\dsum_{j=1}^n c_j
+	\equiv \dsum_{j=1}^n c_j^3
+	\equiv \dsum_{j=1}^n c_jS_{j}^{c(2)}
+	\]
+	as desired. 
+	
+	\item[\textbf{N5}] Four positive integers $x,y,z$ and $t$ satisfy the relations
+	\[ xy - zt = x + y = z + t \]Is it possible that both $xy$ and $zt$ are perfect squares?
+	
+	\textbf{Answer.} No. \\
+	\textbf{Solution.} Suppose otherwise, write $xy=a^2$ and $zt=b^2$. Then $(x-y)^2=(x+y)^2-4xy = (a^2-b^2)^2-4a^2$ is a perfect square, say $c^2$. Similarly, $(a^2-b^2)-4b^2$ is a perfect square, say $d^2$. 
+	
+	The relation above can be best summarized into: 
+	\[
+	X^2=p^2+q^2=r^2+s^2
+	\]
+	where $X=a^2-b^2$, and $|p^2-r^2|=4(a^2-b^2)=4X$. 
+	It's also important to note that since $x, y, z, t>0$, $a^2-b^2, a, b$ are all positive. 
+	We further write $p=p_12^{p_0}$ and $q=q_12^{q_0}$ where $p_1, q_1$ both odd. Then 
+	\[
+	X^2=(p_12^{p_0})^2+(q_12^{q_0})^2
+	\]
+	If $p_0=q_0$ then $X^2=2^{2p_0}(p_1^2+q_1^2)$ and given that $2^{2p_0}=(2^{p_0})^2$ is a perfect square, so is $p_1^2+q_1^2\equiv 1+1=2\pmod{4}$ (as both $p_1, q_1$ odd). This contradicts that no square can be congruent to 2 mod 4. Hence $p_0\neq q_0$ and w.l.o.g. let $p_0>q_0$, which will imply that the highest power dividing $X^2$ is $2^{2q_0}$. In other words, if $k$ is the highest power of 2 dividing $X$ then each $p, q, r, s$ are divisible by $k$, so they can be written as $2^kp_0, 2^kq_0, 2^kr_0, 2^ks_0$. 
+	
+	Write $X=2^kX_0$ with $X_0$ odd. Dividing $2^k$ from both sides give 
+	\[
+	X_0^2=p_0^2+q_0^2=r_0^2+s_0^2
+	\]
+	with $|p_0^2-r_0^2|=\frac{4X}{2^{2k}}=\frac{4X_0}{2^k}$ and given $X_0$ odd, we have $k\le 2$. We'll use the fact that, since $X_0$ odd, one of $p_0$ and $q_0$ must be odd, and the other even. Similarly, one of $r_0$ and $s_0$ odd and the other even. 
+	
+	\begin{itemize}
+		\item If $k=0$, we have $|p_0^2-r_0^2|=|q_0^2-s_0^2|=4X_0\equiv 4\pmod{8}$. 
+		To satisfy $|p_0^2-r_0^2|=4X_0$ we will need $p_0, r_0$ both even or both odd, so w.l.o.g. let them be both odd because $|q_0^2-s_0^2|=4X_0$ must be satisfied too. 
+		However, $p_0^2\equiv r_0^2\equiv 1\pmod{8}$ whenever $p_0, r_0$ odd, contradicting $|p_0^2-r_0^2|\equiv 4\pmod{8}$. 
+		
+		\item $k=1$ means $2X_0\equiv 2\pmod{4}$ is impossible: difference of squares cannot have $\equiv 2\pmod{4}$. 
+		\item $k=0$ means $|p_0^2-r_0^2|=|q_0^2-s_0^2|=X_0$, which is odd. Now consider $p_0^2+q_0^2=X^2$ and w.l.o.g. let $p_0>q_0$, which also means $p_0>X_0\sqrt{\frac{1}{2}}$. 
+		Now, assuming $r_0\neq p_0$
+		\[
+		|r_0^2-p_0^2|\ge\min\{|(p_0+1)^2-p_0^2|, |(p_0-1)^2-p_0^2|\}=\min\{|2p_0-1|, |2p_0+1|\}=2p_0-1
+		>2X_0\sqrt{\frac{1}{2}}-1
+		\]
+		which gives $X_0>2X_0\sqrt{\frac{1}{2}}-1=\sqrt{2}X_0-1$ which means $X_0\le 2$. But since $X_0$ is odd, $X_0=1$ and the only solution is $1^2+0^2$. This gives $X=4$, and the only possible combinations of $(p, q)$ and $(r, s)$ are $(4, 0, 0, 4)$ which we can solve as $a=2, b=0$. Now $b=0$ means $zt=0$, contradiction. 
+	\end{itemize}
+	Therefore the contradiction above means a solution does not exist. 
+	\end{enumerate}
+
+\end{document}
