@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -177,6 +177,42 @@
 		\item One is above the other, hence in the same megacolumn. By our construction, each megacolumn is either T-type of B-type, so either both are on the top row of their respective megacolumns or on the bottom row, hence cannot attack each other. The case where one is to the left of the other is completely analogous. 
 		
 		\item The two megasquares share exactly one vertex, and WLOG (the other case is similar) let's say one is on the top left of the other. If the kings were to attack, then we have BT-switch and RL-switch simultaneously. Both our configurations avoid that. 
+	\end{itemize}
+
+	\item [\textbf{C6}] 
+	Given a positive integer $k$ and other two integers $b > w > 1.$ There are two strings of pearls, a string of $b$ black pearls and a string of $w$ white pearls. The length of a string is the number of pearls on it. One cuts these strings in some steps by the following rules. In each step:
+	\begin{enumerate}
+		\item [(i)] The strings are ordered by their lengths in a non-increasing order. If there are some strings of equal lengths, then the white ones precede the black ones. Then $k$ first ones (if they consist of more than one pearl) are chosen; if there are less than $k$ strings longer than 1, then one chooses all of them.
+		
+		\item [(ii)] Next, one cuts each chosen string into two parts differing in length by at most one. (For instance, if there are strings of $5, 4, 4, 2$ black pearls, strings of $8, 4, 3$ white pearls and $k = 4,$ then the strings of 8 white, 5 black, 4 white and 4 black pearls are cut into the parts $(4,4), (3,2), (2,2)$ and $(2,2)$ respectively.) The process stops immediately after the step when a first isolated white pearl appears.
+	\end{enumerate}
+	
+	Prove that at this stage, there will still exist a string of at least two black pearls.
+	
+	\textbf{Solution.} 
+	Throughout the solution we use black string to denote string of black pearls. 
+	We consider the following two cases: the first case is when $k$ is large enough that at each step, all the pearls are chosen to be cut, and at the last step a first isolated white pearl appears. At step $i$, the shortest white pearl has length $\lfloor \frac{w}{2^i}\rfloor$. Therefore if $m$ steps have been taken, then the shortest white pearl after step $m-1$ has length $\lfloor \frac{w}{2^{m-1}}\rfloor\ge 2$ and therefore $w\ge 2^{m-1}$. 
+	Now the longest black pearl after step $m$ has length $\lceil \frac{b}{2^m}\rceil\ge \lceil \frac{w+1}{2^m}\rceil\ge \lceil \frac{2^m+1}{2^m}\rceil=2$ so there's a string of at least 2 black pearls will exist after step $m$, where at least one white pearl is isolated. 
+	
+	Now consider the case where $k$ is not large enough: at one point there will be more than $k$ strings of pearls of length $>1$.
+	\iffalse
+	Lemma: at any time there exists a black string of length $b_0$ and white string of length $w_0$ such that $w_0\le 2b_0-1$. 
+	
+	Proof: this is true with $w<b$ in the beginning. Suppose that at some step this invariant is maintained. We now have two cases: whether there are black strings strictly longer than white strings. In the positive case, let the black strings and white strings to have length $b_0$ and $w_0$ respectively. 
+	No operation can increase any string length, so if the black string is not cut after an operation, we're good. Otherwise, the longer of black string has length $\lceil \frac{b_0}{2}\rceil\ge \lceil \frac{w_0+1}{2}\rceil$ which in cny case will satisfy $2\lceil \frac{w_0+1}{2}\rceil-1\ge w_0$. This finishes the induction step. 
+	In the negative case, though, all white strings are being cut before the black string. 
+	Let black string of length $b_0$ and white string of length $w_0$ satisfy $w_0\le 2b_0-1$, then if black string is not cut, the inequality still holds true. If black string is cut, white string is cut, too. Now we shall compare $\lceil \frac{b_0}{2}\rceil$ and $\lfloor \frac{w_0}{2}\rfloor$ and we have 
+	\[
+	\lfloor \frac{w_0}{2}\rfloor\le \lfloor \frac{2b_0-1}{2}\rfloor\le b_0-1\le 2\lceil\frac{b_0}{2}\rceil - 1
+	\]
+	as desired. 
+	\fi
+	Suppose on the contrary that our conclusion doesn't hold. We investigate the following two steps: 
+	\begin{itemize}
+		\item The first point where there are more than $k$ pearls and we don't cut them all. Given $b>w$ and the assumption that conclusion doesn't hold, we may assume all strings (black or white) have lengths at least 2 tight before that. We see that for all $i$ with $2^i\le k$, the $i$-step sees $2^i$ cuts, half of which to black strings nad half for white strings (resulting in $2^i$ white and $2^i$ black strings). 
+		Then the next step, $k\ge 2^i$ strings are being cut, so at least $k-2^i$ of the white strings are being cut, resulting in at least $k$ white strings in total (we may still assume that all white strings have length at least 2; we can show that the previous assumption of all strings having length $\ge 2$ implies that after this step some black string have length at least 2). 
+		
+		\item The step at which all black pearls become isolated. This means before this step, all black strings of length $>1$ must have length 2, and must be cut. By (i), all strings of length $>1$ must be cut (which means there cannot be more than $k$ of them). We also know that we have at least $k$ black strings, none of them is isolated, so the presence of at least one white string of length $>1$ means not all strings can be cut, contradiction. 
 	\end{itemize}
 \end{enumerate}
 

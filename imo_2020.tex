@@ -1,0 +1,172 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\begin{document}
+	\begin{center}
+		\begin{Large}
+			IMO 2020
+		\end{Large}
+		
+	\end{center}
+
+\newcommand{\sgn}{\text{sgn}}
+\begin{enumerate}
+	\item Consider the convex quadrilateral $ABCD$. The point $P$ is in the interior of $ABCD$. The following ratio equalities hold:
+	\[\angle PAD:\angle PBA:\angle DPA=1:2:3=\angle CBP:\angle BAP:\angle BPC\]Prove that the following three lines meet in a point: the internal bisectors of angles $\angle ADP$ and $\angle PCB$ and the perpendicular bisector of segment $AB$.
+	
+	\textbf{Solution.} The claim is that the lines will meet at the circumcenter $O$ of $ABP$. Here's how: 
+	\begin{itemize}
+		\item As $OA=OB=OP$, it's already on the perpendicular bisector of $AB$. 
+		
+		\item Now $\angle PAD+\angle DPA<180^{\circ}$ (they are part of interior angles of the triangle $PAD$), we have $\angle PBA=\frac{\angle PAD+\angle DPA}{2}<90^{\circ}$ based on the angle condition. This gives the following angle condition: 
+		\[
+		\angle POA=2\angle PBA=\angle PAD+\angle DPA=180^{\circ}-\angle PDA
+		\]
+		and therefore $DAOP$ is concyclic. As $OP=OA$, it then follows that $DO$ bisects $\angle ADP$. 
+		
+		\item Similarly, $CO$ bisects $\angle PCB$. 
+	\end{itemize}
+	
+	\item 
+	The real numbers $a, b, c, d$ are such that $a\geq b\geq c\geq d>0$ and $a+b+c+d=1$. Prove that
+	\[(a+2b+3c+4d)a^ab^bc^cd^d<1\]
+	
+	\textbf{Solution.} The weighted AM-GM inequality says that $\sqrt[a+b+c+d]{(a^ab^bc^cd^d)}\le \frac{a^2+b^2+c^2+d^2}{a+b+c+d}$. Thus it suffices to prove that 
+	\[(a+2b+3c+4d)(a^2+b^2+c^2+d^2)<1\]
+	We have this identity: 
+	\[
+	(a+2b+3c+4d)(a^2+b^2+c^2+d^2)
+	\]\[
+	=
+	\left(\frac{5}{2}-\frac{1}{2}(3(a-d)+(b-c)\right)\left(\frac{1}{4}+\frac{1}{4}((a-b)^2+(b-c)^2+(c-d)^2+(a-c)^2+(b-d)^2+(a-d)^2)\right)
+	\]
+	Thus it suffices to show that 
+	$$
+	\left(5-(3(a-d)+(b-c)\right)\left(1+((a-b)^2+(b-c)^2+(c-d)^2+(a-c)^2+(b-d)^2+(a-d)^2)\right)< 8
+	$$
+	Using the identity $\displaystyle\sum_{i=1}^n a_i^2\le (\displaystyle\sum_{i=1}^n a_i)^2$ for all $a_i\ge 0$, we have $(a-b)^2+(b-c)^2+(c-d)^2\le (a-d)^2$.
+	In addition, with $a\ge b\ge c\ge d$ we have $(a-c)^2+(b-d)^2\le (a-d)^2+(b-c)^2$.
+	Therefore substituting $a-d$ with $x$ and $b-c$ with $y$ (with $0\le y\le x$), we are left with proving
+	$$
+	\left(5-(3x+y)\right)\left(1+(2x^2+x^2+y^2)\right)< 8
+	$$
+	We now show that $3x^2+y^2\le \frac{(3x+y)^2}{3}$. Expanding this and subtracting like terms from both sides give this as equivalent to $\frac{2y^2}{3}\le 2xy$ but since $y\ge 0$, this is the as $y=0$ or $\frac{y}{3}\le x$. The conclusion immediately follows give $0\le y\le x$.
+	Therefore all we need to show is
+	$\left(5-(3x+y)\right)\left(1+\frac{(3x+y)^2}{3}\right)< 8$, or, after substituting $3x+y$ with $z$, we are left with
+	$(5-z)(1+\frac{z^2}{3})<8$.
+	
+	Finally $(5-z)(1+\frac{z^2}{3})<8$ iff $z<3$ there's a root at $z=3$, the rest is just quadratic equation with no root. In addition, $x=a-d$ and $y=b-c$, so $3x+y\le 3(a-d)+3(b-c)\le 3(a+b-c-d)<3(a+b+c+d)=3$. Thus $z<1$ and the desired inequality follows.
+	
+	\item 
+	There are $4n$ pebbles of weights $1, 2, 3, \dots, 4n.$ Each pebble is coloured in one of $n$ colours and there are four pebbles of each colour. Show that we can arrange the pebbles into two piles so that the following two conditions are both satisfied:
+	\begin{itemize}
+		\item The total weights of both piles are the same.
+		\item Each pile contains two pebbles of each colour.
+	\end{itemize}
+	\textbf{Solution}: TODO. :) 
+	
+	\item There is an integer $n > 1$. There are $n^2$ stations on a slope of a mountain, all at different altitudes. Each of two cable car companies, $A$ and $B$, operates $k$ cable cars; each cable car provides a transfer from one of the stations to a higher one (with no intermediate stops). The $k$ cable cars of $A$ have $k$ different starting points and $k$ different finishing points, and a cable car which starts higher also finishes higher. The same conditions hold for $B$. We say that two stations are linked by a company if one can start from the lower station and reach the higher one by using one or more cars of that company (no other movements between stations are allowed). Determine the smallest positive integer $k$ for which one can guarantee that there are two stations that are linked by both companies.
+	
+	\textbf{Answer}. $k=n^2-n+1$. 
+	
+	\textbf{Solution.} We first show why $k=n^2-n$ won't work. Consider the following construction: 
+	\begin{itemize}
+		\item $A: i\to i+1, \forall i\in \{an+b: 0\le a\le n-1, 1\le b\le n-1\}$.  Pictorially, this gives a segmentation of $[1, n], [n+1, 2n], \cdots , [n^2n-n+1, n^2]$ where each segment is a chain of $1\to 2\to\cdots n$. 
+		\item $B: i\to i+n, \forall i: 1\le i\le n^2-n$. 
+	\end{itemize}
+	Then in $A$, two stations $i$ and $j$ are linked if and only if they are in the same ``segment'' (i.e. $\lceil \frac{i}{n}\rceil=\lceil\frac{j}{n}\rceil$), while in $B$, two stations $i$ and $j$ are linked if and only if $i\equiv j\pmod{n}$. Thus no two stations are linked by both companies. 
+	
+	Notice that the proof above also means any $k<n^2-n$ won't work: we simply remove a subset of the cable car links from both companies. 
+	
+	Now we give an example why $n^2-n+1$ works. 
+	We define a chain of cable cars $a_0\to a_1\to\cdots a_m$ as follows: 
+	\begin{itemize}
+		\item There's a cable car from $a_i$ to $a_{i+1}$. 
+		\item There's no cable car ending at $a_0$, and no cable car starting at $a_m$ (i.e. this chain is ``maximal''). 
+	\end{itemize}
+	We see that two stations are linked if and only if they belong to the same chain (also, notice that these chains are disjoint union of the stations since all the starting points are different, and all the ending points are different). 
+	
+	The case where station $i$ is not part of any cable car (starting or ending) is considered a degenerate chain of length 1 on its own. Given that both $A$ and $B$ has $k=n^2-n+1$ cable car services, there are $n-1$ chains in total ($n-1$ is the number of stations that's not a starting point of any cable car, and also the number of stations that's not a ending point of any cable car). 
+	
+	The longest chain in $A$ now has length at least
+	\[
+	\frac{n^2}{n-1}>n+1>n-1
+	\]
+	and since there are $n-1$ chains in $B$, two of the stations in this longest chain must also in the same chain in $B$, thereby being linked by both companies. 
+	
+	\textbf{Comment}. To generalize to the case where there are $n$ stations (i.e. not square), the same idea applies: we need to find the largest integer $m$ such that $\frac{n}{m}>m$. In this case $m=\lfloor\sqrt{n-1}\rfloor$ which gives the bound $k=n-\lfloor\sqrt{n-1}\rfloor$. The construction of counterexample for $k-1$ can also be done like above by splitting into segments of either length $\lfloor\sqrt{n}\rfloor$ or $\lceil\sqrt{n}\rceil$. 
+	
+	\item A deck of $n > 1$ cards is given. A positive integer is written on each card. The deck has the property that the arithmetic mean of the numbers on each pair of cards is also the geometric mean of the numbers on some collection of one or more cards.
+	For which $n$ does it follow that the numbers on the cards are all equal?
+	
+	\textbf{Answer.} All $n>1$. 
+	
+	\textbf{Solution.} Call a set $S$ of positive integers ``good'' if the arithmetic mean of every pair of integers is also the geometric pairs of some subset of integers in $S$. Consider $aS=\{ak: k\in S\}$ for some rational $a$ such that $ak\in\bbN$ for all $k\in S$. The arithmetic and geometric mean of corresponding numbers are scaled by $a$, so $S$ is good if and only if $aS$ is good. 
+	Therefore, given an original collection $S$, we can divide by its $\gcd$ and assume that $\gcd(S)=\gcd\{k: k\in S\}=1$. 
+	
+	In particular, some number $k\in S$ has to be odd. If $m\in S$ is even then $\frac{k+m}{2}$ is a half-integer. But $(\frac{k+m}{2})^d$ is never an integer for any integer $d>0$. Thus $\frac{k+m}{2}$ cannot be geometric mean of any subset of $S$. We thus have all numbers odd. 
+	
+	Suppose also that the numbers are $a_1\ge \cdots a_n$. If $a_1>1$, then there exists an odd prime $p$ dividing $a_1$ but since $\gcd(a_1, \cdots , a_n)=1$, there's some $i$ with $p\nmid a_i$. Thus we can choose $m$ that is the minimal index with $p\nmid a_m$ (i.e. $a_m$ is the biggest number among them not divisible by $p$. Then $\frac{a_1+a_m}{2}$ must be an integer not divisible by $p$, and since $a_1\neq a_m$, $a_1>a_m$ and so $\frac{a_1+a_m}{2}>a_m$. But since $a_1, \cdots , a_{m-1}$ are divisible by $p$, the numbers that form geometric mean of $\frac{a_1+a_m}{2}$ must be taken from $\{a_m, \cdots , a_n\}$ which are at most $a_m$. This gives a contradiction. Thus $a_1=1$ and all numbers are equal.
+	
+	\item Prove that there exists a positive constant $c$ such that the following statement is true:
+	Consider an integer $n > 1$, and a set $\mathcal S$ of $n$ points in the plane such that the distance between any two different points in $\mathcal S$ is at least 1. It follows that there is a line $\ell$ separating $\mathcal S$ such that the distance from any point of $\mathcal S$ to $\ell$ is at least $cn^{-1/3}$.
+	
+	(A line $\ell$ separates a set of points $\mathcal{S}$ if some segment joining two points in $\mathcal S$ crosses $\ell$.)
+	
+	Note. Weaker results with $cn^{-1/3}$ replaced by $cn^{-\alpha}$ may be awarded points depending on the value of the constant $\alpha > 1/3$.
+	
+	\textbf{(Mini-)Solution.} I hereby attach my proof for $\alpha=\frac 12$ (which is worth 1 point). 
+	
+	Let $D$ be the diameter of $\mathcal{S}$. That is, the maximum distance between any two points in $\mathcal{S}$. W.l.o.g. let the diameter to be $(0, 0)$ and $(0, D)$. Then any point in $\mathcal{S}$ must have $x$-coordinate in $[-D, D]$ and $y$-coordinate in $[0, D]$. 
+	Consider, now, drawing $\frac{1}{\sqrt{2}}\times \frac{1}{\sqrt{2}}$ boxes in the space $[-D, D]\times [0, D]$ space. Given that the distance between any two points in the box is at most 1, each point in $\mathcal{S}$ must be in different boxes. Thus there are at most $\lceil \sqrt{2}D\rceil\times \lceil 2\sqrt{2}D\rceil $ boxes. Omitting the ceiling functions for now (as they will be insignificant as $D$ and $n$ grow), we have at most $4D^2$ boxes. With $n$ points in $S$, we have at least $n$ boxes. Thus $D\ge\frac{\sqrt{n}}{2}$. 
+	
+	Now, as above we assumed that the two points have $y$-coordinates 0 and $D$, respectively. Putting a line parallel to the $x$-axis and with $y$-intercept between 0 and $D$ will separate the two points (hence separating $\mathcal{S}$). Sorting the points by $y$-axis, it then follows that some consecutive points have gap at least $\frac{D}{n}$. Thus placing the line passing through the midpoint of these two points (or rather, perpendicular bisector) will ensure that any point has distance at least $\frac{D}{2n}$ from this line. With $D\ge \frac{\sqrt{n}}{2}$, we have distance from any points of $\mathcal{S}$ to $\ell$ at least $\frac 14 n^{-\frac 12}$ (well maybe a bit lower to account for the ceiling function above). 
+\end{enumerate}
+
+\end{document}

@@ -237,6 +237,37 @@
 	If $R$ and $B$ are in the same region, then this region must contain either only red points and blue points other than $R$ and $B$ (we call this region ``red region'' or ``blue region'' in these respective cases). Since $R$ and $B$ are on the convex hull, we can draw a line to isolate $R$ if this region is blue, or a line to isolate $B$ if this region is red. 
 	Otherwise, $R$ and $B$ are in different regions, and we can now draw a line to isolate $R$ and $B$ from the rest of the $2k-1$ points. This way, $R$ and $B$ are each isolated, and we are done. 
 	
+	\item [\textbf{C3}] A crazy physicist discovered a new kind of particle wich he called an imon, after some of them mysteriously appeared in his lab. Some pairs of imons in the lab can be entangled, and each imon can participate in many entanglement relations. The physicist has found a way to perform the following two kinds of operations with these particles, one operation at a time.
+	\begin{enumerate}
+		\item [(i)] If some imon is entangled with an odd number of other imons in the lab, then the physicist can destroy it.
+		\item [(ii)] At any moment, he may double the whole family of imons in the lab by creating a copy $I'$ of each imon $I$. During this procedure, the two copies $I'$ and $J'$ become entangled if and only if the original imons $I$ and $J$ are entangled, and each copy $I'$ becomes entangled with its original imon $I$; no other entanglements occur or disappear at this moment.
+	\end{enumerate}
+	Prove that the physicist may apply a sequence of much operations resulting in a family of imons, no two of which are entangled.
+	
+	\textbf{Solution.} Throughout the solution we use the graph theory language: vertices and edges. We first apply (i) repeatedly until we can't do so (it terminates anyway since (i) decreases the number of vertices and there are only finitely many of them). Then, while the total number of edges is still positive, we do the following on the current graph $G=(V, E)$
+	\begin{itemize}
+		\item Starting with the configuration where the degree of all vertices are even (and total nonzero), perform opertation (ii), and let the copied vertices to be $V'$ with the copy of each $v\in V$ as $V'$. Now all vertices have odd degree. 
+		
+		\item For each vertex $v\in V$ that had initial degree 0 before (ii) before, it now has exactly one neighbour $v'$. We can delete $v'$ for all such $v$ and the degree of $v$ is now 0, while the degrees of other vertices are not impacted by the delete of $v'$. 
+		
+		\item Now on the copied vertices $V'$ (less the vertices that we deleted before), all of them with odd degree, we apply operation (i) repeatedly while both of the conditions below hold true: 
+		\begin{itemize}
+			\item At least two vertices in $V'$ remain. 
+			\item At least one vertex in $V'$ has odd degree. 
+		\end{itemize}
+		
+		\item Now we are in one of the following two situations: exactly one vertex $v_0'$ in $V'$ remains (and has odd degree: its only neighbour now is $v_0$), or all vertices in $V'$ have even degree. 
+		
+		In the first case, no neighbour of $v_0$ has been deleted after operation (ii) (all neighbours are either in $V$, or is $v_0'$), hence still has odd degree. Delete it, and we are left with $V\backslash \{v_0\}\cup \{v_0'\}$ with $v_0'$ isolated. By assumption, $v_0$ wasn't isolated before operation (ii), so the total number of edges decreases as compared to before operation (ii) was carried out. 
+		
+		In the second case, let $V=S\cup T$, with $v\in S$ if $v'$ has been deleted, and $v\in T$ otherwise. Now, all vertices $v'\in T'$ (as assumed, we can't proceed with (i) anymore) and $v\in S$ (all its copies have been deleted) have even degree, while all vertices $v\in T$ have odd degree (none of its neighbours deleted). This means that all vertices $v\in T$ have oddly many neighbours in $S$, and $T$ and $T'$ are exact copies of each other (now none of them as been deleted, later on we will ensure that $v$ is deleted iff $v'$ is deleted). 
+		
+		Assuming the invariant all vertices $v\in T$ have oddly many neighbours in $S$, and that $T$ and $T'$ are exact copies of each other, $v$ and $v'$ have different degree parity, so we can first delete the one with odd degree. The other one, having one neighbour deleted, had its degree changed from even to odd, so we can delete that as well. The invariant that all vertices $v\in T$ have oddly many neighbours in $S$, and that $T$ and $T'$ are exact copies of each other, still hold. Hence this operation can be continued indefinitely until $T$ and $T'$ are both empty. This means we just shrank $V$ into $S$ and by assumption, $V\neq\emptyset$ and all vertices in $V$ have nonzero degree (even before operation(ii)). Thus the total number of edges decreases as compared to before operation (ii) was carried out. 
+		
+		\item Finally we can still delete any vertex with odd degree repeatedly whenever possible. 
+	\end{itemize}
+	Thus each pass above decreases the total number of edges available, and therefore repeating the passes above will make the total number of edges to drop to 0, eventually. 
+	
 	\item [\textbf{C4}] Let $n$ be a positive integer, and let $A$ be a subset of $\{ 1,\cdots ,n\}$. An $A$-partition of $n$ into $k$ parts is a representation of n as a sum $n = a_1 + \cdots + a_k$, where the parts $a_1 , \cdots , a_k $ belong to $A$ and are not necessarily distinct. The number of different parts in such a partition is the number of (distinct) elements in the set $\{ a_1 , a_2 , \cdots , a_k \} $.
 	We say that an $A$-partition of $n$ into $k$ parts is optimal if there is no $A$-partition of $n$ into $r$ parts with $r<k$. Prove that any optimal $A$-partition of $n$ contains at most $\sqrt[3]{6n}$ different parts.
 	
@@ -500,6 +531,87 @@
 		
 		Finally, consider any $n$ and $n'$ that share the same set of prime divisors $\le k$. Consider $n_0$ that has this same property without any prime divisor $>k$ (and smaller than both $n$ and $n'$). If $n_0$ is good then both $n$ and $n'$ are good; otherwise, $n_0$ is bad so $n$ and $n'$ are both bad. 
 		
+		\item [\textbf{N6}] Determine all functions $f: \mathbb{Q} \rightarrow \mathbb{Z} $ satisfying
+		\[ f \left( \frac{f(x)+a} {b}\right) = f \left( \frac{x+a}{b} \right) \]
+		for all  $x \in \mathbb{Q}$, $a \in \mathbb{Z}$, and $b \in \mathbb{Z}_{>0}$. (Here, $\mathbb{Z}_{>0}$ denotes the set of positive integers.)	
+		
+		\textbf{Answer}. There are three classes of functions: the constant function $f(x)\equiv a$ for any $a\in\bbZ$, the floor function $f(x)\equiv\lfloor x\rfloor $ and the ceiling function $f(x)\equiv \lceil x\rceil$. 
+		
+		\textbf{Solution.} It's easy to verify that constant function fulfills the condition (both sides are wrapped by $f(\cdot)$). For the rest two, observe that 
+		\[
+		\lfloor \frac{x+a}{b}\rfloor\le \frac{x+a}{b} < \lfloor \frac{x+a}{b}\rfloor + 1
+		\]
+		I.e. 
+		\[
+		b\lfloor \frac{x+a}{b}\rfloor\le x+a < b\lfloor \frac{x+a}{b}\rfloor + b
+		\]
+		Notice that $\lfloor x\rfloor +a\le x+a$ so $\lfloor x\rfloor+a< b\lfloor \frac{x+a}{b}\rfloor + b$ (note: we implicitly used the fact $b$ is positive integer here). 
+		Given that $a$ is also an integer, $\lfloor x\rfloor +a=\lfloor x+a\rfloor$ and therefore 
+		\[
+		b\lfloor \frac{x+a}{b}\rfloor\le \lfloor x+a\rfloor = \lfloor x\rfloor+a
+		\]
+		using the fact that $a\lfloor x\rfloor \le \lfloor ax \rfloor $ for any positive integer $a$. 
+		Therefore, we also have 
+		\[
+		b\lfloor \frac{x+a}{b}\rfloor\le \lfloor x\rfloor +a < b\lfloor \frac{x+a}{b}\rfloor + b
+		\]
+		and so 
+		\[
+		\lfloor \frac{x+a}{b}\rfloor = \lfloor \frac{\lfloor x\rfloor +a}{b}\rfloor
+		\]
+		a similar method can be used to verify for the ceiling function. 
+		
+		To show that these are the only functions, we first consider the case where for some integer $x$, $f(x)\neq x$. Then $b=|x-f(x)|$ and plugging $a$ to make $f(x)-x\mid x+a$ yields $f(b)=f(b+1)$ for all integers $b$, so $f$ is constant on integers. Now let $x$ be any rational number, we have $f(x)=f(f(x))$ but $f(x)$ is an integer so $f$ is, in fact, constant. 
+		
+		Thus for $f$ to be nonconstant, $f$ is identity on the scope of integers. Let's focus on this case now. Letting $b=1$ gives 
+		\[
+		f(x)+a=f(f(x)+a)=f(x+a)
+		\]
+		given that $f(x)$ and $a$ are both integers. 
+		This means for each integer $n$, since $f(\frac 1n)$ is an integer, there's an $a_0$ such that $f(a_0+\frac 1n)=0$. Plugging $x=a_0+\frac 1n$ and $b=|na_0+1|$ gives 
+		\[
+		f(\frac{f(x)}{b})=f(0)=0=f(\frac{x}{b})
+		\]
+		and given that $\frac{x}{b}$ is either $\frac 1n$ or $-\frac 1n$, we have, for each $n$, either $f(\frac 1n)=0$ or $f(-\frac 1n)=0$. 
+		
+		Assume that $f(\frac 12)=0$, and we show that $f\equiv \lfloor \cdot\rfloor$. 
+		We first show this property for all the numbers in terms of $x=\frac{b}{2^k}$ for $b$ integers. 
+		
+		We will proceed into the following lemma: let $b>1$, and suppose that $f(\frac xb)=\lfloor\frac xb\rfloor$ for any integer $x$. Then $f(\frac x{b^k})=\lfloor\frac x{b^k}\rfloor$ for any integer $x$ and any integer $k$. 
+		
+		Proof: Let's do induction on $k$.  Now supposed that the said property holds for some integer $k\ge 1$ and consider $y=\frac{x}{2^{k+1}}$. Then plugging $x:=\frac{x}{2^k}, a=0$ we get
+		\[
+		f(y)=f(\frac{x}{b^k}/b)=f(f(\frac{x}{b^k})/b)=f(\lfloor\frac{x}{b^k}\rfloor/b)=\lfloor\lfloor\frac{x}{b^k}\rfloor/b\rfloor
+		\]
+		and using the fact that $\lfloor \frac{\lfloor x\rfloor}{b}\rfloor=\lfloor \frac{x}{b}\rfloor$, 
+		\[
+		f(\frac{x}{b^{k+1}})=f(y)=\lfloor\lfloor\frac{x}{b^k}\rfloor/b\rfloor=\lfloor\frac{x}{b^k}/b\rfloor
+		=\lfloor\frac{x}{b^{k+1}}\rfloor
+		\]
+		
+		Now that $f(\frac 12)=0$, $f$ identity in integers and $f(x+a)=f(x)+a$, we have $f(\frac{x}{2})=\lfloor \frac x2\rfloor$ for all integers $x$ and consequently, $f(\frac{x}{2^k})=\lfloor \frac x{2^k}\rfloor$ for all integers $x$ and $k$. 
+		
+		Next, with the `base case` above, let $p\ge 3$ be some prime number and suppose that the claim $f(\frac{b}{q})=\lfloor \frac{b}{q}\rfloor$ holds for any $q$ with all prime divisors $<p$. Let's extend this claim to `any $q$ with all prime divisors $\le p$. In other words, we want to induct on prime numbers $\le p$. Given that $p+1$ is composite for $p\ge 3$, it has all prime divisors less than $p$. Now, plug $b:=p + 1, a:=0$ and $x:= \frac{a(p+1)}{p}$ for some positive integer $p$ and we have 
+		\[
+		f(\frac{a}{p})=f(\frac{f(\frac{a(p+1)}{p})}{p+1})=\lfloor \frac{f(\frac{a(p+1)}{p})}{p+1}\rfloor
+		= \lfloor \frac{f(\frac{a}{p}+a)}{p+1}\rfloor
+		=\lfloor \frac{f(\frac{a}{p})+a}{p+1}\rfloor
+		\]
+		which then becomes 
+		\[0\le \frac{f(\frac{a}{p})+a}{p+1} - f(\frac{a}{p})= \frac{p}{p+1}(\frac{a}{p}-f(\frac{a}{p}))< 1
+		\]
+		which means that $0\le \frac{a}{p}-f(\frac{a}{p})< 1+ \frac{1}{p}$. Considering that $f$ is identity on integers, and $f(\frac{a}{p})$ is also an integer, the only way for this to be fulfilled is for $f(\frac{a}{p})=\lfloor \frac{a}{p}\rfloor$, and by the lemma above, $f(\frac{a}{p^k})=\lfloor \frac{a}{p^k}\rfloor$. 
+		Finally, for any number $q$ with prime divisors $\le p$, we can write $q=rp^k$ where $r$ has all divisors $<p$. Now 
+		\[
+		f(\frac{a}{q})
+		=f(\frac{a}{rp^k})
+		=f(\frac{a/p^k}{r})
+		=f(\frac{f(a/p^k)}{r})
+		=\lfloor\frac{\lfloor a/p^k\rfloor}{r}\rfloor
+		=\lfloor\frac{a/p^k}{r}\rfloor
+		=\lfloor\frac{a}{q}\rfloor
+		\]
+		as desired. Using this induction on primes $p$, we have $f\equiv $ the floor function. Similarly, if we assume earlier on that $f(-\frac 12)=0$ then $f$ would be the ceiling function. 
 	 
 \end{enumerate}
 

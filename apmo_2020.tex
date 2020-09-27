@@ -1,0 +1,74 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solution to APMO 2020 Problems}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\begin{enumerate}
+	\item [Problem 1.] Let $\Gamma$ be the circumcircle of $\triangle ABC$. Let $D$ be a point on the side $BC$. The tangent to $\Gamma$ at $A$ intersects the parallel line to $BA$ through $D$ at point $E$. The segment $CE$ intersects $\Gamma$ again at $F$. Suppose $B$, $D$, $F$, $E$ are concyclic. Prove that $AC$, $BF$, $DE$ are concurrent.
+	
+	\textbf{Solution.} Now $A, B, C, F$ all lie on circle $\omega$, and let the circle passing through $B, D, F, E$ be $\omega_1$. Then $BF$ is the radical axis of $\omega$ and $\omega_1$. Given that $DE$ parallel to $AB$ and $AE$ tangent to $\omega$, we have $\angle EAC=\angle ABD=\angle EDC$, so $E, A, D, C$ are also concyclic, and let the circumcircle be $\omega_2$. Thus, $\omega_1$ and $\omega_2$ has radical axis $DE$, and $\omega$ and $\omega_2$ has radical axis $AC$. Therefore $AC, BF, DE$ concur at the radical center of $\omega, \omega_1, \omega_2$. 
+	
+	\item [Problem 2.] Show that $r = 2$ is the largest real number $r$ which satisfies the following condition:
+	
+	If a sequence $a_1$, $a_2$, $\ldots$ of positive integers fulfills the inequalities
+	\[a_n \leq a_{n+2} \leq\sqrt{a_n^2+ra_{n+1}}\]for every positive integer $n$, then there exists a positive integer $M$ such that $a_{n+2} = a_n$ for every $n \geq M$.
+	
+	\textbf{Solution.} First, let $r>2$. We show that, if $a$ is sufficiently large that $2+\frac 1{a}<r$ and the sequence $a, a, a+1, a+1, a+2, a+2, \cdots$ fulfills the condition. For each $n\ge 1$, $a_{n+2}=a_n+1$ so the left inequality is satisfied. 
+	Now, for $a_{n+1}$ is either $a_n$ or $a_n+1=a_{n+2}$ for each $n$. We now have 
+	\[
+	a_n^2+ra_{n+1}\ge a_n^2+ra_n> a_n^2+(2+\frac 1{a})a_n \ge a_n^2+(2+\frac 1{a_n})a_n = (a_n+1)^2=a_{n+2}^2
+	\]
+	so the right inequality is also satisfied by this sequence. 
+	
+	Now suppose that $r\le 2$. If $a_n=a_{n+2}$ for all $n$ then we're done. Now consider any $n$ with $a_{n+2}>a_n$. Claim: $a_{n+1}\ge a_{n+2}$. 
+	
+	Proof: $a_{n+2}^2\le a_n^2+ra_{n+1}\le a_n^2+2a_{n+1}$, i.e. $a_{n+1}\ge \frac{a_{n+2}^2 - a_n^2}{2}$. If $a_{n+1}<a_{n+2}$, then $\frac{a_{n+2}^2 - a_n^2}{2}\le a_{n+1}\le a_{n+2}-1$, or $a_n^2\ge a_{n+2}^2-2a_{n+2}+2> (a_{n+2}-1)^2$. 
+	This gives $a_n\ge a_{n+2}$, contradiction. 
+	In other words, if $a_{n+1}\le a_n$ we have $a_{n+2}=a_n$. 
+	
+	Now let $a_n$ be any number with $a_n<a_{n+2}$. Then $a_{n+1}\ge a_{n+2}$. If $a_{n+3}>a_{n+1}$ then $a_{n+2}\ge a_{n+3}>a_{n+1}$, contradiction, so $a_{n+3}=a_{n+1}$. 
+	If $a_{n+2k}\le a_{n+1}$ for all $k\ge 1$, then the indices $a_n, a_{n+2}, a_{n+4},\cdots$ become constant, and by the previous argument we also have $a_{n+1}=a_{n+3}=a_{n+5}=\cdots$, and we're done. 
+	Otherwise, let $k$ be the minimal index with $a_{n+2k}>a_{n+1}$. Then from $a_{n+2k-2}\le a_{n+1}$ and we $a_{n+2k-1}=a_{n+1}$ by the similar argument. 
+	Using a similar argument, we have $a_{n+2k-2}=a_{n+2k}$ instead and the sequence $a_{n+2k}$ will never exceed $a_{n+1}$ (hence staying eventually constant), and so does the sequence $a_{n+2k+1}$. 
+	
+	\item [Problem 3.]
+	Determine all positive integers $k$ for which there exist a positive integer $m$ and a set $S$ of positive integers such that any integer $n > m$ can be written as a sum of distinct elements of $S$ in exactly $k$ ways.
+	
+	\textbf{Answer.} $k=2^a$ for any nonnegative integer $a$. 
+	
+	\textbf{Solution.} The case $k=1$ can be achieved by the set $S=\{2^a: a\ge 0\}$. 
+	If this statement works for $k=2^a$ for some $a\ge 0$ with corresponding threshold $m_a$ and set $S_a$, then consider the set $S_{a+1}=4S_a\cup\{1, 2, 3\}$ where $4S_a=\{4x: x\in S_a\}$. 
+	Then for all $n\ge 4(m+2)$ we have:
+	\begin{itemize}
+		\item If $n=4b$, $b\ge m+2$ then $n=4(b-1)+1+3$ and $n=4b$ where $b-1, b$ each has $2^a$ ways to be represented as sum in $S_a$. 
+		\item If $n=4b+1$, $b\ge m+2$ then $n=4(b-1)+2+3$, and $n=4b+1$. 
+		\item If $n=4b+2$, then $n=4(b-1)+1+2+3$ and $n=4b+2$. 
+		\item If $n=4b+3$, $n=4b+3=4b+(1+2)$. 
+	\end{itemize}
+	The above shows that there are $2^a$ ways to determine the appropriate sum coming from $4S_a$, and 2 ways coming from $\{1, 2, 3\}$, completing the proof. 
+	
+	\item [Problem 4.]
+	
+	
+\end{enumerate}
+
+\end{document}
