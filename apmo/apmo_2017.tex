@@ -1,0 +1,165 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solution to APMO 2017 Problems}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\begin{enumerate}
+	\item We call a $5$-tuple of integers arrangeable if its elements can be labeled $a, b, c, d, e$ in some order so that $a-b+c-d+e=29$. Determine all $2017$-tuples of integers $n_1, n_2, . . . , n_{2017}$ such that if we place them in a circle in clockwise order, then any $5$-tuple of numbers in consecutive positions on the circle is arrangeable.
+	
+	\textbf{Answer.} $n_1=\cdots = n_{2017}=29$ is the only sequence. 
+	
+	\textbf{Solution.} We've already supplied an answer above so it remains showing that this answer is unique. More generally, consider the solution matrix $Mx=b$ (i.e. solve for $x$) where $M$ is $2017\times 2017$ and $x, b$ are vectors of length $n=2017$, and all entries in $b$ are $29$, and $M$ is defined by 
+	\[
+	M_{ij}=
+	\begin{cases}
+		(-1)^{j-i} & i\le j\le i+4\\
+		0 & \text{otherwise}\\
+	\end{cases}
+	\]
+	(throughout the solution we let the indices to be modulo $n$). It then suffices to show that $M$ has nonsingular, thereby $Mx=b$ has a unique solution for $x$. 
+	
+	First, consider the matrix $A$ of shape $n\times n$ where 
+	\[
+	M_{ij}=
+	\begin{cases}
+	1 & i\le j\le i+1\\
+	0 & \text{otherwise}\\
+	\end{cases}
+	\]
+	Then if $B=AM$, then the $i$-th row of $B$ is simply the sum of $i$-th and $i+1$-th rows of $M$ (again indices modulo $n$). This means: 
+	\[
+	B_{ij}=
+	\begin{cases}
+	1 & i=j \text{ or } j = i + 5\\
+	0 & \text{otherwise}\\
+	\end{cases}
+	\]
+	To show that $B$ is nonsingular, we consider the system of equations $Bx=c$ with $c$ fixed. This means $c_i=x_i+x_{i+5}$ for all $i=1, 2, \cdots , n$. This means that the value of $x_i$ uniquely determines $x_{i+5}$ based on the value of $c_i$ for all $i=1, 2, \cdots , n$ and since $\gcd(5, 2017)=1$, all values $x_2, \cdots , x_{2017}$ can be uniquely determined by $x_1$. Thus, writing everything in term of $x_1$ we have: 
+	\[
+	x_6=c_1-x_1; x_{11}=c_6-x_6=(c_1-c_6)+x_1, \cdots
+	\]
+	which generalizes to: the coefficient of $x_1$ in $x_{1+5k}$ is $(-1)^k$. However, since we're taking indices modulo $n$, the coefficient of $x_1$ in $x_1=x_{1+5n}$ is $(-1)^n=-1$ since $n$ is odd. Therefore $x_1$ is itself uniquely determined too, and therefore $Bx=c$ has unique solution. Therefore $\det(B)\neq 0$, and since $B=AM$ and $A$ is $n\times n$ square matrix, $\det(M)\neq 0$. 
+	
+	\item Let $ABC$ be a triangle with $AB < AC$. Let $D$ be the intersection point of the internal bisector of angle $BAC$ and the circumcircle of $ABC$. Let $Z$ be the intersection point of the perpendicular bisector of $AC$ with the external bisector of angle $\angle{BAC}$. Prove that the midpoint of the segment $AB$ lies on the circumcircle of triangle $ADZ$.
+	
+	\textbf{Solution.} 
+	The internal and external angle bisectors are perpendicular to each other (known fact!!!), so $\angle ZAD$ is $90^{\circ}$.
+	This motivates us to think of the Pythagoras' theorem,
+	where $AD^2+AZ^2=DZ^2$.
+	If we can prove that, given $M$ as the midpoint of $A$ we have $ZM^2+MD^2=AD^2+AZ^2$ then we have $ZM^2+MD^2=DZ^2$,
+	which gives $\angle ZMD=90^{\circ}$, and $Z, A, M, D$ concyclic. 
+	
+	By cosine rule we have $MZ^2=AM^2+AZ^2-2\cdot AM\cdot AZ\cdot\cos\angle MAZ$,
+	$DM^2=AD^2+AM^2-2\cdot AD\cdot AM\cdot\cos\angle MAD$.
+	Summing these two up gives $AD^2+AZ^2+2AM^2-2AM(AZ\cdot\cos\angle MAZ+AD\cdot\cos\angle MAD)$.
+	A little bit of algebra yields that it is enough to prove that $2AM^2-2AM(AZ\cdot\cos\angle MAZ+AD\cdot\cos\angle MAD)$
+	(you the readers will verify this, not me!).
+	We claim that $AM-AZ\cdot\cos\angle MAZ-AD\cdot\cos\angle MAD=0$ (which will be enough to prove our hypothesis).
+	Now, $\cos\angle MAZ=\cos (90^{\circ}+\frac{1}{2}\angle A)=-\sin\frac{1}{2}\angle A$,
+	and $\cos\angle MAD=\cos\frac{1}{2}\angle A$.
+	So now we need $AM+AZ\cdot\sin\frac{1}{2}\angle A-AD\cdot\cos\frac{1}{2}\angle A=0$.
+	Denote $N$ as midpoint of $AC$, then $AN=AZ\cos\angle ZAN=AZ\sin\angle DAC=AZ\cdot\sin\frac{1}{2}\angle A$.
+	By Ptolemy's theorem,  we also have
+	$BD\cdot AC+AB\cdot DC=BC\cdot AD$.
+	In view of the fact that $BD=DC$ and $BC=2DC\cos\angle BCD=2DC\cos\angle BAD=2DC\cos\frac 12\angle A$.
+	This transforms the equality above into:
+	$CD\cdot (AB+AC)=2DC\cos\frac 12\angle A\cdot AD$, i.e.
+	$AB+AC=2AD\cos\frac 12\angle A$.
+	Therefore $AM+AZ\cdot\sin\frac{1}{2}\angle A-AD\cdot\cos\frac{1}{2}\angle A$
+	$=AM+AN-\frac 12(AB+AC)$
+	which is obviously zero (midpoints!!!)
+	
+	\item Let $A(n)$ denote the number of sequences $a_1\ge a_2\ge\cdots{}\ge a_k$ of positive integers for which $a_1+\cdots{}+a_k = n$ and each $a_i +1$ is a power of two $(i = 1,2,\cdots{},k)$. Let $B(n)$ denote the number of sequences $b_1\ge b_2\ge \cdots{}\ge b_m$ of positive integers for which $b_1+\cdots{}+b_m =n$ and each inequality $b_j\ge 2b_{j+1}$ holds $(j=1,2,\cdots{}, m-1)$. Prove that $A(n) = B(n)$ for every positive integer $n$.
+	
+	\textbf{Solution.} Denote the mapping $f$ from $A$ to $B$ by the following: consider a sequence $a_1, \cdots, a_k\in A$, and let $a_i=2^{c_i}-1$ with $c_1\ge\cdots\ge c_k$. Then $f(a_1, \cdots, a_k)=b_1, \cdots , b_m$ where: 
+	\begin{itemize}
+		\item $m=c_1$. 
+		\item For $1\le i\le c_k$, we have: 
+		$b_i=\dsum_{j:c_j\ge i}2^{c_j-i}$
+	\end{itemize}
+	We now need to show that $f$ is valid, and is a bijection. The validity hinges on two things: $b_i\ge 2b_{i+1}\ge 1$ for each $i\le c_1-1$, and that $\dsum b_i=n$. The first condition is due to that: 
+	\[
+	b_i=\dsum_{j:c_j\ge i}2^{c_j-i}
+	\ge \dsum_{j:c_j\ge i + 1}2^{c_j-i}
+	= 2\dsum_{j:c_j\ge i + 1}2^{c_j-i - 1}
+	=2b_{i+1}
+	\]
+	and the positivity of each $b_i$ is guaranteed since $c_1\ge i$ for each $i=1, 2, \cdots , c_1=m$. The second condition is guaranteed by the following: 
+	\[
+	\dsum_{i=1}^m b_i
+	=\dsum_{i=1}^m\dsum_{j:c_j\ge i}2^{c_j-i}
+	=\dsum_{j=1}^k \dsum_{i=1}^{c_j}2^{c_j-i}
+	=\dsum_{j=1}^k \dsum_{i=0}^{c_j - 1}2^{i}
+	=\dsum_{j=1}^k 2^{c_j}-1
+	=\dsum_{j=1}^k a_j
+	=n
+	\]
+	as desired. 
+	
+	Now to prove that $f$ is a bijection, we need two things too: that it's injective and surjective. Even easier, we define the inverse $f^{-1}$ for $f$. Now given $b_1, \cdots , b_m$, we define the following algorithm to find $a_1, a_2, \cdots, a_k$, with each $a_i=2^{c_i}-1$. We set $k=b_m+\dsum_{i=1}^{m-1}(b_i - 2b_{i-1})=b_1-b_2-\cdots - b_m$ and we have $b_m$ copies of $m$, $b_{m-1}-2b_m$ copies of $m-1$, $\cdots$, $b_1-2b_2$ copies of 1 in the sequence $c_1, \cdots , c_k$. To show that this is indeed the inverse of $f$, we need to consider the following: 
+	\begin{itemize}
+		\item Here, $c_1$ is the largest among $c_i$'s, and given that we have $b_m\ge 1$ copies of $m$, we have $m=c_1$. 
+		
+		\item A less straightforward part would be to show that $b_i=\dsum_{j:c_j\ge i}2^{c_j-i}$ holds. This can be done by induction from $i=m$ to 1. Now, $b_m$ is the number of times $m$ appears in $c_1, \cdots , c_k$. Considering $m=\max\{c_1, \cdots , k\}$, we have $b_m=\dsum_{j: c_j=m}1=\dsum_{j: c_j=m}2^{c_j-m}=\dsum_{j: c_j\ge m}2^{c_j-m}$ as desired. 
+		As per the induction step, we will consider the following for all $i\le m-1$: 
+		\[
+		\dsum_{j:c_j\ge i}2^{c_j-i}
+		=\dsum_{j:c_j\ge i + 1}2^{c_j-i} + \dsum_{j:c_j= i}2^{c_j-i}
+		=2\dsum_{j:c_j\ge i + 1}2^{c_j-i - 1}+ \dsum_{j:c_j= i}1
+		\]
+		and by induction hypothesis, $2\dsum_{j:c_j\ge i + 1}2^{c_j-i - 1}=b_{i+1}$. By our construction, we have $b_i-2b_{i+1}$ copies of $i$ in $c_i$, therefore $2\dsum_{j:c_j\ge i + 1}2^{c_j-i - 1}+ \dsum_{j:c_j= i}1=2b_{i+1}+ (b_i-2b_{i+1})=b_i$ as desired. 
+	\end{itemize}
+	
+	\item Call a rational number $r$ powerful if $r$ can be expressed in the form $\dfrac{p^k}{q}$ for some relatively prime positive integers $p, q$ and some integer $k >1$. Let $a, b, c$ be positive rational numbers such that $abc = 1$. Suppose there exist positive integers $x, y, z$ such that $a^x + b^y + c^z$ is an integer. Prove that $a, b, c$ are all powerful.
+	
+	\textbf{Solution.} We extend the definition of $v_p$ ($p$ prime) to rationals such that: if $a=\frac{x}{y}$ with $\gcd(x, y)=1$ (both integers), then:
+	\[
+	v_p(a)=\begin{cases}
+		v_p(x) & p\mid x\\
+		-v_p(y) & p\mid y\\
+		0 & \text{none of the above}\\
+	\end{cases}
+	\]
+	The task is to show that $\gcd\{p: v_p(a)\ge 0\}>1$ (and similarly for $b, c$). 
+	
+	We now have the following properties: 
+	\begin{itemize}
+		\item Just like the integers, $v_p(ab)=v_p(a)v_p(b)$, $v_p(a^x)=xv_p(a)$ for all rationals $a, b$ and integer $x$. 
+		
+		\item Suppose that $a_1, a_2, \cdots, a_n$ are rationals such that for some $p$, $v_p(a_i)>v_p(a_1)$ for all $i>1$. Then $v_p(a_1+\cdots a_n)=v_p(a_1)$.  
+	\end{itemize}
+	The second identity can be justified by simply multiplying by the lowest common multiple of the denominators of $a_1, \cdots , a_n$. 
+	
+	Suppose that $v_p(a)>0$ for some prime $p$. Then $v_p(b)<0$ or $v_p(c)<0$ since $abc=1$ (which means that $v_p(a)+v_p(b)+v_p(c)=0$ for all primes $p$). But if $v_p(b^y)<v_p(c^z)$ then $v_p(a^x+b^y+c^z)=v_p(b^y)=yv_p(b)<0$ and therefore $a^x+b^y+c^z$ cannot be integer. This is also the case if $v_p(b^y)>v_p(c^z)$ except we have $v_p(a^x+b^y+c^z)=v_p(c^z)=zv_p(c)<0$. Therefore, $yv_p(b)=zv_p(c)$ must hold, and there exists integer $\ell$ such that $v_p(b)=-\ell\cdot \frac{z}{\gcd(y, z)}$ and $v_p(c)=-\ell\cdot \frac{y}{\gcd(y, z)}$. Therefore 
+	\[
+	v_p(a)=-(v_p(b)+v_p(c))=\ell\cdot \frac{z}{\gcd(y, z)}+\ell\cdot \frac{y}{\gcd(y, z)}=\ell\cdot \frac{y+z}{\gcd(y, z)}
+	\]
+	which gives $\frac{y+z}{\gcd(y, z)}\mid v_p(a)$. With $\gcd(y, z)\mid y$ and $\gcd(y, z)\mid z$, $\frac{y+z}{\gcd(y, z)}$ is an integer and since $\frac{y+z}{\gcd(y, z)}\le y$ and $\frac{y+z}{\gcd(y, z)}\le z$, we have $\frac{y+z}{\gcd(y, z)}\ge 1+1=2$. This means $a$ is powerful since all its positive exponents of primes are divisible by $\frac{y+z}{\gcd(y, z)}\ge 2$. In a similar manner, we can show that $b$ and $c$ are powerful. 
+	
+	\item Let $n$ be a positive integer. A pair of $n$-tuples $(a_1,\cdots{}, a_n)$ and $(b_1,\cdots{}, b_n)$ with integer entries is called an exquisite pair if
+	$$|a_1b_1+\cdots{}+a_nb_n|\le 1.$$Determine the maximum number of distinct $n$-tuples with integer entries such that any two of them form an exquisite pair.
+	
+	\textbf{Solution.} This is hard. Will be back later. 
+	
+\end{enumerate}
+
+\end{document}

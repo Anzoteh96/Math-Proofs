@@ -1,0 +1,76 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solution to APMO 2011 Problems}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\begin{enumerate}
+	\item Let $a,b,c$ be positive integers. Prove that it is impossible to have all of the three numbers $a^2+b+c,b^2+c+a,c^2+a+b$ to be perfect squares.
+	
+	\textbf{Solution.} W.l.o.g. let $a\ge b\ge c$, then $a^2< a^2+b+c\le a^2+a+a=a^2+2a<a^2+2a+1=(a+1)^2$. This means that $a < \sqrt{a^2+b+c} < a+1$ so $\sqrt{a^2+b+c}$ cannot be an integer. 
+	
+	\item Five points $A_1,A_2,A_3,A_4,A_5$ lie on a plane in such a way that no three among them lie on a same straight line. Determine the maximum possible value that the minimum value for the angles $\angle A_iA_jA_k$ can take where $i, j, k$ are distinct integers between $1$ and $5$.
+	
+	\textbf{Answer.} $36^{\circ}$. 
+	
+	\textbf{Solution.} 
+	Denote $\theta = \min\{\angle A_iA_jA_k: 1\le i, j, k\le 5\}$
+	Consider, now, the convex hull formed by the 5 points on the plane. Let $A_1$ be part of the convex hull (WLOG). Also let $A_1A_2, A_1A_3, A_1A_4, A_1A_5$ to be in that order counterclockwise; these four lines define the outermost angle $\angle A_2A_1A_5$ divided into 3 subangles by the lines $A_1A_3$ and $A_1A_4$. It follows that each of the interior angles of the convex hull is divided into 3 subangles. If $k$ is the number of vertices of this convex hull then the total interior angles of this convex hull has sum $(k-2)180^{\circ}$ and since each of the $k$ interior angles are divided into 3 subangles, there are $3k$ subangles in total and so $\theta\le \frac{k-2}{3k}180^{\circ}=60^{\circ}\frac{k-2}{k}$. 
+	Since $k\le 5$ (we only have 5 points here), 
+	we have $\frac{k-2}{k}\le \frac{3}{5}$. Therefore $\theta\le 60^{\circ}\times\frac{3}{5}=36^{\circ}$. 
+	
+	This $\theta$ is achievable by having the 5 points to form a regular pentagon. Since the pentagon is cyclic, the angle $A_iA_jA_k$ is the angle subtended by $A_iA_k$. The 5 points divide the circle into 5 equal arcs, each subtending an angle of $36^{\circ}$. It then follows that $A_iA_jA_k$ must be a multiple of $36^{\circ}$. 
+	
+	\item Let $ABC$ be an acute triangle with $\angle BAC=30^{\circ}$. The internal and external angle bisectors of $\angle ABC$ meet the line $AC$ at $B_1$ and $B_2$, respectively, and the internal and external angle bisectors of $\angle ACB$ meet the line $AB$ at $C_1$ and $C_2$, respectively. Suppose that the circles with diameters $B_1B_2$ and $C_1C_2$ meet inside the triangle $ABC$ at point $P$. Prove that $\angle BPC=90^{\circ}$ .
+	
+	\item 
+	Let $n$ be a fixed positive odd integer. Take $m+2$ distinct points $P_0,P_1,\ldots ,P_{m+1}$ (where $m$ is a non-negative integer) on the coordinate plane in such a way that the following three conditions are satisfied:
+	
+	1) $P_0=(0,1),P_{m+1}=(n+1,n)$, and for each integer $i,1\le i\le m$, both $x$- and $y$- coordinates of $P_i$ are integers lying in between $1$ and $n$ ($1$ and $n$ inclusive).
+	
+	2) For each integer $i,0\le i\le m$, $P_iP_{i+1}$ is parallel to the $x$-axis if $i$ is even, and is parallel to the $y$-axis if $i$ is odd.
+	
+	3) For each pair $i,j$ with $0\le i<j\le m$, line segments $P_iP_{i+1}$ and $P_jP_{j+1}$ share at most $1$ point.
+	
+	Determine the maximum possible value that $m$ can take.
+	
+	\item 
+	Determine all functions $f:\mathbb{R}\to\mathbb{R}$, where $\mathbb{R}$ is the set of all real numbers, satisfying the following two conditions:
+	
+	1) There exists a real number $M$ such that for every real number $x,f(x)<M$ is satisfied.
+	
+	2) For every pair of real numbers $x$ and $y$,
+	\[ f(xf(y))+yf(x)=xf(y)+f(xy)\]
+	is satisfied.
+	
+	\textbf{Answer.} There are two such functions, the zero function $f\equiv 0$ and the function given by
+	\[
+	f(x)=\begin{cases}
+		0 & x\ge 0\\
+		2x & x < 0\\
+	\end{cases}
+	\]
+	\textbf{Solution.} We'll use the following identity: If $h(x)\le 2M$ for all $x$ and $g(x)\to \infty$ as $x\to A$, then $h(x)-g(x)\to -\infty$ as $x\to A$. We're interested in the behavior when $A$ is $+\infty$ or $-\infty$. 
+	
+	Now suppose that 	
+\end{enumerate}
+
+\end{document}

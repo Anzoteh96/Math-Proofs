@@ -1,0 +1,126 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solution to APMO 2012 Problems}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\begin{enumerate}
+	\item Let $ P $ be a point in the interior of a triangle $ ABC $, and let $ D, E, F $ be the point of intersection of the line $ AP $ and the side $ BC $ of the triangle, of the line $ BP $ and the side $ CA $, and of the line $ CP $ and the side $ AB $, respectively. Prove that the area of the triangle $ ABC $ must be $ 6  $ if the area of each of the triangles $ PFA, PDB $ and $ PEC $ is $ 1 $.
+	
+	\textbf{Solution.} Denote the areas of $PDC, PEA$ and $PFB$ as $a, b, c$ respectively. Ceva's theorem say that $abc=1$. We'll in fact claim that $a=b=c=1$. Observe the following too: 
+	\[
+	a=\frac{[PDC]}{[PDB]}=\frac{DC}{BD}=\frac{[DAC]}{[ABD]}=\frac{a+b+1}{c+1+1}
+	\]
+	which follows that $\frac{b+1}{c+1}=a$. Similarly, $\frac{c+1}{a+1}=b$ and $\frac{a+1}{b+1}=c$. 
+	
+	If $a>1$, then $b>c$ and from $abc=1$ we have $c<1$. This means $a<b$ based on $\frac{a+1}{b+1}=c$. However, $a<b$ also implies that $b>1$ and therefore $1>c>a>1$, contradiction. A similar contradiction can be attained if $a<1$. 
+	
+	This leaves with $a=1$ and therefore $b=c$. But then $bc=1$ so $b=c=1$, and the conclusion then follows. 
+	
+	\item Into each box of a $ 2012 \times 2012 $ square grid, a real number greater than or equal to $ 0 $ and less than or equal to $ 1 $ is inserted. Consider splitting the grid into $2$ non-empty rectangles consisting of boxes of the grid by drawing a line parallel either to the horizontal or the vertical side of the grid. Suppose that for at least one of the resulting rectangles the sum of the numbers in the boxes within the rectangle is less than or equal to $ 1 $, no matter how the grid is split into $2$ such rectangles. Determine the maximum possible value for the sum of all the $ 2012 \times 2012 $ numbers inserted into the boxes.
+	
+	\textbf{Answer.} It's 5. 
+	
+	\textbf{Solution.} I will construct the example for 5 later as I need to brush up this part of my \LaTeX . 
+	
+	To show that 5 is the upper bound, consider sliding the vertical line from left to right. The left has sum increasing and right has sum decreasing in this process. By the problem condition, at one point (say when the line is at $k$ with $1\le k\le 2012$) the left part has sum $\le 1$ but after a slide to the right the right part has sum $\le 1$. This means: 
+	\begin{itemize}
+		\item The sum of columns $1, 2, \cdots , k$ is $\le 1$
+		\item The sum of columns $k+2, \cdots , n=2012$ is $\le 1$
+	\end{itemize}
+	We could have let $k=0$ or 2012, but this will make the sum of the whole grid $\le 1$ which is no longer fun. 
+	
+	Similarly, there's an $m$ such that the sum of rows $1, \cdots , m$ is $\le 1$ and sum of rows $m+2, \cdots , 2012$ is $\le 1$. Thus, the sum of parts of grids that have columns $\le k$, $\ge k+2$, or rows $\le m$ or $\ge m+2$ is at most 4(some part of the grid is counted $>1$ times but that's okay for this upper bound since all numebers are nonnegative). The only part not covered is $(k+1, m+1)$ which has sum $\le 1$, hence 5 is an upper bound. 
+	
+	\item Determine all the pairs $ (p , n )$ of a prime number $ p$ and a positive integer $ n$ for which $ \frac{ n^p + 1 }{p^n + 1} $ is an integer.
+	
+	\textbf{Answer.} Whenever $p=n$, and also $(p, n)=(2, 4)$. In all these cases $n^p+1=p^n+1$. 
+	
+	\textbf{Solution.} 
+	One main requirement is $n^p\ge p^n$. 
+	We first isolate the case $p=2$. For $n=1, \cdots , 4$ we see that $n=2$ and 4 work. We show that $n^2<2^n$ for $n\ge 5$. Well this is because $2^4=4^2$ and for all $n\ge 4$: 
+	\[
+	\frac{(n+1)^2}{n^2}=\frac{n^2+2n+1}{n^2}=1+\frac{2}{n}+\frac{1}{n^2}<1+\frac 12 + \frac{1}{4^2}<2
+	\]
+	and therefore for all $n\ge 5$: 
+	\[
+	n^2 = 4^2\dprod_{k=4}^{n-1}\frac{(k+1)^2}{k^2} < 4^2\dprod_{k=4}^{n-1} 2 = 4^2 2^{n-4}=2^n
+	\]
+	as desired. 
+	
+	For prime $p\ge 3$, let's also prove that $n^p<p^n$ for all $n>p$. Well taking the $np$-th root of both sides and taking log gives the similar inequality $\frac{\ln n}{n}<\frac{\ln p}{p}$ and Calculus tells us that the function $\frac{\ln x}{x}$ is decreasing for $x>e$. However an elementary solution exists using the trick above: 
+	\[
+	\frac{(n+1)^p}{n^p}
+	=(1+\frac{1}{n})^p
+	\le (1+\frac{1}{p})^p
+	=\dsum_{k=0}^p \dbinom{p}{k}p^{-k}
+	\]
+	Each term $\dbinom{p}{k}\cdot p^{-k}=p^{-k}\frac{p(p-1)\cdots (p-k+1)}{k!}\le \frac{1}{k!}$ and again we can use the fact that $\dsum \frac{1}{k!}<e<p$ to finish but it suffices to use 
+	\[
+	\dsum_{k=0}^p \dbinom{p}{k}p^{-k} 
+	\le \dsum_{k=0}^{p-1} \dbinom{p}{k}p^{-k} +p^{-p}
+	\le \dsum_{k=0}^{p-1} 1 + p^{-p}
+	=p+p^{-p}
+	\]
+	so $(p+1)^p\le p(p^p)+1$. But the equality above cannot all hold (we have $\frac{1}{2!}<1$ when $k=2<p$) and with $(p+1)^p\equiv 1\pmod{p}$, $(p+1)^p\le p(p^p)-p+1<p(p^p)$. It thus follows that 
+	\[
+	\frac{(n+1)^p}{n^p}
+	=(1+\frac{1}{n})^p
+	\le (1+\frac{1}{p})^p<p
+	\]
+	as desired. 
+	
+	Now that we have restricted our attention to $n\le p$, since $p$ is odd, $p^n+1$ is even and so is $n^p+1$. Therefore $n$ is odd and this then follows $p+1\mid p^n+1$. This means $p+1\mid n^p+1$, i.e. $p+1\mid n^{2p}-1$. This means $ord_{p+1}(n)\mid 2p$ and since $p$ is prime, we have $ord_{p+1}(n)\in \{1, 2, p, 2p\}$. Since $p+1\nmid n^p-1$ (as $p\ge 3$), $p+1\nmid n-1$ as well and so $ord_{p+1}(n)\in \{2, 2p\}$. 
+	
+	If $ord_{p+1}(n)=2p$, then $2p\mid \phi(p+1)$, which is impossible because $\phi(p+1)<p+1\le 2p$. Therefore, $ord_{p+1}(n)=2$ and therefore $p+1\mid n^2-1$ and since $p+1\mid n^p+1$, we have $n\equiv -1\pmod{p+1}$ and so $p+1\mid n+1$. This means $p\le n$ and with $n\le p$, we have $p=n$. 
+	
+	\item Let $ ABC $ be an acute triangle. Denote by $ D $ the foot of the perpendicular line drawn from the point $ A $ to the side $ BC $, by $M$ the midpoint of $ BC $, and by $ H $ the orthocenter of $ ABC $. Let $ E $ be the point of intersection of the circumcircle $ \Gamma $ of the triangle $ ABC $ and the half line $ MH $, and $ F $ be the point of intersection (other than $E$) of the line $ ED $ and the circle $ \Gamma $. Prove that $ \tfrac{BF}{CF} = \tfrac{AB}{AC} $ must hold.
+	
+	(Here we denote $XY$ the length of the line segment $XY$.)
+	
+	\textbf{Solution.} By sine rule on $BCF$ we have $\frac{BF}{CF}=\frac{\sin\angle BCF}{\sin\angle CBF}=\frac{\sin\angle BED}{\sin\angle CED}$, and by considering the cevian $ED$ on the triangle $EBC$ we have 
+	\[
+	\frac{BD}{DC}=\frac{EB}{EC}\cdot \frac{\sin\angle BED}{\sin\angle CED} 
+	=\frac{EB}{EC}\cdot \frac{BF}{CF}
+	\]
+	and similarly let $EM$ to intersect $\Gamma$ again at $G$, we have 
+	\[
+	1=\frac{BM}{MC}=\frac{EB}{EC}\cdot \frac{BG}{CG}
+	\]
+	so combining these two equations give 
+	\[
+	\frac{BF}{CF}=\frac{BD}{DC}\div \frac{EB}{EC}= \frac{BD}{DC}\cdot \frac{BG}{CG}
+	\]
+	Now, $\angle BHC=\angle BGC=180^{\circ}=\angle BAC$ and $HG$ passes through the midpoint $M$ of $BC$. Therefore $HBGC$ is a parallelogram and so $BG=CH$ and $CG=BH$. So we have 
+	\[
+	\frac{BF}{CF}=\frac{BD}{DC}\cdot \frac{BG}{CG}=\frac{BD}{DC}\cdot \frac{CH}{BH}=\frac{BD}{BH}\cdot \frac{CH}{CD}
+	=\cos HBD\div \cos HCD = \frac{\cos DAC}{\cos DAB} = \frac{\sin ACD}{\sin ABD} = \frac{AB}{AC}
+	\]
+	as desired. 
+	
+	\item Let $ n $ be an integer greater than or equal to $ 2 $. Prove that if the real numbers $ a_1 , a_2 , \cdots , a_n $ satisfy $ a_1 ^2 + a_2 ^2 + \cdots + a_n ^ 2 = n $, then
+	\[\sum_{1 \le i < j \le n} \frac{1}{n- a_i a_j}  \le \frac{n}{2} \]
+	must hold.
+	
+	\textbf{Solution.} Too hard. TODO. 
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,66 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solution to APMO 2010 Problems}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\begin{enumerate}
+	\item Let $ABC$ be a triangle with $\angle BAC \neq 90^{\circ}.$ Let $O$ be the circumcenter of the triangle $ABC$ and $\Gamma$ be the circumcircle of the triangle $BOC.$ Suppose that $\Gamma$ intersects the line segment $AB$ at $P$ different from $B$, and the line segment $AC$ at $Q$ different from $C.$ Let $ON$ be the diameter of the circle $\Gamma.$ Prove that the quadrilateral $APNQ$ is a parallelogram.
+	
+	\textbf{Solution.} Since $ON$ is diameter and $OB=OC$, we have $ON$ bisect $\angle BOC$ and $\angle BOC=2\angle BAC$ means $\angle BON=\angle CON=\angle BAC$. Now $P, B, O, N$ are on $\Gamma$ in this order so $\angle APN=\angle BPN=180^{\circ}-\angle BON=180^{\circ}-\angle BAC$ and similarly $\angle AQN=180^{\circ}-\angle BAC$. This means $AP\parallel NQ$ and $AQ\parallel NP$. 
+	
+	\item For a positive integer $k,$ call an integer a \emph{pure} $k-th$ $power$ if it can be represented as $m^k$ for some integer $m.$ Show that for every positive integer $n,$ there exists $n$ distinct positive integers such that their sum is a pure $2009-$th power and their product is a pure $2010-$th power.
+	
+	\textbf{Solution.} Consider the numbers $ax^{2010}, x=1, 2, \cdots, n$. Denote the sum $1^{2010}+\cdots +n^{2010}$ as $S$ snd the product as $1^{2010}\cdots \cdots n^{2010}$ as $P$. The goal is to find $a$ with $aS$ a 2009-th power and $a^{n}P$ a 2010-th power (however, since $P$ is already a 2010-th power, it suffices to have $a$ as a 2010-th power). 
+	
+	Consider, now, any prime $p$ dividing $S$ and the power $v_p(S)$ dividing it. Choose $a$ such that $2010\mid v_p(a)$ and $2009\mid v_p(aS)=v_p(a)+v_p(S)$. This can be obtained by considering $\ell$ as any integer with $2009\ell-v_p(S)>0$ and having $v_p(a)=2010(2009\ell-v_p(S))$. 
+	Then we have $v_p(aS)=2010(2009\ell-v_p(S))+v_p(S)=2009(2010\ell - v_p(S))$ which is now divisible by 2009. 
+	Since the set of prime numbers dividing $S$ is finite, we can construct a suitable $a$ satisfying the criterion for all such prime numbers, thereby fulfilling the problem condition. 
+	
+	\item Let $n$ be a positive integer. $n$ people take part in a certain party. For any pair of the participants, either the two are acquainted with each other or they are not. What is the maximum possible number of the pairs for which the two are not acquainted but have a common acquaintance among the participants?
+	
+	\textbf{Answer.} $\dbinom{n-1}{2}$. 
+	
+	\textbf{Solution.} The construction above can be made by having a single vertex (say, 1) to be adjacent to all other vertices 2, 3, $\cdots , n$. Any $(i, j)$ with $2\le i<j\le n$ would satisfy the criterion given. 
+	
+	To prove that $\dbinom{n-1}{2}$ is indeed an upper bound, we notice that for every pair of vertices $(i, j)$ satisfying the problem condition, $(i, j)$ are not adjacent and there exists another vertex $m$ with $(i, m)$ and $(j, m)$ adjacent. Here, we say edges $(i, m)$ and $(j, m)$ correspond to $(i, j)$. 
+	
+	Each pair of edges can only correspond to at most a pair of vertices (these edges must incident to a common vertex, and the other two vertices incident to the edges must not be adjacent). 
+	If $k$ is the number of pairs of vertices fulfilling the problem condition, and $\ell$ is the number of edges in the graph, then: 
+	\[
+	k+\ell\le \dbinom{n}{2}\qquad k\le \dbinom{\ell}{2}
+	\]
+	If $k> \dbinom{n-1}{2}$, then $\ell<\dbinom{n}{2}-\dbinom{n-1}{2}=n-1$ but then 
+	\[
+	\dbinom{n-1}{2}<k\le \dbinom{\ell}{2}<\dbinom{n-1}{2}
+	\]
+	a contradiction. 
+	
+	\item Let $ABC$ be an acute angled triangle satisfying the conditions $AB>BC$ and $AC>BC$. Denote by $O$ and $H$ the circumcentre and orthocentre, respectively, of the triangle $ABC.$ Suppose that the circumcircle of the triangle $AHC$ intersects the line $AB$ at $M$ different from $A$, and the circumcircle of the triangle $AHB$ intersects the line $AC$ at $N$ different from $A.$ Prove that the circumcentre of the triangle $MNH$ lies on the line $OH$.
+	
+	\textbf{Solution.} TODO
+	
+	\item Find all functions $f$ from the set $\mathbb{R}$ of real numbers into $\mathbb{R}$ which satisfy for all $x, y, z \in \mathbb{R}$ the identity \[f(f(x)+f(y)+f(z))=f(f(x)-f(y))+f(2xy+f(z))+2f(xz-yz).\]
+	
+	\textbf{Solution.} TODO
+\end{enumerate}
+
+\end{document}

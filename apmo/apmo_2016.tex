@@ -1,0 +1,114 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to APMO 2016 Problems}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\begin{enumerate}
+	\item We say that a triangle $ABC$ is great if the following holds: for any point $D$ on the side $BC$, if $P$ and $Q$ are the feet of the perpendiculars from $D$ to the lines $AB$ and $AC$, respectively, then the reflection of $D$ in the line $PQ$ lies on the circumcircle of the triangle $ABC$. Prove that triangle $ABC$ is great if and only if $\angle A = 90^{\circ}$ and $AB = AC$.
+	
+	\textbf{Solution.} Consider $D$ the internal angle bisector from $A$ to $BC$. This means $AP=AQ$ and the reflection of $D$ with line $PQ$ (say $E$) will also be on the bisector line $AD$. If $ABC$ were to be great, then either $E=A$ or $E$ is the midpoint $M$ of arc $BC$ not containing $A$ of the circumcircle of $ABC$. Given that $M$ and $D$ are both on the same side of $PQ$, $E'$ cannot be $M$. Therefore $E=A$ must hold. This gives $\angle PE'Q=\angle PAQ=\angle BAC=\angle PDQ=180^{\circ}-\angle BAC$, and therefore $\angle A=90^{\circ}$. 
+	
+	Now we restrict our attention to $\angle A=90^{\circ}$. This means that $PDQA$ will be a rectangle, so $E'=A$ only when $PDQA$ is a square, i.e. when $AD$ bisects $\angle A$. When this is not the case, $E$ must be somewhere else on the circumcircle. But since $\angle PEQ=\angle PAQ=90^{\circ}$. $E$ is the second intersection of circles $APQ$ and $ABC$. This holds iff triangles $EPB$ and $EQC$ are similar. In particular, $\frac{EP}{PB}=\frac{EQ}{QC}$. Now since $EP=PD$ and $EQ=DQ$, we have $\frac{DP}{PB}=\frac{DQ}{QC}$ but with $\angle DPB=\angle DQC=90^{\circ}$, triangles $DPB$ and $DQC$ are similar. This means $\angle ABC=\angle ACB$ so $AB=AC$. 
+	
+	Conversely, if $AB=AC$ and $\angle A=90^{\circ}$, then $EP=PD=PB$ and $EQ=DQ=QC$ will always hold, thereby giving the condition for spiral similarity and ensuring $E$ is on the circumcircle $ABC$. 
+	
+	\item A positive integer is called fancy if it can be expressed in the form $$2^{a_1}+2^{a_2}+ \cdots+ 2^{a_{100}},$$where $a_1,a_2, \cdots, a_{100}$ are non-negative integers that are not necessarily distinct. Find the smallest positive integer $n$ such that no multiple of $n$ is a fancy number.
+	
+	\textbf{Answer.} $n=2^{101}-1$. 
+	
+	\textbf{Solution.} We first show that if a number $k\ge 100$ has at most 100 1's in its binary representation, then it's fancy. Suppose it has $\ell\le 100$ 1's in this representation. If $\ell=100$ we're good (just let $a_1, \cdots , a_{100}$ be the places where the 1's occur). Otherwise, let $a_1, \cdots , a_{\ell}$ be the places where the 1's occur. Since $k\ge 100$, at least 1 number, say, $a_1>0$. We may then decompose $2^{a_1}$ into $2^{a_1-1}+2^{a_1-1}$, increasing the number of summands from $\ell$ to $\ell+1$. We can always repeat this until there are $100\le k$ summands, thereby proving this a fancy number. 
+	
+	Now, we have shown that any $k\ge 100$ and $k < 2^{101}-1$ are fancy: $ 2^{101}-1$ is the smallest number with more than 100 1's in its binary representation. For $k=1, 2, \cdots , 99$, the number $100k\ge 100$ but $100k\le 9900 < 2^{101}-1$, so these $k$'s have fancy multiple. 
+	
+	To show that $n=2^{101}-1$ works, we show that any fancy number cannot be devisible by $n$. Now, $2^{101}\equiv 1\pmod{n}$, so if $a_1\equiv b_1\pmod{101}$ then $2^{a_1}\equiv 2^{b_1}\pmod{n}$. In addition, we have $2^a+2^a=2^{a+1}$. Therefore we can transform $a_1, \cdots , a_{100}$ into the following $b_1, \cdots , b_k$ using the following procedures: 
+	\begin{itemize}
+		\item When $a_i\ge 101$ for some $i$, take the remainder of $a_i$ modulo $101$ (resulting in $0\le a_i<101$). 
+		\item When $a_i=a_j$ for some $(i\neq j$, remove $a_i$ and $a_j$ and replace with $a_{i}+1$. 
+	\end{itemize}
+	Both procedures never increases the number of terms in the sequence $b_1, \cdots , b_k$; in fact, the second one decreases (hence can only be applied finitely many times). Between two consecutive instances of second procedure, the first one can only be applied at most $k\le 100$ times. Therefore this process must terminate. In addition, from previous points, the sum $2^{b_1}+\cdots 2^{b_k}$ does not change modulo $n$. Therefore, $2^{a_1}+\cdots + 2^{a_{100}}\equiv 2^{b_1}+\cdots + 2^{b_k}\pmod{n}$. 
+	
+	Finally, the final instance of $b_1, b_2, \cdots , b_k$ are numbers at most $100$ and are distinct. Since $k\ge 1$ must hold, $2^{b_1}+\cdots + 2^{b_k}>0$ must hold. Therefore we have (bearing in mind that $k\le 100$) 
+	\[
+	0<2^{b_1}+\cdots + 2^{b_k} \le 2^{100}+\cdots + 2^{101-k}\le 2^{100}+\cdots + 2^{1} = n - 1< n
+	\]
+	and therefore $n\nmid 2^{b_1}+\cdots + 2^{b_k}$. Consequently, $n\nmid 2^{a_1}+\cdots + 2^{a_{100}}$. 
+	
+	\item Let $AB$ and $AC$ be two distinct rays not lying on the same line, and let $\omega$ be a circle with center $O$ that is tangent to ray $AC$ at $E$ and ray $AB$ at $F$. Let $R$ be a point on segment $EF$. The line through $O$ parallel to $EF$ intersects line $AB$ at $P$. Let $N$ be the intersection of lines $PR$ and $AC$, and let $M$ be the intersection of line $AB$ and the line through $R$ parallel to $AC$. Prove that line $MN$ is tangent to $\omega$.
+	
+	\textbf{Solution.} We consider the transformation into pole-and-polar w.r.t. to $\omega$, and for each object $\ell$ (point or line) let $\ell'$ be the image after this transformation (we have $\ell''=\ell$). This means, $(AB)'=F$, $(AC)'=E$, $(EF)'=AB\cap AC=A$ so $R'$ is a line that passes through $A$. 
+	In addition, $P'$ is the line through $F$ perpendicular to $EF$. Consequently, $(PR)'$ is a point $Q$ on $P'$, so that $QF\perp EF$. 
+	$N'$ is the line joining $(PR)'$ and $(AC)'=E$, so $N'=QE$. 
+	Since this transformation maps parallel lines to two points collinear with the center $O$, the line through $R$ parallel to $AC$ has image $X$ that's intersection of line $R'=AQ$ and the line $O(AC)'=OE$. Thus $M'$ is the line through $(AB)'=F$ and $X$. 
+	The goal is to show that $N'\equiv QE$ and $M'\equiv FX$ intersect on $\omega$. Thus the problem can be reformulated into the following: 
+	
+	Let $E$ and $F$ be points on $\omega$ with $AE, AF$ tangents to $\omega$. 
+	Let $Q$ be any point satisfying $QF\perp EF$, and $X$ be intersection of lines $OE$ and $AQ$. Prove that $FX$ and $QE$ intersect on $\omega$. 
+	
+	Now, consider the intersection $Z\neq E$ of $QE$ and $\omega$, $Y\neq F$ the intersection of $QF$ and $\omega$. This gives $EY$ the diameter of $\omega$. Let $EY$ and $FZ$ intersect at $X'$, and we'll show that $X'=X$. Since $OE$ and $EY$ are the same line, it suffices to show that $X', Q, A$ are collinear. 
+	
+	Back to the polar transformation again, by Brokard's theorem on the quadrilateral $FZEY$, if $H$ is the intersection of $EF$ and $ZY$ then $QX'$ has polar $H$ which is on $EF$. The pole of $A$ is $EF$ which passes through $H$. Therefore La Hire's theorem gives the consequence that the poles of $X', Q, A$ concur at $H$, so these three points are collinear. Thus $X'=X$, and $XF$ and $QF$ meet at $Z$ which is on $\omega$. 
+	
+	
+	\item The country Dreamland consists of $2016$ cities. The airline Starways wants to establish some one-way flights between pairs of cities in such a way that each city has exactly one flight out of it. Find the smallest positive integer $k$ such that no matter how Starways establishes its flights, the cities can always be partitioned into $k$ groups so that from any city it is not possible to reach another city in the same group by using at most $28$ flights.
+	
+	\item Find all functions $f: \mathbb{R}^+ \to \mathbb{R}^+$ such that
+	$$(z + 1)f(x + y) = f(xf(z) + y) + f(yf(z) + x),$$for all positive real numbers $x, y, z$.
+	
+	\textbf{Answer.} The only function is the identity function $f(x)\equiv x$, where both sides are equal to $(z+1)(x+y)$. 
+	
+	\textbf{Solution.} We start with the following lemma: \\
+	\emph{Lemma.} If $x_1, x_2, y_1, y_2>0$ satisfy $x_1+y_1=x_2+y_2$, then $f(x_1)+f(y_1)=f(x_2)+f(y_2)$. 
+	
+	Proof: we first show that $f$ is unbounded. Suppose otherwise, then $f\le M$ for all $f$, and therefore $(z+1)f(x+y)\le 2M$ for all $x, y, z$. Let $x=y=1$ and we have $(z+1)f(2)\le 2M$ for all $z>0$. This can only happen when $f(2)\le 0$, contrasicting that $f$ only takes positive values. 
+	
+	Now we consider the set of pairs $A_{z, w}: \{(xf(z)+y, yf(z)+x): x+y=w\}$, focusing only on $z$ with $f(z)>1$ (which exists by the argument above). We see that if $(a, b)\in A_{z, w}$ then $a+b=(x+y)(f(z)+1)=w(f(z)+1)$, hence staying the same across the set. We also see that, as $x$ varies in $(0, w)$, we have 
+	\[
+	a=xf(z)+y=xf(z)+(w-x)=x(f(z)-1)+w
+	\]
+	so $a$ takes all values in the range $(w, wf(z))$ and similarly for $b$. In addition, if $a, b\in A_{z, w}$ then $f(a)+f(b)=(z+1)f(w)$ which is again the same for all $A_{z, w}$. Hence it suffices to show that there exists $z, w$ such that $(x_1, y_1)$ and $(x_2, y_2)\in A_{z, w}$.	
+	
+	Choose $z$ such that $f(z)>\max\{\frac{x_1}{y_1}, \frac{y_1}{x_1}, \frac{x_2}{y_2}, \frac{y_2}{x_2}\}$, and $w=\frac{x_1+y_1}{f(z)+1}=\frac{x_2+y_2}{f(z)+1}$. Then $A_{z, w}$ have pairs $(a, b)$ satisfying $a+b=x_1+y_1$ and $w<a<wf(z)$. Since $f(z)>\frac{x_1}{y_1}$, we have $w<y_1$ and $x_1<wf(z)$ and therefore $(x_1, y_1)\in A_{w, z}$. Similarly $(x_2, y_2)\in A_{w, z}$. This proves the lemma. Consequently, there's a function $g$ satisfying $f(x)-f(y)=g(x-y)$ for all $x>y$. It can be proven that this $g$ is additive. 
+	
+	Now, consider the difference when $(x, y, z)$ is replaced with $(x, y, z+\Delta z)$. For the left hand side we have $(z+\Delta z + 1)f(x+y)-(z+1)f(x+y)=\Delta z f(x + y)$, and for right hand side we have 
+	\[
+	f(xf(z+\Delta z) + y) - f(xf(z)+y) = f(x(f(z)+ g(\Delta z)) + y) - f(xf(z) + y) = g(xg(\Delta z))
+	\]
+	and similarly $f(yf(z+\Delta z) + x) - f(yf(z)+x) = g(yg(\Delta z))$.Therefore, we have for all $x, y, \Delta z> 0$: 
+	\[
+	\Delta z f(x + y) = g(xg(\Delta z)) + g(yg(\Delta z)) = g((x+y)g(\Delta z))
+	\] 
+	or, simply, with $x+y=w$ we have $\Delta z f(w)=g(wg(\Delta z))$ for all $w, \Delta z > 0$. Plugging $w_1, w_2$ into $w$ and fixing $\Delta z > 0$ we have 
+	\[
+	\Delta z f(w_1)+ \Delta z f(w_2) = g(w_1g(\Delta z)) + g(w_2g(\Delta z)) = g((w_1+w_2)g(\Delta z)) = \Delta x f(w_1+w_2)
+	\]
+	and after dividing by $\Delta z$ we get $f(w_1)+f(w_2)=f(w_1+w_2)$. This means $f$ is also additive. 
+	
+	Finally, notice also that if $f(z_1)=f(z_2)$ then for any $x, y$ we have $(z_1+1)f(x+y)=(z_2+1)f(x+y)$ so $z_1=z_2$, showing that $f$ is injective. 
+	Combined with the additivity of the functions we have 
+	\[
+	(z + 1)f(x + y) = f(xf(z) + y) + f(yf(z) + x) 
+	\]\[= f(xf(z)) + f(yf(z)) + f(x)+ f(y) = f(xf(z) + yf(z)) + f(x+ y) 
+	\]
+	and again substituting $w=x+y$ gives $zf(w)=f(wf(z))$. Setting $z=1$ gives $f(w)=f(wf(1))$ and by injectivity of $f$, $w=wf(1)$ so $f(1)=1$. Setting $w=1$ gives $z=zf(1)=f(f(z))$. Given that $f$ is additive and is from positive reals to positive reals, it's also strictly increasing. This means, if $f(z)<z$ then $z=f(f(z))<f(z)<z$ which is a contradiction. Similarly $f(z)>z$ means $z=f(f(z))>f(z)>z$, also contradiction. Therefore, $f(z)=z$ must hold for all $z$. 
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,133 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solution to APMO 2015 Problems}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\begin{enumerate}
+	\item Let $ABC$ be a triangle, and let $D$ be a point on side $BC$. A line through $D$ intersects side $AB$ at $X$ and ray $AC$ at $Y$ . The circumcircle of triangle $BXD$ intersects the circumcircle $\omega$ of triangle $ABC$ again at point $Z$ distinct from point $B$. The lines $ZD$ and $ZY$ intersect $\omega$ again at $V$ and $W$ respectively.
+	Prove that $AB = VW$
+	
+	\textbf{Solution.} It suffices to show that the angle subtended by $AB$ and $VW$ with respect to the circumcircle of $ABC$ are equal. In particular, we'll show that $\angle ACB$ and $\angle VZW$ are either equal or supplementary. 
+	
+	We first show that $D, C, Y, Z$ are concyclic. Below, denote (1) as $A, B, Z, C$ concyclic and (2) as $B, X, D, Z$ concyclic. Using the notion of directed angles we have 
+	\[
+	\angle(ZC, CY)=\angle (ZC, CA)\stackrel{(1)}{=}\angle (ZB, BA) = \angle(ZB, BX)\stackrel{(w)}{=}\angle (ZD, DX) = \angle(ZD, DY)
+	\]
+	and therefore $D, C, Y, Z$ are concyclic. Therefore, 
+	\[
+	\angle (VZ, ZW)=\angle(DZ, ZY)=\angle (DC, CY)=\angle(BC, AC)
+	\]
+	showing that angles $VZW$ and $\angle ACB$ are indeed either equal or supplementary. 
+	
+	\item Let $S = \{2, 3, 4, \ldots\}$ denote the set of integers that are greater than or equal to $2$. Does there exist a function $f : S \to S$ such that \[f (a)f (b) = f (a^2 b^2 )\text{ for all }a, b \in S\text{ with }a \ne b?\]
+	
+	\textbf{Answer.} No. 
+	
+	\textbf{Solution.} We'll focus on the following setup: 
+	\[
+	f (2^k)f (2^{\ell}) = f (2^{2(k+\ell)})\text{ for all }k, \ell\ge 1\text{ with }k \ne \ell
+	\]
+	Consider any prime $p$ and denote $v_p(a)$ as the highest power of $p$ dividing $a$. Now, 
+	\[
+	v_p(f (2^{2(k+\ell)})) = v_p(f (2^k)f (2^{\ell}) ) = v_p(f (2^k)) + v_p(f (2^{\ell}))
+	\]
+	so if $g: \bbN\to\bbN_0$ are defined as $g(k)=v_p(f(2^k))$ we have 
+	\[
+	g(k)+g(\ell)=g(2(k+\ell)), \forall k\neq \ell
+	\]
+	Let $n\ge 3$ be arbitrary. This means we have 
+	\[
+	g(n)+g(2)=g(2(n+2))=g(1)+g(n+1)
+	\]
+	and so $g(n+1)-g(n)=g(2)-g(1)$ for all $n\ge 3$. Next, we have 
+	\[
+	g(3)+g(4)=g(2(7))=g(2)+g(5)
+	\]
+	and therefore $g(3)-g(2)=g(5)-g(4)=g(2)-g(1)$ and so $g(n+1)-g(n)=g(2)-g(1)$ for all $n\ge 1$. This means $g$ is linear and there exists $m, c$ with $g(n)=mn+c$ for all $n\ge 1$. However for all $a\neq b$ we also have $g(a)+g(b)=g(2(a+b))$ which translates into 
+	\[
+	ma+c+mb+c=m(2(a+b))+c
+	\]
+	which gives $c=m(a+b)$. Plugging $a=1, b=2$ gives $c=3m$; plugging $a=2, b=3$ gives $c=5m$. This means $m=c=0$ and consequently $g$ is a zero function. In other words, $p\nmid f(2^k)$ for all $k\ge 1$. Since this works for any $p$, $f(2^k)=1$ for all $k\ge 1$, which contradicts $f(2^k)\in S$. 
+	
+	\item A sequence of real numbers $a_0, a_1, . . .$ is said to be good if the following three conditions hold.
+	\begin{itemize}
+		\item[(i)] The value of $a_0$ is a positive integer.
+		\item[(ii)] For each non-negative integer $i$ we have $a_{i+1} = 2a_i + 1 $ or $a_{i+1} =\frac{a_i}{a_i + 2} $
+		\item[(iii)] There exists a positive integer $k$ such that $a_k = 2014$.
+	\end{itemize}
+	
+	Find the smallest positive integer $n$ such that there exists a good sequence $a_0, a_1, . . .$ of real numbers with the property that $a_n = 2014$.
+	
+	\textbf{Answer.} $n=60$. 
+	
+	\textbf{Solution.} Given that $a_0>0$, this sequence will comprise of positive rational numbers. This means, for each $i$, if $a_{i+1}=2a_i+1$ then $a_{i+1}>1$ and if $a_{i+1}=\frac{a_i}{a_i+2}$ then $a_{i+1}<1$. This means given $a_{i+1}$, $a_i$ is determined uniquely given by: 
+	\[
+	a_{i}=\begin{cases}
+	\frac{a_{i+1}-1}{2} & a_{i+1}> 1\\
+	\frac{2a_{i+1}}{1-a_{i+1}} & a_{i+1} < 1\\
+	\end{cases}
+	\]
+	Denoting sequence $b$ as $b_i=a_{n-i}$, we have $b_0=2014, b_n$ an integer, and let $(p_i, q_i)$ be pairs of integers satisfying $\gcd(p_i, q_i)=1$ and $b_i=\frac{p_i}{q_i}$. Then: 
+	\[
+	b_{i+1}=\begin{cases}
+	\frac{p_i-q_i}{2q_i} & p_i>q_i\\
+	\frac{2p_i}{q_i-p_i} & p_i<q_i\\
+	\end{cases}
+	\]
+	Note that $(p_0, q_0)=(2014, 1)$. 
+	We first show that $p_i$ and $q_i$ will always have different parity, and that the form of $b_{i+1}$ above is already in its lowest form. The base case $(2014, 1)$ satisfies this. Now given $(p_i, q_i)$ there are two cases as detailed above. If $p_i>q_i$ then we're looking at $(p_i-q_i, 2q_i)$ and now $p_i-q_i$ is odd (as $p_i$ and $q_i$ had different parity) and $2q_i$ even. Moreover, if any prime $r$ divides $p_i-q_i$ and $2q_i$ simultaneously, since $p_i-q_i$ is odd this $r$ has to be odd and therefore $r$ divides $p_i$ and $q_i$ simultaneously, contradicting that $\gcd(p_i, q_i)=1$. Therefore $\gcd(p_i-q_i, 2q_i)=1$ and similarly, $\gcd(2p_i, q_i-p_i)=1$. 
+	In addition, $(p_i-q_i)+2q_i=2p_i+(q_i-p_i)=q_i+p_i$ so the sum of $p_i+q_i$ is the same across $i=0, 1, \cdots , n$, hence equal to $p_0+q_0=2015$. 
+	
+	Let $k=2015$. If $p_i>q_i$ then $p_{i+1}=p_i-q_i= p_i-(k-p_i)=2p_i-k\equiv 2p_i$ and $2q_i\equiv 2q_i\pmod{k}$. Similarly if $p_i<q_i$ then $2p_i\equiv 2p_i\pmod{k}$ and $q_i-p_i=q_i-(k-q_i)=2q_i-k\equiv 2q_i\pmod{k}$. Therefore speaking in modulo $k$, both the denominator and numerator doubled for each iteration. In order for $b_n$ to be an integer, we need $q_n=1$ and given $q_n\equiv 2^nq_0=2^n\pmod{k}$, it remains to find the smallest $n$ with $2^n\equiv 1\pmod{k}$. 
+	
+	This leads to us finding the order of $2$ modulo 2015=$5\times 13 \times 31$. The minimum positive $n$ with $2^n\equiv$ 1 modulo $5, 13,$ and $31$ are 4, 12, 5 and therefore the $n$ we're looking for here is $lcm(4, 12, 5)=60$. 
+		
+	\item Let $n$ be a positive integer. Consider $2n$ distinct lines on the plane, no two of which are parallel. Of the $2n$ lines, $n$ are colored blue, the other $n$ are colored red. Let $\mathcal{B}$ be the set of all points on the plane that lie on at least one blue line, and $\mathcal{R}$ the set of all points on the plane that lie on at least one red line. Prove that there exists a circle that intersects $\mathcal{B}$ in exactly $2n - 1$ points, and also intersects $\mathcal{R}$ in exactly $2n - 1$ points.
+	
+	\textbf{Solution.} The goal can be restated as to find a circle that is tangent to exactly one red line and exactly one blue line, and intersect all other lines at two points. 
+	
+	To start with, consider the following terminology governing a pair of lines $\ell_1$ and $\ell_2$, separting the plane into four regions. Let the two points intersect at $C$. Let a line $\ell_3$ intersects $\ell_1$ at $A$ and $\ell_2$ at $B$. We call the region containing segment $AB$ ``incident to $\ell_3$'', the region that's exclusive of line $AB$ as ``opposite to $\ell_3$, and the other two regions as ``at the side of $\ell_3$''.  Now, any circle tangent to both $\ell_1$ and $\ell_2$ must lie in exactly one region. We consider such circles and whether it will intersect any line $\ell_3$ that does not concur with $\ell_1$ and $\ell_2$, with the following claims: 
+	\begin{itemize}
+		\item If the circle lies in the region opposite to $\ell_3$, then it won't intersect $\ell_3$. 
+		
+		\item If the circle $\omega$ lies in the region incident to $\ell_3$, then there exists $r_1<r_2$ such that $\ell_3$ intersects the circle at two points if and only if the radius of $\omega$ is in the interval $(r_1, r_2)$. 
+		
+		\item If the circle $\omega$ lies in a region at the side of $\ell_3$, then there exists $r$ such that $\ell_3$ intersects the circle at two points if and only if the radius of $\omega$ is greater than $r$. 
+	\end{itemize}
+	The proof for the first one (opposite) is trivial (the region has no intersection with $\ell_3$), and for the second one, if we denote $A, B, C$ as before then $r_1$ is the inradius of triangle $ABC$ and $r_2$ is the radius of excircle of $ABC$ opposite $C$. It's the third one that deserves our attention. Now, the excircles opposite $B$ and opposite $A$ lie in the two different regions at the side of $r_3$, we consider just the region corresponding to the one opposite $A$. Consider all such circles in the region, and their radius $r$. 
+	If $r\to 0$ the it will approach $C$ and has no intersection with $\ell_3$. We're therefore interested to investigate what happens when $r$ varies. Between the shift from not intersecting $\ell_3$ to intersecting $\ell_3$ at two points (and vice versa) there must be an intermediate point $r_0$ where the circle intersects $\ell_3$ at exactly one point (tangent), which happens only once when this circle is the excircle of $ABC$ opposite $A$. We could then infer that any bigger circle will intersect $\ell_3$ at two points. 
+	
+	(Another way to justify it is to identify the center of all such circles which all lie on an angle bisector of $\ell_1$ and $\ell_2$, and using some trigonometry we see that the radius grows faster than the distance from $\ell_3$ if and only if the circle lies in the region a the side of $\ell_3$). 
+	
+	Now, consider the bearings of the $2n$ lines with, say, the $x$-axis $\ell_0$ and we sort these lines $\ell$ according to the value $\angle(\ell, \ell_0)$. Since we are taking modulo $180^{\circ}$. these lines (after being sorted) can be arranged in a circle using this sorting algorithm (therefore giving a cyclic relation). This means that we can choose a red line $r$ and a blue line $b$ adjacent to each other on this circle (that is, adjacent to each other on this sorting system). 
+	
+	This means that for $r$ and $b$, by the nature of the positions in the rankings of the lines, there will be two regions out of 4 defined by $r$ and $b$ that are on the side of all other $2n-2$ lines (and the other two regions are either incident or opposite each of the $2n-2$ lines). Therefore, there exists a threshold $r_0$ such that for all circles tangent to $r$ and $b$ and in the regions on the side of all other $2n-2$ lines and have radius greater than $r_0$, these circles must all intersect each of the $2n-2$ lines in two points. 
+	
+	\item Determine all sequences $a_0 , a_1 , a_2 , \ldots$ of positive integers with $a_0 \ge 2015$ such that for all integers $n\ge 1$:
+	
+	(i) $a_{n+2}$ is divisible by $a_n$ ;
+	
+	(ii) $|s_{n+1} - (n + 1)a_n | = 1$, where $s_{n+1} = a_{n+1} - a_n + a_{n-1} - \cdots + (-1)^{n+1} a_0$ .
+	
+\end{enumerate}
+
+\end{document}
