@@ -1,0 +1,158 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solution to APMO 2014 Problems}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\begin{enumerate}
+	\item For a positive integer $m$ denote by $S(m)$ and $P(m)$ the sum and product, respectively, of the digits of $m$. Show that for each positive integer $n$, there exist positive integers $a_1, a_2, \ldots, a_n$ satisfying the following conditions: \[ S(a_1) < S(a_2) < \cdots < S(a_n) \text{ and } S(a_i) = P(a_{i+1}) \quad (i=1,2,\ldots,n). \](We let $a_{n+1} = a_1$.)
+	
+	\textbf{Solution.} We first show that for all $a<b$, there exists integer $x$ with $S(x)=2^a$ and $P(x)=2^b$. Fill $x$ with $b$ 2's and $c$ 1's for some $c$; the product of digits will always be $2^b$ regardless of $c$. Now for all $b\ge 1$, $2^a\ge 2b$ so $2^a-b\ge 2^a-2^b>0$, meaning that we can chooce $c=2^a-2b>0$ and therefore $S(x)=2b+c=2b+(2^a-2b)=2^a$. 
+	
+	Now, we first choose $a_1$ such that there exists $x$ and $y$ such that $S(a_1)=2^x$, $P(a_1)=2^y$ and $y - x > n$. If we fill $a_1$ with $2^k$ 2's, then $S(a_1)=2^k\cdot 2 = 2^{k+1}$ while $P(a_1)=2^{2^k}$. The function $2^x-(x+1)$ is unbounded above, so for $k$ sufficiently large, we will be able to choose $k$ such that $2^k-(k+1)>n$. 
+	Next, we consider the following construction of integers $b_1<b_2<\cdots < b_n$ with $b_1=x$ ans $b_n=y$. Since $y-x>n$, there exist integers $b_2, b_3, \cdots, b_{n-1}$ that satisfies the inequality constraint. Now that we have $S(a_1)=2^{b_1}$ and $P(a_1)=2^{b_n}$, all we need is for $i>1$, $S(a_i)=2^{b_i}$ and $P(a_i)=2^{b_i-1}$, which is possible by the first lemma. 
+	
+	\item Let $S = \{1,2,\dots,2014\}$. For each non-empty subset $T \subseteq S$, one of its members is chosen as its representative. Find the number of ways to assign representatives to all non-empty subsets of $S$ so that if a subset $D \subseteq S$ is a disjoint union of non-empty subsets $A, B, C \subseteq S$, then the representative of $D$ is also the representative of one of $A$, $B$, $C$.
+	
+	\textbf{Answer.} $108\cdot 2014!$. 
+	
+	\textbf{Solution.} We denote this representative function as $f: (\mathcal{P}(S)\backslash \emptyset)\to S$ such that: 
+	\begin{itemize}
+		\item for all $T\subseteq S$ and $T$ nonempty, $f(T)\in T$. 
+		\item  for all $A, B, C\subseteq S$ that are disjoint and nonempty, $f(A\cup B\cup C)\in \{f(A), f(B), f(C)\}$.
+	\end{itemize}
+	We first start with a lemma: if $T\subseteq S$, then for each $U\subseteq T$ satisfying $|U|\le |T| - 2$, if $f(T)\in U$ then $f(U)=f(T)$. 
+	Indeed, if $U$ and $T$ satisfy such a relation then we can find $V$ and $W$ that are nonempty such that $T$ is a disjoint union of $U, V, W$. Since $U, V, W$ are disjoint and $f(T)\in U$, $f(T)\not\in V$ and $W$. But then $f(T)\in \{f(U), f(V), f(W)\}$ and therefore $f(U)=f(T)$. 
+	
+	Conversely, once this condition is fulfilled, then any $D=A\cup B\cup C$ with $A, B, C$ nonempty will have $|D|\ge |A|+2, |B|+2, |C|+2$ and by above, if $f(D)\in A$ then $f(D)=f(A)$, and similarly so for the cases $f(D)\in B$ or $f(D)\in C$. Thus here we have $f(D)\in \{f(A), f(B), f(C)\}$. 
+	
+	Next, we claim that if $T\subseteq S$, and $|T|\ge 5$, $U\subseteq T$ and $|U|=|T|-1$ with $f(T)\in U$, then $f(U)=f(T)$. 
+	Suppose otherwise, consider the set $V=\{f(T), f(U)\}$. By above, $f(U)\in V$ and $f(T)\in V$. Also, $f(V)=2=4-2=5-3\le |T|-3=|U|-2$. This means that $f(V)=f(U)$ and $f(V)=f(T)$ must both hold, which is impossible. 
+	
+	Having this determined, we will have $a_5, a_6, \cdots , a_{2014}\subseteq S$, each distinct, such that the following holds: 
+	\begin{itemize}
+		\item $f(S)=a_{2014}$, and so for any subset $T$ containing $a_{2014}$ we have $f(S)=f(T)$. 
+		
+		\item Now for each $i\ge 5$, denote $S_i=S\backslash\{a_{j}: j>i\}$. Then we can pick $f(S_i)=a_i$ and therefore all $T\subseteq S_i$ containing $a_i$ must have $f(T)=a_i$. 
+	\end{itemize}
+	This gives $2014\cdots 5=\frac{2014!}{4!}$ choices to choose the sequence $a_5, \cdots , a_{2014}$. 
+	
+	We're now left with $S_4=S\backslash \{a_5, \cdots ,  a_{2014}\}$. Suppose, now, that $f(S_4)=a_4$, then any subset $T$ with size $\le 2$ and containing $a_4$ must satisfy $f(T)=a_4$. We're now left with: 
+	\begin{itemize}
+		\item 3-element subets of $S_4$. 
+		\item 2-element subsets of $S_4$ not containing $a_4$. 
+		\item Other 1-element subsets of $S_4$. 
+	\end{itemize}
+	We claim that these subsets can take on any representatives as long as they belong to the subsets themselves (while still fulfilling the problem condition). Consider, now, $A, B, C\subseteq S$, disjoint and nonempty, with union $D$. If any of $A, B, C$ is not a subset of $S_4$ (say $A$), neither will $D$ and therefore by our construction there will be $i\ge 5$ such that $f(D)=f(A)=a_i$. 
+	If $A, B, C$ is a subset of $S_4$ then there are two cases: 
+	\begin{itemize}
+		\item $|A|=|B|=|C|=1$, then if $A=\{a\}, B=\{b\}, C=\{c\}$ then the only way is $f(A)=a, f(B)=b, f(C)=c$. It follows that $f(D)\in D = \{a, b, c\}$. 
+		
+		\item Otherwise, $|D|\ge 4$ and the only possible choice would be $D=S_4$. If $f(D)\not\in \{f(A), f(B), f(C)\}$, then this could happen only when $f(D)\in A$ and $f(D)\neq f(A)$. This means $|A|=2$ which contradicts our construction that $f(A)=f(D)$. 
+	\end{itemize}
+	Finally, to finalize the computation, there are 4 ways to choose $a_4$, $3^4$ ways to choose the representsatives for 3-element subsets of $S_4$, $2^3$ ways to choose representative for 2-element subsets of $S_4$ not containing $a_4$, and 1 way for the 1-element subsets. Combined with the $\frac{2014!}{4!}$ ways described for sets that are not subsets of $S_4$ this gives: 
+	\[
+	\frac{2014!}{4!}\cdot 4\cdot 3^4\cdot 2^3 = 2014! \cdot 3^3\cdot 2^2=108\cdot 2014!
+	\]
+	
+	\item Find all positive integers $n$ such that for any integer $k$ there exists an integer $a$ for which $a^3+a-k$ is divisible by $n$.
+	
+	\textbf{Answer.} $n=3^b, b\ge 0$. 
+	
+	\textbf{Solution.} This is equivalent as finding $n$ such that $\{a^3+a: a=0, 1, \cdots , n-1\}\equiv \{0, 1, 2, \cdots , n-1\}\pmod{n}$. We first show that $n=3^b$ will fulfill this condition. Now suppose that $a^3+a\equiv c^3+c\pmod{n}$, then: 
+	\[
+	(a^3+c)-(c^3+c)=(a-c)(a^2+ac+c^2+1)
+	\]
+	We see that there's no $(a, c)$ that can make $a^2+ac+c^2+1$ divisible by 3 (just try all 9 pairs of $a=0, 1, 2$ and $c=0, 1, 2$), therefore forcine $3^b\mid a-c$. 
+	
+	Now we show that other numbers won't work, and in fact, it suffices to show that for all primes $p\neq 3$. For prime $p=2$ we have $0^3+0\equiv 1^3+1\equiv 0\pmod{2}$. For primes $p$ satisfying $p\equiv 1\pmod{4}$ we can choose $a$ with $p\mid a^2+1$ and therefore $a^3+a=a(a^2+1)\equiv 0=0^3+0\pmod{p}$. 
+	
+	It remains to settle for cases where $p\neq 3$ and $p\equiv 3\pmod{4}$. As above, we need to find $a, c$ such that 
+	\[
+	a\neq c\pmod{p}\qquad p\mid a^2+ac+c^2+1
+	\]
+	There are now two cases: 
+	\begin{itemize}
+		\item $p\equiv 1\pmod{3}$ (or $7\pmod{12}$). Here, consider the case $(a, c)=(2x, -x)$, giving the equation $p\mid 3x^2+1$. Here, we need 3 to not be a quadratic residue mod $p$ (since $-1$ is not a quadratic residue). We also have 
+		\[
+		\left(\frac{3}{p}\right)\left(\frac{p}{3}\right) = (-1)^{\frac{(p-1)}{2}\frac{(3-1)}{2}}=(-1)
+		\]
+		Here, $\left(\frac{p}{3}\right)=\left(\frac{1}{3}\right)=1$ and therefore $\left(\frac{3}{p}\right)=-1$. This means 3 is not quadratic residue of $p$, and therefore $p\mid 3x^2+1$ has an integer solution. 
+		
+		\item Consider, now, $p\equiv 2\pmod{3}$ (or $11\pmod{12}$). Consider the equation $a^2+ab+b^2$ as a binary quadratic form, with discriminant $-3$. 
+		
+		Recall a lemma that says that if $m$ is odd and relatively prime to $D$, then $m$ is properly represented by a primitive form of discriminant $D$ iff $D$ is a quadratic residue mod $m$. 
+		Here, $D=-3$ and we focus on $m$ prime and congruent to $-1\pmod{n}$. Again we have 
+		\[\left(\frac{-3}{m}\right)=\left(\frac{-1}{m}\right)\left(\frac{3}{m}\right)=(-1)^{\frac{m-1}{2}}\left(\frac{3}{m}\right)=(-1)^{\frac{m-1}{2}}(-1)^{\frac{(3-1)(m-1)}{4}}\left(\frac{m}{3}\right)=\left(\frac{m}{3}\right)\]
+		so a prime $m$ can be properly represented by a binary quadratic form of discriminant $-3$ iff $m\equiv 1\pmod{3}$. Since $\gcd(1, 3)=1, \gcd(-1, n)=1$ and $\gcd(3, n)=1$, by Dirichlet's theorem there exists a prime $m$ such that $m\equiv -1\pmod{n}$ and $m\equiv 1\pmod{3}$. 
+		
+		Finally, the class number $h(-3)=1$, so the only reduced form is $x^2+xy+y^2$. If $m$ is as chosen, it can be represented in the form of $x^2+xy+y^2$, and so $n|m+1=x^2+xy+y^2+1$. 
+		The only problem might be $x\equiv y\pmod{n}$; however, this won't happen in this case because $n\nmid 3x^2+1$ for any $x$ (i.e. $-3$ is not a quadratic residue of $n$). 
+	\end{itemize}
+	
+	\item Let $n$ and $b$ be positive integers. We say $n$ is $b$-discerning if there exists a set consisting of $n$ different positive integers less than $b$ that has no two different subsets $U$ and $V$ such that the sum of all elements in $U$ equals the sum of all elements in $V$.
+	
+	\begin{enumerate}
+		\item Prove that $8$ is $100$-discerning.
+		\item Prove that $9$ is not $100$-discerning.
+	\end{enumerate}
+	
+	\textbf{Solution.} 
+	\begin{enumerate}
+		\item Consider the set $A=\{3, 6, 12, 24, 48, 96, 97, 98\}=\{97, 98\}\cup \{3\cdot 2^n: 0\le n\le 5\}$. We show that for each integer $k$ there's at most 1 way to find a subset of $S$ with sum $k$. 
+		We partition $A$ into $A_0=\{3\cdot 2^n: 0\le n\le 5\}$ and $A_1=\{97, 98\}$. 
+		
+		The subsets in $A_0$ have sum $3a$ for all $0\le a\le 63$ with exactly one subset in $A_0$ fulfilling this sum for each of the numbers $0, 3, \cdots , 189$. The subset sums in $A_1$ are $0, 97, 98, 195$. Therefore: 
+		\begin{itemize}
+			\item If $k\equiv 1\pmod{3}$, the only choice from $A_1$ is $\{97\}$ and the only choice in $A_0$ is the subset giving sum $k-97$, if it ever exists. 
+			
+			\item If $k\equiv 2\pmod{3}$, the only choice from $A_1$ is $\{98\}$ and the only choice in $A_0$ is the subset giving sum $k-98$, if it ever exists. 
+			
+			\item If $k\equiv 0\pmod{3}$, there are two cases: if $k\le 189$ then since $97+98=195>189$, the only choice is to choose $\emptyset$ from $A_1$ and the subset (if exists) from $A_0$ giving sum $k$. Otherwise, if $k>189$, then the only choice from $A_1$ is $A_1$ itself and the subset (if exists) from $A_0$ giving sum $k-195$, if exists. 
+		\end{itemize}
+		Thus regardless of the remainder of $k$ modulo 3, its choice from $A_0$ and $A_1$ are both unique. 
+	\end{enumerate}
+
+	\item Circles $\omega$ and $\Omega$ meet at points $A$ and $B$. Let $M$ be the midpoint of the arc $AB$ of circle $\omega$ ($M$ lies inside $\Omega$). A chord $MP$ of circle $\omega$ intersects $\Omega$ at $Q$ ($Q$ lies inside $\omega$). Let $\ell_P$ be the tangent line to $\omega$ at $P$, and let $\ell_Q$ be the tangent line to $\Omega$ at $Q$. Prove that the circumcircle of the triangle formed by the lines $\ell_P$, $\ell_Q$ and $AB$ is tangent to $\Omega$.
+	
+	\textbf{Solution.} Let $\ell_P\cap \ell_Q=X$, $\ell_P\cap AB=Y$, and $\ell_Q\cap AB=Z$. We'll show that the circumcircle of $XYZ$ is tangent to $\Omega$ at a point opposite $Z$. If $p(X)$ be the length of tangent of $X$ to $\Omega$, we'll need to show (due to Casey's theorem): 
+	\[
+	XY\cdot p(Z)=YZ\cdot p(X)+XZ \cdot p(Y)
+	\]
+	Now, $Y$ and $Z$ are on the radical axis $AB$ of $\omega$ and $\Omega$, and therefore have the same power of point to these circles. This means $p(Z)=ZQ=XQ-XZ$ and $p(Y)=YP=XP-XY$. In addition, $p(X)=XP$. This means we need to show that 
+	\[
+	XY\cdot (ZQ-XZ)=YZ\cdot XP+XZ \cdot (XP-XY)
+	\]
+	or equivalently
+	\[
+	XY\cdot XQ = XP\cdot (YZ+XZ)\lra \frac{XQ}{XP}=\frac{YZ+XZ}{XY}
+	\]
+	Now, $XQ>XP$ so we can name $\angle XPQ=b$ and $\angle XQP=a$, In addition, let $AB$ intersect $PQ$ at $R$. The line tangent to $\omega$ at $M$ is parallel to $AB$, and therefore $ZQ=ZR$ and $\angle ZRQ=a$. This means $\angle X, Y, Z$ (on triangel $XYZ$) are $180^{\circ}-a-b$, $b-a$, $2a$ respectively. Using sine rule we are looking at 
+	\[
+	\frac{XQ}{XP}=\frac{\angle P}{\angle Q}=\frac{\sin b}{\sin a}\]
+	\[
+	\frac{YZ+XZ}{XY} = \frac{YZ+XZ}{XY} = \frac{\sin Y+\sin X}{\sin Z} = \frac{\sin (a+b)+\sin (b-a)}{\sin 2a} = \frac{2\sin b\cos a}{2\sin a\cos a} = \frac{\sin b}{\sin a}
+	\]
+	and therefore these two ratios are equal. 
+	
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,156 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solution to APMO 2013 Problems}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\begin{enumerate}
+	\item Let $ABC$ be an acute triangle with altitudes $AD$, $BE$, and $CF$, and let $O$ be the center of its circumcircle. Show that the segments $OA$, $OF$, $OB$, $OD$, $OC$, $OE$ dissect the triangle $ABC$ into three pairs of triangles that have equal areas.
+	
+	\textbf{Solution.} We show that triangles $OBF$ and $OEC$ have the same area. Let the perpendicular from $O$ to $BC, CA, AB$ as $M_A, M_B, M_C$ respectively. Now $OM_C$ is the height from $O$ to $AB$ and therefore the area of $OBF$ is given by $\frac 12 OM_C\cdot BF$ and similarly the area of $OEC$ is given by $\frac 12 OM_B \cdot CE$. Therefore we need to show that 
+	\[
+	OM_C\cdot BF = OM_B \cdot CE \quad \text{ or equivalently}\quad \frac{OM_C}{OM_B} = \frac{CE}{BF}
+	\]
+	Denote $R$ the circumcradius of triangle $ABC$, then $OM_C=OB\cos \angle M_COB=R\cos \frac 12 \angle OAB=R\cos \angle ACB$ and similarly $OM_B = R\cos\angle ABC$. Therefore 
+	\[
+	\frac{OM_C}{OM_B} = \frac{\cos\angle ACB}{\cos\angle ABC}
+	\]
+	Now, denote $H$ the orthocenter of $ABC$; triangles $FHB$ and $EHC$ are similar so $\frac{CE}{BF}=\frac{CH}{BH}=\frac{\sin\angle HBC}{\sin\angle HCB}=\frac{\cos\angle ECB}{\cos\angle FBC}=\frac{\cos\angle ECB}{\cos\angle FBC}=\frac{\cos\angle ACB}{\cos\angle ABC}$. Therefore $ \frac{OM_C}{OM_B} = \frac{\cos\angle ACB}{\cos\angle ABC} = \frac{CE}{BF}$ as desired. 
+		
+	\item Determine all positive integers $n$ for which $\dfrac{n^2+1}{[\sqrt{n}]^2+2}$ is an integer. Here $[r]$ denotes the greatest integer less than or equal to $r$.
+	
+	\textbf{Answer.} No such $n$. 
+	
+	\textbf{Solution.} Let $[\sqrt{n}] = k$, then $k\le \sqrt{n}< k+1$, or $k^2\le n < (k+1)^2 = k^2+2k+1$. Therefore there exists an $a$ such that $n = k^2+a$ where $0\le a\le 2k$. Notice also that 
+	\[
+	n^2+1=(k^2+a)^2+1 = (k^2+2)(k^2+2(a-1))+a^2-4a+5 
+	\]
+	so we have $k^224\mid a^2-4a+5=(a-2)^2+1$ where $0\le a \le 2k$. Now that $(a-2)^2+1\le (2k-2)^2+1 < 4k^2+1 < 4(k^2+2)$, we have $(a-2)^2+1 = b(k^2+2)$ where $b=1, 2, $or $3$. 
+	
+	If $k^2+2=(a-2)^2+1$, then $k^2+1=(a-2)^2$ so $k^2$ and $(a-2)^2$ are consecutive square numbers and therefore $k=0$ and $|a-2|=1$. This contradicts with that $n$ (and therefore $k$) is positive. 
+	
+	If $2(k^2+2)=(a-2)^2+1$, then $a-2$ must be odd and therefore is equivalent to 1 modulo 8. This means $(a-2)^2+1\equiv 2\pmod{8}$. On the other hand, $k^2+2\equiv 2, 6, 3\pmod{8}$ so $2(k^2+2)\equiv 4, 6\pmod{8}$, thus no common remainder on two sides modulo 8 (hence no solution). 
+	
+	Summing above, we conclude that no $n$ can satisfy the condition. 
+	
+	If $3(k^2+2)=(a-2)^2+1$, then $3\mid (a-2)^2+1$. This is impossible since $-1$ is not a quadratic residue modulo 3. 
+	
+	\item For $2k$ real numbers $a_1, a_2, ..., a_k$, $b_1, b_2, ..., b_k$ define a sequence of numbers $X_n$ by \[
+	X_n = \sum_{i=1}^k [a_in + b_i] \quad (n=1,2,...).
+	\] If the sequence $X_N$ forms an arithmetic progression, show that $\textstyle\sum_{i=1}^k a_i$ must be an integer. Here $[r]$ denotes the greatest integer less than or equal to $r$.
+	
+	\textbf{Solution.} Let $d$ and $a$ be such that $X_n=dn+c$. Given that each term $[r]$ is an integer, $X_n$ is also an integer. Therefore, $d$ and $c$ are both integers. 
+	
+	Now let $A=\textstyle\sum_{i=1}^k a_i$ and $B=\textstyle\sum_{i=1}^k b_i$. We use the fact that $r-1<[r]\le r$ to deduce 
+	\[
+	An+B-k = \sum_{i=1}^k (a_in + b_i - 1) < \sum_{i=1}^k [a_in + b_i]\le \sum_{i=1}^k a_in + b_i = An+B
+	\]
+	On the right inequality we have $X_n=dn+c\le An+B$, or $(d-A)n\le B-c$, so $(d-A)n$ is bounded above by $B-c$ even as $n\to\infty$. We then deduce that $d-A\le 0$, and therefore $d\le A$. 
+	
+	On the other hand, $An+B-k\le dn+c$. This gives $B-k+c\le (d-A)n$, so the expression $(d-A)n$ is bounded below by the similar reason even as $n\to\infty$. This gives $d-A\ge 0$, or $d\ge A$. 
+	
+	Combining these two, we have $d=A$ and since $d$ must be an integer, so must $A$. 
+	
+	\item Let $a$ and $b$ be positive integers, and let $A$ and $B$ be finite sets of integers satisfying
+	\begin{itemize}
+		\item [(i)] $A$ and $B$ are disjoint;
+		
+		\item [(ii)] if an integer $i$ belongs to either to $A$ or to $B$, then either $i+a$ belongs to $A$ or $i-b$ belongs to $B$.
+	\end{itemize}
+	Prove that $a\left\lvert A \right\rvert = b \left\lvert B \right\rvert$. (Here $\left\lvert X \right\rvert$ denotes the number of elements in the set $X$.)
+	
+	\textbf{Solution.} Let's do this algorithm: starting with any element $x$ in $A\cup B$, we construct a directed edge from $x$ to either $x+a\in A$ or $x-b\in B$ (if both are present, choose one arbitrarily). Continue this algorithm from this new number until we reach a number we've encountered previously. This would give a directed cycle in the set $A\cup B$. 
+	
+	We first notice that within this directed cycle, each element has at least 1 incoming edge. Let $y\in A$ in this cycle, for example, then this $y$ must have incoming edge from vertex $y-a$ and since $A$ and $B$ are disjoint, this gives $y$ at most one incoming edge. This means that this directed cycle has no other edges, and therefore must have the form: 
+	\[
+	a_0\to a_1\cdots \to a_k=a_0
+	\]
+	Now once we constructed a cycle, we continue constructing other cycles using the algorithm above starting with any element in $A\cup B$ that's not part of any cycle yet. Given that each vertex can have no more than 1 incoming vertex, these cycles must be disjoint, and it suffices to show that within a cycle $C$, if $A_C=C\cap A$ and $B_C=B\cap C$ are the vertices inside the cycle and in sets $A$ and $B$, respectively, then $a|A_C|=b|B_C|$. 
+	
+	Indeed, on each edge in $C$, write $+a$ on the edge as it points to a vertex in $A$ and $-b$ otherwise; these numbers signify the difference of the destination vs origin vertex of the edge. By considering one full cycle (that starts and ends on one cycle), we see that the sum of all numbers written on the edges is 0, thereffore $a|A_C|-b|B_C|=0$, as desired. 
+	
+	\item Let $ABCD$ be a quadrilateral inscribed in a circle $\omega$, and let $P$ be a point on the extension of $AC$ such that $PB$ and $PD$ are tangent to $\omega$. The tangent at $C$ intersects $PD$ at $Q$ and the line $AD$ at $R$. Let $E$ be the second point of intersection between $AQ$ and $\omega$. Prove that $B$, $E$, $R$ are collinear.
+	
+	\textbf{Solution.} 
+	\usetikzlibrary{arrows}
+	\pagestyle{empty}
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{xdxdff}{rgb}{0.6588235294117647,0.6588235294117647,0.6588235294117647}
+	\definecolor{qqqqff}{rgb}{0.3333333333333333,0.3333333333333333,0.3333333333333333}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+	\clip(0.3142820352854103,-3.9126154612485298) rectangle (26.08469099646867,8.569226096472404);
+	\draw(5.06,2.6) circle (3.9643410549547826cm);
+	\draw (1.92,0.18)-- (4.6541048166111345,-3.3675574893218867);
+	\draw (4.6541048166111345,-3.3675574893218867)-- (4.420585883083908,6.512435250210336);
+	\draw (4.420585883083908,6.512435250210336)-- (8.646863477370747,-1.8039399232146316);
+	\draw (7.843394412597018,-0.222891344689642)-- (4.6541048166111345,-3.3675574893218867);
+	\draw (4.420585883083908,6.512435250210336)-- (6.491791462974107,-1.5555831272150753);
+	\draw (4.606141643190107,-1.3382753321668384)-- (8.646863477370747,-1.8039399232146316);
+	\draw [dash pattern=on 6pt off 6pt] (1.92,0.18)-- (8.646863477370747,-1.8039399232146316);
+	\draw (4.420585883083908,6.512435250210336)-- (1.92,0.18);
+	\draw (1.92,0.18)-- (4.606141643190107,-1.3382753321668384);
+	\begin{scriptsize}
+	\draw [fill=qqqqff] (1.92,0.18) circle (2.5pt);
+	\draw[color=qqqqff] (2.0845970856623475,0.591603844140892) node {$B$};
+	\draw [fill=xdxdff] (4.606141643190107,-1.3382753321668384) circle (2.5pt);
+	\draw[color=xdxdff] (4.7736832381336445,-0.9322116422595093) node {$C$};
+	\draw [fill=xdxdff] (4.420585883083908,6.512435250210336) circle (2.5pt);
+	\draw[color=xdxdff] (4.572001776698297,6.910956302448438) node {$A$};
+	\draw [fill=uuuuuu] (4.6541048166111345,-3.3675574893218867) circle (1.5pt);
+	\draw[color=uuuuuu] (4.818501340674833,-3.0610715129659525) node {$P$};
+	\draw [fill=uuuuuu] (7.843394412597018,-0.222891344689642) circle (1.5pt);
+	\draw[color=uuuuuu] (8.0005866210992,0.09860471618782089) node {$D$};
+	\draw [fill=uuuuuu] (6.491791462974107,-1.5555831272150753) circle (1.5pt);
+	\draw[color=uuuuuu] (6.656043544863552,-1.2459383600478273) node {$Q$};
+	\draw [fill=uuuuuu] (6.384238281654683,-1.1366285570551762) circle (1.5pt);
+	\draw[color=uuuuuu] (6.543998288510582,-0.8201663859065387) node {$E$};
+	\draw [fill=uuuuuu] (8.646863477370747,-1.8039399232146316) circle (1.5pt);
+	\draw[color=uuuuuu] (8.807312466840589,-1.4924379240243628) node {$R$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	It suffices to prove that 
+	\[\frac{\sin\angle CBE}{\sin\angle ABE}=\frac{\sin\angle CBR}{\sin\angle ABR}\]
+	Now, $\angle CBE$ and $\angle ABE$ are the angle subtended by $CE$ and $AE$, and therefore 
+	\[
+	\frac{\sin\angle CBE}{\sin\angle ABE} = \frac{CE}{AE}
+	\]
+	Let's claim that the right hand side is 
+	\[\frac{CR}{AR}\cdot\frac{\sin\angle BCR}{\sin\angle BAR}\]
+	Consider, now, the triangles $CBR$ and $BAR$. Their areas have ratio 
+	\[
+	\frac{|CBR|}{|BAR|}=\frac{BC\cdot CR\cdot \sin\angle BCR}{AB\cdot AR\cdot \sin\angle BAR} 
+	= \frac{BC \cdot BR\cdot \sin\angle CBR}{AB\cdot BR\cdot\sin\angle ABR} 
+	= \frac{BC \cdot \sin\angle CBR}{AB\cdot\sin\angle ABR} 
+	\]
+	thus establishing the claim. 
+	Thus, 
+	\[\frac{CR}{AR}\cdot\frac{\sin\angle BCR}{\sin\angle BAR}=\frac{\sin\angle CAD}{\sin\angle ACR}\cdot\frac{BC}{BD}=\frac{CD}{AC}\cdot\frac{BC}{BD}\]
+	Now to prove that the ratios are the same, we need 
+	$\frac{CD\cdot BC\cdot AE}{CE\cdot CA\cdot BD}=1$.  
+	From the statment of the problem, both $ABCD$ and $ACED$ are harmonic quadrilaterals, 
+	and by Ptolemy's theorem, 
+	\[AC\cdot BD=AB\cdot CD+AD\cdot BC=AD\cdot BC+AD\cdot BC=2AD\cdot BC\]  
+	Likewise, $AE\cdot CD=2AD\cdot CE.$ Therefore, 
+	\[\frac{CD\cdot BC\cdot AE}{CE\cdot CA\cdot BD}=\frac{2AD\cdot CE\cdot BC}{2AD\cdot BC\cdot CE}=1\]
+\end{enumerate}
+
+\end{document}
