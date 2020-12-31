@@ -1,0 +1,44 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2018, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[2.] Do there exist 2018 positive irreducible fractions, each with a different denominator, so that that the denominator of the difference of any two (after reducing the fraction) is less than the denominator of any of the initial 2018 fractions?
+	
+	\textbf{Solution.} Let $n=2018$. Define: 
+	\[
+	a_k = \frac{1}{2^k} + \frac{1}{2^{n}+1} = \frac{2^n+2^k+1}{2^k(2^n+1)}\quad \forall k = 1, 2, \cdots , n
+	\]
+	Then $a_k-a_{\ell}$ has denominator $2^{\max(k, \ell)}\le 2^n$. We now show that $\gcd(2^n+2^k+1, 2^k(2^n+1))=1$. Otherwise, there exists a prime $p$ dividing both numerator and denominator, and therefore $p$ divides either $2^k$ or $2^n+1$. In the former case, $p=2$ but $2^n+2^k+1$ is odd; in the latter case, $p\mid 2^n+1$ so $p$ is odd but then $2^n+2^k+1\equiv 2^k\pmod{2^n+1}$ so $p\mid 2^k$, contradicting that $p$ is odd. So 
+	\[
+	a_k = \frac{2^n+2^k+1}{2^k(2^n+1)}
+	\]
+	is already in its lowest term, with denominator $2^k(2^n+1)\ge 2(2^n+1)>2^n$ (hence different for each of them), and certainly greater than $2^n$. 
+\end{enumerate}
+\end{document}

@@ -1,0 +1,100 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2020, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[2.] Alice had picked positive integers $a,b,c$ and then tried to find positive integers $x, y, z$ such that $a = l.c.m.(x, y)$, $b = l.c.m.(x, z), c = l.c.m.(y, z)$. 
+	It so happened that such $x,y,z$ existed and were unique. 
+	Alice told this fact to Bob and also told him the numbers $a$ and $b$. 
+	Prove that Bob can find $c$. (Note: l.c.m = least common multiple.)
+	
+	\textbf{Solution.} Consider, now, arbitrary $a, b, c$, and for each prime $p$ dividing $abc$ consider $v_p(a), v_p(b), v_p(c)$. We need to find $x, y, z$ such that 
+	\[
+	v_p(a)=\max(v_p(x), v_p(y))\qquad v_p(b)=\max(v_p(x), v_p(z))\qquad v_p(c)=\max(v_p(y), v_p(z))
+	\]
+	Since $x, y, z$ are unique, $v_p(x), v_p(y), v_p(z)$ must be uniquely determined. 
+	Since each of $v_p(x), v_p(y), v_p(z)$ are considered twice in $v_p(a), v_p(b), v_p(c)$, considering largest among $v_p(x), v_p(y), v_p(z)$ yield that the two largest quantity among $v_p(a), v_p(b), v_p(c)$ must both be equal to $\max\{v_p(x), v_p(y), v_p(z)\}$ and nonzero because $p\mid abc$. 
+	W.l.o.g. suppose $v_p(z)$ turns out to be the largest, then $v_p(b)=v_p(c)=v_p(z)$ and given $v_p(a)=\max(v_p(x), v_p(y))\le v_p(z)$, $v_p(x)$ and $v_p(y)$ can be constructed by taking one being equal to $v_p(a)$ and the others any number $\le v_p(a)$. In particular, all $(v_p(a), v_p(a)), (0, v_p(a))$ and $(v_p(a), 0)$ are valid numbers. By the uniqueness of $x, y, z$ we must have $v_p(a)=0$. 
+	It then follows that for each $p$ dividing $abc$, two of $v_p(a), v_p(b), v_p(c)$ are equal and positive, while the third one 0. 
+	
+	Knowing this, if $p\mid abc$ then $p$ divides exactly two of $a, b, c$, so it divides at least one of $a, b$. Hence, when constructing $c$, we only need to consider all $p$ dividing $a$ or $b$: 
+	\begin{itemize}
+		\item If, for such $p$, $v_p(a)=v_p(b)>0$, then $v_p(c)=0$. 
+		\item Otherwise, one of $v_p(a), v_p(b)$ is positive while the other zero, match $v_p(c)$ with the positive one. 
+	\end{itemize}
+	This determines $c$ uniquely. 
+	
+	\item[4.] Henry invited $2N$ guests to his birthday party. 
+	He has $N$ white hats and $N$ black hats. 
+	He wants to place hats on his guests and split his guests into one or several dancing circles so that in each circle there would be at least two people and the colors of hats of any two neighbours would be different. 
+	Prove that Henry can do this in exactly $(2N)!$ different ways. (All the hats with the same color are identical, all the guests are obviously distinct; ($2N )! = 1 \cdot 2 \cdot\ldots\cdot (2N)$.)
+	
+	\textbf{Solution.} We do induction on $N$. If $N=1$ the two kids must be in the same circle, so the 2 ways depending who gets white hat (i.e. the other gets black hat). 
+	
+	Induction: suppose the hypothesis holds for $1, \cdots , N-1$ for some $N\ge 2$. We now focus on the circle containing the kid numbered 1. Notice that the alternating colour condition says that the circle size must be even. 
+	
+	Let $2k$ be the size. Fixing the position of kid 1, there are $\frac{(2N-1)!}{(2N-2k)!}$ ways to choose $2k-1$ other people to be in the same circle as this kid. Given this, there are two ways to distribute the hats (kid 1 gets black or white, the rest is then determined uniquely). 
+	Now, the unselected $2N-2k$ kids form other circles, which have $(2N-2k)!$ ways by induction hypothesis. This gives a total of 
+	\[
+	\frac{(2N-1)!}{(2N-2k)!}\cdot 2\cdot (2N-2k)! = 2(2N-1)!
+	\]
+	and combining $k=1, 2, \cdots , N$ we get the total number of ways as $2N(2N-1)!=(2N)!$, completing the induction step. 
+	
+	\item[5.] Let $ABCD$ be an inscribed quadrilateral. Let the circles with diameters $AB$ and $CD$ intersect at two points $X_1$ and $Y_1$, the circles with diameters $BC$ and $AD$ intersect at two points $X_2$ and $Y_2$, the circles with diameters $AC$ and $BD$ intersect at two points $X_3$ and $Y_3$. Prove that the lines $X_1Y_1$, $X_2Y_2$ and $X_3Y_3$ are concurrent.
+	
+	\textbf{Solution.} Denote the intersection of $AB$ and $CD$ as $Z_1$, $BC$ and $AD$ as $Z_2$, and $AC$ and $BD$ as $Z_3$. Notice that $Z_1$ might be point of infinity. If both $Z_1$ and $Z_2$ are point of infinity, then $ABCD$ is a rectangle and all the three target lines will meet at the center $O$ of the circle surrounding $ABCD$. If $Z_1$ is but $Z_2$ is not, then $ABCD$ is an isoceles trapezoid and $X_2Y_2$ will be the shared perpendicular bisector of $AB$ and $CD$ (the circles of diameters $BC$ and $AD$ are literally mirror images of each other under this perpendicular bisector), and so is $X_3Y_3$. Thus $X_2Y_2$ and $X_3Y_3$ coincide in this case. 
+	
+	Hence we may assume that $Z_1, Z_2, Z_3$ are not point of infinity. We now consider the following: taking the two circles with diameters $AB$ and $CD$, and also the circumcircle of $ABCD$, the radical axes from the 2 out of 3 circles are $AB, CD$, and $X_1Y_1$. Hence $X_1Y_1$ passes through $Z_1$. 
+	Moreover, if $M_\ell$ is the midpoint of segment $\ell$ then $X_1Y_1$ is perpendicular to $M_{AB}$ and $M_{CD}$ (radical axis is always perpendicular to the line joining the centers of two circles). 
+	We also have $\angle Z_1M_{AB}O=\angle Z_1M_{CD}O=90^{\circ}$ so $Z_1M_{AB}OM_{CD}$ is cyclic. This gives the following relation (bearing in mind thar $X_1Y_1$ and $M_{AB}M_{CD}$ are perpendicular)
+	\[
+	\angle(Z_1M_{AB}, X_1Y_1)=90^{\circ} - \angle(M_{AB}M_{CD}, Z_1M_{AB})
+	=90^{\circ} - \angle(OM_{CD}, OZ_1) = \angle(OZ_1, Z_1M_{CD})
+	\]
+	or rather, $\angle(AB, X_1Y_1)=\angle(OZ_1, CD)$. 
+	i.e. $X_1Y_1$ is the reflection of $Z_1O$ in the angle bisector of $\angle M_{AB}Z_1M_{CD}$. 
+	In a similar way we have $\angle(BC, X_2Y_2)=\angle(OZ_2, AD)$ and $\angle(AC, X_3Y_3)=\angle(OZ_3, BD)$. 
+	
+	Now, let $T_i$ be the second intersection of $X_iY_i$ with the circumcircle of $Z_1Z_2Z_3$ ($T_i\neq Z_i$ unless the $X_iY_i$ is tangent to the circumcircle). 
+	Next, Brokard's theorem says that $O$ is the orthocenter of $Z_1Z_2Z_3$. In the context of directed angle, this means 
+	\[
+	\angle(Z_1Z_3, Z_2Z_3)=\angle(Z_2O, Z_1O)
+	\]
+	Given that $ABCD$ is cyclic, we also have $\angle(AB, AD)=\angle(CB, CD)$. This then means 
+	\[
+	\angle(X_1Y_1, X_2Y_2)=\angle(X_1Y_1, AB)+\angle(AB, AD)+\angle(AD, X_2Y_2)
+	\]\[
+	=\angle(CD, OZ_1)+\angle(CB, CD)+\angle(OZ_2, BC)
+	=\angle(OZ_2, OZ_1)=\angle(Z_1Z_3, Z_2Z_3)
+	\]
+	and since $X_1Y_1$ passes through $Z_1$ and $X_2Y_2$ passes through $Z_2$, we have $X_1Y_1$ and $X_2Y_2$ intersecting on the circle $Z_1Z_2Z_3$, and therefore $T_1=T_2$. Similarly $T_2=T_3$. Hence $X_iY_i$s concur on the same point $T_1=T_2=T_3$. 
+	
+\end{enumerate}
+\end{document}
+	

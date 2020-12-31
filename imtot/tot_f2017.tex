@@ -1,0 +1,88 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Fall 2017, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item [3.] An analyst made a prediction for the change in the dollar/euro rate for each of the next 12 months: by what percentage the rate would change in October, in November, in December, and so on. It turned out that for every month, he predicted the right percentage but was mistaken if it will go up or down (i.e., if he predicted that the rate will decrease by $x\%$, then the real rate increased by $x\%$, and vice versa). Nevertheless, the dollar/euro rate after 12 months coincided with the prediction. Did the dollar/euro rate go up or down on the whole?
+	
+	\textbf{Answer.} It decreases.
+	
+	\textbf{Solution.} Let $100\cdot x_i$ be the actual signed percentage change at the $i$-th month (that is, positive if it goes up, negative if it goes down). Then the actual proportion change (without percentage) is $x_i$ while what's predicted by the analyst is $-x_i$. The ratio of the dollar/euro rate after $k$ months compared to the beginning is 
+	\[
+	\dprod_{i=1}^k (1+x_i)
+	\]
+	and the last sentence suggests that there's a constant $R$ satisfying 
+	\[
+	\dprod_{i=1}^{12} (1+x_i) = R = \dprod_{i=1}^{12} (1-x_i)
+	\]
+	Multiplying both sides, we get 
+	\[
+	R^2 = \dprod_{i=1}^{12} (1+x_i) (1-x_i) = \dprod_{i=1}^{12} (1-x_i^2)\le 1
+	\]
+	with equality iff $x_i=0$ for all $i$ (i.e. the conversion ratio stays constant across the 12 months). Assuming this doesn't happen, we have $R<1$ and therefore the rate goes down overall. 
+	
+	\item [4.] Show that for any infinite sequence $a_0, a_1, \cdots , a_n, \cdots$ of ones and negative ones, we can choose $n$ and $k$ such that
+	\[
+	|a_0 \cdot a_1 \cdot ...\cdot a_k + a_1 \cdot a_2 \cdot...\cdot a_{k+1} +...+a_n \cdot a_{n+1} \cdot...\cdot a_{n+k}|=2017.
+	\]
+	
+	\textbf{Solution.} 
+	Let $c=2\cdot 2017=4034$. 
+	Consider the tuples $t_n = (a_{n+1}, \cdots , a_{n+c})$. Since each entry as the tuples are $\pm 1$, there are $2^{c}$ possible distinct tuples of such form. Therefore there exists $m$ and $n$ such that $t_m=t_n$, with $m< n$. Now consider $k$ such that $k+1=n-m$, and consider 
+	\[
+	s_n = a_0 \cdot a_1 \cdot ...\cdot a_k + a_1 \cdot a_2 \cdot...\cdot a_{k+1} +...+a_n \cdot a_{n+1} \cdot...\cdot a_{n+k}
+	\]
+	for each $n$. Then notice that 
+	\[
+	s_{n}-s_{n-1} = a_n\cdot \cdots \cdot a_{n+k}\qquad
+	s_{n+1}-s_n = a_{n+1}\cdot \cdots \cdot a_{n+k+1} = (s_{n}-s_{n-1})\frac{a_{n+k+1}}{a_{n}}
+	\]
+	but given $t_m=t_n$, $a_{x+k+1}=a_x$ for $x=m+1, m+2, \cdots , m+c$. This gives $s_{x+2}-s_{x+1}=s_{x+1}-s_x$. 
+	
+	Finally, by convention $s_{-1}=0$ and $s_n-s_{n-1}=\pm 1$ for all $n$. If $|s_{m+1}|\ge 2017$ then there must be an $x\le m+1$ such that $|s_{m+1}|=2017$ and we're done. Otherwise, we have $s_{m+1}, s_{m+2}, \cdots , s_{m+c}$ all one more than the term before or one less than the term before. This means $s_{m+c}=s_{m+1}+(c-1)$ or $s_{m+c}=s_{m+1}-(c-1)$. Since $-2016\le s_{m+1}\le 2016$, $s_{m+c}$ must lie outside the $[-2016, 2016]$ interval and so there's an $x\le c$ with $|s_{m+x}|=2017$, done. 
+	
+	\item[6.] A triangle $ABC$ is given. Let $I$ be the center of its excircle tangent to the segment $AB$, and let $A_1$ and $B_1$ be the points where the segments $BC$ and $AC$ touch the corresponding excircles. Let $M$ be the midpoint of the segment $IC$, and let the segments $AA_1$ and $BB_1$ intersect at point $N$. Prove that the points $N, B_1, A$, and $M$ are concyclic.
+	
+	\textbf{Solution.} In fact, we'll show that $M$ is the second intersection of circles $AB_1N$ and $BA_1N$. First, consider the second intersection of line $IC$ with circumcircle of $CAA_1$, namely $M'$. $M'A=M'A_1$ and therefore by Ptolemy's theorem,
+	\[
+	M'C\cdot AA_1 = M'A \cdot (CA+CA_1) 
+	\]
+	but if the excircle touches $CA$ and $CB$ at $B_2$ and $A_2$ respectively, we have $B_2, C, A_2, I$ concyclic and therefore 
+	\[
+	IC\cdot A_2B_2 = IA_2 \cdot (CA_2+CB_2) 
+	\]
+	and given that $M'AA_1$ and $IA_2B_2$ are similar, the two equations above give: 
+	\[
+	\frac{M'C}{CA+CA_1}=\frac{IC}{CA_2+CB_2}
+	\]
+	but by definition of $A_2$ and $B_2$, $CA_2$ and $CB_2$ are each equal to $s$, the semiperimeter of triangle $ABC$, same goes to the sum $CA+CA_1$ given the definition of $A_1$. We $IC=2CM'$, and so $M'=M$, i.e. $M, A, C, A_1$ are concyclic and therefore $MA=MA_1$. Similarly $MB=MB_1$. 
+	
+	Notice also that $AB_1=BA_1$: each of them are equal to the length of tangent from $C$ to the incircle of $ABC$. Therefore by spiral similarity, if $O$ is the intersection of the circles $AB_1N$ and $BA_1N$ we have $OA=OA_1$ and $OB=OB_1$ but then $O$ and $M$ are both on the intersection of perpendicular bisectors of $AA_1$ and $BB_1$ (which are not parallel as the lines themselves intersect at $N$), we have $O=M$, so $M$ is indeed on the intersection of the two circles. 
+\end{enumerate}
+\end{document}

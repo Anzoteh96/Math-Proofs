@@ -1,0 +1,70 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Fall 2014, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[3.] 
+	Gregory wrote 100 numbers on a blackboard and calculated their product. Then he increased each number by 1 and observed that the product didn’t change. He increased the numbers in the same way again, and again the product didn’t change. He performed this procedure $k$ times, each time having the same product. Find the greatest possible value of $k$. 
+	
+	\textbf{Answer.} $k=99$. 
+	
+	\textbf{Solution.} Let the numbers be $a_1, \cdots , a_{100}$ and the product be $P$. Then the problem statement implies 
+	\[
+	(a_1+x)(a_2+x)\cdots(a_{100}+x)-P=0, \forall x=0, 1, \cdots , k
+	\]
+	The left hand side is a monic polynomial of degree 100, hence having at most 100 roots. Thus $k\le 100-1=99$. 
+	
+	Equality is attained when the numbers are $0, -1, \cdots , -99$. Then for $k=1, 2, \cdots , 99$, exactly one of the numbers $a_i+k$ is 0, giving the product 0 overall. 
+	
+	\item[4.] 
+	The circle inscribed in triangle $ABC$ touches the sides $BC, CA, AB$ at points $A', B', C'$ respectively. Three lines, $AA', BB'$ and $CC'$ meet at point $G$. Define the points $C_A$ and $C_B$ as points of intersection of the circle circumscribed about triangle $GA'B'$ with lines $AC$ and $BC$, different from $B'$ and $A'$. In similar way define the points $AB, AC, BC, BA$. Prove that the points $C_A, C_B, A_B, A_C, B_C$, and $B_A$ belong to the same circle.
+	
+	\textbf{Solution.} Given that $AB'=AC'$ and $A_B, A_C, B', C', G$ lie on the same circle, we gave $AA_B=AA_C$ and similarly $BB_A=BB_C$ and $CC_A=CC_B$. Additionally, the circle $GA'C'$ and $GA'B'$ have radical axis $GA'$, we have $AC'\cdot AB_A=AB'\cdot AC_A$ and therefore $AB_A=AC_A$, too. 
+	A series of angle chasing gives 
+	\[
+	\angle C_AB_AB_C=180^{\circ}-\angle AB_AC_A-\angle BB_ABB_C = \frac{\angle BAC+\angle \angle ABC}{2}=90^{\circ} - \frac{\angle ACB}{2}=\angle C_AC_BC
+	\]
+	so $B_A, B_C, C_A, C_B$ are indeed concyclic, with center of circle the intersection of perpendicular bisectors of $B_AB_C$ and $C_AC_B$. However, since $BB_A=BB_C$, we the perpendicular bisector of $B_AB_C$ as the angle bisector of $\angle ABC$, and similarly the other perpendicular bisector as the angle bisector of $\angle ACB$. Thus the center of this circle $B_AB_CC_AC_B$ is actually $I$, the incenter of $ABC$. Therefore, $I$ is equidistant from $B_A, B_C, C_A, C_B$ and with the similar logic we deduce that $I$ is equidistant from $A_B, A_C, B_A, B_C$. So $I$ is equidistant from the six points and so the six points lie on the same circle. 
+	
+	\item[5.] Pete counted all possible words consisting of $m$ letters, such that each letter can be only one of $T, O, W$ or $N$ and each word contains as many $T$ as $O$. Basil counted all possible words consisting of $2m$ letters such that each letter is either $T$ or $O$ and each word contains as many $T$ as $O$. Which of the boys obtained the greater number of words?
+	
+	\textbf{Answer.} The two sets have the same number of words. 
+	
+	\textbf{Solution.} Let $A$ be the set counted by Pete and $B$ the set by Basil. We define a mapping $f:A\to B$ by the following: if $a=a_1a_2\cdots a_m\in A$, then denote $f(a)=b=b_1\cdots b_{2m}$ where for each $i=1, \cdots , m$: 
+	\begin{itemize}
+		\item If $a_i=T$, then $b_i=b_{m+i}=T$
+		\item If $a_i=O$, then $b_i=b_{m+i}=O$
+		\item If $a_i=W$, then $b_i=T, b_{m+i}=O$
+		\item If $a_i=N$, then $b_i=O, b_{m+i}=T$
+	\end{itemize}
+	To show that the mapping is valid, we notice that since the frequency of $i$ with $a_i=T$ is equal to that of $a_i=O$, the frequency of $i$ with $b_i=b_{m+i}=T$ is equal to that of $b_i=b_{m+i}=O$ and therefore the resulting $b$ has equal $T$ and $O$. In addition, the fact that $b_i=b'_i$ and $b_{m+i}=b'_{m+i}$ implies that $a_i=a'_i$ (with $b'$ as the image of $a$ under $f$) so $f$ is also injective. Finally, for any $b\in B$, an inverse $f^{-1}$ can be defined where $a_i$ is defined according to the combinations of $b_i$ and $b_{m+i}$ above. This guarantees that $a$ has as many $T$ as $O$'s by a previous reasoning. 
+	
+	Thus $f$ is actually a bijection, which then implies $|A|=|B|$. 
+\end{enumerate}
+\end{document}

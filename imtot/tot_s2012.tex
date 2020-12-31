@@ -1,0 +1,187 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2012, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item[1.] Each vertex of a convex polyhedron lies on exactly three edges, at least two of which have the same length. Prove that the polyhedron has three edges of the same length.
+	
+	\textbf{Solution.} Consider any vertex $O$. Now that there are two other vertices $A, B$ such that there's an $a$ with $OA=OB=a$, consider the side $AB$. If $AB=a$ we're done. Otherwise, let $AB=b\neq a$. For the lines originating from $A$, we have $AO=a$ and $AB=b$ hence the third line (say, $AC$) must have length either $a$ or $b$. Similarly the third line from $B$ (say, $BD$ where $D$ could be equal to $C$) must have length either $a$ or $b$. If either of $AC$ or $BD$ have length $a$ then there are three lines of length $a$. Otherwise both are $b$ and since $AB=b$, this gives $AC=BD=AB=b$. 
+	
+	\item[2.] The cells of a $1\times 2n$ board are labelled $1,2,...,, n, -n,..., -2, -1$ from left to right. A marker is placed on an arbitrary cell. If the label of the cell is positive, the marker moves to the right a number of cells equal to the value of the label. If the label is negative, the marker moves to the left a number of cells equal to the absolute value of the label. Prove that if the marker can always visit all cells of the board, then $2n + 1$ is prime.
+	
+	\textbf{Solution.} Notice that the positions are $1, 2, \cdots , 2n$ and the numbers written on each cell is congruent to its position modulo $2n+1$. Now consider a market at cell $i$. If $i\le n$ then it will go to position $2i$; otherwise, $i>n$ and the cell has number $i-(2n+1)$, which prompts it to jump to cell $i+(i-(2n-1))=2i-(2n-1)$. Thus with respect to modulo $2n+1$, the position doubles. In other words, if the starting position is $c$ then the position after $k$ steps is $c\cdot 2^k\pmod{2n+1}$. 
+	
+	From the problem condition, being able to visit all cells of the board implies there exists a $c$ with 
+	\[
+	\{c\cdot 2^k: k\ge 0\}\pmod{2n+1}=\{1, 2, \cdots , 2n\}
+	\]
+	If $p\mid 2n+1$ for some prime $p<2n+1$, then since $2n+1$ is odd, $p\le n$. If $p\mid c$ then all numbers $c\cdot 2^k$ is divisible by $p$; otherwise $p\nmid c$ and all numbers $c\cdot 2^k$ are not divisible by $p$ since $p$ must be odd. Either way, we can't get a complete residue modulo $2n+1$. Therefore $2n+1$ has to be prime. 
+	
+	\textbf{Comment.} A necessary and sufficient condition here would be that $2n+1$ is a prime satisfying $ord_{2n+1}(2)=2n$. 
+	
+	\item[3.] Consider the points of intersection of the graphs $y = \cos x$ and $x = 100 \cos (100y)$ for which both coordinates are positive. Let $a$ be the sum of their $x$-coordinates and $b$ be the sum of their $y$-coordinates. Determine the value of $\frac{a}{b}$.
+	
+	\textbf{Answer.} 100. 
+	
+	\textbf{Solution.} The set of $x$ satisfying this equation are the ones satisfying: 
+	\[
+	x=100\cos(100\cos x): \cos x > 0; x > 0
+	\]
+	Similarly, the set of $y$ sasitfying this equation are the ones satisfying: 
+	\[
+	y = \cos (100\cos(100 y)); y > 0; \cos (100 y) > 0
+	\]
+	We show that if $x_0$ is a solution to the $x$ above then $y_0:=\frac{x_0}{100}$ is a solution to the $y$ above. 
+	Now, given that $x_0=100\cos(100\cos x_0)$, we have 
+	\[
+	\cos (100\cos(100 y_0)) = \cos (100\cos(x_0))= \frac{x_0}{100} = y_0
+	\]
+	and both $x_0, y_0 > 0$. Similarly, suppose that $y_0$ is a solution to the $y$ above then if $x_0:=100y_0$: 
+	\[
+	100\cos(100\cos x_0) = 100\cos(100\cos (100y_0)) = 100 y_0 = x_0
+	\]
+	and both $x_0, y_0$. Thus there's a natural pairing of $(100y_0, y_0)$ of the solutions, which then gives $a=100b$. 
+	
+	\item[4.] A quadrilateral $ABCD$ with no parallel sides is inscribed in a circle. Two circles, one passing through $A$ and $B$, and the other through $C$ and $D$, are tangent to each other at $X$. Prove that the locus of $X$ is a circle.
+	
+	\textbf{Solution.} Let $AB$ and $CD$ intersect at $P$. The common tangent of the circles at $X$, $AB$ and $CD$ are the radical axes of the pairs of circles determined by circle $ABCD$, and the two tangent circles passing through $AB$ and $CD$. Thus, $PA\cdot PB = PC\cdot PD = PX^2$ by the power of point theorem. Therefore, $X$ lies on a circle with center $P$ and radius $\sqrt{PA\cdot PB}$. 
+	
+	Conversely, if $X$ satisfies this condition, then from $PX^2=PA\cdot PB$ we deduce that the $PX$ is tangent to the circumcircle of $ABX$. Similarly $PX$ is tangent to the circumcircle of $CDX$. Thus, these two circles are tangent to each other at $X$. 
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.] In a team of guards, each is assigned a different positive integer. For any two guards, the ratio of the two numbers assigned to them is at least $3:1$. 
+	A guard assigned the number $n$ is on duty for n days in a row, off duty for $n$ days in a row, back on duty for $n$ days in a row, and so on. The guards need not start their duties on the same day. Is it possible that on any day, at least one in such a team of guards is on duty?
+	
+	\textbf{Answer.} No. 
+	
+	\textbf{Solution.} Let $a_1>a_2>\cdots > a_k$ be the number assigned to the guards. We show that for each $i=1, 2, \cdots , k$, among $a_1, \cdots , a_i$ there's a block of $a_i$ consecutive days such that none of $a_1, \cdots , a_i$ are on duty. 
+	
+	Base case $i=1$ is clear. Now suppose this is true for some $i$. Consider the block of $a_i$ days where none of $a_1, \cdots , a_i$ is on duty and consider the schedule of $a_{i+1}$. W.l.o.g. name these days as $1, 2, \cdots , a_i$. Let $x\le a_{i+1}$ be the number of days left where the guard with label $a_{i+1}$ changes status (that is, changing from duty to rest, or vice versa). Then among the two blocks $[x+1, \cdots, x+a_{i+1}]$ and $[x+a_{i+1}+1, \cdots , x+2a_{i+1}]$, exactly one of them is a ``rest block'' (that is, the guard $a_{i+1}$) is resting. 
+	Since $x+2a_{i+1}\le 3a_{i+1}\le a_i$, this rest block also coincides with the resting time of $a_1, \cdots , a_i$, giving a consecutive block of $a_{i+1}$ days where $a_1, \cdots , a_{i+1}$ are resting. 
+	
+	In particular, given the $k$ guards, there's a block of $a_k$ consecutive days when all $k$ guards are not working. Hence the result. 
+	
+	
+	\item[3.] Let $n$ be a positive integer. Prove that there exist integers $a_1, a_2,..., a_n$ such that for any integer $x$, the number $(... (((x^2 + a_1)^2 + a_2)^2 + ...)^2 + a_{n-1})^2 + a_n$ is divisible by $2n - 1$. 
+	
+	\textbf{Solution.} Denote $S_k$ as $\{(... (((x^2 + a_1)^2 + a_2)^2 + ...)^2 + a_{k})^2: x\in\bbZ\}\pmod{2n-1}$. We show that for each $k\le n-1$ we can choose $a_1, \cdots , a_k$ in a way such that $|S_k|\le n - k$. 
+	
+	Base case: $S_0=\{x^2\}\pmod{2n-1}$, the quadratic residue set. We have $i^2\equiv (2n-1-i)^2\pmod{2n-1}$ and therefore 
+	\[
+	\{x^2\}=\{0^2, 1^2, \cdots , (n-1^2)\}\pmod{2n-1}
+	\]
+	
+	Inductive step: we show that if $S_k\ge 2$, a suitably choosen $a_{k+1}$ will yield $|S_{k+1}|\le |S_k|-1$. Observe that 
+	\[
+	S_{k+1} = \{(c+a_{k+1})^2: c\in S_k\}
+	\]
+	so $|S_{k+1}|\le |S_k|$ with equality if and only if $(c+a_{k+1})^2$ gives different residues in mod $2n-1$ for any different $c\in S_k$. Now, if $|S_k|\ge 2$, we can choose $c_0, c_1\in S_k$ and $c_0\neq c_1\pmod{2n-1}$. Choose $a_{k+1}$ such that $2n-1\mid c_0+c_1+2a_{k+1}$ (this is possible since $2n-1$ is odd), then $c_0+a_{k+1}=-(c_1+a_{k+1})$ and therefore $(c_0+a_{k+1})^2\equiv (c_1+a_{k+1})^2$. In particular, if $2\le |S_k|\le n-k$ then $1\le |S_{k+1}|\le n-k-1$. 
+	
+	Now we have $|S_{n-1}|=1$, there's a number $y$ such that $... (((x^2 + a_1)^2 + a_2)^2 + ...)^2 + a_{n-1})^2\equiv y$ for all $x$. Therefore we can choose $a_n=-y$. 
+	
+	\item[4.] Alex marked one point on each of the six interior faces of a hollow unit cube. Then he connected by strings any two marked points on adjacent faces. Prove that the total length of
+	these strings is at least $6\sqrt{2}$. 
+	
+	\textbf{Solution}. Denote the six faces as $x_0, x_1, y_0, y_1, z_0, z_1$ where $x_i$ denotes the face with $x$-coordinate equal to $i$ (similar for $y_i, z_i$). We consider the quadrilateral formed by the points on $x_0, y_0, x_1, y_1$ in that order. We show that the total length is at least $2\sqrt{2}$. 
+	Indeed, let the coorsinates of the 4 points be 
+	\[
+	(0, b_1, c_1), (a_2, 0, c_2), (1, b_3, c_3), (a_4, 1, c_4)
+	\]
+	then the total distance is 
+	\[
+	\sqrt{a_2^2+b_1^2+(c_1-c_2)^2}
+	+\sqrt{(1-a_2)^2 + b_3^2 + (c_2-c_3)^2}
+	\]\[
+	+\sqrt{(1-a_4)^2+(1-b_3)^2+(c_3-c_4)^2}
+	+\sqrt{a_4^2+(1-b_1)^2+(c_1-c_4)^2}
+	\]
+	\[
+	\ge 
+	\sqrt{a_2^2+b_1^2}
+	+\sqrt{(1-a_2)^2 + b_3^2}
+	+\sqrt{(1-a_4)^2+(1-b_3)^2}
+	+\sqrt{a_4^2+(1-b_1)^2}
+	\]
+	\[
+	\ge \sqrt{\frac 12}
+	[
+	(a_2+b_1)
+	+((1-a_2)+b_3)
+	+((1-a_4)+(1-b_3))
+	+(a_4+(1-b_1))]
+	\ge 2\sqrt{2}
+	\]
+	where the QM-AM inequality gives $\sqrt{a^2+b^2}\ge \frac{a+b}{\sqrt{2}}$ for all real $a, b$. 
+	
+	Analogously, the quadrilateral of the points on the planes $y_0, z_0, y_1, z_1$ and $x_0, z_0, x_1, z_1$ are each $\ge 2\sqrt{2}$, giving the total of at least $6\sqrt{2}$. 
+	
+	\item[5.] Let $\ell$ be a tangent to the incircle of triangle $ABC$. Let $\ell_a,\ell_b$ and $\ell_c$ be the respective images of $\ell$ under reflection across the exterior bisector of $\angle A,\angle  B$ and $\angle C$. Prove that the triangle formed by these lines is congruent to $ABC$.
+	
+	\textbf{Solution.} The first step is to show that the triangle formed is similar to $ABC$. If $A_1, B_1, C_1$ are the excenters opposite $BC, CA, AB$ then: 
+	\[
+	\angle(\ell_a, \ell_b) = \angle(\ell_a, \ell)+\angle(\ell, \ell_b) = 2\angle(B_1C_1, \ell)+2\angle(\ell, A_1C_1) = 2\angle(B_1C_1, A_1C_1)
+	\]
+	and on the other hand we have 
+	\[
+	2\angle(AB, B_1C_1) = \angle(AB, AC)\quad 2\angle(AB, A_1C_1) = \angle(AB, BC)
+	\]
+	and therefore 
+	\[
+	2\angle(B_1C_1, A_1C_1) = 2\angle(B_1C_1, AB) + 2\angle(AB, A_1C_1) = \angle(AC, AB) + \angle(AB, BC) = 
+	\angle(AC, BC)
+	\]
+	and similarly we can show that $\angle(\ell_a, \ell_c)= \angle(AB, BC)$ and $\angle(\ell_b, \ell_c) = \angle(AB, AC)$, proving the similarity between the two triangles. 
+	
+	Next, denote by $A_0, B_0, C_0$ the intersection of $\ell$ and $B_1C_1, A_1C_1, A_1B_1$. Also let $\ell_a$ and $\ell_b$ meet at $C_2$ (define $A_1$ and $B_1$ similarly). 
+	We now turn our attention to the triangle $A_0B_0C_2$. Now, $A_0B_0$ is $\ell$, $A_0C_2$ is $\ell_A$ and $B_0C_2$ is $\ell_B$. It follows that $B_1C_1$ bisects angle $C_2A_0B_0$ and similarly $A_1C_1$ bisects angle $C_2B_0A_0$. It then follows that $C_1$ is either the incenter or an excenter of this triangle $A_0B_0C_2$. 
+	If we consider the circle $A_0B_0C_2$, then the midpoint of arc $A_0C_2$ excluding $B_0$ is the center of triangle $C_1A_2A_0$, and hence on the angle bisector $B_0C_1$ of $\angle A_0B_0C_2$. 
+	This means: 
+	\[
+	90^{\circ} = \angle(A_0B_0, B_1C_1) + \angle(C_1C_2, C_1A_1) = \angle(\ell, B_1C_1) + \angle(C_1C_2, C_1A_1)
+	\] 
+	and therefore using the same logic we get
+	\[
+	\angle(C_1C_2, A_1A_2) = \angle(C_1C_2, C_1A_1) - \angle(A_1A_2, C_1A_1) 
+	\]\[
+	= (90^{\circ} - \angle(\ell, B_1C_1))- (90^{\circ} - \angle(\ell, A_1B_1)) = \angle(B_1C_1, A_1B_1)
+	\]
+	which means that $C_1C_2$ and $A_1A_2$ intersect on the circumcircle of $A_1B_1C_1$ (namely $X$). Similarly, $B_1B_2$ will pass through $X$ too. (Additionally, by directed angles, too, we can show that $X$ is the incenter of $A_2B_2C_2$). 
+	
+	Now, let $I$ be the incenter of $ABC$, which is the orthocenter of $A_1B_1C_1$. Denote $A_3, B_3, C_3$ as the reflection of $I$ in lines $B_1C_1, C_1A_1, A_1B_1$, which lie on lines $AA_1, BB_2, CC_1$ and all lie on the circumcircle of $A_1B_1C_1$.
+	Let's now claim that $A_3X, B_3X, C_3X$ are parallel to $\ell_a, \ell_b, \ell_c$, respectively. Indeed: 
+	\[
+	\angle(B_3X, \ell_b) = \angle(B_3X, XC_1) + \angle(XC_1, \ell_b) = \angle(B_3B_1, B_1C_1) + \angle(C_1C_2, \ell_b)
+	\]
+	However, notice that $B_1B\perp C_1A_1$ so $\angle(B_3B_1, B_1C_1)=90^{\circ} - \angle(B_1C_1, A_1C_1)$ and by the previous angle condition we have $\angle(C_1C_2, \ell_b) = 90^{\circ} - \angle(A_1C_1, B_1C_1)$. Therefore 
+	\[\angle(B_3X, \ell_b)
+	=90^{\circ} - \angle(B_1C_1, A_1C_1)+90^{\circ} - \angle(A_1C_1, B_1C_1)= 0
+	\]
+	considering that all angles are modulo $180^{\circ}$. Similarly we can show that $A_3X\parallel \ell_a$ and $C_3X\parallel \ell_c$. 
+	
+	Finally, the distance of $I$ to $\ell$ is $r$, the inradius of $ABC$. Since the images of $I$ and $\ell$ when reflected in $A_1C_1$ are $B_3$ and $\ell_B$, reslectively, the distance from $B_3$ to $\ell_B$ is also $r$. Since $B_3X\parallel \ell_B$, the distance of $X$ to $\ell_B$ is also $r$. Thus $X$ has distance $r$ to $A_2B_2, B_2C_2, C_2A_2$, showing that the inradius of $A_2B_2C_2$ is indeed $r$ (as briefly mentioned, we can use directed angles to establish that this is the incenter, not excenter). Since $ABC$ and $A_2B_2C_2$ are similar and have equal inradius $r$, they are indeed congruent. 
+	
+\end{enumerate}
+\end{document}

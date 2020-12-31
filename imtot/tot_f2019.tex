@@ -1,0 +1,98 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Fall 2019, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.] The polynomial $P(x,y)$ is such that for any integer $n \ge 0$ each of the polynomials $P(n, y)$ and $P(x, n)$ either is the constant zero or has the degree not greater than $n$. Is it possible that the polynomial $P(x, x)$ has an odd degree?
+	
+	\textbf{Answer.} No. 
+	
+	\textbf{Solution.} Suppose $P(x, x)$ is odd. If $x^my^n$ is a term in $P$ that gives the highest degree, then $m+n$ is odd and therefore, $m\neq n$. Suppose w.l.o.g. that $m<n$. If $n_0$ is the highest exponent of $y$ that appears in $P$ then we can write 
+	\[
+	P(x, y)=\dsum_{k=0}^{n_0}Q_k(x)y^k
+	\] 
+	where $Q_k$ are polynomials. By the problem condition, $Q_k(\ell)=0$ if $\ell$ is an integer with $0\le \ell < k$. In particular, $Q_n(x)=0$ for $x=0, 1, \cdots , n-1$. Since $x^my^n$ gives the highest degree to $P$, $Q_n$ has degree $m<n$. But then $Q_n(x)$ has roots $0, 1, \cdots , n-1$ (i.e. at least $n$ roots), which is a contradiction unless $Q_n\equiv 0$. 
+	
+	\item[4.] Consider a increasing sequence of positive numbers
+	\[\ldots <a_{-2} < a_{-1} <a_0 <a_1 <a_2 <\ldots\]
+	infinite in both directions. For a positive integer $k$ let $b_k$ be the minimal integer such that the ratio of the sum of any $k$ consecutive elements of the sequence to the largest of those $k$ elements is not greater than $b_k$. Prove that the sequence $b_1, b_2, b_3, \ldots$ either coincides with the sequence $1, 2, 3, \ldots$ or is constant after some point.
+	
+	\textbf{Solution.} It's not hard to observe that 
+	\[
+	b_k = \lceil\sup\{\frac{a_{x-k+1}+\cdots + a_x}{a_x}: x\in\bbZ\}\rceil
+	\]
+	and since $\frac{a_{x-k}+\cdots + a_x}{a_x}-\frac{a_{x-k+1}+\cdots + a_x}{a_x}=\frac{a_{x-k}}{a_x}\in (0, 1)$, we have $b_{k+1}-b_k\in \{0, 1\}$. 
+	
+	Suppose that $b_\ell\neq \ell$ for some $k$. Then given that $b_{k+1}-b_k\in \{0, 1\}$ and $b_1 = 1$, we have $b_\ell < b_\ell $, i.e. $b_{\ell}\le b_\ell - 1$. This means that: 
+	\[
+	\forall x: \lceil\sup\{\frac{a_{x-\ell+1}+\cdots + a_\ell}{a_\ell}\le \ell - 1
+	\]
+	and since the sequence is strictly increasing, 
+	\[
+	\frac{a_{x - \ell + 1}}{a_x}\le \frac{\ell - 1}{\ell}
+	\]
+	which then gives that, if $y\le x - k(\ell - 1)$ then $\frac{a_y}{a_x}\le (\frac{\ell-1}{\ell})^k$. 
+	Now consider the infinite sum 
+	\[
+	\frac{\dsum_{k=0}^{\infty}a_{x-k}}{a_x}\le \frac{\dsum_{k=0}^{\infty}a_x\cdot (\frac{\ell-1}{\ell})^{\lfloor \frac{k}{\ell-1}\rfloor}}{a_x} = \frac{\ell-1}{\ell}(\ell-1)\dsum_{k=0}^{\infty}(\frac{\ell-1}{\ell})^{k}
+	= \frac{\ell-1}{\ell}(\ell-1)\cdot \frac{1}{1-\frac{\ell-1}{\ell}}=(\ell-1)^2
+	\]
+	which then shows that this infinite sum is bounded by $(\ell-1)^2$. We therefore have $\{b_k\}$ bounded above as well. However, given also that $b_k$ are integers that are either equal or the one more than the previous term, so boundedness of $\{b_k\}$ also implies that it's eventually constant. 
+	
+	\item [5.] The point $M$ inside a convex quadrilateral $ABCD$ is equidistant from the lines $AB$ and $CD$ and is equidistant from the lines $BC$ and $AD$. The area of $ABCD$ occurred to be equal to $MA\cdot MC$ + $MB \cdot MD$. Prove that the quadrilateral $ABCD$ is both cyclic and circumscribed. 
+	
+	\textbf{Solution.} Let $M_A, M_B, M_C, M_D$ be the projections from $M$ to $AB, BC, CD, DA$ respectively. Then $MM_A=MM_C$ and $MM_B=MM_D$. Let's now show that: 
+	\[
+	[MM_AA]+[MM_CC]\le \frac 12 MA\cdot MC
+	\]
+	Since $MM_A=MM_C$ and $\angle MM_AA=\angle MM_AC = 90^{\circ}$, we can consider combining the two triangles with the common vertex $M$ coincide, and $M_A$ and $M_C$ coincide. Then the new triangle has area the sum of old triangles, $[MM_AA]+[MM_CC]$ with sides $M, A, C$. This also means that this triangle has area $\frac 12 MA\cdot M_C\cdot \sin AMC\le \frac 12 MA\cdot M_C$ with equality iff $\angle AMM_A+\angle CMM_C=\angle AMC=90^{\circ}$. Similarly we have 
+	\[
+	[MM_DA]+[MM_BC]\le \frac 12 MA\cdot MC
+	\]
+	and also 
+	\[
+	[MM_AB]+[MM_CD]\le \frac 12 MB\cdot MD
+	\qquad 
+	[MM_BB]+[MM_DD]\le \frac 12 MB\cdot MD
+	\]
+	which means that , summing all of these:
+	\[
+	[MM_AA]+[MM_CC]+[MM_DA]+[MM_BC]+[MM_AB]+[MM_CD]+[MM_BB]+[MM_DD]\]\[\le MA\cdot MC + MB\cdot MD
+	\]
+	The left hand side is the same as the area of $ABCD$, so for that to hold all inequalities must be equalities. 
+	This means 
+	\[\angle AMM_A+\angle CMM_C=\angle AMM_D+\angle CMM_B=90^{\circ}
+	\]
+	which then means $\angle A+\angle D=180^{\circ}$ and the quadrilateral is cyclic. 
+	
+	To prove the other statement, consider the combined triangle $AMC$ above and we can also do the same by combining $M_B$ and $M_D$ instead (on the triangles $AM_DM$ and $CM_BM$). The two triangles $AMC$ formed will be congruent, and therefore the heights ($MM_A=MM_C$ for first; $MM_B=MM_D$ for second) will be equal too. This then shows that $ABCD$ is circumscribed. 
+	
+		
+\end{enumerate}
+\end{document}
