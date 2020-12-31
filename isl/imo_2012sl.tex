@@ -292,6 +292,46 @@
 	We therefore have $K_B, K_C, I, O$ concyclic, and similarly $K_A$ would be on this circle too. 
 	If $P'$ is another point on this circle with $OP'=OI$ then it's not hard to see that $P'$ is on the three lines $\ell_A, \ell_B, \ell_C$, and moreover $P'$ is on the circles $AEF, BDF, CDE$. It follows that $P'=P$ and therefore $OI=OP$. Q.E.D. 
 	
+	\item[\textbf{G7}] Let $ABCD$ be a convex quadrilateral with non-parallel sides $BC$ and $AD$. Assume that there is a point $E$ on the side $BC$ such that the quadrilaterals $ABED$ and $AECD$ are circumscribed. Prove that there is a point $F$ on the side $AD$ such that the quadrilaterals $ABCF$ and $BCDF$ are circumscribed if and only if $AB$ is parallel to $CD$.
+	
+	\textbf{Solution.} Let $BC$ and $AD$ meet at $P$, and w.l.o.g. we let $P$ be on rays $CB$ and $DA$ beyond $B$ and $A$, respectively. Then the incircles of $ABED$ and $ACED$ are the excircle of triangle $PBA$ (opposite $P$) and incircle of triangle $PCD$, respectively. Let the centers be $I_1$ and $I_2$, respectively. 
+	
+	We'll generalize the problem a bit: let $P, A, B, C, D, I_1, I_2$ as defined, and let $E_1$ and $E_2$ on line $BC$ be such that $ABE_1D$ and $AE_2CD$ are circumscribed (that is, let the tangent from $D$ to the first circle that's not $AD$ to meet $BC$ at $E_1$), and $F_1$ and $F_2$ on line $AD$ be such that $BCDF_2$ and $ABCF_1$ are circumscribed. Then $\frac{PE_1}{PE_2}=\frac{PF_1}{PF_2}$ if and only if $AB\parallel CD$. Thus the problem is a special case where $\frac{PE_1}{PE_2}=1$. 
+	
+	Suppose, first, that $AB\parallel CD$. We'll claim that $AE_2\parallel CF_1$ and similarly $BF_2\parallel DE_1$. 
+	Notice that: 
+	\[
+	\angle PBI_1 = 180^{\circ} - \angle CBI_1 = 180^{\circ} - \frac{\angle CBA}{2} = 90^{\circ} + \frac{\angle PBA}{2}
+	\]
+	and 
+	\[
+	\angle PI_2D = 180^{\circ} - \angle I_2PD - \angle PDI_2= 180^{\circ} - \frac{\angle CPD}{2} - \angle \frac{PDC}{2} = 90^{\circ} + \\frac{PCD}{2}= 90^{\circ} + \frac{\angle PBA}{2}
+	\]
+	so these two angles are essentially equal. Combined with $\angle BPI_1=\angle DPI_2$ we have triangles $PBI_1$ and $PI_2D$ similar. This gives: 
+	\[
+	\frac{PB}{PI_2}=\frac{PB}{PI_1}\cdot \frac{PI_1}{PI_2}=\frac{PI_2}{PD}\cdot\frac{PI_1}{PI_2}=\frac{PI_1}{PD}
+	\]
+	and therefore $PBI_2$ and $PI_1D$ are also similar. Finally, 
+	\[\angle PBF_2=180^{\circ} - 2\angle CBI_2=2\angle PBI_2-180^{\circ} \qquad \angle PDE_1=2\angle PDI_1
+	\]
+	and therefore 
+	\[
+	\angle PBF_2+\angle PDE_1 = 2\angle PBI_2 + 2\angle PDI_1-180^{\circ} = 2(180^{\circ} - \angle BPI_2)-180^{\circ} = 180^{\circ} - \angle BP_A
+	\]
+	which does show that $BF_2$ and $DE_1$ are parallel. Similarly, $BF_2$ and $DE_1$ are parallel. 
+	Therefore: 
+	\[
+	\frac{PE_2}{PE_1}=\frac{PE_2}{PC}\frac{PC}{PD}\frac{PD}{PE_1}
+	=\frac{PA}{PF_1}\frac{PB}{PA}\frac{PF_2}{PB}=\frac{PF_2}{PF_1}
+	\]
+	as desired. 
+	
+	Now consider the case where $AB$ and $CD$ are not parallel. Fixing the circles with centers $I_1$ and $I_2$, consider $D'$ on $AD$ and $C'$ on $BC$ such that $C'D'\parallel AB$ and $PCD$ and $PC'D'$ share the same incircles. Let $E_0$ and $F_0$ on $BC$ and $AD$, respectively, such that $ABE_0D'$ and $BAF_0C'$ are circumscribed. Then $\frac{PE_2}{PE_0}=\frac{PF_2}{PF_0}$ as per above. 
+	According to our arrangement, since $PCD$ and $PC'D'$ share the same circle, if $PC<PC'$, then $PF_0<PF_1$, $PD'<PD$ and $PE_1<PE_0$ and so 
+	\[\frac{PE_2}{PE_1} > \frac{PE_2}{PE_0} = \frac{PF_2}{PF_0} > \frac{PF_2}{PF_1}
+	\]
+	so the desired equality no longer holds. The opposite inequality will hold if $PC'<PC$. This proves the other direction of the inequality. 
+	
 	\item[\textbf{G8}] Let $ABC$ be a triangle with circumcircle $\omega$ and $\ell$ a line without common points with $\omega$. Denote by $P$ the foot of the perpendicular from the center of $\omega$ to $\ell$. The side-lines $BC,CA,AB$ intersect $\ell$ at the points $X,Y,Z$ different from $P$. Prove that the circumcircles of the triangles $AXP$, $BYP$ and $CZP$ have a common point different from $P$ or are mutually tangent at $P$.
 	
 	\textbf{Solution.} Let $AD$, $BE$, $CF$ be the radical axis of $\omega$ and circles $AXP$, $BYP$ and $CZP$, respectively, with $D, E, F$ on $\ell$. Since $P$ does not lie on $\omega$, each of $D, E, F$ must be distinct from $P$. We show that these three lines concur: if $Q$ is the common intersection point, then it will be on the radical center of the three circles $AXP$, $BYP$, $CZP$. Then both $P$ and $Q$ are on the radical center, showing that these three circles are indeed coaxial. 
