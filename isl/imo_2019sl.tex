@@ -1,0 +1,825 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{{\mathbb N}}
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bbQ}{{\mathbb Q}}
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\bbH}{{\mathbb H}}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\powset}{\mathcal{P}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\title{Solution to IMO 2019 shortlisted problems.}
+\author{Anzo Teh}
+\date{\today}
+\maketitle
+
+\newpage
+\section*{Algebra}
+\begin{enumerate}
+	%%%A1%%%
+	\item [\textbf{A1.}] (IMO 1)
+	Let $\mathbb{Z}$ be the set of integers. Determine all functions $f: \mathbb{Z} \rightarrow \mathbb{Z}$ such that, for all integers $a$ and $b$, $$f(2a)+2f(b)=f(f(a+b)).$$
+	
+	\textbf{Answer.} $f\equiv 0$ (the zero function) or $f(n)=2n+c$ for all $n\in\bbZ$ with $c$ an arbitrary integer constant. It's east to verify that these functions work. 
+	
+	\textbf{Solution.} We consider the following for each $n\in\bbZ$, substituting $(a, b)=(0, n)$ and $(1, n-1)$: 
+	\[
+	f(2(0)) + 2f(n) = f(f(n)) = f(2(1))+2f(n-1)
+	\]
+	which means $f(n)-f(n-1)=\frac{f(2)-f(0)}{2}$, which is fixed. As $f$ is defined only on $\bbZ$, we can dedue right away that $f$ is linear. 
+	
+	Now write $f(n)=mn+c$ with $m$ being the gradient and $c$ being the intercept of linear equation, the desired equation now becomes: 
+	\[m(2a)+c + 2(mb+c) = f(m(a+b)+c) = m(m(a+b)+c)+c
+	\]
+	or rather, $2m(a+b)+3c = m^2(a+b) + (m+1)c$ for all $a$ and $b$. Pushing everything to one side we get 
+	\[
+	(2m-m^2)(a+b)+(3-m-1)c = 0
+	\]
+	Since this must be true for all integers $a$ and $b$, $m(2-m)=2m-m^2=0$ which means $m=0$ or $m=2$. 
+	If $m=0$ then $0=(3-1)c=2c$ so $c=0$. If $m=2$ then there's no additional restriction on $c$. This completes the proof. 
+	
+	%%%A2%%%
+	\item [\textbf{A2.}]
+	Let $u_1, u_2, \dots, u_{2019}$ be real numbers satisfying \[u_{1}+u_{2}+\cdots+u_{2019}=0 \quad \text { and } \quad u_{1}^{2}+u_{2}^{2}+\cdots+u_{2019}^{2}=1.\]Let $a=\min \left(u_{1}, u_{2}, \ldots, u_{2019}\right)$ and $b=\max \left(u_{1}, u_{2}, \ldots, u_{2019}\right)$. Prove that
+	\[
+	a b \leqslant-\frac{1}{2019}.
+	\]
+	
+	\textbf{Solution.} W.l.o.g. let $u_1\le \cdots \le u_{2019}$, and let $k$ be such that $u_k\le 0$ but $u_{k+1}>0$. 
+	Also let: 
+	\[
+	b_i = u_{k+i}, i=1, \cdots , 2019-k\qquad a_i = |u_{k+1-i}|, i=1,\cdots , k
+	\]
+	then we have the relation 
+	\[
+	\dsum a_i = \dsum b_i \qquad \dsum a_i^2 + \dsum b_i^2 = 1
+	\]
+	We thus have $a=-\max(a_i)$ and $b=\max(b_i)$
+	Denote $S=\dsum a_i$, and $\ell=2019-k$. Then $S=\dsum a_i \le |a|k$ and $S=\dsum b_i\le b(2019-k)=b\ell$. This then gives
+	\[
+	2019=k+\ell \ge \frac{S}{|a|}+\frac{S}{b}=S(\frac{|a|+b}{|a|b})
+	\]
+	Also, given that $a_i\le |a|$ for each $a_i$ and $b_i\le b$ for each $b_i$, 
+	\[
+	\dsum a_i^2\le |a|\dsum a_i=|a|S\qquad \dsum b_i^2\le b\dsum b_i = bS
+	\]
+	so $1\le S(|a|+b)$. This gives 
+	\[
+	|a|b=S(|a|+b)\div S(\frac{|a|+b}{|a|b})\ge \frac{1}{2019}
+	\]
+	and since $a<0$ (given that $u_i\le 0$ for all $i\le k$), we have $ab\le -\frac{1}{2019}$ as desired. 
+	
+	%%%A3%%%
+	\item [\textbf{A3}.] Let $n \geqslant 3$ be a positive integer and let $\left(a_{1}, a_{2}, \ldots, a_{n}\right)$ be a strictly increasing sequence of $n$ positive real numbers with sum equal to 2. Let $X$ be a subset of $\{1,2, \ldots, n\}$ such that the value of
+	\[
+	\left|1-\sum_{i \in X} a_{i}\right|
+	\]is minimised. Prove that there exists a strictly increasing sequence of $n$ positive real numbers $\left(b_{1}, b_{2}, \ldots, b_{n}\right)$ with sum equal to 2 such that
+	\[
+	\sum_{i \in X} b_{i}=1.
+	\]
+	
+	\textbf{Solution.} 
+	Denote $Y=\{1, 2, \cdots , n\}\backslash X$.
+	By multiplying the numbers by a constant factor, we may assume that we're given the condition such that \[
+	\left|\dsum_{i=1}^n a_i/2-\sum_{i \in X} a_{i}\right|
+	\]
+	is minimized. This is also the same as minimizing 
+	\[
+	\left|\dsum_{i\in Y}^n a_i-\sum_{i \in X} a_{i}\right|
+	\]
+	(which has double the magnitude of the previous expression). 
+	The sequence $(b_1, \cdots , b_n)$ must satisfy 
+	\[
+	\dsum_{i\in X}b_i = \dsum_{i=1}^n b_i/2
+	\]
+	which is equivalent to saying 
+	\[
+	\dsum_{i\in X}b_i = \dsum_{i\in Y}b_i 
+	\]
+	
+	We say that $Y>X$ if, whenever $(a_1, \cdots, a_n)$ are positive reals and strictly increasing, we have 
+	\[
+	\sum_{i \in Y} a_{i} > \sum_{i \in X} a_{i}
+	\]
+	and $X>Y$ is defined similarly. We also define $X\sim Y$ if neither $X>Y$ nor $Y>X$ holds. 
+	
+	We first claim that, if $X\sim Y$, then there exists a sequence of positive reals, strictly increasing, that 
+	\[
+	\sum_{i \in Y} a_{i} = \sum_{i \in X} a_{i}
+	\]
+	By the relation $X\sim Y$, we know that there exist sequences $(a_1, \cdots, a_n)$ and $(b_1, \cdots , b_n)$ such that 
+	\[
+	\sum_{i \in Y} a_{i} \ge \sum_{i \in X} a_{i}
+	\quad
+	\sum_{i \in Y} b_{i} \le \sum_{i \in X} b_{i}
+	\]
+	The idea is that, we want to adjust $a_i$ in a continuous manner such that $a_i=b_i$ in the end but $\sum_{i \in Y} a_{i} - \sum_{i \in X} a_{i}$ changes sign (from nonnegative to nonpositive), so the claim follows from intermediate value theorem. 
+	
+	We'll choose $i$ in the following manner: whenever exist, choose the minimum $i$ such that $a_i>b_i$. If $i=1$, we can just decrease $a_i$ to become $b_i$, easily (while maitning that $a_i$ is strictly increasing). Otherwise, $a_i>b_i>b_{i-1}\ge a_{i-1}$ by the minimality of $i$, so we can still safely decrease $a_i$ to become $b_i$. Once we're done with this, we do the opposite: choose the maximum $i$ with $a_i<b_i$ and increase $a_i$. This will ensure that our moves are continuous without breaking the constraint that it's increasing. 
+	
+	Next, we need a characterization of $X>Y$. We claim that $X>Y$ if the following are true: arrange the numbers in $X$ in the following order: $x_1>x_2>\cdots > x_{|X|}$ and $Y$ in the following order: $y_1>\cdots > y_{|Y|}$. Then $X>Y$ if and only if the following are satisfied: 
+	\begin{itemize}
+		\item $|X|\ge |Y|$
+		\item For all $i=1, \cdots , |Y|$, $x_i>y_i$. 
+	\end{itemize}
+	First, notice that if this is true, then: 
+	\[
+	\sum_{i \in X} a_{i} \ge \sum_{i=1}^{|Y|} a_{x_i}> \sum_{i=1}^{|Y|} a_{y_i} = \sum_{i \in Y} a_{i}
+	\]
+	Now, we show that if $X>Y$ then the condition above must hold true. If $|X|<|Y|$ then we can consider the sequence $a_i=a+i\epsilon$ for some $\epsilon>0$ and fixed $a$, then there will be constants $x$ and $y$ such that $\sum_{i \in X} a_{i}=|X|a+x\epsilon$ and $\sum_{i \in Y} a_{i} = |Y|a+y\epsilon$. By choosing $\epsilon$ sufficiently small, and using $|X|<|Y|$, we can make $\sum_{i \in X} a_{i}<\sum_{i \in Y} a_{i}$. 
+	
+	Otherwise, if there exists $k$ with $x_k<y_k$ (we notice that $x_i\neq y_i$ since $X$ and $Y$ are disjoint) then we can say that there exists $k$ numbers in $Y$ that's at least $y_i$ but at most $k-1$ in $X$ (or even, exactly $k-1$ if we take the minimum such $k$) that's at least $y_i$. Consider now the following structure: $a_i=\begin{cases}
+	 \epsilon i: i < y_i\\
+	 a+\epsilon i: i \ge y_i\\
+	\end{cases}
+	$
+	then there exist constants $x, y, k'$ with $k'\le k-1$ such that $\sum_{i \in X} a_{i} = x\epsilon + k'a$ and $\sum_{i \in Y} a_{i} = y\epsilon + ka$ and by getting $a$ sufficiently large, we have $\sum_{i \in Y} a_{i}>\sum_{i \in X} a_{i}$, so $X>Y$ cannot hold. 
+	
+	Finally, we show that, if the value of $|\dsum_{i\in Y}a_i-\dsum_{i\in X}a_i|$ is minimized, then $X\sim Y$ must hold. Suppose on the contrary that $Y>X$. Then $\dsum_{i\in Y}a_i-\dsum_{i\in X}a_i$ is positive. If $X$ is empty, consider $Y'=\{2, \cdots , n\}$ and $X'=\{1\}$, then 
+	\[
+	\dsum_{i\in Y}a_i-\dsum_{i\in X}a_i>\dsum_{i\in Y'}a_i-\dsum_{i\in X'}a_i>0
+	\]
+	which contradicts the minimality of our set. Now suppose that $X$ and $Y$ are both nonempty. Then we can arrange $x_1>x_2>\cdots x_|X|\in X$ and $y_1>y_2>\cdots y_|Y|\in Y$ and exchange $x_1$ and $y_1$ to yield $X'$ and $Y'$, respectively. Then since $y_1>x_1$, we have 
+	\[
+	\dsum_{i\in Y}a_i-\dsum_{i\in X}a_i>\dsum_{i\in Y'}a_i-\dsum_{i\in X'}a_i
+	\]
+	if the second one is positive, then we get our desired contradiction. Otherwise, $\dsum_{i\in Y'}a_i-\dsum_{i\in X'}a_i\le 0$ and so $|\dsum_{i\in Y'}a_i-\dsum_{i\in X'}a_i|=-(\dsum_{i\in Y'}a_i-\dsum_{i\in X'}a_i)$. Therefore, 
+	\[
+	|\dsum_{i\in Y}a_i-\dsum_{i\in X}a_i| - |\dsum_{i\in Y'}a_i-\dsum_{i\in X'}a_i|
+	= (\dsum_{i\in Y}a_i-\dsum_{i\in X}a_i) + (\dsum_{i\in Y'}a_i-\dsum_{i\in X'}a_i)
+	=2(\dsum_{i\in Y\backslash \{y_1\}}a_i-\dsum_{i\in X\backslash\{x_1\}}a_i)
+	\]
+	but since $n\ge 3$, we have $|Y|\ge 2$ and therefore we have $\dsum_{i\in Y\backslash \{y_1\}}a_i-\dsum_{i\in X\backslash\{x_1\}}a_i>0$. This still contradicts the minimality of the difference in sum of sets. 
+	
+	Therefore we have $X\sim Y$ and the required $b_i$ can be found such that 
+	\[
+	\dsum_{i\in Y}b_i = \dsum_{i\in X} b_i
+	\]
+	
+	%%%A4%%%
+	\item [\textbf{A4}.] Let $n\geqslant 2$ be a positive integer and $a_1,a_2, \ldots ,a_n$ be real numbers such that \[a_1+a_2+\dots+a_n=0.\]Define the set $A$ by
+	\[A=\left\{(i, j)\,|\,1 \leqslant i<j \leqslant n,\left|a_{i}-a_{j}\right| \geqslant 1\right\}\]Prove that, if $A$ is not empty, then
+	\[\sum_{(i, j) \in A} a_{i} a_{j}<0.\]
+	
+	\textbf{Solution.} Denote $B=\{1, \cdots , n\}^2\backslash A = $
+	\[
+	\left\{(i, j)\,|\,1 \leqslant i<j \leqslant n,\left|a_{i}-a_{j}\right| < 1\right\}
+	\]
+	We first notice that 
+	\[
+	\sum_{(i, j) \in A\cup B} a_{i} a_{j}
+	=(\sum_{i=1}^n a_i)^2
+	=0
+	\]
+	so it suffices to prove that $\dsum_{(i, j) \in B} a_{i} a_{j}>0$ given that $A$ is nonempty. 
+	
+	Denote, also, $B_0=\{(i, j)\in B: \max\{|a_i|, |a_j|\}\ge 1\}$ and $B_1=\{(i, j)\in B: \max\{|a_i|, |a_j|\}< 1\}$, then $B=B_0\dot\cup B_1$ (disjoint union). If $|a_i|\ge 1$ and $|a_i-a_j|<1$, then by triangle inequality $a_i$ and $a_j$ must have the same sign, and therefore $a_ia_j>0$. This gives $\dsum_{(i, j) \in B_0} a_{i} a_{j}\ge 0$ as each term is positive (with equality if and only if $B_0$ is empty). It remains to show that $\dsum_{(i, j) \in B_1}a_ia_j\ge 0$. 
+	
+	Consider, now, the subset of numbers $C=\{i: 1\le i\le n, |a_i|<1\}$. We now have $C^2 = B_1\dot\cup \{(i, j)\not\in B: \max\{|a_i|, |a_j|\}< 1\}$. The second set $\{(i, j)\not\in B: \max\{|a_i|, |a_j|\}< 1\}$ (namely $B_2$) is the same as $\{(i, j) : \max\{|a_i|, |a_j|\}< 1, |a_i-a_j|\ge 1\}$. We notice that: 
+	\[
+	\dsum_{(i, j) \in C^2}a_ia_j
+	=\dsum_{(i, j) \in B_1}a_ia_j+\dsum_{(i, j) \in B_2}a_ia_j
+	\]
+	We notice that $\dsum_{(i, j) \in C^2}a_ia_j=(\dsum_{i \in C} a_i)^2\ge 0$. In $B_2$, $|a_i|, |a_j|<1$ but $|a_i-a_j|\ge 1$ means both are different signs (and nonzero), hence $a_ia_j<0$. Therefore, $\dsum_{(i, j) \in B_2}a_ia_j\le 0$ with equality if and only if $B_2$ is empty. This therefore gives $\dsum_{(i, j) \in B_1}a_ia_j\ge 0$, with equality iff $\dsum_{i \in C} a_i=0$ and $B_2$ empty. 
+	
+	We therefore have $\dsum_{(i, j) \in B}a_ia_j=\dsum_{(i, j) \in B_0}a_ia_j+\dsum_{(i, j) \in B_1}a_ia_j\ge 0$ since both sums are nonnegative. Equality holds iff both sums are 0. This happens only when each of the following are satisfied: 
+	\begin{itemize}
+		\item $B_0=\{(i, j)\in B: \max\{|a_i|, |a_j|\}\ge 1\}=\emptyset$
+		\item $B_2=\{(i, j) : \max\{|a_i|, |a_j|\}< 1, |a_i-a_j|\ge 1\}=\emptyset$
+		\item $\dsum_{|a_i|<1}a_i=0$
+	\end{itemize}
+	If $|a_i|\ge 1$, then $(i, i)\in B$ anf therefore $(i, i)\in B_0$. For $B_0$ to be empty, we need $|a_i|<1$ for all $i$. This will mean $B_2=A$. But since $A$ is nonempty, $B_2$ cannot be nonempty. This means $\dsum_{(i, j)\in B}a_ia_j>0$, i.e. inequality must be strict. 
+\end{enumerate}
+
+\section*{Combinatorics}
+\begin{enumerate}
+	%%%C1%%%
+	\item [\textbf{C1}.] The infinite sequence $a_0,a _1, a_2, \dots$ of (not necessarily distinct) integers has the following properties: $0\le a_i \le i$ for all integers $i\ge 0$, and \[\binom{k}{a_0} + \binom{k}{a_1} + \dots + \binom{k}{a_k} = 2^k\]for all integers $k\ge 0$. Prove that all integers $N\ge 0$ occur in the sequence (that is, for all $N\ge 0$, there exists $i\ge 0$ with $a_i=N$).
+	
+	\textbf{Solution.} We show that the following invariants are maintained for each $k$: among $a_0, \cdots , a_n$, we have: 
+	\begin{itemize}
+		\item For each $i$, exactly two of them in $\{i, n-i\}$ if $2i\neq n$, and exactly one of them is $i$ if $2i=n$. 
+		
+		\item If there exists $x\neq y$ and $p$ with $a_x=a_y=p$ then $\max\{x, y\}\ge 2p+1$. 
+		
+		\item More generally, if $p$ occurs 2 times in $a_0, \cdots, a_n$, then so does $p-1$ (and hence, iteratively, $p-2, p-3, \cdots, 0$). 
+	\end{itemize}
+	If we have these, then for each positive integer $N$, exactly one of $a_0, \cdots, a_{2N}$ is equal to $N$, proving the problem conclusion. 
+	
+	When $k=0$, we must have $a_0=0$ so both invariants are maintained. Now, suppose that for some $n$ what we've written above is true for $a_0, \cdots , a_k$ for all $k=0, 1, \cdots , n$. We now consider the possible choices for $a_{n+1}$. 
+	
+	We first show that for each $i$, at most two of $a_0, \cdots , a_n$ in $\{i, n+i-1\}$ if $2i\neq n+1$, and at most one of them is $i$ if $2i=n+1$. Suppose otherwise, then for some $i$, we have among $a_0, \cdots , a_n$: 
+	\begin{itemize}
+		\item $2i\neq n+1$ and (at least) three of them in $\{i, n+1-i\}$
+		\item $2i=n+1$ and (at least) two of them equal to $i$. 
+	\end{itemize}
+	The second case can't occur since otherwise, the second invariant says that one of the indices must be at least $2i+1\neq n+2$ but we are considering $a_0, \cdots , a_n$. If the first case were to occur, then either $i$ or $n+1-i$ occurs two times. Without loss of generality we assume that $i$ occurs two times (it can't occur three times otherwise the first invariant would have been broken by $a_0, \cdots , a_n$). This means that $i$ occurs two times and $n+1-i$ occurs (at least) one time. By the third invariant, we get $0, 1, \cdots , i-1$ each occurs two times in the sequence $a_0, \cdots , a_n$. Therefore since $i-1$ occurs two times, $n-(i-1)=n+1-i$ cannot occur due to first invariant on $a_0, \cdots , a_n$, contradiction. 
+	
+	This means we can prove the first invariant for $a_0, \cdots, n+1$. To see why, we have
+	\begin{itemize}
+		\item $2i\neq n+1$ and at most two of them in $\{i, n+1-i\}$
+		\item $2i=n+1$ and at most one of them equal to $i$. 
+	\end{itemize}
+	Given that we're operating in $a_0, \cdots , a_n$ (instead of $a_{n+1}$), all but one of the above will be equality (with the odd one out being one less than equality). Let $i_{n+1}$ be that quantity (i.e. $2i_{n+1}\neq n+1$ and one of $a_0, \cdots , a_n$ in $\{i_{n+1}, n+1-i_{n+1}\}$, or $2i_{n+1}=n+1$ and this $i$ is not part of the sequence). By considering the binomial sum, we need $\dbinom{n+1}{a_{n+1}}=\dbinom{n+1}{i_{n+1}}$ so $a_{n+1}\in \{i_{n+1}, n+1-i_{n+1}\}$, as desired, establishing the first invariant. 
+	
+	The third invariant is simply a generalization of the second one (well if $a_x=a_y=p$ then each of $0, \cdots, p$ occur two times so $\max\{x, y\}\ge 2(p+1)-1=2p+1$), so we'll straight prove this third invariant. 
+	If the resulting $a_{n+1}$ has $a_i\neq a_{n+1}$ for all $i$ we are done. Otherwise, suppose that $p=a_i=a_{n+1}$ (i.e. $p$ occurs two times in this example). As the first invariant has been maintained for $n+1$, we cannot have $2p=n+1$. If $n+1<2p$, then $n+1-p$ is not in $a_0, \cdots , a_{n+1}$, and $2(n+1-p)<n+1$. Considering $a_0, \cdots , a_{2(n+1-p)}$, where all the invariants are maintained till this stage, we have $n+1-p$ occuring exactly once, which is a contradiction. Thus $n+1>2p$. 
+	
+	Finally to show the third invariant, we recall that $n+1-p\not\in a_0, \cdots , a_{n+1}$. Now that this invariant is maintained on $a_0, \cdots, a_{n-i}$ for each $i\ge 0$, we know that: 
+	\begin{itemize}
+		\item Either $2(n+1-p)=n-i$ and $n+1-p$ occurs once; 
+		\item or $2(n+1-p)\neq n-i$ and $n-i-(n+1-p)=p-i-1$ occurs twice. 
+	\end{itemize}
+	The first case cannot happen as $n+1-p\not\in a_0, \cdots , a_{n+1}$, so $p-i-1$ does occur twice, finishing the third invariant. 
+	
+	%%%C2%%%
+	\item [\textbf{C2}.] You are given a set of $n$ blocks, each weighing at least $1$; their total weight is $2n$. Prove that for every real number $r$ with $0 \leq r \leq 2n-2$ you can choose a subset of the blocks whose total weight is at least $r$ but at most $r + 2$.
+	
+	\textbf{Solution.} We relax the condition a bit to show that the conclusion holds when we have $n$ blocks of weight at least 1 each, with total weight at most $2n$ (instead of exactly $2n$). 
+	We will approach the problem via induction on $n$, where $n=1$ is clear. 
+	
+	Inductive step: Suppose we have $n+1$ blocks $a_1\le \cdots \le a_{n+1}$, our conclusion holds for $a_1, \cdots , a_n$ and if $S=a_1+\cdots a_n$ then by induction hypothesis the claim would hold for $0\le r\le S-2$ (where we can even extend it to $0\le r\le S$ as we can simply take $\{a_1, \cdots, a_n\}$ for a total weight of $S$.
+	
+	Therefore all it remains to show the same for $S\le r\le S+a_{n+1}-2$. To determine if it's possible to choose a subset of blocks with total weight in $[r, r+2]$ where $r>S$, by choosing the element $a_{n+1}$, we're left with choosing a subset from $\{a_1, \cdots , a_n\}$ with sum in $[r-a_{n+1}, r-a_{n+1}+2]$. Considering the empty set (weight sum 0), and by hypothesis, it then suffices to show that $r-a_{n+1}+2\ge 0$, and that $r-a_{n+1}\le S$. Thus $a_{n+1}\le n+2$.
+	
+	The fact that $r-a_{n+1}\le S$ follows from $r\le S+a_{n+1}$. In addition, given that $S\ge n$ and $S+a_{n+1}\le 2(n+1)$, we have $r-a_{n+1}+2\ge S+1-a_{n+1}+2\ge n+3-(n+2)=1$, as desired.
+	
+	\item [\textbf{C3}.] (IMO 5) The Bank of Bath issues coins with an $H$ on one side and a $T$ on the other. Harry has $n$ of these coins arranged in a line from left to right. He repeatedly performs the following operation: if there are exactly $k>0$ coins showing $H$, then he turns over the $k$th coin from the left; otherwise, all coins show $T$ and he stops. For example, if $n=3$ the process starting with the configuration $THT$ would be $THT \to HHT  \to HTT \to TTT$, which stops after three operations.
+	
+	(a) Show that, for each initial configuration, Harry stops after a finite number of operations.
+	
+	(b) For each initial configuration $C$, let $L(C)$ be the number of operations before Harry stops. For example, $L(THT) = 3$ and $L(TTT) = 0$. Determine the average value of $L(C)$ over all $2^n$ possible initial configurations $C$.
+	
+	\textbf{Answer.} The expected value, $E(L(C))=\frac{n(n+1)}{4}$. \\
+	\textbf{Solution.} Let's induce on $n$ and denote $f(n)$ as the answer for $n$. It's obvious that when $n=1$, $E(C)=\frac{0+1}{2}=\frac 12$, corresponding to the configuration $T$ and $H$, respectively. We'll show that $f(n+1)=f(n)+\frac{n+1}{2}$ which completes the solution. 
+	For clarity sake, denote $op(C)$ as the configuration by applying the operation on $C$. 
+	
+	Let $A_0$ be the set of sequence of $n+1$ coins ending on a $T$, and $A_1$ be the set of sequence of $n+1$ coins ending on a $H$. Also, for each set $S$ of sequences of coins let $L(S)$ be the expected value of number of operations needed (that is, $L(S)=\frac{1}{|S|}\dsum_{C\in S}L(C)$). 
+	We have the relation $f(n+1)=\frac{L(A_0)+L(A_1)}{2}$ since $A_0$ and $A_1$ have the same size, each being $2^n$. 
+	
+	Let $B_0$ be the set of sequence of $n$ coins. We first define a mapping $\gamma$ from $A_0$ to $B_0$ as follows: for each $C\in A_0$, let $C'$ be the sequence in $B_0$ that is $C$ with the last $T$ removed. Then $\gamma(C)=C'$. This mapping is clearly bijective. We claim that $\gamma(op(C))=op(\gamma(C))$ if $C$ has at least a head. Notice that $C$ and $C'$ each has the same number of heads, say $k$, so in the operation, the $k$-th coin from the left in each $C$ and $C'=\gamma(C)$ are flipped. 
+	Since the first $n$ coins of $C$ and $\gamma(C)$ are the same, so are the first $n$ coins of $op(C)$ and $op(\gamma(C))$. Since $k\le n$, the last tail of $C$ is not flipped in getting into $op(C)$, hence $\gamma(C)=op(\gamma(C))$. 
+	Continuing this iteration, we find that $L(C)=L(C')$ and therefore aggregating this for all configurations $C\in A_0$ we have $L(A_0)=L(B_0)=f(n)$. 
+	
+	Computing $L(A_1)$ is trickier. Again, define a mapping $\sigma$ from $A_1$ to $B_0$ such that for each $C$ in $A_1$, $\sigma(C)$ is obtainly by the following algorithm: take $C$, drop the last $H$, invert the coin sequence and flip all the coins (formally, $\sigma(s_0s_1\cdots s_{n-1}H)=\ol{s_{n-1}\cdots s_1s_0}$ where $\ol{H}=T$ and $\ol{T}=H$). 
+	Again this mapping is bijective. 
+	We claim that if $C$ has at least a tail, then $\sigma(op(C))=op(\sigma(C))$. 
+	Let $1\le k\le n$ be the number of heads in $C$, and let $C=s_0s_1\cdots s_{n-1}H$. 
+	Then $op(C)=s_0\cdots \ol{s_{k-1}}s_k\cdots s_{n-1}H$. 
+	Excluding the last head, $C$ actually has $k-1$ heads and $n-k+1$ tails, which means that $\sigma(C)=\ol{s_{n-1}\cdots s_1s_0}$ has $n-k+1$ heads and $k-1$ tails, which means that $op(\sigma(C))=\ol{s_{n-1}\cdots\ol{s_{k-1}}\cdots s_1s_0}=\ol{s_{n-1}\cdots}s_{k-1}\ol{\cdots s_1s_0}$, which establishes that $\sigma(op(C))=op(\sigma(C))$. 
+	If $m$ is the number operations needed for $\sigma(C)$ to reach all $T$, $op^{m}(\sigma(C))=TT\cdots T$ and from above we can deduce that $op^{m}(\sigma(C))=\sigma(op^{m}(C))=TT\cdots T$, we have $op^{m}(C)=HH\cdots H$ (i.e. $n+1$ $H$'s). 
+	It's now not hard to see that the subsequent moves on $op^{m}(C)$ are to flip the rightmost possible $H$, and there are $n+1$ of them, hence $L(C)=m+n+1=L(\sigma(C))+n+1$. 
+	Aggregating this over all $C$ in $A_1$ we get $L(A_1)=L(B_0)+n+1=f(n)+n+1$. 
+	
+	Summarizing above we have $f(n+1)=\frac{L(A_0)+L(A_1)}{2}=\frac{f(n)+f(n)+n+1}{2}=f(n)+\frac{n+1}{2}$, as desired. 
+	
+	\item [\textbf{C4}.] On a flat plane in Camelot, King Arthur builds a labyrinth $\mathfrak{L}$ consisting of $n$ walls, each of which is an infinite straight line. No two walls are parallel, and no three walls have a common point. Merlin then paints one side of each wall entirely red and the other side entirely blue.
+	
+	At the intersection of two walls there are four corners: two diagonally opposite corners where a red side and a blue side meet, one corner where two red sides meet, and one corner where two blue sides meet. At each such intersection, there is a two-way door connecting the two diagonally opposite corners at which sides of different colours meet.
+	
+	After Merlin paints the walls, Morgana then places some knights in the labyrinth. The knights can walk through doors, but cannot walk through walls.
+	
+	Let $k(\mathfrak{L})$ be the largest number $k$ such that, no matter how Merlin paints the labyrinth $\mathfrak{L},$ Morgana can always place at least $k$ knights such that no two of them can ever meet. For each $n,$ what are all possible values for $k(\mathfrak{L}),$ where $\mathfrak{L}$ is a labyrinth with $n$ walls?
+	
+	\textbf{Answer.} The only possible answer is $k(\mathfrak{L})=n+1$. 
+	
+	\textbf{Solution.} Given $n$ lines on the plane with no two parallel and no three concurrent, we can model the configuration as regions on the plane. The number of such regions (which can be established via induction on $n$) is $\frac{n(n+1)}{2}+1$ (adding one line to the existing configuration of $n$ lines will split $n+1$ regions into two). If we model this configuration as an undirected graph with regions as vertices and doors as edges, then the maximum number of knights that can be placed where no two knights can ever meet is the number of connected components in the graph. 
+	
+	We first notice that there's exactly one door corresponding to each pair of lines, giving $\dbinom{n}{2}=\frac{n(n-1)}{2}$ edges. Therefore the number of connected components is at least 
+	\[
+	|V|-|E| = \frac{n(n+1)}{2}+1 - \frac{n(n-1)}{2} = n+1
+	\]
+	with equality if and only if no cycle exists. 
+	
+	It now remains to show that no matter how the $n$ lines are placed in the plane, Merlin can always colour the walls such that exactly $n+1$ connected components remain. Equivalently, the colouring should result in no cycle (when seen as a graph). 
+	
+	We establish this colouring before showing that it will work (motivation: try out $n=3$). Since there are $\dbinom{n}{2}$ intersection points (i.e. finitely many of them), there exists a circle (say, $\mathcal{C}$) such that all these intersection points lie inside the circle (e.g. choose a reference point, say origin, and consider $M$ as the furthest of the $\dbinom{n}{2}$ points from the circle. Then make the radius of the circle $M+1$). These $n$ lines intersect the circle forming $n$ chords. 
+	Since all the $n$ chords intersect each other within the circle, we can label the endpoints as $a_1, a_2, \cdots , a_n, b_1, b_2, \cdots, b_n$ such that: 
+	\begin{itemize}
+		\item $a_1, \cdots, a_n, b_1, \cdots, b_n$ are clockwise in that order (and $b_n$ meets $a_1$ again). 
+		\item $a_ib_i$ is the chord corresponding to line $i$. 
+	\end{itemize}
+	Going clockwise, we colour all $a_i$ such that red comes before blue in clockwise order (and therefore for $b_i$ blue comes before red in clockwise order). 
+	
+	Now, each region may have finite or infinite area; the former corresponds to convex polygons; the latter corresponds to regions that need to be bounded by $\mathcal{C}$. for each region $R$, denote $f(R)$ as the number of lines such that this region is in the \emph{blue} side of the line (in other words we make red = 0 and blue = 1). Therefore, if $R_{(a_i, a_{i+1})}$ is the region facing the arc (i.e. infinite if not bounded by the arc) that's `adjacent' to $a_i$ and $a_{i+1}$ (and define similarly for $R_{(b_i, b_{i+1})}$), then: 
+	\begin{itemize}
+		\item $f(R_{(b_n, a_1)})=0$
+		\item $f(R_{(a_i, a_{i+1})})=i$
+		\item $f(R_{(a_n, b_1)})=n$
+		\item $f(R_{(b_i, b_{i+1})})=n-i$
+	\end{itemize}
+	Moreover, any two regions $R_1, R_2$ connected by a door must have $f(R_1)=f(R_2)$. 
+	
+	We see that $R_{(b_n, a_1)}$ and $R_{(a_n, b_1)}$ is not connected to each door because to have $f(\cdot)=0$ means it's on the red side of all lines and there's only one possible region that can satisfy this; similar case for regions with $f(\cdot)=n$. We now show that: 
+	\begin{itemize}
+		\item for each $1\le i\le n-1$, $R_{(a_i, a_{i+1})}$ and $R_{(b_i, b_{i+1})}$ each connected to 1 door 
+		\item for all other regions (i.e. those with finite areas) they all each connected to 2 doors. 
+	\end{itemize}
+	
+	We first establish the lower bounds that they have \emph{at least} 1 or 2 doors. For $R_{(a_i, a_{i+1})}$, it's adjacent to the blue side of $a_i$ and red side of $a_{i+1}$. Considering all the sides of that region, (excluding the circular arc), the fact that it's at different side of $a_i$ and $a_{i+1}$ means there must be two adjacent sides of that region that are of different colours. This gives a door to this region. 
+	
+	For the finite region, recall that it's a convex polygon $P$. We consider the colour of the sides that enclose the region (that is, the internal part). As long as it consists of both red and blue sides, by considering one cycle clockwise there will be instances that goes from red to blue and then blue to red, thereby giving the two doors. It then suffices to show that the region cannot be all red or all blue. 
+	
+	We first show that we can choose three lines from the sides of $P$ that will define a triangle that convers the whole $P$. If $P$ is already a triangle then we are done. Otherwise, choose two non-adjacent sides of $P$. These two sides partition the plane into four regions; we consider the one region that contains both the segments of $P$ (and therefore covering the whole $P$). 
+	These two sides of $P$ also partitions the other sides into two consecutive sections; 
+	choosing a side from one of the to complete the triangle will result in $P$ not covered by the triangle at all (except adjacent sides); choosing one from the other side will cover $P$ completely. This gives us the required triangle $T$ that covers $P$ completely. 
+	
+	Notice that $T$ has three lines $x, y, z$ with endpoints $a_x, a_y, a_z, b_x, b_y, b_z$. By considering the function $f$ with respect to this $T$, the region with $f(\cdot)=0$ and 3 have both been taken by the infinite regions, so $f(T)$ is either 1 or 2, thus cannot have inner walls being all blue or all red. Since the inner walls of $T$ is also a subset of inner walls of $P$ (since $T$ covers $P$), it follows that the inner walls of $P$ cannot be all red or all blue, as claimed. 
+	
+	Finally, to turn inequality into equality, we have $2n$ regions of infinite area, and $\frac{n(n+1)}{2}+1-2n=\frac{n(n-3)}{2}+1$ regions with finite area (for $n\ge 1$). 
+	$2n-2$ of the inifinite region have doors, so the number of correspondence to doors is at least 
+	\[
+	2n-2+2(\frac{n(n-3)}{2}+1)=2n-2+n(n-3)+2=n(n-1)
+	\]
+	Each door corresponds to 2 regions and there are $\frac{n(n-1)}{2}$ doors, and therefore equality must hold. This means (in the language of graph theory) that 2 regions have degree 0, $2n-2$ regions have degree 1, and the rest have degree 2. This gives rise of $n-1$ simple paths (correspond to those with $f(\cdot)=1, 2, \cdots , n-1$) and several other cycles, each disjoint from each other. 
+	We also know that each path must start and end with unbounded regions (with degree 1). 
+	Notice that the paths and cycles (if any) are also disjoint in the `literal' sense: for each finite region we can draw a line (or anything within the polygonal region itself) between the two vertices connected to a door, and for infinite region we can draw a line from the door to anywhere on the arc on $P$ that still corresponds to the region (i.e. don't cross over the region). 
+	
+	Suppose a cycle does exist. Since the cycles and paths are disjoint, we can define an ordering based on whether one cycle encloses the other. Since the number of cycles must be finite, we can choose the `minimal' according to these ordering, i.e. a cycle that does not enclose any other cycle. If there's any region enclosed by that cycle, that region must be a finite area region and therefore be part of a path that ends in an unbounded region, which must then be enclosed by the cycle (which is contradiction that this region that's end of path is unbounded). Hence no region can be enclosed by the cycle at all. 
+	
+	Consider, now, any door that joins two opposite regions, and the two side regions. One side region is outside the cycle; the other is inside, contradicting that no region can be enclosed by the cycle. Therefore there's no cycle to start with, as desired. 
+	
+	
+	\item [\textbf{C5}.] (IMO 3) A social network has $2019$ users, some pairs of whom are friends. Whenever user $A$ is friends with user $B$, user $B$ is also friends with user $A$. Events of the following kind may happen repeatedly, one at a time:
+	Three users $A$, $B$, and $C$ such that $A$ is friends with both $B$ and $C$, but $B$ and $C$ are not friends, change their friendship statuses such that $B$ and $C$ are now friends, but $A$ is no longer friends with $B$, and no longer friends with $C$. All other friendship statuses are unchanged.
+	Initially, $1010$ users have $1009$ friends each, and $1009$ users have $1010$ friends each. Prove that there exists a sequence of such events after which each user is friends with at most one other user.
+	
+	\textbf{Solution.} (Reproduced from AoPS) For a connected component $C$ of a graph, call it good if either $|C|\le 2$, or $|C|$ is not a clique and not all vertices have even degree. One can easily prove that the initial graph has a single connected component (otherwise, take the smaller component which has at most $1009$ vertices and therefore having degree at most $1008$), and obviously not a clique. For each good connected component of size at least 3, we show that we can make a move as described in the problem statement such that either the connected component is preserved, or the move splits it into two good components (in the latter case, the resulting component will still be good because as Swistak mentioned, the each move preserves the degree of each vertex, and the total number of edges decreases by 1, hence cannot be a clique).
+	
+	Consider any good component $C$ of size at least 3. For each two vertices $(u, v)$, denote the distance $d(u, v)$ as the length of the shortest path from $u$ and $v$. Choose two of them, $A_0, A_n$ such that $d(u, v)=n$ and is the maximal possible within that component. Moreover, let $A_0, A_1, \cdots , A_n$ to be a path of length $n$. By the definition of distance, $A_i$ and $A_j$ is not connected by an edge if $|i-j|>1$. In addition, $n\ge 2$ since $C$ is not a clique.
+	
+	Now, one possible candidate (call this "candidate move") is to consider edges $A_0A_1$ and $A_1A_2$, and remove them, resulting in a new edge $A_0A_2$. If $A_1$ is still connected to $A_0$, or $A_1$ has no other vertices connected to itself, then we are good. Otherwise, $A_1$ will have another neighbour, $B$.
+	
+	We first claim that in this "supposedly new" component, $A_1$ has distance 1 with all other vertices, Otherwise, choose $B$ and $C$ such that there are edges $A_1B$ and $BC$ but not $A_1C$. Now these $B$ and $C$ are isolated from $A_0, A_2, \cdots , A_n$. In the original graph, any path from $A_n$ to $C$ must pass through $A_1$ (length $n-1$), and from $A_1$ it takes exactly two steps to reach $C$. Thus $d(A_n, C)$ in the pre-move configuration is $n+1$, contradicting the maximality of $n$.
+	
+	Back to the original configuration; we know that originally, the neighbours of $A_1$ are $A_0, A_2$, and a bunch of $B_1, \cdots, B_k$ ($k\ge 1$) which will be isolated from $A_0, A_2, \cdots , A_n$ should we use the candidate move. In addition, by the immediate previous claim, $B_i$ has no other neighbours other than $B_j$ ($j\neq i$) and $A_1$. There are three cases:
+	
+	Case 1. $k=1$. This means the degree of $A_1$ is 3. We now disconnect $A_1B_1$ and $A_1A_0$, resulting in new edge $B_1A_0$. If this were to split things up into two components, then $B_1, A_0$ are in the same component, while $A_1, A_2, \cdots , A_n$ are in the other. Both $B_1$ and $A_1$ now have degree 1, so both components are guaranteed to be good.
+	
+	Case 2. $k\ge 2$ and each $B_i$ has degree 1. The previous algorithm will still work: disconnect $A_1B_1$ and $A_1A_0$ with new edge $B_1A_0$. Again if this were to split things up into two components then $B_1$ and $A_1$ are in different components. Now $B_1$ has degree 1; $B_2$ has degree 1 too and is in $A_1$'s component, so both components are good too.
+	
+	Case 3. Some $B_i$ has degree more than 1. WLOG let $B_1$ to have degree more than 1, and by before's observation, $B_1$ has no other neighbour other than some other $B_j$'s and $A_1$. Therefore there's another $B_j$ that's $B_1$'s neighbour, say, $B_2$. Same algorithm, cut $A_1B_1$, $A_1A_0$, add $B_1A_0$. Now $A_0B_1B_2A_1$ is a path, so the original component remains connected.
+	
+	Finally, notice that we always perform such a move above until we run out of connected components of size $\ge 3$. This will eventually happen since each move decreases the number of edges in the graph by 1, thus cannot happen forever. At this stage, each vertex will have degree at most 1, as desired.
+\end{enumerate}
+
+\section*{Geometry}
+\begin{enumerate}
+	%%%G1%%%
+	\item [\textbf{G1.}] Let $ABC$ be a triangle. Circle $\Gamma$ passes through $A$, meets segments $AB$ and $AC$ again at points $D$ and $E$ respectively, and intersects segment $BC$ at $F$ and $G$ such that $F$ lies between $B$ and $G$. The tangent to circle $BDF$ at $F$ and the tangent to circle $CEG$ at $G$ meet at point $T$. Suppose that points $A$ and $T$ are distinct. Prove that line $AT$ is parallel to $BC$.
+	
+	\textbf{Solution.} We have 
+	\[
+	\angle TFG =\angle BDF = \angle AGF
+	\]
+	the first equality due to $TF$ tangent to $BDF$ and the second due to $A, D, F, G$ concyclic. Similarly we have 
+	\[
+	\angle TGF = \angle CEG = \angle AFG
+	\]
+	and therefore triangles $AFG$ and $TGF$ are similar and with the common side $FG$, they are in fact congruent. Since $A$ and $T$ are on the same side of $FG$, we have $ATGF$ isoceles trapezoid and therefore $AT\parallel FG$. 
+	
+	%%%G2%%%
+	
+	\item [\textbf{G2.}] Let $ABC$ be an acute-angled triangle and let $D, E$, and $F$ be the feet of altitudes from $A, B$, and $C$ to sides $BC, CA$, and $AB$, respectively. Denote by $\omega_B$ and $\omega_C$ the incircles of triangles $BDF$ and $CDE$, and let these circles be tangent to segments $DF$ and $DE$ at $M$ and $N$, respectively. Let line $MN$ meet circles $\omega_B$ and $\omega_C$ again at $P \ne M$ and $Q \ne N$, respectively. Prove that $MP = NQ$.
+	
+	\textbf{Solution.} Let $r_B$ and $r_C$ be the inradius of $BDF$ and $CDE$ respectively, and $\theta_B$ and $\theta_C$ be the angles subtended by $MP$ and $NQ$ in $\omega_B$ and $\omega_C$, respectively. Then $MP=r_B\sin \theta_B$ and $NQ=r_C\sin\theta_C$. 
+	
+	Notice, first, that since $DM$ is tangent to $\omega_B$, $\theta_B$ is the angle between $MP$ and $DM$, which is the angle $\angle NMD$. Similarly $\theta_C=\angle MND$. Therefore, 
+	\[
+	\frac{MP}{NQ}=\frac{r_B\sin \theta_B}{r_C\sin\theta_C}
+	=\frac{r_B\sin \angle NMD}{r_C\sin\angle MND}
+	=\frac{r_B\cdot ND}{r_C\cdot MD}
+	\]
+	where the last equality is due to sine rule on triangle $NMD$. 
+	
+	Finally, we have triangles $DBF$ and $DEC$ similar. This means that $\frac{MD}{ND}$, the tangent from $D$ to each circle, is equal to $\frac{r_B}{r_C}$. Therefore, 
+	\[
+	\frac{r_B\cdot ND}{r_C\cdot MD} = \frac{r_B\cdot r_C}{r_C\cdot r_B} = 1
+	\]
+	as desired. 
+	
+	%%%G3%%%
+	
+	\item [\textbf{G3}.] (IMO 2) In triangle $ABC$, point $A_1$ lies on side $BC$ and point $B_1$ lies on side $AC$. Let $P$ and $Q$ be points on segments $AA_1$ and $BB_1$, respectively, such that $PQ$ is parallel to $AB$. Let $P_1$ be a point on line $PB_1$, such that $B_1$ lies strictly between $P$ and $P_1$, and $\angle PP_1C=\angle BAC$. Similarly, let $Q_1$ be the point on line $QA_1$, such that $A_1$ lies strictly between $Q$ and $Q_1$, and $\angle CQ_1Q=\angle CBA$.
+	
+	Prove that points $P,Q,P_1$, and $Q_1$ are concyclic.
+	
+	\textbf{Solution.} An equivalent thing would be proving that lines $PP_1$, $QQ_1$ and the radical axis of circumcircles of $CPP_1$ and $CQQ_1$ are either concurrent or parallel. Let $R$ be the second intersection of circles $CPP_1$ and $CQQ_1$; $CR$ is the radical axis of these two circles. 
+	
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\clip(-7.15619773709833,-2.5202000865062124) rectangle (7.51584566044878,7.800438805304492);
+	\draw [line width=2pt] (-0.27988493874496984,0.5754215142011392) circle (1.7045490987050795cm);
+	\draw [line width=2pt] (-2.2713193938781733,2.99411753214173) circle (1.9535396557480333cm);
+	\draw [line width=2pt] (1.997812906644998,4.014730283983758) circle (3.010919266101753cm);
+	\draw [line width=2pt] (-0.98,4.46)-- (-3.46,-0.62);
+	\draw [line width=2pt] (-3.46,-0.62)-- (4.46,-0.62);
+	\draw [line width=2pt] (4.46,-0.62)-- (-0.98,4.46);
+	\draw [line width=2pt] (-2.4064370344866473,1.5381047841967077)-- (0.3292709038781583,-1.0165636582468978);
+	\draw [line width=2pt] (1.7557079383648053,1.9053315575563952)-- (0.3292709038781583,-1.0165636582468978);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-1.5320316419621107,6.7690992243217245)-- (0.3292709038781583,-1.0165636582468978);
+	\draw [line width=2pt] (-1.9097884095473938,1.0743226123784344)-- (1.3500185320574543,1.0743226123784344);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-1.5320316419621107,6.7690992243217245)-- (-1.9097884095473938,1.0743226123784344);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-1.5320316419621107,6.7690992243217245)-- (1.3500185320574543,1.0743226123784344);
+	\begin{scriptsize}
+	\draw [fill=black] (-3.46,-0.62) circle (2.5pt);
+	\draw[color=black] (-3.348718794578975,-0.3235776196681234) node {$A$};
+	\draw [fill=black] (4.46,-0.62) circle (2.5pt);
+	\draw[color=black] (4.573068895351404,-0.3235776196681234) node {$B$};
+	\draw [fill=black] (-0.98,4.46) circle (2.5pt);
+	\draw[color=black] (-0.7964526902528144,4.613592877225106) node {$C$};
+	\draw [fill=black] (0.18906974729241918,3.368295162454874) circle (2.5pt);
+	\draw[color=black] (0.3471856734343177,3.7070502718633547) node {$A_1$};
+	\draw [fill=black] (-1.796091723827167,2.7883282431282232) circle (2.5pt);
+	\draw[color=black] (-1.6472080583615347,3.1352310900197886) node {$B_1$};
+	\draw [fill=black] (-1.9097884095473938,1.0743226123784344) circle (2.5pt);
+	\draw[color=black] (-1.8006229608073694,1.3779331165493172) node {$P$};
+	\draw [fill=uuuuuu] (1.3500185320574543,1.0743226123784344) circle (2pt);
+	\draw[color=uuuuuu] (1.4629304184949343,1.3500394979228016) node {$Q$};
+	\draw [fill=uuuuuu] (0.3292709038781583,-1.0165636582468978) circle (2pt);
+	\draw[color=uuuuuu] (0.4448133386271217,-0.7419818990658547) node {$S$};
+	\draw [fill=uuuuuu] (-0.4566282761699269,2.2707826623262775) circle (2pt);
+	\draw[color=uuuuuu] (-0.3501547922285677,2.5494650988629646) node {$R$};
+	\draw [fill=uuuuuu] (-1.659376889314633,4.849338154517583) circle (2pt);
+	\draw[color=uuuuuu] (-1.5077399652289576,5.157518440442156) node {$P_1$};
+	\draw [fill=uuuuuu] (-0.7551651030072344,5.234052597957362) circle (2pt);
+	\draw[color=uuuuuu] (-0.5175165039876602,5.422507817394052) node {$Q_1$};
+	\draw [fill=uuuuuu] (-1.5320316419621107,6.7690992243217245) circle (2pt);
+	\draw[color=uuuuuu] (-1.6611548676747925,7.165858981551266) node {$D$};
+	\draw [fill=uuuuuu] (-2.4064370344866473,1.5381047841967077) circle (2pt);
+	\draw[color=uuuuuu] (-2.288761286771389,1.810284205260306) node {$T$};
+	\draw [fill=uuuuuu] (1.7557079383648053,1.9053315575563952) circle (2pt);
+	\draw[color=uuuuuu] (1.867387888579408,2.1729012474050067) node {$U$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	Now, let $S$ be the second intersection of $CR$ and circle $PQR$. We claim that $SP\parallel BC$ and $SQ\parallel AC$. For this part only, let's use directed angles for the sake of clarity. Observe that: 
+	\[\angle(CA, AB)=\angle (CP_1, P_1P) = \angle (CR, RP) = \angle(RS, RP)=\angle (QS, QP) = \angle (QS, AB)
+	\]
+	with the first equality following from $\angle PP_1C =\angle BAC$ and the last equality from $QP\parallel AB$. Thus $CA$ and $QS$ are parallel, and similarly so are lines $SP$ and $BC$. Thus we will focus on proving that $PP_1, QQ_1, CS$ are either concurrent or parallel. 
+	
+	Let $SP$ intersect $AC$ at $T$, and $QP$ intersect $BC$ at $U$. THis means $CTSU$ is a parallelogram. The fact that $PP_1, QQ_1, CS$ are parallel is actually the same as the below equality:
+	\[
+	\frac{SP}{PT}\cdot \frac{TB_1}{B_1C}\cdot \frac{CA_1}{A_1U}\cdot \frac{UQ}{QS}=1
+	\]
+	notice that we need to be careful of the sign convention, though it's quite clear that $P$ is between $T$ and $S$ and $Q$ is between $U$ and $S$, so the first and the last ratio can be easily made positive. 
+	We now let $\frac{TB_1}{B_1C}$ be postive if $B_1$ lies between $T$ and $C$ and negative otherwise, similarly $\frac {CA_1}{A_1U}$ be positve if $A_1$ between $C$ and $U$ and negative otherwise. This allows us to adopt the convention that $TB_1=TC-B_1C$ and $UA_1=UC-A_1C$. 
+	
+	Since $PQ\parallel AB$, $SP\parallel BC$ and $SQ\parallel AC$, the triangles $SPQ$ and $CBA$ are in fact similar. Thus $\frac{SP}{SQ}=\frac{BC}{AC}$. Since $CU=TS$ and $CT=US$, we in fact have $\frac{SP}{ST}\div \frac{SQ}{SU}=\frac{BC}{CU}\div\frac{AC}{CT}$. 
+	In addition, we have the following identity: 
+	\[
+	\frac{PT}{A_1C}=\frac{AT}{AC}\qquad \frac{UQ}{B_1C} = \frac{BU}{BC}
+	\]
+	thus allowing us to write 
+	\[
+	A_1C = PT\cdot\frac{AC}{AT}=PT\cdot\frac{AC}{AC-TC}\qquad
+	B_1C = UQ\cdot \frac{BC}{BU} = UQ\cdot \frac{BC}{BC-CU}
+	\]
+	and therefore
+	\begin{flalign*}
+	\frac{SP}{PT}\cdot \frac{TB_1}{B_1C}\cdot \frac{CA_1}{A_1U}\cdot \frac{UQ}{QS}
+	&=\frac{SP}{QS}\cdot \frac{CT-B_1C}{\frac{BC}{BC-CU}}\cdot \frac{\frac{AC}{AC-TC}}{CU-CA_1}
+	\\&=\frac{SP}{QS}\cdot \frac{CT(1-B_1C/CT)}{\frac{BC}{BC-CU}}\cdot \frac{\frac{AC}{AC-TC}}{CU(1-CA_1/CU)}
+	\\&=\frac{BC}{AC}\cdot \frac{CT(1-\frac{UQ}{US}\cdot \frac{BC}{BC-CU})}{\frac{BC}{BC-CU}}\cdot \frac{\frac{AC}{AC-TC}}{CU(1-\frac{PT}{ST}\cdot\frac{AC}{AC-TC})}
+	\\&=(\frac{BC}{CU}\div\frac{AC}{CT})\cdot 
+	\frac{1-(1-\frac{SQ}{SU})\cdot \frac{BC}{BC-CU}}{\frac{BC}{BC-CU}}\cdot 
+	\frac{\frac{AC}{AC-TC}}{1-(1-\frac{SP}{ST})\cdot\frac{AC}{AC-TC}}
+	\\&=\frac{CT}{CU}\cdot 
+	\frac{1-(1-\frac{SQ}{SU})\cdot \frac{BC}{BC-CU}}{\frac{1}{BC-CU}}\cdot 
+	\frac{\frac{1}{AC-TC}}{1-(1-\frac{SP}{ST})\cdot\frac{AC}{AC-TC}}
+	\\&=\frac{CT}{CU}\cdot 
+	\frac{1-(1-\frac{SQ}{SU})\cdot \frac{BC}{BC-CU}}{AC-TC}\cdot 
+	\frac{BC-CU}{1-(1-\frac{SP}{ST})\cdot\frac{AC}{AC-TC}}
+	\\&=\frac{CT}{CU}\cdot 
+	\frac{BC-CU-(1-\frac{SQ}{SU})\cdot BC}{AC-TC-(1-\frac{SP}{ST})\cdot AC}
+	\\&=\frac{CT}{CU}\cdot 
+	\frac{\frac{SQ}{SU}\cdot BC - CU}{\frac{SP}{ST}\cdot AC - TC}
+	\\&=\frac{\frac{SQ}{SU}\cdot \frac{BC}{CU} - 1}{\frac{SP}{ST}\cdot\frac{AC}{CT} - 1}
+	\end{flalign*}
+	To show that this ratio is indeed 1, it suffices to show that $\frac{SQ}{SU}\cdot \frac{BC}{CU}=\frac{SP}{ST}\cdot\frac{AC}{CT}$. With $CT=SU$ and $CU=ST$, and that $\frac{SP}{SQ}=\frac{BC}{AC}$ (i.e. $SP\cdot AC=SQ\cdot BC$), we have 
+	\[
+	\frac{SQ}{SU}\cdot \frac{BC}{CU}
+	=\frac{SP}{SU}\cdot\frac{AC}{CU}
+	=\frac{SP}{CT}\cdot\frac{AC}{ST}
+	\]
+	as desired. 
+	
+	%%%G4%%%
+	
+	\item [\textbf{G4.}] Let $P$ be a point inside triangle $ABC$. Let $AP$ meet $BC$ at $A_1$, let $BP$ meet $CA$ at $B_1$, and let $CP$ meet $AB$ at $C_1$. Let $A_2$ be the point such that $A_1$ is the midpoint of $PA_2$, let $B_2$ be the point such that $B_1$ is the midpoint of $PB_2$, and let $C_2$ be the point such that $C_1$ is the midpoint of $PC_2$. Prove that points $A_2, B_2$, and $C_2$ cannot all lie strictly inside the circumcircle of triangle $ABC$.
+	
+	\textbf{Solution.} Let $AP, BP, CP$ meet the circumcircle of $ABC$ again at $A_3, B_3, C_3$, respectively. 
+	Suppose that $A_2, B_2, C_2$ all lie inside the circumcircle. Then $A_1P<A_3A_1$, $B_1P<B_3B_1$ and $C_1P<C_3C_1$. We also have: 
+	\[
+	\frac{A_1P}{A_3A_1}
+	=\frac{|\triangle PBC|}{|\triangle BCA_1|}
+	=\frac{\frac 12 \cdot d(P, BC)\cdot BC }{\frac 12 \cdot d(A_1, BC)\cdot BC}
+	=\frac{d(P, BC) / BC}{d(A_1, BC) / BC}
+	\]
+	where $d(P, BC)$ is the distance from point $P$ to line $BC$ or the height from $P$ of the triangle $PBC$ (and similar for other notations). 
+	Now we have 
+	\[
+	\frac{d(P, BC)}{BC}
+	=\frac{d(P, BC)}{PB}\cdot \frac{PB}{BC}
+	=\sin \angle PBC\cdot \frac{\sin\angle PCB}{\sin\angle CPB}
+	=\frac{\sin \angle PBC\cdot\sin \angle PCB}{\sin \angle (PBC+PCB)}
+	\]\[
+	=\frac{1}{\cot\angle PBC + \cot\angle PCB}
+	\]
+	and therefore 
+	\[
+	\frac{A_1P}{A_3A_1}
+	=\frac{1}{\cot\angle PBC + \cot\angle PCB}\div \frac{1}{\cot\angle A_3BC + \cot\angle A_3CB}
+	=\frac{\cot\angle A_3AC + \cot\angle A_3AB}{\cot\angle PBC + \cot\angle PCB}
+	\]\[
+	=\frac{\cot\angle PAC + \cot\angle PAB}{\cot\angle PBC + \cot\angle PCB}
+	\]
+	where $\angle A_3BC=\angle A_3AC$ and $\angle A_3CB=\angle A_3AB$ follow from that $A, B, C, A_3$ concyclic. The fact that $A_3P<C_3A_1$ therefore means 
+	\[
+	\cot\angle PAC + \cot\angle PAB< \cot\angle PBC + \cot\angle PCB
+	\]
+	and similarly $B_1P<B_3B_1$ and $C_1P<C_3C_1$ means 
+	\[
+	\cot\angle PBC + \cot\angle PBA< \cot\angle PCA + \cot\angle PAC
+	\]\[
+	\cot\angle PCA + \cot\angle PCB< \cot\angle PBA + \cot\angle PAB
+	\]
+	so summing the 3 quantities gives 
+	\[
+	\cot\angle PAC + \cot\angle PAB+\cot\angle PBC + \cot\angle PBA+\cot\angle PCA + \cot\angle PCB
+	\]
+	\[
+	< \cot\angle PAC + \cot\angle PAB+\cot\angle PBC + \cot\angle PBA+\cot\angle PCA + \cot\angle PCB
+	\]
+	which is a contradiction. 
+	
+	%%%G6%%%
+	
+	\item [\textbf{G6.}] Let $I$ be the incentre of acute-angled triangle $ABC$. Let the incircle meet $BC, CA$, and $AB$ at $D, E$, and $F,$ respectively. Let line $EF$ intersect the circumcircle of the triangle at $P$ and $Q$, such that $F$ lies between $E$ and $P$. Prove that $\angle DPA + \angle AQD =\angle QIP$.
+	
+	\textbf{Solution.} We denote the second intersection of $QD$ and $PD$ as $X$ and $Y$, respectively, and the intersection of $PQ$ and $BC$ as $T$ (possibly point of infinity).
+	
+	We first claim that $XY$ also passes through $T$. Since $AD, BE, CF$ are concurrent (well-known), the points $(T, B; D, C)$ are harmonic. By Brokard's theorem, if $\ell$ is the pole of $D$ w.r.t. to circle $ABC$, then $PQ$ and $XY$ intersect on $\ell$. If $D'$ is the projection from $OD$ to $\ell$, then $OD\cdot OD' = r^2 = OB^2=OC^2$. Thus $O, B, D', C$ are in fact cyclic and so $OD'$ is an internal angle bisector of angle $BD'C$. Now, $\ell$ and $OD'$ are perpendicular, so if $\ell$ intersects $BC$ at $T'$ then based on the two angle bisectors we have $(DT', DB; DD', DC)$ are harmonic pencil, so $(T', B; D, C)$ are harmonic. This gives $T=T'$ and therefore $PQ, BC, XY$ concur at $T$.
+	
+	Now, by Brokard's theorem again, $PX$ and $YQ$ intersect at the polar of $TD$ which is $BC$. This point, namely $U$, is the intersection of tangents to of $B$ and $C$ to the circumcircle. This means $BXCP$ and $BYCQ$ are both harmonic quadrilaterals. Also using the identities on the cevians of triangle (with some trigonometric flavour) we have
+	$$
+	\frac{\sin\angle PIF}{\sin\angle PIE}\cdot \frac{IF}{IE} = \frac{PF}{PE} = \frac{\sin\angle PAF}{\sin\angle PAE}\cdot \frac{AF}{AE}
+	$$but since $AF=AE$ and $IF=IE$ we have
+	$$\frac{\sin\angle PIF}{\sin\angle PIE}=\frac{\sin\angle PAF}{\sin\angle PAE}=\frac{\sin\angle PAB}{\sin\angle PAC}= \frac{PB}{PC} = \frac{XB}{XC} = \frac{\sin\angle BAX}{\sin\angle XAC}$$and given that $\angle PIE = \angle PIF + \angle FIE = \angle PIF + 180^{\circ} - \angle BAC$ we have $\sin\angle PIE = \sin(\angle BAC - \angle PIF$, and $\sin \angle XAC = \sin(\angle BAC - \angle BAX)$, we have
+	$$
+	\frac{\sin\angle PIF}{ \sin(\angle BAC - \angle PIF)} = \frac{\sin\angle BAX}{\sin(\angle BAC - \angle BAX)}
+	$$which then gives $\angle PIF = \angle BAX$ after expanding. Similarly, we have $\angle QIE = \angle CAY$. Therefore,
+	$$
+	\angle DPA + \angle AQD 
+	=\angle YPA + \angle AQX
+	$$
+	$$
+	=\angle CPA + \angle CAY + \angle AQB + \angle BAX
+	=\angle CBA + \angle QIE + \angle ACB + \angle PIF 
+	$$
+	$$
+	=180^{\circ} - \angle BAC+ \angle QIE + \angle PIF 
+	=\angle FIE + \angle QIE + \angle PIF 
+	=\angle QIP
+	$$as desired.
+	
+	%%%G7%%%
+	
+	\item [\textbf{G7.}] (IMO 6) Let $I$ be the incentre of acute triangle $ABC$ with $AB\neq AC$. The incircle $\omega$ of $ABC$ is tangent to sides $BC, CA$, and $AB$ at $D, E,$ and $F$, respectively. The line through $D$ perpendicular to $EF$ meets $\omega$ at $R$. Line $AR$ meets $\omega$ again at $P$. The circumcircles of triangle $PCE$ and $PBF$ meet again at $Q$.
+	
+	Prove that lines $DI$ and $PQ$ meet on the line through $A$ perpendicular to $AI$.
+	
+	\textbf{Solution.} (Reproduced from AoPS) Here's a solution using inversion and trigonometric bashing: by inverting in $\omega$ we turn the problem into the follows: keep $A, D, E, F, P$ as they are, $A_1, B_1, C_1$ as midpoints of $EF, DF, DE$. Let the circumcircles of triangles $PC_1E$ and $PB_1F$ meet again on $Q_1$. Let $\gamma$ be the circle with diameter $A_1I$. Prove that the second intersection of circumcircle of $PQ_1I$ and line $DI$ (or $I$ if tangent) meet on $\gamma$. The last statement (to prove) is the same as proving that the radical axis of $\gamma$, circumcircles of triangles $PC_1E$ and $PB_1F$ lie on line $DI$. Equivalently, the radical axis of $PC_1E$ and $\gamma$, and the radical axis of $PB_1F$ and $\gamma$ concur on $DI$. This last statement is our focus. W.L.O.G. assume $AB<AC$, so $DF<DE$ too and we know $DEF$ is acute. In this setting (details skipped), $P$ will lie on minor arc $DF$, and in particular $P, D, F$ are different points.
+	
+	We need to identify those radical axes, and for each of them it's defined based on two points. We first focus on finding the radical axis of $PB_1F$ and $\gamma$. We need the following lemma:
+	
+	Lemma: $A$ is on the radical axis of $\omega$ and $\gamma$.\\
+	Proof: The power of point of $A$ to $\omega$ is $AE=AF$; to $\gamma$ is $AA_1\cdot AI$. But then $AA_1\perp EF$ and $\angle AFI=90^{\circ}$, the conclusion follows by similarity of triangles. This means the radical axis is actually line through $A$ perpendicular to $AA_1$ (parallel to $EF$, in other words), let's name it $\ell$.
+	
+	Consider, now, the circles $PB_1F$, $\gamma$ and $\omega$. The radical axis of $\omega$ and $\gamma$ has been established above; the one for $\omega$ and $PB_1F$ is $PF$, so one such point must be $X=\ell\cap PF$. Consider, now, the circles $PB_1F$, $\gamma$ and the circle $B_1FA_1I$ (the four points are concylic bcz $\angle FB_1I=\angle FA_1I$). The radical axis of $\gamma$ and $B_1FA_1I$ is $A_1I$; the one for $PB_1F$ and $B_1FA_1I$ is $B_1F$ which is $DF$. Thus $M=DF\cap A_1I$ is the radical centre of the three circles, hence on the radical axis of $\gamma$ and $PB_1F$. The radical axis, therefore, is $XM$ (we need to be careful in showing $X\neq M$; suppose $X=M$, then the fact that both pass through $F$ via $FP$ and $FD$ and that $F, D, P$ are not collinear because they are different point on $\omega$ means $X=M=F$. But the power of point of $F$ to $FPB_1$ is 0 while to $\gamma$ is $A_1F\neq 0$, assuming nondegenerate here).
+	In a similar fashion, if $Y=\ell\cap PE$ and $N=DE\cap A_1I$ then $YN$ is the radical axis of $\gamma$ and $PC_1E$.
+	
+	We are left with proving that $YN, XM, DI$ are concurrent, which we will use bashing (trigonometric) here! Extend line $MFD$ to meet $\ell$ at $X_1$ and $NED$ to meet $\ell$ at $Y_1$. We now have $MF>DF$ and $NE<DE$ According to our assumption, $X$ will be between $P$ and $X_1$ and $MX$ will be in the angle domain of $\angle AMX_1$. So goes to segment $DI$ so $MX$ will intersect segment $DI$ (and not anything outside). Similarly, $Y_1$ will be between $A$ and $Y$, which also means $NY$ is outside angle domain $\angle ANY_1$. But then segment $DI$ won't be on the angle domain either so $YN$ intersects $DI$ in its segment. These realization are here to free us from using signed convention later (well we could but I am lazy now).
+	
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\clip(-10.971232482661602,-5.9877742343874925) rectangle (1.8020795587887677,8.162301979195165);
+	\draw [line width=2pt] (-3.175194024761697,0.6174435442270204) circle (2.5239023008529298cm);
+	\draw [line width=2pt] (-3.2875970123808482,1.4537217721135103) circle (0.8437983799834406cm);
+	\draw [line width=2pt] (-3.6780175212591555,4.358450358168106)-- (-5.26,2.04);
+	\draw [line width=2pt] (-3.6780175212591555,4.358450358168106)-- (-1.54,2.54);
+	\draw [line width=2pt] (-5.309949062990211,4.139104720838663)-- (1.0636561864489869,4.9957720930751135);
+	\draw [line width=2pt] (-5.309949062990211,4.139104720838663)-- (-5.189978087598803,-0.9026643481241512);
+	\draw [line width=2pt] (-5.189978087598803,-0.9026643481241512)-- (1.0636561864489869,4.9957720930751135);
+	\draw [line width=2pt] (-5.26,2.04)-- (-2.602099088136349,-3.646382784265583);
+	\draw [line width=2pt] (-3.4209726555438467,-1.8944632392547163)-- (-1.54,2.54);
+	\draw [line width=2pt] (-3.4,2.29)-- (-2.602099088136349,-3.646382784265583);
+	\draw [line width=2pt] (-5.26,2.04)-- (-1.54,2.54);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-3.175194024761697,0.6174435442270204)-- (-3.4209726555438467,-1.8944632392547163);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-5.309949062990211,4.139104720838663)-- (-2.602099088136349,-3.646382784265583);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-3.374966370957255,-1.424269805561595)-- (1.0636561864489869,4.9957720930751135);
+	\begin{scriptsize}
+	\draw [fill=black] (-5.26,2.04) circle (2.5pt);
+	\draw[color=black] (-5.100863026486058,2.4544671822297284) node {$F$};
+	\draw [fill=black] (-1.54,2.54) circle (2.5pt);
+	\draw[color=black] (-1.391248451573825,2.9516320221664163) node {$E$};
+	\draw [fill=black] (-3.4209726555438467,-1.8944632392547163) circle (2.5pt);
+	\draw[color=black] (-3.265177463642891,-1.4846080880378763) node {$D$};
+	\draw [fill=uuuuuu] (-3.6780175212591555,4.358450358168106) circle (2pt);
+	\draw[color=uuuuuu] (-3.5328816082241863,4.729952411170723) node {$A$};
+	\draw [fill=uuuuuu] (-3.4,2.29) circle (2pt);
+	\draw[color=uuuuuu] (-3.1886905651910924,2.722171326811022) node {$A_1$};
+	\draw [fill=uuuuuu] (-4.340486327771924,0.07276838037264188) circle (2pt);
+	\draw[color=uuuuuu] (-4.125655071225626,0.5040512717088756) node {$B_1$};
+	\draw [fill=uuuuuu] (-2.4804863277719233,0.3227683803726419) circle (2pt);
+	\draw[color=uuuuuu] (-2.270847783769509,0.7526336916772196) node {$C_1$};
+	\draw [fill=uuuuuu] (-3.175194024761697,0.6174435442270204) circle (2pt);
+	\draw[color=uuuuuu] (-3.0165950436745455,0.9820943870326141) node {$I$};
+	\draw [fill=uuuuuu] (-4.0755114192899775,2.9753051630164946) circle (2pt);
+	\draw[color=uuuuuu] (-3.9153161004831794,3.3531882390383565) node {$R$};
+	\draw [fill=uuuuuu] (-5.189978087598803,-0.9026643481241512) circle (2pt);
+	\draw[color=uuuuuu] (-5.043497852647209,-0.5285218573903994) node {$P$};
+	\draw [fill=uuuuuu] (-5.309949062990211,4.139104720838663) circle (2pt);
+	\draw[color=uuuuuu] (-5.158228200324907,4.519613440428278) node {$X$};
+	\draw [fill=uuuuuu] (1.0636561864489869,4.9957720930751135) circle (2pt);
+	\draw[color=uuuuuu] (1.2093060957873283,5.360969323398058) node {$Y$};
+	\draw [fill=uuuuuu] (-2.602099088136349,-3.646382784265583) circle (2pt);
+	\draw[color=uuuuuu] (-2.442943305286056,-3.2820502016551325) node {$M$};
+	\draw [fill=uuuuuu] (-2.977953185105246,-0.8500283028169765) circle (2pt);
+	\draw[color=uuuuuu] (-2.825377797545049,-0.4711566835515508) node {$N$};
+	\draw[color=black] (-2.0222653638011634,4.500491715815329) node {$l$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	Now a not-so-well-known trigonometric identity says that considering the triangle $AFX_1$ and the cevian $FX$ we get $\frac{AX}{XX_1}=\frac{AF}{FX_1}\cdot \frac{\sin\angle AFX}{\sin\angle XFX_1}$. Considering the triangle $AMX_1$ and cevian $MX$ we get $\frac{AX}{XX_1}=\frac{AM}{MX_1}\cdot \frac{\sin\angle AMX}{\sin\angle XMX_1}$. Finally, if $MX$ intersects $DI$ at $Z_1$, considering triangle $MDI$ and the cevian $MZ_1$ we get, $\frac{IZ_1}{Z_1D}=\frac{MI}{MD}\cdot \frac{\sin\angle AMX}{\sin\angle XMX_1}$. Thus we have
+	\[
+	\frac{IZ_1}{Z_1D}=\frac{MI}{MD}\cdot \frac{\sin\angle AMX}{\sin\angle XMX_1}
+	=\frac{MI}{MD}\cdot \frac{AX}{XX_1}\div \frac{AM}{MX_1}
+	=\frac{MI}{MD}\frac{AF}{FX_1}\cdot \frac{\sin\angle AFX}{\sin\angle XFX_1}\div \frac{AM}{MX_1}
+	\]and similarly if $NY$ intersects $DI$ at $Z_2$ we get
+	\[
+	\frac{IZ_2}{Z_2D}
+	=\frac{NI}{ND}\frac{AE}{EY_1}\cdot \frac{\sin\angle AEY}{\sin\angle YEY_1}\div \frac{AN}{NY_1}
+	\]so we need to prove the two ratios are equal (and this would be sufficient since we know that $Z_1$ and $Z_2$ are both on segment $DI$, i.e.
+	\[
+	\frac{MI}{MD}\frac{AF}{FX_1}\cdot \frac{\sin\angle AFX}{\sin\angle XFX_1}\div \frac{AM}{MX_1}
+	=\frac{NI}{ND}\frac{AE}{EY_1}\cdot \frac{\sin\angle AEY}{\sin\angle YEY_1}\div \frac{AN}{NY_1}
+	\]First, notice that $AF=AE$, so these can be cancelled out. Next, $\angle AFX=\angle FEP$ and $\angle AEY=\angle EFP$, but then by sine rule $\sin\angle FEP/\sin\angle EFP=FP/EP$. These two angles are on numerators of two different sides so they can be replaces with $FP$ and $EP$, respectively. Then, $\angle XFX_1=\angle FPD=\angle PED = \angle YEY_1$, again can be cancelled.
+	Also, since $\ell\parallel EF$ we have $FX_1/EY_1=DF/DE$.
+	Thus we now need to check the following:
+	\[
+	\frac{MI}{MD}\frac{1}{DF}\cdot \frac{FP}{1}\div \frac{AM}{MX_1}
+	=(?)\frac{NI}{ND}\frac{1}{DE}\cdot \frac{EP}{1}\div \frac{AN}{NY_1}
+	\]Next, $AM/MX_1$ is actually $\cos \angle AMX_1=\sin \angle DFA_1=\sin\angle DFE$ and similarly $AN/NY_1=\sin \angle DEA_1=\sin\angle DEF$ (notice the implicit use of the fact that $A_1I\perp EF$ and $A_1I\perp XY=\ell$. But then by sine rule $\sin\angle DFE/\sin\angle DEF=DE/DF$. Thus we have the equation to prove above becomes the following:
+	\[
+	\frac{MI}{MD}\frac{1}{DF}\cdot \frac{FP}{1}\div DE
+	=(?)\frac{NI}{ND}\frac{1}{DE}\cdot \frac{EP}{1}\div DF
+	\]so now it suffices to show that
+	\[
+	\frac{MI}{MD}\cdot FP
+	=(?)\frac{NI}{ND}\cdot EP
+	\]Using sine rule again, $\frac{MI}{MD}=\frac{\sin\angle MDI}{\sin\angle MID}$ and $\frac{NI}{ND}=\frac{\sin\angle NDI}{\sin\angle NID}$. But then both $\angle MID$ and $\angle NID$ are angle between $DI$ and $IM$ so they must be either equal or supplementary, hence having equal since. We now reduce everything to the following: $\sin\angle MDI\cdot FP=(?)\sin\angle NDI\cdot EP$.
+	But now, $\sin\angle MDI=\sin\angle IDF$ and notice that $\angle IDF=90^{\circ}-\angle DEF=\angle EDR=\angle EFR$ so $\sin\angle MDI=\angle EFR$ and $\sin\angle NDI=\sin\angle FER$ for the similar reason. But then $\sin\angle EFR/\sin\angle FER = ER/FR$ so we are left with proving that $ER\cdot FP=FR/ EP$. But this follows from the fact that $PEFR$ is a harmonic quadrilateral!
+\end{enumerate}
+
+\section*{Number Theory}
+\begin{enumerate}
+	\item [\textbf{N1.}] (IMO 4) Find all pairs $(k,n)$ of positive integers such that \[ k!=(2^n-1)(2^n-2)(2^n-4)\cdots(2^n-2^{n-1}). \]
+	
+	\textbf{Answer.} $(1, 1), (3, 2)$. \\
+	\textbf{Solution.} It's obvious that the answers above satisfy the condition, and we will show that these are the only pairs. By considering the power of 2 dividing both sides (denote by $v_2(\cdot)$) we have the $v_2$ of right hand side as 
+	
+	\[=\dsum_{i=0}^{n-1}v_2(2^n-2^i)=\dsum_{i=0}^{n-1} i = \frac{n(n-1)}{2}\]
+	
+	On the other hand we have 
+	\[
+	v_2(k!)=\dsum_{i=1}^{\infty}\lfloor \frac{k}{2^i}\rfloor
+	< \dsum_{i=1}^{\infty}\frac{k}{2^i}
+	=k
+	\]
+	hence $k > \frac{n(n-1)}{2}$. 
+	
+	Now we compare the size of both sides: on right hand side we have 
+	\[
+	\dprod_{i=1}^{n-1} (2^n-2^i) \le \dprod_{i=1}^{n-2} 2^n \cdot (2^{n-1}) = 2^{n^2 - 1}
+	\]
+	while for $k > 16$ (valid for $n\ge 7$ as of the first identity) we have 
+	\[
+	k! = 15! \cdot \dprod_{i=16}^k \ge 15!\cdot 2^4 = 15!\cdot 2^{4(k-15)}
+	\]
+	and we have $15!=7!\cdot 8\cdot\cdots\cdot 15 > 5040\cdot 8^8 > 2^12\cdot 8^8=2^36$ so we in fact have $k! > 2^{4(k-15) + 36} = 2^{4(k-6)}$. 
+	This means, $2^{4(k-6)} < k! \le 2^{n^2 - 1}$ and therefore $4(k-6)< n^2-1$. 
+	But then $k \ge \frac{n(n-1)}{2} + 1$ so 
+	\[
+	4(\frac{n(n-1)}{2} + 1 - 6) \le 4(k-6)< n^2-1
+	\]
+	Or rather, $2n(n-1)-20 < n^2-1$ or $n^2-2n = n(n-2) < 19$. Since $n(n-2)$ is an increasing functin and when $n=7$ we have $7(5)=35>19$, this inequality is false for $n\ge 7$. 
+	
+	We therefore only need to consider $n\le 6$. When $n\ge 5$, the factor 31 is present on the right hand side (via $2^n-2^{n-5}=2^{n-5}(2^5-1)$) and 31 is prime, so $k\ge 31$ here. This means 
+	$100=4(31-6) < n^2-1$, which is only true when $n\ge 11$ so this case is eliminated. 
+	To consider the rest manually: 
+	\begin{itemize}
+		\item $n=1$ gives $1=1!$ and $n=2$ gives $2\times 3=6=3!$. 
+		\item $n=3$ gives $7\times 6\times 4=168$ which lies strictly between $5!=120$ and $6!=720$. 
+		\item $n=4$ gives $15\times 14\times 12\times 8=20160$ which lies strictly between $7!=5040$ and $8!=40320$. 
+	\end{itemize}
+	Hence only $n=1, 2$ work. 
+	
+	%%%N2%%%
+	\item[\textbf{N2}.] Find all triples $(a, b, c)$ of positive integers such that $a^3 + b^3 + c^3 = (abc)^2$.
+	
+	\textbf{Answer.} $(a, b, c)=(3, 2, 1)$ and permutations. Both sides are equal to 36 in this case. 
+	
+	\textbf{Solution.} W.L.O.G. assume $a\ge b\ge c$, and consider the following representation: 
+	\[
+	a+\frac{b^3+c^3}{a^2}=(bc)^2
+	\]
+	Here, we have $a< (bc)^2$. 
+	
+	We now consider $a+\frac{b^3+c^3}{a^2}$ is increasing in $a$. Differentiating this w.r.t. $a$ gives $1-\frac{2(b^3+c^3)}{a^2}$, which is increasing in $a$, so $a+\frac{b^3+c^3}{a^2}$ is indeed convex. This means, since we're considering $a\in [b, (bc)^2-1]$, we have 
+	\[
+	a+\frac{b^3+c^3}{a^2}\le \max\{b+\frac{b^3+c^3}{b^2}, (bc)^2-1+\frac{b^3+c^3}{((bc)^2-1)^2}\}
+	\]
+	i.e. considering the endpoints. This means one of $b+\frac{b^3+c^3}{b^2}$ and $(bc)^2-1+\frac{b^3+c^3}{((bc)^2-1)^2}$ must be $\ge (bc)^2$. 
+	
+	The case $b+\frac{b^3+c^3}{b^2}\ge (bc)^2$ means $(bc)^2\le 2b+\frac{c^3}{b^2}\le 3b$ since $c\le b$, or simply, $bc^2\le 3$. Thus we have $bc\le 3$ here. 
+	
+	The case $(bc)^2-1+\frac{b^3+c^3}{((bc)^2-1)^2}\ge (bc)^2$ simply means $b^3+c^3\ge ((bc)^2-1)^2$. Since $b^3c^3+1\ge b^3+c^3$, we have $b^3c^3+1\ge ((bc)^2-1)^2$, or, substituting $bc$ with $x$ gives $x^3+1\ge (x^2-1)^2$, or $x^2(x-2)(x+1)\le 0$. Since $x=bc>0$, we have $x\le 2$, so $bc\le 2$ here. 
+	
+	Therefore combining both cases, we're limited to $bc\le 3$. 
+	
+	If $bc=1$, then $a\le (bc)^2-1=0$ which is impossible. If $bc=2$, we have $b=2, c=1$ which leaves us to solve $a^3+2^3+1^3=a^2(2)^2$, or $a^3+9=4a^2$. This gives the factorization $(a-3)(a^2-a-1)=0$, and since $a^2-a-1$ has discriminant 5 (not a square), it has no integer root, so $a=3$ is the only solution. Finally, if $bc=3$, then $b=3, c=1$ so $a^3+28=9a^2$. Here, $a=2$ is a root and we have the factorization $(a-2)(a^2-7a-14)=0$ and $a^2-7a-14$ has discriminant 105 (not square) so no integer root, so $a=2$ is the only solution (which is simply another permutation of $(3, 2, 1)$). 
+	
+	%%%N3%%%
+	\item[\textbf{N3}.] We say that a set $S$ of integers is rootiful if, for any positive integer $n$ and any $a_0, a_1, \cdots, a_n \in S$, all integer roots of the polynomial $a_0+a_1x+\cdots+a_nx^n$ are also in $S$. Find all rootiful sets of integers that contain all numbers of the form $2^a - 2^b$ for positive integers $a$ and $b$.
+	
+	\textbf{Answer.} The only rootiful set is the set of all integers, $\bbZ$. 
+	
+	\textbf{Solution.} First, taking $a=b$ in $2^a-2^b$ means that $0\in S$, and taking $a=1, b=0$ means $1\in S$. Next, considering the polynomial $P(x)=a_0+x$ means if $a_0\in S$, so is $-a_0$. Considering $P(x)=a_0+a_1x$ means if $a_0, a_1\in S$ and $a_1\mid a_0$, then $\frac{-a_0}{a_1}\in S$, and therfore $\frac{a_0}{a_1}\in S$. 
+	
+	It then suffices to show that $n\in S$ for all $n\in\bbN$ since $-n\in S$ will follow, where we will proceed by induction. Let $n\ge 2$ and suppose that $0, 1, 2, \cdots , n-1\in S$.
+	Write $n=2^mk$ where $k$ odd, then by Euler's theorem there exists $a$ such that $k\mid 2^a-1$, and therefore $n=2^mk\mid 2^{a+m}-2^m$. Let $2^{a+m}-2^m=n\ell$. There exists a unique way to write $\ell$ as base $n$: 
+	\[
+	\ell = \dsum_{i=0}^{p}a_in^i
+	\]
+	where $0\le a_i\le n-1$ (hence all $a_i\in S$). We therefore have 
+	\[
+	n\ell =  \dsum_{i=0}^{p}a_in^{i+1}
+	\]
+	and therefore $n$ is a root of the polynomial 
+	\[
+	\dsum_{i=0}^{p}a_ix^{i+1}-n\ell
+	\]
+	Finally, since $n\ell, a_0, \cdots , a_{n-1}\in S$ (recall that $n\ell=2^{a+m}-2^m\in S$), $n\in S$, as desired. 
+	%%%N5%%%
+	
+	\item[\textbf{N5}.] Let $a$ be a positive integer. We say that a positive integer $b$ is $a$-good if $\tbinom{an}{b}-1$ is divisible by $an+1$ for all positive integers $n$ with $an \geq b$. Suppose $b$ is a positive integer such that $b$ is $a$-good, but $b+2$ is not $a$-good. Prove that $b+1$ is prime.
+	
+	\textbf{Solution.} We show that $b$ is $a$-good if and only if for all primes $p\le b$, $p\mid a$. Suppose, now, $p\nmid a$ for some prime $p\le b$. Then for any $m, k\ge 0$ we can always choose $n$ such that $an+1\equiv m\pmod{p^k}$, and $an+1>b$. In addition, we need the condition $\gcd(\tbinom{an}{b}, an+1)=1$ for all $n$, so if $p$ is a prime such that $p\mid an+1$ then $p\nmid \tbinom{an}{b}$.
+	
+	The next thing is to determine $\tbinom{an}{b}\pmod{p}$ assuming $p\mid an+1$. We'll use Lucas' theorem on $\tbinom{an}{b}$. If $p\le b$, then $b$ has at least two digits in base $p$. Let the $i>0$-th digit position to be nonzero. Since $\gcd(a, p)=1$, we can choose $n$ such that $an$ has $i$-th position = 0 and $0$-th position = $p-1$, so $p\mid an+1$ but given the $i$-th position of $an$ is less than that of $b$, we have $p\mid \tbinom{an}{b}$. This gives a contradiction.
+	
+	Now that we have established $p\mid a$ for all primes $p\le b$ (which tbh is the key to the solution), any prime dividing $an+1$ are greater than $b$ so $\gcd(b!, an+1)=1$ for all $n$. Therefore, we have the following congruence:
+	$$
+	\tbinom{an}{b}=\frac{an(an-1)\cdots (an-b+1)}{b!}\equiv\frac{(-1)(-2)\cdots (-b)}{b!}=(-1)^b\pmod{an+1}
+	$$so in this case, $b$ is $a$-good iff $b$ is even.
+	
+	Now it's easy to complete the solution. Since $b$ is $a$-good but $b+2$ is not, $b$ and $b+2$ are both even, and $p\le a$ for all $p\le b$ but there exists a prime $q\le b+2$ with $q\nmid a$. This $q$ must be greater than $b$ but at most $b+2$, and since $b+2$ is even (hence cannot be prime), $q=b+1$. Thus $b+1$ is prime.
+\end{enumerate}
+
+\end{document}
