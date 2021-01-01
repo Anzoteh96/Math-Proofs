@@ -396,6 +396,61 @@
 	Case 3. Some $B_i$ has degree more than 1. WLOG let $B_1$ to have degree more than 1, and by before's observation, $B_1$ has no other neighbour other than some other $B_j$'s and $A_1$. Therefore there's another $B_j$ that's $B_1$'s neighbour, say, $B_2$. Same algorithm, cut $A_1B_1$, $A_1A_0$, add $B_1A_0$. Now $A_0B_1B_2A_1$ is a path, so the original component remains connected.
 	
 	Finally, notice that we always perform such a move above until we run out of connected components of size $\ge 3$. This will eventually happen since each move decreases the number of edges in the graph by 1, thus cannot happen forever. At this stage, each vertex will have degree at most 1, as desired.
+	
+	\item[\textbf{C6}.] Let $n>1$ be an integer. Suppose we are given $2n$ points in the plane such that no three of them are collinear. The points are to be labelled $A_1, A_2, \dots , A_{2n}$ in some order. We then consider the $2n$ angles $\angle A_1A_2A_3, \angle A_2A_3A_4, \dots , \angle A_{2n-2}A_{2n-1}A_{2n}, \angle A_{2n-1}A_{2n}A_1, \angle A_{2n}A_1A_2$. We measure each angle in the way that gives the smallest positive value (i.e. between $0^{\circ}$ and $180^{\circ}$). Prove that there exists an ordering of the given points such that the resulting $2n$ angles can be separated into two groups with the sum of one group of angles equal to the sum of the other group.
+	
+	\textbf{Solution.} We consider the ``pivoted directed angle'' $\theta(A_i, A_{i+1}, A_{i+2})$ as the angle that needs to rotate line $A_iA_{i+1}$ to $A_{i+1}A_{i+2}$ under the pivot $A_{i+1}$ clockwise, and also restrict this value $\theta(A_i, A_{i+1}, A_{i+2})$ to the range $(-180^{\circ}, 180^{\circ})$. Let's explore certain properties of this $\theta$ function: 
+	
+	\emph{Lemma 1.} $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ is always a multiple of $360^{\circ}$. \\
+	Proof: we consider moving line $A_1A_2$ to $A_2A_3$, from $A_2A_3$ to $A_3A_4$, etc. 
+	We also fix point $A$ at $A_1$ and point $B$ at $A_2$ and rotate accordingly. Then we will notice that when $A_i$ is a pivot, this pivot will be $B$ if $i$ is even, and $A$ if $i$ is odd. Thus, $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ will be the angle needed to rotate $A_1A_2$ all the way back to $A_1A_2$ itself. Since $A$ will always lie on odd-indiced vertices and $B$ on even-indiced vertices, $A$ will be on $A_1$ and $B$ will be on $A_2$ as before. This shows that $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ is a multiple of full turn (if $A$ and $B$ flip position, then that will be congruent to $180^{\circ}$ modulo $360^{\circ}$ but that's not the case here). 
+	
+	\emph{Lemma 2.} By swapping $A_i$ and $A_{i+1}$ for some $i$, the quantity $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ changes by at most $360^{\circ}$. \\
+	Proof: W.L.O.G. we assume that $A_3$ and $A_4$ are swapped, and we want to consider how does 
+	\[
+	\theta(A_1, A_2, A_3)+\theta(A_2, A_3, A_4)+\theta(A_3, A_4, A_5) + \theta (A_4, A_5, A_6)
+	\]
+	compare to 
+	\[
+	\theta(A_1, A_2, A_4)+\theta(A_2, A_4, A_3)+\theta(A_4, A_3, A_5) + \theta (A_3, A_5, A_6)
+	\]
+	We first compare $\theta(A_1, A_2, A_3)+\theta(A_2, A_3, A_4)$ and $\theta(A_1, A_2, A_4)+\theta(A_2, A_4, A_3)$. We claim that they differ (in either direction) by $180^{\circ}$. 
+	
+	Assume, w.l.o.g. that $A_2, A_3, A_4$ lie in that order, clockwise. Then $\theta(A_2, A_3, A_4)$ moves from $A_2A_3$ to $A_3A_4$ which is anticlockwise, while $\theta(A_2, A_4, A_3)$ moves from $A_2A_4$ to $A_3A_4$, which is clockwise. Thus $\theta(A_2, A_4, A_3)-\theta(A_2, A_3, A_4)$ is positive and is equal to sum of angles $\angle A_2A_3A_4+\angle A_2A_4A_3=180^{\circ} - \angle A_3A_2A_4$. 
+	As for $\theta(A_1, A_2, A_3)$ vs $\theta(A_1, A_2, A_4)$, we have a few cases: 
+	\begin{itemize}
+		\item If $A_1A_2$ lies in the angle domain of $\angle A_3A_2A_4$, then the rotation from $A_1A_2$ to $A_2A_3$ is anticlockwise and $A_1A_2$ to $A_2A_4$ is clockwise, so $\theta(A_1, A_2, A_4)-\theta(A_1, A_2, A_3)=\angle A_3A_2A_4$ here (i.e. sum of $\angle A_3A_2A_1+\angle A_1A_2A_4$). 
+		
+		\item If $A_1A_2$ lies on the side (not opposite) of angle domain of $\angle A_3A_2A_4$ (the lines $A_2A_3$ and $A_2A_4$, when extended, divde the plane into 4 regions and segment $A_1A_2$ lies on the region that's by the side of $A_3A_2A_4$), then either both the rotation from $A_1A_2$ to $A_2A_3$ and $A_1A_2$ to $A_2A_4$ are clockwise (if $A_1A_2$ is closer to $A_2A_3$ compared to $A_2A_4$), or both anticlockwise (if $A_1A_2$ is closer to $A_2A_4$ compared to $A_2A_3$). In both cases we have $\theta(A_1, A_2, A_4)-\theta(A_1, A_2, A_3)=\angle A_3A_2A_4$. 
+		
+		\item If $A_1A_2$ lies at the opposite of angle domain of $\angle A_3A_2A_4$, then $A_1A_2$ to $A_2A_3$ is clockwise while to $A_2A_4$ is anticlockwise. Thus $\theta(A_1, A_2, A_4)-\theta(A_1, A_2, A_3)=-(360^{\circ} - \angle A_3A_2A_4)$. 
+	\end{itemize}
+	
+	Thus $\theta(A_1, A_2, A_4)-\theta(A_1, A_2, A_3)$ is either $\angle A_3A_2A_4)$ or $-(360^{\circ} - \angle A_3A_2A_4)$. This gives 
+	\[
+	\theta(A_1, A_2, A_4)+\theta(A_2, A_4, A_3) - (\theta(A_1, A_2, A_3)+\theta(A_2, A_3, A_4))=\begin{cases}
+		180^{\circ} - \angle A_3A_2A_4 + \angle A_3A_2A_4 & \text{first two subcases}\\
+		180^{\circ} - \angle A_3A_2A_4 -(360^{\circ} - \angle A_3A_2A_4)& \text{last subcase}\\
+	\end{cases}
+	\]
+	i.e. is always $\pm 180^{\circ}$. 
+	
+	The same thing can be said to $\theta(A_4, A_3, A_5) + \theta (A_3, A_5, A_6)- (\theta(A_3, A_4, A_5) + \theta (A_4, A_5, A_6))$, therefore the difference of 
+	\[
+	\theta(A_1, A_2, A_3)+\theta(A_2, A_3, A_4)+\theta(A_3, A_4, A_5) + \theta (A_4, A_5, A_6)
+	\]
+	compare to 
+	\[
+	\theta(A_1, A_2, A_4)+\theta(A_2, A_4, A_3)+\theta(A_4, A_3, A_5) + \theta (A_3, A_5, A_6)
+	\]
+	is either $180^{\circ}+180^{\circ}, 180^{\circ}-180^{\circ}, -180^{\circ}-180^{\circ}$, therefore either 0 or $\pm 360^{\circ}$. 
+	
+	\emph{Lemma 3}. There exists an ordering of vertices such that $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})=0$. \\
+	\textbf{Solution.} Let's start with an arbitrary ordering. Suppose that $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})\neq 0$, and w.l.o.g. we assume that it's positive, i.e. $>0$. Reversing the order (e.g. $A_{i}\to A_{2n-i+1}$) makes $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ become $\dsum_{i=1}^{2n}\theta(A_{i+2}, A_{i+1}, A_{i})$, i.e. instead of moving $A_iA_{i+1}$ to $A_{i+1}A_{i+2}$, we make $A_{i+1}A_{i+2}$ to $A_iA_{i+1}$. This essentially negates each term $\theta(A_i, A_{i+1}, A_{i+2})$, and therefore $\dsum_{i=1}^{2n}\theta(A_{i+2}, A_{i+1}, A_{i})$, the new $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ becomes negative. 
+	
+	We recall that this summation $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ is a multiple of $360^{\circ}$. To reverse it, we simply have to swap $A_i$ and $A_{i+1}$ iteratively (think of it as doing bubble sort). Along the way, we monitor $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$. Since we start at positive multiple of $360^{\circ}$, end at negative, and move by either exactly 0 or $360^{\circ}$ at each time, there must be a point where we hit exactly 0, completing the proof. 
+	
+	Now we can complete the solution. Label the vertices such that $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})=0$. Notice that $\theta(A_i, A_{i+1}, A_{i+2})=\pm \angle A_iA_{i+1}A_{i+2}$, so we simply have to split these angles into two groups such that one group has $\theta(A_i, A_{i+1}, A_{i+2})>0$ and the other group has $\theta(A_i, A_{i+1}, A_{i+2})<0$. 
 \end{enumerate}
 
 \section*{Geometry}
@@ -411,7 +466,7 @@
 	\[
 	\angle TGF = \angle CEG = \angle AFG
 	\]
-	and therefore triangles $AFG$ and $TGF$ are similar and with the common side $FG$, they are in fact congruent. Since $A$ and $T$ are on the same side of $FG$, we have $ATGF$ isoceles trapezoid and therefore $AT\parallel FG$. 
+	and therefore triangles $AFG$ and $TGF$ are similar and with the common side $FG$, they are in fact congruent. Since $A$ and $T$ are on the same side of $FG$, we have $ATGF$ isoceles trapezoid and therefore $AT\parallel FG$ (and therefore $AT\parallel BC$ since $FG$ and $BC$ are the same line).
 	
 	%%%G2%%%
 	
@@ -820,6 +875,47 @@
 	$$so in this case, $b$ is $a$-good iff $b$ is even.
 	
 	Now it's easy to complete the solution. Since $b$ is $a$-good but $b+2$ is not, $b$ and $b+2$ are both even, and $p\le a$ for all $p\le b$ but there exists a prime $q\le b+2$ with $q\nmid a$. This $q$ must be greater than $b$ but at most $b+2$, and since $b+2$ is even (hence cannot be prime), $q=b+1$. Thus $b+1$ is prime.
+	
+	%%%N6%%%
+	\item[\textbf{N6}.] Let $H = \{ \lfloor i\sqrt{2}\rfloor : i \in \mathbb Z_{>0}\} = \{1,2,4,5,7,\dots \}$ and let $n$ be a positive integer. Prove that there exists a constant $C$ such that, if $A\subseteq \{1,2,\dots, n\}$ satisfies $|A| \ge C\sqrt{n}$, then there exist $a,b\in A$ such that $a-b\in H$. (Here $\mathbb Z_{>0}$ is the set of positive integers, and $\lfloor z\rfloor$ denotes the greatest integer less than or equal to $z$.)
+	
+	\textbf{Solution.} We notice that the problem conclusion is similar to the following variants: 
+	\begin{itemize}
+		\item There exists a constant $C_0$ such that if $A\subseteq \{1, \cdots , n\}$ satisfying $a-b\not\in H$ for any $a, b\in A$, then $|A|\le C_0\sqrt{n}$. 
+		
+		\item There exists a constant $C_1$ such that if $a_1 < \cdots < a_k$ are such that $a_i-a_j\not\in H$ for each $i\neq j$. Then $|a_k-a_1|\ge C_1k^2$. 
+	\end{itemize}
+	
+	The idea of the solution is to consider everything ``modulo $\sqrt{2}$''. For each positive real number $x$, we define $f(x)$ as the quantity $x-\sqrt{2}\lfloor \frac{x}{\sqrt{2}}\rfloor$. Notice that $f(x)\in [0, \sqrt{2})$. We know that $f$ is additive up to modulo $\sqrt{2}$. 
+	
+	We first notice that for positive integer $k$, $k\in H$ if and only if there exists a number $\ell$ such that $0 < \ell\sqrt{2} - k < 1$, which is to say $k-(\ell - 1)\sqrt{2}\in (\sqrt{2}-1, \sqrt{2})$, and therefore $f(k)\in (\sqrt{2}-1, \sqrt{2})$. Conversely, by considering $\sqrt{2}\lceil\frac{k}{\sqrt{2}}\rceil$ we notice that $f(k)\in (\sqrt{2}-1, \sqrt{2})$, then we such $\sqrt{2}\lceil\frac{k}{\sqrt{2}}\rceil - k < 1$. 
+	Therefore $k\in H$ if and only if $f(k)\in (\sqrt{2}-1, \sqrt{2})$. 
+	
+	Next, consider $a_1<\cdots < a_k$ (with $k\ge 2$) with $a_j-a_i\not\in H$ for any $i, j$. We'll show the following: 
+	\[
+	0 < \dsum_{i=1}^{k-1} f(a_{i+1}-a_i) \le \sqrt{2} - 1
+	\]
+	We'll establish this via induction on $k$, focusing only on the right inequality since the left is trivial ($f$ only takes nonnegative values with equality only when $a_{i+1}-a_i$ is an integer multiple of $\sqrt{2}$, which is not the case since $\sqrt{2}$ is irrational): for $k=2$ it's rather immediate because $a_{i+1}-a_i\not\in H$. Suppose that for some $k$ we have the inequality hold true as above. Consider an additional term: 
+	\[
+	\dsum_{i=1}^{k} f(a_{i+1}-a_i)=\dsum_{i=1}^{k-1} f(a_{i+1}-a_i) + f(a_{k+1}-a_k)
+	\]
+	We know that $f(a_{k+1}-a_k)\in (0, \sqrt{2}-1)$. If $\dsum_{i=1}^{k} f(a_{i+1}-a_i)> \sqrt{2}-1$, then we have 
+	\[
+	\sqrt{2}-1 < \dsum_{i=1}^{k} f(a_{i+1}-a_i) = \dsum_{i=1}^{k-1} f(a_{i+1}-a_i) + f(a_{k+1}-a_k) \le (\sqrt{2}-1)+(\sqrt{2}-1) = 2(\sqrt{2}-1)
+	\]
+	However, since $2(\sqrt{2}-1) < \sqrt{2}$ (given that $\sqrt{2}<2$), given the additivity of $f$ up to modulo $\sqrt{2}$, we have $f(a_{k+1}-a_1)\in (\sqrt{2}-1, 2(\sqrt{2}-1))$, which gives $a_{k+1}-a_1\in H$. This is a contradiction, and therefore establishes the inequality. 
+	
+	Now, denote $d_i=a_{i+1}-a_i$ for $i=1, 2, \cdots , k-1$. We're interested in gauging the magnitude of $d_i$.  Notice now that $d_i$ is an integer, and there exists a constant $c_i$ such that $f(d_i)=d_i-c_i\sqrt{2}$. Now, we have $(d_i-c_i\sqrt{2})(d_i+c_i\sqrt{2})=d_i^2-2c_i^2$. Given that $0<d_i-c_i\sqrt{2}<\sqrt{2}-1$ and $d_i>0$, we have $d_i^2-2c_i^2\ge 1$. Therefore $d_i+c_i\sqrt{2}\ge \frac{1}{d_i-c_i\sqrt{2}}=\frac{1}{f(d_i)}$. We also have $c_i\sqrt{2}\le d_i$, so $2d_i\ge d_i+c_i\sqrt{2}=\frac{1}{f(d_i)}$, making $d_i\ge \frac{1}{2f(d_i)}$. 
+	
+	Finally, by Cauchy-Schawz inequality, we have 
+	\[
+	(\dsum_{i=1}^{k-1} f(d_i))(\dsum_{i=1}^{k-1} \frac{1}{2f(d_i)})\ge (\dsum_{i=1}^{k-1}\sqrt{\frac{1}{2}})^2 = \frac{(k-1)^2}{2}
+	\]
+	and given that $\dsum_{i=1}^{k-1} f(d_i)\le \sqrt{2}-1$, we have $\dsum_{i=1}^{k-1} \frac{1}{2f(d_i)}\ge \frac{(k-1)^2}{2(\sqrt{2}-1)}$. Therefore, 
+	\[
+	a_k-a_1 =\dsum_{i=1}^{k-1} d_i \ge \dsum_{i=1}^{k-1} \frac{1}{2f(d_i)} = \frac{(k-1)^2}{2(\sqrt{2}-1)}
+	\]
+	and therefore $a_k-a_1\in \Omega(k^2)$, as desired. 
 \end{enumerate}
 
 \end{document}
