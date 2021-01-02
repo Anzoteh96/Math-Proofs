@@ -48,6 +48,49 @@
 \date{\today}
 \maketitle
 
+\section*{Currently Unsolved / TODO}
+\begin{enumerate}
+	\item [\textbf{A6.}] A polynomial $P(x, y, z)$ in three variables with real coefficients satisfies the identities
+	
+	$$P(x, y, z)=P(x, y, xy-z)=P(x, zx-y, z)=P(yz-x, y, z).$$
+	Prove that there exists a polynomial $F(t)$ in one variable such that
+	
+	$$P(x,y,z)=F(x^2+y^2+z^2-xyz).$$
+	
+	\item [\textbf{A7.}] Let $\mathbb Z$ be the set of integers. We consider functions $f :\mathbb Z\to\mathbb Z$ satisfying
+	\[f\left(f(x+y)+y\right)=f\left(f(x)+y\right)\]for all integers $x$ and $y$. For such a function, we say that an integer $v$ is f-rare if the set
+	\[X_v=\{x\in\mathbb Z:f(x)=v\}\]is finite and nonempty.
+	\begin{enumerate}
+		\item [(a)] Prove that there exists such a function $f$ for which there is an $f$-rare integer.
+		\item [(b)] Prove that no such function $f$ can have more than one $f$-rare integer.
+	\end{enumerate}
+	
+	\item [\textbf{C7}.] There are 60 empty boxes $B_1,\ldots,B_{60}$ in a row on a table and an unlimited supply of pebbles. Given a positive integer $n$, Alice and Bob play the following game.
+	In the first round, Alice takes $n$ pebbles and distributes them into the 60 boxes as she wishes. Each subsequent round consists of two steps:
+	\begin{enumerate}
+		\item[(a)] Bob chooses an integer $k$ with $1\leq k\leq 59$ and splits the boxes into the two groups $B_1,\ldots,B_k$ and $B_{k+1},\ldots,B_{60}$.
+		\item[(b)] Alice picks one of these two groups, adds one pebble to each box in that group, and removes one pebble from each box in the other group.
+	\end{enumerate}
+	Bob wins if, at the end of any round, some box contains no pebbles. Find the smallest $n$ such that Alice can prevent Bob from winning.
+	
+	\item [\textbf{C8.}] Alice has a map of Wonderland, a country consisting of $n \geq 2$ towns. For every pair of towns, there is a narrow road going from one town to the other. One day, all the roads are declared to be “one way” only. Alice has no information on the direction of the roads, but the King of Hearts has offered to help her. She is allowed to ask him a number of questions. For each question in turn, Alice chooses a pair of towns and the King of Hearts tells her the direction of the road connecting those two towns.
+	
+	Alice wants to know whether there is at least one town in Wonderland with at most one outgoing road. Prove that she can always find out by asking at most $4n$ questions.
+	
+	\item [\textbf{C9.}] For any two different real numbers $x$ and $y$, we define $D(x,y)$ to be the unique integer $d$ satisfying $2^d\le |x-y| < 2^{d+1}$. Given a set of reals $\mathcal F$, and an element $x\in \mathcal F$, we say that the scales of $x$ in $\mathcal F$ are the values of $D(x,y)$ for $y\in\mathcal F$ with $x\neq y$. Let $k$ be a given positive integer.
+	
+	\item [\textbf{G8.}] Let $\mathcal L$ be the set of all lines in the plane and let $f$ be a function that assigns to each line $\ell\in\mathcal L$ a point $f(\ell)$ on $f(\ell)$. Suppose that for any point $X$, and for any three lines $\ell_1,\ell_2,\ell_3$ passing through $X$, the points $f(\ell_1),f(\ell_2),f(\ell_3)$, and $X$ lie on a circle.
+	Prove that there is a unique point $P$ such that $f(\ell)=P$ for any line $\ell$ passing through $P$.
+	
+	\item[\textbf{N7.}] Prove that there is a constant $c>0$ and infinitely many positive integers $n$ with the following property: there are infinitely many positive integers that cannot be expressed as the sum of fewer than $cn\log(n)$ pairwise coprime $n$th powers.
+	
+	\item[\textbf{N8.}] Let $a$ and $b$ be two positive integers. Prove that the integer
+	\[a^2+\left\lceil\frac{4a^2}b\right\rceil\]is not a square. (Here $\lceil z\rceil$ denotes the least integer greater than or equal to $z$.)
+	
+\end{enumerate}
+
+
+
 \newpage
 \section*{Algebra}
 \begin{enumerate}
@@ -224,6 +267,54 @@
 		\item $\dsum_{|a_i|<1}a_i=0$
 	\end{itemize}
 	If $|a_i|\ge 1$, then $(i, i)\in B$ anf therefore $(i, i)\in B_0$. For $B_0$ to be empty, we need $|a_i|<1$ for all $i$. This will mean $B_2=A$. But since $A$ is nonempty, $B_2$ cannot be nonempty. This means $\dsum_{(i, j)\in B}a_ia_j>0$, i.e. inequality must be strict. 
+	
+	%%%A5%%%
+	\item[\textbf{A5.}] Let $x_1, x_2, \dots, x_n$ be different real numbers. Prove that
+	\[\sum_{1 \leqslant i \leqslant n} \prod_{j \neq i} \frac{1-x_{i} x_{j}}{x_{i}-x_{j}}=\left\{\begin{array}{ll}
+	0, & \text { if } n \text { is even; } \\
+	1, & \text { if } n \text { is odd. }
+	\end{array}\right.\]
+	
+	\textbf{Solution.} 
+	We first consider the case where all $x_1, \cdots , x_n > 0$. 
+	We consider instead the polynomial 
+	\[
+	P_n(x)=\sum_{1 \leqslant i \leqslant n} \prod_{j \neq i} \frac{x-x_{i} x_{j}}{x_{i}-x_{j}}
+	\]
+	and we show that $P_n\equiv 0$ for $n$ even and $x^{\frac{n-1}{2}}$ when $n$ odd via induction, regardless of the values of $x_1, \cdots, x_n$. 
+	
+	Base case: $n=2$ gives $(x-x_1x_2)(\frac{1}{x_1-x_2}-\frac{1}{x_2-x_1})=0$. 
+	
+	Inductive step: we consider $P_n(x_kx_{\ell})$ for each $k\neq \ell$. Notice that: 
+	\begin{itemize}
+		\item if $i=k$ or $i=\ell$, then the term $\frac{x-x_{i} x_{j}}{x_{i}-x_{j}}$ contains the factor $\frac{x_ix_{j}-x_ix_j}{x_i-x_j}$ (if $i=k$, choose $j=\ell$ and if $i=\ell$, choose $j=k$) and therefore this product is 0. 
+		
+		\item if $i$ is different from $k, \ell$, then $\prod_{j \neq i} \frac{x_kx_{\ell}-x_{i} x_{j}}{x_{i}-x_{j}}$ contains factor $\frac{x_kx_{\ell}-x_{i} x_{k}}{x_{i}-x_{k}}=x_{k}\frac{x_\ell-x_i}{x_i-x_k}$ and factor $\frac{x_kx_{\ell}-x_{i} x_{\ell}}{x_{i}-x_{\ell}}=x_{\ell}\frac{x_k-x_i}{x_i-x_\ell}$ and therefore 
+		\[
+		\prod_{j \neq i} \frac{x_kx_{\ell}-x_{i} x_{j}}{x_{i}-x_{j}}
+		=x_kx_{\ell}\prod_{j \neq i, k, \ell} \frac{x_kx_{\ell}-x_{i} x_{j}}{x_{i}-x_{j}}
+		\]
+		for $n>3$. For $n=3$ this product is $x_kx_{\ell}$. 
+	\end{itemize}
+	Therefore, $P_n(x_{k}x_{\ell})$ is equal to 
+	\[
+	\sum_{1 \leqslant i \leqslant n} \prod_{j \neq i} \frac{x_kx_\ell-x_{i} x_{j}}{x_{i}-x_{j}}
+	=
+	x_kx_{\ell}\sum_{i\neq k, \ell} \prod_{j \neq i, k, \ell} \frac{x_kx_{\ell}-x_{i} x_{j}}{x_{i}-x_{j}}
+	=x_kx_{\ell}P_{n-2}(x_kx_{\ell})
+	\]
+	for $n>3$. For $n=3$, only one $i$ satisfies $i\neq k, \ell$ so the overall sum of products is $P_3(x_kx_{\ell})=x_kx_{\ell}$. 
+	
+	We're now ready to show that $P_n$ is the polynomial described for $n\ge 3$. Given that $P_n$ has degree at most $n-1$ (or is zero), and that $P_n(x_0)=x_0P_{n-2}(x_0)$ for $x_0=x_kx_{\ell}$ for $k\neq \ell$, it suffices to show that $\{x_kx_{\ell}: k\neq \ell\}$ takes on at least $n$ distinct values for $n\ge 3$ (here's when we need the assumption where none of the numbers are all positive). 
+	W.l.o.g. we sort $x_1<\cdots < x_n$. Then we have $x_1x2<x_1x_3<\cdots < x_1x_n < x_2x_n < \cdots < x_{n-1}x_n$, showing at least $2n-3$ distinct values. For $n\ge 3, 2n-3\ge n$, proving the results. Therefore, $P_n(x)=xP_{n-2}(x)$ for all $n\ge 4$. For $n$ even this will be 0 and for $n$ odd, since $P_3(x)=x$, we have inductively $P_n(x)=x^{\frac{n-1}{2}}$. 
+	
+	Finally, for the general case, we further denote 
+	\[
+	P_n(x, y)=\sum_{1 \leqslant i \leqslant n} \prod_{j \neq i} \frac{x-(x_{i}+y)(x_{j} + y)}{(x_{i}+y)-(x_{j}+y)}
+	=\sum_{1 \leqslant i \leqslant n} \prod_{j \neq i} \frac{x-(x_{i}+y)(x_{j} + y)}{x_i-x_j}
+	\]
+	i.e. switching $x_i$ to $x_i+y$ for all $y$. For sufficiently large $y$, all $x_i+y>0$. By above, $P_n(x_0, y)=x_0^{\frac{n-1}{2}}$ for $x_0$ fixed, and for all $y$ sufficiently large. The expression $P_n(x_0, y)$ itself is a single-variable polynomial in $y$ and therefore, $P_n(x_0, y)\equiv x_0^{\frac{n-1}{2}}$ for $n$ odd and 0 otherwise, This means that $P_n(x, y)\equiv x^{\frac{n-1}{2}}$ if $n$ even and 0 otherwise. In particular, $P_n(x)=P_n(x, 0)=x^{\frac{n-1}{2}}$ when $n$ odd and 0 otherwise. The expression given in the original problem is $P_n(1)$, so the conclusion follows. 
+	
 \end{enumerate}
 
 \section*{Combinatorics}
@@ -643,6 +734,51 @@
 	\]
 	which is a contradiction. 
 	
+	%%%G5%%%
+	\item [\textbf{G5}.] Let $ABCDE$ be a convex pentagon with $CD= DE$ and $\angle EDC \ne 2 \cdot \angle ADB$.
+	Suppose that a point $P$ is located in the interior of the pentagon such that $AP =AE$ and $BP= BC$.
+	Prove that $P$ lies on the diagonal $CE$ if and only if area $(BCD)$ + area $(ADE)$ = area $(ABD)$ + area $(ABP)$.
+	
+	\textbf{Solution.} Denote $P_0$ as the reflection of $P$ in $AB$. That is, $AP=AP_0=AE$ and $BP=BP_0=BC$ (hence lying outside of the pentagon $ABCDE$). 
+	Denote, also, $D_0$ as the circumcircle of $P_0EC$. Then the following hold: 
+	\begin{itemize}
+		\item $\angle ED_0C=2\angle AD_0B$ (if $D_0$ is on the same side as $A$ and $B$ w.r.t. line $EC$ then denote $ED_0C$ as the reflex angle). 
+		\item $(BCD_0)+(AD_0E)=(ABD_0)+(ABP_0)$. (Henceforth denote $\cdot$ as area of polygon enclosed in the notation). Here, we'll use ``directed area'' in that, if $D_0$ is on the same side as $P_0$ w.r.t. $AB$ (i.e. different side than $E$ and $C$) then we make $(ABD_0)$ negative. 
+	\end{itemize}
+	The first identity is due to the fact that, since $D_0P_0=D_0E=D_0C$, we have $AE=AP_0$ and $D_0E=D_0P_0$, and therefore $AD_0$ is the perpendicular bisector of $P_0$, so $\angle P_0D_0A=\angle AD_0E$ and therefore $\angle P_0D_0E=2\angle AD_0P_0$. Similarly, $\angle P_0D_0C=2\angle B_0D_0P_0$. Therefore, 
+	\[
+	\angle ED_0C=\angle P_0D_0E+\angle P_0D_0C=2\angle AD_0P_0+2\angle B_0D_0P_0=2\angle AD_0B
+	\]
+	The second identity is due to the fact that $P_0AD_0$ and $EAD_0$ are congruent triangles, hence having the same area (similarly so for triangles $P_0BD_0$ and $CBD_0$). Therefore, 
+	\[
+	(BCD_0)+(AD_0E)=(BP_0D_0)+(AP_0D_0)=(AP_0BD_0)=(ABD_0)+(ABP_0)
+	\]
+	as desired. 
+	
+	Having established these, it suffices to show that: 
+	\begin{itemize}
+		\item whenever $P$ is on the line $EC$, then $(BCD)$ + $(ADE)$ = $(ABD)$ + $(ABP)$ always holds (as we move $D$ along the perpendicular bisector of $CE$)
+		
+		\item whenever $P$ is not on the line $EC$, $(BCD)$ + $(ADE)$ = $(ABD)$ + $(ABP)$ holds if and only if $D=D_0$. 
+	\end{itemize}
+	
+	We first note that if $P$ is on $EC$, then from $AE=AP$ and $BC=BP$ we know that $P$ and $E$ are symmetric w.r.t. to the perpendicular $h_A$ from $A$ to $EC$, and $C$ and $P$ are symmetric w.r.t. to the perpendicular $h_B$ from $B$ to $EC$. Therefore in this case the distance $d(h_A, h_B)$ between line $h_A$ and $h_B$ is $\frac{1}{2}BC$. Convsersely, if $d(h_A, h_B)=\frac 12 EC$ then reflecting $E$ in $h_A$ and $C$ in $h_B$ will yield the common point $P'$ that has the desired properties of $P$ (and moreover lie on $EC$), thereby giving the characterization of when does $P$ lie on $BC$. 
+	
+	Now, consider what happens as we move $D$ away from $AB$ as compared to $D_0$. The gain in area of $ADB$ is precisely $(AD_0D)+(BD_0D)$. Notice that $(ADD_0)$ is $\frac 12 DD_0\cdot d(A, DD_0)$ (where $d(A, DD_0)$ is the perpendicular distance from $A$ to $DD_0$, the perpendicular bisector of $CE$). 
+	Similarly, the gain in area of $(BDD_0)$ is $\frac 12 DD_0\cdot d(B, DD_0)$, so the overall gain is $\frac 12 DD_0\cdot (d(A, DD_0)+d(B, DD_0))=\frac 12 DD_0\cdot d(h_A, h_B)$. 
+	Notice also that $(ABP)$ stays the same since $A, B, C, E$ stay the same, and so does $P$, and we have $(ABP_0)=(ABP)$ (without considering sign: $ABP_0$ and $ABP$ are congruent triangles). 
+	
+	On the other hand, consider the triangle $AED$, with base $AE$. The net gain in height as we move $D$ away from $AB$ (compared to $D_0$) is $ DD_0\cos\angle AEC$. Therefore the net gain of $(AED)$ is $\frac 12 AE\cdot DD_0\cos\angle AEC$. The quantity $AE\cdot \cos \angle AEC$ is the \emph{signed} distance from $E$ to $h_A$ (positive if $h_A$ is closer to $C$ compared to $E$, negative otherwise). Similarly, the net gain in of $(CBD)$ as we move along is $\frac 12BC\cdot DD_0\cos\angle BCE$, and $BC\cos\angle BCE$ is the signed distance from $C$ to $h_B$. 
+	Thus the total net gain in area of $(AED)+(BCD)$ is 
+	\[
+	\frac 12 DD_0(AE\cdot \cos \angle AEC+BC\cos\angle BCE)
+	\]
+	and by above, we can deduce that $AE\cdot \cos \angle AEC+BC\cos\angle BCE=BC - d(h_A, h_B)$. Therefore the net gain on both sides are 
+	\[
+	\frac 12 DD_0\cdot d(h_A, h_B)\quad \frac 12 DD_0\cdot (BC-d(h_A, h_B))
+	\]
+	and are equal if and only if $d(h_A, h_B)=\frac 12 BC$, i.e. 
+	
 	%%%G6%%%
 	
 	\item [\textbf{G6.}] Let $I$ be the incentre of acute-angled triangle $ABC$. Let the incircle meet $BC, CA$, and $AB$ at $D, E$, and $F,$ respectively. Let line $EF$ intersect the circumcircle of the triangle at $P$ and $Q$, such that $F$ lies between $E$ and $P$. Prove that $\angle DPA + \angle AQD =\angle QIP$.
@@ -861,6 +997,49 @@
 	\dsum_{i=0}^{p}a_ix^{i+1}-n\ell
 	\]
 	Finally, since $n\ell, a_0, \cdots , a_{n-1}\in S$ (recall that $n\ell=2^{a+m}-2^m\in S$), $n\in S$, as desired. 
+	
+	%%%N4%%%
+	\item[\textbf{N4.}] Find all functions $f:\mathbb Z_{>0}\to \mathbb Z_{>0}$ such that $a+f(b)$ divides $a^2+bf(a)$ for all positive integers $a$ and $b$ with $a+b>2019$.
+	
+	\textbf{Answer.} $f(n)=cn$ for any positive constant integer $c$. This would work because for any $a$ and $b$ we will have $a+f(b)=a+bc\mid a(a+bc)=a^2+b(ac)=a^2+bf(a)$\\
+	\textbf{Solution.} Denote $f(1)=c$, then for sufficiently large $b$ (with $bc\ge 2019$) we have the following: 
+	\[
+	1+f(bc)\mid 1+bcf(1)=1+bc^2\qquad c(b+1)=bc+c=bc+f(1)\mid (bc)^2+f(bc)
+	\]
+	From the first term we get $f(bc)\le bc^2$; 
+	For the second term, we have $c(b+1)\mid (bc)^2+f(bc)-bc(b+1)c=f(bc)-bc^2$ (although from $f(bc)\le bc^2$ we can convert the second term to $c(b+1)\mid bc^2-f(bc)$). 
+	We first notice that $c\mid f(bc)$, and therefore we can write $f(bc)=d_bc$ for some positive number $d_b$ (which depends on $b$). This now gives 
+	\[
+	c(b+1)\mid bc^2-d_bc\to b+1\mid bc-d_b=(b+1)c-(c+d_b)
+	\] 
+	so $b+1\mid c+d_b$, and we can write $d_b=e_b(b+1)-c$ for some positive $e_b$. 
+	
+	Now, we have $1+f(bc)\mid 1+bc^2$, or rather, $1+f(bc)\mid bc^2-f(bc)=bc^2-d_bc=c(bc-d_b)$. Given that $c\mid f(bc)$, we have $\gcd(c, 1+f(bc))=1$ and therefore, we in fact have the relation $1+f(bc)\mid bc-d_b$. Given also that $d_b\le bc$, we have either $d_b=bc$, or $bc-d_b\ge 1+f(bc)=1+d_bc$ (equivalently, $bc-1\ge d_b(c+1)$). 
+	We'll invoke $d_b=e_b(b+1)-c$ to get: 
+	\[
+	bc -1 \ge (e_b(b+1)-c)(c+1)\ge (b+1-c)(c+1)=bc+c-c^2+b+1-c
+	\]
+	given that $e_b\ge 1$. This means that $c^2-2\ge b$. Now, if we choose $b$ large enough (say, $b\ge \max\{c^2, 2018\}$) then this won't hold, so $d_b=bc$ must hold. This means that for $b$ large enough we have 
+	\[
+	f(bf(1))=f(bc)=bc^2=bf(1)^2
+	\]
+	
+	Now, choose arbitrary $a$ with $\gcd(a, c)=1$ and we go back to the original equation 
+	\[
+	a+f(b)\mid a^2+bf(a)-a(a+f(b))=bf(a)-af(b)
+	\]
+	Now, we can choose $b$ that's arbitrarily large and satisfies $\gcd(a, b)=1$, so there exists $b$ with $f(bc)=bc^2$. Use such $bc$ in place of $b$ (in the equation) to get 
+	\[
+	a+bc^2\mid bcf(a)-abc^2=bc(f(a)-ac)
+	\]
+	and since $\gcd(a, bc)=1$, we have $\gcd(a+bc^2, bc)=1$ so $a+bc^2\mid f(a)-ac$ must hold. Since $b$ can be arbitrarily large, we must have $f(a)-ac=0$, so $f(a)=ac$ for any $a$ with $\gcd(a, c)=1$. 
+	
+	Finally, we let $a$ be arbitrary. Choosing prime $p$ with $p\nmid c$ gives $f(p)=pc$, and there are infinitely many primes in this form which allows us to choose $p$ with $p\nmid a$. Let $b=p$ and we get 
+	\[
+	a+pc=a+f(p)\mid pf(a)-apc=p(f(a)-ac)
+	\]
+	and by the same logic, $p\nmid a$ si $\gcd(p, a)=1$, so $a+pc\mid f(a)-ac$. Again such $p$ can be arbitrarily big, so $f(a)=ac$. 
+	
 	%%%N5%%%
 	
 	\item[\textbf{N5}.] Let $a$ be a positive integer. We say that a positive integer $b$ is $a$-good if $\tbinom{an}{b}-1$ is divisible by $an+1$ for all positive integers $n$ with $an \geq b$. Suppose $b$ is a positive integer such that $b$ is $a$-good, but $b+2$ is not $a$-good. Prove that $b+1$ is prime.
