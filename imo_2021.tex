@@ -1,0 +1,342 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\begin{document}
+
+\newcommand{\sgn}{\text{sgn}}
+
+\section*{IMO 2021}
+
+\begin{enumerate}
+	\item [\textbf{Problem 1.}] Let $n \geqslant 100$ be an integer. Ivan writes the numbers $n, n+1, \ldots, 2 n$ each on different cards. He then shuffles these $n+1$ cards, and divides them into two piles. Prove that at least one of the piles contains two cards such that the sum of their numbers is a perfect square.
+	
+	\textbf{Solution.} Consider the numbers $a=2k(k-2), b=2k^2+1, c=2k(k+2)$ for some $k\ge 9$, which we have $a<b<c$. In addition, $a+b=(2k-1)^2, a+c=(2k)^2, b+c=(2k+1)^2$. If we have $n\le a, b, c\le 2n$, then two of them must belong to the same pile. 
+	
+	It therefore remains to show that there exists $k$ such that $n\le 2k(k-2)$ and $2k(k+2)\le 2n$. If $k_0$ is the minimal such $k$ with $n\le 2k(k+2)$ then $2(k_0-1)(k_0-3)<n$. If $k_0\le 8$ then $2k_0(k_0-2)\le 96<100$ so $k_0\ge 9$. 
+	
+	If $n\le 126=2\cdot 9\cdot 7$ then $k_0=9$ and $2k_0(k_0+2)=198\le 2(100)$, so such a construction works. For $n\ge 127$ we have $k_0\ge 10$ and 
+	\[
+	\frac{2k_0(k_0+2)}{2(k_0-1)(k_0-3)}=\frac{k_0}{k_0-1}\cdot\frac{k_0+2}{k_0-3}\le \frac{10}{9}\cdot \frac{12}{7}=\frac{120}{63}<2
+	\]
+	so $2k_0(k_0+2)\le 2\cdot (2(k_0-1)(k_0-3)) < 2n$, which means that this $k_0$ is valid. 
+	
+	\item [\textbf{Problem 2.}] Show that the inequality \[\sum_{i=1}^n \sum_{j=1}^n \sqrt{|x_i-x_j|}\leqslant \sum_{i=1}^n \sum_{j=1}^n \sqrt{|x_i+x_j|}\]holds for all real numbers $x_1,\ldots x_n.$
+	
+	\textbf{Solution.} 
+	
+	We first consider changing each $x_i$ to $x_i+c/2$ for some $c\in\bbR$. The left hand side still remains the same; the right hand side is now $\sqrt{|x_i+x_j+c|}$ instead of $\sqrt{|x_i+x_j|}$. 
+	
+	We notice also that we can find $y_k$'s for $k=1, 2, \cdots, m=n^2$ such that $y_k=x_i+x_j$ for some $i, j$, with matching multiplicity (i.e. for each number $x$ if there exist exactly $a$ pairs $(i, j)$ with $x=x_i+x_j$ then there exist exactly $a$ indices $k$ with $y_k=x$). We temporarily write each term $\sqrt{|x_i+x_j+c|}$ as $\sqrt{|y_k+c|}$, which means we're essentially considering the sum 
+	\[
+	\dsum_{i=1}^m \sqrt{|y_i+c|}
+	\]
+	We now consider when does this expression take the minimum when $c$ varies (but $y_i$ fixed). To simplify this, we sort $y_k$ such that $y_1\le y_2\le \cdots y_m$. Meanwhile, for $c$, we consider the following cases: 
+	
+	\emph{Case 1.} $y_1+c\ge 0$ (which means $y_i+c\ge 0$ for all $i$). Then essentially we're considering $\dsum_{i=1}^m \sqrt{y_i+c}$. We notice that in the range $c\in (-y_1, \infty)$, $\sqrt{y_i+c}$ is infinitely differentiable (w.r.t. $c$) and differentiating our target sum w.r.t. $c$ gives 
+	\[
+	\frac 12 \dsum_{i=1}^m \frac{1}{\sqrt{y_i+c}} > 0
+	\]
+	so $\dsum_{i=1}^m \sqrt{y_i+c}$ is strictly increasing in the range $\in (-y_1, \infty)$. Given also that $\in \dsum_{i=1}^m \sqrt{y_i+c}$ contonuous at $c=-y_1$, we conclude that $c=-y_1$ is the only minimum point of $\dsum_{i=1}^m \sqrt{y_i+c}$. 
+	
+	\emph{Case 2.} $y_m+c\le 0$. Given that $y_i+c\le 0$ for all $i$, using the same argument as above, we have $\dsum_{i=1}^m \sqrt{|y_i+c|}=\dsum_{i=1}^m \sqrt{-(y_i+c)}$ strictly decreasing in $(-\infty, -y_m)$, so again $c=-y_m$ is the only minimum point. 
+	
+	\emph{Case 3.} $y_1+c\le 0\le y_m+c$. Then the exists an $p$ with $y_p+i\le 0\le y_{p+1}+c$. Therefore, 
+	\[
+	|y_i+c|=\begin{cases}
+		y_i+c & i\ge p+1\\
+		-(y_i+c) & i\le p\\
+	\end{cases}
+	\]
+	and therefore 
+	\[
+	\dsum_{i=1}^m \sqrt{|y_i+c|}=\dsum_{i=1}^p \sqrt{-(y_i+c)}+\dsum_{i=p+1}^m \sqrt{y_i+c}
+	\]
+	with first derivative 
+	\[
+	-\frac 12\dsum_{i=1}^p \frac{1}{\sqrt{-(y_i+c)}}+\frac 12\dsum_{i=p+1}^m \frac {1}{\sqrt{y_i+c}}
+	\]
+	and second derivative
+	\[
+	-\frac 14\dsum_{i=1}^p \frac{1}{\sqrt{-(y_i+c)}^3}-\frac 14\dsum_{i=p+1}^m \frac {1}{\sqrt{y_i+c}^3} < 0
+	\]
+	so the first derivative is monotonically decreasing. 
+	Considering $c\in (-y_{p+1}, -y_p)$, we have 
+	\[
+	\lim_{c\to -y_{p+1}^+}-\frac 12\dsum_{i=1}^p \frac{1}{\sqrt{-(y_i+c)}}+\frac 12\dsum_{i=p+1}^m \frac {1}{\sqrt{y_i+c}} = \infty
+	\]
+	given that $\frac{1}{\sqrt{y_{p+1}+c}}\to \infty$ as $c\to-y_{p+1}^+$ (and same goes to whichever $y_i$ with $y_i=y_{p+1}$) while the rest have finite limit $\frac{1}{|y_i-y_{p+1}|}$. 
+	Analogously, 
+	\[
+	\lim_{c\to -y_{p}^-}-\frac 12\dsum_{i=1}^p \frac{1}{\sqrt{-(y_i+c)}}+\frac 12\dsum_{i=p+1}^m \frac {1}{\sqrt{y_i+c}} = -\infty
+	\]
+	given that $\frac{1}{\sqrt{-(y_p+c)}}\to \infty$ as $c\to-y_{p}^+$ (and same goes to whichever $y_i$ with $y_i=y_{p}$) while the rest of terms have finite limit $\frac{1}{|y_i-y_{p+1}|}$.
+	This means that this function is, at least, increasing in a small half-neighbourhood around $-y_{p+1}^+$ and decreasing in a small half-neighbourhood around $-y_p^-$. But since the first derivative is monotously decreasing, this function from $(-y_{p+1}, -y_p)$ must go from increasing, then decreasing, which means that the lowest point must be on one of the ends (using the same continuity argument as the previous two cases). 
+	
+	This means that the lowest point of $\dsum_{i=1}^m \sqrt{|y_i+c|}$ must happen when $c=-y_i$ for some $y_i$. In terms of $x_i$'s, this means $x_i+x_j+c=0$ for some $(i, j)$, or, changing $x_i\to (x_i+c)$ for each $i$, $x_i+x_j=0$ for some $i, j$. It then suffices to consider this case, i.e. $x_i=a$ and $x_j=-a$ for some $i, j$. 
+	
+	We now proceed by induction. Base case: for $n=1$ we basically have LHS=0 and RHS=$\sqrt{2|x_1|}\ge 0$. 
+	
+	Consider $n\ge 2$. By induction hypothesis, we assume that our inequality holds true for any collection of $k$ variables for $k=1, 2, \cdots , n-1$. If, say, $x_i=0$ for some $i$ WLOG let this be $x_n$, then we essentially reduced LHS to 
+	\[
+	\dsum_{i=1}^{n-1}\dsum_{j=1}^{n-1}\sqrt{|x_i-x_j|} + \dsum_{i=1}^{n-1}\sqrt{|x_i|} + \dsum_{j=1}^{n-1}\sqrt{|x_j|} + 0
+	\]
+	and RHS reduced to 
+	\[
+	\dsum_{i=1}^{n-1}\dsum_{j=1}^{n-1}\sqrt{|x_i+x_j|} + \dsum_{i=1}^{n-1}\sqrt{|x_i|} + \dsum_{j=1}^{n-1}\sqrt{|x_j|} + 0
+	\]
+	so we're left with proving $\dsum_{i=1}^{n-1}\dsum_{j=1}^{n-1}\sqrt{|x_i-x_j|}\le \dsum_{i=1}^{n-1}\dsum_{j=1}^{n-1}\sqrt{|x_i+x_j|}$ which follows by induction hypothesis. 
+	
+	Therefore we assume all $x_1, \cdots , x_n$ are nonzero. By the above argument we know that we may assume $x_i=a$ and $x_j=-a$ for some $a\neq 0$, which then means $i\neq j$. w.l.o.g. let $i=n-1$ and $j=n$. This means the LHS now becomes 
+	\[
+	\dsum_{i=1}^{n-2}\dsum_{j=1}^{n-2}\sqrt{|x_i-x_j|}
+	+2\dsum_{i=1}^{n-2}\sqrt{|x_i-a|}
+	+2\dsum_{i=1}^{n-2}\sqrt{|x_i-(-a)|}
+	\]\[
+	+\sqrt{|a-a|}+\sqrt{|-a-(-a)}+\sqrt{|a-(-a)|}+\sqrt{|-a-a|}
+	\]
+	\[
+	=\dsum_{i=1}^{n-2}\dsum_{j=1}^{n-2}\sqrt{|x_i-x_j|}
+	+2\dsum_{i=1}^{n-2}\sqrt{|x_i-a|}
+	+2\dsum_{i=1}^{n-2}\sqrt{|x_i+a|}+2\sqrt{2|a|}
+	\]
+	while for RHS we have 
+	\[
+	\dsum_{i=1}^{n-2}\dsum_{j=1}^{n-2}\sqrt{|x_i+x_j|}
+	+2\dsum_{i=1}^{n-2}\sqrt{|x_i+a|}
+	+2\dsum_{i=1}^{n-2}\sqrt{|x_i+(-a)|}
+	\]\[
+	+\sqrt{|a+a|}+\sqrt{|-a+(-a)}+\sqrt{|a+(-a)|}+\sqrt{|-a+a|}
+	\]
+	\[
+	=\dsum_{i=1}^{n-2}\dsum_{j=1}^{n-2}\sqrt{|x_i+x_j|}
+	+2\dsum_{i=1}^{n-2}\sqrt{|x_i+a|}
+	+2\dsum_{i=1}^{n-2}\sqrt{|x_i-a|}
+	+2\sqrt{2|a|}
+	\]
+	which again reduces to procing 
+	\[
+	\dsum_{i=1}^{n-2}\dsum_{j=1}^{n-2}\sqrt{|x_i-x_j|}\le \dsum_{i=1}^{n-2}\dsum_{j=1}^{n-2}\sqrt{|x_i+x_j|}
+	\]
+	This again, is established via our induction hypothesis (notice when $n=2$ we simply have $\dsum_{i=1}^{n-2}\dsum_{j=1}^{n-2}\sqrt{|x_i-x_j|}=\dsum_{i=1}^{n-2}\dsum_{j=1}^{n-2}\sqrt{|x_i+x_j|}=0$). 
+	
+	\item [\textbf{Problem 3.}] Let $D$ be an interior point of the acute triangle $ABC$ with $AB > AC$ so that $\angle DAB = \angle CAD.$ The point $E$ on the segment $AC$ satisfies $\angle ADE =\angle BCD,$ the point $F$ on the segment $AB$ satisfies $\angle FDA =\angle DBC,$ and the point $X$ on the line $AC$ satisfies $CX = BX.$ Let $O_1$ and $O_2$ be the circumcenters of the triangles $ADC$ and $EXD,$ respectively. Prove that the lines $BC, EF,$ and $O_1O_2$ are concurrent.
+	
+	\textbf{Solution.} Let $BC$ intersect $EF$ at $T$, and let $M$ be the midpoint of arc $BC$ not containing $A$. Then $MX$ is the perpendicular bisector of $BC$ and $M$ lies on $AD$ (since $AD$ is the internal angle bisector of $\angle BAC$). 
+	
+	\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+	\hspace*{-4cm}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm, scale=1.1]
+	\clip(-7.360413264751164,-8.72716492736809) rectangle (14.171583399764291,6.746399215572665);
+	\draw [line width=2pt] (-1.085692733779949,-1.2933745613743335) circle (3.3218827881783373cm);
+	\draw [line width=2pt] (3.0397508406289413,0.7627097346465047) circle (3.2095657953664736cm);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-0.28471090488313533,2.7501360223278724) circle (0.9583741787171356cm);
+	\draw [line width=2pt] (0.5115890600824528,-3.603204179961653) circle (2.039179739778368cm);
+	\draw [line width=2pt] (-0.8298045673930394,3.538396109813775)-- (-1.2613717986678703,-4.610608668963906);
+	\draw [line width=2pt] (-4.34,-1.96)-- (0.016498370585448983,1.8403261307552239);
+	\draw [line width=2pt] (-4.34,-1.96)-- (11.678853077079335,-2.8083504744870673);
+	\draw [line width=2pt] (-0.4301894077915322,1.4506647348238597)-- (11.678853077079335,-2.8083504744870673);
+	\draw [line width=2pt] (0.016498370585448983,1.8403261307552239)-- (-1.2613717986678703,-4.610608668963906);
+	\draw [line width=2pt] (-1.0864534850980203,-1.3077393362626206)-- (-0.743438835345487,-1.9959832888516957);
+	\draw [line width=2pt] (-0.8298045673930394,3.538396109813775)-- (2.08,-2.3);
+	\draw [line width=2pt] (0.6592819071847924,2.915540487793092)-- (-1.0864534850980203,-1.3077393362626206);
+	\draw [line width=2pt] (-1.0864534850980203,-1.3077393362626206)-- (2.08,-2.3);
+	\begin{scriptsize}
+	\draw [fill=ududff] (0.016498370585448983,1.8403261307552239) circle (2.5pt);
+	\draw[color=ududff] (-0.012517064598076638,2.4788884698013063) node {$A$};
+	\draw [fill=ududff] (-4.34,-1.96) circle (2.5pt);
+	\draw[color=ududff] (-4.924759649658637,-1.8807268244399382) node {$B$};
+	\draw [fill=ududff] (2.08,-2.3) circle (2.5pt);
+	\draw[color=ududff] (2.668748679747479,-2.5766278573235173) node {$C$};
+	\draw [fill=uuuuuu] (-1.2613717986678703,-4.610608668963906) circle (2pt);
+	\draw[color=uuuuuu] (-1.506657517553997,-5.114619859604805) node {$M$};
+	\draw [fill=xdxdff] (-0.16600729139360262,0.9190023888492874) circle (2.5pt);
+	\draw[color=xdxdff] (-0.44233829079087567,0.8414742747811205) node {$D$};
+	\draw [fill=uuuuuu] (-0.9100136688920275,2.0238595462152396) circle (2pt);
+	\draw[color=uuuuuu] (-1.629463582180511,2.4379531149258016) node {$N$};
+	\draw [fill=uuuuuu] (-0.8298045673930394,3.538396109813775) circle (2pt);
+	\draw[color=uuuuuu] (-0.892627194421427,4.116302664821491) node {$X$};
+	\draw [fill=uuuuuu] (0.6592819071847924,2.915540487793092) circle (2pt);
+	\draw[color=uuuuuu] (0.9903991298517877,3.0724511154961234) node {$Z$};
+	\draw [fill=uuuuuu] (0.3469267523452342,1.1773359766203089) circle (2pt);
+	\draw[color=uuuuuu] (0.519642548783484,1.578310662540204) node {$E$};
+	\draw [fill=uuuuuu] (-0.4301894077915322,1.4506647348238597) circle (2pt);
+	\draw[color=uuuuuu] (-0.369821129794913,1.5829874369177272) node {$F$};
+	\draw [fill=uuuuuu] (11.678853077079335,-2.8083504744870673) circle (2pt);
+	\draw[color=uuuuuu] (11.838268171860523,-2.4128864378214985) node {$T$};
+	\draw [fill=uuuuuu] (-1.0864534850980203,-1.3077393362626206) circle (2pt);
+	\draw[color=uuuuuu] (-1.6703989370560157,-0.9392136623033316) node {$Q$};
+	\draw [fill=uuuuuu] (-0.743438835345487,-1.9959832888516957) circle (2pt);
+	\draw[color=uuuuuu] (-0.31953222616436167,-1.921662179315443) node {$R$};
+	\draw [fill=uuuuuu] (-1.145049491793504,-2.4141698156302818) circle (2pt);
+	\draw[color=uuuuuu] (-1.8546080339957867,-2.4742894701347553) node {$S$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	We first claim that $T$ is the center of Appolonius' circle of $DBC$ passing through $D$. 
+	Consider the following: 
+	\[
+	\frac{AE}{EC}=\frac{|\triangle ADE|}{|\triangle DEC|}=\frac{\frac 12 AD\cdot DE\cdot \sin \angle ADE}{\frac 12 DE\cdot DC\cdot \sin \angle CDE}
+	=\frac{AD\cdot \sin \angle BCD}{\cdot DC\cdot \sin \angle CDE}
+	\]
+	and similarly, 
+	\[
+	\frac{AF}{FB}=\frac{AD\cdot\sin \angle DBC}{DB\cdot\sin \angle FDB}
+	\]
+	We also notice that by sine rule, $\frac{DB}{DC}=\frac{\sin\angle DCB}{\sin\angle DBC}$. 
+	In addition, $\angle FDB+\angle CDE=360^{\circ}-\angle FDA-\angle ADE-\angle BDC
+	=360^{\circ}-\angle DBC-\angle BCD-\angle BDC=180^{\circ}$. 
+	This means, $\sin \angle FDB=\sin\angle CDE$. 
+	By Menelaus' theorem applied on triangle $ABC$ and line $FET$ (without taking signs into consideration), we have 
+	\[
+	1=\frac{CE}{EA}\cdot\frac{AF}{FB}\cdot\frac{TB}{TC}
+	=\frac{\cdot DC\cdot \sin \angle CDE}{AD\cdot \sin \angle BCD}
+	\cdot\frac{AD\cdot\sin \angle DBC}{DB\cdot\sin \angle FDB}
+	\cdot\frac{TB}{TC}
+	=\frac{DC}{DB}\cdot\frac{\sin \angle DBC}{\sin\angle DCB}\cdot \frac{TB}{TC}
+	=\frac{DC^2}{DB^2}\cdot \frac{TB}{TC}
+	\]
+	so $\frac{TB}{TC}=\frac{DB^2}{DC^2}$. Given also that $E$ and $F$ are on the segments $AC$ and $AB$ respectively, we have $T$ lying outside of segment $BC$. The point $T'$ on $BC$ with $T'D$ tangent to circumcircle of $DBC$ must satisfy $\frac{DB}{DC}=\frac{T'D}{T'C}=\frac{T'B}{T'D}$ which means that $\frac{T'B}{T'C}=\frac{DB^2}{DC^2}$. Thus $T'=T$ and $TD$ is tangent to the circumcircle of $DBC$, hence being the center of an Appolonius circle. 
+	
+	Now let $Z$ be the second intersection (other than $D$) of circumcircles of $ADC$ and $EXD$. Let's collect some information from $Z$. Let $N$ be the point diametrically opposite $M$ w.r.t. circle $ABC$. We claim that $X, A, N, Z$ are concyclic. Using directed angles, we have 
+	\[\angle(XZ, ZC)
+	=\angle(XZ, ZD)+\angle(ZD, ZC)
+	=\angle(XE, ED)+\angle(AD, AC)
+	\]\[
+	=\angle(AC, ED)+\angle(AD, AC)
+	=\angle(AD, ED)
+	\]
+	where we used $Z, X, E, D$ concyclic and $Z, D, A, C$ concyclic. 
+	Analogously we have 
+	\[
+	\angle(XZ, ZA)
+	=\angle(ZX, ZC)+\angle(ZC, ZA)
+	=\angle(AD, ED)+\angle (CD, DA)
+	=\angle(CD, ED)
+	\]
+	Recall that we have $\angle(DC, CB)=\angle(DE, DA)$ from the problem condition (and taking care of the clockwise/anticlockwise direction). 
+	This gives 
+	\[
+	\angle(CD, ED)=\angle(CD, DA)+\angle(DA, DE)=\angle(CD, DA)+\angle(BC, CD)=\angle(BC, DA)
+	\]
+	In addition, $X, M, N$ collinear and perpendicular to $BC$, and $\angle NAM=90^{\circ}$ since $NM$ is the diameter of the circle $ABC$. This gives 
+	\[
+	\angle(XN, NA)=\angle(XM, BC)+\angle(BC, DA)+\angle(DA, NA)
+	\]\[=90^{\circ}+\angle(BC, DA)+90^{\circ}=\angle(BC, DA)=\angle(XZ, ZA)
+	\]
+	since directed angles are modulo $180^{\circ}$. This establishes the claim. 
+	
+	Since $O_1O_2$ is the perpendicular bisector of line $DZ$, $T$ lies on line $O_1O_2$ if and only if $TD=TZ$, which is in turn equivalent to that $Z$ is on the Appolonius circle of triangle $DBC$ passing through $D$, i.e. $\frac{DB}{DC}=\frac{ZB}{ZC}$. This is then equivalent to the claim that $B$ lies on the Appolonius circle of triangle $DCZ$ passing through $C$, i.e. the center of this Appolonius circle lies on the perpendicular bisector of $BC$. Given this formulation, we can convert our main problem into the following: 
+	
+	Let $N, M, A, C$ be on a circle with $NM$ being the diameter, and let $X$ be the intersection of $AC$ and $NM$. Let $D$ lie on $AM$, and $Z$ the intersection of circles $XNA$ and $ADC$. Let $DZ$ intersect $MN$ at $Q$. Then $QC$ is tangent to circumcircle of $ADZC$. 
+	
+	To prove this, let the circle $DQC$ intersect $AM$ again at $R$, and let $MRC$ intersect $NM$ again at $S$. Then we have: 
+	\[
+	\angle AZC=\angle MDC=\angle RDC=\angle RQC
+	\qquad 
+	\angle ACZ=\angle ADZ=\angle QDR=\angle QCR
+	\]
+	so triangles $AZC$ and $RQC$ are similar. Similarly, 
+	$S, R, C, M$ are concyclic, and then $N, A, C, M$ are also concyclic. This means, 
+	\[
+	\angle SRC=180^{\circ}-\angle SMC=180^{\circ}-\angle NMC=\angle NAC
+	\qquad
+	\frac{SR}{RC}=\frac{\sin\angle SMR}{\sin\angle RMC}=\frac{\sin\angle NMA}{\sin\angle AMC}=\frac{NA}{AC}
+	\]
+	so triangles $SRC$ and $NAC$ are also similar. 
+	Thus this gives us 
+	\[
+	\frac{QR}{RS}=\frac{QR}{RC}\frac{RC}{RS}=\frac{AZ}{AC}\frac{AC}{NA}=\frac{AZ}{NA}
+	\]
+	and 
+	\[
+	\angle QRS=360^{\circ}-\angle QRC-\angle SRC=360^{\circ}-\angle ZAC -\angle NAC=\angle NAZ
+	\]
+	so triangles $NAZ$ and $SRQ$ are also similar. This gives 
+	\[
+	\angle MQR=\angle SQR=\angle MXA=\angle NZA=\angle NXA=\angle MXA
+	\]
+	so lines $AC$ and $QR$ are parallel. 
+	This would entail $\angle QRA=\angle DAC$. Since $D, A, C, Z$ are concyclic, $\angle DAC=\angle DZC$ and with $Q, D, R, C$ concyclic, $\angle QRD=\angle QCD$. Thus $\angle QCD=\angle DZC$ so $QC$ is indeed tangent to circle $DZC$, as advertised. 
+	
+	\item[\textbf{Problem 4.}] Let $\Gamma$ be a circle with centre $I$, and $A B C D$ a convex quadrilateral such that each of the segments $A B, B C, C D$ and $D A$ is tangent to $\Gamma$. Let $\Omega$ be the circumcircle of the triangle $A I C$. The extension of $B A$ beyond $A$ meets $\Omega$ at $X$, and the extension of $B C$ beyond $C$ meets $\Omega$ at $Z$. The extensions of $A D$ and $C D$ beyond $D$ meet $\Omega$ at $Y$ and $T$, respectively. Prove that \[A D+D T+T X+X A=C D+D Y+Y Z+Z C.\]
+	
+	\textbf{Solution.} With $AX$ and $AY$ both tangent to $\Gamma$, $IA$ is an angle bisector of $\angle XAY$ (in fact, an external angle bisector but our analysis later won't be affected by whether it's internal or external). 
+	With $I, A, X, Y$ all lie on circle $\Omega$, we have $IX=IY$ and similarly, $IT=IZ$. 
+	
+	Moreover, let $p(A)$ be the length of tangent from $A$ to $\Gamma$ (define similarly for all other points that's on our outside $\Gamma$ -- this will be the case for all points defined in the problem). 
+	Since the tangency point of line $AD$ to $\Gamma$ is on the segment, we have $AD=p(A)+p(D)$ and similarly $CD=p(C)+p(D)$. 
+	Since $X$ is on extension of $BA$ beyond $A$, we also have $AX=p(X)-p(A)$ and similarly $ZC=p(Z)-p(C)$. 
+	Similarly $DT=p(T)-p(D)$ and $DY=p(Y)-p(D)$. Thus we get 
+	\[
+	A D+D T+T X+X A
+	=p(A)+p(D)+p(T)-p(D)+TX+p(X)-p(A)=p(T)+p(X)+TX
+	\]
+	and similarly 
+	\[
+	C D+D Y+Y Z+Z C
+	=p(Y)+p(Z)+YZ
+	\]
+	Sine $IX=IY$, $p(X)=p(Y)$ and similarly, $p(T)=p(Z)$. Nevertheless, $IX=IY$ and $IT=IZ$ would then mean $XY$ and $TZ$ are parallel to each other (and parallel to tangent to $\Omega$ through $I$), so 
+	$TX=YZ$. 
+	Therefore, 
+	\[
+	p(T)+p(X)+TX=p(Z)+p(X)+TX=p(Z)+p(Y)+TX=p(Z)+p(Y)+YZ
+	\]
+	as desired. 
+	
+	\item [\textbf{Problem 5.}] Two squirrels, Bushy and Jumpy, have collected 2021 walnuts for the winter. Jumpy numbers the walnuts from 1 through 2021, and digs 2021 little holes in a circular pattern in the ground around their favourite tree. The next morning Jumpy notices that Bushy had placed one walnut into each hole, but had paid no attention to the numbering. Unhappy, Jumpy decides to reorder the walnuts by performing a sequence of 2021 moves. In the $k$-th move, Jumpy swaps the positions of the two walnuts adjacent to walnut $k$.
+	
+	Prove that there exists a value of $k$ such that, on the $k$-th move, Jumpy swaps some walnuts $a$ and $b$ such that $a<k<b$.
+	
+	\item [\textbf{Problem 6.}] Let $m\ge 2$ be an integer, $A$ a finite set of integers (not necessarily positive) and $B_1,B_2,...,B_m$ subsets of $A$. Suppose that, for every $k=1,2,...,m$, the sum of the elements of $B_k$ is $m^k$. Prove that $A$ contains at least $\dfrac{m}{2}$ elements.
+\end{enumerate}
+
+\end{document}
