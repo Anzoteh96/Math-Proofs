@@ -1,0 +1,426 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{{\mathbb N}}
+\newcommand{\bbZ}{{\mathbb Z}}
+\newcommand{\bbQ}{{\mathbb Q}}
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\bbH}{{\mathbb H}}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\powset}{\mathcal{P}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\section*{Algebra}
+\begin{enumerate}
+	%%%A2%%%
+	\item [\textbf{A2}] Let $\mathcal{A}$ denote the set of all polynomials in three variables $x, y, z$ with integer coefficients. Let $\mathcal{B}$ denote the subset of $\mathcal{A}$ formed by all polynomials which can be expressed as
+	\begin{align*}
+	(x + y + z)P(x, y, z) + (xy + yz + zx)Q(x, y, z) + xyzR(x, y, z)
+	\end{align*}with $P, Q, R \in \mathcal{A}$. Find the smallest non-negative integer $n$ such that $x^i y^j z^k \in \mathcal{B}$ for all non-negative integers $i, j, k$ satisfying $i + j + k \geq n$.
+	
+	
+	%%%A4%%%
+	\item [\textbf{A4.}] (IMO 2) The real numbers $a, b, c, d$ are such that $a\geq b\geq c\geq d>0$ and $a+b+c+d=1$. Prove that
+	\[(a+2b+3c+4d)a^ab^bc^cd^d<1\]
+	
+	\textbf{Solution.} The weighted AM-GM inequality says that $\sqrt[a+b+c+d]{(a^ab^bc^cd^d)}\le \frac{a^2+b^2+c^2+d^2}{a+b+c+d}$. Thus it suffices to prove that 
+	\[(a+2b+3c+4d)(a^2+b^2+c^2+d^2)<1\]
+	We have this identity: 
+	\[
+	(a+2b+3c+4d)(a^2+b^2+c^2+d^2)
+	\]\[
+	=
+	\left(\frac{5}{2}-\frac{1}{2}(3(a-d)+(b-c)\right)\left(\frac{1}{4}+\frac{1}{4}((a-b)^2+(b-c)^2+(c-d)^2+(a-c)^2+(b-d)^2+(a-d)^2)\right)
+	\]
+	Thus it suffices to show that 
+	$$
+	\left(5-(3(a-d)+(b-c)\right)\left(1+((a-b)^2+(b-c)^2+(c-d)^2+(a-c)^2+(b-d)^2+(a-d)^2)\right)< 8
+	$$
+	Using the identity $\displaystyle\sum_{i=1}^n a_i^2\le (\displaystyle\sum_{i=1}^n a_i)^2$ for all $a_i\ge 0$, we have $(a-b)^2+(b-c)^2+(c-d)^2\le (a-d)^2$.
+	In addition, with $a\ge b\ge c\ge d$ we have $(a-c)^2+(b-d)^2\le (a-d)^2+(b-c)^2$.
+	Therefore substituting $a-d$ with $x$ and $b-c$ with $y$ (with $0\le y\le x$), we are left with proving
+	$$
+	\left(5-(3x+y)\right)\left(1+(2x^2+x^2+y^2)\right)< 8
+	$$
+	We now show that $3x^2+y^2\le \frac{(3x+y)^2}{3}$. Expanding this and subtracting like terms from both sides give this as equivalent to $\frac{2y^2}{3}\le 2xy$ but since $y\ge 0$, this is the as $y=0$ or $\frac{y}{3}\le x$. The conclusion immediately follows give $0\le y\le x$.
+	Therefore all we need to show is
+	$\left(5-(3x+y)\right)\left(1+\frac{(3x+y)^2}{3}\right)< 8$, or, after substituting $3x+y$ with $z$, we are left with
+	$(5-z)(1+\frac{z^2}{3})<8$.
+	
+	Finally $(5-z)(1+\frac{z^2}{3})<8$ iff $z<3$ there's a root at $z=3$, the rest is just quadratic equation with no root. In addition, $x=a-d$ and $y=b-c$, so $3x+y\le 3(a-d)+3(b-c)\le 3(a+b-c-d)<3(a+b+c+d)=3$. Thus $z<1$ and the desired inequality follows.
+\end{enumerate}
+
+\section*{Combinatorics}
+\begin{enumerate}
+	%%%C1%%%
+	\item [\textbf{C1.}] Let $n$ be a positive integer. Find the number of permutations $a_1$, $a_2$, $\dots a_n$ of the
+	sequence $1$, $2$, $\dots$ , $n$ satisfying
+	$$a_1 \le 2a_2\le 3a_3 \le \dots \le na_n$$
+	
+	\textbf{Answer.} $F_n$, the $n$-th Fibonacci sequence defined as $F_1=1$, $F_2=2$ and $F_n=F_{n-1}+F_{n-2}$ for all $n\ge 3$. 
+	
+	\textbf{Solution.} We consider the set 
+	\[
+	S=\{k: 1\le k\le n, \{a_1, \cdots , a_k\}\neq \{1, 2, \cdots, k\}\}
+	\]
+	Suppose for some $k$, we have $k\in S$, and either $k=1$ or $k-1\not\in S$. This means $a_k\neq k$. Let $\ell>k$ such that $a_{\ell}=k$, which also means $a_{\ell-1}>k$. We have $(\ell-1)a_{\ell-1}\le \ell a_{\ell}=k\ell$, and therefore 
+	\[
+	a_{\ell-1}\le k(\frac{\ell}{ell-1})=k(1+\frac{1}{\ell-1})\le k(1+\frac{1}{k})=k+1
+	\]
+	and with $a_{\ell-1}>k$, all the inequality above are equality, so $a_{k+1}=k$ and $a_k=k+1$. This means $k+1\not\in S$. 
+	
+	Thus $S$ must contain numbers $\le n-1$ such that no two members are consecutive. In addition, for each $k\in S$ we have $a_k=k+1$ and $a_{k+1}=k$. This means the set $S$ uniquely determines such permutations, and it therefore reduces to finding the number of such set $S$, which is the same as the number of subsets of $\{1, 2, \cdots, n-1\}$ such that no two elements are consecutive. 
+	
+	We now proceed by induction, if $n=1$ then we only have a set $\emptyset$; if $n=2$ we have $\emptyset, \{1\}$. For $n\ge 3$, depending on whether $n-1\in S$, it reduces to the number of sets among $\{1, 2, \cdots , n-2\}$ or $\{1, 2, \cdots , n-3\}$, which by induction hypothesis gives us $F_{n-1}$ and $F_{n-2}$ such sets, respectively. 
+	Therefore the number of such sets is $F_{n-2}+F_{n-1}=F_n$. 
+	
+	%%%C3%%%
+	\item [\textbf{C3.}] (IMO 4) There is an integer $n > 1$. There are $n^2$ stations on a slope of a mountain, all at different altitudes. Each of two cable car companies, $A$ and $B$, operates $k$ cable cars; each cable car provides a transfer from one of the stations to a higher one (with no intermediate stops). The $k$ cable cars of $A$ have $k$ different starting points and $k$ different finishing points, and a cable car which starts higher also finishes higher. The same conditions hold for $B$. We say that two stations are linked by a company if one can start from the lower station and reach the higher one by using one or more cars of that company (no other movements between stations are allowed). Determine the smallest positive integer $k$ for which one can guarantee that there are two stations that are linked by both companies.
+	
+	\textbf{Answer}. $k=n^2-n+1$. 
+	
+	\textbf{Solution.} We first show why $k=n^2-n$ won't work. Consider the following construction: 
+	\begin{itemize}
+		\item $A: i\to i+1, \forall i\in \{an+b: 0\le a\le n-1, 1\le b\le n-1\}$.  Pictorially, this gives a segmentation of $[1, n], [n+1, 2n], \cdots , [n^2n-n+1, n^2]$ where each segment is a chain of $1\to 2\to\cdots n$. 
+		\item $B: i\to i+n, \forall i: 1\le i\le n^2-n$. 
+	\end{itemize}
+	Then in $A$, two stations $i$ and $j$ are linked if and only if they are in the same ``segment'' (i.e. $\lceil \frac{i}{n}\rceil=\lceil\frac{j}{n}\rceil$), while in $B$, two stations $i$ and $j$ are linked if and only if $i\equiv j\pmod{n}$. Thus no two stations are linked by both companies. 
+	
+	Notice that the proof above also means any $k<n^2-n$ won't work: we simply remove a subset of the cable car links from both companies. 
+	
+	Now we give an example why $n^2-n+1$ works. 
+	We define a chain of cable cars $a_0\to a_1\to\cdots a_m$ as follows: 
+	\begin{itemize}
+		\item There's a cable car from $a_i$ to $a_{i+1}$. 
+		\item There's no cable car ending at $a_0$, and no cable car starting at $a_m$ (i.e. this chain is ``maximal''). 
+	\end{itemize}
+	We see that two stations are linked if and only if they belong to the same chain (also, notice that these chains are disjoint union of the stations since all the starting points are different, and all the ending points are different). 
+	
+	The case where station $i$ is not part of any cable car (starting or ending) is considered a degenerate chain of length 1 on its own. Given that both $A$ and $B$ has $k=n^2-n+1$ cable car services, there are $n-1$ chains in total ($n-1$ is the number of stations that's not a starting point of any cable car, and also the number of stations that's not a ending point of any cable car). 
+	
+	The longest chain in $A$ now has length at least
+	\[
+	\frac{n^2}{n-1}>n+1>n-1
+	\]
+	and since there are $n-1$ chains in $B$, two of the stations in this longest chain must also in the same chain in $B$, thereby being linked by both companies. 
+	
+	\textbf{Comment}. To generalize to the case where there are $n$ stations (i.e. not square), the same idea applies: we need to find the largest integer $m$ such that $\frac{n}{m}>m$. In this case $m=\lfloor\sqrt{n-1}\rfloor$ which gives the bound $k=n-\lfloor\sqrt{n-1}\rfloor$. The construction of counterexample for $k-1$ can also be done like above by splitting into segments of either length $\lfloor\sqrt{n}\rfloor$ or $\lceil\sqrt{n}\rceil$. 
+\end{enumerate}
+
+\section*{Geometry}
+\begin{enumerate}
+	%%%G1%%%
+	\item [\textbf{G1.}] Let $ABC$ be an isosceles triangle with $BC=CA$, and let $D$ be a point inside side $AB$ such that $AD< DB$. Let $P$ and $Q$ be two points inside sides $BC$ and $CA$, respectively, such that $\angle DPB = \angle DQA = 90^{\circ}$. Let the perpendicular bisector of $PQ$ meet line segment $CQ$ at $E$, and let the circumcircles of triangles $ABC$ and $CPQ$ meet again at point $F$, different from $C$.
+	Suppose that $P$, $E$, $F$ are collinear. Prove that $\angle ACB = 90^{\circ}$.
+	
+	\textbf{Solution.} We now have $QPCF$ an isoceles trapezoid, and with angle chasing we can conclude that triangles $FQP$ and $FAB$ are similar. Triangles $FAQ$ and $FBP$ are also similar. Therefore, 
+	\[
+	\frac{CQ}{CP}=\frac{FP}{FQ}=\frac{FB}{FA}=\frac{PB}{QA}=\frac{DP}{DQ}
+	\]
+	Let $\angle QCD=a$ and $\angle PCD=b$. We have $\angle CQD=\angle CPD=90^{\circ}$, so $C, Q, P, D$ lie on a circle. If the circle has diameter $d$, we get 
+	\[
+	\frac{CQ}{CP}=\frac{d\cos a}{d\cos b}=\frac{\cos a}{\cos b}\qquad
+	\frac{DP}{DQ}=\frac{d\sin b}{d\sin a}=\frac{\sin b}{\sin a}
+	\]
+	so we essentially have $\cos a\sin a=\cos b\sin b$, or $\sin 2a=\sin 2b$. This means, $a=b$ or $a+b=90^{\circ}$. The former is only possible if $CP=CQ$, which entails $AD=DB$ which is impossible here. Therefore $\angle ACB=a+b=90^{\circ}$. 
+	%%%G2%%%
+	\item [\textbf{G2.}] (IMO 1)
+	Consider the convex quadrilateral $ABCD$. The point $P$ is in the interior of $ABCD$. The following ratio equalities hold:
+	\[\angle PAD:\angle PBA:\angle DPA=1:2:3=\angle CBP:\angle BAP:\angle BPC\]Prove that the following three lines meet in a point: the internal bisectors of angles $\angle ADP$ and $\angle PCB$ and the perpendicular bisector of segment $AB$.
+	
+	\textbf{Solution.} The claim is that the lines will meet at the circumcenter $O$ of $ABP$. Here's how: 
+	\begin{itemize}
+		\item As $OA=OB=OP$, it's already on the perpendicular bisector of $AB$. 
+		
+		\item Now $\angle PAD+\angle DPA<180^{\circ}$ (they are part of interior angles of the triangle $PAD$), we have $\angle PBA=\frac{\angle PAD+\angle DPA}{2}<90^{\circ}$ based on the angle condition. This gives the following angle condition: 
+		\[
+		\angle POA=2\angle PBA=\angle PAD+\angle DPA=180^{\circ}-\angle PDA
+		\]
+		and therefore $DAOP$ is concyclic. As $OP=OA$, it then follows that $DO$ bisects $\angle ADP$. 
+		
+		\item Similarly, $CO$ bisects $\angle PCB$. 
+	\end{itemize}
+
+	\item [\textbf{G3}] Let $ABCD$ be a convex quadrilateral with $\angle ABC>90$, $CDA>90$ and $\angle DAB=\angle BCD$. Denote by $E$ and $F$ the reflections of $A$ in lines $BC$ and $CD$, respectively. Suppose that the segments $AE$ and $AF$ meet the line $BD$ at $K$ and $L$, respectively. Prove that the circumcircles of triangles $BEK$ and $DFL$ are tangent to each other.
+	
+	\textbf{Solution.} We first claim that the circumcircles of triangles $ALD$ and $AKB$ are tangent to each other. 
+	This is the same as showing that $\angle AKB+\angle ALD=\angle BAD$. 
+	Indeed, given that $E$ is the reflection of $A$ in $BC$, $AE\perp BC$ and therefore $\angle AKB=90^{\circ}-\angle CDB$ and similarly $\angle ALD=90^{\circ}-\angle CBD$. Therefore, 
+	\[
+	\angle AKB+\angle ALD=180^{\circ}-\angle CDB-\angle CBD=\angle BCD=\angle BAD
+	\]
+	as claimed. 
+	
+	Now, reflect $A$ in $BD$ to get $G$. To avoid cases on whether $K$ lies between $E$ and $A$ we use directed angles here. From $E$ being the reflection of $A$ in $BC$ we get $\angle (AE, AB)=\angle(EB, AE)$ and similarly by definition of $G$ we get $\angle (AE, AB)=\angle(AK, AB)=\angle(BG, GK)$. 
+	Therefore, $\angle(BG, GK)=\angle(BE, EA)=\angle(BE, EK)$ so $B, G, K, E$ are concyclic. Similarly, $L, D, F, G$ are concyclic. This means that $G$ is an intersection of circumcircles of $BDK$ and $DFL$. Finally, since circles $BAK$ and $ALD$ are tangent to each other, same goes to circles $BDK$ and $DFL$ as they are simply the reflections of $BAK$ and $ALD$ in line $BD$. 
+	
+	\item [\textbf{G6}] Let $ABC$ be a triangle with $AB < AC$, incenter $I$, and $A$ excenter $I_{A}$. The incircle meets $BC$ at $D$. Define $E = AD\cap BI_{A}$, $F = AD\cap CI_{A}$. Show that the circumcircle of $\triangle AID$ and $\triangle I_{A}EF$ are tangent to each other. 
+	
+	\textbf{Solution.} We first claim that the circles $AID$ and $I_AEF$ have an intersection on the circle $IBC$. 
+	
+	Now, $II_A$ is the diameter of circle $IBC$. Let $G$ be another intersection of circles $IBC$ and $I_AEF$. 
+	Then triangles $GEF$ and $GBC$ are similar, also $GBE$ and $GCF$ are similar. 
+	This means we have 
+	\[
+	\frac{GB}{GC}=\frac{BE}{CF}
+	\]
+	and moreover by Menelaus' theorem on line $DEF$ and triangle $BI_AC$, 
+	\[
+	\frac{EB}{EI_A}\cdot \frac{FI_A}{FC}\cdot \frac{DC}{DB}=-1
+	\]
+	(notice that $F$ lies outside segment $I_AC$ so $\frac{FI_A}{FC}$ is assumed negative here), 
+	and also considering the triangle $BCG$ and line $GD$, 
+	\[
+	\frac{BD}{DC} = \frac{BG}{GC}\cdot \frac{\sin\angle BGD}{\sin\angle CGD}
+	=\frac{BE}{CF}\frac{\sin\angle BGD}{\sin\angle CGD}
+	\]
+	so we ended up with 
+	\[
+	-1=\frac{EB}{EI_A}\cdot \frac{FI_A}{FC}\cdot \frac{DC}{DB}
+	=\frac{EB}{EI_A}\cdot \frac{FI_A}{FC}\cdot \frac{CF}{BE}\frac{\sin\angle CGD}{\sin\angle BGD}
+	=\frac{FI_A}{EI_A}\frac{\sin\angle CGD}{\sin\angle BGD}
+	\]
+	so ignoring sign and recognizing that $E$ is on segment $BI_A$ but $F$ outside segment $CI_A$, we have 
+	\[
+	\frac{\sin\angle I_AEF}{\sin\angle I_AFE}=\frac{FI_A}{EI_A} = \frac{\sin\angle BGD}{\sin\angle CGD}
+	\]
+	This means $\angle I_AEF = \angle BGD$ and $\angle I_AFE=\angle CGD$. 
+	
+	Now we claim that $G$ also lies on the circumcircle of triangle $AID$. By angle chasing, 
+	\[
+	\angle DAI
+	=\angle FAI_A 
+	=\angle II_AC - \angle AFI_A
+	=\angle IGC - \angle DGC
+	=\angle IGD
+	\]
+	as desired. 
+	
+	It remains to show that $G$ is in fact the tangency point of the circles $AID$ and $I_AEF$. Given $AIDG$ on one circle and $GEFI_A$ on one circle, what we need to show now is 
+	\[
+	\angle IGE = \angle GAI + \angle GI_AE
+	\]
+	The last quantity $\angle GI_AE$ is the same as $\angle GCB$; we also have 
+	\[
+	\angle GAI = \angle GAD+\angle IAD = \angle GID+\angle IGD 
+	\]
+	and finally 
+	\[
+	\angle IGE=\angle IGD+\angle DGE = \angle IGD+\angle BGE-\angle BGD 
+	\]
+	so now we need to prove that 
+	\[
+	\angle BGE=\angle GID + \angle GCB + \angle BGD
+	\]
+	We notice also that $\angle BGD=\angle I_AEF = \angle BED$ so $BEDG$ is concyclic. This means $\angle BGE=\angle CDF$. 
+	Also, $\angle CDF-\angle BED=\angle DBE=\angle CBI_A$ so it suffices to show that $\angle CBI_A=\angle GID+\angle GCB$. 
+	
+	Let $ID$ intersect the circle $I_ABC$ again at $H$, then $\angle GID=\angle GIH=\angle GI_AH$ and $\angle GCB=\angle GI_AB$ so$\angle GID+\angle GCB=HI_AB=HCB$. We also have $BC_IAH$ an isoceles trapezoid so $\angle HCB=\angle I_ABC$, as desired. 
+	
+	%%%G7%%%
+	\item [\textbf{G7}] Let $P$ be a point on the circumcircle of acute triangle $ABC$. Let $D,E,F$ be the reflections of $P$ in the $A$-midline, $B$-midline, and $C$-midline. Let $\omega$ be the circumcircle of the triangle formed by the perpendicular bisectors of $AD, BE, CF$.
+	
+	Show that the circumcircles of $\triangle ADP, \triangle BEP, \triangle CFP,$ and $\omega$ share a common point.
+	
+	\textbf{Solution.} We first show that the first three circles are coaxial. If $K$, $L$ and $M$ are the perpendiculars from $A$, $B$, $C$ to lines $BC$, $CA$, $AB$, respectively, then $K$ is the reflection of $A$ in the corresponding midline. Then $AKPD$ is an isoceles trapezoid, and therefore cyclic. 
+	Similarly, $L$ lies on circumcicle of $BEP$ and $M$ lies on $CFP$. 
+	
+	%%%G9%%%
+	\item [\textbf{G9}] (IMO 6) Prove that there exists a positive constant $c$ such that the following statement is true:
+	Consider an integer $n > 1$, and a set $\mathcal S$ of $n$ points in the plane such that the distance between any two different points in $\mathcal S$ is at least 1. It follows that there is a line $\ell$ separating $\mathcal S$ such that the distance from any point of $\mathcal S$ to $\ell$ is at least $cn^{-1/3}$.
+	
+	(A line $\ell$ separates a set of points $\mathcal{S}$ if some segment joining two points in $\mathcal S$ crosses $\ell$.)
+	
+	Note. Weaker results with $cn^{-1/3}$ replaced by $cn^{-\alpha}$ may be awarded points depending on the value of the constant $\alpha > 1/3$.
+	
+	\textbf{(Mini-)Solution.} I hereby attach my proof for $\alpha=\frac 12$ (which is worth 1 point). 
+	
+	Let $D$ be the diameter of $\mathcal{S}$. That is, the maximum distance between any two points in $\mathcal{S}$. W.l.o.g. let the diameter to be $(0, 0)$ and $(0, D)$. Then any point in $\mathcal{S}$ must have $x$-coordinate in $[-D, D]$ and $y$-coordinate in $[0, D]$. 
+	Consider, now, drawing $\frac{1}{\sqrt{2}}\times \frac{1}{\sqrt{2}}$ boxes in the space $[-D, D]\times [0, D]$ space. Given that the distance between any two points in the box is at most 1, each point in $\mathcal{S}$ must be in different boxes. Thus there are at most $\lceil \sqrt{2}D\rceil\times \lceil 2\sqrt{2}D\rceil $ boxes. Omitting the ceiling functions for now (as they will be insignificant as $D$ and $n$ grow), we have at most $4D^2$ boxes. With $n$ points in $S$, we have at least $n$ boxes. Thus $D\ge\frac{\sqrt{n}}{2}$. 
+	
+	Now, as above we assumed that the two points have $y$-coordinates 0 and $D$, respectively. Putting a line parallel to the $x$-axis and with $y$-intercept between 0 and $D$ will separate the two points (hence separating $\mathcal{S}$). Sorting the points by $y$-axis, it then follows that some consecutive points have gap at least $\frac{D}{n}$. Thus placing the line passing through the midpoint of these two points (or rather, perpendicular bisector) will ensure that any point has distance at least $\frac{D}{2n}$ from this line. With $D\ge \frac{\sqrt{n}}{2}$, we have distance from any points of $\mathcal{S}$ to $\ell$ at least $\frac 14 n^{-\frac 12}$ (well maybe a bit lower to account for the ceiling function above). 
+\end{enumerate}
+
+\section*{Number Theory}
+\begin{enumerate}
+	%%%N2%%%
+	\item[\textbf{N2}] For each prime $p$, construct a graph $G_p$ on $\{1,2,\ldots p\}$, where $m\neq n$ are adjacent if and only if $p$ divides $(m^{2} + 1-n)(n^{2} + 1-m)$. Prove that $G_p$ is disconnected for infinitely many $p$. 
+	
+	\textbf{Solution.} We claim that $G_p$ is disconnected whenever $p\equiv 1\pmod{3}$. Notice that all the edges are given by $(m, m^2+1)$ for $m=0, 1, \cdots , p-1$ since $(m, n)$ are adjacent if and only if $p\mid m^2+1-n$ or $p\mid n^2+1-m$ (thus $(m, n)$ can be written in the form $(m, m^2+1)$ or $(n^2+1, n)$). 
+	This means that there are at most $p$ edges in $G_p$. 
+	
+	Now, if $p\equiv 1\pmod{3}$, then $x^3\equiv 1\pmod{3}$ has 3 distinct solutions (one of them being 1). Therefore we have, for some $x\not\equiv 1$, 
+	\[
+	p\mid x^3-1=(x-1)(x^2+x+1)
+	\]
+	so $p\mid x^2+x+1$ here. 
+	If $m=x+1$, then $m^2+1=(x+1)^2+2=(x^2+x+1)+x+1\equiv x+1\pmod{p}$ so $(m, m^2+1)$ is actually $(m, m)$ (i.e. a self-loop). 
+	In addition, if $p\mid m^2+1-m$, then $(p-m+1)^2+1-(p-m+1)\equiv (m-1)^2+1+(m-1)=m^2+1-m\equiv 0\pmod{p}$. 
+	So both $(m, m)$ and $(p-m+1, p-m+1)$ are self-loops. 
+	
+	Finally, we claim that $m\neq p-m+1$, otherwise $2m+1=p$ and we have 
+	\[
+	p\mid (\frac{p+1}{2})^2+1-(\frac{p+1}{2})\equiv \frac{3}{4}
+	\]
+	and therefore $p=3$ here, which is a contradiction. This means that among the $p$ edges just now, 2 of them are self-loops so there are at most $p-2$ actual edges. This means that our graph can no longer be connected for such $p$. Finally, by Dirichlet's theorem, there are infinitely many such $p$ with $p\equiv 1\pmod{3}$. 
+	
+	%%%N3%%%
+	\item [\textbf{N3.}] (IMO 5) A deck of $n > 1$ cards is given. A positive integer is written on each card. The deck has the property that the arithmetic mean of the numbers on each pair of cards is also the geometric mean of the numbers on some collection of one or more cards.
+	For which $n$ does it follow that the numbers on the cards are all equal?
+	
+	\textbf{Answer.} All $n>1$. 
+	
+	\textbf{Solution.} Call a set $S$ of positive integers ``good'' if the arithmetic mean of every pair of integers is also the geometric pairs of some subset of integers in $S$. Consider $aS=\{ak: k\in S\}$ for some rational $a$ such that $ak\in\bbN$ for all $k\in S$. The arithmetic and geometric mean of corresponding numbers are scaled by $a$, so $S$ is good if and only if $aS$ is good. 
+	Therefore, given an original collection $S$, we can divide by its $\gcd$ and assume that $\gcd(S)=\gcd\{k: k\in S\}=1$. 
+	
+	In particular, some number $k\in S$ has to be odd. If $m\in S$ is even then $\frac{k+m}{2}$ is a half-integer. But $(\frac{k+m}{2})^d$ is never an integer for any integer $d>0$. Thus $\frac{k+m}{2}$ cannot be geometric mean of any subset of $S$. We thus have all numbers odd. 
+	
+	Suppose also that the numbers are $a_1\ge \cdots a_n$. If $a_1>1$, then there exists an odd prime $p$ dividing $a_1$ but since $\gcd(a_1, \cdots , a_n)=1$, there's some $i$ with $p\nmid a_i$. Thus we can choose $m$ that is the minimal index with $p\nmid a_m$ (i.e. $a_m$ is the biggest number among them not divisible by $p$. Then $\frac{a_1+a_m}{2}$ must be an integer not divisible by $p$, and since $a_1\neq a_m$, $a_1>a_m$ and so $\frac{a_1+a_m}{2}>a_m$. But since $a_1, \cdots , a_{m-1}$ are divisible by $p$, the numbers that form geometric mean of $\frac{a_1+a_m}{2}$ must be taken from $\{a_m, \cdots , a_n\}$ which are at most $a_m$. This gives a contradiction. Thus $a_1=1$ and all numbers are equal.
+	
+	%%%N4%%%
+	\item[\textbf{N4}] For any odd prime $p$ and any integer $n,$ let $d_p (n) \in \{ 0,1, \dots, p-1 \}$ denote the remainder when $n$ is divided by $p.$ We say that $(a_0, a_1, a_2, \dots)$ is a p-sequence, if $a_0$ is a positive integer coprime to $p,$ and $a_{n+1} =a_n + d_p (a_n)$ for $n \geqslant 0.$
+	\begin{itemize}
+		\item[(a)] Do there exist infinitely many primes $p$ for which there exist $p$-sequences $(a_0, a_1, a_2, \dots)$ and $(b_0, b_1, b_2, \dots)$ such that $a_n >b_n$ for infinitely many $n,$ and $b_n > a_n$ for infinitely many $n?$
+		
+		\item[(b)] Do there exist infinitely many primes $p$ for which there exist $p$-sequences $(a_0, a_1, a_2, \dots)$ and $(b_0, b_1, b_2, \dots)$ such that $a_0 <b_0,$ but $a_n >b_n$ for all $n \geqslant 1?$
+	\end{itemize}
+	
+	\textbf{Answer.} Yes to both. 
+	
+	\textbf{Solution.} We see that $a_{n+1}=a_n+d_p(a_n)\equiv 2a_n$ so similarly $d_p(a_{n+1})\equiv 2 d_p(a_n)$. 
+	
+	Let $c$ be the order of 2 modulo $p$. Then 
+	\[(d_p(a_0), \cdots, d_p(a_{c-1}))=(d_p(a_0), 2d_p(a_0), \cdots, 2^{c-1}d_p(a_0))\pmod{p}
+	\]
+	and similarly, 
+	\[(d_p(a_n), \cdots, d_p(a_{n+c-1}))=(d_p(a_0), 2d_p(a_n), \cdots, 2^{c-1}d_p(a_n))\pmod{p}
+	\]
+	for every $n$. 
+	Moreover, $d_p(a_c)=d_p(a_0)$. Therefore for each $n$, 
+	\[
+	a_{n+c}-a_n = \dsum_{i=0}^{c-1} d_p(a_{n+i}) = \dsum_{i=0}^{c-1} d_p(a_i)
+	\]
+	is the same for all $n$. 
+	
+	Let's also investigate the properties of $\{d_p(a_0), \cdots, a_p(a_{c-1})\}$. Treating the nonzero residues modulo $p$ as a group $G$, the subgroup $H=\{2^k: k=0, \cdots, c-1\}$ paritions $H$ into cosets, where $\{d_p(a_0), \cdots, a_p(a_{c-1})\}$ is one of them. Thus $\dsum_{i=0}^{c-1} d_p(a_i)$ can also be viewed as a coset sum for the sequence $(a_n)$. Now we can proceed with the following. 
+	
+	\begin{enumerate}
+		\item We just need to make sure that: 
+		\begin{itemize}
+			\item $(a_n)$ and $(b_n)$ have the same coset sum. 
+			
+			\item There exists $i$ and $j$ with $a_i<b_i$ and $a_j>b_j$, which, with the condition before, $a_{i+cn}<b_{i+cn}$ and $a_{j+cn}>b_{j+cn}$ for all $n$. 
+		\end{itemize}
+		We will in fact choose $a_0$ and $b_0$ such that they come from the same coset, and must have the same coset sum. 
+		
+		Consider any $p\equiv 1\pmod{4}$, and let $a_0=2^k$ for some $k$ such that $a_0<p<2a_0$. 
+		With $p\ge 5$, $a_n\ge 4$ so $2a_0\ge p+3$ (since $4\mid p+3$ and $p\equiv 1\pmod{4}$). 
+		Let $b_0=p+1$, and then $b_1=p+2$. We now have 
+		\[
+		a_0<p<p+1=b_0\qquad b_1=p+2<p+3\le 2a_0=a_0+d_p(a_0)=a_1
+		\]
+		and notice that both $a_0$ and $b_0$ belong to the coset defined as 
+		\[
+		\{2^k: 0\le k\le c-1\}
+		\]
+		completing the construction. Finally, we note that there are infinitely many such primes $p$. 
+		
+		\item We claim that all we need is having $a_0$ and $b_0$ such that the coset sum of $a_0$ is greater than that of $b_0$. Suppose that this condition is fulfilled. By adding $p$ to $b_0$ as many times as we want, we may assume $a_0<b_0$. 
+		
+		Consider the number 
+		\[
+		g = \min\{a_n-b_n: n=0, 1, \cdots, c-1\}
+		\]
+		and let coset sum of $(a_n)$ and $(b_n)$ to be $x$ and $y$ respectively with $x>y$. Then for all $k$ and $i$, 
+		\[
+		a_{i+ck}-b_{i+ck} = (a_i+kx)-(b_i+ky)=k(x-y)+(a_i-b_i)\ge g+k(x-y)
+		\]
+		so with $x-y>0$, for all $k$ sufficiently large and $i\ge 0$ we have $a_{i+ck}-b_{i+ck}$. 
+		This also means that for all $n$ sufficiently large we have $a_n>b_n$. This means that there's a maximal index $m$ such that $a_m<b_m$ (but $a_n>b_n$ for all $n>m$). 
+		All we need to do now is to shift both sequences by $m$ spots to the left and replace $a_0$ with $a_m$ and $b_0$ with $b_m$, which gives $a_0<b_0$ but $a_n>b_n$ for all $n>0$. 
+		
+		It remains to show that we can indeed find infinitely many $p$ with at least two cosets of different sum. We claim that all $p\equiv 7\pmod{8}$ fulfills this property. 
+		First, we quote a well-known identity that if $1\equiv 1, 7\pmod{8}$, then 2 is a quadratic residue modulo 8. This means the number of cosets is even. 
+		
+		On the other hand, the sum of all cosets is 
+		\[
+		1=2+\cdots + (p-1)=\frac{p(p-1)}{2}
+		\]
+		and since $p\equiv 3\pmod{4}$ here, $\frac{p-1}{2}$ is odd and so is $\frac{p(p-1)}{2}$. Therefore with even number of cosets, the cosets cannot all have the same sum. 
+		
+		\item [\textbf{N5}] Determine all functions $f$ defined on the set of all positive integers and taking non-negative integer values, satisfying the three conditions:
+		\begin{enumerate}
+			\item $f(n)\neq 0$ for at least one $n$;
+			\item $f(xy)=f(x)+f(y)$ for every positive integers $x$ and $y$;
+			\item there are infinitely many positive integers $n$ such that $f(k)=f(n-k)$ for all $k<n$. 
+		\end{enumerate}
+		
+		\textbf{Answer.} $f(n)=c\cdot v_p(n)$ where $p$ is a prime number, $c$ any nonnegative constant and $v_p(n)$ the greatest power of $p$ dividing $n$. 
+		
+		\textbf{Solution.} We first notice that if we prime factorize 
+		\[
+		n=p_1^{\alpha_1}\cdots p_k^{\alpha_k}
+		\]
+		then 
+		\[
+		f(n)=\dsum_{i=1}^k \alpha_k f(p_k)
+		\]
+		i.e. the function $f$ is determined solely by the values of the primes. 
+		
+		We need at least one prime $p$ to have $f(p)>0$. On the other hand, we shall also prove that such $p$ is unique. 
+		
+		Consider now, any such $n$ such that $f(k)=f(n-k)$ for all $k<n$. Then for each $k$ we have: 
+		\[
+		f(1)+f(2)+\cdots f(k) = f(k!)\qquad f(n-1)+\cdots + f(n-k) = f((n-1)\cdots (n-k))
+		\]
+		and with $k! \dbinom{n-1}{k} = (n-1)\cdots (n-k)$, we have $f(\dbinom{n-1}{k})=0$. 
+		In other words, if $p$ is one such prime with $f(p)\neq 0$, then $p\not\mid \dbinom{n-1}{k}$ for all $k\le n-1$. 
+		By Lucas' theorem, this happens only when for all $k\le n-1$, the $p$-ary representation of $k$ has all digits at most the corresponding digits of $n-1$ when written in base $p$. 
+		On the other hand, if a non-leading digit (say $p^u$) of $n-1$ is not maximal (say, $v < p-1$) then pick $k=(v+1)\cdot p^u$ and the $p^u$ digit of $k$ is greater than that of $n-1$ but $k<n-1$ since $p^u$ is not the leading digit of $n-1$. 
+		
+		Therefore $n-1$ must have $p-1$ in all its digits base $p$ except for the leading digit, which means there exists $1\le m\le p-1$ and $a$ such that $n=m\cdot p^a$. 
+		
+		Now suppose that there are two primes $p$ and $q$ with $f(p)$ and $f(q)$ both nonzero. Then there exists $m$, $r$ with $1\le m\le p-1$ and $1\le r\le q-1$, and $a, b\ge 0$ with $n=m\cdot p^a=r\cdot q^b$. 
+		Suppose also that $p\le q$. 
+		Then $m<q$ and it would follow that $q\not\mid m\dot p^a$ so $b=0$, or $n=r < q$. This means that the condition (iii) would only hold for finitely many $n$ since they are all less than $q$, which is a contradiction. 
+		
+		Therefore only one prime $p$ can have $f(p)\neq 0$. For this $p$, by using prime factorization of an integer $n$ would yield $f(n)=f(p)v_p(n)$. To show that (iii) can be fulfilled, consider $n=p^{\alpha}$ for any $\alpha\ge 0$. Then for each $k<n$, if $b<\alpha$ is the highest power of $p$ dividing $k$ then $k=p^b\ell$ for some $\ell$ with $\ell$ not divisible by $p$. 
+		Then $n-k=p^{b}(p^{\alpha-b}-\ell)$ so $v_p(n-k)=b$, too, as claimed. 
+		
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}
