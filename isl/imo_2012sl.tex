@@ -161,6 +161,50 @@
 		To show that this invariant is maintained, suppose, for time being, that the boxes $B_x$ and $B_y$ are involved in $A$'s move as well. For each box $B_k$, each $A$ and $B$ moves a coin from $B_k$ to an adjacent box, so there's an outflow of two coins by this consideration. 
 		Nevertheless, considering the move from $B_{k-1}$, among the two moves $B_{k-1}\to B_k$ and $B_{k-1}\to B_{k-2}$, exactly one move is done by $B$ and the other by $A$. Same goes to the two moves $B_{k+1}\to B_k$ and $B_{k+1}\to B_{k+2}$, so these give a total inflow of two coins by the two players. Hence the net flow of coins is zero, which restores our configuration to the initial configuration before $B$'s move. Now, excluding $B_x$ and $B_y$ from the operation means that we need to undo the moves by $B_x$ and $B_y$ to an adjacent box. That is, moving an adjacent coin from $B_{x\pm 1}$ to $B_x$ and $B_{y\pm 1}$ to $B_y$. Since $x$ and $y$ are of different parity, $B_{x\pm 1}$ and $B_{y\pm 1}$ cannot be the same regardless of the choices of the signs, and moreover $x\pm 1$ and $y\pm 1$ have different signs. Therefore, $B_{x\pm 1}$ and $B_{y\pm 1}$ are the only two boxes with one coin each, and our invariant is maintained. 
 		
+		Next, we design a strategy for $B$ when $N\le 2n-3$. Notice that if some $N$ gives a winning strategy for $A$, then so will $N+k$ for any $k\ge 0$ ($A$ can technically add the extra $k$ coins anywhere and `pretend' that those coins don't exist). We assume an arbitrary starting state for $B$ and break $B$'s algorithm into the following: 
+		
+		Step 1: we first show that $B$ can force two adjacent boxes with 1 coin each, after some $A$'s move.
+		The algorithm is to find an arc starting and ending with boxes of 1 coin and having 2 coins \emph{on average} for boxes in between, and then shorten this arc. 
+		We'll also use the fact that, if $B_1, \cdots , B_k$ with $k\ge 2$ has at least 1 coin each but total coin $\le 2k-2$, then there's one such arc within these $k$ boxes. 
+		
+		Given $N=2n-3$, the starting state (or any state that prevents $A$ from losing) must have one box with exactly one coin. 
+		Let this box be $B_0$ (indices modulo $n$). 
+		
+		Let $k$ be the minimal index such that the sum of coins in $B_1, \cdots , B_k$ is less than $2k$. By the minimality of $k$, $B_k$ has 1 exactly coin; since $B_1, \cdots , B_{n-1}$ has $2n-4<2(n-1)-1$ coins in total, $k\le n-2$. 
+		This means $B_0, \cdots, B_k$ has length $k+1$ and is one of the arcs we've described. 
+		
+		If $k=1$ we're done with this step. Otherwise, let $B$ do the following: 
+		\[
+		B_0\to B_{-1}\qquad B_1\to B_0\qquad B_{-1}\to B_{-2} \qquad B_k\to B_{k+1}\qquad B_{k+1}\to B_{k+2}
+		\]
+		and additionally, if $k\ge 3$, we do $B_{k-1}\to B_k$. 
+		If $k = 2$, the initial state must be $B_0=1$, $B_1=2$ and $B_2=1$; after $B$'s move it will be $B_0=1, B_1=1, B_2=0$. As $A$ isn't allowed to move coin from $B_0$ and $B_2$, $B_1$ cannot gain any coin and therefore $B_1=1$ remains. 
+		Given also that $B_2=0$ before $A$'s move, it can gain at most one coin from $B_1$ and $B_3$, however $B_1$ has no coin to be moved so $B_2\le 1$ must hold, which then means $B_1=B_2=1$ after $A$'s move, i.e. achieving the goal of two adjacent boxes of 1 coin each. 
+		
+		Else, $k\ge 3$. 
+		The flow of $B_1$ to $B_0$ and $B_{k-1}\to B_k$ means that there's a net outflow of at least 2 coins among boxes $B_1, \cdots, B_{k-1}$. 
+		Since $B_0$ and $B_k$ had 1 coin before $B$'s move, $A$ cannot move any coin from $B_0$ or $B_k$, thus maintaining the status at least a net outflow of 2 coin among $B_1, \cdots, B_{k-1}$. 
+		By the minimality of $k$, we have $B_1+\cdots B_{k-1}=2(k-1)$ before $B$'s move, so now we have $2(k-1)-2$ coins among $B_1, \cdots, B_{k-1}$, which means there will be an arc among $B_1, \cdots, B_{k-1}$, so we have effectively shortened the arc from $k+1$ to at most $k-1$. 
+		Continuing this algorithm yields an arc of minimal possible length, i.e. 2 (with adjacent boxes with only 1 coin each). 
+		
+		Step 2: now that we have two adjacent boxes, say $B_0$ and $B_1$ of 1 coin each, $B$ wants to force three adjacent boxes of 1 coin each after some $A$'s turn. 
+		We first note that this initial condition can be maintained: at every step of $B$, just move $B_0\to B_{-1}$ and $B_1\to B_2$. This means $B_0$ and $B_1$ have no coins and $A$ is forced to move the coins back from $B_2$ to $B_1$ and $B_{-1}$ to $B_0$, if this is even allowed. 
+		
+		Next, since the total number of coins is $2n-3$, there's a minimal index $k$ such that $B_2, \cdots , B_k$ together contain fewer than $2(k-1)$ coins. If $k=2$ we're done. Otherwise, this means that $B_2, \cdots, B_{k-1}$ contains exactly $2(k-2)$ coins and $B_k$ contains one coin. All $B$ needs to do now is 
+		\[
+		B_{k-1}\to B_{k}\qquad B_k\to B_{k+1}
+		\]
+		We claim that regardless of how $A$ moves, there's an index $k'<k$ such that $B_2, \cdots , B_{k'}$ contains at most $2(k'-1)-1$ coins in total. Again we consider the arc 
+		\[
+		B_2, \cdots, B_{k-1}
+		\]
+		At $B$'s move, $B_2$ receives a coin from $B_1$ and $B_{k-1}$ gives a coin to $B_k$. This means that the net flow of coins is 0 after $B$'s move. Now, $B_1$ has 0 coin so $A$ must do $B_1\to B_2$; $B_k$ had 1 coin before $B$'s turn so $A$ cannot move coin from $B_k$ to $B_{k-1}$. This results in a net outflow of at least one. This means after $B$'s and $A$'s move we have $2(k-2)=2(k-1)-1$ coins among $B_2, \cdots, B_{k-1}$, as desired. Thus all $B$ needs to do is repeat this iteration until the minimal such $k$ becomes 2, and we have $B_0, B_1, B_2$ all having 1 coin exactly. 
+		
+		Step 3: now $B$ can win the game with $B_0, B_1, B_2$ jhaving 1 coin each. Simply do 
+		\[
+		B_0\to B_{-1}, B_1\to B_2, B_2\to B_3
+		\]
+		which means $B_1$ is now empty. As $B_0$ and $B_2$ both have 1 coin before $B$'s move, $A$ cannot transfer coin from either box to $B_1$. Hence $B_1$ remains empty. 
 		
 	\end{enumerate}
 	
@@ -516,11 +560,31 @@
 	Nb. if you ask ``what's the motivation behind?" then all I can tell is, set $m-n=k$ and we want the left hand size to be divisible by $k^3$. We need, now, $k\mid n+2+n+k$ so $n\equiv 0, -1\pmod{k}$. But then $n\equiv -1$ has the bonus of making it divisible by $k^2$, and turned out, $k\mid m^2+n$ in this case too. 
 	
 	(b) The answer is no. Like above, write $m=n+k$ and we need to solve $((n+k)^2+n)(n^2+n+k)=2k^3$. 
-	Writing in cubic equation in $k$, this gives \[k^3-n(n+3)k^2-n(n+1)(2n+1)k-n^2(n+1)^2=0\]
+	Writing in cubic equation in $k$, this gives 
+	\[k^3-n(n+3)k^2-n(n+1)(2n+1)k-n^2(n+1)^2=0\]
 	and we need to find $n>0$ such that the equation has an integer root in $k$. 
 	From $k^3-n(n+3)k^2>0$ we have $k>n(n+3)$ (since $k$ and $n$ are both positive). 
 	
+	On the other hand the polynomial $P(k)=k^3-n(n+3)k^2-n(n+1)(2n+1)k-n^2(n+1)^2$ has derivative $P'(k)=3k^2-2n(n+3)k-n(n+1)(2n+1)$. Note that $P'$ has minimum point at $k=\frac{n(n+3)}{3}$ and for $k\ge n(n+3)$, 
+	\[
+	P'(k)\ge P'(n(n+3))=3n^2(n+3)^2-2n^2(n+3)^2-n(n+1)(2n+1)=n(n^3 +4n^2 +6n-1) > 0
+	\]
+	so $P$ is increasing at $k\ge n(n+3)$. We also have 
+	\[
+	P(n(n+5)) = 6n^4+32n^3-6n^2 =2n^2(3n^2+16n-3)>0
+	\]
+	so $P$ is positive for $k\ge n(n+5)$. This means all positive roots $k$ must be between $n(n+3)$ and $n(n+5)$. 
 	
+	Setting $b=k-n(n+3)$ we have the equation becomes $bk^2-n(n+1)(2n+1)k-n^2(n+1)^2=0$. 
+	Now this becomes quadratic in $k$ with discriminant 
+	\[
+	n^2(n+1)^2(2n+1)^2 +4bn^2(n+1)^2 = n^2(n+1)^2 ((2n+1)^2+4b)
+	\]
+	so $(2n+1)^2+4b$ must be an integer. We already had $b>0$ and the next square with same parity as $(2n+1)^2$ is $(2n+3)^2$. This means 
+	\[
+	4b\ge (2n+3)^2-(2n+1)^2 = 2(4n+4)=8(n+1)
+	\]
+	so $b\ge 2(n+1)$. This means $k\ge n(n+3)+2(n+1)>n(n+5)$, which is another contradiction. 
 	
 	\item[\textbf{N5}] For a nonnegative integer $n$ define $\operatorname{rad}(n)=1$ if $n=0$ or $n=1$, and $\operatorname{rad}(n)=p_1p_2\cdots p_k$ where $p_1<p_2<\cdots <p_k$ are all prime factors of $n$. Find all polynomials $f(x)$ with nonnegative integer coefficients such that $\operatorname{rad}(f(n))$ divides $\operatorname{rad}(f(n^{\operatorname{rad}(n)}))$ for every nonnegative integer $n$.
 	
@@ -564,6 +628,18 @@
 	
 	Thus from above, if $p\mid x^{2^n}-1$, and $2^{k}\nmid p-1$, then from $p\nmid x^{2^\ell}+1$ for all $\ell\ge k$ we have $p\mid (x-1)(x+1)(x^2+1)\cdots (x^{2^{k-1}}+1) = x^{2^k}-1$. 
 	This means that if $p\mid x^{2^n}-1$ for some $n$ then $p$ is a positive divisor of $x^{2^k}-1$. This last number is positive if $x>1$, hence having finitely many positive divisors (and so finitely many $p$ satisfies this property). 
+	
+	The next step is to show that there exists a $k$ such that there are infinitely many primes $p$ with $p\not\equiv 1\pmod{2^k}$, and that $p\mid 2^ny+1$ for some $n$. We consider now the sequence $(a_n)_{n\ge 1}$. Since $2^ny$ is an integer when $n\ge -v_2(y)$, we may backtrack to $(a_n)_{n\ge -v_2(y)+1}$. In other words, we may assume that $y$ is odd. 
+	
+	Suppose that there's only finitely many primes $p_1, \cdots , p_k$ with $p_i\equiv 3\pmod{4}$ that divides at least one term in the sequence $(a_n)$. Let $b_i$ be the highest power of $p_i$ dividing $2y+1$ for each $i$. Set $n=\dprod_{i=1}^k \phi(p_i^{b_i+1})$ where $\phi(x)$ is the number of elements in $\{1, 2, \cdots , x\}$ relatively prime to $x$. 
+	This means $2^n\equiv 1\pmod{p_i^{b_i+1}}$, and from $b_i$ being the highest power of $p_i$ dividing $2y+1$ we have the same for $2^{n+1}y+1$, too. 
+	This means, we can write out the following terms: 
+	\[
+	2y+1 = u\dprod_{i=1}^k p_i^{b_i}\qquad 2^{n+1}y+1 = v\dprod_{i=1}^k p_i^{b_i}
+	\]
+	where $u, v$ are divisible by none of $p_1, \cdots, p_k$. Since $y$ is odd, $2y+1\equiv 3\pmod{4}$ so $u\equiv 1\pmod{4}$. 
+	Since $n>0$, $2^{n+1}y+1\equiv 1\pmod{4}$ so $v\equiv 1\pmod{4}$. 
+	But this means $v$ has to be divisible by some prime $q\equiv 3\pmod{4}$, which cannot be $p_1, \cdots, p_k$. This contradicts our initial assumption. 
 	
 \end{enumerate}
 
