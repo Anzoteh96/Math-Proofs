@@ -272,14 +272,117 @@
 	$\frac{1}{O_4A_4^2-r_4^2}=\frac{PA_2}{(PA_2+PA_4)(PA_2PA_4-PA_1PA_3)}$. 
 	Thus the desired sum becomes 
 	\begin{flalign*}
-		\frac{1}{O_1A_1^2-r_1^2}+\frac{1}{O_2A_2^2-r_2^2}+\frac{1}{O_3A_3^2-r_3^2}+\frac{1}{O_4A_4^2-r_4^2}
+		\dsum_{i=1}^4\frac{1}{O_iA_i^2-r_i^2}
 		&=\frac{PA_1+PA_3}{(PA_1+PA_3)(PA_1PA_3-PA_2PA_4)}
-		\\& + \frac{PA_2+PA_4}{(PA_2+PA_4)(PA_2PA_4-PA_1PA_3)}
+		+ \frac{PA_2+PA_4}{(PA_2+PA_4)(PA_2PA_4-PA_1PA_3)}
 		\\&=\frac{1}{PA_1PA_3-PA_2PA_4} + \frac{1}{PA_2PA_4-PA_1PA_3}
 		\\&=\frac{1}{PA_1PA_3-PA_2PA_4} - \frac{1}{PA_1PA_3-PA_2PA_4} 
 		\\&= 0
 	\end{flalign*}
 	as desired. 
+	
+	\item[\textbf{G3}] Let $ABCD$ be a convex quadrilateral whose sides $AD$ and $BC$ are not parallel. Suppose that the circles with diameters $AB$ and $CD$ meet at points $E$ and $F$ inside the quadrilateral. Let $\omega_E$ be the circle through the feet of the perpendiculars from $E$ to the lines $AB,BC$ and $CD$. Let $\omega_F$ be the circle through the feet of the perpendiculars from $F$ to the lines $CD,DA$ and $AB$. Prove that the midpoint of the segment $EF$ lies on the line through the two intersections of $\omega_E$ and $\omega_F$.
+	
+	\textbf{Solution.} Denote $M$ as the midpoint of $EF$. Let $P, Q, R, S$ be the perpendicular from $E$ to $AB, BC, CD, DA$ respectively. We claim that the power of point of $M$ to $\omega_E$, the circumcircle of $PQR$, is $-MP\cdot MR$. 
+	
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\clip(-5.464585606739619,-2.3761991570621834) rectangle (3.0700189598130034,3.757033782399586);
+	\draw [shift={(-1.88,2.44)},line width=2pt]  plot[domain=-2.9546133836708823:0.18697926991891078,variable=\t]({1*2.2593804460515274*cos(\t r)+0*2.2593804460515274*sin(\t r)},{0*2.2593804460515274*cos(\t r)+1*2.2593804460515274*sin(\t r)});
+	\draw [shift={(-1.54,-1.26)},line width=2pt]  plot[domain=0:3.141592653589793,variable=\t]({1*3.32*cos(\t r)+0*3.32*sin(\t r)},{0*3.32*cos(\t r)+1*3.32*sin(\t r)});
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-1.8747179897087687,0.6528923233433481) circle (2.8243954385048053cm);
+	\draw [line width=2pt] (-4.1,2.02)-- (0.34,2.86);
+	\draw [line width=2pt] (0.34,2.86)-- (1.78,-1.26);
+	\draw [line width=2pt] (1.78,-1.26)-- (-4.86,-1.26);
+	\draw [line width=2pt] (-4.86,-1.26)-- (-4.1,2.02);
+	\draw [line width=2pt] (-3.769011245925197,1.200469236860928)-- (0.203274443468224,1.5654900839943773);
+	\draw [line width=2pt] (0.203274443468224,1.5654900839943773)-- (0.728311335345121,1.7489981238736816);
+	\draw [line width=2pt] (0.203274443468224,1.5654900839943773)-- (-0.028445243397360778,2.7902941431410397);
+	\draw [line width=2pt] (0.203274443468224,1.5654900839943773)-- (0.20327444346822401,-1.26);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (0.15144094643721182,0.7688100561378238) circle (2.029472087834771cm);
+	\draw [line width=2pt] (-3.9301374212444387,2.0521361635483495)-- (-3.769011245925197,1.200469236860928);
+	\draw [line width=2pt] (-3.769011245925197,1.200469236860928)-- (-3.769011245925197,-1.26);
+	\begin{scriptsize}
+	\draw [fill=ududff] (-4.1,2.02) circle (2.5pt);
+	\draw[color=ududff] (-4.036743017658572,2.1953309505921905) node {$A$};
+	\draw [fill=ududff] (0.34,2.86) circle (2.5pt);
+	\draw[color=ududff] (0.4009268472694554,3.0309433748839396) node {$B$};
+	\draw [fill=ududff] (1.78,-1.26) circle (2.5pt);
+	\draw[color=ududff] (1.8449949203173326,-1.0822168107074845) node {$C$};
+	\draw [fill=ududff] (-4.86,-1.26) circle (2.5pt);
+	\draw[color=ududff] (-4.7912280221161705,-1.0822168107074845) node {$D$};
+	\draw[color=black] (-1.3838763890818533,0.36996400432380727) node {$c$};
+	\draw [fill=uuuuuu] (0.203274443468224,1.5654900839943773) circle (2pt);
+	\draw[color=uuuuuu] (0.27112297553481474,1.7247919155541187) node {$E$};
+	\draw [fill=uuuuuu] (-3.769011245925197,1.200469236860928) circle (2pt);
+	\draw[color=uuuuuu] (-3.704120596338555,1.3597185263004419) node {$F$};
+	\draw [fill=uuuuuu] (-1.88,2.44) circle (2pt);
+	\draw[color=uuuuuu] (-1.8138517142028505,2.6009680497629426) node {$X$};
+	\draw [fill=uuuuuu] (-1.54,-1.26) circle (2pt);
+	\draw[color=uuuuuu] (-1.4731165508994188,-1.0984422946743146) node {$Y$};
+	\draw [fill=uuuuuu] (-1.7828684012284866,1.3829796604276527) circle (2pt);
+	\draw[color=uuuuuu] (-1.7164988104018701,1.5381988499355728) node {$M$};
+	\draw [fill=uuuuuu] (-0.028445243397360778,2.7902941431410397) circle (2pt);
+	\draw[color=uuuuuu] (0.03585345801577858,2.949815955049789) node {$P$};
+	\draw [fill=uuuuuu] (0.728311335345121,1.7489981238736816) circle (2pt);
+	\draw[color=uuuuuu] (0.7903384624733774,1.9032722391892496) node {$Q$};
+	\draw [fill=uuuuuu] (0.20327444346822401,-1.26) circle (2pt);
+	\draw[color=uuuuuu] (0.27112297553481474,-1.0984422946743146) node {$R$};
+	\draw[color=black] (-3.1037776895658418,3.01471789091711) node {$\omega_E$};
+	\draw [fill=uuuuuu] (-1.8747179897087687,0.6528923233433481) circle (2pt);
+	\draw[color=uuuuuu] (-1.7895134882526054,0.8323902973784644) node {$O_E$};
+	\draw [fill=uuuuuu] (-3.9301374212444387,2.0521361635483495) circle (2pt);
+	\draw[color=uuuuuu] (-3.8663754360068556,2.2115564345590206) node {$U$};
+	\draw [fill=uuuuuu] (-3.769011245925197,-1.26) circle (2pt);
+	\draw[color=uuuuuu] (-3.704120596338555,-1.0984422946743146) node {$V$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	We first notice that $\angle EPB=\angle BQE=90^{\circ}$ and $P, B, Q, E$ lie on a circle. Using directed angle to prevent case distinction we get 
+	\[
+	\angle(PQ, QE) = \angle(PB, BE)=\angle(AB, BE)
+	\]
+	and similarly 
+	\[
+	\angle(RQ, QE)=\angle(RC, CE)=\angle(DC, CE)
+	\]
+	and therefore 
+	\[
+	\angle(PQ, QR)=\angle(PQ, QE)+\angle(QE, QR)=\angle(AB, BE)+\angle(CE, DC)
+	\]
+	
+	Denote, now, $X$ as midpoint of $AB$ and $Y$ as midpoint of $CD$, which means that $X$ is the center of circle containing $A, B, E, F$. This means 
+	\[
+	\angle(AX, XE)=2\angle(AB, BE)
+	\]
+	and similarly $\angle(DY, YE)=2\angle(DC, CE)$. In addition, line $XY$ is the perpendicular bisector of line $EF$ since $XE=XF$ and $YE=YF$, so $\angle XAE=\angle XME=90^{\circ}$, i.e. $X, A, M, E$ concyclic. 
+	Therefore $\angle(AX, XE)=\angle(PX, XE)=\angle(PM, ME)$, and similarly $\angle(DY, YE)=\angle (RM, ME)$. 
+	
+	If $O_E$ is the center of $\omega_E$, then given that $P, Q, R$ all lie on $\omega_E$ we have 
+	\[
+	\angle(PO_E, O_ER)=2\angle(PQ, QR)=2(\angle(AB, BE)+\angle(CE, DC))
+	=\angle(AX, XE)+\angle(EY, YD)
+	\]\[
+	=\angle(PM, ME)+\angle(EM, MR)=\angle(PM, MR)
+	\]
+	showing that $O_E, P, R, M$ are also concyclic. The fact that $O_EP=O_ER$ means line $MO_E$ is an angle bisector of $\angle PMR$. 
+	
+	Using angle chasing (that is, ditching directed angles and use conventional angles) we also get that each $M$ and $O_E$ are on the same side as $Q$ w.r.t. $PR$ if and only if $\angle PQR<90^{\circ}$, so regardless of $\angle PQR$, $M$ and $O_E$ are always on the same side w.r.t. $PR$. 
+	This means, $MO_E$ will always be external angle bisector of $\angle PMR$. This means that the power of point of $M$ w.r.t. $\omega_E$, which is $MO_E^2-O_EP^2$, is negative. 
+	
+	Let $a=\angle MPR$ and $b=\angle MRP$, and $d$ the diameter of circle $P, Q, O_M, E$. Then $MR=d\sin a$ and $PM=d\sin b$. We would also have $MO_E=d\sin|\frac{a-b}{2}|$ and $OE_P=OE_Q=d\sin\frac{a+b}{2}$. 
+	Therefore, 
+	\[
+	MO_E^2-O_EP^2=d^2(\sin^2|\frac{a-b}{2}|-\sin^2\frac{a+b}{2})
+	=-4d^2\sin\frac{a}{2}\sin\frac{b}{2}\cos\frac{a}{2}\cos\frac{b}{2}
+	\]\[
+	=-d^2\sin a\sin b
+	=-PM\cdot MR
+	\]
+	as desired. 
+	
+	Similarly, if the perpendicular from $F$ to $AB$ and $CD$ are $U$ and $V$ respectively then the power of point from $M$ to $\omega_F$ is $-MU\cdot MV$. Notice that both $EP$ and $FU$ are perpendicular to $AB$, hence parallel to each other. The 'midline' between the two line (that is, the line equidistant to the two aforementioned parallel lines) passes through the midpoint of $EF$ (i.e. $M$), and with $PU$ perpendicular to these parallel lines we have $MP=MU$ and similarly $MR=MV$. Therefore $MP\cdot MR=MU\cdot MV$, so $M$ lies on the radical axis of $\omega_E$ and $\omega_F$, as desired. 
 	
 	\item[\textbf{G5}] Let $ABC$ be a triangle with incenter $I$ and circumcircle $\omega$. Let $D$ and $E$ be the second intersection points of $\omega$ with the lines $AI$ and $BI$, respectively. The chord $DE$ meets $AC$ at a point $F$, and $BC$ at a point $G$. Let $P$ be the intersection point of the line through $F$ parallel to $AD$ and the line through $G$ parallel to $BE$. Suppose that the tangents to $\omega$ at $A$ and at $B$ meet at a point $K$. Prove that the three lines $AE, BD,$ and $KP$ are either parallel or concurrent.
 	
