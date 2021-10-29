@@ -52,6 +52,37 @@
 	This also means that regardless of $n$, the number of $m<n$ with $a_m, b_m,\ge \frac 12$ is bounded by $-\log_{1+c}(c)$ which does not depend on $n$. Hence such $m$'s are also finite. 
 	This means that there exists an $N$ such that for all $n\ge N$ we have $a_n<\frac 12$. This is impossible, since $a_n<\frac 12$ means that $a_{n+1}=a_n+\frac 12>\frac 12$. The desired contradiction proves our statement. 
 	
+	%%%A3%%%
+	\item[\textbf{A3}] For a sequence $x_1,x_2,\ldots,x_n$ of real numbers, we define its $\textit{price}$ as \[\max_{1\le i\le n}|x_1+\cdots +x_i|.\] Given $n$ real numbers, Dave and George want to arrange them into a sequence with a low price. Diligent Dave checks all possible ways and finds the minimum possible price $D$. Greedy George, on the other hand, chooses $x_1$ such that $|x_1 |$ is as small as possible; among the remaining numbers, he chooses $x_2$ such that $|x_1 + x_2 |$ is as small as possible, and so on. Thus, in the $i$-th step he chooses $x_i$ among the remaining numbers so as to minimise the value of $|x_1 + x_2 + \cdots  x_i |$. In each step, if several numbers provide the same value, George chooses one at random. Finally he gets a sequence with price $G$.
+	
+	Find the least possible constant $c$ such that for every positive integer $n$, for every collection of $n$ real numbers, and for every possible sequence that George might obtain, the resulting values satisfy the inequality $G\le cD$.
+	
+	
+	\textbf{Answer.} $c=2$. 
+	
+	\textbf{Solution.} First, we show that $c\ge 2$. For each $n$, consider the set $n$ copies of $1, -1$ each, along with $2n$ and $-(2n-1)$. George will do $1, -1, \cdots , 1, -1$ as part of the Greedy strategy before choosing $-(2n-1)$ and $2n$, making $G=-(2n-1)$. Dave will do $-1, -1, \cdots , -1, 2n, -(2n-1), 1, 1, \cdots , 1$ that will lead to the cumulative value as 
+	\[-1, -2, \cdots , -n, n, -(n-1), -(n-2), \cdots , -1, 0, 1
+	\]
+	so $D=n$. Thus $c\ge \frac{2n-1}{n}=2-\frac{1}{n}$ for each $n$, and therefore $c=2$. 
+	
+	We now show that $G\le 2D$ always holds. Consider the arrangement by George $x_1, \cdots , x_n$ and let $k$ satisfies $|x_1+\cdots + x_k| = G$. W.l.o.g. we may assume that $x_1+\cdots + x_k = G>0$. 
+	\begin{itemize}
+		\item If there exists $x_i$ with $|x_i|\ge G$, then for any number $x$ we have $\max\{|x|, |x_i|\}\ge \frac{|x_i|}{2}$ (with equality when $x=-\frac{x_i}{2}$) so no matter how Dave rearranges, we have $D\ge \frac{G}{2}$. 
+		
+		\item Otherwise, $|x_i| < G$ for all $i$. We claim that $x_1+\cdots + x_n=G$ which then follows that $D=G$. We need to show that $x_{k+1}= \cdots = x_{n} = 0$. Consider, now, the sum $G'=x_1+\cdots +x+{k-1}$ and so $G=G'+x_k$. From $|x_k|<G$ we have $G'>0$. By the maximality of $G$ we also have $G'\le G$. 
+		
+		If $x_i<0$ for some $i>k+1$, from $|x_i|<G$ it means that replacing $x_k$ with $x_{i}$ gives 
+		\[
+		-G = 0 - G < G'-G < x_1+\cdots + x_{k-1}+ x_i < G' < G
+		\]
+		therefore $G'+x_i\in (-G, G)$ so replacing $x_k$ with $x_i$ yields a lower value at this point, which is a contradiction to George's algorithm. 
+		
+		This means $x_k, x_{k+1}, \cdots , x_n$ are all nonnegative. If $x_{k+1}>0$ then $x_{1}+\cdots + x_{k+1}>G$ which again contradicts this maximality, so $x_{k+1}=0$. Iteratively we can show that $x_i=0$ for all $i>k$. 
+		
+	\end{itemize}
+	Summarizing the two cases above yields $D\ge \frac{G}{2}$ must always holds. 
+	
+	%%%A4%%%
 	\item[\textbf{A4}] Determine all functions $f: \mathbb{Z}\to\mathbb{Z}$ satisfying \[f\big(f(m)+n\big)+f(m)=f(n)+f(3m)+2014\] for all integers $m$ and $n$.
 	
 	\textbf{Answer.} The only such function is $f(n)=2n+1007$. \\
@@ -139,16 +170,146 @@
 	These effectively solve for $n=k^2$. 
 	
 	For $n<k^2$, all we need to do is simply extend the chess board from $n$ to $k^2$, put the rooks in the configuration above, and then remove those that do not lie in the first $n\times n$ grid. Now the condition still holds: each $k\times k$ square has at least a rook, and each of the remaining rooks are in different rows and columns. Then iteratively (one by one), we identify a column and a row without a rook, and place one at the intersection of the column and row until we have all $n$ of them. Each $k\times k$ square will still contain a rook since we only add the rooks, not remove them. 
+	
+	\item [\textbf{C6}] We are given an infinite deck of cards, each with a real number on it. For every real number $x$, there is exactly one card in the deck that has $x$ written on it. Now two players draw disjoint sets $A$ and $B$ of $100$ cards each from this deck. We would like to define a rule that declares one of them a winner. This rule should satisfy the following conditions:
+	\begin{enumerate}
+		\item The winner only depends on the relative order of the $200$ cards: if the cards are laid down in increasing order face down and we are told which card belongs to which player, but not what numbers are written on them, we can still decide the winner.
+		
+		\item If we write the elements of both sets in increasing order as $A =\{ a_1 , a_2 , \ldots, a_{100} \}$ and $B= \{ b_1 , b_2 , \ldots , b_{100} \}$, and $a_i > b_i$ for all $i$, then $A$ beats $B$.
+		\item If three players draw three disjoint sets $A, B, C$ from the deck, $A$ beats $B$ and $B$ beats $C$ then $A$ also beats $C$.
+		
+	\end{enumerate}
+	How many ways are there to define such a rule? Here, we consider two rules as different if there exist two sets $A$ and $B$ such that $A$ beats $B$ according to one rule, but $B$ beats $A$ according to the other.
+	
+	\textbf{Answer.} 100. 
+	
+	\textbf{Solution.} Denote $n=100$ here, and we want to define an order $>$ on the sets $A, B\in \mathbb{R}^{n}$ satisfying: 
+	\begin{itemize}
+		\item If $A\cap B=\emptyset$ then either $A>B$ or $B>A$ but not both. (The converse in this case is $<$ sign, provided the sets are disjoint). 
+		
+		\item The three conditions above. 
+	\end{itemize}
+	We claim that there are exactly $n$ ways to order them via the following: choose one $k$ such that $k\in \{1, 2, \cdots , n\}$, and let $A=\{a_1, \cdots , a_n\}$ and $B=\{b_1, \cdots, b_n\}$ be disjoint, ordered in increasing order. Then $A>B$ if and only if $a_k>b_k$. Clearly this ordering fulfills all three conditions above: if we order the $2n$ cards (jointly) we can identify whether $a_k>b_k$ based on the relative positions of $a_k$ and $b_k$ alone, and if $a_k>b_k$ and $b_k>c_k$ then $a_k>c_k$. 
+	
+	To show that these are the only ways, for each $A>B$ we denote $f(A, B)$ as the number of indices $k$ with $a_k>b_k$ (ordered in increasing order, again). That is, 
+	\[
+	f(A, B)|_{A, B} = |\{k: a_k>b_k\}|\qquad A=\{a_1<a_2<\cdots <a_n\}\quad B=\{b_1<b_n<\cdots < b_n\}
+	\]
+	Denote $m=\min\{f(A, B): A>B\}$. From the second condition, if $A>B$ then $a_i>b_i$ for some $i$ so $m\ge 1$. We now show that $m=1$. 
+	
+	Suppose, on the contrary, that $m>1$. Consider, now, $A, B$ with $A>B$ and $f(A, B)=m$. Let $s_0$ be the minimal index satisfying $a_{s_0} > b_{s_0}$ and $s_1>s_0$ be the maximal index satisfying $a_{s_1} > b_{s_1}$. Denote, also: 
+	\[
+	\epsilon = \min\{|a_i-a_j|: i\neq j\}\cup \{|b_i-b_j|: i\neq j\}\cup |\{|a_i-b_j|\}|
+	\]
+	which is positive since $A$ and $B$ are disjoint. 
+	Now denote the sequence $C=\{c_1<\cdots < c_n\}$ as follows: 
+	\begin{itemize}
+		\item For each $i$ with $a_i<b_i$, we denote $c_i=a_i+\frac{\epsilon}{10}$
+		\item $c_{s_0}=b_{s_0}-\frac{\epsilon}{10}$, $c_{s_1}=a_{s_1}+\frac{\epsilon}{10}$. 
+		\item For each $i$ with $a_i>b_i$ and $i\neq s_0, s_1$, denote $c_i=a_i-\frac{\epsilon}{10}$. 
+	\end{itemize}
+	We need to show that the constraint $i<j\to c_i<c_j$ still holds. Indeed, if none of $i, j$ is the same as $s_0, s_1$ then for any $j>i$: 
+	\[
+	c_j-c_i \ge (a_j - \frac{\epsilon}{10})-(a_i + \frac{\epsilon}{10})= (a_j-a_i)-\frac{\epsilon}{5} > \epsilon - \frac{\epsilon}{5} > 0
+	\]
+	since the pairwise difference of the numbers is at least $\epsilon$. 
+	For $s_0$ and $s_1$, we note that: 
+	\[
+	c_{s_1}-c_{s_0}= a_{s_1}-b_{s_0} + \frac{\epsilon}{5} > a_{s_1} - b_{s_0} > a_{s_1} - a_{s_0} = 0
+	\]
+	and for other cases (when $i\neq s_0, s_1$), 
+	\[
+	c_{s_1}-c_i = a_{s_1} - a_i\begin{cases}
+	 > 0 & s_1 > i\\
+	 < 0 & s_1 < i\\
+	\end{cases}
+	\]
+	and finally for the less straightforward case $s_0$, if $i<s_0$ then 
+	\[
+	c_{s_0} - c_i = (b_{s_0} - \frac{\epsilon}{10}) - (a_i + \frac{\epsilon}{10}) < (b_{s_0} - \frac{\epsilon}{10}) - (b_i - \frac{\epsilon}{10}) = b_{s_0} - b_i - \frac{\epsilon}{5} > 0
+	\]
+	since $a_i<b_i$ for all $i<s_0$ due to the minimality of $s_0$, and if $i>s_0$ then 
+	\[
+	c_i-c_{s_0} \ge (a_i - \frac{\epsilon}{10}) - (b_{s_0} - \frac{\epsilon}{10}) > a_i - a_{s_0} > 0
+	\]
+	since $a_{s_0} > b_{s_0}$. This establishes the inequality. 
+	
+	Now we compare $A, C$ and $B$. Notice that if $a_i<b_i$, we have $a_i<c_i<b_i$ (the left inequality is immediate; the second follows from the assumption $b_i-a_i\ge \epsilon > \frac{\epsilon}{5} = c_i-a_i$). Similarly, if $a_i>b_i$ and $i\neq s_0, s_1$ then $a_i>c_i>b_i$ ($m-2$ of the indices here). For $s_0, s_1$ we have the following: 
+	\[
+	a_{s_0} > b_{s_0} > b_{s_0} - \frac{\epsilon}{10} = c_{s_0}\qquad 
+	c_{s_1} = a_{s_1} + \frac{\epsilon}{10} > a_{s_1} > b_{s_1}
+	\]
+	So $a_i>c_i$ on exactly $m-1$ of the indices $i$ (including $s_0$, but not $s_1$), and $c_i>b_i$ on exactly $m-1$ of the indices $i$ (including $s_1$, but not $s_0$). By the minimality of $m$, we have $A<C$ and $C<B$, but then by the third problem condition, $A<B$ must then hold, which is a contradiction. 
+	
+	Thus we have proven that $m=1$, which means there exists $A>B$ and an index $k$ such that $a_i>b_i$ if and only if $i=k$. We show that this holds for all pairs $(A, B)$ satisfying this condition: whenever $A=\{a_1, \cdots , a_n\}$ and $B=\{b_1, \cdots , b_n\}$ with $a_1<\cdots < a_n$ and $b_1<\cdots < b_n$. 
+	This requires the following lemma: 
+	
+	\emph{Lemma}. Provided there exists a $k$ such that $A>B$ with $a_i>b_i$ if and only if $i=k$, then there exists $B'$ satisfying $A>B'$ with each $b'_i$ be: 
+	\begin{itemize}
+		\item arbitrarily close to $b'_i$ for $i<k$
+		\item arbitrarily large for for $i>k$. 
+	\end{itemize}
+	This is, we want to show that $B=\{b_1<\cdots < b_n\}$ (satisfying $a_k<b_k$) be our `target' set, we show there exists $B'=\{b'_1<\cdots < b'_n\}$ with $b_i'>b_i$ for all $i$, and $A>B'$. Specifically, we will define an iterative algorithm 
+	\[
+	A=B_0>B_1>\cdots > B_t
+	\]
+	where $t$ is the number of steps such that $B_t$ satisfies the condition needed for $B'$. For clarity, we also name $b_{u, i}$ as the $i$-th smallest element of $B_u$. 
+	
+	To see how, we recall that there exists $A_0<B_0$ such that $(A_0)_i>(B_0)_i$ only when $i=k$; consider the ordering $O$ of $A_0\cup B_0$ in ascending order. At each step $u$, we consider: 
+	\begin{itemize}
+		\item the greatest index $i_1 < k$ such that $b_{ui_1} < b_{i_1}$ (if exists)
+		\item the greatest index $i_2 > k$ such that $b_{ui_2} < b_{i_2}$ (if exists)
+	\end{itemize}
+	 We show that we can position $b_{(u+1)i}$ such that $b_{(u+1)i}=b_i$ for both $i_1, i_2$, and $(B_u, B_{u+1})$ will satisfy the order $O$ (thereby giving $B_u>B_{u+1})$. 
+	 
+	 We first deal with the case $i_1=k-1$ on the very first step. Observe that we have $b_k<a_k=b_{0k}$ and according to the ordering $O$, $b_{1(k-1)}>b_{0(k-1)}$, so $b_{1(k-1)}$ must be between $b_{0(k-1)}$ and $b_{0(k)}$; we will make both $b_{1(k-1)}$ and $b_{1(k)}$ be arbitrarily close to (still smaller than) $b_{0(k)}$. 
+	 
+	 For $i_2$, if an ordering $O$ were to be fulfilled, then from $b_{ui_2} < b_{(u+1)i_2}$, if there were to be an index $j$ such that $b_{(u+1)i_2}<b_{uj}$ then $j>i_2$. By maximality of $i_2$ we have $b_{uj}>b_j$ so we can make $b_{(u+1)i_2}$ be arbitrarily close to $b_{uj}$ to fulfill $b_{(u+1)i_2}>b_j>b_{i_2}$. 
+	 
+	 For $i_1$, if an ordering $O$ were to be fullfilled, similarly we have $b_{ui_1}<b_{(u+1)i_1}$, if there were to be an index $j$ such that $b_{(u+1)i_1}<b_{uj}$ then $j>i_1$ (possibly, $j=k$). If $j\neq k$, by maximality of $i_1$ we have $b_{uj}>b_j$ so we can make $b_{(u+1)i_1}$ be arbitrarily close to $b_{uj}$ to fulfill $b_{(u+1)i_1}>b_j>b_{i_1}$. The case $j=k$ is dealt with before. 
+	 
+	 Notice that for other $i$, we can just position them arbitrarily as long as they fulfill the condition $O$; if $b_{ui}>b_i$ then $b_{(u+1)i}>b_{ui}>b_i$ for $i\neq k$ will hold and we don't have to worry about that. The only concern is when $i=k$ since $b_{(u+1)k}<b_{uk}$ but since $b_{0k}>b_k$, we just have to make sure that $b_{uk}>b_{k}$ all the time (which is always possible since we only need to be careful of the condition $b_{u(k-1)} < b_{(u+1)(k-1)} < b_{(u+1)k} < b_{uk}$ and so long as $b_{uk} > b_k$, we can make sure the same for $b_{(u+1)k}$). 
+	 
+	 Finally, now that we have the lemma, consider $A$ and $B$ such that, when arranged in ascending order, $a_i>b_i$ if and only if $i=k$. Choose $B'$ such that $b'_i>b_i$ for all $i$, and such that $A>B'$ (as per above). By the second condition, $B'>B$ and therefore $A>B$, as desired. 
 \end{enumerate}
 
 \section*{Geometry}
 \begin{enumerate}
+	%%%G1%%%
 	\item [\textbf{G1}] (IMO 4) Let $P$ and $Q$ be on segment $BC$ of an acute triangle $ABC$ such that $\angle PAB=\angle BCA$ and $\angle CAQ=\angle ABC$. Let $M$ and $N$ be the points on $AP$ and $AQ$, respectively, such that $P$ is the midpoint of $AM$ and $Q$ is the midpoint of $AN$. Prove that the intersection of $BM$ and $CN$ is on the circumference of triangle $ABC$.
 	
 	\textbf{Solution.} We need to prove that $\angle CBM + \angle BCN = \angle BAC$. 
 	Notice that the triangle $ABC$ is similar to both $QAC$ and $PBA$, so we have $\frac{QN}{QC}=\frac{QA}{QC}=\frac{PB}{PA}=\frac{PB}{PM}$. 
 	Coupled with the fact that $\angle APB = \angle AQC = \angle BAC$ we have $\angle CQN = \angle BPM$, so the triangles $QNC$ and $PBM$ are similar, meaning that $\angle CBM + \angle BCN = \angle QNC + \angle QCN = 180^{\circ} - \angle CQN = \angle AQC = \angle BAC$, as desired. 
 	
+	%%%G2%%%
+	\item [\textbf{G2}] Let $ABC$ be a triangle. The points $K, L,$ and $M$ lie on the segments $BC, CA,$ and $AB,$ respectively, such that the lines $AK, BL,$ and $CM$ intersect in a common point. Prove that it is possible to choose two of the triangles $ALM, BMK,$ and $CKL$ whose inradii sum up to at least the inradius of the triangle $ABC$.
+	
+	\textbf{Solution.} Let $A_B$ on line $AB$ and $A_C$ on line $AC$ such that $AA_BA_C$ and $ALM$ has the same incircle, and that $A_BA_C\parallel BC$. Define $B_A, B_C, C_A, C_B$ similarly. For each triangle $ABC$ denote $f(ABC)$ the inradius of triangle $ABC$. We have 
+	\[
+	\frac{AA_B}{AB}=\frac{AA_C}{AC}=\frac{f(AA_BA_C)}{f(ABC)}
+	\]
+	and if the conclusion is false, then we have $\frac{AA_B}{AB}+\frac{BB_A}{AB} < 1$, or $AA_B+BB_A<AB$. Similarly, $BB_C+CC_B<BC$ and $AA_C+CC_A<AC$. This means $B, B_C, C_B, C$ are on $BC$ in that order, and similarly for $A, A_B, B_A, B$ on $AB$, and $A, A_C, C_A, C$ on $AC$. 
+	
+	Now, if $K$ is on segment $B_CC_B$, then since $BK>BB_C$ and $BKM$ and $BB_AB_C$ share the same incircle, we have $BM < BB_A$ and similarly $CL < CC_B$. This means $AM > AB_A > AA_B$ and $AL > AC_A > AA_C$. This contradicts the fact that $ALM$ and $AA_BA_C$ have the same incircle. 
+	
+	Therefore $K$ lies either on segment $BB_C$ and $CC_B$. In the first case that $K$ on $BB_C$, we have $M$ on $AA_B$ and $L$ on $CC_A$. Since $AK, BL, CM$ intersect in a common point, we have 
+	\[
+	\frac{AM}{MB}\cdot \frac{BK}{KC}\cdot \frac{CL}{LA} = 1
+	\]
+	and since $AM < AA_B$ and $MB < BA_B$ (similarly for others), we have 
+	\[
+	\frac{AA_B}{BA_B}\cdot \frac{BB_C}{CB_C}\cdot \frac{CC_A}{AC_A} > 1
+	\]
+	which means the product of the two of above is $>1$. W.l.o.g. we assume $\frac{AA_B}{BA_B}\cdot \frac{BB_C}{CB_C} > 1$. This means: 
+	\[
+	\frac{AA_B}{AB-AA_B}\cdot \frac{BB_C}{CB - BB_C} > 1\;\to
+	\;
+	\frac{AA_B/AB}{1-AA_B/AB}\cdot \frac{BB_C/BC}{1 - BB_C/BC} > 1
+	\]
+	which then translates into $\frac{AA_B}{AB}+\frac{BB_C}{BC}>1$. But this means $f(AA_BA_C)+f(BB_AB_C) > 1$, contradiction. 
+	
+	%%%G3%%%
 	\item [\textbf{G3}] Let $\Omega$ and $O$ be the circumcircle and the circumcentre of an acute-angled triangle $ABC$ with $AB > BC$. The angle bisector of $\angle ABC$ intersects $\Omega$ at $M \ne B$. Let $\Gamma$ be the circle with diameter $BM$. The angle bisectors of $\angle AOB$ and $\angle BOC$ intersect $\Gamma$ at points $P$ and $Q,$ respectively. The point $R$ is chosen on the line $P Q$ so that $BR = MR$. Prove that $BR\parallel AC$.
 	(Here we always assume that an angle bisector is a ray.)
 	
@@ -158,6 +319,27 @@
 	
 	By Brokard's theorem, taking the point of infinity $P_{\infty}$ determined by the parallel lines $PQ_1$ and $QP_1$, we have $R$ as the polar of the line $OP_{\infty}$ (i.e. the line through $O$ parallel to $BM$). Consider, now, the lines $BR$ and $MR$ and let them intersect $\Gamma$ again at $B_1$ and $M_1$. Since $BR=MR$, we also have $BM\parallel B_1M_1$. Also by above (Brokard's theorem again), $MB_1$ and $BM_1$ intersect at $O$. Now $\angle MB_1B=90^{\circ}$, so $BM_1$ (i.e. line $BR$) is perpendicular to $MB_1$, i.e. $MO$. But $AC$ is also perpendicular to $MO$ since $M$ is the midpoint of arc $AC$, so $AC\parallel BR$. Q.E.D. 
 	
+	%%%G4%%%
+	\item [\textbf{G4}] Consider a fixed circle $\Gamma$ with three fixed points $A, B,$ and $C$ on it. Also, let us fix a real number $\lambda \in(0,1)$. For a variable point $P \not\in\{A, B, C\}$ on $\Gamma$, let $M$ be the point on the segment $CP$ such that $CM =\lambda\cdot  CP$ . Let $Q$ be the second point of intersection of the circumcircles of the triangles $AMP$ and $BMC$. Prove that as $P$ varies, the point $Q$ lies on a fixed circle.
+	
+	\textbf{Solution.} Invert w.r.t. $C$, then the problem formulation goes into the following: 
+	
+	Consider points $A, B, C$ that are not collinear, and $P$ variable line on line $AB$, and $M$ on line $CP$ with $CM=\frac{1}{\lambda}CP$. Let $Q$ be the second point of intersection of circle $AMP$ and line $BM$. Prove that as $P$ varies, $Q$ lies on a fixed circle. 
+	
+	Now, power of point theorem gives us $BP\cdot BA=BM\cdot BQ$ with $Q, M$ lie on the same side of $B$ iff $P, A$ lie on the same side of $B$. Thus, using signed length notation we have $BQ = BA\cdot \frac{BP}{BM}$ where we fix $BP>0$ iff $P, A$ lie on the same side of $B$. 
+	
+	Considering the triangle $BPC$ and the Cevian $BM$, we get (ignoring signed convention for now)
+	\[
+	1 - \lambda = \frac{1/\lambda - 1}{1/\lambda} = \frac{PM}{MC} = \frac{BP\sin\angle CBP}{BM\sin\angle CBM}
+	\]
+	and therefore 
+	\[
+	BQ = BA\cdot \frac{BP}{BM} = BQ = BA\cdot (1-\lambda) \cdot \frac{\sin\angle CBM}{\sin\angle CBP}
+	= BA\cdot (1-\lambda) \cdot \frac{\sin\angle CBM}{\sin\angle CBA}
+	\]
+	and if we do care about sign notation, we can make $BP$ positive (that is, in the direction of ray $BA$) if and only if $\angle CBM$ is positive (that is, $A$ is in the angle domain of $\angle CBM$ or equivalently, $M$ and $A$ are on the same side w.r.t. $CB$). In either case (where $M$ and $A$ are on the same side w.r.t. $CB$), $Q$ will be on the same side as $A$ w.r.t. $CB$ (since, in case $BP<0$, $M$ will be on different side as $A$ w.r.t. $CB$ but then $Q$ and $M$ are on different side w.r.t. $B$, on the line $BM$). TThus we have $BQ=\sin\angle CBM\cdot [BA\cdot \frac{(1-\lambda)}{\sin\angle CBA}]$. Name $BA\cdot \frac{(1-\lambda)}{\sin\angle CBA}=\gamma$, then $BQ$ will be on a circle passing through $B$, tangent to $BC$ and has $A$ on the same side as the circle w.r.t. $BC$, and has diamater $\gamma$, as desired (notice that this $\gamma$ does not depend on $P$). 
+	
+	%%%G5%%%
 	\item [\textbf{G5}] (IMO 3) Convex quadrilateral $ABCD$ has $\angle ABC = \angle CDA = 90^{\circ}$. Point $H$ is the foot of the perpendicular from $A$ to $BD$. Points $S$ and $T$ lie on sides $AB$ and $AD$, respectively, such that $H$ lies inside triangle $SCT$ and \[
 	\angle CHS - \angle CSB = 90^{\circ}, \quad \angle THC - \angle DTC = 90^{\circ}. \] Prove that line $BD$ is tangent to the circumcircle of triangle $TSH$.
 	
@@ -183,10 +365,115 @@
 	\]
 	but then $\frac{\sin\angle NCD}{\sin\angle NCB} = \frac{\sin\angle CDN}{\sin\angle CBN}$ if and only if $\frac{\sin\angle NCD}{\sin\angle CDN} = \frac{\sin\angle NCB}{\sin\angle CBN}$. The first ratio is (sine rule again) the same as $\frac{NB}{NC}$ and the second, $\frac{ND}{NC}$, so all we need now is $NB=ND$. 
 	To see why this is true, let $L$ be the midpoint of $AC$. Then since $\angle B=\angle D=90^{\circ}$, $L$ is the circumcenter of the qudrilateral $ABCD$, and hence $LB=LD$. Since $N$ is the midpoint of $CH$ we also have $AH\parallel NL$, meaning that $NL\perp BD$. But since $L$ is on the perpendicular bisector of $BD$, so is $N$, and therefore $NB=ND$. Q.E.D. 
+	
+	%%%G6%%%
+	\item[\textbf{G6}] Let $ABC$ be a fixed acute-angled triangle. Consider some points $E$ and $F$ lying on the sides $AC$ and $AB$, respectively, and let $M$ be the midpoint of $EF$ . Let the perpendicular bisector of $EF$ intersect the line $BC$ at $K$, and let the perpendicular bisector of $MK$ intersect the lines $AC$ and $AB$ at $S$ and $T$ , respectively. We call the pair $(E, F )$ $\textit{interesting}$, if the quadrilateral $KSAT$ is cyclic.
+	Suppose that the pairs $(E_1 , F_1 )$ and $(E_2 , F_2 )$ are interesting. Prove that $\displaystyle\frac{E_1 E_2}{AB}=\frac{F_1 F_2}{AC}$
+	
+	\textbf{Solution.} TODO
+	
+	%%%G7%%%
+	\item[\textbf{G7}] Let $ABC$ be a triangle with circumcircle $\Omega$ and incentre $I$. Let the line passing through $I$ and perpendicular to $CI$ intersect the segment $BC$ and the arc $BC$ (not containing $A$) of $\Omega$ at points $U$ and $V$ , respectively. Let the line passing through $U$ and parallel to $AI$ intersect $AV$ at $X$, and let the line passing through $V$ and parallel to $AI$ intersect $AB$ at $Y$ . Let $W$ and $Z$ be the midpoints of $AX$ and $BC$, respectively. Prove that if the points $I, X,$ and $Y$ are collinear, then the points $I, W ,$ and $Z$ are also collinear.
+	
+	\textbf{Solution.} We assume that $I, X, Y$ is collinear. Then $X$ is the intersection of lines $IY$ and $AV$. We also have $VY\parallel AI$ and therefore if lines $AB$ and $IV$ intersect at $P$ we get 
+	\[
+	\frac{PV}{PI} = \frac{YV}{AI} = \frac{VX}{XA} = \frac{VU}{UI}
+	\]
+	where the first and second equality are due to $VY\parallel AI$, the third due to $UX \parallel AI$. Therefore, $(P, V; U, I)$ is a harmonic bundle, and so is the set of lines $(BA, BV; BC, BI)$ (we recognize that $BP$ is $BA$ and $BU$ is $BC$), which then gives 
+	\[
+	\frac{\sin\angle ABV}{\sin\angle ABI} = \frac{\sin\angle VBC}{\sin\angle CBI}
+	\]
+	Now, let $BI$ intersect $\Omega$ again at $M$, which is then the midpoint of arc $AC$ not containing $B$. The equality above translates into 
+	\[
+	\frac{AV}{AM}=\frac{VC}{CM}
+	\]
+	by considering the angle subtended by each chord of $\Omega$. Since $AM=CM$, we have $VA=VC$. 
+	
+	Now that $BI$ intersects $\Omega$ again at $M$, we have $MA=MI=MC$. If $N$ were to be the midpoint of $VC$ then from $\angle VIC=90^{\circ}$, $I$ is simply the second intersection (other than $C$) of the circles with diameter $VC$ (and center $N$), and circle with center $M$ and radius $MA=MC$. 
+	
+	We first show thst $Z, I, N$ are collinear. Notice that $VM$ is the diameter of $\Omega$, so $\angle VBM=90^{\circ}$, so $VB$ and $NI$ are both perpendicular to $IM$ (and hence parallel to each other). 
+	From $VN=NC$ we have $NI$ bisects the segment $BC$, hence passes throguh $Z$, the midpoint of $BC$, as desired. 
+	
+	Thus it suffices to show that $N, I, W$ are collinear. Indeed, let $W'$ be the intersection of lines $NI$ and $AV$. From $NI$ perpendicular to $IM$, and $\angle VAM=\angle VCM$ we have $VA, VC, NI$ tangent to the circle $IAC$, which means this circle $IAC$ is an excircle of $VW'N$. We also notice that (since $W'AMI$ is cyclic). 
+	\[
+	\angle W'AM = \angle W'IA=\angle W'AI=\angle VAI = \angle ICA
+	\]
+	the last equality is due to that $VA$ tangent to circle $IAC$. Therefore we have 
+	\[
+	\frac{W'A}{VA}=\frac{W'A/AM}{VA/AM}=\frac{\tan\angle W'MA}{\tan\angle VMA}=\frac{\tan\angle ICA}{\tan\angle VMA}=\frac{\tan\angle ICA}{\tan\angle VMC}
+	\]
+	meanwhile we also have $\angle UCI=\angle BCI=\angle ICA$ and $\angle VCI=\angle NCI=\angle NMI=\angle NMC$ (we have $NI=NC, IM=MC$ and $\angle NIM=\angle NCM=90^{\circ}$). 
+	Combined with $UX\parallel IA$, we have 
+	\[
+	\frac{AX}{AV}=\frac{UI}{VI}=\frac{UI/IC}{VI/IC} = \frac{\tan\angle UCI}{\tan\angle VCI} = \frac{\tan\angle ICA}{\tan\angle NMC}
+	\]
+	Therefore, we have 
+	\[
+	\frac{AW'}{AX}=\frac{\tan\angle ICA}{\tan\angle VMA}\div \frac{\tan\angle ICA}{\tan\angle NMC} = \frac{\tan\angle NMC}{\tan\angle VMC}=\frac{NC/MC}{VC/MC}=\frac{NC}{VC}=\frac 12
+	\]
+	which then $W'$ is the midpoint of $AX$. This gives $W=W'$, as desired. 
+	
 \end{enumerate}
 
 \section*{Number Theory}
 \begin{enumerate}
+	\item [\textbf{N1}] Let $n \ge 2$ be an integer, and let $A_n$ be the set \[A_n = \{2^n  - 2^k\mid k \in \mathbb{Z},\, 0 \le k < n\}.\] Determine the largest positive integer that cannot be written as the sum of one or more (not necessarily distinct) elements of $A_n$ .
+	
+	\textbf{Answer.} $(n-2)2^n+1$. 
+	
+	\textbf{Solution.} Let $f(n)$ be the answer w.r.t. $n$. We show that $f(n)=2f(n-1)+2^n-1$ for all $n$, and that $f(2)=1$. This way, the general formula can be obtained using induction since
+	\[
+	f(n)=2f(n-1)+2^n-1 + (n-3)2(2^{n-1})+2^n-1 = (n-2)2^n+1
+	\]
+	To show that $f(2)=1$, we have $A_2=\{2, 3\}$ so 1 cannot be represented while any even number $k$ can be represented as $\frac{k}{2}\times 2$ and odd number $k\ge 3$ can be represented as $\frac{k-3}{2}\times 2 + 3$. 
+	
+	Now, we first show that $(n-2)2^n+1$ cannot be represented in the form above. Consider $a_1, a_2, \cdots , a_k$ such that 
+	\[
+	(n-2)2^n+1 = \dsum_{i=1}^k (2^n-2^{a_i}) = k2^n-(\dsum_{i=1}^k 2^{a_i})
+	\]
+	We have $\dsum_{i=1}^k 2^{a_i}\equiv -1\pmod{2^n}$ and $i< n$. 
+	Let's proceed to the following lemma: 
+	
+	\emph{Lemma}. Let $C_n(x)$ be the number of ones in the $n$ rightmost positions of the binary representation of $x$, and let $x=\dsum_{i=2}^k 2^{a_i}$, with $0\le a_i \le n$. Then the minimal such $k$ is $ \lfloor \frac{x}{2^{n}}\rfloor + C_{n}(x-2^{n}\lfloor \frac{x}{2^{n}}\rfloor)$ (notice $x-2^{n}\lfloor \frac{x}{2^{n}}\rfloor$ is the remainder of $x$ when divided by $2^{n}$). Denote $g_n(x)$ as the minimal such $k$ for each $n$ and $x$. 
+	
+	Proof: we do induction on both $n$ and $x$. For base case $n=0$, we have $C_0(x)=0$ for all $x$ and since adding 1 is the only choice, $g_0(x)=x$ for all $x$. Now consider the task of finding $g_n(x)$ and suppose $g_m(y)$ holds true for all $m\le n$, $y\le x$ with $(m, y)\neq (n, x)$. Notice the fact that $g_m(y+1)\le g_m(y)+1$ (given we can simply add 1 to go from $y$ to $y+1$). 
+	\begin{itemize}
+		\item If $x$ is even, then using exactly $2k$ ones means $g_n(x)=\min\{2k+g_{n-1}(x)(\frac{x-2k}{2})\}$. By above, $g_{n-1}(\frac{x}{2})\le g_{n-1}(x)(\frac{x-2k}{2})+k$ so $2k+g_{n-1}(\frac{x}{2})(\frac{x-2k}{2})\ge k+g_{n-1}(x)$. It therefore follows that the optimal answer is when $k$ is 0, so $g_{n}(x)=g_{n-1}(\frac{x}{2})$. We notice that: 
+		\[
+		\frac{x}{2^{n}} = \frac{x/2}{x^{n-1}}\qquad C_{n}(x-\lfloor\frac{x}{2^{n}}\rfloor)=C_{n-1}(x/2-\lfloor\frac{x/2}{2^{n-1}}\rfloor)
+		\]
+		(the equality by $C_n$ is simply because the rightmost $n$ digits of binary representation of $x$ is simply that of rightmost $n-1$ of $x/2$, and append a 0). 
+		so the conclusion follows. 
+		
+		\item If $x$ is odd, then similarly we have $g_n(x)=1+g_{n-1}(\frac{x-1}{2})$, and we have 
+		\[
+		\lfloor\frac{x}{2^{n}}\rfloor = \lfloor\frac{(x-1)/2}{x^{n-1}}\qquad\rfloor C_{n}(x-\lfloor\frac{x}{2^{n}}\rfloor)=C_{n-1}((x-1)/2-\lfloor\frac{(x-1)/2}{2^{n-1}}\rfloor)+1
+		\]
+		(the equality by $C_n$ is simply because the rightmost $n$ digits of binary representation of $x$ is simply that of rightmost $n-1$ of $(x-1)/2$, and append a 1). 
+	\end{itemize}
+	
+	The conclusion then follows. 
+	
+	Going back to the equation, we have $(n-2)2^n+1 = k2^n-(\dsum_{i=1}^k 2^{a_i})$ with $(\dsum_{i=1}^k 2^{a_i})=c\cdot 2^n-1$ for some $c\ge 1$. By the lemma above, we need $k\ge n + (c-1)$ so we have 
+	\[
+	(n-2)2^n+1=
+	k2^n-(\dsum_{i=1}^k 2^{a_i})
+	\ge (n+c-1)2^n - c\cdot 2^n + 1
+	=(n-1)2^n+1
+	\]
+	which is a contradiction. 
+	
+	Now we show that any number bigger than $f(n)=(n-2)2^n+1$ can be represented in the required form. If $x$ is even, then it suffices to show that $\frac{x}{2}$ can be representation as sum of $A_{n-1}$ (and then double each summand to get the required form in $A_n$). We now have 
+	\[
+	\frac{x}{2}\ge (n-2)2^{n-1}+1>(n-1)2^{n-1}+1
+	\]
+	as desired. For $x$ odd, we show the same thing for $\frac{x-(2^n-1)}{2}$. Now 
+	\[
+	\frac{x}{2}> \frac{(n-2)2^{n}+1-(2^n-1)}{2}=(n-3)2^{n-1}+1=f_{n-1}(x)
+	\]
+	therefore proving out conclusion. 
+
+	
 	\item [\textbf{N2}] Determine all pairs $(x, y)$ of positive integers such that \[\sqrt[3]{7x^2-13xy+7y^2}=|x-y|+1.\]
 	
 	\textbf{Answer.} $\{x, y\}=\{1, 1\}$ and $\{c^3+c^2-2c-1, c^3+2c^2-c-1\}$. \\
