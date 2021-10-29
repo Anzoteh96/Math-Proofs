@@ -1,0 +1,141 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solution to APMO 2021 Problems}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\begin{enumerate}
+	\item [\textbf{Problem 1.} ]Prove that for each real number $r>2$, there are exactly two or three positive real numbers $x$ satisfying the equation $x^2=r\lfloor x \rfloor$.
+	
+	\textbf{Solution}. We consider the ratio $\frac{x^2}{\lfloor x\rfloor}$ for each $x\ge 1$, and use the fact that $x=\lfloor x\rfloor +\{x\}$ where $0\le \{x\}<1$ is the fractional part of $x$. Now, 
+	\[
+	\frac{x^2}{\lfloor x\rfloor}=\frac{(\lfloor x\rfloor +\{x\})^2}{\lfloor x\rfloor} = \lfloor x\rfloor+2\{x\}+\frac{\{x\}^2}{\lfloor x\rfloor}
+	\]
+	Fixing $\lfloor x\rfloor$, this ratio lies in the range $[\lfloor x\rfloor, \lfloor x\rfloor+2+\frac{1}{\lfloor x\rfloor})$, and strictly increases with $\{x\}$. Therefore for each $r$ in $[\lfloor x\rfloor, \lfloor x\rfloor+2+\frac{1}{\lfloor x\rfloor})$ there is exactly one $x$ satisfying the quantity. 
+	
+	Therefore for each $r$, if integer $k$ is such that $k\le r< k+1$, or $k+1\le r<k+2$, then there's exactly one $x$ with $k\le x<k+1$ with $x^2=r\lfloor x\rfloor$ (in other words, $k=\lfloor r\rfloor$ or $\lfloor r\rfloor-1$). For $k+2\le r<k+3$ (i.e. $k=\lfloor r\rfloor-2$) there may or may not be solution in this range). $k$ in other range will not work. This means that two or three positive real $x$ satisfies the given condition. 
+	
+	\item [\textbf{Problem 2.}] For a polynomial $P$ and a positive integer $n$, define $P_n$ as the number of positive integer pairs $(a,b)$ such that $a<b \leq n$ and $|P(a)|-|P(b)|$ is divisible by $n$. Determine all polynomial $P$ with integer coefficients such that $P_n \leq 2021$ for all positive integers $n$.
+	
+	\textbf{Answer.} The two families of solutions are: 
+	
+	\begin{itemize}
+		\item $-x+d$, $d\le 2022$
+		\item $x+d$, $d\ge -2022$
+	\end{itemize}
+
+	\textbf{Solution.} The key is to show that $|P(n+1)-P(n)|=1$ for all $n$. There are two main facts of polynomials with integer coefficients that we'll use: 
+	\begin{itemize}
+		\item Whenever $m\neq n$ are integers, we have $m-n\mid P(m)-P(n)$. 
+		
+		\item There's a constant $n_0$ such that either $P(n)>0$ for all $n\ge n_0$, or $P(n)<0$ for all $n\ge n_0$ (depending on the sign of the leading coefficient), with the exception of the zero polynomial. 
+	\end{itemize}
+	
+	Suppose there's $n$ and $n+1$ such that $|P(n+1)-P(n)|\neq 1$, then there exists $d>1$ such that $d|P(n+1)-P(n)$. By replacing $n$ with $n-dx$ for any $x$, and using the first property about integer polynomials, we can assume that $0\le n<d$. 
+	
+	Consider an arbitrary $k$ and suppose that $P(n)$ and $P(n+1)$ are both congruent to $m$ mod $d$. 
+	Then 
+	\[
+	\{P(dx+n), P(dx+n+1)|x=0, 1, \cdots , k-1\}\equiv \{m, d+m, \cdots , (k-1)d+m\}\pmod{kd}
+	\]
+	W.l.o.g. assume that the leading coefficient of $P$ is positive, which means that there exists an $x_0$ such that $P(dx+n)$ and $P(dx+n+1)$ are both positive for all $x\ge x_0$. 
+	This will give us 
+	\[
+	\{|P(dx+n)|, |P(dx+n+1)|:x=x_0, x_0+1, \cdots , k-1\}\equiv \{m, d+m, \cdots , (k-1)d+m\}\pmod{kd}
+	\]
+	which would make sense so long as $k\ge x_0$. 
+	
+	Now let $a_y=|\{x_0\le x\le k-1: |P(dx+n)|\equiv dy+m\}\cup\{x_0\le x\le k-1: |P(dx+n+1)|\equiv dy+m\}|$ (notice that the two sets $dx+n$ and $dx+n+1$ are disjoint since $d>1$). 
+	We have $\dsum_{y=0}^{k-1} a_y = 2(k-x_0)$, and the number of pairs with similar congruence modulo $dk$ is given by 
+	\[
+	\dsum_{y=0}^{k-1}\dbinom{a_y}{2} = \dsum_{y=0}^{k-1}\frac{a_y^2-a_y}{2}
+	= \dsum_{y=0}^{k-1}\frac{a_y^2}{2}-(k-x_0)
+	\ge \frac{2(k-x_0)^2}{k}-(k-x_0)
+	\ge k- 3x_0
+	\]
+	with the use of AM-GM insequality. Since this works for any $k\ge x_0$, choosing $k$ with $k>3x_0+2021$ yields the number of such pairs more than 2021. 
+	
+	Thus we're now restricted to $|P(n+1)-P(n)|=1$, and since $P$ is a polynomial, it follows that $P$ must be linear and must have form $x+d$ or $-x+d$. W.l.o.g. consider the case $x+d$. If $d\ge 0$ then $P(1), \cdots , P(n)>0$ and $|P(k)|$ will leave $n$ distinct remainders modulo $n$ for $k=1, 2, \cdots , n$. Otherwise, the numbers 1, 2, $\cdots , |d|-1$ will appear twice in $|P(1)|, \cdots , |P(n)|$ for $n$ sufficiently large, which follows that the polynomial is valid iff $d\ge -2022$. A similar conclusion can be drawn to case $-x+d$. 
+	
+	\item [\textbf{Problem 3.}] Let $ABCD$ be a cyclic convex quadrilateral and $\Gamma$ be its circumcircle. Let $E$ be the intersection of the diagonals of $AC$ and $BD$. Let $L$ be the center of the circle tangent to sides $AB$, $BC$, and $CD$, and let $M$ be the midpoint of the arc $BC$ of $\Gamma$ not containing $A$ and $D$. Prove that the excenter of triangle $BCE$ opposite $E$ lies on the line $LM$.
+	
+	\textbf{Solution.} We have $MB=MC$, so there's a circle $\Omega$ that's tangent to both $MB$ and $MC$. Let $I$ be the excenter of $BCE$ opposite $E$. We claim that $IB$ and $CL$, as well as $IC$ and $BL$, intersect on $\Omega$. For clarity let $IB$ and $CL$ intersect at $X$, and $IC$ and $BL$ intersect at $Y$. 
+	
+	Now, we have the following: 
+	\[
+	\angle LBI = \angle LBC + \angle CBI = \frac 12 \angle ABC + 90^{\circ}-\frac 12 \angle EBC = 90^{\circ}+\frac 12 \angle ABD
+	\]
+	and similarly $\angle LCI = 90^{\circ}+\frac 12\angle DCA$. 
+	
+	By the definition of $L$, we also have 
+	\[
+	\angle BLC=180^{\circ}-\angle LBC-\angle LCB = 180^{\circ} - \frac 12 \angle ABC-\angle DCB
+	\]
+	So 
+	\[
+	\angle LBI+\angle BLC=270^{\circ} - \frac 12 (\angle ABC+\angle DCB-\angle DCA)=270^{\circ} - \frac 12(\angle ABC+ACB)=180^{\circ}+\frac 12 BAC
+	\]
+	which means that $X$ is on the other side of $BL$ than $I$ with $\angle BXL=\frac 12 BAC$ and similarly $\angle CYL=\frac 12 BDC$, But since $\angle BAC=\angle BDC$, these angles are also equal. With $\angle MBC=\angle MCB=90^{\circ}-\frac 12 \angle BMC=\frac 12 BAC=\frac 12 BDC$, the claim follows. 
+
+	%\pgfplotsset{compat=1.15}
+	\usetikzlibrary{arrows}
+		\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+		\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+		\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+		\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm, scale=0.3]
+		\clip(-20.350807274915752,-17.36591406285062) rectangle (25.126777849026,14.926629746640266);
+		\draw [line width=2pt] (-0.5971265407667082,-0.6553722880082715) circle (3.916266003144516cm);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-0.45331880689275106,3.258252469561564) circle (6.1389093538708215cm);
+		\draw [line width=2pt] (0.11571606875778952,-13.424096418645677)-- (-6.532938537571641,4.109388172832559);
+		\draw [line width=2pt] (5.135496356715496,5.79820387107798)-- (0.11571606875778952,-13.424096418645677);
+		\draw [line width=2pt] (-6.532938537571641,4.109388172832559)-- (3.18,-1.69);
+		\draw [line width=2pt] (-4.44,-1.41)-- (5.135496356715496,5.79820387107798);
+		\draw [line width=2pt] (-4.44,-1.41)-- (-0.740934274640666,-4.568997045578107);
+		\draw [line width=2pt] (-0.740934274640666,-4.568997045578107)-- (3.18,-1.69);
+		\draw [line width=2pt] (0.33933088913471776,3.147282953973039)-- (-4.44,-1.41);
+		\draw [line width=2pt] (-3.64,1.81)-- (3.18,-1.69);
+		\begin{scriptsize}
+		\draw [fill=ududff] (-3.64,1.81) circle (2.5pt);
+		\draw[color=ududff] (-3.2750980316106277,2.757485058057021) node {$A$};
+		\draw [fill=ududff] (-4.44,-1.41) circle (2.5pt);
+		\draw[color=ududff] (-4.096461261035431,-0.48473821598824873) node {$B$};
+		\draw [fill=ududff] (3.18,-1.69) circle (2.5pt);
+		\draw[color=ududff] (3.511956022057485,-0.7441160779118704) node {$C$};
+		\draw [fill=xdxdff] (0.33933088913471776,3.147282953973039) circle (2.5pt);
+		\draw[color=xdxdff] (0.7020291845515784,4.097604011329066) node {$D$};
+		\draw [fill=uuuuuu] (-1.9647378469573114,0.9502613584091774) circle (2pt);
+		\draw[color=uuuuuu] (-1.6323715727610209,1.8064328976704087) node {$E$};
+		\draw [fill=uuuuuu] (0.11571606875778952,-13.424096418645677) circle (2pt);
+		\draw[color=uuuuuu] (0.44265132262795626,-12.589038439090588) node {$I$};
+		\draw [fill=uuuuuu] (-1.2768896025201375,0.9711136010480542) circle (2pt);
+		\draw[color=uuuuuu] (-0.9406972742980283,1.8064328976704087) node {$L$};
+		\draw [fill=uuuuuu] (-6.532938537571641,4.109388172832559) circle (2pt);
+		\draw[color=uuuuuu] (-6.171484156424408,4.962196884407804) node {$X$};
+		\draw [fill=uuuuuu] (5.135496356715496,5.79820387107798) circle (2pt);
+		\draw[color=uuuuuu] (5.500519630138587,6.648152986911344) node {$Y$};
+		\draw [fill=uuuuuu] (-0.740934274640666,-4.568997045578107) circle (2pt);
+		\draw[color=uuuuuu] (-0.3787119067968472,-3.7269614900335184) node {$M$};
+		\end{scriptsize}
+		\end{tikzpicture}
+	
+	Now with the claim, we can finish the solution: now that $BCYX$ is cyclic with circumcircle $\Omega$, we consider the line $IL$, which, by Brokard's theorem, its pole is the intersection of $XY$ and $BC$ (say, $Z$). Meanwhile, $MB$ and $MC$ are tangeent to $\Omega$ so $M$'s polar is $BC$. We have $Z$ lies on $BC$ by definition, so by La Hire's theorem, $Z$'s polar (i.e. $LI$) contains $BC$'s pole (i.e. $M$). 
+\end{enumerate}
+\end{document}
