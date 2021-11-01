@@ -37,11 +37,29 @@
 	Now that $u_n = \dsum_{\{x_1, \cdots , x_k\}\in S_{n-1}}\dprod_{i=1}^k a_{x_i}$, we can deduce similarly that \[v_n = \dsum_{\{x_1, \cdots , x_k\}\in S_{n-1}}\dprod_{i=1}^k a_{n - x_i}
 	= \dsum_{\{n - x_1, \cdots , n - x_k\}\in S_{n-1}}\dprod_{i=1}^k a_{x_i}
 	\]
-	But then $\{x_1, \cdots , x_k\}\in S_{n-1}\}$ iff $\{n - x_1, \cdots , n - x_k\}\in S_{n-1}$ by symmetry, so the coefficient of $a_{x_1}\cdots a_{x_k}$ of $u_n$ and $v_n$ are both equal regardless of the combinations of $x_i$'s. THis proves that $u_n$ and $v_n$. 
+	But then $\{x_1, \cdots , x_k\}\in S_{n-1}\}$ iff $\{n - x_1, \cdots , n - x_k\}\in S_{n-1}$ by symmetry, so the coefficient of $a_{x_1}\cdots a_{x_k}$ of $u_n$ and $v_n$ are both equal regardless of the combinations of $x_i$'s. This proves that $u_n$ and $v_n$. 
 	
 	\item [\textbf{A2}] Prove that in any set of $2000$ distinct real numbers there exist two pairs $a>b$ and $c>d$ with $a \neq c$ or $b \neq d $, such that \[ \left| \frac{a-b}{c-d} - 1 \right|< \frac{1}{100000}. \]
 	
-	\textbf{Solution.} TODO
+	\textbf{Solution.} 
+	Denote $m=100000$ and $n=2000$.  
+	If this is false, i.e. for any pairs of $(a, b), (c, d)$ we have $a-b>c-d\to \frac{a-b}{c-d} \ge 1+\frac {1}{m}$. 
+	Since there are 2000 such pairs, we have $\frac{\max_{a>b} a-b}{\min_{c>d} c - d}\ge (1+\frac{1}{m})^{\binom{2000}{2}}$. 
+	Since $c\ge 1$ is an integer, expanding the binomial expansion of $(1+\frac{1}{m})^m$ gives $(1+\frac{1}{m})^m\ge 1+1=2$. We also have 
+	\[
+	\binom{2000}{2}=1999000
+	\]
+	and therefore 
+	\[(1+\frac{1}{m})^{\binom{2000}{2}}\ge 2^{\binom{2000}{2}/m}
+	=2^{19.99}>2^{19}>500000=5m\]
+	using the approximation $2^{20}>10^6$. 
+	
+	Now, if $a>b$ is such that $a-b$ maximized, and $c-d$ is such that $c-d$ minimized, then $b<d<c<a$. 
+	Consider the following two equations: 
+	\[
+	\frac{a-d}{a-c}-1=\frac{c-d}{a-c}>0\quad \frac{c-b}{d-b}-1 = \frac{c-d}{d-b}>0
+	\]
+	and we have $a-b=(a-c)+(c-d)+(d-b)>5m(c-d)$ implies that $\max\{a-c, d-b\}\ge\frac{5m-1}{2}>m$, so $\min \{\frac{c-d}{a-c}, \frac{c-d}{d-b}\}<\frac{1}{c}$, as claimed. 
 	
 	\item [\textbf{A3}] (IMO 5)
 	Let $\mathbb Q_{>0}$ be the set of all positive rational numbers. Let $f:\mathbb Q_{>0}\to\mathbb R$ be a function satisfying the following three conditions:\\
