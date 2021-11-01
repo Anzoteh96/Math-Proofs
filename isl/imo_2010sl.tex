@@ -235,6 +235,39 @@
 	\[\lra \angle MCB + \angle KAB = \angle LBA + \angle ACM
 	\lra \angle PCB + \angle PAB = \angle PBA + \angle ACP
 	\]
+	which becomes 
+	\begin{equation}
+	  MK=ML\lra \angle PCA - \angle PCB  = \angle PAB - \angle PBA
+	\end{equation}
+	
+	Let $CP$ intersect $AB$ at $Q$. 
+	W.l.o.g. let $CA<CB$. Since $SC$ is tangent to $\Gamma$, by angle chasing we have 
+	\begin{equation}
+	\angle CSA=\angle CSB = \angle CAB-\angle CBA
+	\end{equation}
+	If $SC=SP$, then $SP$ is also tangent to $\Gamma$, and 
+	\begin{equation}
+	\angle PSA=\angle PSB = \angle PAB-\angle PBA
+	\end{equation}
+	In the meantime, 
+	\begin{flalign*}
+	  \angle PCA-\angle PCB
+	  &=(\angle PCS-\angle SCA)-(\angle SCB-\angle PCS)
+	  \\&=2\angle PCS-\angle SCA-\angle SCB
+	  \\&=2\angle PCS-\angle SCA-\angle SAC
+	  \\&=(180^{\circ}-\angle CSP)-(180^{\circ}-SCA)
+	  \\&=\angle PSA
+	  \\&=\angle PAB-\angle PBA
+	\end{flalign*}
+	which proves the claim (note that $2\angle PCS=180^{\circ}-\angle CSP$ because $SC=SP$). 
+	
+	which proves $SC=SP\to MK=ML$. 
+	
+	To prove the other side, fix line $SP$ and vary $P$ along those. If $P$ is moved closer to $A$, then $\angle PCA-\angle PCB$ decreases (since $\angle PCA$ decreases but $\angle PCB$ increases), 
+	but then $\angle PAB-\angle PBA$ increases ($\angle PAB$ increases, $\angle PBA$ decreases). 
+	We can also get an opposite analysis if we move $P$ closer to $B$. 
+	This means that there's at most one $P$ that could fulfill $\angle PCA-\angle PCB=\angle PAB-\angle PBA$, which we showed that it will always happen when $SC=SP$. Thus now $SC=SP$ becomes a necessary condition for this. 
+	
 	
 	\item [\textbf{G3}] Let $A_1A_2 \ldots A_n$ be a convex polygon. Point $P$ inside this polygon is chosen so that its projections $P_1, \ldots , P_n$ onto lines $A_1A_2, \ldots , A_nA_1$ respectively lie on the sides of the polygon. Prove that for arbitrary points $X_1, \ldots , X_n$ on sides $A_1A_2, \ldots , A_nA_1$ respectively,
 	\[\max \left\{ \frac{X_1X_2}{P_1P_2}, \ldots, \frac{X_nX_1}{P_nP_1} \right\} \geq 1.\]
@@ -420,6 +453,109 @@
 	\emph{Step 3.} $(a, b)$ is $67^k$ good for all $k\ge 1$, which finishes the solution. \\
 	Proof: Let's say, $67^k\mid P(m)-P(n)=a(m^3-n^3)+b(m-n)=(m-n)(a(m^2+mn+n^2)+b)$. 
 	In modulo $67$, we have $67\mid a$ but $67\nmid b$, so $a(m^2+mn+n^2)+b\equiv b\not\equiv 0\pmod{67}$. This means, $a(m^2+mn+n^2)+b$ is relatively prime to $67$, and therefore same to $67^k$. This means, $67^k\mid m-n$, as desired. 
+	
+	\item[\textbf{N6.}] The rows and columns of a $2^n \times 2^n$ table are numbered from $0$ to $2^{n}-1.$ The cells of the table have been coloured with the following property being satisfied: for each $0 \leq i,j \leq 2^n - 1,$ the $j$-th cell in the $i$-th row and the $(i+j)$-th cell in the $j$-th row have the same colour. (The indices of the cells in a row are considered modulo $2^n$.) Prove that the maximal possible number of colours is $2^n$.
+	
+	\textbf{Solution.} Consider the sequence $S_{(i, j)}\in (\bbZ/2^n)^2$ modulo $2^n$: 
+	\[
+	S_{i, j}(0)=(i, j)\quad S_{i, j}(k) = (a, b)\to S_{i, j}(k+1)=(b, a+b) 
+	\]
+	Recall that the Fibonacci sequence is defined as
+	\[
+	F_0=0, F_1=1, F_{n+2}=F_n+F_{n+1}
+	\]
+	and one can show that 
+	\[
+	S_{i, j}(k)=(F_{k-1}i+F_{k}j, F_{k}i+F_{k+1}j)
+	\]
+	(which by convention we let $F_{-1}=1$). 
+	From the problem statement, $S_{i, j}(k)$ and $S_{i, j}(k+1)$ must have the same colour for all $k$, 
+	so all members of the same sequence $S_{i, j}$ have the same colour. 
+	
+	We first notice that any Fibonacci sequence is periodic modulo $k$ for any positive integer $k$. Indeed, the pairs $\{(F_i, F_{i+1})\}_{i\ge 1}$ repeats itself via Pigeonhole principle, and if $(F_i, F_{i+1})=(F_j, F_{j+1})$ then $(F_{i+1}, F_{i+2})=(F_{j+1}, F_{j+2})$. 
+	
+	With this, we proceed to the following crucial claim: 
+	
+	\emph{Lemma}. The sequence $\{F_k\}_{k\ge 0}$ modulo $2^n$ has minimal period $3\cdot 2^{n-1}$. 
+	
+	Proof: we need the following equivalence: 
+	\[
+	F_n=\frac{1}{\sqrt{5}}(\beta^n-\alpha^n)
+	\]
+	where $\beta=\frac{1+\sqrt{5}}{2}$ and $\alpha=\frac{1-\sqrt{5}}{2}$. 
+	This follows from that $F_{k+2}=F_{k+1}+F_k$ has characteristic polynomial $x^2-x-1=0$, which has roots $\alpha, \beta$. 
+	Define also the sequences
+	\[
+	G_k = \frac{F_{2k}}{F_k}=\beta^k+\alpha^k \quad H_k = G_k-F_k\quad \forall k>0
+	\]
+	we see that $G_k$ also follows the update rule $G_{k+2}=G_{k+1}+G_k$ 
+	(since it's in the form of $p\alpha^k+q\beta^k$), 
+	and analogously, $H_{k+2}=H_{k+1}+H_k$ (as it's the difference between two sequences that also follow the same form). 
+	
+	Given $F_0=0$ and $F_1=1$, the problem now becomes finding the minimal $k$ such that 
+	\[
+	2^n\mid F_k\quad F_{k+1}\equiv 1\pmod{2^n}
+	\]
+	Let's claim the following: 
+	\begin{itemize}
+		\item $2^{n+1}\mid F_{3\cdot 2^{n-1}}, \forall n\ge 2$
+		\item $F_{3\cdot 2^{n-1}+1}\equiv 2^n+1\pmod{2^{n+1}}, \forall n\ge 2$.  
+	\end{itemize}
+    To see why these claims would imply our lemma, let $f(n)$ be the minimal period mod $2^n$. 
+    The facts above do show that for all $n\ge 3$, $3\cdot 2^{n-1}$ is a period of $F_k$ mod $2^n$, but $3\cdot 2^{n-2}$ is not. 
+    Thus $f(n)\mid 3\cdot 2^{n-1}$ but $f(n)\nmid 3\cdot 2^{n-2}$. In other words $f(n)$ can either be $3\cdot 2^{n-1}$ or $2^{n-1}$. But the latter cannot be, because $F_{2^{n-1}}$ is odd ($F_k$ is even iff $3\mid k$). 
+    The smaller cases $n\le 2$ can be verified manually. 
+    
+    For the first claim, 
+	we first notice that $G_1=\frac{F_2}{F_1}=1$ and $G_2=\frac{F_4}{F_2}=\frac{3}{1}=3$, so continuing this (via induction) we see that $G_k$ is even iff $3\mid k$. 
+	For base case $n=2$ we have $F_6=8\equiv 0\pmod{2^3}$; 
+	for inducting step all we need is that $F_{3\cdot 2^{n}}=F_{3\cdot 2^{n-1}}\cdot G_{3\cdot 2^{n-1}}$
+	and $G_{3\cdot 2^{n-1}}$ is even. 
+	
+	For the second claim, againwe use induction to establish $F_7=13\equiv 5\pmod{8}$. 
+	Let $n\ge 3$ now. 
+	We note that the first claim implies $F_{3\cdot 2^{n-1}+1}\equiv F_{3\cdot 2^{n-1}+2}\pmod{2^{n+1}}$. Also, investigating the sequence $\{H_k\}_{k\ge 1}$ gives $H_1=0, H_1=2, \cdots$, so we can deduces $H_k=2F_{k-1}$. 
+	This means we got 
+	\begin{flalign*}
+	  F_{3\cdot 2^{n-1}+1}
+	  &\equiv F_{3\cdot 2^{n-1}+2}\pmod{2^{n+1}}
+	  \\&=F_{3\cdot 2^{n-2}+1}\cdot G_{3\cdot 2^{n-2}+1}
+	  \\&=F_{3\cdot 2^{n-2}+1}(F_{3\cdot 2^{n-2}+1}+H_{3\cdot 2^{n-2}+1})
+	  \\&=F_{3\cdot 2^{n-2}+1}(F_{3\cdot 2^{n-2}+1}+2F_{3\cdot 2^{n-2}})
+	  \\&\equiv F_{3\cdot 2^{n-2}+1}^2\pmod{2^{n+1}}
+	\end{flalign*}
+	Assuming induction hypothesis for $n-1$, writing $F_{3\cdot 2^{n-2}+1}=a2^{n-1}+1$ for some odd $a$ gives 
+	\[
+	F_{3\cdot 2^{n-2}+1}^2=a^22^{2n-2} + 1 + a2^n\equiv 2^n+1\pmod{2^{n+1}}
+	\]
+	where $2n-2\ge n+1$ since $n\ge 3$. $\square$ 
+	
+	Now that we have this lemma, we shall investigate the minimal period of $S_{i, j}$. 
+	This is the same as finding the minimal positive $k$ with 
+	\[
+	F_{k-1}i+F_kj\equiv i\quad F_ki + F_{k+1}j\equiv j
+	\]
+	If $k$ is a period of ${F_n}$ then it's a period of $S_{i, j}$. Conversely, let's show that the minimal period $3\cdot 2^{n-1}$ is also minimal period whenever $i, j$ are not both even. By shifting $(i, j)$ to $(j, i+j)$ and/or $(i+j, i+2j)$, we may assume that $i$ is odd and $j$ is even. 
+	This means $F_{k-1}$ has to be odd and $F_k$ has to be even when $n\ge 1$ (by substituting to the equation above). 
+	Now, let $F_{k-1}=a$ and $F_k=b\cdot 2^m$, $a$ odd. 
+	If $2^n\nmid F_k$ then we can choose $b$ such that $b$ is odd, and $m<n$. 
+	Thus in modulo $2^{m+1}$, we have 
+	\[
+	i\equiv F_{k-1}i+F_kj=ai + b\cdot 2^m j\equiv ai\mod{2^{m+1}}
+	\]
+	(recall that $j$ is even), so $a\equiv 1\pmod{2^{m+1}}$. 
+	On the other hand, 
+	\[
+	j\equiv F_ki + F_{k+1}j\equiv (b\cdot 2^m) i + (b\cdot 2^m+a)j
+	\equiv 2^m i + j = 2^m+j\not\equiv j\pmod{2^{m+1}}
+	\]
+	since $bi$ is odd, and $bj$ is even. This is a contradiction. 
+	
+	Hence $m\ge n$ (that is, $2^n\mid F_k$), which we can also show that $F_{k-1}\equiv 1\pmod{2^n}$. 
+	This would mean that this $k$ must be a period of $S_{ij}$, and so the minimal such $k$ is $3\cdot 2^{n-1}$. 
+	
+	Now we can complete the proof. For $n=0$ we have a single cell $(0, 0)$ so the answer is 1. 
+	If our conclusion holds for $n-1$, then for $n$, those grids with $(i, j)$ both even form $2^{n-1}$ cycles by induction hypothesis. For those $(i, j)$ not both even, there are $2^{2n}-2^{2n-2}=3\cdot^{2n-2}$ of those cells, each being a cycle of length $3\cdot 2^{n-1}$. Hence the number of cycles is $2^{n-1}$, making a total of $2^n$ cycles. 
 	
 \end{enumerate}
 	
