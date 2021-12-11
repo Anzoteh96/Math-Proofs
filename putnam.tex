@@ -18,6 +18,8 @@
 \newcommand{\bbN}{\mathbb N}
 \newcommand{\bbQ}{\mathbb Q}
 \newcommand{\bbF}{\mathbb F}
+\newcommand{\bbP}{\mathbb P}
+\newcommand{\bbE}{\mathbb E}
 \newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
 \newcommand{\ra}{\rightarrow}
 \newcommand{\la}{\leftarrow}
@@ -50,6 +52,159 @@
 \begin{document}
 
 \newcommand{\sgn}{\text{sgn}}
+\setcounter{secnumdepth}{0}
+
+\section{Putnam 2020 (No official contest)}
+\begin{enumerate}
+	\item [\textbf{A1}] 
+	How many positive integers $N$ satisfy all of the following three conditions?
+	\begin{itemize}
+		\item $N$ is divisible by $2020$.
+		\item $N$ has at most $2020$ decimal digits.
+		\item The decimal digits of $N$ are a string of consecutive ones followed by a string of consecutive zeros.
+	\end{itemize}
+
+    \textbf{Answer.} 508536. 
+    
+    \textbf{Solution.} 
+    Let $N$ to have $a$ 1's and $b$ 0's, so $N=10^b\times \underbrace{1\cdots 1}_{a}$. 
+    Since $N$ is divisible by 20, it must have at least 2 ending zeros. 
+    Moreover, $2020=101\times 20$ and $\gcd(10, 101)=1$, so $101\mid \underbrace{1\cdots 1}_{a}=\frac{10^a-1}{9}$. 
+    Since $1111=101\times 11$ but $101\nmid 111, 11, 1$, we see that $\ord_{101}(10)=4$ so 
+    $4\mid a$. 
+    This gives the complete characterization: 
+    \[
+    a+b=2020, b\ge 2, 4\mid a, a\ge 1
+    \]
+    Now for each $a$ we can pick $b=2, 3, \cdots, 2020-a$ (thus giving $2019-a$ choices). The maximum $a$ is 2016. 
+    This gives the following: 
+    \[
+    \sum_{k=1}^{504} (2019-4k)
+    =2019\times 504 - 4\times 504\times 505\div 2
+    =1009\times 504
+    =508536
+    \]
+    
+    \item [\textbf{A2}] 
+    Let $k$ be a nonnegative integer. Evaluate
+    \[ \sum_{j=0}^k 2^{k-j} \binom{k+j}{j}. \]
+    \textbf{Answer.} $4^k$. 
+    
+    \textbf{Solution.} Let our sum be $S_k$ and do induction on it. Base case is given by $k=0$ when we just have 1. 
+    Now suppose that our claim holds for some $k$, that is $S_k=4^k$ for some $k\ge 0$. We have 
+    \[
+    S_{k+1}-2S_k = \sum_{j=0}^{k+1} 2^{k+1-j} \binom{k+1+j}{j}-2\sum_{j=0}^k 2^{k-j} \binom{k+j}{j}
+    =\binom{2(k+1)}{k+1}+2\sum_{j=1}^k 2^{k-j}\dbinom{k+j}{j-1}
+    \]
+    where we used the fact that $\binom{a}{b}+\binom{a}{b+1}=\binom{a+1}{b+1}$. 
+    Notice again that the equivalence
+    \[
+    2\sum_{j=1}^k 2^{k-j}\dbinom{k+j}{j-1}
+    =2\sum_{j=0}^{k-1} 2^{k-j-1}\dbinom{k+1+j}{j}
+    =\frac12(S_{k+1} - 2\binom{2k+1}{k}-\binom{2(k+1)}{k+1})
+    \]
+    which gives 
+    \[
+    \frac 12 S_{k+1} = 2S_k - \binom{2k+1}{k} + \frac 12 \binom{2(k+1)}{k+1}
+    \]
+    Given that $\binom{2k}{k}=2\binom{2k-1}{k-1}$, we also have $-\binom{2k+1}{k} + \frac 12 \binom{2(k+1)}{k+1}=0$ and therefore $S_{k+1}=4S_k=4\cdot 4^k=4^{k+1}$, as desired. 
+    
+    \item [\textbf{A3}] 
+    Let $a_0=\pi /2$, and let $a_n=\sin (a_{n-1})$ for $n\ge 1$. Determine whether
+    \[ \sum_{n=1}^{\infty}a_n^2 \]converges.
+	
+	\item [\textbf{A5}] 
+	Let $a_n$ be the number of sets $S$ of positive integers for which
+	\[ \sum_{k\in S}F_k=n,\]where the Fibonacci sequence $(F_k)_{k\ge 1}$ satisfies $F_{k+2}=F_{k+1}+F_k$ and begins $F_1=1$, $F_2=1$, $F_3=2$, $F_4=3$. Find the largest number $n$ such that $a_n=2020$.
+	
+	\textbf{Answer.} $F_{4040}-1$. 
+	
+	\textbf{Solution.} (TODO)
+	
+	\item [\textbf{B3}] Let $x_0=1$, and let $\delta$ be some constant satisfying $0<\delta<1$. Iteratively, for $n=0,1,2,\dots$, a point $x_{n+1}$ is chosen uniformly form the interval $[0,x_n]$. Let $Z$ be the smallest value of $n$ for which $x_n<\delta$. Find the expected value of $Z$, as a function of $\delta$.
+	
+	\textbf{Answer.} $1+\frac{1}{\delta}$. 
+	
+	\textbf{Solution.} 
+	Let's consider the function $F_n(\delta)=\bbP[x_n<\delta]$, and $f_n(\delta)=\frac{d}{d\delta}F_n$. 
+	This has the following recursive formula: 
+	\[
+	F_1(\delta)=\delta 
+	\qquad 
+	F_n(\delta) = F_{n-1}(\delta) + \int_{\delta}^1 \frac{\delta}{x} f_{n-1}(x)dx
+	\]
+	Let's now show that 
+	\begin{equation}\label{eqn:2020b3}
+	  F_n(\delta)=\delta\left(\sum_{k=0}^{n-1}\frac{\ln (\frac{1}{\delta})^k}{k!}\right)
+	\end{equation}
+	Using induction, we see that this holds for $n=1$, and if this holds for some $n$, i.e. 
+	\[
+	F_n(x)=x\left(\sum_{k=0}^{n-1}\frac{\ln (\frac{1}{x})^k}{k!}\right)
+	\qquad 
+	F_n(x) = \sum_{k=0}^{n-1}\frac{\ln (\frac{1}{x})^k}{k!} - \sum_{k=1}^{n-1}\frac{\ln (\frac{1}{x})^{k-1}}{(k-1)!}
+	=\frac{\ln (\frac{1}{x})^{n-1}}{(n-1)!}
+	\]
+	and therefore 
+	\[
+	F_{n+1}(\delta)=
+	\delta\left(\sum_{k=0}^{n-1}\frac{\ln (\frac{1}{\delta})^k}{k!}\right)
+	+\int_{\delta}^1 \frac{\delta}{x} \frac{\ln (\frac{1}{x})^{n-1}}{(n-1)!}dx
+	=\delta\left(\sum_{k=0}^{n}\frac{\ln (\frac{1}{\delta})^k}{k!}\right)
+	\]
+	establishing \ref{eqn:2020b3}. 
+	
+	To finish the solution, we have 
+	$\bbP[Z=k]=\bbP[x_n<\delta \land x_{n-1}\ge \delta]=F_k(\delta)-F_{k-1}(\delta)=\delta\frac{\ln(\frac{1}{\delta})^{k-1}}{(k-1)!}$. 
+	Therefore, 
+	\begin{flalign*}
+	  \bbE(Z)
+	  &=\sum_{k=1}^{\infty}k\delta\frac{\ln(\frac{1}{\delta})^{k-1}}{(k-1)!}
+	  \\&=\sum_{k=1}^{\infty}\delta\frac{\ln(\frac{1}{\delta})^{k-1}}{(k-1)!} + (k-1)\delta\frac{\ln(\frac{1}{\delta})^{k-1}}{(k-1)!}
+	  \\&=\sum_{k=1}^{\infty}\delta\frac{\ln(\frac{1}{\delta})^{k-1}}{(k-1)!} + \sum_{k=2}^{\infty}\delta\frac{\ln(\frac{1}{\delta})^{k-2}}{(k-2)!}
+	  \\&=\delta e^{\ln(\frac{1}{\delta})} + \delta\ln(\frac{1}{\delta})e^{\ln(\frac{1}{\delta})}
+	  \\&=1+\ln\frac{1}{\delta}
+	\end{flalign*}
+	as claimed. 
+	
+	\item [\textbf{B4}] 
+	Let $n$ be a positive integer, and let $V_n$ be the set of integer $(2n+1)$-tuples $\mathbf{v}=(s_0,s_1,\cdots,s_{2n-1},s_{2n})$ for which $s_0=s_{2n}=0$ and $|s_j-s_{j-1}|=1$ for $j=1,2,\cdots,2n$. Define
+	\[
+	q(\mathbf{v})=1+\sum_{j=1}^{2n-1}3^{s_j},
+	\]and let $M(n)$ be the average of $\frac{1}{q(\mathbf{v})}$ over all $\mathbf{v}\in V_n$. Evaluate $M(2020)$.
+	
+	\textbf{Answer.} $\frac{1}{4040}$. 
+	
+	\textbf{Solution.} In general, we show that the average of $1+\sum_{j=1}^{2n-1}\alpha^{s_j}$ over $V_n$ is $\frac{1}{2n}$ for any $\alpha > 0$. 
+	
+	Consider $\mathbf{v}=(s_0,s_1,\cdots,s_{2n-1},s_{2n})$ and 
+	$t(\mathbf{v}) := (t_0, \cdots, t_{2n-1})$ be such that $t_k = s_{k+1}-s_k$. 
+	We say $\mathbf{v}\sim\mathbf{v'}$ if $t(\mathbf{v}')$ can be obtained from $t(\mathbf{v})$ via cyclic shift (hence we could also say $t(\mathbf{v})\sim t(\mathbf{v})'$). 
+	Now $t$ maps $V_n$ to $T_n:=\{(t_0, \cdots, t_{n-1})\subseteq \{-1, 1\}^{2n}, \sum t_i=0\}$, 
+	and is a bijection. 
+	Moreover, relation defined via cyclic shift is both symmetric (just reverse cycle) and transitive, and also $\mathbf{v}\sim\mathbf{v}$ holds for all $\mathbf{v}$. 
+	Thus $\sim$ is an equivalence relation. 
+	
+	Denote, now, the equivalence class of each $\mathbf{v}$: 
+	\[
+	E_{\mathbf{v}} = \{\mathbf{v}': \mathbf{v'}\sim \mathbf{v}\}
+	\]
+	We'll show that the average of $\frac{1}{q}$ in $E_{\mathbf{v}}$ is $\frac{1}{2n}$. 
+	Let $t(\mathbf{v})=(t_0,t_1,\cdots,t_{2n-1})$ and for each $\mathbf{v}'\sim\mathbf{v}$ can be written as 
+	$t(\mathbf{v})'=(t_j,t_{j+1},\cdots,t_{2n+j-1})$ for some $j\ge 0$ (indices taken modulo $2n$). 
+	Thus if $\mathbf{v}=(0, s_1, \cdots, s_{n-1}, 0)$ we have 
+	$\mathbf{v}'=(0, s_{j+1}-s_j, \cdots, s_{2n}-s_j, s_1-s_j, \cdots, s_{j-1}-s_j, 0)$, 
+	and $\frac{1}{q(\mathbf{v}')}=\frac{\alpha^{s_j}}{q(\mathbf{v})}$. 
+	Now considering $j=0, \cdots, 2n-1$ we see that the average of $\frac{1}{q}$ is now 
+	\[
+	\frac{1}{2n}\sum_{j=0}^{2n-1}\frac{\alpha^{s_j}}{q(\mathbf{v})} = \frac{1}{2n}
+	\]
+	since $\frac{\alpha^{s_j}}{q(\mathbf{v})}$ is just 1. 
+	But we're not done yet -- we need to show that averaging over all $j=0, \cdots, 2n-1$ is the \emph{true} average of this equivalence class. 
+	This is to show that as we loop over $j=0, \cdots, 2n-1$ each $\mathbf{v}'\in E_{\mathbf{v}}$ shows up equally many times. 
+	If we extend $t_0, \cdots, t_{2n-1}$ infinitely (hence having $2n$ as period) and let $g$ as its \emph{minimal} period, we see that each $\mathbf{v}'\in E_{\mathbf{v}}$ shows up $\frac{2n}{g}$ times, 
+	proving our claim. 
+	
+\end{enumerate}
 
 \section{Putnam 2019}
 \begin{enumerate}
@@ -175,7 +330,7 @@
 	
 	\item [\textbf{B2}] For all $n\ge 1$, let $a_n=\sum_{k=1}^{n-1}\frac{\sin(\frac{(2k-1)\pi}{2n})}{\cos^2(\frac{(k-1)\pi}{2n})\cos^2(\frac{k\pi}{2n})}$. Determine $\lim_{n\rightarrow \infty}\frac{a_n}{n^3}$.
 	
-	\textbf{Answer.} 
+	\textbf{Answer.} $\frac{8}{\pi^3}$
 	
 	\textbf{Solution.} We first notice the following: 
 	\[
@@ -207,6 +362,53 @@
 	\]
 	
 	\item [\textbf{B5}] Let $F_m$ be the $m$'th Fibonacci number, defined by $F_1=F_2=1$ and $F_m = F_{m-1}+F_{m-2}$ for all $m \geq 3$. Let $p(x)$ be the polynomial of degree 1008 such that $p(2n+1)=F_{2n+1}$ for $n=0,1,2,\ldots,1008$. Find integers $j$ and $k$ such that $p(2019) = F_j - F_k$.
+	
+	\textbf{Answer.} $j=2019, k=1010$. 
+	
+	\textbf{Solution.}
+	Start with $p_0=p$, and for each $i\ge 1$, $p_{i+1}(x)=p_{i}(x+2)-p_{i}(x)$. 
+	We notice the following: 
+	\begin{itemize}
+		\item By considering the expansion $(x+2)^k-x^k = \sum_{i=0}^{k-1} \binom{k}{i}2^{k-i}x_i$, we have $\deg(p_{i+1})=\deg(p_i)-1$ whenever $\deg(p_i)\ge 1$. 
+		
+		\item For each $k\le 1008$, we can inductively show that for all $n=0, 1, \cdots, 1008-k$, 
+		$p_k(2n+1)=F_{2n+1+k}$. 
+		Indeed, this is true for $k=0$. 
+		If this is true for some $k\ge 0$ (but $k\le 1007$) 
+		then for $n=0, \cdots, 1007-k$, we have 
+		\[
+		p_{k+1}(2n+1)=p_{k+1}(2n+3)-p_{k}(2n+1)
+		=F_{2n+3+k}-F_{2n+1+k}
+		=F_{2n+2+k}
+		\]
+		as desired. 
+	\end{itemize}
+    So from above, we have $p_{1008}(1)=F_{1009}$, but $\deg(p_{1008})=0$ so $p_{1008}$ is a constant (i.e. $F_{1009}$). 
+    
+    Next, we'll recover $p(2019)$ by the following: we see that $p_{1008}(3)=F_{1009}$, and moreover for all $k\le 1007$, 
+    \[
+    p_k(2(1008-k)+3) = p_{k+1}(2(1008-k)+1)+p_k(2(1008-k)+1)
+    \]\[
+    =p_{k+1}(2(1008-k)+1)+F_{k+2(1008-k)+1}
+    =p_{k+1}(2(1008-k)+1)+F_{2016-k+1}
+    \]
+    So we can do telescoping sum to get 
+    \[
+    p(2019)-p_{1008}(3)
+    =\sum_{k=0}^{1007} p_k(2(1008-k)+3)-p_{k+1}(2(1008-k)+1)
+    =F_{2016-k+1}
+    \]
+    That is, 
+    \[
+    p(2019)=F_{1009}+F_{1010}+\cdots + F_{2017}
+    =F_{2017}+\sum_{k=505}^{1008}F_{2k-1}+F_{2k}
+    =F_{2017}+\sum_{k=505}^{1008}F_{2k+1}
+    \]\[
+    =F_{2017}+(F_{1011}+F_{1013}+\cdots + F_{2017})
+    \]
+    But then $F_{1011}+F_{1013}+\cdots + F_{2017}=F_{2018}-F_{1010}$, so 
+    $F_{2017}+(F_{1011}+F_{1013}+\cdots + F_{2017})=F_{2017}+F_{2018}-F_{1010}=F_{2019}-F_{1010}$. 
+    
 \end{enumerate}
 
 \section{Putnam 2018}
