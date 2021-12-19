@@ -1,0 +1,369 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\bbP}{\mathbb P}
+\newcommand{\bbE}{\mathbb E}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\begin{document}
+
+\newcommand{\sgn}{\text{sgn}}
+\setcounter{secnumdepth}{0}
+
+\section{Putnam 2018}
+\begin{enumerate}
+	\item [\textbf{A1}]
+	Find all ordered pairs $(a, b)$ of positive integers for which
+	\[\frac{1}{a} + \frac{1}{b} = \frac{3}{2018}.\]
+	
+	\textbf{Answer.} There are 6 such pairs, obtained by $(1009, 2018), (673, 2018\times 673), (674, 337\times 1009)$ and their inverses. \\
+	\textbf{Solution.} Since both $a$ and $b$ are positive, we can multiply both sides by $2018ab$ to get $2018a+2018b=3ab$. Even better, this is the same as $(3a-2018)(3b-2018)=2018^2$. Since both $3a-2018$ and $3b-2018$ are integers congruent to $1\pmod{3}$, it suffices to find the ways to decompose $2018^2=cd$ with each $c, d$ are $1\pmod{3}$. We also know that $2018^2=2^2\times 1009^2$ and both $2$ and $1009$ are primes, so each positive divisor of $2018^2$ must be in the form of $2^{k}\times 1009^{\ell}$ with $0\le k, \ell \le 2$. 
+	The modulo 3 constraint also forces $k$ to be even, so $(c, d)=(1, 2018^2), (4, 1009^2), (1009, 4\times 1009)$ and their reverses, giving the answer as above (by letting $a=\frac{c+2018}{3}$ and $b=\frac{d+2018}{3}$). 
+	
+	\item[\textbf{A2}]
+	
+	Let $S_1, S_2, \dots, S_{2^n - 1}$ be the nonempty subsets of $\{1, 2, \dots, n\}$ in some order, and let $M$ be the $(2^n - 1) \times (2^n - 1)$ matrix whose $(i, j)$ entry is
+	\[m_{ij}=\begin{cases}
+	0 & \text{ if } S_i\cap S_j=\emptyset;\\
+	1 & \text{ otherwise }\\
+	\end{cases}\]
+	Calculate the determinant of $M$.
+	
+	\textbf{Answer.} $1$ if $n=1$, and $-1$ if $n>1$. Alternatively, $(-1)^{(n>1)}$ in the computer science terms (where false is 0 and true is 1). \\
+	\textbf{Solution.} If $n=1$ then the matrix is $(1)$, so the determinant is 1. Let $M_n$ be the matrix when the size of the matrix is $n\times n$, and we will show that $\det(M_{n+1})=-(\det(M_n))^2$. 
+	
+	First, notice that the determinant depends only on $n$ and not the order of the sets $S_1, \cdots , S_{2^n-1}$. (I wrote something way more rigorous during the contest to prevent risking points, but I think the following argument is sufficient). 
+	Consider what happens when you swap two arbitrary sets $S_i$ and $S_j$, then we can show that this induces a swap of rows $i$ and $j$ followed by a swap of columns $i$ and $j$ in the matrix $M_n$ (though the two swaps could have been in any order). The two swaps of columns and rows negate the determinant twice, which in turn preserve the determinant. Since each permutation can be obtained from the another by iteratively swapping two items, we have our conclusion here. 
+	
+	Having established the above, we can rearrange (permute) the $2^n-1$ subsets in anyway we want. Now we need an induction argument to move from $n$ to $n+1$. Let $T_1, \cdots , T_{2^n-1}$ be an arbitrary arrangement of the non-empty subsets of $\{1, \cdots , n\}$, and $M_n$ be the corresponding $n\times n$ matrix. Now consider the arrangement of the subsets $S_i$ of $\{1, \cdots , n+1\}$ as the following: 
+	$S_1=\{n+1\}$, $S_{k+1}=\{n+1\}\cup T_k$ for $1\le k\le 2^n-1$, and $S_{2^n+k}=T_k$. We notice the following: 
+	\begin{itemize}
+		\item $n+1\in S_i\cup S_j$ for $i, j\le 2^n$ so $m_{ij}=1$ for those $i, j$. In addition, if $i>2^k$ then $n+1\not\in S_i$ so $m_{1i}=m_{i1}=0$. 
+		
+		\item for all $1\le k\le 2^n-1$ we have $S_{2^n+i}\cap S_{j+1}=S_{i+1}\cap S_{2^n+j}=S_{2^n+i}\cap S_{2^n+j}=T_i\cap T_j$. This means that, if we view the $(2^n-1)\times (2^n-1)$ submatrices determined by rows $2$ to $2^n$ and columns $2^n+1$ to $2^{n-1}$, rows $2^n+1$ to $2^{n-1}$ and columns $2$ to $2^n$, and rows $2^n+1$ to $2^{n+1}-1$ and columns $2^n+1$ to $2^{n-1}$, they are all identical, i.e. equal to $M_n$. 
+	\end{itemize}
+	This gives the following configuration: 
+	\[
+	\left[\begin{array}{c|c|c}
+	1 & [1] & [0]\\
+	\hline
+	(1) & \<1\> & M_n\\
+	\hline
+	(0) & M_n & M_n\\ 
+	\end{array}\right]
+	\]
+	where $[x]$ means a $1\times (2^n-1)$ row matrix of $x$, $(y)$ means a $(2^n-1)\times 1$ column matrix of $y$ and $\<z\>$ means a $(2^n-1)\times (2^n-1)$ matrix, all of $z$. Keeping in mind that row reduction preserves the determinant, we subtract rows $i$ from row 1 for all $i=2, \cdots , 2^n$ to get the following: 
+	\[
+	\left[\begin{array}{c|c|c}
+	1 & [1] & [0]\\
+	\hline
+	(0) & \<0\> & M_n\\
+	\hline
+	(0) & M_n & M_n\\ 
+	\end{array}\right]
+	\]
+	and a further reduction of rows $2^n+k$ from $1+k$ ($k=1, \cdots , 2^n-1$) to get the following:
+	\[
+	\left[\begin{array}{c|c|c}
+	1 & [1] & [0]\\
+	\hline
+	(0) & \<0\> & M_n\\
+	\hline
+	(0) & M_n & \<0\>\\ 
+	\end{array}\right]
+	\]
+	Now this is the reverse block matrix (with the two $M_n$'s reversed), so the determinant is now $(-1)^{2^n-1}(\det(M_n))^2=-(\det(M_n))^2$, as desired (with the $2^n-1$ due to the size of $M_n$). 
+	
+	\item[\textbf{A4}]
+	Let $m$ and $n$ be positive integers with $\gcd(m, n) = 1$, and let
+	\[a_k = \left\lfloor \frac{mk}{n} \right\rfloor - \left\lfloor \frac{m(k-1)}{n} \right\rfloor\]for $k = 1, 2, \dots, n$. Suppose that $g$ and $h$ are elements in a group $G$ and that
+	\[gh^{a_1} gh^{a_2} \cdots gh^{a_n} = e,\]where $e$ is the identity element. Show that $gh = hg$. (As usual, $\lfloor x \rfloor$ denotes the greatest integer less than or equal to $x$.)
+	
+	\textbf{Solution.} 
+	(Modified from my post on AoPS). 
+	We first notice the following relation: 
+	\begin{flalign*}
+	\frac mn - 1
+	&=\frac{mk}{n} - \frac{m(k-1)}{n} - 1\\
+	&\le\left\lfloor \frac{mk}{n} \right\rfloor -  \frac{m(k-1)}{n}\\
+	&\le a_k = \left\lfloor \frac{mk}{n} \right\rfloor - \left\lfloor \frac{m(k-1)}{n} \right\rfloor\\
+	&\le \frac{mk}{n} - \left\lfloor \frac{m(k-1)}{n} \right\rfloor\\
+	&< \frac{mk}{n} - \frac{m(k-1)}{n} + 1\\
+	&=\frac mn + 1
+	\end{flalign*}
+	Thus $\lfloor \frac mn\rfloor \le a_k\le \lceil \frac mn \rceil$ for each $a_k$. 
+	
+	Now we proceed by inducting on both $m$ and $n$. The case where $m=1$ gives rise to the situation $a_{k}=0$ for all $k<n$ and $a_n=1$ so we have $g^{n}h=e$. Since $h=g^{-n}$, $gh=hg=g^{-(n-1)}$, and thus commute. Similarly, the case where $m=2$ gives rise to the $a_1=m$ so $gh^n=e$, and thus $g=h^{-n}$ and by a similar logic, $g$ commutes with $h$.
+	
+	Now fix the pair $(m, n)$ and suppose that the desired statement holds true for all $(m', n')$ with $m'\le m$ and $n'\le n$ and $(m', n')=(m, n)$, and $\gcd(m, n)=1$. We split this into two cases, bearing in mind that $(m, n)\neq (1, 1)$ here (otherwise our base cases take care of it).
+	
+	The easier is $m>n$, in which case we have $a_k\ge 1$ for all $k$. Let $d=\lfloor \frac mn\rfloor$ and let $m'$ be $m'\equiv m\pmod{n}$ with $0\le m'<n$, so $m=dn+m'$. Now let $b_k=a_k-d$, and we can rewrite $a_k$ in the following form: 
+	\begin{flalign*}
+	a_k &= \left\lfloor \frac{mk}{n} \right\rfloor - \left\lfloor \frac{m(k-1)}{n} \right\rfloor\\
+	&= \left\lfloor \frac{(m'+dn)k}{n} \right\rfloor - \left\lfloor \frac{(m'+dn)(k-1)}{n} \right\rfloor\\
+	&=\left\lfloor \frac{m'k}{n} + dk \right\rfloor - \left\lfloor \frac{m'(k-1)}{n} + d(k-1)\right\rfloor\\
+	&= \left\lfloor \frac{m'k}{n} \right\rfloor - \left\lfloor \frac{m'(k-1)}{n} \right\rfloor+d\\
+	&=b_k+d
+	\end{flalign*}
+	so we have 
+	\[
+	e=gh^{a_1} gh^{a_2} \cdots gh^{a_n}
+	=gh^{b_1+d} gh^{b_2+d} \cdots gh^{b_n+d}
+	=(gh^d)h^{b_1}\cdots (gh^d)^{b_n}
+	\]
+	and by our induxtive hypothesis, since the pair $(gh^d, h)$ corresponds to $(m', n)$ and $\gcd(m', n)=\gcd(m, n)=1$, and $m'<n<m$, $gh^d$ and $h$ commutes. 
+	Thus, $gh^{d+1}=gh^dh=hgh^d$, and by cancelling $h^d$ from the right we have $gh=hg$, as desired. 
+	
+	The harder part is $m<n$, i.e. $\frac mn<1$. By the lemma above, we have $0\le a_k\le 1$ for each $a_k$. 
+	We also have $a_k=1$ if and only if there exists an integer $a$ such that 
+	$\frac{m(k-1)}{n} < a \le \frac{mk}{n}$. 
+	We can rearrange this to form 
+	$a \le \frac{mk}{n} < a+\frac mn$, which by rearranging again becomes 
+	$\frac{na}{m}\le k<\frac{na}{m}+1$. 
+	This gives the condition $k=\lceil \frac{na}{m}\rceil$. 
+	By omitting those $a_k$'s that are 0 we can rewrite the original equation as 
+	\[e=g^{b_1}h\cdots g^{b_m}h\]
+	with each $b_k=\lceil \frac{nk}{m}\rceil-\lceil \frac{n(k-1)}{m}\rceil$. Again let $d=\lfloor \frac nm\rfloor$ we can write $n=dm+n'$ with $n'\equiv n\pmod{m}$ and $n'<m$, and we have
+	\begin{flalign*}
+	b_k&=\left\lceil \frac{nk}{m}\right\rceil-\left\lceil \frac{n(k-1)}{m}\right\rceil
+	\\&=\left\lceil \frac{(dm+n')k}{m}\right\rceil-\left\lceil \frac{(dm+n')(k-1)}{m}\right\rceil
+	\\&=\left\lceil \frac{n'k}{m}+dk\right\rceil-\left\lceil \frac{n'(k-1)}{m}+d(k-1)\right\rceil
+	\\&=\left\lceil \frac{n'k}{m}\right\rceil-\left\lceil \frac{n'(k-1)}{m}\right\rceil + d
+	\end{flalign*}
+	Thus letting $c_k=b_k-d=\left\lceil \frac{n'k}{m}\right\rceil-\left\lceil \frac{n'(k-1)}{m}\right\rceil$ we have 
+	\[e=g^{b_1}h\cdots g^{b_m}h
+	=g^{c_1}(g^dh)\cdots g^{c_m}(g^dh)
+	\]
+	and since $n'<m<n$ and the pair $(g, g^dh)$ corresponds to the pair $(m, n')$ with $\gcd(m, n')=1$, by inductive hypothesis, $g$ and $g^dh$ commutes. Thus $gg^{d}h=g^dhg$, and cancelling $g^d$ from the left we have $gh=hg$. 
+	
+	\item [\textbf{B1}] 
+	Let $\mathcal{P}$ be the set of vectors defined by
+	\[\mathcal{P} = \left\{\begin{pmatrix} a \\ b \end{pmatrix} \, \middle\vert \, 0 \le a \le 2, 0 \le b \le 100, \, \text{and} \, a, b \in \mathbb{Z}\right\}.\]Find all $\mathbf{v} \in \mathcal{P}$ such that the set $\mathcal{P}\setminus\{\mathbf{v}\}$ obtained by omitting vector $\mathbf{v}$ from $\mathcal{P}$ can be partitioned into two sets of equal size and equal sum.
+	
+	\textbf{Answer.} $\begin{pmatrix}1 \\ 2k\end{pmatrix}$ where $k=0, 1, \cdots , 50$. 
+	
+	\textbf{Solution.} The sum of $\mathcal{P}$ is 
+	\[
+	\begin{pmatrix} 101(0+1+2) \\ 3(0+1+\cdots + 100) \end{pmatrix}
+	=\begin{pmatrix}
+	303 \\ 15150\\
+	\end{pmatrix}
+	\]
+	and we require the sum of $\mathcal{P}\backslash\{v\}$ to have both coordinates even (for the partition to be possible). This means if $v=\begin{pmatrix}a\\b\end{pmatrix}$ we will need $a=1$ and $b$ even. 
+	
+	Now we claim that such split is possible for any $v$. First, we note that $|\mathcal{P}\backslash\{v\}|=101\times 3-1=302$, so each split has to have size 151. We'll now fix the following for the first part: 
+	\begin{itemize}
+		\item 26 elements in the form $\begin{pmatrix}
+		0 \\ x
+		\end{pmatrix}$
+		\item 26 elements in the form $\begin{pmatrix}
+		2 \\ y
+		\end{pmatrix}$
+		\item 99 elements in the form $\begin{pmatrix}
+		1 \\ z
+		\end{pmatrix}$
+	\end{itemize}
+	which gives the total first coordinate sum as $26\times 2+99=151$, and it has 151 elements too. This way, the second part will have 151 elements with first coordinate sum $75\times 2+1=151$. 
+	
+	Let $v=\begin{pmatrix}1\\b\end{pmatrix}$ with $b$ even. The total second coodinate sum is now $3(0+1+\cdots+100)-b=15150-b$, so we're targetting the second coordinate sum $7575-\frac b2$. 
+	For the 99 elements in the first part $\begin{pmatrix}1 \\ z\end{pmatrix}$ we take $z$ in every possible combination except $z=b$ and $z=100-b$ (which does give 99 elements), so we have the total sum as $(0+1+\cdots+100)-(b+100-b)=4950$. 
+	
+	Now for each of the 26 terms in terms of $\begin{pmatrix}0\\b\end{pmatrix}$, the minimum second coordinate sum is 
+	\[
+	0+1+\cdots + 25 = 325
+	\]
+	and the maximum second coordinate sum is 
+	\[
+	75+76+\cdots + 100 = 2275
+	\]
+	Now consider integers $0\le x_1<x_2<\cdots < x_{26}\le 100$, so long as $x_i$ aren't at their maximum (i.e. not all $x_i$ has $x_i=100-(26-i)$), there always exists $i$ with either $x_{i+1}-x_i\ge 2$ or $i=26$ and $x_i<100$. This means we can always add 1 to $x_i$ and increase the sum by 1. This means that in this setup, all numbers in the range $[325, 2275]$ are attainable. Similar situation goes for the 26 entries with first coordinate 2. 
+	
+	Thus, the second coordinate sum can now range between 
+	\[
+	[4950+2\times 325, 4950+2\times 2275] = [5600, 9500]
+	\]
+	so every integer in this range is attainable. In particular, given that $7525\le 7575-\frac b2 \le 7575$, the target number $7575-\frac b2$ is attainable. Thus using this setup, the other part will also have sum $7575-\frac b2$. 
+	
+	\item [\textbf{B2}]
+	Let $n$ be a positive integer, and let $f_n(z) = n + (n-1)z + (n-2)z^2 + \dots + z^{n-1}$. Prove that $f_n$ has no roots in the closed unit disk $\{z \in \mathbb{C}: |z| \le 1\}$.
+	
+	\textbf{Solution.} 
+	If $z$ were to be a root to $f_n$, then $z$ is also a root of 
+	$f_n(z)(z-1)=z^n+z^{n-1}+\cdots + z - n$, i.e. 
+	$n=z^n+z^{n-1}+\cdots + z$. 
+	If $|z|\le 1$, then 
+	\[n=|z^n+z^{n-1}+\cdots + z|
+	\le |z^n|+\cdots |z|
+	\le 1+\cdots + 1
+	=n
+	\]
+	so all the equalities above must hold, i.e. we need both $|z^n+z^{n-1}+\cdots + z| = |z^n|+\cdots |z|$ and 
+	$|z^n|+\cdots |z|=1+\cdots +1$. The second condition implies that $|z|=1$, so in particular $z$ cannot be 0. 
+	The first condition implies that $\frac{z^k}{z^{k-1}}=z$ must be a positive real number, so these conditions together implies that $z=1$ is the only possibility. 
+	But then $f_n(1)=\frac{n(n+1)}{2}>0$, contradiction. 
+	
+	\item[\textbf{B3}] Find all positive integers $n < 10^{100}$ for which simultaneously $n$ divides $2^n$, $n-1$ divides $2^n - 1$, and $n-2$ divides $2^n - 2$.
+	
+	\textbf{Answer.} $2^{2^{2^m}}$ for $m=0,1,2,3$. \\
+	\textbf{Solution.} We first show that all numbers are in this form. The first condition $n\mid 2^n$ implies that $n$ cannot have prime divisors other than 2, so $n=2^k$ for some $k$. Notice, also that this is also a sufficient condition because $\frac{2^{2^k}}{2^k}=2^{2^k-k}$ with $2^k>k$ all the times, so the quotient is indeed an integer.  
+	
+	Next, $n-1\mid 2^n-1$ can be written as $2^k-1\mid 2^{2^k}-1$. Using the fact that $\gcd(2^a-1, 2^b-1)=2^{\gcd (a, b)}-1$, (or equivalently, $2^a-1\mid 2^b-1$ iff $a\mid b$), we have $k\mid 2^k$, and therefore $k=2^{\ell}$ for some integer $\ell$. 
+	
+	Finally, $n-2\mid 2^n-2$ also implies $2^{k}-2\mid 2^{2^k}-2$; 
+	with $k=2^{\ell}$, $k>0$ so we can divide both sides by 2 and obtain 
+	$2^{k-1}-1\mid 2^{2^k-1}-1$. 
+	By the same logic as above, $k-1\mid 2^k-1$ and since $k=2^{\ell}$, we have $2^{\ell}-1\mid 2^{2^{\ell}}-1$, so $\ell\mid 2^{\ell}$ by the same logic. Thus $\ell=2^m$. We now have $n=2^{2^{2^m}}$ for $m\ge 0$. 
+	
+	Finally, we can verify that such $n$ works. To find those with $n<10^{100}$, notice that 
+	\[2^{300}=(2^3)^{100}=8^{100}<10^{100}<16^{100}=(2^4)^{100}=2^{400}
+	\]
+	and therefore $2^{2^m}<400$. Since $400<2^9$, we also need $2^m<9$, so $m\le 3$. 
+	On the other hand, when $n=2^{2^{2^3}}$ we have $n=2^{2^{2^3}}=2^{2^8}=2^{256}<2^{300}<10^{100}$ so $m=3$ works. 
+	
+	\item[\textbf{B4}] Given a real number $a$, we define a sequence by $x_0 = 1$, $x_1 = x_2 = a$, and $x_{n+1} = 2x_nx_{n-1} - x_{n-2}$ for $n \ge 2$. Prove that if $x_n = 0$ for some $n$, then the sequence is periodic.
+	
+	\textbf{Solution.} We first show that we can eliminate the case where $|a|>1$. Indeed, assume that $|a|>1$. Let's show that $|x_n|$ is nondecreasing. Indeed, if, for some $n$, we have $|x_n|\ge |x_{n-1}|\ge |x_{n-2}|$ then 
+	\begin{flalign*}
+	|x_{n+1}|&=|2x_nx_{n-1} - x_{n-2}|
+	\\&\ge |2x_nx_{n-1}| - |x_{n-2}|
+	\\&\ge |2x_nx_{n-1}| - |x_{n-1}|
+	\\&=|x_{n-1}|(|2x_n|-1)
+	\\&\ge |2x_n|-1
+	\\&\ge 2|x_n|-|x_n|
+	\\&\ge |x_n|
+	\end{flalign*}
+	where we used the fact that $|x_n|\ge |x_{n-1}|\ge 1$. Thus with the base case that $|a_0|\le |a_1|\le |a_2|$ (as $1\le a\le a$), we have $|x_n|$ nondecreasing, and thus cannot reach 0 at all. 
+	
+	Now that $|a|<1$, we can write $a=\cos\theta$ and show by induction that $x_{n}=\cos(F_n\theta)$ with $F_n$ being the $n$-th Fibonacci number with $F_0=0$, $F_1=F_2=1$. Again we can proceed by induction: base case is given by the initial problem condition. Now suppose that $x_k=\cos(F_k\theta)$ for all $1\le k\le n$ for some $n$. Then (using $F_{n-2}+F_{n-1}=F_n$)
+	\begin{flalign*}
+	x_{n+1}&=2x_nx_{n-1} - x_{n-2}
+	\\&=2\cos(F_{n}\theta)\cos(F_{n-1}\theta)-\cos(F_{n-2}\theta)
+	\\&=2\cos(F_{n}\theta)\cos(F_{n-1}\theta)-\cos((F_n-F_{n-1})\theta)
+	\\&=2\cos(F_{n}\theta)\cos(F_{n-1}\theta)-(\cos (F_n\theta)\cos (F_{n-1}\theta) + \sin (F_n\theta)\sin (F_{n-1}\theta))
+	\\&=\cos (F_n\theta)\cos (F_{n-1}\theta) - \sin (F_n\theta)\sin (F_{n-1}\theta)
+	\\&=\cos (F_{n+1}\theta)
+	\end{flalign*}
+	as desired. 
+	
+	Having established this, let $n_0$ be such that $x_{n_0}=0$. Then $0=x_{n_0}=\cos(F_{n_0}\theta)$, meaning that $F_{n_0}\theta=(\frac{2k_0+1}{2})\pi$ for some integer $k_0$. 
+	This also means that $\theta = (\frac{2k_0+1}{2F_{n_0}})\pi$. We first recall that for any integer $m$, the Fibonacci sequence is periodic modulo $m$: indeed, if we write the Fibonacci sequence modulo $m$ and consider all pairs $(F_n, F_{n+1})$, then there are at most $m^2$ distinct elements from the pairs, and thus there are some that are the same. If $(F_{k}, F_{k+1})=(F_{\ell}, F_{\ell+1})$ modulo $m$ for some $k<\ell$, then we can inductively show (both forward and backward) that $F_{k+x}=F_{\ell+x}$ for any integer (positive or negative) $x$. Now if $p_0$ is the period of the Fibonacci sequence when $m=4F_0$ then $F_{k+p_0}\equiv F_k\pmod{4F_{n_0}}$ for all $k$, and therefore $(F_{k+p_0}-F_k)\theta = (F_{k+p_0}-F_k)(\frac{2k_0+1}{2F_{n_0}})\pi$ is an integer multiple of $2\pi$. Since $\cos$ is periodic modulo $2\pi$, we have $\cos (F_{k+p_0}\theta) = \cos(F_k\theta)$, and thus $x_k=x_{k+p_0}$. 
+	
+	\item[\textbf{B5}] Let $f = (f_1, f_2)$ be a function from $\mathbb{R}^2$ to $\mathbb{R}^2$ with continuous partial derivatives $\tfrac{\partial f_i}{\partial x_j}$ that are positive everywhere. Suppose that
+	\[\frac{\partial f_1}{\partial x_1} \frac{\partial f_2}{\partial x_2} - \frac{1}{4} \left(\frac{\partial f_1}{\partial x_2} + \frac{\partial f_2}{\partial x_1} \right)^2 > 0\]everywhere. Prove that $f$ is one-to-one.
+	
+	\textbf{Solution.} Suppose that $f(x_0, y_0)=f(x_0+a, y_0+b)$ for some $a, b\in\bbR^2$. 
+	We consider the following: if $g_1(z)=f_1(x_0+za, y_0+zb)$ then $g_1'(z)=a\tfrac{\partial f_1}{\partial x_1}(x_0+za, y_0+zb) + b\tfrac{\partial f_1}{\partial x_2}(x_0+za, y_0+zb)$, then 
+	\begin{flalign*}
+	0&=f_1(x_0+a, y_0+b)-f_1(x_0, y_0)
+	\\&=g_1(1)-g_1(0)
+	\\&=\int_0^1 g_1'(z)dz
+	\\&=\int_0^1 a\tfrac{\partial f_1}{\partial x_1}(x_0+za, y_0+zb) + b\tfrac{\partial f_1}{\partial x_2}(x_0+za, y_0+zb)dz
+	\\&=a\int_0^1\tfrac{\partial f_1}{\partial x_1}(x_0+za, y_0+zb)dz + 
+	b\int_0^1\tfrac{\partial f_1}{\partial x_2}(x_0+za, y_0+zb)dz
+	\end{flalign*}
+	and similarly, $a\int_0^1\tfrac{\partial f_2}{\partial x_1}(x_0+za, y_0+zb)dz + b\int_0^1\tfrac{\partial f_2}{\partial x_2}(x_0+za, y_0+zb)dz = 0$. 
+	Denote $x(z)=x_0+za$ and $y(z)=y_0+zb$, and 
+	the matrix $\begin{pmatrix}
+	\int_0^1\tfrac{\partial f_1}{\partial x_1}(x(z), y(z))dz & \int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z))dz \\
+	\int_0^1\tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz & \int_0^1\tfrac{\partial f_2}{\partial x_2}(x(z), y(z))dz \\
+	\end{pmatrix}$ as $M$, we have the following: 
+	\[
+	M
+	\begin{pmatrix}
+	a\\b\\
+	\end{pmatrix}
+	=\begin{pmatrix}
+	0\\0\\
+	\end{pmatrix}
+	\]
+	
+	We claim that $M$ is invertible, thereby showing that $\begin{pmatrix}
+	a\\b\\
+	\end{pmatrix}$ must be $\begin{pmatrix}
+	0\\0\\
+	\end{pmatrix}$ and thus $f$ is injective. 
+	This is the same as showing that the determinant of $M$ is nonzero. We will in fact show that it is positive. On one hand, the integral Cauchy-Schawz inequality says that
+	\[
+	\int_0^1\tfrac{\partial f_1}{\partial x_1}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_2}(x(z), y(z))dz
+	\ge \left(\int_0^1 \sqrt{\tfrac{\partial f_1}{\partial x_1}(x(z), y(z))\tfrac{\partial f_2}{\partial x_2}(x(z), y(z))}dz\right)^2
+	\]
+	(we are allowed to use square roots since all partial derivatives are positive). 
+	On the other hand using the inequality $AB\le \frac{(A+B)^2}{4}$ for all $A, B\in\bbR$ we also have 
+	\begin{flalign*}
+	\int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz
+	&\le \frac{(\int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z))dz + \int_0^1\tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz)^2}{4}
+	\\&=\frac{(\int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z)) + \tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz)^2}{4}
+	\\&=\left( \int_0^1\frac12(\tfrac{\partial f_1}{\partial x_2}(x(z), y(z)) + \tfrac{\partial f_2}{\partial x_1}(x(z), y(z)))dz\right)^2
+	\end{flalign*}
+	The given inequality implies that for all $z\in[0, 1]$ we have (moving one term to the other side and take square roots on both sides)
+	\[\sqrt{\frac{\partial f_1}{\partial x_1}(x(z), y(z)) \frac{\partial f_2}{\partial x_2}(x(z), y(z))}
+	> \frac 12 \left(\frac{\partial f_1}{\partial x_2}(x(z), y(z)) + \frac{\partial f_2}{\partial x_1}(x(z), y(z))\right)
+	\]
+	and by the continuity of partial derivatices we have 
+	\[
+	\int_0^1\sqrt{\frac{\partial f_1}{\partial x_1}(x(z), y(z)) \frac{\partial f_2}{\partial x_2}(x(z), y(z))}dz
+	> \int_0^1 \frac 12 \left(\frac{\partial f_1}{\partial x_2}(x(z), y(z)) + \frac{\partial f_2}{\partial x_1}(x(z), y(z))\right)dz
+	\]
+	and hence 
+	\[
+	\int_0^1\tfrac{\partial f_1}{\partial x_1}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_2}(x(z), y(z))dz
+	> \int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz
+	\]
+	and therefore 
+	\[\det(M)=\int_0^1\tfrac{\partial f_1}{\partial x_1}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_2}(x(z), y(z))dz
+	- \int_0^1\tfrac{\partial f_1}{\partial x_2}(x(z), y(z))dz
+	\int_0^1\tfrac{\partial f_2}{\partial x_1}(x(z), y(z))dz
+	>0\]
+	
+\end{enumerate}
+
+\end{document}

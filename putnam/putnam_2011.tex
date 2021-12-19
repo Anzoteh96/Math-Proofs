@@ -1,0 +1,252 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\bbP}{\mathbb P}
+\newcommand{\bbE}{\mathbb E}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\begin{document}
+
+\newcommand{\sgn}{\text{sgn}}
+\setcounter{secnumdepth}{0}
+
+\section{Putnam 2011}
+\begin{enumerate}
+	\item [\textbf{A1}] Define a growing spiral in the plane to be a sequence of points with integer coordinates $P_0=(0,0),P_1,\dots,P_n$ such that $n\ge 2$ and:
+	
+	• The directed line segments $P_0P_1,P_1P_2,\dots,P_{n-1}P_n$ are in successive coordinate directions east (for $P_0P_1$), north, west, south, east, etc.
+	
+	• The lengths of these line segments are positive and strictly increasing.
+	
+	\[\begin{picture}(200,180)
+	
+	\put(20,100){\line(1,0){160}}
+	\put(100,10){\line(0,1){170}}
+	
+	\put(0,97){West}
+	\put(180,97){East}
+	\put(90,0){South}
+	\put(90,180){North}
+	
+	\put(100,100){\circle{1}}\put(100,100){\circle{2}}\put(100,100){\circle{3}}
+	\put(115,100){\circle{1}}\put(115,100){\circle{2}}\put(115,100){\circle{3}}
+	\put(115,130){\circle{1}}\put(115,130){\circle{2}}\put(115,130){\circle{3}}
+	\put(40,130){\circle{1}}\put(40,130){\circle{2}}\put(40,130){\circle{3}}
+	\put(40,20){\circle{1}}\put(40,20){\circle{2}}\put(40,20){\circle{3}}
+	\put(170,20){\circle{1}}\put(170,20){\circle{2}}\put(170,20){\circle{3}}
+	
+	\multiput(100,99.5)(0,.5){3}{\line(1,0){15}}
+	\multiput(114.5,100)(.5,0){3}{\line(0,1){30}}
+	\multiput(40,129.5)(0,.5){3}{\line(1,0){75}}
+	\multiput(39.5,20)(.5,0){3}{\line(0,1){110}}
+	\multiput(40,19.5)(0,.5){3}{\line(1,0){130}}
+	
+	\put(102,90){P0}
+	\put(117,90){P1}
+	\put(117,132){P2}
+	\put(28,132){P3}
+	\put(30,10){P4}
+	\put(172,10){P5}
+	
+	\end{picture}\]
+	
+	
+	How many of the points $(x,y)$ with integer coordinates $0\le x\le 2011,0\le y\le 2011$ cannot be the last point, $P_n,$ of any growing spiral?
+	
+	\textbf{Answer.} 10053. 
+	
+	\textbf{Solution.} For $1\le x< y$, we can use $|P_0P_1|=x$ and $|P_1P_2|=y$. For $(x, y)$ with $x\ge 3$ and $y\ge 4$ we can also use $|P_iP_{i+1}|=1, 2, 3, x+1, x+2, x+y-1$ for $1\le i\le 6$, then $x=1-3+x+2=x$ and $y=2-(x+1)+(x+y-1)=y$ (we need $x+1>3$ and $y-1>2$, so $x\ge 3$ and $y\ge 4$ at least 4 will work. )
+	
+	To show that these are the all the possible values, we first show that if $a_1<a_2<\cdots a_k$ are increasing sequences of positive numbers, then $\displaystyle\sum_{i=1}^k (-1)^{i-1}a_i$ is positive if $k$ is odd, and negative otherwise. If $k$ is odd, then we have $a_k>0$ and therefore $\displaystyle\sum_{i=1}^k (-1)^{i-1}a_i=(a_k-a_{k-1})+(a_{k-2}-a_{k-3})+\cdots + (a_3-a_2)+a_1$ with each of $a_i-a_{i+1}>0$. Similarly for for $k$ even we have $\displaystyle\sum_{i=1}^k (-1)^{i-1}a_i=-(a_k-a_{k-1})-\cdots -(a_2-a_1)$ and each term negative. 
+	Now going back to the core lemma, each change in the coordinates (for each $x$- and $y$-coordinates) are in alternate directions, with magnitude increasing by at least 2 each time. Both start with a positive change, so there must be an odd number of changes for both $x$ and $y$ coordinates. This implies $n$ is congruent to 2 mod 4. 
+	
+	If $n=2$, then we have the $x$-coordinate as the length $P_0P_1$ and the $y$-coordinate as $P_1P_2$. In this case we need $x<y$, with $x\ge 1$. If $n\ge 6$, let $x_1, x_2, \cdots , x_{n/2}$ be the lengths of the $x$-segments, and we have the $x$-coordinate as $x_1-x_2+x_3-\cdots +x_{n/2}=(x_{n/2}-x_{n/2 - 1})+\cdots + x_1$. Since each term in the form $x_i-x_{i-1}$ must be at least 2, so is $(x_{n/2}-x_{n/2 - 1})$, with $x_1\ge 1$. This gives $x\ge 3$. Similarly, if $y_1, y_2, \cdots , y_{n/2}$ are the $y$-segments then each $(y_{n/2}-y_{n/2 - 1})\ge 2$ with $y_1\ge 2$, giving the lower bound for $y$-coordinate as 4. 
+	
+	Hence for each $0\le x\le 2011$, if $x=0$ then all $y\in [0, 2011]$ cannot be one such point (2012 values); if $1\le x\le 2$ then we need $y\ge x+1$ so $y=0, 1, \cdots , x$ are impossible, hence $x+1$ values. When $x\ge 3$, each $y\ge 4$ fits. However, those with $y>x$ also have $y\ge 4$, so $y=0, 1, 2, 3$ are the ones that cannot fit (4 values each). Hence the answer is $2012+2+3+\displaystyle\sum_{k=3}^{2011}4=2017+4(2009)=10053$. 
+	
+	\item[\textbf{A2}]Let $a_1,a_2,\dots$ and $b_1,b_2,\dots$ be sequences of positive real numbers such that $a_1=b_1=1$ and $b_n=b_{n-1}a_n-2$ for $n=2,3,\dots.$ Assume that the sequence $(b_j)$ is bounded. Prove that \[S=\sum_{n=1}^{\infty}\frac1{a_1\cdots a_n}\] converges, and evaluate $S.$
+	
+	\textbf{Answer.} We necessarily have $S=\frac 32$. \\
+	\textbf{Solution.} Now we write $a_n=\dfrac{b_n+2}{b_{n-1}}$ for $n\ge 2$ so 
+	$\dfrac{1}{a_1\cdots a_n}=\dfrac{1}{\prod_{k=1}^n a_k}=\dfrac{1}{\prod_{k=2}^n \dfrac{b_k+2}{b_{k-1}}}
+	=\dfrac{1}{(b_n+2)\prod_{k=2}^{n-1}\left(1+\frac{2}{b_k}\right)}
+	$
+	This motivates us to do the following telescoping sum: we consider the difference $\dfrac 32 - \sum_{k=1}^{n}\dfrac1{a_1\cdots a_k}$ for each $n$. When $n=1$ we have $\dfrac 32 - \dfrac{1}{a_1}=\dfrac 32 - 1= \dfrac 12$ and when $n=2$ we have $\dfrac 12 - \dfrac{1}{b_2+2}=\dfrac{b_2}{2(b_2+2)}=\dfrac{1}{2(1+\frac{2}{b_2})}. $ We claim from here that $\dfrac 32 - \sum_{k=1}^{n}\dfrac1{a_1\cdots a_k} = \dfrac{1}{2\prod_{k=2}^n (1+\frac{2}{b_k})}$. Suppose that this is true for some $n$ (we have done base case $n=2$ above), then for $n+1$ we have 
+	\begin{flalign*}
+	\dfrac 32 - \sum_{k=1}^{n}\dfrac1{a_1\cdots a_k} 
+	&=\dfrac{1}{2\prod_{k=2}^n (1+\frac{2}{b_k})} - \dfrac{1}{(b_{n+1}+2)\prod_{k=2}^{n}\left(1+\frac{2}{b_k}\right)}\\
+	&=\dfrac{1}{\prod_{k=2}^n (1+\frac{2}{b_k})} \left(\dfrac 12 - \dfrac 1 {b_{n+1}+2}\right)\\
+	&=\dfrac{1}{\prod_{k=2}^n (1+\frac{2}{b_k})} \left(\dfrac {b_{n+1}} {2(b_{n+1}+2)}\right)\\
+	&=\dfrac{1}{\prod_{k=2}^{n+1} (1+\frac{2}{b_k})}
+	\end{flalign*}
+	and therefore we have $S=\dfrac 32 - \lim_{n\to\infty} \dfrac{1}{\prod_{k=2}^{n} (1+\frac{2}{b_k})}$. Since $(b_k)$ is bounded, there is $M$ positive such that $b_k\le M$ for each $k$. This means $\dfrac{1}{\prod_{k=2}^{n} (1+\frac{2}{b_k})}\le \dfrac{1}{\prod_{k=2}^{n} (1+\frac{2}{M})}=\dfrac 1{(1+\frac{2}{M})^{n-1}}$ and so 
+	$\lim_{n\to\infty} \dfrac{1}{\prod_{k=2}^{n} (1+\frac{2}{b_k})}\le \lim_{n\to\infty} \dfrac 1{(1+\frac{2}{M})^{n-1}}\to 0$. So $S=\dfrac 32$. 
+	
+	\item[\textbf{A3}] Find a real number $c$ and a positive number $L$ for which
+	\[\lim_{r\to\infty}\frac{r^c\int_0^{\pi/2}x^r\sin x\,dx}{\int_0^{\pi/2}x^r\cos x\,dx}=L.\]
+	
+	\textbf{Answer.} $c=-1$ and $L=\frac{2}{\pi}$.\\
+	\textbf{Solution.} Denote $S_r=\int_0^{\pi/2}x^r\sin x\,dx$ and $C_r=\int_0^{\pi/2}x^r\cos x\,dx$. We first find the relation between $S_{r+1}$ and $S_r$ for each $r$. In fact, we will prove that $\lim_{r\to\infty} \frac{S_{r+1}}{S_r}=\frac{\pi}{2}$. First, for each $r$ we have 
+	$S_{r+1}=\int_0^{\pi/2}x^{r+1}\sin x\,dx=\int_0^{\pi/2}x\cdot x^r\sin x\,dx\le \int_0^{\pi/2}\frac{\pi}{2}x^r\sin x\,dx
+	=\frac{\pi}{2} S_r$. 
+	On the other hand, we show that for each $\epsilon>0$, there exists $r_0$ such that $\frac{S_{r+1}}{s_r}>\frac{\pi}{2}-\epsilon$ for all $r\ge r_0$. 
+	Now let $0<\delta<\epsilon$. We split $S_r$ into two parts: 
+	$\int_0^{\pi/2-\delta}x^r\sin x\,dx$ and $\int_{\pi/2-\delta}^{\pi/2}x^r\sin x\,dx$. 
+	Since $\sin x\le 1$ for all $x$, we have 
+	\[\int_0^{\pi/2-\delta}x^r\sin x\,dx\le \int_0^{\pi/2-\delta}x^r\,dx
+	=\frac{(\pi/2-\delta)^{r+1}}{r+1}
+	\]
+	and
+	\[\int_{\pi/2-\delta}^{\pi/2}x^r\sin x\,dx
+	\ge \int_{\pi/2-\delta}^{\pi/2}(\pi/2-\delta)^r\sin (\pi/2-\delta)\,dx
+	=\delta(\pi/2-\delta)^r\sin (\pi/2-\delta)
+	\]
+	which means
+	\[
+	\dfrac{\int_{\pi/2-\delta}^{\pi/2}x^r\sin x\,dx}{S_r}
+	\ge \frac{\delta(\pi/2-\delta)^r\sin (\pi/2-\delta)}{\delta(\pi/2-\delta)^r\sin (\pi/2-\delta)+\frac{(\pi/2-\delta)^{r+1}}{r+1}}
+	=\frac{\delta\sin (\pi/2-\delta)}{\delta\sin (\pi/2-\delta)+\frac{\pi/2-\delta}{r+1}}
+	\]
+	We see that this ratio converges to 1 as $r\to\infty$, and since $\delta<\epsilon$, the ratio  $\dfrac{\int_{\pi/2-\delta}^{\pi/2}x^r\sin x\,dx}{S_r}>\frac{\pi/2-\epsilon}{\pi/2-\delta}$ for sufficiently large $r$. 
+	Now we also have 
+	\begin{flalign*}
+	S_{r+1}&=\int_0^{\pi/2}x^{r+1}\sin x\,dx
+	\\&>\int_{\pi/2-\delta}^{\pi/2}x^{r+1}\sin x\,dx
+	\\&\ge \int_{\pi/2-\delta}^{\pi/2}(\pi/2-\delta)x^{r}\sin x\,dx
+	\\&>(\pi/2-\delta)(\frac{\pi/2-\epsilon}{\pi/2-\delta})S_r
+	\\&=(\pi/2-\epsilon)S_r
+	\end{flalign*}
+	with the last inequality holds true for sufficiently large $r$. This concludes the claim that $\frac{S_{r+1}}{S_r}>\frac{\pi}{2}-\epsilon$ for all sufficiently large $r$. Considering the fact that this holds for each $\epsilon>0$, we have $\lim_{r\to\infty}\frac{S_{r+1}}{S_r}=\frac{\pi}{2}$. 
+	
+	Now going back to the problem, by virtue of integration by parts we get $C_r=\int_0^{\pi/2}x^r\cos x\,dx
+	=[\frac{x^{r+1}}{r+1}\cos x]_0^{\pi/2}+\int_0^{\pi/2}\frac{x^{r+1}}{r+1}\sin x\,dx
+	=0+\frac{1}{r+1}S_{r+1}
+	=\frac{S_{r+1}}{r+1}
+	$
+	and by the claim above we have $\frac{2}{\pi}=\lim_{r\to\infty}\frac{S_r}{S_{r+1}}
+	=\lim_{r\to\infty}\frac{S_r}{(r+1)C_r}
+	=\lim_{r\to\infty}\frac{S_r}{rC_r}
+	\lim_{r\to\infty}\frac{r^{-1}S_r}{C_r}
+	$
+	since $\frac{r+1}{r}$ as $r\to\infty$. Thus $c=-1$ and $L=\frac{2}{\pi}$. 
+	
+	\item[\textbf{A4}] For which positive integers $n$ is there an $n\times n$ matrix with integer entries such that every dot product of a row with itself is even, while every dot product of two different rows is odd?
+	
+	\textbf{Answer.} When $n$ is odd. For this example we can use $A$ as the matrix full with ones, and return the answer $A-I$. (Basically, the $ij$-entry is 1 iff $i\neq j$). 
+	
+	\textbf{Solution.} It suffices to produce a contradiction when $n$ is even. Now, consider the matrix $A$ of $n\times n$ with the desired property, and it will be more useful to consider it in the $\bbZ_2$ space. Let $v$ be the $n\times 1$ matrix with all entries 1 (i.e. $\begin{pmatrix}1 & 1 & \cdots & 1\\ \end{pmatrix}^T$). Then $Av$ is contains the sum of entries of each row, which is essentially also the dot product of each row with itself in $\bbZ_2$. Hence, $Av=0$, and thus $v$ is in the null space of $A$ (also $v$ is nonempty). On the other hand, the $ij$-th entry of $AA^t$ is the dot product of the $i$-th and $j$-th row of $A$, and is therefore odd if $i\neq j$, and even otherwise. This gives $AA^t=B-I$ where $B$ is the $n\times n$ matrix with all ones. 
+	
+	Now $\det(AA^t)=\det(A)\det(A^t)=\det(A^t)\det(A)=\det(A^tA)$ and since $Av=0$, we have $A^tAv=0$ too, so $A^tA$ and $AA^t$ cannot be invertible in $\bbZ_2$. On the other hand, consider the matrix $B-I=AA^t$, and we claim that the determinant is odd by induction on $n$. Base case when $n=2$ and we have $B_2=\begin{pmatrix}
+	0 & 1\\1 & 0\\
+	\end{pmatrix}$ with determinant $-1$ (and hence odd). Now suppose that for some even $n$, $B_{n-2}$ has odd determinant. We consider $B_n$: 
+	$\begin{pmatrix}
+	0 & 1 & \cdots & 1\\
+	1 & 0 & \cdots & 1\\
+	\ddots \\
+	1 & 1 & \cdots & 0\\
+	\end{pmatrix}$. 
+	Consider, now, $B_{1k}$ for $k>1$ where $B_{ij}$ is the matrix obtained by deleting $i$-th row and $j$-th column from $B$, and we have $\det(B)=\displaystyle\sum_{k=1}^n(-1)^{k-1}b_{1k}\det(B_{1k})=\displaystyle\sum_{k=2}^n\det (B_{1k})$ since $b_{1k}$ is 1 except for $b_{11}=0$, and also removing all the $(-1)^k$'s since we are doing $\bbZ_2$. Now each $C=B_{1k}$ for $k\ge 2$, the matrix has the following form: $c_{1j}=1$ for all $j$'s, and $c_{j\ell}=1$ with the exception when $j\ge 2$ and $\ell = j-1$ for $j<k$, and $\ell=j$, otherwise. Since row reduction preserves the determinant, we subtract every row by the first row. Since the first row is all ones, we essentially flipped all rows $2$ to $n-1$. Thus we now have $c_{j\ell}=0$ unless $j\ge 2$, and $\ell=j-1$ for $j<k$ and $\ell=j$, otherwise. 
+	This means, there's exactly 1 nontrivial entries in each row $c_{j(j-1)}$ ($j<k$) or $c_{jj}$ ($j\ge k$), and each of them are in different rows and columns. Multiplying them with $c_{1(k-1)}=1$ gives the only possible contribution to the determinant of $C$, i.e. $\pm 1=1$ in $\bbZ_2$. Thus $\det(B)=\displaystyle\sum_{k=2}^n\det (B_{1k})=
+	\displaystyle\sum_{k=2}^n 1 = n-1=1$ since $n$ is even. Thus now $B$ is invertible, which is a contradiction. 
+	
+	\item[\textbf{B1}] Let $h$ and $k$ be positive integers. Prove that for every $\varepsilon >0,$ there are positive integers $m$ and $n$ such that \[\varepsilon < \left|h\sqrt{m}-k\sqrt{n}\right|<2\varepsilon.\]
+	
+	\textbf{Solution.} We first show that for all $\varepsilon>0$, there exists $m$ and $n$ such that $0<\left|h\sqrt{m}-k\sqrt{n}\right|<2\epsilon$. 
+	
+	Let $d > 0$ be the greatest common divisor of $h^2$ and $k^2$. By Euclid's algorithm, there exists $m_0$ and $n_0$ such that $h^2m_0-k^2n_0=d$. And if $m_0$ and $n_0$ are such solutions, other solutions can be obtained by changing $(m_0, n_0)$ with $(m_0+xk^2/d, n_0+xh^2/d)$ for all $x\ge 0$. 
+	
+	We now proceed to another crucial observation: $\lim_{N\to \infty}\sqrt{N+d}-\sqrt{N}=0$. To this end, notice that for each $\varepsilon>0$, we have $(\sqrt{N}+\varepsilon)^2=N+\varepsilon^2 + 2\varepsilon\sqrt{N}>N+2\varepsilon\sqrt{N}$, so choosing $N$ such that $d<2\varepsilon\sqrt{N}$ (i.e. $N>(\frac{d}{4\varepsilon^2})$) we get $(\sqrt{N}+\varepsilon)^2 > N+d$ and therefore $\sqrt{N+d}-\sqrt{N}<\varepsilon$ for all such $N$. 
+	This means, fixing $N_0$ such that $0<\sqrt{N+d}-\sqrt{N}<\varepsilon$ for all $N>N_0$ and choosing $x$ such that $n_0+xh^2/d>N$ we have $0<h\sqrt{m_0+xk^2/d} - k\sqrt{n_0+xh^2/d} < \varepsilon$. In other words, there exists $m_1$ and $n_1$ such that $0<h\sqrt{m_1} - k\sqrt{n_1}<\varepsilon$ (by assigning $m_1 = m_0+xk^2/d$ and $n_1 = n_0+xh^2/d$). 
+	
+	Finally, since $0 < h\sqrt{m_1} - k\sqrt{n_1}$, let $c = \varepsilon / h\sqrt{m_1} - k\sqrt{n_1}$. Consider the number $g = \lfloor c\rfloor + 1$. From the choices of $m_1$ and $n_1$, we also have $c>1$, and from $ c < g = \lfloor c\rfloor + 1\le c+1$ we have $1 < g/c < 2$. 
+	Thus, making $m=g^2m_1$ and $n=g^2n_1$ we get 
+	\[
+	h\sqrt{m} - k\sqrt{n} = g(h\sqrt{m_1} - k\sqrt{n_1}) = \varepsilon\cdot (g/c)
+	\]
+	and with $g/c\in (1, 2)$ we gave $h\sqrt{m} - k\sqrt{n}\in (\varepsilon, 2\varepsilon)$. 
+	
+	\item[\textbf{B2}] Let $S$ be the set of all ordered triples $(p,q,r)$ of prime numbers for which at least one rational number $x$ satisfies $px^2+qx+r=0.$ Which primes appear in seven or more elements of $S?$
+	
+	\textbf{Answer.} 2 and 5\\
+	\textbf{Solution.} We will use without proof that a rational solution exists to $px^2+qx+r=0$ if and only if the discriminant $q^2-4pr$ is a perfect square. In other words, we want to solve for $q^2-4pr=s^2$ with $s$ being an integer. Rearranging gives $(q-s)(q+s)=4pr$, with the prime factorization of $4pr$ being $2\time 2\times p\times r$. 
+	
+	If both $p$ and $r$ are 2, we have $(q-s)(q+s)$ is 16, so $(q-s, q+s)$ is either $(1, 16), (2, 8)$ or $(4, 4)$. The first one will force $q$ and $s$ to be non-integer; the second one gives $(q, s)$ as $(5, 3)$. The third example gives $(4, 0)$, neither of which is a prime. Thus the only possibility is $(p, q, r)=(2, 5, 2)$. 
+	
+	If one of them, say $p$ is 2 while $r$ prime, then $(q-s)(q+s)=8r$. Bearing in mind that $q-s\equiv q+s\mod 2$, both factors have to be even and therefore in the category of $(2, 4r), (4, 2r)$. Since $r>2$, we have $2r>4$. This forces $q, s$ to be $(2r+1, 2r-1)$ in the first case, and $(r+2, r-2)$ in the second case. Thus we have $(p, q, r)=(2, 2r+1, r)$, $(r, 2r+1, 2)$, $(2, r+2, r)$ or $(r, r+2, 2)$, condition on that $2r+1$ or $r+2$ actually being a prime. 
+	
+	If both $p$ and $r$ are odd primes, we have $(q-s)(q+s)=4pr=2p\times 2r$. Again both $q-s$ and $q+s$ are even, so $(q-s, q+s)$ are $(2, 2pr)$ or $(2p, 2r)$, assuming $p\le r$. The first case gives $(q, s)=(pr+1, pr-1)$ and the second case gives $(p+r, p-r)$. Notice, however, that this is hardly possible: since $p$ and $r$ are odd, $q=pr+1$ and $q=p+r$ are both odd, and greater than 2, hence cannot be even. 
+	
+	Thus a prime $r\not\in \{2, 5\}$ will appear two times when $2r+1$ is prime, when $r+2$ being a prime, when $\frac{r-1}{2}$ is a prime, when $r-2$ is a prime. If $r$ were to appear at least 7 times, then all conditions must hold. If $r\ge 7$, then one of $r-2, r, r+2$ must be divisible by 3, contradiction. Hence $r\ge 7$ is impossible. When $r=3$, $r-2=1$ is not prime. Now we claim that the primes 2 and 5 are possible: we have an example $(2, 5, 2)$ as above and since $2r+1=11, 5+2=7, 5-2=3$ are primes, we can do $(2, 11, 5), (5, 11, 2), (2, 7, 5), (5, 7, 2), (2, 5, 3), (3, 5, 2)$. These give the 7 occurences of 2 and 5. 
+	
+	\item[\textbf{B3}] Let $f$ and $g$ be (real-valued) functions defined on an open interval containing $0,$ with $g$ nonzero and continuous at $0.$ If $fg$ and $f/g$ are differentiable at $0,$ must $f$ be differentiable at $0?$
+	
+	\textbf{Answer.} Yes. \\
+	\textbf{Solution.} We need to see if $\lim_{x\to 0}\frac{f(x)-f(0)}{x}$ is defined. By the rules of limits we have 
+	\[
+	\lim_{x\to 0}\frac{f(x)g(x)-f(0)g(0)}{x}=(fg)'(0)\]
+	\[
+	\lim_{x\to 0}\frac{f(x)g(0)-f(0)g(x)}{x}=\lim_{x\to 0}\frac{f(x)/g(x)-f(0)/g(0)}{x}\cdot \lim_{x\to 0} g(0)g(x)
+	=(f/g)'(0) \cdot g(0)^2
+	\]
+	Adding the two limits up give
+	\begin{flalign*}
+	(fg)'(0) + (f/g)'(0) \cdot g(0)^2
+	&=\lim_{x\to 0}\frac{f(x)g(x)-f(0)g(0)}{x} + \lim_{x\to 0}\frac{f(x)g(0)-f(0)g(x)}{x}
+	\\&=\lim_{x\to 0}\frac{(f(x)-f(0))(g(x)+g(0))}{x} 
+	\end{flalign*}
+	and since $\lim_{x\to 0}g(x)+g(0)=2g(0)\neq 0$ (before $f$ is continuous at 0), we have 
+	\begin{flalign*}
+	f'(0)
+	&=\lim_{x\to 0}\frac{f(x)-f(0)}{x}
+	\\&=\lim_{x\to 0}\frac{(f(x)-f(0))(g(x)+g(0))}{x}\div \lim_{x\to 0}(g(x)+g(0))
+	\\&=(fg)'(0) + (f/g)'(0) \cdot g(0)^2 \div 2g(0)
+	\end{flalign*}
+	as desired. 
+	
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,148 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\bbP}{\mathbb P}
+\newcommand{\bbE}{\mathbb E}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\begin{document}
+
+\newcommand{\sgn}{\text{sgn}}
+\setcounter{secnumdepth}{0}
+\section{Putnam 2010}
+
+\begin{enumerate}
+	\item [\textbf{A1}] Given a positive integer $n,$ what is the largest $k$ such that the numbers $1,2,\dots,n$ can be put into $k$ boxes so that the sum of the numbers in each box is the same?
+	
+	[When $n=8,$ the example $\{1,2,3,6\},\{4,8\},\{5,7\}$ shows that the largest $k$ is at least 3.]
+	
+	\textbf{Answer.} $\lfloor\frac{n+1}{2}\rfloor$.\\
+	\textbf{Solution.} The sum in each box is at least $n$ since this must be the case for the box containing $n$. Since the total sum of the $n$ numbers is $\frac{n(n+1)}{2}$, the number of boxes cannot exceed $\frac{n+1}{2}$, so the answer is at most $\lfloor\frac{n+1}{2}\rfloor$. 
+	
+	To see this is achievable, we split into cases where $n$ is even and $n$ is odd. When $n$ is odd, we can do $\{n\}, \{1, n-1\}, \{2, n-2\}, \cdots, \{\frac{n-1}{2}, \frac{n+1}{2}\}$. 
+	When $n$ is even, the example $\{1, n\}, \{2, n-1\}, \cdots , \{\frac{n}{2}-1, \frac{n}{2}+1\}$ gives the example of $\frac{n}{2}=\lfloor\frac{n+1}{2}\rfloor$ boxes. 
+	
+	\item [\textbf{A2}]
+	Find all differentiable functions $f:\mathbb{R}\to\mathbb{R}$ such that
+	\[f'(x)=\frac{f(x+n)-f(x)}n\]
+	for all real numbers $x$ and all positive integers $n.$
+	
+	\textbf{Answer.} All linear functions $f(x)=mx+c$ in which case $f'(x)=\frac{f(x+n)-f(x)}n=m$\\
+	\textbf{Solution.} To show that $f$ must be linear, we notice that for each $x$, $f'(x)=f(x+1)-f(x)=\frac{f(x+2)-f(x)}2$ so this gives the relation $f(x+2)-f(x)=2(f(x+1)-f(x))$, and therefore $f'(x+1)=f(x+2)-f(x+1)=f(x+1)-f(x)=f'(x)$. 
+	
+	We now introduce the function $g(x)=f(x+1)-f(x)$. Notice that: 
+	
+	\begin{flalign*}
+	g'(x)&=\lim_{\epsilon\to 0}\frac{g(x+\epsilon)-g(x)}{\epsilon}
+	\\&=\lim_{\epsilon\to 0}\frac{f(x+1+\epsilon)-f(x+\epsilon)-f(x+1)+f(x)}{\epsilon}
+	\\&=\lim_{\epsilon\to 0}\frac{f(x+1+\epsilon)-f(x+1)}{\epsilon}-\frac{f(x+\epsilon)-f(x)}{\epsilon}
+	\\&=f'(x+1)-f'(x)
+	\\&=0
+	\end{flalign*}
+	since $f'(x+1)=f'(x)$ for all $x$. Therefore $g$ is a constant function, meaning that, $f(x+1)-f(x)$ is constant. But since $f(x+1)-f(x)=f'(x)$, $f'(x)$ is also a constant, which means that $f$ has to be linear. 
+	
+	\item [\textbf{A3}]
+	Suppose that the function $h:\mathbb{R}^2\to\mathbb{R}$ has continuous partial derivatives and satisfies the equation
+	\[h(x,y)=a\frac{\partial h}{\partial x}(x,y)+b\frac{\partial h}{\partial y}(x,y)\]
+	for some constants $a,b.$ Prove that if there is a constant $M$ such that $|h(x,y)|\le M$ for all $(x,y)$ in $\mathbb{R}^2,$ then $h$ is identically zero.
+	
+	\textbf{Solution.} Fix a point $(x_0, y_0)\in\bbR^2$. Denote $g(z)=h(x_0+az, y_0+bz)$. We have the following: 
+	\begin{flalign*}
+	g'(z)&=\lim_{\epsilon\to 0}\frac{g(z+\epsilon)-g(z)}{\epsilon}
+	\\&=\lim_{\epsilon\to 0}\frac{h(x_0+a(z+\epsilon), y_0+b(z+\epsilon))-h(x_0+az, y_0+bz)}{\epsilon}
+	\\&=a\frac{\partial h}{\partial x}(x_0+az,y_0+bz)+b\frac{\partial h}{\partial y}(x_0+az,y_0+bz)
+	\\&=h(x_0+az,y_0+bz)
+	\\&=g(z)
+	\end{flalign*}
+	So the condition $g'(z)=g(z)$ holds for all $z\in\bbR$. It follows from the identity of differential equation that the solution to $g$ is $g(z)=Ae^z$ for all $z\in\bbR$. Since $h$ us bounded in $\bbR^2$, so is $g$ and the only possibility is $A=0$. Thus $g\equiv 0$ and in particular, $g(0)=h(x_0, y_0)=0$. 
+	
+	
+	\item [\textbf{A4}]
+	Prove that for each positive integer $n,$ the number $10^{10^{10^n}}+10^{10^n}+10^n-1$ is not prime.
+	
+	\textbf{Solution.} Let $k$ be the maximum positive integer such that $2^k\mid n$. We claim that the number $10^{10^{10^n}}+10^{10^n}+10^n-1$ is divisible by $10^{2^k}+1$. It suffices to show that $10^{10^{10^n}}$ and $10^{10^n}$ are congruent to 1 modulo $p$ whereas $10^n$ congruent to 1. 
+	
+	Now, $n=d\cdot 2^k$ for some odd number $d$. Therefore $10^{n}=10^{d\cdot 2^k}\equiv (-1)^d=-1\pmod{10^{2^k}+1}$ since $d$ is odd. On the other hand, $10^{10^n}=10^{2^n\cdot 5^n}$ and from $n=d\cdot 2^k\ge 2^k>k$ we have $n\ge k+1$, so $2^{k+1}\mid 2^n\cdot 5^n$. Since $10^{2^{k+1}}\equiv(-1)^2=1\pmod{10^{2^k}+1}$ we have $10^{10^n}\equiv 1\pmod{10^{2^k}+1}$, and similarly for $10^{10^{10^n}}$. 
+	
+	Finally, it's not hard to see that $10^{10^{10^n}}+10^{10^n}+10^n-1 > 10^{2^k}+1$ because $n\ge 2^k$ and $10^{10^{10^n}}$ and $10^{10^n}$ are both strictly greater than $1$ (because $n$ is positive so $10^n>1$ and so is $10^{10^n}$ and $10^{10^{10^n}}$). Therefore
+	$10^{10^{10^n}}+10^{10^n}+10^n-1 > 1+1+\cdot 10^n-1=10^n+1=10^{2^k}+1$. 
+	
+	\item [\textbf{A5}]
+	Let $G$ be a group, with operation $*$. Suppose that
+	
+	(i) $G$ is a subset of $\mathbb{R}^3$ (but $*$ need not be related to addition of vectors);
+	
+	(ii) For each $\mathbf{a},\mathbf{b}\in G,$ either $\mathbf{a}\times\mathbf{b}=\mathbf{a}*\mathbf{b}$ or $\mathbf{a}\times\mathbf{b}=\mathbf{0}$ (or both), where $\times$ is the usual cross product in $\mathbb{R}^3.$
+	
+	Prove that $\mathbf{a}\times\mathbf{b}=\mathbf{0}$ for all $\mathbf{a},\mathbf{b}\in G.$
+	
+	\textbf{Solution.} Let $\mathbf{e}\in\bbR^3$ be the identity element in the group. If $\mathbf{e}\times\mathbf{a}\neq\mathbf{0}$ for some $\mathbf{a}\in G$, then $\mathbf{e}\times\mathbf{a}=\mathbf{e} * \mathbf{a}=\mathbf{a}$. Since both $\mathbf{e}$ and $\mathbf{a}$ are not parallel and nonzero, $\mathbf{a}=\mathbf{e}\times\mathbf{a}$ is perpendicular to $\mathbf{a}$, which is impossible for $\mathbf{a}$ nonzero. 
+	Hence, for all $\mathbf{a}\in G$ we have $\mathbf{e}\times\mathbf{a}=\mathbf{0}$. 
+	
+	Now if $\mathbf{e}$ is not the zero vector, then from $\mathbf{e}\times\mathbf{a}=\mathbf{0}$ for all $\mathbf{a}\in G$ all such $\mathbf{a}$'s are either 0 or parallel to $\mathbf{e}$. In this case, the condition $\mathbf{a}\times\mathbf{b}=\mathbf{0}$ for all $\mathbf{a},\mathbf{b}\in G.$ We can now assume that $\mathbf{e}=\mathbf{0}$. 
+	
+	Suppose there are $\mathbf{a}$ and $\mathbf{b}\in G$ such that $\mathbf{a}\times\mathbf{b}\neq \mathbf{0}$. From (ii), $\mathbf{a}*\mathbf{b}=\mathbf{a}\times\mathbf{b}\in G$ and is perpendicular to $\mathbf{a}$ and $\mathbf{b}$, i.e. there exists a vector in $G$ that is perpendicular to $\mathbf{a}$. Thus we can choose $\mathbf{a}$ and $\mathbf{b}$ (in the beginning) such that they are perpendicular to each other, and we will now assume that $\mathbf{a}$ and $\mathbf{b}$ are perpendicular to each other. 
+	
+	Let $\mathbf{a}\times \mathbf{b}=\mathbf{c}=-\mathbf{b}\times\mathbf{a}$. Since $\mathbf{e}=0$, we have $(\mathbf{a}\times \mathbf{b}) * (\mathbf{b}\times\mathbf{a}) =\mathbf{0}$ and with $\mathbf{a}\times\mathbf{b}=\mathbf{a}*\mathbf{b}$ as of above (and similarly $\mathbf{b}\times\mathbf{a}=\mathbf{b}*\mathbf{a}$) we get 
+	$\mathbf{0}=\mathbf{a}*\mathbf{b}*\mathbf{b}*\mathbf{a}$ (notice the omission of brackets because $*$ is associative). 
+	``Multiplying'' both sides by $-\mathbf{a}$ from the left and $\mathbf{a}$ from the right gives $\mathbf{b}^2 * \mathbf{a}^2=\mathbf{0}$ (second power means multiplication by itself), i.e. $\mathbf{b}^2$ and $\mathbf{a}^2$ are inverses of each other. But since $\mathbf{c}$ is perpendicular to $\mathbf{a}$ and $\mathbf{b}$, a similar conclusion yields $\mathbf{c}^2$ and $\mathbf{a}^2$ are inverses of each other, and so are $\mathbf{c}^2$ and $\mathbf{b}^2$. With $\mathbf{a}^2$, $\mathbf{b}^2$ and $\mathbf{c}^2$ being inverses of one another, the only possibility is all of them being $\mathbf{0}$. 
+	
+	Since $\mathbf{a}$ and $\mathbf{c}$ are also perpendicular to each other, we get $\mathbf{a}\times \mathbf{c}=\mathbf{a} * \mathbf{c}=\mathbf{a} * \mathbf{a} * \mathbf{b}=\mathbf{0} * \mathbf{b}=\mathbf{b}$. Similarly, $\mathbf{c}\times \mathbf{b}=\mathbf{a}$. Denote $\mathbf{i}$, $\mathbf{j}$ and $\mathbf{k}$ as the vectors parallel to $x, y, z$ axes, respectively. By rotating $\mathbf{a}$ and $\mathbf{b}$, we can assume that $\mathbf{a}=x\mathbf{i}$ and $\mathbf{b}=y\mathbf{j}$, making $\mathbf{c}=xy(\mathbf{i}\times \mathbf{j})=(xy)\mathbf{k}$. 
+	But then $y\mathbf{j}=\mathbf{b}=\mathbf{a}\times\mathbf{c}=x^2y\mathbf{i}\times\mathbf{k}=- x^2y\mathbf{j}$, so $y=-x^2y$, or $x^2=-1$ because $y\neq 0$. This is impossible since this forces $x=\sqrt{-1}$, which is imaginary. This contradiction shows that there cannot be $\mathbf{a}$ and $\mathbf{b}$ with nonzero cross products. 
+	
+	\item [\textbf{B1}]
+	Is there an infinite sequence of real numbers $a_1,a_2,a_3,\dots$ such that
+	\[a_1^m+a_2^m+a_3^m+\cdots=m\]
+	for every positive integer $m?$
+	
+	\item [\textbf{B2}]
+	Given that $A,B,$ and $C$ are noncollinear points in the plane with integer coordinates such that the distances $AB,AC,$ and $BC$ are integers, what is the smallest possible value of $AB?$
+	
+	\item [\textbf{B3}]
+	There are 2010 boxes labeled $B_1,B_2,\dots,B_{2010},$ and $2010n$ balls have been distributed among them, for some positive integer $n.$ You may redistribute the balls by a sequence of moves, each of which consists of choosing an $i$ and moving exactly $i$ balls from box $B_i$ into any one other box. For which values of $n$ is it possible to reach the distribution with exactly $n$ balls in each box, regardless of the initial distribution of balls?
+\end{enumerate}
+\end{document}

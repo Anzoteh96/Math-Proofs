@@ -1,0 +1,161 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\bbP}{\mathbb P}
+\newcommand{\bbE}{\mathbb E}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\begin{document}
+
+\newcommand{\sgn}{\text{sgn}}
+\setcounter{secnumdepth}{0}
+
+\section{Putnam 2015}
+\begin{enumerate}
+	\item [\textbf{A1}] Let $A$ and $B$ be points on the same branch of the hyperbola $xy=1.$ Suppose that $P$ is a point lying between $A$ and $B$ on this hyperbola, such that the area of the triangle $APB$ is as large as possible. Show that the region bounded by the hyperbola and the chord $AP$ has the same area as the region bounded by the hyperbola and the chord $PB.$
+	
+	\textbf{Solution.} Let the coordinates of $A$ to be $(x_A, \frac 1{x_A})$ and the coordinates of $B$ to be $(x_B, \frac 1{x_B})$. Same goes for $(x_P, \frac 1{x_P})$. Thus the area is given by: 
+	\[\frac 12 |\frac{x_A}{x_B} +\frac{x_B}{x_P} + \frac{x_P}{x_A} - \frac{x_B}{x_A} -\frac {x_P}{x_B} -\frac {x_A}{x_P}|\]
+	Ignoring absolute value, differentiating with respect to $x_P$ we get that any stationary point happens when $(x_B-x_A)\left(\frac{1}{x_P^2}-\frac{1}{x_Ax_B}\right)=0$. This happens when $x_P=\pm\sqrt{x_Ax_B}$. W.l.o.g. we assume that both $x_A$ and $x_B$ are both positive, and thus $x_P$ must also be positive. Thus $x_P=\sqrt{x_Ax_B}$. Also w.l.o.g. we assume that $x_A<x_P<x_B$. Since the area is the lowest possible (i.e. 0) when $x_P=x_A$ or $x_P=x_B$, and positive at other times, and also since $x_P=\sqrt{x_Ax_B}$ is the only stationary point, this area must be nondecreasing in the interval $x_P\in (x_A, \sqrt{x_Ax_B})$  and nonincreasing in the interval $x_P\in (\sqrt{x_Ax_B}, x_B)$, we know that $x_P=\sqrt{x_Ax_B}$ is indeed the point where the area attains the maximum. Now the area of bounded by the hyperbola and the chord $AP$ is given by the following: 
+	\[\frac 12 (x_P-x_A)\left(\frac{1}{x_P}+\frac{1}{x_A}\right)-\int_{x_A}^{x_P}\frac{1}{x}dx
+	=\frac 12 \left(\frac{x_P}{x_A}-\frac{x_A}{x_P}\right)-(\ln x_P -\ln x_A)
+	\]
+	substituting $x_P=\sqrt{x_Ax_B}$ we get 
+	\[\frac 12 \left(\frac{\sqrt{x_Ax_B}}{x_A}-\frac{x_A}{\sqrt{x_Ax_B}}\right)-(\ln \sqrt{x_Ax_B} -\ln x_A)
+	=\frac 12 \left(\sqrt{\frac{x_B}{x_A}}-\sqrt{\frac{x_A}{x_B}}\right)-\frac 12(\ln x_B-\ln x_A)
+	\]
+	Similarly the area bounded by $PB$ and the hyperbola is given by 
+	\[\frac 12 (x_B-x_P)\left(\frac{1}{x_P}+\frac{1}{x_B}\right)-\int_{x_P}^{x_B}\frac{1}{x}dx
+	=\frac 12 \left(\frac{x_B}{x_P}-\frac{x_P}{x_B}\right)-(\ln x_B -\ln x_P)
+	\]
+	and since $x_P=\sqrt{x_Ax_B}$ we get 
+	\[\frac 12 \left(\frac{x_B}{\sqrt{x_Ax_B}}-\frac{\sqrt{x_Ax_B}}{x_B}\right)-(\ln x_B -\ln \sqrt{x_Ax_B})
+	=\frac 12 \left(\sqrt{\frac{x_B}{x_A}}-\sqrt{\frac{x_A}{x_B}}\right)-\frac 12(\ln x_B-\ln x_A)
+	\]
+	hence showing that they have the same area. 
+	
+	\item[\textbf{A2}]Let $a_0=1,a_1=2,$ and $a_n=4a_{n-1}-a_{n-2}$ for $n\ge 2.$
+	
+	Find an odd prime factor of $a_{2015}.$
+	
+	\textbf{Answer.} 181. \\
+	\textbf{Solution.} The characteristic polynomial of this recurrence equation is $x^2-4x+1=0$, which has roots $\frac{4\pm\sqrt{4^2-4}}{2}=2\pm\sqrt{3}$. Thus $a_n=a(2+\sqrt{3})^n+b(2-\sqrt{3})^n$, and since $a+b=1$ and $a(2+\sqrt{3})+b(2-\sqrt{3})=2$, we get $a=b=\frac 12$. Thus we have $a_n=\frac 12 ((2-\sqrt{3})^n + (2+\sqrt{3})^n)$. 
+	Now $\frac{a_{2015}}{a_5}=\sum_{i=0}^{402}(-1)^{i}(2-\sqrt{3})^{5i}(2-\sqrt{3})^{2010+5i}$, and since both $a_{2015}$ and $a_5$ are both integers, this expression must also be a rational number. From the right hand side we can also deduce that this ratio is in the form of $x+y\sqrt{3}$ with $x, y$ both integers and since $x+y\sqrt{3}\in \mathbb{Q}$, $y=0$ hence $\frac{a_{2015}}{a_5}$ is actually an integer. So it suffices to find a prime factor of $a_5$. Finally, since $a_5=362=2\times 181$ and 181 is a prime, this is a possible answer. 
+	
+	\item[\textbf{A3}]Compute \[\log_2\left(\prod_{a=1}^{2015}\prod_{b=1}^{2015}\left(1+e^{2\pi iab/2015}\right)\right)\]Here $i$ is the imaginary unit (that is, $i^2=-1$).
+	
+	\textbf{Answer.} \\
+	\textbf{Solution.} Since $e^x = e^{2\pi i + x}$, we will consider everything in the cycle of $2\pi i$. In this context, if $ab\equiv k\pmod{2015}$, and let $ab-k=2015c$ with $c$ an integer, then $e^{2\pi iab/2015}=e^{2\pi i(k+2015c)/2015}=e^{2\pi ik/2015}e^{2\pi ic}=e^{2\pi ik/2015}$. Thus we can consider everything modulo 2015. 
+	
+	Let $d=\gcd(a, 2015)$. Then $2015|ab$ if and only if $c=\frac{2015}{d}|b$. In addition, $\{a, 2a, \cdots ca\} = \{d, 2d, \cdots , cd=2015\}$ in modulo 2015. Thus we have 
+	\[\prod_{b=1}^{2015}\left(1+e^{2\pi iab/2015}\right)=\left(\prod_{b=1}^{c}\left(1+e^{2\pi ibd/2015}\right)\right)^d=\left(\prod_{b=1}^{e}\left(1+e^{2\pi ib/c}\right)\right)^d\]
+	Bearing in mind that $c$ is odd, we now investigate this sum. Now, it is given that $\prod_{b=1}^{c}\left(x-e^{2\pi ib/c}\right)=x^c-1$, since $e^{2\pi b/c}$ are all the roots of unity for $b=1, 2, \cdots , c$. Substituting $c=-1$ we get $\prod_{b=1}^{e}\left(-1-e^{2\pi ib/c}\right)=x^c-1=-1-1=-2$ since $c$ is odd. 
+	Reversing the sign we get $\prod_{b=1}^{e}\left(1+e^{2\pi ib/c}\right)=(-2)(-1)^{c}=2$. Therefore we have $\prod_{b=1}^{2015}\left(1+e^{2\pi iab/2015}\right)=2^d$. Summing up we get 
+	\[\log_2\left(\prod_{a=1}^{2015}\prod_{b=1}^{2015}\left(1+e^{2\pi iab/2015}\right)\right) =\log_2\left(\prod_{a=1}^{2015}2^{\gcd(2015, a)}\right)
+	=\sum_{a=1}^{2015} \gcd(2015, a)\]
+	By the Euler's totient function, there are $\phi(2015)=\phi(5\cdot 13\cdot 31)=4\cdot 12\cdot 30=1440$ such $a$'s with $\gcd(a, 2015)=1$. The number of $a$'s with $\gcd(a, 2015)=d$ is $\phi(\frac{2015}{d})$, so this gives the total as 
+	\begin{flalign*}
+	\sum_{a=1}^{2015} \gcd(2015, a)&=\sum_{d|2015} \phi(d)\frac{2015}{d}\\
+	&=1440+4(12\cdot 30)+13(4)(30)+5(13)(30)+4(13)(31)+5(12)(31)+5(13)(30)+5(13)(31)\\
+	&=13725\\
+	\end{flalign*}
+	
+	\item[\textbf{A5}] Let $q$ be an odd positive integer, and let $N_q$ denote the number of integers $a$ such that $0<a<q/4$ and $\gcd(a,q)=1.$ Show that $N_q$ is odd if and only if $q$ is of the form $p^k$ with $k$ a positive integer and $p$ a prime congruent to $5$ or $7$ modulo $8.$
+	
+	\textbf{Solution.} We first eliminate the case where $q=pr$ with $p>1, r>1$ and $\gcd(p, r)=1$. First w.l.o.g. (to make our computations easier) that $r$ is a prime power, say $s^k$. We first calculate the number $M_p$ of integers $a$ with $0<a<q/4=pr/4$ and $\gcd(a, p)=1$. Notice that $a<pr/4$ if and only if $a/p<r/4$. Consider the numbers in the intervals $[1, p], [p+1, 2p], \cdots , [(d-1)p+1, dp]$ where $d=\lfloor r/4 \rfloor$. Each number mentioned is less than $q/4$, and in each category, there are $\phi(p)$ numbers relatively prime to $p$. So these sets contributed $\phi(p)\cdot d$ to $M_p$, which is even since $\phi(p)$ is always even for $p>2$. It remains to investigate contribution of the interval $[dp, (d+1)p]$ to $M_q$. Now $dp+k<q/4$ if and only if $k<(r/4 - \lfloor r/4 \rfloor)p$. If $r\equiv 1\pmod{4}$ then the bound is $p/4$, in which case the contribution is precisely $N_p$. Otherwise, the bound is $3p/4$, and the contribution is precisely $\phi(p)-N_p$. Thus $M_q\equiv N_p\pmod{2}$, as always. 
+	
+	To investigate the relation between $M_q$ and $N_q$, we note that if a number counts into $N_q$, then it counts into $M_q$. Conversely, an integer $a$ counts into $M_q$ but not $N_q$ if and only if $a=st$ with $\gcd(t, p)=1$ and $t<q/4s=ps^{k-1}/4$. To count the number of such $t$, we notice that the number of such $t$ with $t\le p\lfloor s^{k-1}/4\rfloor$ is $\lfloor s^{k-1}/4\rfloor\phi(p)$, which is again even. As of the case above, it remains to consider the contribution of such $t$ in the next set of $p$ numbers. Similar to above, if $s^{k-1}\equiv 1\pmod{4}$ then this contribution is $N_p$, and if $s^{k-1}\equiv 3\pmod{4}$ then this contribution is $\phi(p)-N_p$. In either case it's congruent to $N_p\pmod{2}$. Thus $N_q\equiv M_q-N_p\equiv N_p-N_p=0\pmod{2}$. 
+	
+	Thus the case of $q$ having more than two primes have been eliminated. If $q=1$ then $N_1=0$, which serves as an edge case. If $q=p^k$ with $k\ge 1$, then $N_q$ is the number of the integers between 1 and $\lfloor q/4\rfloor$ minus the number of integers in this range and divisible by $p$. This gives the bound $\lfloor (p^k)/4\rfloor-\lfloor (p^{k-1})/4\rfloor$. Letting $p^{k-1}=4\ell+a$ with $a\in\{1, 3\}$ we get $\lfloor (p^{k-1})/4\rfloor=\ell$ and $\lfloor (p^k)/4\rfloor=\lfloor p(4\ell+a)/4\rfloor=\ell p+\lfloor ap/4\rfloor$. Since $p$ is odd we have $\lfloor (p^k)/4\rfloor-\lfloor (p^{k-1})/4\rfloor=\ell(p-1)+\lfloor ap/4\rfloor\equiv \lfloor ap/4\rfloor\pmod{2}$. If $a=1$, then $\lfloor p/4\rfloor$ is odd if and only if $p\equiv 5, 7\pmod{8}$. If $a=3$, then again writing $p=8c+d$ we get $\lfloor 3(8c+d)/4\rfloor=6c+\lfloor 3d/4\rfloor\equiv \lfloor 3d/4\rfloor\pmod{2}$ we only need to consider the cases where $d\in \{1, 3, 5, 7\}$, which gives the values $\lfloor 3/4\rfloor, \lfloor 9/4\rfloor, \lfloor 15/4\rfloor, \lfloor 21/4\rfloor=0, 2, 3, 5$. Hence only $p\equiv 5, 7\pmod{8}$ satisfies this condition. 
+	
+	\item[\textbf{B3}] Let $S$ be the set of all $2\times 2$ real matrices \[M=\begin{pmatrix}a&b\\c&d\end{pmatrix}\]whose entries $a,b,c,d$ (in that order) form an arithmetic progression. Find all matrices $M$ in $S$ for which there is some integer $k>1$ such that $M^k$ is also in $S.$
+	
+	\textbf{Answer.} $M=\begin{pmatrix}a&a\\a&a\end{pmatrix}$ and $M=\begin{pmatrix}-3a&-a\\a&3a\end{pmatrix}$ for any real number $a$. \\
+	\textbf{Solution.} If $M=\begin{pmatrix}a&a\\a&a\end{pmatrix}$ then $M^2=\begin{pmatrix}a&a\\a&a\end{pmatrix}
+	\begin{pmatrix}a&a\\a&a\end{pmatrix}
+	=\begin{pmatrix}2a^2&2a^2\\2a^2&2a^2\end{pmatrix}
+	$
+	which is also in $S$. Hence now we only consider those $M$ with nonzero common difference. 
+	
+	First, consider $M=\begin{pmatrix}a&a+d\\a+2d&a+3d\end{pmatrix}$ with $d$ as the common difference, then the characteristic polynomial is $x^2-(2a+3d)x-2d^2$, which has discriminant $(2a+3d)^2+8d^2>0$. Hence $M$ has two real and distinct eigenvalues, which implies that $M$ is diagonalizable. Write $M=PDP^{-1}$ where $P$ is the matrix determined by $M$'s eigenvectors, and $D$ is the diagonal matrix symbolizing the eigenvalues. We proceed with the following claim: 
+	
+	\emph{Lemma}: If $M^k\in S$ with $k\ge 1$, then $M^k=cM$ for some constant $c$. \\
+	\emph{Proof}: First, notice that $S$ is closed under matrix addition (that is, if $M_1$ and $M_2$ are both in $S$ then $aM_1+bM_2\in S$ for all constants $a$ and $b$). Next, we also have $M^k=(PDP^{-1})^k=PD^kP^{-1}$ with $D^k$ remains diagonal. Suppose that there exist real constants $a$ and $b$ such that $aD+bD^k=I$ with $I$ being the identity matrix. Then $aM+bM^k=P(aD)P^{-1}+P(bD^k)P^{-1}=PIP^{-1}=I$, which is not in $S$. So in this case, either $M$ or $M^k$ cannot be in $S$. This happens if the eigenvalues of $M$ and $M^k$, when each treated as a 2-dimensional vector, is linearly independent. That is, if $a, b$ are the eigenvalues of $M$, then $a^k$ and $b^k$ are the eigenvalues of $M^k$ and thus 
+	$\begin{pmatrix}
+	a & a^k \\ b & b^k
+	\end{pmatrix}$
+	is linearly independent. To have $M$ and $M^k$ both in $S$, this matrix
+	$\begin{pmatrix}
+	a & a^k \\ b & b^k
+	\end{pmatrix}$
+	must be linearly dependent, i.e. $ab^k-a^kb=0$, or $ab(a^{k-1}-b^{k-1})=0$. If $a=0$ or $b=0$, then $M$ has determinant 0, which implies that $-2d^2=\det(M)=0$, so the common difference is 0, contradiction (this case has been handled in the beginning of the proof). Hence we have $a^{k-1}=b^{k-1}$, which means $|a|=|b|$. The case where $a=b$ means $D=aI$ and so $M=aI\not\in S$, so $a=-b$. 
+	
+	Going back to the proof, we now know that the eigenvalues of $M$ are in the form of $e, -e$ for some $e$. This forces the characteristic polynomial of $M$ to be $x^2+e^2$, which also implies that $2a+3d=0$ in the beginning. Therefore we have $M=\begin{pmatrix}-3a&-a\\a&3a\end{pmatrix}$ for some real number $a$. To show that this is a valid example, $M^3=8a^3\begin{pmatrix}-3&-1\\1&3\end{pmatrix}$ which is indeed in $S$. 
+	
+	
+	\item[\textbf{B5}]Let $P_n$ be the number of permutations $\pi$ of $\{1,2,\dots,n\}$ such that \[|i-j|=1\text{ implies }|\pi(i)-\pi(j)|\le 2\]for all $i,j$ in $\{1,2,\dots,n\}.$ Show that for $n\ge 2,$ the quantity \[P_{n+5}-P_{n+4}-P_{n+3}+P_n\]does not depend on $n,$ and find its value.
+	
+	\textbf{Answer.} This value is always 4. \\
+	\textbf{Solution.} For each $n$ we denote $Q_n$ as the number of permutations satisfying the conditions $i-j|=1\text{ implies }|\pi(i)-\pi(j)|\le 2$ and $\pi(n)=n$. Fix $n$, and we consider the number of such permutations when $\pi(n)=k$ for each $k=1, 2, \cdots , n$. When $k=n$ this number is $Q_n$ as defined, and by symmetry this holds true when $k=1$. Hence we proceed to consider the cases when $\pi(n)=2, \cdots , n-1$. Now, denote $\pi(n)=k$ and we have we consider any $j$ satisfying $\pi(j)<k$ and $\pi(j+1)>k$. Since $\pi(j+1)-\pi(j)\le 2$, we must have $\pi(j)=k-1$ and $\pi(j+1)=k+1$. Similarly, if $\pi(j)>k$ and $\pi(j+1)<k$ then we must have $\pi(j)=k+1$ and $\pi(j+1)=k-1$. Since permutation is a bijection, exactly one of the above happens and exactly one $j$ satisfies this condition. Thus the numbers $\pi(1), \cdots , \pi(n-1)$ are partitioned into two consecutive regions, one with values $<k$ and the other $>k$. In other words exactly one of the following holds: $\pi(j)<k$ for all $1\le j\le k-1$ and $\pi(j)>k$ for all $k\le j\le n$, or $\pi(j)>k$ for all $1\le j\le n-k$, and $\pi(j)<k$ for $n-k+1\le j\le n-1$. In the first case, $\pi(k-1)$ must be equal to $k-1$ and $\pi(k)=k+1$, so this gives $Q_{k-1}$ ways to arrange $\pi(1), \cdots \pi(k-1)$. We now claim that there's only one way to arrange $\pi(k), \cdots , \pi(n-1)$ given the constraint. To begin with, since $\pi(n)=k$ and $\pi(k)=k+1$ and everything in between has $\pi(j)>k$, we have 
+	$\pi(n-1)=k+2, \pi(k+1)=k+3$. Repeating the process gives a unique arrangement given by 
+	$\pi(k), \cdots , \pi(n-1)=k+1, k+3, \cdots n-1, n, n-2, \cdots k+2$ for $k\equiv n\pmod{2}$, and $\pi(k), \cdots , \pi(n-1)=k+1, k+3, \cdots , n-2, n, n-1, \cdots , k+2$ otherwise. This gives a total of $Q_{k-1}$. For the second case, similarly, we have $Q_{n-k}$ ways of arranging the first $n-k$ permutation numbers, and exactly 1 way for the next $k-1$ numbers. Thus summing above and considering all $k$ we get, for all $n\ge 2$,  
+	\[P_n=2Q_n+\sum_{i=2}^{n-1}Q_{k-1}+Q_{n-k}=2(Q_n+\sum_{i=1}^{n-2} Q_i)\]
+	Now the desired value becomes 
+	$2(Q_{n+5}+\sum_{i=1}^{n+3} Q_i )- 2(Q_{n+4}+\sum_{i=1}^{n+2} Q_i)-2(Q_{n+3}+\sum_{i=1}^{n+1} Q_i)+2(Q_n+\sum_{i=1}^{n-2} Q_i)
+	=2(Q_{n+5}-Q_{n+4}-Q_{n+1}-Q_{n-1})
+	$
+	To calculate the above, we find an iterative formula for $Q_n$ for all $n\ge 4$. Since $\pi(n)=n$, we have $\pi(n-1)=n-1$ or $n-2$. For $\pi(n-1)=n-1$, $Q_{n-1}$ permutation arises as claimed above. For $\pi(n-1)=n-2$, we can use the argument above to establish that $Q_{n-3}+Q_1$ permutations arise. Thus $Q_n=Q_{n-1}+Q_{n-3}+Q_1$. This means that for all $n\ge 2$ we have 
+	$2(Q_{n+5}-Q_{n+4}-Q_{n+1}-Q_{n-1})
+	=2(Q_{n+4}+Q_{n+2}+Q_1-Q_{n+4}-Q_{n+1}-Q_{n-1})
+	=2(Q_{n+1}+Q_{n-1}+Q_1+Q_1-Q_{n+1}-Q_{n-1})
+	=4Q_1.
+	$
+	It's not hard to see that $Q_1=1$ so our desired answer must be 4. 
+	
+\end{enumerate}
+
+\end{document}

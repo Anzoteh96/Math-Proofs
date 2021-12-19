@@ -1,0 +1,199 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\bbP}{\mathbb P}
+\newcommand{\bbE}{\mathbb E}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\begin{document}
+
+\newcommand{\sgn}{\text{sgn}}
+\setcounter{secnumdepth}{0}
+
+\section{Putnam 2013}
+\begin{enumerate}
+	\item [\textbf{A1}] Recall that a regular icosahedron is a convex polyhedron having 12 vertices and 20 faces; the faces are congruent equilateral triangles. On each face of a regular icosahedron is written a nonnegative integer such that the sum of all $20$ integers is $39.$ Show that there are two faces that share a vertex and have the same integer written on them.
+	
+	\textbf{Solution.} Each face corresponds to exactly 3 vertices, so on average each vertex corresponds to $20\times 3\div 12=5$ faces. Since this icosahedron is regular, each vertex corresponds to 5 faces. Suppose that for each vertex, the number written is different. Then the sum of the 5 faces joining a vertex is at least $0+1+2+3+4=10$. Since each vertex corresponds to 3 faces and there are 12 vertices, the total sum of 20 faces is at least $10\times 12\div 3=40$, contradiction. 
+	
+	\item[\textbf{A2}]Let $S$ be the set of all positive integers that are not perfect squares. For $n$ in $S,$ consider choices of integers $a_1,a_2,\dots, a_r$ such that $n<a_1<a_2<\cdots<a_r$ and $n\cdot a_1\cdot a_2\cdots a_r$ is a perfect square, and let $f(n)$ be the minimum of $a_r$ over all such choices. For example, $2\cdot 3\cdot 6$ is a perfect square, while $2\cdot 3,2\cdot 4, 2\cdot 5, 2\cdot 3\cdot 4,$ $2\cdot 3\cdot 5, 2\cdot 4\cdot 5,$ and $2\cdot 3\cdot 4\cdot 5$ are not, and so $f(2)=6.$ Show that the function $f$ from $S$ to the integers is one-to-one.
+	
+	\textbf{Solution.} Suppose that $f(k_1)=f(k_2)$ for some $k_1 < k_2$. Let $k_1<a_1<\cdots <a_r=f(k_1)$ and $k_2<b_1<\cdots<b_s=f(k_2)$ be such choices for $k_1$ and $k_2$. Given that $k_1\cdot a_1\cdots a_r$ and $k_2\cdot b_1\cdots b_s$ are both perfect square, their product $k_1\cdot a_1\cdots a_r\cdot k_2\cdot b_1\cdots b_s$ is also a perfect square. Suppose that some number $g$ appears in both sequence $\{a_i\}$ and $\{b_i\}$, then removing $g$ from the combined sequence $k_1\cdot a_1\cdots a_r$ and $k_2\cdot b_1\cdots b_s$ yields that $k_1\cdot a_1\cdots a_r\cdot k_2\cdot b_1\cdots b_s/g^2$ is still a perfect square. Now, we remove all such repeated elements and sort the numbers, we get $k_1<c_1<\cdots <c_t$, since $k_1$ only appears once ($k_1<k_2$) and since $a_r=b_s$, this number is removed from both sides and $c_t<a_r=f(k_1)$, contraidcting the minimality of $a_r$. 
+	
+	\item[\textbf{A3}]Suppose that the real numbers $a_0,a_1,\dots,a_n$ and $x,$ with $0<x<1,$ satisfy \[\frac{a_0}{1-x}+\frac{a_1}{1-x^2}+\cdots+\frac{a_n}{1-x^{n+1}}=0.\] Prove that there exists a real number $y$ with $0<y<1$ such that \[a_0+a_1y+\cdots+a_ny^n=0.\]
+	
+	\textbf{Solution.} First, since $0<x<1$, each sequence $1-x^n=1+x^n+x^{2n}+x^{3n}+\cdots$ converges absolutely. Hence we are free to permute the sequence and get the sum in the following sense: 
+	\[0=\frac{a_0}{1-x}+\frac{a_1}{1-x^2}+\cdots+\frac{a_n}{1-x^{n+1}}
+	=\sum_{i=1}^n a_i \left(\sum_{j=0}^{\infty} x^{ij}\right)
+	=\sum_{j=0}^{\infty} \left(\sum_{i=0}^n a_i(x^{j})^i\right)
+	\]
+	Let $b_j=\sum_{i=0}^n a_i(x^{j})^i$ for all $j\ge 0$, then it follows that $\sum_{i=0}^\infty b_j$ also converges absolutely to 0. Now let $k$ to be the minimal index such that $b_k\neq 0$. If $b_j=0$ for some $j>k$ then we are done, since we can just pick $y=x^j$ and since $j>k\ge 0$, $y\in (0, 1)$. Otherwise, since $\sum_{i=k}^\infty b_j=\sum_{i=0}^\infty b_j=0$, there exists a $j\ge k$ such that $b_j<0$ and $b_{j+1}>0$, or vice versa. In either case, $a_0+a_1y+\cdots+a_ny^n=0$ for some $y\in (x^{j+1}, x^{j})$, which obviously lies in $(0, 1)$. 
+	
+	\item[\textbf{A4}] A finite collection of digits $0$ and $1$ is written around a circle. An arc of length $L\ge 0$ consists of $L$ consecutive digits around the circle. For each arc $w,$ let $Z(w)$ and $N(w)$ denote the number of $0$'s in $w$ and the number of $1$'s in $w,$ respectively. Assume that $|Z(w)-Z(w')|\le 1$ for any two arcs $w,w'$ of the same length. Suppose that some arcs $w_1,\dots,w_k$ have the property that \[Z=\frac1k\sum_{j=1}^kZ(w_j)\text{ and }N=\frac1k\sum_{j=1}^k N(w_j)\] are both integers. Prove that there exists an arc $w$ with $Z(w)=Z$ and $N(w)=N.$
+	
+	\textbf{Solution}. Let $n$ be the number of bits written around the circle, and $m$ the number of 1's written. We first prove the following lemma: for each $0\le k\le n$, consider $S_k=\{Z(w): |w|=k\}$ where $|w|$ is the length of $w$. Then $S_k=\{\lfloor \frac{km}{n}\rfloor, \lceil \frac{km}{n}\rceil\}$. To prove this, we notice that from the problem statement, $\max(S_k)-\min(S_k)\le 1$. 
+	We consider two possible cases: 
+	\begin{itemize}
+		\item The quantity $\frac{km}{n}$ is not an integer. Then $\lceil \frac{km}{n}\rceil-\lfloor \frac{km}{n}\rfloor=1$. Now consider the $n$ arcs $W_1, W_2, \cdots , W_n$ with length $k$; each point belongs to exactly $k$ of the arcs. Thus $\sum_{i=1}^n Z(W_i)=km$ since there are $m$ one's written, and the average of $Z(w_i)$ is $\frac{km}{n}$. By piegonholw principle, there is at least one $W_i$ with $Z(W_i)\ge \lceil \frac{km}{n}\rceil$ and one $W_i$ with $Z(W_i)\le \lceil \frac{km}{n}\rceil$. Since $\max(W_i)-\min(W_i)\le 1$ and $\lceil \frac{km}{n}\rceil-\lfloor \frac{km}{n}\rfloor$, the conclusion follows. 
+		
+		\item Now that the quantity $\frac{km}{n}$ is an integer, meaning that $\lceil \frac{km}{n}\rceil=\frac{km}{n}=\lfloor \frac{km}{n}\rfloor$. Denote the $n$ arcs by $W_1, \cdots , W_n$, and by the logic above, the average of $Z(w_i)$ is $\frac{km}{n}$. 
+		If there is $w_i$ with $Z(w_i)<\frac{km}{n}$, i.e. $Z(w_i)\le \frac{km}{n} -1$, then there must be $w_i$ with $Z(w_i)>\frac{km}{n}$, i.e. $Z(w_i)\ge \frac{km}{n}+1$. This is a contradiction that $\max(S_k)-\min(S_k)\le 1$, so we have $Z(W_i)=\frac{km}{n}$ for each $i$. 
+	\end{itemize}
+	Now going back to the problem. For each arc $w$, we have $|w|=Z(w)+N(w)$. Thus considering the $w_1, \cdots , w_k$ given in the problem we have \[Z+N=\frac1k\sum_{j=1}^kZ(w_j)+\frac1k\sum_{j=1}^kZ(w_j)=\frac1k\sum_{j=1}^k(Z(w_j)+N(w_j)=\frac1k\sum_{j=1}^k|w_j|\]
+	And in addition, for each $w_j$ we have $Z(w_j)\in \{\lfloor \frac{|w_j|m}{n}\rfloor, \lceil \frac{|w_j|m}{n}\rceil\}$ so $\frac{|w_j|m}{n}-1<Z(w_j)<\frac{|w_j|m}{n}+1$. This means, 
+	$\frac1k\sum_{j=1}^k(\frac{|w_j|m}{n}-1) < Z < \frac1k\sum_{j=1}^k(\frac{|w_j|m}{n}+1)$, i.e. 
+	$(\frac{m}{kn}\sum_{j=1}^k |w_j|)-1 < Z < (\frac{m}{kn}\sum_{j=1}^k |w_j|)+1$, and 
+	since $\frac 1k\sum_{j=1}^k |w_j|=Z+N$, we have 
+	\[(\frac{m}{n}(Z+W))-1 < Z < (\frac{m}{n} (Z+N))+1
+	\]
+	Since $Z$ is an integer, this also implies that $Z\in \{\lfloor \frac{m}{n}(Z+N)\rfloor , \lceil \frac{m}{n}(Z+N)\rceil\}$. This means we can find an arc $w$ of length $Z+N$ that has $Z(w)=Z$, and therefore $N(W)=N$. 
+	
+	\item[\textbf{B1}] For positive integers $n,$ let the numbers $c(n)$ be determined by the rules $c(1)=1,c(2n)=c(n),$ and $c(2n+1)=(-1)^nc(n).$ Find the value of \[\sum_{n=1}^{2013}c(n)c(n+2).\]
+	
+	\textbf{Answer.} $-1$. \\
+	\textbf{Solution.}
+	\begin{flalign*}
+	\sum_{n=1}^{2013}c(n)c(n+2)
+	&=c(1)c(3)+\sum_{n=1}^{1006}c(2n)c(2n+2)
+	+\sum_{n=1}^{1006}c(2n+1)c(2n+3)\\
+	&=c(1)c(3)+\sum_{n=1}^{1006}c(n)c(n+1)
+	+\sum_{n=1}^{1006}(-1)^nc(n)(-1)^{n+1}c(n+1)\\
+	&=c(1)c(3)+\sum_{n=1}^{1006}c(n)c(n+1)
+	+\sum_{n=1}^{1006}(-1)^{2n+1}c(n)c(n+1)\\
+	&=c(1)c(3)+\sum_{n=1}^{1006}c(n)c(n+1)
+	-\sum_{n=1}^{1006}c(n)c(n+1)\\
+	&=c(1)c(3)\\
+	&=c(1)(-1)^1c(1)\\
+	&=-1
+	\end{flalign*}
+	
+	
+	\item[\textbf{B2}] Let $C=\bigcup_{N=1}^{\infty}C_N,$ where $C_N$ denotes the set of 'cosine polynomials' of the form \[f(x)=1+\sum_{n=1}^Na_n\cos(2\pi nx)\] for which:
+	
+	(i) $f(x)\ge 0$ for all real $x,$ and\\
+	(ii) $a_n=0$ whenever $n$ is a multiple of $3.$
+	
+	Determine the maximum value of  $f(0)$ as $f$ ranges through $C,$ and prove that this maximum is attained.
+	
+	\textbf{Answer.} 3.\\
+	\textbf{Solution. }Consider the following:
+	\begin{flalign*}
+	f(x)&=1+\frac 43 \cos(2\pi x)+\frac 23\cos(4\pi x)\\
+	&=1+\frac 43 \cos(2\pi x)+\frac 23 (2\cos^2(2\pi x)-1)\\
+	&=\frac 13 (1+4\cos(2\pi x)+4\cos^2 (2\pi x))\\
+	&=\frac 13 (1+2\cos(2\pi x))^2\\
+	\end{flalign*}
+	which is clearly nonnegative all the time. We also have $f(0)=1+\frac 43+\frac 23=3$, establishing the equality. To show that 3 is indeed the maximum, it suffices to show that $\sum_{n=1}^N a_n\le 2$ at all times. But plugging $x=\frac 13$ gives $\cos(\frac 23 n\pi)=-\frac 12$ if $n$ is not divisible by 3, and 1 otherwise. Considering that $a_n=0$ whenever $n$ is a multiple of 3, we have $f(\frac 13)=1-\frac 12 \sum_{n=1}^N a_n\ge 0.$ Thus $\sum_{n=1}^N a_n\le 2$ must hold. Finally note the motivation to get the example $f(x)$ as shown in the beginning: we simply find a suitable $a$ such that $2ax^2+(2-a)x+(1-a)$ is always nonnegative, which is essentially asking for the discriminant $(2-a)^2-4(2a)(1-a)\le 0$, and we get $a=\frac 23$ as the sole answer. 
+	
+	\item[\textbf{B3}] Let $P$ be a nonempty collection of subsets of $\{1,\dots,n\}$ such that:
+	\begin{itemize}
+		\item[(i)] if $S,S'\in P,$ then $S\cup S'\in P$ and $S\cap S'\in P,$ and
+		\item [(ii)] if $S\in P$ and $S\ne\emptyset,$ then there is a subset $T\subset S$ such that $T\in P$ and $T$ contains exactly one fewer element than $S.$
+	\end{itemize}
+	
+	Suppose that $f:P\to\mathbb{R}$ is a function such that $f(\emptyset)=0$ and \[f(S\cup S')= f(S)+f(S')-f(S\cap S')\text{ for all }S,S'\in P.\] Must there exist real numbers $f_1,\dots,f_n$ such that \[f(S)=\sum_{i\in S}f_i\] for every $S\in P?$
+	
+	\textbf{Answer.} Yes. \\
+	\textbf{Solution.} Let $S_0$ be the subset such that $|S_0|\ge |S|$ for all $S\in P$. We first show that $S\subseteq S_0$ for all $S\in P$. Indeed, for an arbitrary set $S\in P$, we have $S\cup S_0\in P$ and $|S\cup S_0|\ge |S_0|$. By the maximality of $S_0$ we must have $|S\cup S_0|=|S_0|$, which can only happen when $S\subseteq S_0$, as desired. 
+	
+	Now, w.l.o.g. let $S_0=\{1, 2, \cdots , k\}$. By (ii) there exists $S_1\subseteq S_0$ with one element fewer than $S_0$; w.l.o.g. let it be $\{1, 2, \cdots , k-1\}$. Continuing this trend we can assume that for all $0\le i\le k$, $S_{k-i}=\{1, 2, \cdots , i\}\in P$. Consider, now, $f_1, f_2, \cdots , f_n$ such that $f_i = f(S_{k-i})-f(S_{k-i+1})$ for $i=1, 2, \cdots , k$, and arbitrary for $i=k+1, \cdots , n$. 
+	The identity $f(S)=\sum_{i\in S}f_i$ holds when $S=S_0, S_1, \cdots, S_k$ with $S_k$ being the empty set (because $f(\emptyset)=0$). 
+	
+	To show that this identity holds for all $S\in P$, we first notice that $S\subseteq S_0=\{1, 2, \cdots , k\}$, so only $f_1, \cdots , f_k$ matter. We will proceed using the following premise with parameter $p=0, 1, \cdots , k$: the $f(S)=\sum_{i\in S} f_i$ identity holds for all $p$-element subsets $S$. We are to prove this statement for all $p=0, 1, \cdots , k$, and we will proceed by induction. 
+	
+	Base case: when $p=0$ we have emptyset (proven above), and when $p=1$ we have $S=\{j\}$ for some $1\le j\le k$. We have $S_{k-j}=\{1, 2, \cdots , j\}$ and $S_{k-j+1}=\{1, 2, \cdots , j-1\}$. Moreover, $f(S_{k-j+1})=\dsum_{i=1}^{j-1} f_i$ and $f(S_{k-j})=\dsum_{i=1}^j$ by how $f_i$'s are defined. Now by the definition of $f$, 
+	\[
+	f(S_{k-j}) = f(S\cup S_{k-j+1}) = f(S)+f(S_{k-j+1}) - f(S\cup S_{k-j+1})
+	\]
+	since $S=\{j\}$. Considering that $S\cup S_{k-j+1}=\emptyset$, we have $f(S\cup S_{k-j+1})=0$ and therefore 
+	\[
+	f(S)=f(S_{k-j}) - f(S_{k-j+1}) = \dsum_{i=1}^{j} f_i - \dsum_{i=1}^{j-1} f_i = f_j
+	\]
+	as desired. 
+	
+	Now let $2\le q\le p$ be such that the preimise is true for all $p=1, 2, \cdots , q-1$. Consider, now, any $q$-element subset $S=\{a_1, a_2, \cdots , a_q\}$. By condition (ii), there exists a subset of $S$ in $P$ with one fewer element; w.l.o.g. let it be $\{a_1, \cdots , a_{q-1}\}$. Consider, now, the set $S_{k-a_q}=\{1, 2, \cdots , a_q\}\in P.$ Consider now the two equations: 
+	\[
+	f(S_{k-a_q}\cup \{a_1, \cdots , a_{q-1}\}) = f(S_{k-a_q}) + f(\{a_1, \cdots , a_{q-1}\}) - f(S_{k-a_q}\cap \{a_1, \cdots , a_{q-1}\})
+	\]
+	\[
+	f(S_{k-a_q}\cup \{a_1, \cdots , a_{q}\}) = f(S_{k-a_q}) + f(\{a_1, \cdots , a_{q}\}) - f(S_{k-a_q}\cap \{a_1, \cdots , a_{q}\})
+	\]
+	First, notice that $\{a_1, \cdots , a_{q-1}\}$ and $\{a_1, \cdots , a_{q}\}$ differ only by an element $a_q$, and since $a_q\in S_{k-a_q}$, we have $\{1, 2, \cdots , a_q\}\cup \{a_1, \cdots , a_{q-1}\} = \{1, 2, \cdots , a_q\}\cup \{a_1, \cdots , a_{q}\}$. 
+	Comparing the two equations now give
+	\[
+	f(\{a_1, \cdots , a_{q}\}) - f(\{a_1, \cdots , a_{q-1}\}) = f(S_{k-a_q}\cap \{a_1, \cdots , a_{q}\}) - f(S_{k-a_q}\cap \{a_1, \cdots , a_{q-1}\})
+	\]
+	Since $a_q\in S_{k-a_q}$, we have $S_{k-a_q}\cap \{a_1, \cdots , a_{q-1}\}\subset S_{k-a_q}\cap \{a_1, \cdots , a_{q}\}$, differing only by an element $a_q$. 
+	If $\{a_1, \cdots , a_q\}=S_{k-a_q}$ then the condition $f(S)=\dsum_{f_i\in S}f_i$ holds for this $S=\{a_1, \cdots, a_q\}$. 
+	Otherwise, $S_{k-a_q}\cap \{a_1, \cdots , a_{q}\}$ will have less than $q$ elements. By the induction hypothesis, $f(S_{k-a_q}\cap \{a_1, \cdots , a_{q}\}) - f(S_{k-a_q}\cap \{a_1, \cdots , a_{q-1}\})=f_{a_q}$, and therefore $f(\{a_1, \cdots , a_{q}\}) = f(\{a_1, \cdots , a_{q-1}\}) + f_{a_q}$. But by induction hypothesis again $f(\{a_1, \cdots , a_{q-1}\}) = f_{a_1} + \cdots + f_{a_{q-1}}$, and from here the conclusion follows. 
+	
+	\item[\textbf{B5}] Let $X=\{1,2,\dots,n\},$ and let $k\in X.$ Show that there are exactly $k\cdot n^{n-1}$ functions $f:X\to X$ such that for every $x\in X$ there is a $j\ge 0$ such that $f^{(j)}(x)\le k.$
+	
+	[Here $f^{(j)}$ denotes the $j$th iterate of $f,$ so that $f^{(0)}(x)=x$ and $f^{(j+1)}(x)=f\left(f^{(j)}(x)\right).$]
+	
+	\textbf{Solution.} We perform induction on $n$ and $n-k$. When $k=n$ (when $n-k=0$) then any function $f:X\to X$ works, so there are $n^n$ such functions; when $k=n-1$, the only requirement is that $f(n)\neq n$ so there are $(n-1)n^{n-1}$ such functions. 
+	
+	Thus now consider any $k\le n-2$. Observe that since $f^{0}(x)=x$, there is no restriction on $f(1), f(2), \cdots , f(k)$, giving $n^k$ choices to each of them. We first make a following detour to a lemma: there exists $x>k$ with $f(x)\le k$. Suppose not, then we have $f:\{k+1, \cdots , n\}\to \{k+1, \cdots , n\}$ and for each $x>k$ we have $f^{(j)}(x)>k$ for any $j\ge 0$, contradiction. 
+	
+	Now fix $m\in [1, n-k]$ such that exactly $m$ of the numbers $k<x\le n$ have $f(x)\le k$. This gives rise of $\dbinom{n-k}{m}$ ways to choose those $x$, and each of them takes values $\{1, 2, \cdots , k\}$, giving rise to $k^m$ of them. Now w.l.o.g. assume that those $m$ elements are $k+1, \cdots , k+m$. 
+	To see how would $f(x)$ looks like for the other $x>k+m$'s, consider the problem of $g:\{1, 2, \cdots , n-k\}\to \{1, 2, \cdots , n-k\}$ where for each $x$, $g^{(j)}(x)\le m$ for some $j\ge 0$. Here, $g(1), \cdots g(m)$ can be arbitrary, (i.e. $(n-k)^m$ choices), and by the induction hypothesis $n-k<n$ since $k\ge 1$, the number of such $g$'s is $m\cdot (n-k)^{n-k-1}$, meaning that there are $(n-k)^{n-k-m-1}$ choices for $g(m+1), \cdots , g(n-k)$. Thus going back to our original problem here, we consider $f|_{k+m+1, \cdots , n}$ such that $f^{(j)}(x)\le k+m$ for some $j$ (this is because, given that $f(x)>k$ for all $x>k+m$, if $j_0$ is the minimum $j$ with $f^{(j_0)}(x)\le k$ then $f^{(j_0-1)}(x)\in \{k+1, \cdots , k+m\}$). This gives $m\cdot (n-k)^{(n-k-m-1)}$ choices on $f|_{k+m+1, \cdots , n}$, giving rise of $\dbinom{n-k}{m}\cdot k^m\cdot m\cdot (n-k)^{(n-k-m-1)}$ of them in total. 
+	
+	Hence considering all such $m\in [1, n-k]$ gives 
+	
+	\begin{flalign*}
+	\displaystyle\sum_{m=1}^{n-k}\dbinom{n-k}{m}\cdot k^m\cdot m\cdot (n-k)^{(n-k-m-1)}
+	&=\displaystyle\sum_{m=1}^{n-k}\dfrac{(n-k)!}{m!(n-k-m)!}\cdot k^m\cdot m\cdot (n-k)^{(n-k-m-1)}
+	\\&=\displaystyle\sum_{m=1}^{n-k}\dfrac{(n-k)(n-k-1)!}{(m-1)!(n-k-m)!}\cdot k^{m-1}\cdot k\cdot (n-k)^{(n-k-m-1)}
+	\\&=k\displaystyle\sum_{m=1}^{n-k}\dbinom{n-k-1}{m-1}\cdot k^{m-1}(n-k)^{(n-k-m)}
+	\\&=k(k+n-k)^{m-k-1}
+	\\&=kn^{n-k-1}
+	\end{flalign*}
+	so combining with the arbitrary choice of $f|_{1, 2, \cdots , k}$ we have $kn^{n-k-1}n^k=kn^{n-1}$, as desired. 
+	
+\end{enumerate}
+
+\end{document}

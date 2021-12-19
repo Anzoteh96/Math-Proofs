@@ -1,0 +1,215 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\bbP}{\mathbb P}
+\newcommand{\bbE}{\mathbb E}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\begin{document}
+
+\newcommand{\sgn}{\text{sgn}}
+\setcounter{secnumdepth}{0}
+
+\section{Putnam 2017}
+\begin{enumerate}
+	\item[\textbf{A1}]Let $S$ be the smallest set of positive integers such that
+	
+	\begin{enumerate}
+		\item $2$ is in $S,$
+		\item $n$ is in $S$ whenever $n^2$ is in $S,$ and
+		\item $(n+5)^2$ is in $S$ whenever $n$ is in $S.$
+	\end{enumerate}
+	
+	Which positive integers are not in $S?$
+	
+	(The set $S$ is ``smallest" in the sense that $S$ is contained in any other such set.)
+	
+	\textbf{Answer.} 1 and all integers divisible by 5. \\
+	\textbf{Solution.} To show that all numbers not in the above category must be in $S$, we note the following lemma: if $n$ is in $S$ for some $n$, then by (c), $(n+5)^2$ is in $S$ and by (b), $n+5$ is in $S$. Hence by repeated iteration of this process, we get 
+	\[n\in S\to n+5k\in S, \forall k\ge 0\cdots (d)\]
+	Thus starting from $2\in S$ as of (a), we get $2+5k\in S\forall k\ge 0$. Now (a) and (c) combined imply that $7^2=49\in S$, too. By (c) again, $(49+5)^2=54^2\in S$ too. Notice that $56^2-54^2=2\times 110$ is divisible by 5 and is nonnegative, so $56^2\in S$ by (d) again. By (b), $56\in S$ and by (d) again, $9^2=81=56+5(5)\in S$ and $11^2=121=56+5(13)\in S$, so by (b), $9, 11\in S$. By (b) again, $\sqrt{9}=3\in S$. Finally, since $11\in S$, by (d) again, $11+5=16\in S$, so by (b), $\sqrt{16}=4\in S$. Similarly, $11+5(5)=36\in S$, by (d) again. Thus $\sqrt{36}=6\in S$. Since $2, 3, 4, 6\in S$ so by (d), $2+5k, 3+5k, 4+5k, 6+5k\in S$. These are all the numbers that are not 1 and not divisible by 5. 
+	
+	To show that $S_1\{a: a>1, 5\nmid a\}$ is valid, let $a$ be arbitrary integer in $S_1$. Clearly, $2\in S_1$, so (a) is satisfied. If $a=k^2$ for some $k$, then from $a>1$ then $k=\sqrt{a}>1$. Since $5\nmid a, 5\nmid\sqrt{a}=k$ too. So $5\nmid k$. Hence (b) is fulfilled. Finally, $(a+5)^2>a>1$, and from $5\nmid a$, we have $5\nmid a+5$. As 5 is a prime number, $5\nmid (a+5)^2$ too. Thus (c) is also fulfilled. 
+	
+	\item[\textbf{A2}]
+	Let $Q_0(x)=1$, $Q_1(x)=x,$ and
+	\[Q_n(x)=\frac{(Q_{n-1}(x))^2-1}{Q_{n-2}(x)}\]for all $n\ge 2.$ Show that, whenever $n$ is a positive integer, $Q_n(x)$ is equal to a polynomial with integer coefficients.
+	
+	\textbf{Solution.} We show that $Q_n(x)=xQ_{n-1}(x)-Q_{n-2}(x)$ for all $n\ge 2$ via induction. For $n=2$ (base case), we have $Q_2(x)=x^2-1=x(x)-1=xQ_1(x)-Q_0(x)$. Now suppose that $Q_{n-1}(x)=xQ_{n-2}(x)-Q_{n-3}(x)$ for some $n\ge 3$. We consider the following: 
+	\begin{flalign*}
+	Q_{n-1}^2(x)-1&=(xQ_{n-2}(x)-Q_{n-3}(x))Q_{n-1}-1\\
+	&=xQ_{n-2}(x)Q_{n-1}(x)-Q_{n-3}(x)Q_{n-1}(x)-1\\
+	&=xQ_{n-2}(x)Q_{n-1}(x)-(Q_{n-3}(x)Q_{n-1}(x)+1)\\
+	&=xQ_{n-2}(x)Q_{n-1}(x)-Q_{n-2}^2(x)\\
+	&=Q_{n-2}(x)(xQ_{n-1}(x)-Q_{n-2}(x))
+	\end{flalign*}
+	notice the use of the fact $Q_{n-3}(x)Q_{n-1}(x)+1=Q_{n-2}^2(x)$ as followed form the definition $Q_{n-1}(x)=\frac{(Q_{n-2}(x))^2-1}{Q_{n-3}(x)}$> Therefore we have $Q_n(x)=\frac{(Q_{n-1}(x))^2-1}{Q_{n-2}(x)}=xQ_{n-1}(x)-Q_{n-2}(x)$. By inductive hypothesis, we get $Q_n(x)=xQ_{n-1}(x)-Q_{n-2}(x)$ for all $n\ge 2$. Since $Q_0$ and $Q_1$ are 
+	
+	\item[\textbf{A3}]
+	Let $a$ and $b$ be real numbers with $a<b,$ and let $f$ and $g$ be continuous functions from $[a,b]$ to $(0,\infty)$ such that $\int_a^b f(x)\,dx=\int_a^b g(x)\,dx$ but $f\ne g.$ For every positive integer $n,$ define
+	\[I_n=\int_a^b\frac{(f(x))^{n+1}}{(g(x))^n}\,dx.\]Show that $I_1,I_2,I_3,\dots$ is an increasing sequence with $\displaystyle\lim_{n\to\infty}I_n=\infty.$
+	
+	\textbf{Solution.} First, we notice the following use of the Cauchy-Schawz inequality in the form of integrals: 
+	\[I_{n-1}\cdot I_{n+1}=\int_a^b\frac{(f(x))^{n}}{(g(x))^{n-1}}\,dx\cdot \int_a^b\frac{(f(x))^{n+2}}{(g(x))^{n+1}}\,dx
+	\ge \left(\int_a^b\frac{(f(x))^{n+1}}{(g(x))^n}\,dx\right)^2
+	=I_n^2
+	\]
+	In particular, substituting $n=0$ we get $I_{-1}I_1\ge I_0$. Now $I_{0}=\int_a^b f(x)dx$ and $I_{-1}=\int_a^b g(x)dx$, so $I_0=I_{-1}$, and thus $I_1\ge I_0$. Since $f(x)$ and $g(x)$ are both continuous on $[a, b]$, so is the function $\frac{f(x)^2}{g(x)}$, so equality can only hold if and only if $\frac{f(x)^2}{g(x)}\div g(x)$ is constant on $[a, b]$. This requires $|f(x)|=|g(x)|$ on $[a, b]$, which becomes $f(x)=g(x)$ since both positive returns only positive values. However, this is not true since $f\neq g$. 
+	
+	So $I_1>I_0$, and denote the ratio $\frac{I_1}{I_0}=c>1$. We will in fact claim that $\frac{I_{n+1}}{I_n}\ge c$ for all $n\ge 0$, which will finish the proof since $I_n\ge c^nI_0$ and $\lim_{n\to\infty}c^n=\infty$ as $c>1$. The base case is given as $\frac{I_1}{I_0}=c$. If $\frac{I_{n}}{I_{n-1}}\ge c$ for some $n\ge 1$, then from the Cauchy-schawrz inequality we had before, $I_{n-1}I_{n+1}\ge I_n^2$ means that $\frac{I_{n+1}}{I_n}\ge \frac{I_n}{I_{n-1}}=c$. Hence we completed our inductive hypothesis, and concludes the proof. 
+	
+	\item[\textbf{A4}] A class with $2N$ students took a quiz, on which the possible scores were $0,1,\dots,10.$ Each of these scores occurred at least once, and the average score was exactly $7.4.$ Show that the class can be divided into two groups of $N$ students in such a way that the average score for each group was exactly $7.4.$
+	
+	\textbf{Solution.} The total score of the group is $14.8N=\frac{74N}{5}$, which is an integer since all individual scores are integers. Since $\gcd(74, 5)=1$, we have $N=5k$ for some integer $k$. This means $14.8N=14.8(5k)=74k$, which is even. Thus the goal now becomes finding a group of $N$ students where the total score is $7.4N$, which is $37k$, an integer. 
+	
+	Let $x_1\le\cdots\le x_{2N}$ be the scores of students. Let $m=x_1+\cdots + x_N$ and $M=x_{N+1}+\cdots x_{2N}$. Since $m+M=14.8N$ and from $x_i\le x_{N+i}$ we have $m\le M$, we have $m\le x\le M$. We will show that for any integer $x\in \{m, m+1, \cdots , M-1, M\}$ it is possible to choose a group of $N$ students such that the total score in this group is $x$, thereby showing that it is possible to choose a group of $N$ students with the total group score of $7.4N$. 
+	
+	We first notice that for all $1\le i < N$, $0\le x_{i+1}-x_{i}\le 1$. The left inequality is obvious by our sorting algorithm. Suppose that $x_{i+1}-x_i\ge 2$ for some $i$. By our sorting algorithm, again, nobody scored $x_i + 1, \cdots , x_{i+1}-1$. We now define a sequence of $N^2+1$ numbers $y_0, y_1, \cdots , y^{N^2}$ as follows: 
+	\begin{itemize}
+		\item $y_0=x_1+x_2+\cdots + x_N$
+		\item For some $i<N^2$, denote $y_i=x_{a_1}+x_{a_2}+\cdots + x_{a_N}$ for some $1\le a_1<a_2<\cdots < a_N\le 2N$. If there exists $j<N$ such that $a_{j+1}-a_j>1$, then denote $y_{j+1} = x_{a_1}+x_{a_2}+\cdots + x_{a_j + 1} + x_{a_{j+1}}+\cdots x_{a_N}$ (basically, shift one of the indices to the right by 1). 
+		Otherwise, denote $y_i = x_{a_1}+x_{a_2}+\cdots + x_{a_N+1}$. 
+	\end{itemize}
+	We first show that this construction sequence is legitimate: that is, when $i<2N$, either such $j$ can be found or $a_N < 2N$ (so $x_{a_N+1}$ exists). To see why, we consider the sum of indices $S(i)=a_1+a_2+\cdots +a_N$ when $y_i=x_{a_1}+\cdots + x_{a_N}$. 
+	When $i=0$ then sum is $S(0)=1+\cdots + N=\frac{N(N+1)}{2}$, and whenever the sequence $y_i$ and $y_{i+1}$ are both legitimate, $S(i+1)-S(i)=1$. Thus, the recursion from $y_i$ to $y_{i+1}$ is legitimate if and only if $y_i$ is not $x_{N+1}+\cdots + x_{2N}$. If such $i$ exists, then $S(i)=(N+1)+\cdots + (2N)=\frac{N(3N+1)}{2}=S(0)+N^2$. It then follows that such $i$ must be at least $N^2$ for this to happen. 
+	The converse is also true: we have $y_{N^2}=x_{N+1}+\cdots + x_{2N}$. 
+	
+	In addition, for each $0\le i < 2N$, by the construction above there exists index $j$ such that $y_{i+1}-y_i = x_{j+1}-x_j$. By an earlier lemma, $0\le x_{j+1}-x_j\le 1$, so $0\le y_{i+1}-x_i\le 1$. We also have $y_0=x_1+\cdots +x_N=m$ and $y_{N^2}=X_{N+1}+\cdots + x_{2N}=M$, which means:
+	\[
+	m=y_0\le y_1\le \cdots \le y_{N^2}\le M
+	\]
+	which means the set $\{y_0, \cdots , y_{N^2}\}$ is precisely the set of integers in the interval $[m, M]$, inclusive. 
+	
+	\item[\textbf{B2}]Suppose that a positive integer $N$ can be expressed as the sum of $k$ consecutive positive integers
+	\[N=a+(a+1)+(a+2)+\cdots+(a+k-1)\]for $k=2017$ but for no other values of $k>1.$ Considering all positive integers $N$ with this property, what is the smallest positive integer $a$ that occurs in any of these expressions?
+	
+	\textbf{Answer.} $a=16$ \\
+	\textbf{Solution.} $N$ can be written as sum of $k$ consecutive positive integers if and only if $N=\frac{k(2a+k-1)}{2}$ for some positive integer $a$. This means $N$ need to satisfy the following properties: 
+	\begin{enumerate}
+		\item $N\ge \frac{k(k+1)}{2}$
+		\item $k|N$ for $k$ odd, and $k|N-\frac{k}{2}$ when $k$ is even. 
+	\end{enumerate}
+	The second condition is due to the fact that, when considering mod $k$, $a, a+1, \cdots , a+k-1$ is congruent to $1, 2, \cdots , k$ in some order, and thus $N\equiv \frac{k(k+1)}{2}\pmod{k}$. If $k$ is odd then this is divisible by 0; converse ly if $k$ is even, then $k+1$ is odd so it's congruent to $\frac{k}{2}$. 
+	
+	Coming back to the problem, we need one such $N$ that can be written as sum of $k$ consecutive integers. Denote $N=2017\cdot m$ with $m\ge 1009$. Now consider the case when $m\le 1024$. If $m$ has an odd divisor that's greater than 1, say $q$, then $q|N$ too, and since $N\ge \frac{2017(2018)}{2}ge \frac{q\cdot (q+1)}{2}$ (since $q\le m< 2017$), it can be written as the sum of $q$ integers, too. This $m$ will then not be valid. This happens when $m\le 1024$ and has an odd divisor $>1$, which is equivalent to the fact that it is not a power of 2. Hence $m\ge 1024$. 
+	
+	To show that $m=1024$ is good, observe that its only odd divisors are 1 and 2017, so if $q$ is odd and it can be written as sum of $q$ consecutive numbers, then $q=1$ or $q=2017$. Now suppose that $q$ is even, whereby we have $N\equiv \frac{q}{2}\pmod{q}$. This means that $2N\equiv 0\pmod{q}$, i.e. $q=2^k 2017^{\ell}$ with $1\le k\le 11$ and $0\le\ell\le 1$. With $q\nmid N$ we must have $k=11$, so the only choice is $q=2^{11}$ and $q=2^{11}\cdot 2017$. However, $q\ge 2048$ so $N\ge \frac{2048(2049)}{2}=1024\cdot 2049>1024\cdot 2017$, contradiction. Hence $k=2017$ is the only possibility here. Since $2a+k-1=2048$ in this case, $a=16$. 
+	
+	\item[\textbf{B3}] Suppose that $$f(x) = \sum_{i=0}^\infty c_ix^i$$is a power series for which each coefficient $c_i$ is $0$ or $1$. Show that if $f(2/3) = 3/2$, then $f(1/2)$ must be irrational.
+	
+	\textbf{Solution.} Consider $c=f(1/2)$, and consider the binary representation of $c$. We know that if $c$ is rational, then the binary digits (after decimal point) is eventually periodic. We show that this is the same for the sequence $\{c_i\}$ too. 
+	
+	Clearly, if $c<2$ and $c=\overline{d_0.d_1d_2d_3\cdots}$, is the binary representation, then putting $c_i=d_i$ we have $\sum_{i=0}^\infty c_ix^i=c$, too (The case $c\ge 2$ happens only when $c\ge 2$, but then $c=f(1/2)\le 1+1/2+1/4+\cdots = 2$, so equality must hold and we have $c_i=1$ for all $i$, and therefore $\{c_i\}$ is periodic). 
+	If $\{c_i\}$ is indeed the binary representation we are done. 
+	Now, suppose that $\{c_i\}$ is not the binary representation: this means $c$ has more than 1 way to be represented as the power series. 
+	Let $\{c_i\}$ and $\{d_i\}$ to be two different representations and let $n_0$ be the minimum index such that $c_{n_0}\neq d_{n_0}$. WLOG let $c_{n_0}=0$ and $d_{n_0}=1$. Then 
+	\[
+	\sum_{i=n_0 + 1}^\infty c_i/2^i = c - \sum_{i=0}^{n_0-1} c_i/2^i = 1/2^{n_0}+\sum_{i=n_0+1}^\infty d_i/2^i 
+	\]
+	But then 
+	\[
+	\sum_{i=n_0 + 1}^\infty c_i/2^i\le \sum_{i=n_0 + 1}^\infty 1/2^i
+	=1/2^{n_0}
+	\le 1/2^{n_0}+\sum_{i=n_0+1}^\infty d_i/2^i
+	\]
+	therefore equality must hold: $c_i=0$ and $d_i=1$, both for all $i>n_0$. Thus both $\{c_i\}$ and $\{d_i\}$ is eventually periodic with period 1 (and we are done). 
+	
+	Now, given that $\{c_i\}$ is eventually periodic: there is an $n_0\ge 0$ and $m\ge 1$ such that for all $n\ge n_0$ we have $c_n=c_{n+m}$. 
+	We now have 
+	
+	\begin{flalign*}
+	f(2/3)&=\dsum_{i=0}^{\infty}\frac{2^ic_i}{3^i}
+	\\&=\dsum_{i=0}^{n_0-1}\frac{2^i3^{n_0-1-i}c_i}{3^{n_0-1}}
+	+\dsum_{i=n_0}^{\infty}\frac{2^ic_i}{3^i}
+	\\&=\dsum_{i=0}^{n_0-1}\frac{2^i3^{n_0-1-i}c_i}{3^{n_0-1}}
+	+\dsum_{i=n_0}^{n_0+m-1}c_i\left(\frac{2^i}{3^i}+\frac{2^{i+m}}{3^{i+m}}+\frac{2^{i+2m}}{3^{i+2m}}+\cdots\right)
+	\\&=\dsum_{i=0}^{n_0-1}\frac{2^i3^{n_0-1-i}c_i}{3^{n_0-1}}
+	+\dsum_{i=n_0}^{n_0+m-1}c_i\cdot \frac{2^i}{3^i} \cdot \frac{3^m}{3^m-2^m}
+	\end{flalign*}
+	and since for each $i$ and $m$, all $3^{n_0-1}, 3^i$ and $3^m-2^m$ are odd, the quantity $f(2/3)$ can be written as $p/q$ with $q$ odd. However, given that $f(2/3)=1/2$ and $1/2$ doesn't have this property (2 is even and 1/2 is irreducible: if $q$ is odd then $\frac q2$ is not an integer), this is a contradiction. Thus $\{c_i\}$ cannot be eventually periodic and the conclusion follows. 
+	
+	
+	\item[\textbf{B4}]Evaluate the sum
+	\[\sum_{k=0}^{\infty}\left(3\cdot\frac{\ln(4k+2)}{4k+2}-\frac{\ln(4k+3)}{4k+3}-\frac{\ln(4k+4)}{4k+4}-\frac{\ln(4k+5)}{4k+5}\right)\]\[=3\cdot\frac{\ln 2}2-\frac{\ln 3}3-\frac{\ln 4}4-\frac{\ln 5}5+3\cdot\frac{\ln 6}6-\frac{\ln 7}7-\frac{\ln 8}8-\frac{\ln 9}9+3\cdot\frac{\ln 10}{10}-\cdots.\]
+	
+	\textbf{Solution.} (Cited from my post on AoPS)
+	To avoid dealing with problems in absolute convergence, we deal with the $n$-th partial sum. That is,
+	\[\sum_{k=0}^{n}\left(3\cdot\frac{\ln(4k+2)}{4k+2}-\frac{\ln(4k+3)}{4k+3}-\frac{\ln(4k+4)}{4k+4}-\frac{\ln(4k+5)}{4k+5}\right)\]\[=3\cdot\frac{\ln 2}2-\frac{\ln 3}3-\frac{\ln 4}4-\frac{\ln 5}5+\cdots +3\cdot\frac{\ln(4n+2)}{4n+2}-\frac{\ln(4n+3)}{4n+3}-\frac{\ln(4n+4)}{4n+4}-\frac{\ln(4n+5)}{4n+5}.\]Because the sum is finite here, we have no issue of convergence and therefore can do the following conversion:
+	\[\sum_{k=0}^{n}\left(3\cdot\frac{\ln(4k+2)}{4k+2}-\frac{\ln(4k+3)}{4k+3}-\frac{\ln(4k+4)}{4k+4}-\frac{\ln(4k+5)}{4k+5}\right)\]\[=\sum_{k=0}^{n}\left(\frac{\ln(4k+2)}{4k+2}-\frac{\ln(4k+3)}{4k+3}+\frac{\ln(4k+4)}{4k+4}-\frac{\ln(4k+5)}{4k+5}\right)
+	+\sum_{k=0}^{n}2\left(\frac{\ln(4k+2)}{4k+2}-\frac{\ln(4k+4)}{4k+4}\right)
+	\]Also notice that
+	\[\sum_{k=0}^{n}2\left(\frac{\ln(4k+2)}{4k+2}-\frac{\ln(4k+4)}{4k+4}\right)
+	=\sum_{k=0}^{n}\left(\frac{\ln 2 + \ln(2k+1)}{2k+1}-\frac{\ln 2 + \ln(2k+2)}{2k+2}\right)\]So we have
+	\[\sum_{k=0}^{n}\left(\frac{\ln(4k+2)}{4k+2}-\frac{\ln(4k+3)}{4k+3}+\frac{\ln(4k+4)}{4k+4}-\frac{\ln(4k+5)}{4k+5}\right)
+	+\sum_{k=0}^{n}2\left(\frac{\ln(4k+2)}{4k+2}-\frac{\ln(4k+4)}{4k+4}\right)\]\[=\sum_{k=0}^{2n+1}\left(\frac{\ln(2k+2)}{2k+2}-\frac{\ln(2k+3)}{2k+3}\right)
+	+\sum_{k=0}^{n}\left(\frac{\ln 2 + \ln(2k+1)}{2k+1}-\frac{\ln 2 + \ln(2k+2)}{2k+2}\right)\]\[
+	=\ln 2\sum_{k=0}^{n}\left(\frac{1}{2k+1}-\frac{1}{2k+2}\right)-\frac {\ln (2n+2)}{2n+2}
+	+\sum_{k=n+1}^{2n+1}\left(\frac{\ln(2k+2)}{2k+2}-\frac{\ln(2k+3)}{2k+3}\right)
+	\]Now, notice that $\frac {\ln x}{x}$ is a decreasing sequence with limit $0$ as $x\to\infty$. Thus $\sum_{k=0}^{2n+1}\left(\frac{\ln(2k+2)}{2k+2}-\frac{\ln(2k+3)}{2k+3}\right)$ is an alternating sum hence converges), which means that $\sum_{k=n+1}^{2n+1}\left(\frac{\ln(2k+2)}{2k+2}-\frac{\ln(2k+3)}{2k+3}\right)\to 0$ as $n\to 0$. It is also well known that $\sum_{k=0}^{n}\left(\frac{1}{2k+1}-\frac{1}{2k+2}\right)\to\ln 2$ as $n\to\infty$. Therefore
+	$\lim_{n\to\infty}\ln 2\sum_{k=0}^{n}\left(\frac{1}{2k+1}-\frac{1}{2k+2}\right)-\frac {\ln (2n+2)}{2n+2}
+	+\sum_{k=n+1}^{2n+1}\left(\frac{\ln(2k+2)}{2k+2}-\frac{\ln(2k+3)}{2k+3}\right)
+	=(\ln 2)^2+0+0=(\ln 2)^2$
+	
+	\item[\textbf{B5}]A line in the plane of a triangle $T$ is called an equalizer if it divides $T$ into two regions having equal area and equal perimeter. Find positive integers $a>b>c,$ with $a$ as small as possible, such that there exists a triangle with side lengths $a,b,c$ that has exactly two distinct equalizers.
+	
+	\textbf{Answer.} $9, 8, 7$ \\
+	\textbf{Solution.} Throughout the solution we focus on lines that split $T$ into equal perimeter. This line is only meaningful if it either passes through two of the sides of the triangle, or it passes through a vertex and its opposite side. In the second case, the fact that this line is an equalizer means that it has to be a median of a side, say having length $c$. Let $m$ to be the length of median, then the perimeter of the first triangle is $a+\frac c2+m$ and the second, $b+\frac c2 + m$. But since $a\neq b$, this cannot be an equalizer. 
+	
+	So now each equalizer must pass through exactly two of the sides (it has to be 2 or 0 by menelaus' theorem, and the case of 0 is impossible since it doesn't divide $T$ at all). 
+	From now on, denote $s=\frac{a+b+c}{2}$, the semiperimeter. 
+	We consider each of the three cases (following $a>b>c$):
+	\begin{enumerate}
+		\item If the line passes through sides with length $b$ and $c$, let the line cut the first side into a smaller triangle of length $b_1$, $c_1, m$, with $b_1$ on the $b$-side and $c_1$ on the $c$-side. This splits $T$ into a triangle of perimeter $b_1+c_1+m$ and a quadrilateral of length $a+m+(b-b_1)+(c-c_1)$, which means $b_1+c_1=\frac{a+b+c}{2}=s$, and the ratio of area of smaller triangle to the bigger one is $\frac{b_1c_1}{bc}$ (for the case of equalizer, this ratio must be $\frac 12$). Given that $b-1+c_1=s$, we have $b_1c_1=\frac{s^2-(b_1-c_1)^2}{4}$. Now considering all such lines on the two sides satisfying the perimeter constraint, we have $b_1\le b$ and $c_1\le c$, which means we have $c_1\ge (s-b)$ and $b_1\le s-c$. Thus $b_1-c_1$ has to lie in the interval $[s-2c, 2b-s]$. Given that $b<a$ and $c<a$, when $b_1=b$ we have $c_1=s_b$ so the ratio of the triangle area is now $\frac{s-b}{c}=\frac{a+c-b}{2c}>\frac 12$ since $a>b$. Similarly when $c_1=c$ we have $b_1=s-c$ and the resulting ratio is $\frac{a+b-c}{2b}>\frac 12$ since $a>c$. Therefore we get $\frac{s^2-(b_1-c_1)^2}{4}>\frac 12 bc$ when $b_1-c_1\in\{s-2c, 2b-s\}$. For all $x\in [s-2c, 2b-s]$ we either have $|x|\le s-2c$ or $|x|\le 2b-s$, so we always have $\frac{s^2-(b_1-c_1)^2}{4}>\frac 12 bc$. Hence no equalizer in this case. 
+		
+		\item Similar to the case above we consider what happened when it passes through length $a$ and $c$. Now denote $a_1$ and $c_1$ like above; we get that $a_1-c_1$ is in the interval $[s-2c, 2a-s]$. Now when $a_1=a$ the resulting ratio is $\frac{(s-a)}{c}=\frac{b+c-a}{2c}<\frac 12$ while if $c_1=c$ the ratio is $\frac{s-c}{a}=\frac{a+b-c}{2a}>\frac 12$. Thus the value $a_1c_1=\frac{s^2-(a_1-c_1)^2}{4}>\frac 12 ac$ when $a_1-c_1=s-2c$ while is $<\frac 12 ac$ when $a_1-c_1=2a-s$. Therefore considering $x$ that satisfies $\frac{s^2-x^2}{4}=\frac 12 ac$, we get $|x|< 2a-s$ while $|x|>s-2c$. This implies that there's exactly one such $x$ in the interval $[s-2c, 2a-s]$, and has one equalizer. 
+		
+		\item Finally, let the line cuts the sides $a$ and $b$ which forms a smaller triangle with length $a_1$ on side $a$ and $b_1$ on side $b$, then $a_1-b_1\in [s-2b, 2a-s]$. When $a_1=a$ we have $b_1=s-a$ and the area ratio becomes $\frac{s-a}{b}=\frac{b+c-a}{2b}<\frac 12$, and similarly for $b_a=b$ we get $a_1=s-b$, so the ratio becomes $\frac{s-b}{a}=\frac{c+a-b}{2a}<\frac 12$. Thus $\frac{s^2-(a_1-c_1)^2}{4}<\frac 12 ac$ when $a_1-c_1$ is at these extreme points. If $s^2<2ac$ then there's no equalizer in this case; if $s^2=2ac$ then equalizer exists when $a_1=c_1$ (here, $0\in [s-2b, 2a-s]$ since $s-2b=\frac{a+c-3b}{2}<\frac{a-2b}{2}<0$) as $2b>b+c>a$ by triangle inequality, and $2a-s=\frac{3a-b-c}{2}>\frac{3a-a-a}{2}>0$); if $s^2>2ac$, denote $x$ as the two solutions to $s^2-x^2=2ac$. From our example we have $|x|<|s-2b|$, $|x|<|2a-s|$ and $s-2b<0<2a-s$ so both solutions lie in the interval $[s-2b, 2a-s]$. In this case we have two equalizers. 
+	\end{enumerate}
+	Now knowing all the cases above, there must be exactly 1 equalizer in the second case, and exactly 1 equalizer in the third case. The third case implies that $a_1=b_1=\frac{s}{2}$, which entails (by the equality of area) $\frac{s^2}{4}=\frac 12 ab$, or $(a+b+c)^2=8ab$. For $8ab$ to be a square, we need $ac=2\cdot k^2$ for some $k$, bearing in mind that $2a>2b>a$. Considering $k=1, 2, \cdots$, the smallest $k$ that has this property is when $a=9, b=8$, forcing $c=7$. For $k\ge 7$ we have $a>k\sqrt{2}=7\sqrt{2}>9$, so $a=9$ is the smallest possible answer. 
+\end{enumerate}
+
+\end{document}
