@@ -132,11 +132,77 @@
 	
 	\item [\textbf{A5}] 
 	Let $a_n$ be the number of sets $S$ of positive integers for which
-	\[ \sum_{k\in S}F_k=n,\]where the Fibonacci sequence $(F_k)_{k\ge 1}$ satisfies $F_{k+2}=F_{k+1}+F_k$ and begins $F_1=1$, $F_2=1$, $F_3=2$, $F_4=3$. Find the largest number $n$ such that $a_n=2020$.
+	\begin{equation}\label{eqn:2020a5}
+	  \sum_{k\in S}F_k=n,
+	\end{equation}
+	where the Fibonacci sequence $(F_k)_{k\ge 1}$ satisfies $F_{k+2}=F_{k+1}+F_k$ and begins $F_1=1$, $F_2=1$, $F_3=2$, $F_4=3$. Find the largest number $n$ such that $a_n=2020$.
 	
 	\textbf{Answer.} $F_{4040}-1$. 
 	
-	\textbf{Solution.} (TODO)
+	\textbf{Solution.} 
+	We first note the following: 
+	\begin{equation}\label{eqn:2020a5sum}
+	\sum_{i=1}^k F_i = F_{k+2}-1
+	\end{equation}
+	for all $k\ge 1$ (which is clear from $k=1,2,3$ and the rest can be established via induction). 
+	If we define $f(n)$ as the index satisfying $F_{f(n)}\le n < F_{f(n)+1}$, 
+	then the set $S$ satisfying Equation \ref{eqn:2020a5} has $\max \{k: k\in S\}$ either $f(n)$ or $f(n)-1$. 
+	This gives us two scenario whenever $n\ge 2$ (and so $f(n)\ge 3$): 
+	\begin{itemize}
+		\item If the max element in $S$ is $f(n)$, we have $0\le n - F_{f(n)} < F_{f(n)+1} - F_{f(n)} = F_{f(n)-1}$, 
+		which gives us $a_{n-F_{f(n)}}$ choices (all chosen in $\{1, \cdots, f(n)-2\}$)
+		
+		\item If the max element in $S$ is $f(n)-1$, then it turned out it's more expedient to consider the elements \emph{not} chosen among $\{1, \cdots, f(n)-2\}$. 
+		By Equation \ref{eqn:2020a5sum}, 
+		summing over $\{1, \cdots, f(n)-1\}$ gives $F_{f(n)+1}-1\ge n$, 
+		so the number of ways here is precisely $a_{F_{f(n)+1}-n-1}$. 
+		
+	\end{itemize}
+    Therefore we have the iterative formula $a_{n-F_{f(n)}}+a_{F_{f(n)+1}-n-1}$. 
+    
+    Now with this, let's make the following claim: 
+    \begin{itemize}
+    	\item For all $k\ge 1$, $a_{F_{2k}-1}=k$. 
+    	
+    	\item For all $k\ge 1$ and $n\ge F_{2k}$, $a_n>k$. In other words, $a_{n}\ge \lfloor \frac{f(n)}{2}\rfloor+1$. 
+    \end{itemize}
+    These claims would suffice to show that our answer above. 
+    
+    For the first claim, we see that $a_{F_2-1}=a_0=1$, and $a_{F_4-1}=a_2=2$ (given that 2 can be written 2 and 1+1). 
+    Also, $f(F_{2k}-1)=2k-1$, 
+    so for $k\ge 3$, 
+    \[a_{F_{2k}-1}=a_{F_{2k}-1-F_{2k-1}}+a_{F_{2k}-F_{2k}}=a_{F_{2k-2}-1}+1
+    \]
+    so the inductive hypothesis $a_{F_{2k-2}-1}=k-1$ would imply $a_{F_{2k}-1}=k$. 
+    
+    Now to prove the second claim, let us again use induction in the following sense: 
+    for each $k$, we consider those $n$ with $F_{2k}\le n < F_{2k+2}-1$. 
+    When $k=0$ this is just $n=0$ and $a_n=1$, and when $k=1$, $n=1, 2$ which gives $a_1=a_2=2$. 
+    
+    For $k\ge 2$, for $n$ in the said range we have $f(n)$ either $2k$ or $2k+1$. 
+    Now consider the pair of numbers 
+    \[
+    n-F_{f(n)}, F_{f(n)+1}-n-1
+    \]
+    which sums up to $F_{f(n)-1}-1< F_{2k}$. Thus by induction hypothesis we can deduce that 
+    \[a_n=a_{n-F_{f(n)}}+a_{F_{f(n)+1}-n-1}\ge 
+    \lfloor\frac{f(n-F_{f(n)})}{2}\rfloor + \lfloor\frac{f(F_{f(n)+1}-n-1)}{2}\rfloor + 2
+    \]
+    Now, let $\lfloor\frac{f(n-F_{f(n)})}{2}\rfloor=x$ and $\lfloor\frac{f(F_{f(n)+1}-n-1)}{2}\rfloor =y$, 
+    then 
+    \[
+    f(n-F_{f(n)})\le 2x+1 \Rightarrow n-F_{f(n)}\le F_{2x+2}-1
+    \]
+    and similarly $F_{f(n)+1}-n-1\le F_{2y+2}-1$. 
+    Therefore we have the sum satisfying
+    $F_{f(n)-1}-1\le F_{2x+2}+F_{2y+2}-2$, or $F_{f(n)-1}\le F_{2x+2}+F_{2y+2}-1$. 
+    If $x+y<k-1$, then we have $F_{2k-1}\le F_{2x+2}+F_{2y+2}-1$ for some $x+y<k-1$, and for $x, y\ge 0$. 
+    (can substitute $f(n)=2k$ here since if it holds for $2k+1$ it will hold for $2k$). 
+    We however see that $F$ is convex hence 
+    \[F_{2k-1}\le F_{2x+2}+F_{2y+2}-1\le F_2 + F_{2(x+y)+2}-1 = F_{2(x+y)+2}\le F_{2k-2}
+    \]
+    which is a contradiction. 
+    Therefore $a_n\ge k-1+2=k+1$, as claimed. 
 	
 	\item [\textbf{B3}] Let $x_0=1$, and let $\delta$ be some constant satisfying $0<\delta<1$. Iteratively, for $n=0,1,2,\dots$, a point $x_{n+1}$ is chosen uniformly form the interval $[0,x_n]$. Let $Z$ be the smallest value of $n$ for which $x_n<\delta$. Find the expected value of $Z$, as a function of $\delta$.
 	
