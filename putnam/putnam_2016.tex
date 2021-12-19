@@ -191,9 +191,34 @@
 	Thus we get 
 	$\frac{4}{3}(\sqrt{N}-2)^{3/2} - \sqrt{N} \le S(N)\le \frac{4}{3}(\sqrt{N} + 1)^{3/2} + \sqrt{N} + 1$. Notice also that \[\lim_{N\to\infty}\frac{\frac{4}{3}(\sqrt{N}-2)^{3/2} - \sqrt{N}}{N^{3/4}}=\frac 43 = \lim_{N\to\infty}\frac{\frac{4}{3}(\sqrt{N} + 1)^{3/2} + \sqrt{N} + 1}{N^{3/4}}\], so the limit must exist by Squueze's theorem and equal to $\frac 43$, as desired. 
 	
+	\item[\textbf{B3}] Suppose that $S$ is a finite set of points in the plane such that the area of triangle $\triangle ABC$ is at most 1 
+	whenever $A, B$, and $C$ are in $S$. 
+	Show that there exists a triangle of area 4 that (together with its interior) covers the set $S$.
+	
+	\textbf{Solution.} 
+	Let $ABC=\arg\max_{A', B', C'} \{|\triangle A'B'C'|, A', B', C'\in S\}$. 
+	Consider, now, the lines parallel to $AB$ through $C$, 
+	parallel to $BC$ through $A$, and parallel to $AC$ through $B$. 
+	This defines a new triangle $A_0B_0C_0$ with area $4\times |\triangle ABC|$. 
+	(We label the points such that $A_0B_0\parallel AB$, $A_0C_0\parallel AC$, and $B_0C_0\parallel BC$). 
+	
+	Let's claim that this triangle covers the set $S$. 
+	By the maximality of $|\triangle ABC|$ in $S$, we have 
+	\[
+	X\in S\Rightarrow |\triangle ABX|\le |\triangle ABC|\Rightarrow \text{distance}(X, AB)\le \text{distance}(C, AB)\Rightarrow 
+	\]
+	and the last statement says that each point $X\in S$ lies on the same side as $AB$ with respect to the line $A_0B_0$. 
+	Similarly, $S$ must all be on the same side as $BC$ w.r.t. the line $B_0C_0$, 
+	and on the same side as $AC$ w.r.t. the line $A_0C_0$. 
+	Pictorially, this means $S$ is contained on or inside $A_0B_0C_0$. 
+	
+	Finally, with $|\triangle ABC|\le 1, |\triangle A_0B_0C_0|\le 4$, 
+	so we may choose the center of $A_0B_0C_0$ and do homothety until the area reaches exactly 4. 
+	
 	\item[\textbf{B4}]Let $A$ be a $2n\times 2n$ matrix, with entries chosen independently at random. Every entry is chosen to be $0$ or $1,$ each with probability $1/2.$ Find the expected value of $\det(A-A^t)$ (as a function of $n$), where $A^t$ is the transpose of $A.$
 	
-	\textbf{Answer.}\\
+	\textbf{Answer.} $\dfrac{(2n)!}{4^n n!}$
+	
 	\textbf{Solution.} Denote $a_{ij}$ as the $(i, j)$-th entry of $A$, and $b_{ij}$ as the $(i, j)$-th entry of $A-A^t$. Notice that $b_{ij}=a_{ij}-a_{ji}$, which has $\frac 12$ chance of being zero, and $\frac 14$ chance of being -1, and $\frac 14$ chance of being 1, if $i\neq j$. If $i=j$ then $b_{ij}=0$ at all times. 
 	
 	Now consider $\det(A-A^t)=\sum_{\sigma\in S}\sgn(\sigma)\prod_{i=1}^{2n}b_{i\sigma(i)}$ where $S$ is the set of permutations of $\{1, 2, \cdots , n\}$, $\sigma$ is its permutation, and $\sgn=1$ if $\sigma$ is even, and $-1$ otherwise. The task is to find $E(\sum_{\sigma\in S}\sgn(\sigma)\prod_{i=1}^{2n}b_{i\sigma(i)})$, whixh is equal to $\sum_{\sigma\in S}\sgn(\sigma)E(\prod_{i=1}^{2n}b_{i\sigma(i)})$ by the linearity of expectation. Hence we can go ahead and investigate $E(\prod_{i=1}^{2n}b_{i\sigma(i)})$ individually for each of the $(2n)!$ permutations $\sigma$. We note the following: 
@@ -252,6 +277,56 @@
 	
 	We are ready to go back to the proof now, which we assumed $g(1)=1$. Suppose there exists $x_0$ with $g(x_0)>x_0$. Let $g(x_0)=cx_0$ with $c>1$. If $n, m\ge 2$ are such that $2^nx_0\le 3^m$, then choosing $y\in [2^nx_0, 3^m]$ and by lemma 1 we have $g(y)\ge 2^ng(x_0)=2^ncx_0$ and $g(y)\le 3^mg(1)=3^m$. Therefore, $2^ncx_0\le g(y)\le 3^m$, or $2^ncx_0\le 3^m$. This means that whenever $n, m\ge 2$ are integers such that $2^nx_0\le 3^m$ (or $n\log 2 + \log x_0\le m\log 3$) we have $2^nx_0c\le 3^m$ (or $n\log 2 + \log x_0 + \log c \le m\log 3$). This is to mean that there cannot exist $m, n\ge 2$ such that $m\log 3 - n\log 2\in [\log x_0, \log x_0 + \log c]$. 
 	Let $q$ be an integer that is greater than 2, $2\log 3/log 2$ and $2\log 2/log 3$. Given that $\log 2/\log 3$ is irrational, 
+	
+	\item [\textbf{B6}]
+	
+	Evaluate 
+	\[
+	\sum_{k=1}^{\infty} \frac{(-1)^{k-1}}{k} \sum_{n=0}^{\infty} \frac{1}{k2^n+1}
+	\]
+	
+	\textbf{Answer.} 1. 
+	
+	\textbf{Solution.} 
+	Let's first claim that each summation term converges absolutely, that is, 
+	\[
+	\sum_{k=1}^{\infty} \frac{1}{k} \sum_{n=0}^{\infty} \frac{1}{k2^n+1} < \infty
+	\]
+	Indeed, 
+	\[
+	\sum_{k=1}^{\infty} \frac{1}{k} \sum_{n=0}^{\infty} \frac{1}{k2^n+1}
+	< \sum_{k=1}^{\infty} \frac{1}{k} \sum_{n=0}^{\infty} \frac{1}{k2^n}
+	=\sum_{k=1}^{\infty} \frac{1}{k^2}\sum_{n=0}^{\infty} \frac{1}{2^n}
+	=\sum_{k=1}^{\infty} \frac{2}{k^2}
+	=\frac{\pi^2}{3}
+	\]
+	Thus, we are free to rearrange the summands $\frac{(-1)^{k-1}}{k}\cdot \frac{1}{k2^n+1}$. 
+	
+	Now we consider $f(x)=\frac{1}{x}$ for all $x\ge 2$, 
+	and we are to evaluate $\sum_{k=1}^{\infty} \frac{(-1)^{k-1}}{k} \sum_{n=0}^{\infty} f(k2^n+1)$. 
+	The strategy is to consider the coefficient of $f(x)$ for each $x$. 
+	That is, 
+	\[
+	\sum_{k, n: k2^n+1=x} \frac{(-1)^{k-1}}{k} f(x)
+	\]
+	Now $k=\frac{x-1}{2^n}$, for $n=0, \cdots, v_2(x-1)$ (the biggest power of 2 that divides $x-1$). 
+	We also observe that $\frac{x-1}{2^n}$ is odd when $n=v_2(x-1)$ and even otherwise. 
+	This means that 
+	\[
+	\sum_{k, n: k2^n+1=x} \frac{(-1)^{k-1}}{k}
+	=\sum_{n=0}^{v_2(x-1)}\frac{(-1)^{\frac{x-1}{2^n}-1}}{(x-1)/2^n}
+	=\frac{1}{(x-1)/2^{v_2(x-1)}}
+	-\sum_{n=0}^{v_2(x-1)-1}\frac{1}{(x-1)/2^n}
+	\]\[
+	=\frac{1}{(x-1)}\left(2^{v_2(x-1)}-\sum_{n=0}^{v_2(x-1)-1}2^n\right)
+	=\frac{1}{x-1}
+	\]
+	and therefore this coefficient is $\frac{1}{x-1}$. 
+	Thus the sum now becomes 
+	\[\sum_{x=2}^{\infty}\frac{1}{x-1}f(x)
+	=\sum_{x=2}^{\infty}(\frac{1}{x-1}-\frac{1}{x})
+	=1
+	\]
 	
 \end{enumerate}
 
