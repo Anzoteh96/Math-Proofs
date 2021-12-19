@@ -139,10 +139,76 @@
 	\[a_1^m+a_2^m+a_3^m+\cdots=m\]
 	for every positive integer $m?$
 	
+	\textbf{Answer.} No. 
+	
+	\textbf{Solution.}
+	Denote the sum $a_1^m+a_2^m+a_3^m+\cdots$ as $S_m$. 
+	If $\sup_{i}\{a_i\}\le 1$ then we have $S_1\ge S_2\ge\cdots$ which immediately invalidates the equation. 
+	Therefore we can choose $k$ such that $a_k>1$. 
+	However, we have $a_k^n>n$ for all $n$ sufficiently large: 
+	this is because the function $\log n$ is $o(n)$ and so we can find $n$ such that $\log n < cn$ where $c=\log a_k$. 
+	
 	\item [\textbf{B2}]
 	Given that $A,B,$ and $C$ are noncollinear points in the plane with integer coordinates such that the distances $AB,AC,$ and $BC$ are integers, what is the smallest possible value of $AB?$
 	
+	\textbf{Answer.} 3. 
+	
+	\textbf{Solution.} The above configuration is given by $A=(0, 0), B=(0, 3), C=(4, 0)$, giving a 3-4-5 right triangle. 
+	
+	Now consider $AB=1$ or $AB=2$. 
+	If $AB=1$ then it has to be parallel to one of the axis, so we name it $A=(0, 0), B=(0, 1)$. 
+	If $C=(x, y)$ with $x\neq 0$ then we have $x^2+y^2$ and $x^2+(y-1)^2$ both positive integers. 
+	W.l.o.g., set $y\ge 1$, and let $x^2+y^2=z^2$ for some integer $z$, then $z>y>0$ and 
+	\[
+	x^2+y^2-(2y-1)= x^2+(y-1)^2\le (z-1)^2= z^2-(2z-1) =x^2+y^2-(2z-1)
+	\]
+	i.e. $y\ge z$, contradiction. 
+	
+	If $AB=2$, since the only way to write $x^2+y^2=4$ is where $(x, y)=(\pm 2, 0)$ and $(0, \pm 2)$, 
+	$AB$ again has to be parallel to one of the axes, say, $(0, 0)$ and $(0, 2)$. 
+	Again let $C=(x, y)$ with $x\neq 0$, 
+	and let $x^2+y^2=z^2$ for some $z$. 
+	Now that $z^2$ and $x^2+(y-2)^2$ must have the same parity, 
+	consider the following cases: 
+	\begin{itemize}
+		\item If $y=1$, then we have $x^2+1=z^2$, which is impossible unless $x=0$. 
+		
+		\item If $y\neq 1$, by symmetry we can consider $y>1$ case only. Then $(y-2)^2<y^2$. 
+		Then 
+		\[
+		x^2+y^2-(4y-4)
+		= x^2+(y-2)^2
+		\le (z-2)^2
+		=z^2-(4z-4) =x^2+y^2-(4z-4)
+		\]
+		i.e. $y\ge z$, which is also contradiction. 
+	\end{itemize}
+	
 	\item [\textbf{B3}]
 	There are 2010 boxes labeled $B_1,B_2,\dots,B_{2010},$ and $2010n$ balls have been distributed among them, for some positive integer $n.$ You may redistribute the balls by a sequence of moves, each of which consists of choosing an $i$ and moving exactly $i$ balls from box $B_i$ into any one other box. For which values of $n$ is it possible to reach the distribution with exactly $n$ balls in each box, regardless of the initial distribution of balls?
+	
+	\textbf{Answer.} $n=1005$. 
+	
+	\textbf{Solution.} 
+	If $n\le 1004$, then $2010n\le \frac{2010\times 2009}{2}=0+1+\cdots + 2009$, 
+	so we can distribute the balls such that $B_i$ contains $\le i-1$ balls. 
+	For example, do it greedily by distributing $i-1$ balls to $B_i$ for $i=1, 2, \cdots$. 
+	Then no redistribution move is possible. 
+	
+	Now consider $n\ge 1005$, i.e. $2010n> \frac{2010\times 2009}{2}=0+1+\cdots + 2009$. 
+	This means at each stage, there's at least one box $B_i$ with at least $i$ balls. 
+	Now we consider the following iteration: 
+	\begin{itemize}
+		\item Let $B_i$ to have at least $i$ balls. 
+		If $i>1$, then move those $i$ balls to $B_1$. 
+		
+		\item Otherwise, if the only $i$ with $B_i$ at least $i$ balls is $B_1$, 
+		then choose $j>1$ such that $B_j$ has at least 1 ball (but fewer than $j$ balls). 
+		Now move 1 ball from $B_1$ to $B_j$, and repeat until $B_j$ has exactly $j$ balls, 
+		and now move all the $j$ balls from $B_j$ back to $B_1$. 
+		
+		\item Repeat all of the above until $B_1$ has all the balls. 
+	\end{itemize}
+    Once this is done, we can now distribute the balls one-at-a-time from $B_1$ to the other boxes, such that each has $n$ balls. 
 \end{enumerate}
 \end{document}
