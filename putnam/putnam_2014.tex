@@ -75,7 +75,7 @@
 	
 	\item[\textbf{A2}]Let $A$ be the $n\times n$ matrix whose entry in the $i$-th row and $j$-th column is \[\frac1{\min(i,j)}\] for $1\le i,j\le n.$ Compute $\det(A).$
 	
-	\textbf{Answer.} $\frac{1}{n[(n-1)!]^2}$\\
+	\textbf{Answer.} $(-1)^{n}\frac{1}{n[(n-1)!]^2}$\\
 	\textbf{Solution.} We use the well-known matrix identity that row reduction preserves determinant, and we will do row reduce profusely. For brevity, we will denote $f(i)=\frac{1}{i}$ for all $i\ge 1$. Denoting $a_{ij}$ as the $i$-th row and the $j$-th column. Then we have $a_{ij}=f(\min(i, j))$. 
 	
 	Now, for each iteration stepped $i$, denoting row $i$ as $r_i$ and we will do $r_{j}:=r_{j}-r_i$ for all $j\ge i$. We show that after the $k$-th iteration below would be the value for $a_{ij}$: 
@@ -89,7 +89,96 @@
 	where the first $k$ entries are 0. Now after the $k+1$-th iteration, for all $i>k+1$, if $j\le k$ then $a_{ij}$ becomes $0-0=0$ and if $j>k$ we have $a_{ij}$ becomes $(f(\min(i, j))-f(k))-f(k+1)-f(k)=f(\min(i, j))-f(k+1)$. This entry is 0 if $j=k+1$ since $i>k+1$. For all $i\le k$ the rows are unaffected by this row reduction, so we still have $a_{ij}=0$ for all $j<i$, and $a_{ij}=f(i)-f(i-1)$ for all $j\ge i$. Thus the claim is proven. 
 	
 	To finish the proof, after $n-1$ iterations, we have, for all $j<i$, $a_{ij}=0$. Thus $A$ is no upper triangular, and the determinant is simply the product of the diagonal entries. We also have $a_{ii}=1$ for $i=1$ and $f(i)-f(i-1)$ for $i\ge 2$. Now $f(i)-f(i-1)=\frac{1}{i}-\frac{1}{i-1}=-\frac{1}{i(i-1)}$. Hence we have 
-	\[\det(A)=\prod_{i=2}^n -\frac{1}{i(i-1)}= - (-1)^{n-1}=\frac{1}{n[(n-1)!]^2}\]
+	\[\det(A)=\prod_{i=2}^n -\frac{1}{i(i-1)}= - (-1)^{n-1}\frac{1}{n[(n-1)!]^2}\]
+	
+	\item[\textbf{A3}] 
+	Let $a_0=5/2$ and $a_k=a_{k-1}^2-2$ for $k\ge 1.$ Compute\[\prod_{k=0}^{\infty}\left(1-\frac1{a_k}\right)\]in closed form.
+	
+	\textbf{Answer.} $\dfrac 37$. 
+	
+	\textbf{Solution.} Consider, in general, $a_0=a+\dfrac 1a$ for some $a>1$, 
+	then we show that the answer is $\dfrac{a^2-1}{a^2+a+1}$. 
+	Here the problem is a special case with $a=2$. 
+	
+	\textbf{Claim.} $a_k= a^{2^k}+\dfrac{1}{a^{2^k}}$. \\
+	Indeed, this holds for $a_0$, and using induction we have 
+	\[
+	\left(a^{2^{k-1}}+\dfrac{1}{a^{2^{k-1}}}\right)^2-2
+	=a^{2^k}+\dfrac{1}{a^{2^k}}+2-2
+	=a^{2^k}+\dfrac{1}{a^{2^k}}
+	\]
+	Thus our term now becomes 
+	\[
+	\prod_{k=0}^{\infty}\frac{a^{2^{k+1}}-a^{2^k}+1}{a^{2^{k+1}}+1}
+	=\prod_{k=0}^{\infty}\frac{1-a^{-2^k}+a^{-2^{k+1}}}{1+a^{-2^{k+1}}}
+	\]
+	Let's evaluate the limits of numerator and denominator separately. 
+	For the denominator we simply have 
+	\[
+	\prod_{k=0}^{n}(1+a^{-2^{k+1}})
+	=(1+a^{-2})(1+a^{-4})\cdots (1+a^{-2^{n+1}})
+	=\sum_{i=0}^{2^n-1}a^{-2i}
+	\]
+	(well the right equality is easy to verify). 
+	Taking $n\to\infty$ we have 
+	\[
+	\sum_{i=0}^{2^n-1}a^{-2i}=(1-a^{-2})^{-1}
+	\]
+	For the numerator, we claim that 
+	\[
+	\prod_{k=0}^{n}(1-a^{-2^k}+a^{-2^{k+1}})
+	=\left(\sum_{i=0}^{2^{n+1}-2} r_i(a^{-i}+a^{-(2^{n+2}-2-i)})\right)
+	+(-1)^{n-1}a^{-(2^{n+1}-1)}
+	\qquad 
+	r_i=
+	\begin{cases}
+	  1 & 3\mid i\\
+	  -1 & 3\mid i - 1\\
+	  0 & 3\mid i - 2
+	\end{cases}
+	\]
+	Notice also that $r_{2^{n+1}-1}=(-1)^{n-1}$. 
+	Again we use induction. 
+	For base case we just have $1-a^{-1}+a^{-2}$, and the RHS is just 
+	$1(1+a^{-2})-a^{-1}=1-a^{-1}+a^{-2}$ (and therefore it matches). 
+	For induction step, let's consider 
+	\[
+	\left(\left(\sum_{i=0}^{2^{n+1}-2} r_i(a^{-i}+a^{-(2^{n+2}-2-i)})\right)
+	+(-1)^{n-1}a^{-(2^{n+1}-1)}\right)\left(1-a^{-2^{n+1}}+a^{-2^{n+2}}\right)
+	\]
+	Now we need to consider the following: 
+	\begin{itemize}
+		\item $0\le i < 2^{-(n+1)}$, then naturally we have the coefficient as $r_i$. 
+		
+		\item $2^{-(n+1)}\le i \le 2^{n+2}-1$, 
+		then we have the coefficient as $r_{2^{n+2}-2-i}-r_{i-2^{n+1}}$. 
+		We see that $r$ is a mod 3 function, so we can consider $2^{n+1}\equiv 1$ or $2^{n+2}\equiv 2$. 
+		For the first case we have $r_{-i}+r_{i-1}$, 
+		and for $i=0, 1, 2$ this gives 
+		\[r_0-r_{-1}=1=r_0; \quad r_{-1}-r_{0}=-1=r_1;  \quad r_{-2}-r_{1}=0=r_2
+		\]
+		and for the second casd we have $r_{2-i}-r_{i-2}$, which gives 
+		\[
+		r_2-r_{-2}=1=r_0; \quad r_{1}-r_{-1}=-1=r_1; \quad r_{0}-r_0 = 0 = r_2
+		\]
+		which means that the coefficient is just going to be $r_i$. 
+		
+		\item The case $i\ge 2^{n+2}$ follows from that the coefficient is symmetric w.r.t. $2^{n+2}-1$ at $n+1$. 
+		
+	\end{itemize}
+    Thus as $n\to\infty$, this should behave like 
+    \[
+    1-a^{-1}+a^{-3}-a^{-4}+\cdots 
+    =(1-a^{-1})(1+a^{-3}+a^{-6}+\cdots)
+    =(1-a^{-1})(1-a^{-3})^{-1}
+    =\frac{1}{1+a^{-1}+a^{-2}}
+    \]
+    (Well the latter half of the terms, i.e. $i\ge 2^{n+1}-2$, don't quite follow this rule, but the effect is $\to 0$ since $a^{-2^{n+1}}+\cdots + a^{-2^{n+2}}\le a^{-2^{n+1}}(1-a^{-1})^{-1}\to 0$). 
+    Thus the limit we're looking for is now 
+    \[
+    \frac{1-a^{-2}}{a+a^{-1}+a^{-2}}=\frac{a^2-1}{a^2+a+1}
+    \]
+    as desired. 
 	
 	\item[\textbf{A4}] Suppose $X$ is a random variable that takes on only nonnegative integer values, with $E[X]=1,$ $E[X^2]=2,$ and $E[X^3]=5.$ (Here $E[Y]$ denotes the expectation of the random variable $Y.$) Determine the smallest possible value of the probability of the event $X=0.$
 	
@@ -118,6 +207,27 @@
 	$
 	for some $c\in (0, 1)$. 
 	We also note that $f^{(4)}(x)=\displaystyle\sum_{n=0}^{\infty}n(n-1)(n-2)(n-3)a_nx^{n-4}$ and for $x\ge 0$ and $n\ge 0$, the quantities $n(n-1)(n-2)(n-3)$, $a_n$, and $x^{n-4}$ are all nonnegative. Thus $f^{(4)}(x)\ge 0$ for all $x\ge 0$, and in particular $\dfrac{f^{(4)}(c)}{24}\ge 0$. Thus we have $f(0)=\dfrac{1}{3}+\dfrac{f^{(4)}(c)}{24}\ge \dfrac 13$, with equality holding when $a_0=\frac 13, a_1=\frac 12$ and $a_3=\frac 16$ and $a_n=0$ for other $n$'s. 
+	
+	\item[\textbf{B1}] 
+	A base 10 over-expansion of a positive integer $N$ is an expression of the form $N=d_k10^k+d_{k-1}10^{k-1}+\cdots+d_0 10^0$ with $d_k\ne 0$ and $d_i\in\{0,1,2,\dots,10\}$ for all $i.$ For instance, the integer $N=10$ has two base 10 over-expansions: $10=10\cdot 10^0$ and the usual base 10 expansion $10=1\cdot 10^1+0\cdot 10^0.$ Which positive integers have a unique base 10 over-expansion?
+	
+	\textbf{Answer.} All positive integers without any 0 in their decimal expansion. 
+	
+	\textbf{Solution.} 
+	We use the fact that every positive integer has a unique base-10 expansion (that is, all digits 0, $\cdots, 9$). 
+	Therefore, a non-unique over expansion is equivalent to the existence of an over expansion with the `digit' 10 being used. 
+	
+	Consider the expansion $n=\sum_{i=0}^k d_i10^i$ with $0\le d_i\le 9$ and $d_k\neq 0$. 
+	If $n$ has 0 as one of the digits, then 
+	there exists a position $j>0$ such that $d_j>0$ but $d_{j-1}=0$. 
+	Then we can replace $d_j$ with $d_{j}-1$ and $d_{j-1}$ with 10, giving two over-expansions here. 
+	
+	Next we show that any number $n$ with $d_i=10$ for some $i$ in its over-expansion must contain a 0 somewhere in its decimal expansion. 
+	Indeed, let $j$ be the minimal index with $d_j=10$. 
+	Then $n\equiv \dsum_{i=0}^{j}d_i10^i \equiv\dsum_{i=0}^{j-1} d_i10^i\pmod{10^{j+1}}$. 
+	We see that $0\le \dsum_{i=0}^{j-1} d_i10^i < 10^j$ by the minimality of $j$, 
+	and with $d_j=10, n\ge 10^{j+1}$. 
+	Thus this implies that the digit at position $j$ is indeed 0. 
 	
 	\item[\textbf{B2}]Suppose that $f$ is a function on the interval $[1,3]$ such that $-1\le f(x)\le 1$ for all $x$ and $\displaystyle \int_1^3f(x)\,dx=0.$ How large can $\displaystyle\int_1^3\frac{f(x)}x\,dx$ be?
 	
