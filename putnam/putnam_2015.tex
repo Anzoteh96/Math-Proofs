@@ -100,9 +100,63 @@
 	By the Euler's totient function, there are $\phi(2015)=\phi(5\cdot 13\cdot 31)=4\cdot 12\cdot 30=1440$ such $a$'s with $\gcd(a, 2015)=1$. The number of $a$'s with $\gcd(a, 2015)=d$ is $\phi(\frac{2015}{d})$, so this gives the total as 
 	\begin{flalign*}
 	\sum_{a=1}^{2015} \gcd(2015, a)&=\sum_{d|2015} \phi(d)\frac{2015}{d}\\
-	&=1440+4(12\cdot 30)+13(4)(30)+5(13)(30)+4(13)(31)+5(12)(31)+5(13)(30)+5(13)(31)\\
+	&=1440+4(12\cdot 30)+13(4)(30)+5(13)(30)
+	\\&+4(13)(31)+5(12)(31)+5(13)(30)+5(13)(31)\\
 	&=13725\\
 	\end{flalign*}
+	
+	\item[\textbf{A4}] 
+	For each real number $x,$ let\[f(x)=\sum_{n\in S_x}\frac1{2^n}\]where $S_x$ is the set of positive integers $n$ for which $\lfloor nx\rfloor$ is even.
+	
+	What is the largest real number $L$ such that $f(x)\ge L$ for all $x\in [0,1)$?
+	
+	(As usual, $\lfloor z\rfloor$ denotes the greatest integer less than or equal to $z.$
+	
+	\textbf{Answer.} $\dfrac 47$
+	
+	\textbf{Solution.} We notice that $L=\inf_{0\le x<1} f(x)$, and therefore the objective now finding $x$ such that $f(x)$ is as small as possible. 
+	Observe also that $f(0)=1$ and therefore we can restrict our attention to $0<x<1$, 
+	and if $x<\frac 12$ then $\{1, 2\}\subseteq S_x$ so $f(x)\ge \frac 34$. 
+	
+	Now consider $x\ge \frac 12$, which follows that $\lfloor nx\rfloor\neq \lfloor (n+2)x\rfloor$. 
+	Let's now proceed to the following claim: 
+	
+	\emph{Lemma}. For $x\ge \frac 12$, for each $n$ we have at least one of $n, n+1, n+2\in S_x$. 
+	
+	Proof: if both $n$ and $n+1\not\in S_x$, then from $x<1$ we have $\lfloor nx\rfloor = \lfloor (n+1)x\rfloor$, 
+	but given $x\ge \frac 12$ we have $ \lfloor nx\rfloor + 1\le \lfloor (n+2)x\rfloor \le \lfloor (n+1)x\rfloor +1 = \lfloor nx\rfloor$. 
+	Thus $\lfloor (n+2)x\rfloor =\lfloor nx\rfloor +1$ which means $n+2\in S_x$. $\square$
+	
+	Now for each $x<1$, we have $1\in S_x$. 
+	Consider enumerating the elements in $S_x$ as $1=a_0<a_1<a_2<\cdots$, 
+	then the lemma tells us that $a_{i+1}-a_i\le 3$ and therefore $a_i\le 3i+1$. 
+	This means that 
+	\[
+	f(x)=\sum_{i=0}^{\infty} \frac{1}{2^{a_i}}
+	\ge \sum_{i=0}^{\infty} \frac{1}{2^{3i+1}}
+	=\frac 12 \cdot (1-\frac 18)^{-1}
+	=\frac 47
+	\]
+	which establishes the lower bound. 
+	
+	For upper bound, consider $x=\frac{2k+1}{3k+2}=\frac 23 - \frac{1}{3(3k+2)}$ for some $k$. 
+	Then for $n \le 3k+2$ we have 
+	$nx = \frac {2n}{3}-\frac{n}{3(3k+2)}$ and therefore 
+	\[
+	\frac{2n-1}{3} \le nx < \frac{2n}{3}
+	\]
+	i.e. $\lfloor nx\rfloor = \lfloor \frac{2n-1}{3}\rfloor$, which is even if and only if $n\equiv 1\pmod{3}$. 
+	Thus, 
+	\[
+	S_x\cap \{1, 2, \cdots, 3k+2\}=\{1, 4, \cdots, 3k+1\}
+	\]
+	which means 
+	\[
+	f(x)\le \sum_{i=0}^k \frac{1}{2^{3i+1}} + \sum_{i=3k+3}^{\infty}\frac{1}{2^{i}}
+	=\frac 12 \cdot \frac 87 \cdot (1-2^{-3(k+1)}) + \frac{1}{2^{3k+2}}
+	<\frac 47 + \frac{1}{2^{3k+2}}
+	\]
+	and therefore as $k\to\infty$ we do have $f(\frac{2k+1}{3k+2})\to\frac 47$. 
 	
 	\item[\textbf{A5}] Let $q$ be an odd positive integer, and let $N_q$ denote the number of integers $a$ such that $0<a<q/4$ and $\gcd(a,q)=1.$ Show that $N_q$ is odd if and only if $q$ is of the form $p^k$ with $k$ a positive integer and $p$ a prime congruent to $5$ or $7$ modulo $8.$
 	
@@ -136,6 +190,55 @@
 	
 	Going back to the proof, we now know that the eigenvalues of $M$ are in the form of $e, -e$ for some $e$. This forces the characteristic polynomial of $M$ to be $x^2+e^2$, which also implies that $2a+3d=0$ in the beginning. Therefore we have $M=\begin{pmatrix}-3a&-a\\a&3a\end{pmatrix}$ for some real number $a$. To show that this is a valid example, $M^3=8a^3\begin{pmatrix}-3&-1\\1&3\end{pmatrix}$ which is indeed in $S$. 
 	
+	\item [\textbf{B4}] Let $T$ be the set of all triples $(a,b,c)$ of positive integers for which there exist triangles with side lengths $a,b,c.$ Express\[\sum_{(a,b,c)\in T}\frac{2^a}{3^b5^c}\]as a rational number in lowest terms.
+	
+	\textbf{Answer.} $\dfrac{17}{21}$. 
+	
+	\textbf{Solution.} 
+	We see that the sum converges if and only if it converges absolutely (given that $\frac{2^a}{3^b5^c}>0$), 
+	we're safe to rearrange the terms in anyway we like. 
+	Let's now consider $(b, c)$ and we see that the allowable range of $a$ is $[|b-c|+1, b+c-1]$. 
+	Now, 
+	\[
+	\sum_{a=|b-c|+1}^{b+c-1}\frac{2^a}{3^b5^c}
+	=\frac{1}{3^b5^c}\left(2^{b+c}-2^{|b-c|+1}\right)
+	\]
+    Let's claim that both $\sum_{(b, c)\in T}\frac{2^{b+c}}{3^b5^c}$ and 
+    $\sum_{(b, c)\in T}\frac{2^{|b-c|+1}}{3^b5^c}$ converge absolutely (which is, simply, showing that they converge). 
+    The first term is easy: 
+    \[
+    \sum_{(b, c)\in T}\frac{2^{b+c}}{3^b5^c}
+    =\left(\sum_{b=1}^{\infty}\frac{2^b}{3^b}\right)
+    \left(\sum_{b=1}^{\infty}\frac{2^c}{5^c}\right)
+    =2\cdot \frac 23
+    =\frac 43
+    \]
+    For the second term, it's easier to split it into cases $b>c, b<c$ and $b=c$. 
+    For $b=c$ we simply have 
+    \[2\sum_{b=1}^{\infty}\frac{1}{15^b}=\frac{2}{14}=\frac 17
+    \]
+    For $b>c$, we have 
+    \begin{flalign*}
+    \sum_{b>c}\frac{2^{b-c+1}}{3^b5^c}
+    &=\sum_{c=1}^{\infty}\frac{1}{5^c2^{c-1}}\sum_{b=c+1}^{\infty}\frac{2^{b}}{3^b}
+    \\&=\sum_{c=1}^{\infty}\frac{1}{5^c2^{c-1}}\left(\frac 23\right)^{c+1}\left(1-\frac 23\right)^{-1}
+    \\&=\frac 43\cdot 3\sum_{c=1}^{\infty}\frac{1}{5^c 3^c}
+    \\&=\frac 43\cdot 3\cdot \frac{1}{14}
+    \\&=\frac 27
+    \end{flalign*}
+    For $b<c$ we have 
+    \begin{flalign*}
+    \sum_{b<c}\frac{2^{c-b+1}}{3^b5^c}
+    &=\sum_{b=1}^{\infty}\frac{1}{2^{b-1}3^b}\sum_{c=b+1}^{\infty}\frac{2^{c}}{5^c}
+    \\&=\sum_{b=1}^{\infty}\frac{1}{2^{b-1}3^b}\left(\frac 25\right)^{b+1}\left(1-\frac 25\right)^{-1}
+    \\&=\frac 53\cdot 4 \cdot \frac 15\sum_{b=1}^{\infty}\frac{1}{5^{b}3^b}
+    \\&=\frac 53\cdot 4 \cdot \frac 15\cdot \frac{1}{14}
+    \\&=\frac{2}{21}
+    \end{flalign*}
+    Therefore the answer is 
+    \[
+    \frac 43 - (\frac 17+\frac 27+\frac {2}{21})=\frac{17}{21}
+    \]
 	
 	\item[\textbf{B5}]Let $P_n$ be the number of permutations $\pi$ of $\{1,2,\dots,n\}$ such that \[|i-j|=1\text{ implies }|\pi(i)-\pi(j)|\le 2\]for all $i,j$ in $\{1,2,\dots,n\}.$ Show that for $n\ge 2,$ the quantity \[P_{n+5}-P_{n+4}-P_{n+3}+P_n\]does not depend on $n,$ and find its value.
 	
