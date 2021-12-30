@@ -118,6 +118,103 @@
 	\]
 	Now this is the reverse block matrix (with the two $M_n$'s reversed), so the determinant is now $(-1)^{2^n-1}(\det(M_n))^2=-(\det(M_n))^2$, as desired (with the $2^n-1$ due to the size of $M_n$). 
 	
+	\item[\textbf{A3}] 
+	Determine the greatest possible value of $\sum_{i = 1}^{10} \cos(3x_i)$ for real numbers $x_1, x_2, \dots, x_{10}$ satisfying $\sum_{i = 1}^{10} \cos(x_i) = 0$.
+	
+	Note: Solution featured on America Mathematical Monthly!
+	
+	\textbf{Answer.} $\dfrac{480}{49}$. 
+	
+	\textbf{Solution.} 
+	For any real number $x$, 
+	\[
+	\cos(3x) = 
+	\cos(2x) \cos x
+	 - \sin(2x) \sin x 
+	 = (2 \cos^2 x - 1) \cos x - (2 \sin x \cos x) \sin x
+	\]
+	\[
+	= 2 \cos^3 x - \cos x - 2(1 - \cos^2 x) \cos x = 4 \cos^3 x - 3 \cos x.
+	\]
+	Thus, whenever $\sum_{i=1}^{10} \cos x_i=0$, we have 
+	\[
+	\sum_{i=1}^{10} \cos 3x_i
+	=\sum_{i=1}^{10} (4 cos^3 x - 3 cos x)
+	=4\sum_{i=1}^{10}\cos^3 x
+	\]
+	Set $y_i=\cos x_i$. 
+	Suppose that $k$ of the ten numbers $y_i$'s are positive. 
+	Without loss of generality, we may assume that $y_i$ is positive if and only if $1\le i\le k$. 
+	For a given $y$, we can find a real number $x$ with $y = \cos x$ if and only if $|y| \le 1$. 
+	So we wish to maximize 
+	\[
+	4\sum_{i=1}^{10}y_i^3
+	=4\left(\sum_{i=1}^{k} y_i^3 - \sum_{i=k+1}^{10} |y_i|^3\right)
+	\]
+	given 
+	\[
+	|y_i|\le 1\text{ for all } i, \; \sum_{i=1}^{10} y_i=0, \;
+	y_1, \cdots, y_k\ge 0, \text{ and }
+	y_{k+1}, \cdots, y_{10}\le 0
+	\]
+	Let $\sum_{i=1}^{k} y_i=S$. 
+	Because $0\le y_i\le 1$ for $1\le i\le k$, 
+	we have $\sum_{i=1}^{k} y_i^3=S$. 
+	On the other hand, we have 
+	\[
+	0 = \sum_{i=1}^{10} y_i = S - \sum_{i=k+1}^{10} |y_i|, \;
+	\text{ so } \sum_{i=k+1}^{10} |y_i| = S
+	\]
+	The power mean inequality then yields 
+	\[
+	\sqrt[3]{\frac{\sum_{i=k+1}^{10} |y_i|^3}{10-k}}
+	\ge \frac{\sum_{i=k+1}^{10} |y_i|}{10-k}
+	=\frac{S}{10-k},
+	\text{ so }
+	\sum_{i=k+1}^{10} |y_i|^3\ge\frac{S^3}{(10-k)^2}
+	\]
+	Therefore, 
+	\[
+	4\sum_{i=1}^{10}y_i^3
+	\le 
+	4\left(S - \frac{S^3}{(10-k)^2}\right)
+	\]
+	The right side of the inequality has derivative 
+	$4(1-\frac{3S^2}{(10-k)^2})$ as a function of $S$ 
+	and so is increasing when $0\le S\le \frac{10-k}{\sqrt{3}}$ and decreasing beyond that. 
+	On the other hand, because $y_i\le 1$ for all $i$ with $1\le i\le k$, we have 
+	$S\le k$. 
+	When $k\le 3$, we have $k\le \frac{10-k}{\sqrt{3}}$, and therefore 
+	\[
+	4\left(S - \frac{S^3}{(10-k)^2}\right)
+	\le 4\left(k - \frac{k^3}{(10-k)^2}\right)
+	\]
+	while when $k\ge 4$ we get the estimate 
+	\[
+	4\left(S - \frac{S^3}{(10-k)^2}\right)
+	\le 
+	4\left(\frac{10-k}{\sqrt{3}} - \frac{((10-k)/\sqrt{3})^3}{(10-k)^2}\right)
+	=\frac{8}{3\sqrt{3}}(10-k)
+	\le \frac{8}{3\sqrt{3}}\cdot 6
+	=\frac{16}{\sqrt{3}}
+	\]
+	Comparing the values of 
+	$4\left(k - \frac{k^3}{(10-k)^2}\right)$ for $k=1, 2, 3$, 
+	we find that the largest value is $\dfrac{480}{49}$
+	when $k=3$. This is greater than $\dfrac{16}{\sqrt{3}}$. 
+	So we have shown that 
+	\[
+	\sum_{i=1}^{10}\cos 3x_i\le \frac{480}{49}
+	\text{ whenever }
+	\sum_{i=1}^{10}\cos x_i = 0
+	\]
+	To finish, note that the value $\dfrac{480}{49}$ can be attained by taking 
+	\[
+	x_1=x_2=x_3=0
+	\text{ and }
+	x_4=x_5=x-6=x_7=x_8=x_9=x_{10}=\arccos\left(-\frac{3}{7}\right)
+	\]
+	
 	\item[\textbf{A4}]
 	Let $m$ and $n$ be positive integers with $\gcd(m, n) = 1$, and let
 	\[a_k = \left\lfloor \frac{mk}{n} \right\rfloor - \left\lfloor \frac{m(k-1)}{n} \right\rfloor\]for $k = 1, 2, \dots, n$. Suppose that $g$ and $h$ are elements in a group $G$ and that
