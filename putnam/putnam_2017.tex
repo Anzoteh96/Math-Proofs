@@ -124,6 +124,22 @@
 	\]
 	which means the set $\{y_0, \cdots , y_{N^2}\}$ is precisely the set of integers in the interval $[m, M]$, inclusive. 
 	
+	\item[\textbf{B1}] 
+	Let $L_1$ and $L_2$ be distinct lines in the plane. Prove that $L_1$ and $L_2$ intersect if and only if, for every real number $\lambda\ne 0$ and every point $P$ not on $L_1$ or $L_2,$ there exist points $A_1$ on $L_1$ and $A_2$ on $L_2$ such that $\overrightarrow{PA_2}=\lambda\overrightarrow{PA_1}.$
+	
+	\textbf{Solution.} 
+	Fix $P$, and let $A_1$ be a variable point on $L_1$. 
+	Let $A_2$ be such that $\overrightarrow{PA_2}=\lambda\overrightarrow{PA_1}$. 
+	Then as $A_1$ varies, the locus of $A_2$ is a line $L_3$ that's parallel to $L_1$, 
+	and satisfying $d(P, L_3)=|\lambda| d(P, L_1)$, where $d$ is the distance of $P$ to lines. 
+	
+	If $L_1$ and $L_2$ intersect (i.e. nonparallel), then $L_2$ and $L_3$ intersect and we can take $A_2$ as the unique intersection of $L_2$ and $L_3$ and $A_1$ as the point satisfying $\overrightarrow{PA_2}=\lambda\overrightarrow{PA_1}$, 
+	which will be on $L_1$ since $A_2$ is on $L_3$. 
+	Conversely, if $L_1$ and $L_2$ are parallel, 
+	then $L_2$ and $L_3$ coincide for a particular $\lambda_0\neq 0$, 
+	and do not intersect for the other $\lambda\neq 0$. 
+	It then follows that such points $A_1$ and $A_2$ do not exist for all $\lambda\neq \lambda_0$. 
+	
 	\item[\textbf{B2}]Suppose that a positive integer $N$ can be expressed as the sum of $k$ consecutive positive integers
 	\[N=a+(a+1)+(a+2)+\cdots+(a+k-1)\]for $k=2017$ but for no other values of $k>1.$ Considering all positive integers $N$ with this property, what is the smallest positive integer $a$ that occurs in any of these expressions?
 	
