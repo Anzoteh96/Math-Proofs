@@ -1,0 +1,498 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}}
+\newcommand{\tup}[1]{\mathrm{#1}}
+\newcommand{\sfP}{\mathsf{P}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\bbR}{\mathbb R}
+\newcommand{\bbC}{\mathbb C}
+\newcommand{\bbZ}{\mathbb Z}
+\newcommand{\bbN}{\mathbb N}
+\newcommand{\bbQ}{\mathbb Q}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\bbP}{\mathbb P}
+\newcommand{\bbE}{\mathbb E}
+\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\Span}{\mathrm{span}}
+\newcommand{\scrP}{\mathscr{P}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\nullity}{\mathrm{nullity}}
+\newcommand{\Col}{\mathrm{Col}}
+\newcommand{\Row}{\mathrm{Row}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ol}{\overline}
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\cl}{\mathrm{cl}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\qubits}[1]{|{#1}\rangle}
+\newcommand{\ord}{\mathrm{ord}}
+\newcommand{\lcm}{\mathrm{lcm}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+\begin{document}
+
+\newcommand{\sgn}{\text{sgn}}
+\setcounter{secnumdepth}{0}
+
+\section{Putnam 2021}
+\begin{enumerate}
+	\item [\textbf{A1}] A grasshopper starts at the origin in the coordinate plane and makes a sequence of hops. 
+	Each hop has length $5$, and after each hop the grasshopper is at a point whose coordinates are both integers; 
+	thus, there are $12$ possible locations for the grasshopper after the first hop. 
+	What is the smallest number of hops needed for the grasshopper to reach the point $(2021,2021)$?
+	
+	\textbf{Answer.} 578. 
+	
+	\textbf{Solution.} The equality can be achieved by doing 288 times (4, 3) and 288 times (3, 4), which reaches (2016, 2016), and then (5, 0) and (0, 5). 
+	The lower bound is achieved by noting that at each iteration, 
+	the sum of coordinates can increase by no more than 7: 
+	\[
+	a+b\le \sqrt{2(a^2+b^2)}=\sqrt{50} < 8
+	\]
+	so we need at least $\lceil \frac{4042}{7}\rceil = 578$ steps. 
+	
+	\item [\textbf{A2}] For every positive real number $x$, let
+	\[
+	g(x)=\lim_{r\to 0}  ((x+1)^{r+1}-x^{r+1})^{\frac{1}{r}}.
+	\]
+	Find $\lim_{x\to \infty}\frac{g(x)}{x}$.
+	
+	\textbf{Answer.} $e$. 
+	
+	\textbf{Solution.} 
+	Let's consider the generalized binomial $\dbinom{r}{k}=\dfrac{r(r-1)\cdots (r-k+1)}{k!}$ for $r$ that doesn't have to be nonnegative integer. Then for $|x|<1$ we have $(1+x)^r = \sum_{k=0}^{\infty} \binom{r}{k}x^k$.
+	We also have the property $\dbinom{r+1}{k}=\dfrac{r+1}{k}\dbinom{r}{k-1}$ for all $k\ge 1$.
+	
+	Now, we have
+	\[
+	(x+1)^{r+1}-x^{r+1}
+	=x^{r+1}\left[(1+\frac{1}{x})^{r+1}-1\right] = x^{r+1}\sum_{k=1}^{\infty}\binom{r+1}{k}\frac{1}{x^k}
+	=x^r(r+1)\sum_{k=0}^{\infty}\binom{r}{k}\frac{1}{x^k(k+1)}
+	\]
+	Denote $h(r, x)=\left((r+1)\sum_{k=0}^{\infty}\binom{r}{k}\frac{1}{x^k(k+1)}\right)^{\frac{1}{r}}$ for all $r>0$, and $h(x)=\lim_{r\to 0}h(x, r)$.
+	Then
+	\[
+	g(x)=\lim_{r\to 0}\left[x^r(r+1)\sum_{k=0}^{\infty}\binom{r}{k}\frac{1}{x^k(k+1)}\right]^{1/r}
+	=\lim_{r\to 0}xh(x, r) = xh(x)
+	\]
+	And thus the quantity of interest now becomes $h(x)$.
+	
+	We see that
+	\[
+	r+1
+	\le 
+	(r+1)\sum_{k=0}^{\infty}\binom{r}{k}\frac{1}{x^k(k+1)}
+	\le (r+1)\sum_{k=0}^{\infty}\binom{r}{k}\frac{1}{x^k}
+	=(r+1)\left(1+\frac{1}{x}\right)^r
+	\]
+	and so, taking limit $r\to 0$, 
+	\[\lim_{r\to 0}(r+1)^{1/r}\le h(x)\le \lim_{r\to 0}(r+1)^{1/r}\left(1+\frac 1x\right)
+	\] 
+	But given that it's well-known that $\lim_{r\to 0}(r+1)^{1/r}=e$, we have $e\le h(x)\le e(1+\frac 1x)$. Finally, as $\frac 1x\to 0$ as $x\to\infty$, we have $h(x)\to e$ as $x\to\infty$.
+	
+	\item [\textbf{A5}] Let $A$ be the set of all integers $n$ such that $1 \le n \le 2021$ and $\text{gcd}(n,2021)=1$. For every nonnegative integer $j$, let
+	\[
+	S(j)=\sum_{n \in A}n^j.
+	\]Determine all values of $j$ such that $S(j)$ is a multiple of $2021$.
+	
+	\textbf{Answer.} Any integer $j$ that's divisible by neither 42 nor 46. 
+	
+	\textbf{Solution.} 
+	Let's be a bit more ambitious and replace 2021 with any general positive integer $m$. 
+	Write $m$ into its prime factorization: 
+	\[
+	m = \prod_{i=1}^k p_i^{a_i}
+	\]
+	with $a_i\ge 1$, and $p_i$ primes. 
+	Now $m\mid S(j)$ if and only if $m\mid p_i^{a_i}$ for all $i$. 
+	
+	We now consider the set $A_{i, g}=A\cap \{a: a\equiv g\pmod{p_i^{a_i}}\}$. 
+	By Chinese Remainder Theorem, for each $h$ there's exactly one solution $a$ with $1\le a\le m$ that satifies 
+	\[
+	a\equiv g\pmod{p_i^{a_i}}\qquad a\equiv h\pmod{\frac{m}{p_i^{a_i}}}
+	\]
+	Therefore, from here we can deduce that $|A_{i, g}|=\phi\left(\frac{m}{p_i^{a_i}}\right)$, 
+	where $\phi$ is the Euler totient function. This is independent of $g$ and therefore 
+	\[
+	S(j)\equiv \phi\left(\frac{m}{p_i^{a_i}}\right)\sum_{p_i\nmid n, 1\le n\le p_i^{a_i}}n^j
+	\]
+	Let's now dissect this property. 
+	For this purpose, we'll claim the following: 
+	
+	\emph{Lemma.} The sum $\sum_{p_i\nmid n, 1\le n\le p_i^{a_i}}n^j$ satisfies the following: 
+	\begin{itemize}
+		\item If $p_i-1\nmid j$, then $p_i^{a_i}\mid \sum_{p_i\nmid n, 1\le n\le p_i^{a_i}}n^j$. 
+		
+		\item Otherwise, $v_p(\sum_{p_i\nmid n, 1\le n\le p_i^{a_i}}n^j)=a_i-1$. 
+	\end{itemize}
+    with the only exception that none of these is fulfilled if $p_i=2$ and $a_i=1$. 
+    
+    Proof: consider, first, the case when $p_i$ is odd. Take $g$ as any primitive root of $p_i^{a_i}$, then 
+    \[
+    \sum_{p_i\nmid n, 1\le n\le p_i^{a_i}}n^j
+    \equiv \sum_{k=0}^{(p_i-1)p_i^{a_i-1}-1} g^{jk}
+    =\frac{g^{j (p_i-1)p_i^{a_i-1}}-1}{g^j-1}
+    \]
+    and therefore, if $p_i-1\nmid j$, then $p_i\nmid g^j$. 
+    Since $g^{j (p_i-1)p_i^{a_i-1}}\equiv 1\pmod{p_i^{a_i}}$ by Euler's theorem, 
+    it follows that $p_i^{a_i}\mid \sum_{p_i\nmid n, 1\le n\le p_i^{a_i}}n^j$. 
+    
+    Conversely, if $p_i-1\mid j$, let $\ell=\min(a_i-1, v_p(\frac{j}{p_i-1}))$. 
+    Then the numbers $g^{jk}$ are in the form of $p^{\ell+1}x+1$ for $x=0, 1, \cdots, p^{a_i-\ell-1}-1$, 
+    each of them occuring $p^{\ell}(p_i-1)$ times. 
+    To see why, viewing the group $\bbZ_{p_i^{a_i}}^{\otimes}$ (i.e. all numbers $n$ with $p_i\nmid n$, $1\le n\le p_i^{a_i}$) generated by $g$, the subgroup 
+    \[
+    \{g^0, g^j, \cdots, g^{(p_i-1)p_i^{a_i-1}j-1}\}
+    \]
+    has $p^{a_i-\ell-1}$ distinct elements. 
+    By Euler's theorem, again, each element $g^{jk}$ must satisfy $p^{\ell+1}\mid g^{jk}-1$, so 
+    \[
+    \{g^0, g^j, \cdots, g^{(p_i-1)p_i^{a_i-1}j-1}\}
+    =\{p^{\ell+1}x+1: x=0, 1, \cdots, p^{a_i-\ell-1}-1\}
+    \]
+    Now with this, it's easy to compute our desired sum: 
+    \[
+    \sum_{k=0}^{(p_i-1)p_i^{a_i-1}-1} g^{jk}
+    =p^{\ell}(p_i-1)\sum_{k=0}^{(p_i-1)p^{a_i-\ell-1}-1}(p^{\ell+1}x+1)
+    \]\[
+    \equiv p^{\ell}(p_i-1)(p_i-1)p^{a_i-\ell-1}
+    =(p_i-1)p^{a_i-1}
+    \]
+    as desired. 
+    
+    If $p_i=2$, the case $a_i=1$ will only leave us with the sum 1 regardless of $j$, so assume $a_i\ge 2$. 
+    we can still show that if $j$ is odd, then 
+    \[
+    1^j+3^j+\cdots + (2^{a_i}-1)^j
+    \equiv 1+3+\cdots + (2^{a_i}-1)
+    =2^{2(a_i-1)}
+    \equiv 0\pmod{2^{a_i}}
+    \]
+    We also have $a^2\equiv 1\pmod{8}$ for all odd $a$, and for odd $a$ and $k\ge 3$, 
+    \[
+    (a2^k+1)^2
+    \equiv a2^{2k}+a2^{k+1}+1
+    \equiv 2^{k+1}+1\pmod{2^{k+2}}
+    \]
+    so if $j=a\cdot 2^k$ with $a$ odd and $1\le k\le a_i-2$, we have 
+    \[
+    \{1^j, 3^j, \cdots, (2^{a_i}-1)^j\}
+    \equiv 
+    \{b2^{k+2}+1: b=0, \cdots, 2^{a_i-k-2}-1\}
+    \]
+    Thus we can compute our desired sum as 
+    \[
+    2^{k+2}\sum_{b=0}^{2^{a_i-k-2}-1}b2^{k+2}+1
+    \equiv 2^{a_i-1}\pmod{2^{a_i}}
+    \]
+	Denote $v_p(n)$ by the highest power of $p$ dividing $n$, 
+	then 
+	\[
+	v_{p_i}\left(\phi\left(\frac{m}{p_i^{a_i}}\right)\right)
+	=\sum_{j\neq i} v_{p_i}(p_j^{a_j-1}(p_j-1))
+	=\sum_{j\neq i} v_{p_i}(p_j-1)
+	\]
+	so this gives us the following: 
+	\begin{itemize}
+		\item For each $p_i$, if there exists $j$ with $p_i\mid p_j-1$ then all the $j$ would fulfill $p_i^{a_i}\mid \sum_{n\in A}n^j$. 
+		
+		\item Otherwise, we will require $j\nmid p_i-1$ whenever $p_i^{a_i}\neq 2$. 
+		For $p_i^{a_i}=2$ there's no such $j$ that can satisfy. 
+	\end{itemize}
+    Finally, $2\mid p_j-1$ for all $p_j$ odd prime, hence we can make a firm conclusion on $m$: 
+    \begin{itemize}
+    	\item if $m=2$, no $j$ would satisfy our condition. 
+    	
+    	\item otherwise, for each $p$ dividing $m$, either $p\mid \phi(m)$ or $p\nmid j$. 
+    \end{itemize}
+	$\square$ 
+	
+	Now going back to the problem where $m=2021=43\times 47$, we have $43\nmid 46=\phi(47)$ and 
+	$47\nmid 42=\phi(43)$. 
+	Therefore $j$ is suitable if and only if $j$ is divisible by neither 42 nor 46. 
+	
+	\item [\textbf{B1}] 
+	Suppose that the plane is tiled with an infinite checkerboard of unit squares. If another unit square is dropped on the plane at random with position and orientation independent of the checkerboard tiling, what is the probability that it does not cover any of the corners of the squares of the checkerboard?
+	
+	\textbf{Answer.} $2-\frac{6}{\pi}$. 
+	
+	\textbf{Solution.} Let the event of interest be $E$, 
+	and the orientation of the dropped unit square w.r.t. the checkerboard be $\theta$ (which we can fix $0\le \theta\le \frac{\pi}{2}$). We first claim the following: 
+	
+	\emph{Lemma.} $\bbP[E|\theta]=(\cos\theta + \sin\theta - 1)^2$. 
+	
+	Proof: let the center $O$ of dropped unit square $d$ to be contained inside the square $ABCD$ of the checkerboard, and let $P$ be the center of $ABCD$. 
+	Consider, also, points $A_1, B_1, C_1, D_1$ such that $A_1B_1C_1D_1$ is a square with sides parallel to dropped square $d$, and $A, B, C, D$ lie on segments $A_1D_1, A_1B_1, B_1C_1, C_1D_1$, respectively. 
+	Since the center $O$ of $d$ lies in $ABCD$, $A_1B_1C_1D_1$ and $d$ cannot be disjoint. We consider the following cases: 
+	
+	\emph{Case 1.} $d$ lies entirely inside $A_1B_1C_1D_1$. \\
+	Now, $d$ cannot intersect $A, B, C, D$ since they lie on the sides of $A_1B_1C_1D_1$. 
+	The other lattice points (corners of original checkerboard squares) are outside the square $A_1B_1C_1D_1$, 
+	hence disjoint from $d$. We therefore have this $d$ fulfilling the criteria of $E$. 
+	
+	\emph{Case 2.} $d$ and $A_1B_1C_1D_1$ overlap at exactly one edge of $A_1B_1C_1D_1$. Notice that the side length of $A_1B_1C_1D_1$ is $\cos\theta+\sin\theta$. \\
+	W.l.o.g. suppose that $d$ intersects only $A_1D_1$. Since opposite sides of $d$ are parallel to $A_1D_1$, 
+	they segment of $A_1D_1$ that's in $d$ has length 1. 
+	On the other hand, $A$ partitions $A_1D_1$ into lengths of $\cos\theta$ and $\sin\theta$. 
+	It follows that $d$ necessarily contains $A$ (hence violating $E$). 
+	
+	\emph{Case 3.} $d$ and $A_1B_1C_1D_1$ overlap at exactly one corner of $A_1B_1C_1D_1$. \\
+	W.l.o.g. let $A_1$ be the corner covered by $d$. 
+	If $d$ contains none of $A, B$, then from side lengths of $d$ parallel to $A_1A$ and $A_1B$ we have 
+	$OA_1<O_A$ and $OA_1<O_B$. 
+	The above inequality determines a region (via perpendicular bisectors of $AA_1$ and $A_1B$) 
+	with corner at midpoint of $B$, and otherwise outside of the checkerboard square $ABCD$. 
+	This contraidcts that $O$ is inside $ABCD$. 
+	We therefore cannot have $E$ realized in this case. 
+	
+	This means that we have $E$ fulfilled if and only if Case 1 applies. 
+	Given that $A_1B_1C_1D_1$ has side length $\cos\theta+\sin\theta$, we have $O$ inside the square of center $P$, parallel to $A_1B_1C_1D_1$, 
+	and has side length $\cos\theta+\sin\theta-1$, proving the lemma. $\square$ 
+	
+	Now given that $\theta$ is uniform in $[0, \frac{\pi}{2}]$, we have 
+	\[
+	\bbP[E]
+	=\int_{0}^{\frac{\pi}{2}} \bbP[E|\theta]\bbP[\theta]d\theta
+	=\frac{2}{\pi} \int_{0}^{\frac{\pi}{2}}(\cos\theta + \sin\theta - 1)^2d\theta
+	=\frac{2}{\pi} \int_{0}^{\frac{\pi}{2}}(2+\sin2\theta - 2\cos\theta - 2\sin\theta)d\theta
+	\]
+	\[
+	=\frac{2}{\pi}(\pi + 1 - 2 - 2)
+	=2-\frac{6}{\pi}
+	\]
+	
+	\item [\textbf{B3}] 
+	Let $h(x,y)$ be a real-valued function that is twice continuously differentiable throughout $\mathbb{R}^2$, and define
+	\[
+	\rho (x,y)=yh_x -xh_y .
+	\]Prove or disprove: For any positive constants $d$ and $r$ with $d>r$, there is a circle $S$ of radius $r$ whose center is a distance $d$ away from the origin such that the integral of $\rho$ over the interior of $S$ is zero.
+	
+	\textbf{Answer.} The statement is true. 
+	
+	\textbf{Solution.} 
+	We first show that integrating $\rho$ over any circle with center $(0, 0)$ is 0. 
+	Consider $R>0$ and $(x, y)=(R\cos\theta, R\sin\theta)$. 
+	Also let $g(\theta)=h(R\cos\theta, R\sin\theta)$. 
+	Then 
+	\[g'(\theta)=-R\sin\theta h_x(R\cos\theta, R\sin\theta)+R\cos\theta h_y(R\cos\theta, R\sin\theta)
+	=-\rho(R\cos\theta, R\sin\theta)
+	\]
+	And therefore 
+	\[
+	0 = g(2\pi)-g(0)=\int_0^{2\pi}g'(\theta)d\theta
+	=-\int_0^{2\pi}\rho(R\cos\theta, R\sin\theta)d\theta
+	=-\int_{\norm{(x, y)}=R}\rho(x, y)d(x, y)
+	\]
+	as claimed. $\square$
+	
+	Now consider the circle $S_{\theta, d, r}$ with cneter at $(d\cos\theta, d\sin\theta)$ and radius $r$. 
+	We claim that 
+	\begin{equation}\label{eqn:2021b3}
+	  \int_{\theta=0}^{\theta=2\pi}\int_{x,y\in S_{\theta, d, r}}\rho(x, y)d(x, y)d\theta=0
+	\end{equation}
+	To see this, we first see that for any function $f$, there exists a constant $p(d, r, R)$ such that 
+	\[
+	\int_{\theta=0}^{\theta=2\pi}\int_{x,y\in S_{\theta, d, r}}f(x, y)d(x, y)d\theta
+	=\int_{R=d-r}^{R=d+r}p(d, r, R)\int_{\norm{x, y}=R} f(x, y)d(x, y)dR
+	\]
+	Indeed, let $(x, y)=(R\cos\alpha, R\sin\alpha)$, then the circle $S_{\theta, d, r}$ containing $(x, y)$ must satisfy 
+	\[
+	r^2\ge (x-d\cos\theta)^2+(y-d\sin\theta)^2
+	=R^2+d^2-2d(x\cos\theta+y\sin\theta)
+	\]\[
+	=R^2+d^2-2dR(\cos\theta\cos\alpha+\sin\theta\sin\alpha)
+	=R^2+d^2-2dR\cos(\theta-\alpha)
+	\]
+	i.e. 
+	\[
+	|\theta-\alpha|\le \arccos\left(\frac{R^2+d^2-r^2}{2dR}\right)
+	\]
+	(angle taken modulo $2\pi$). 
+	Hence the allowable angle is $[\alpha - \arccos\left(\frac{R^2+d^2-r^2}{2dR}\right), \alpha+\arccos\left(\frac{R^2+d^2-r^2}{2dR}\right)]$, 
+	which has a window of $2\arccos\left(\frac{R^2+d^2-r^2}{2dR}\right)$. 
+	Thus we can take $p(d, r, R)= 2\arccos\left(\frac{R^2+d^2-r^2}{2dR}\right)$ and so 
+	\[
+	\int_{\theta=0}^{\theta=2\pi}\int_{x,y\in S_{\theta, d, r}}\rho(x, y)d(x, y)d\theta
+	=\int_{R=d-r}^{R=d+r}p(d, r, R)\int_{\norm{x, y}=R} \rho(x, y)d(x, y)dR
+	=0
+	\]
+	establishing Identity \ref{eqn:2021b3}. 
+	
+	Finally, since $h$ is twice continuously differentiable, it follows that $\rho$ is continuous in $(x, y)$. 
+	This means the integral $\int_{(x, y)\in S_{\theta, d, r}}\rho(x, y)d(x, y)$ is also continuous w.r.t. $\theta$
+	and since they integrate to 0 over all $\theta$, 
+	it follows that for some $\theta$ we have $\int_{(x, y)\in S_{\theta, d, r}}\rho(x, y)d(x, y)=0$. 
+	
+	\item [\textbf{B4}] 
+	Let $F_0,F_1,\dots$ be the sequence of Fibonacci numbers, with $F_0=0,F_1=1$, and $F_n=F_{n-1}+F_{n-2}$ for $n \ge 2$. For $m>2$, let $R_m$ be the remainder when the product $\prod_{k=1}^{F_m-1} k^k$ is divided by $F_m$. Prove that $R_m$ is also a Fibonacci number.
+	
+	\textbf{Solution.} 
+	We note that $F_m\ge 2$ for all $m\ge 3$. 
+	If $F_m$ is composite, then either one of these holds: 
+	\begin{itemize}
+		\item $F_m$ is divisible by more than one primes, and therefore for any prime $p\mid F_m$ with $v_{p}(F_m)=a$ as the highest power of $p$ dividing $F_m$, we have 
+		$p^a<F_m$ and so $p^a\mid \prod_{k=1}^{F_m-1} k^k$. 
+		Since this holds for all $p$, it follows that $R_m=0$. 
+		
+		\item $F_m=p^k$ for some positive integer $k>1$ (i.e. a prime power). 
+		Consider the factor $(F_m-p)^{F_m-p}$. We have $p\mid F_m-p$, and since $k>1$, $F_m=p^k\ge p+k$ with equality iff $p=k=2$ (can be verified manually). 
+		Thus $F_m\mid (F_m-p)^{F_m-p}$ and we have $R_m=0$. 
+	\end{itemize}
+    We therefore have $R_m=0$ whenever $F_m$ is composite. 
+    
+    Now we focus on the case where $F_m$ is prime. Notice for $F_m=2$ we have $R_m=1$ which is also Fibonacci number, so we may assume $F_m$ is odd prime. 
+    Rewrite the product into the following: 
+    \[
+    \prod_{k=1}^{F_m-1} k^k
+    \equiv \prod_{k=1}^{\frac{F_m-1}{2}} k^k
+    \prod_{k=\frac{F_m+1}{2}}^{F_m-1} k^k
+    \equiv \prod_{k=1}^{\frac{F_m-1}{2}} k^k(F_m-k)^{F_m-k}
+    \]\[
+    =\prod_{k=1}^{\frac{F_m-1}{2}} (-1)^{F_m-k}k^{k+F_m-k}
+    \equiv(-1)^{\sum_{(F_m+1)/2}^{F_m-1}j}\prod_{k=1}^{\frac{F_m-1}{2}} k
+    \]
+    where the last equality we used $k^p\equiv k\pmod{p}$ for all integer $k$ and prime $p$, 
+    due to Fermat's Little Theorem. 
+    Let's ignore the factor $(-1)^{\sum_{(F_m+1)/2}^{F_m-1}j}$ for now and 
+    focus on $\prod_{k=1}^{\frac{F_m-1}{2}} k$ instead, which we denote as $S_m$. 
+    This means $R_m=\pm S_m$. 
+    
+    By Wilson's theorem, we have: 
+    \[
+    -1\equiv \prod_{k=1}^{F_m-1}k
+    =\prod_{k=1}^{(F_m-1)/2}k (-k)
+    =(-1)^{\frac{F_m(F_m-1)}{2}}S_m^2
+    \Rightarrow 
+    S_m^2\equiv 
+    \begin{cases}
+      1 & p\equiv 3\pmod{4}\\
+      -1 & p\equiv 1\pmod{4}
+    \end{cases}
+    \]
+    We now proceed to the following facts about Fibonacci numbers: 
+    
+    \emph{Lemma 1.} If $F_m$ is odd prime, then either $m=4$ or $m$ is prime. 
+    
+    Proof: It suffices to show that $a\mid b$ implies $F_a\mid F_b$. 
+    Indeed, consider $F_m$ modulo $F_a$. 
+    Then $F_a\equiv 0$ and since $F_1=F_2=1$, 
+    we have $F_{k+a}\equiv F_kF_{a+1}$ for all $k\ge 0$ (which can be established iteratively). 
+    This means $F_{na}\equiv F_aF_{a+1}^{n-1}\equiv 0\pmod{F_a}$, establishing the claim. 
+    In particular, if $m$ is composite and $a\mid m$ with $a<m$, then $F_a\mid F_m$. 
+    If $a>2$ this would immediately imply that $F_m$ is composite. 
+    Such $a$ can be chosen when $m>2^2$, i.e. $m\ge 5$. 
+    Hence either $m$ is prime or $m=4$ (in which case $F_m=3$). 
+    
+    \emph{Lemma 2.} For $m\ge 0$, $F_mF_{m+2}-F_{m+1}^2=(-1)^{m-1}$. 
+    
+    Proof: this holds for $m=0$, and for $m>1$: 
+    \[
+    F_mF_{m+2}-F_{m+1}^2
+    =F_m(F_m+F_{m+1}) - F_{m+1}^2
+    =F_m^2-F_{m+1}(F_{m+1}-F_m)
+    =F_m^2-F_{m+1}F_{m-1}
+    \]
+    and by inductive hypothesis, $F_m^2-F_{m+1}F_{m-1}=(-1)(-1)^{m}=(-1)^{m-1}$, establishing the proof. 
+    
+    In particular, $F_m^2\equiv (-1)^{m-1}\pmod{F_{m+1}}$. 
+    
+    To complete the proof, if $m=4$ and $F_m=3$, then $R_m=1$. 
+    Otherwise, if $m$ is odd prime $\ge 4$, then considering $F_m$ modulo 4 we have 
+    $0, 1, 1, 2, 3, 1, 0, 1, 1, 2, 3, 1, 0, \cdots$ i.e. period 6. 
+    Here $F_m\equiv 3\pmod{4}$ iff $m\equiv 4\pmod{6}$, implying $m$ is composite. 
+    We thus have $m$ odd and $F_m\equiv 1\pmod{4}$, which means: 
+    \[
+    F_{m-1}^2\equiv F_{m-2}^2\equiv -1\pmod{F_m}\qquad S_m^2\equiv -1 \pmod{F_m}
+    \]
+    and since the solution to $S_m^2\equiv -1$ has exactly two solutions among $1, 2, \cdots, F_m-1$ given that $F_m$ is prime, 
+    we have $S_m\in \{F_{m-1}, F_{m-2}\}$. It follows that $R_m\in \{F_{m-1}, F_{m-2}\}$, too. 
+	
+	\item [\textbf{B5}] 
+	Say that an $n$-by-$n$ matrix $A=(a_{ij})_{1\le i,j \le n}$ with integer entries is very odd if, for every nonempty subset $S$ of $\{1,2,\dots,n \}$, the $|S|$-by-$|S|$ submatrix $(a_{ij})_{i,j \in S}$ has odd determinant. Prove that if $A$ is very odd, then $A^k$ is very odd for every $k \ge 1$.
+	
+	\textbf{Solution.} Consider the directed graph $G=(V, E)$, corresponding to $A$, 
+	with $V=\{1, 2, \cdots, n\}$ and $(i, j)\in E$ if and only if $A_{ij}$ is odd. 
+	We start with the following claim: 
+	
+	\emph{Lemma.} $A$ is very odd if and only if both the following hold: 
+	\begin{itemize}
+		\item $(i, i)\in E$ for all $i$ (that is, self loop for each vertex); 
+		
+		\item Apart from the self-loops described above, $G$ has no directed cycle. 
+	\end{itemize}
+	
+	\emph{Only-if}: if $S=\{i\}$ for any $i$, we need $A_{ii}$ odd, so $(i, i)\in E$. 
+	To show the second point, suppose for sake of contradiction that there's a cycle of length at least 2. 
+	Choose a cycle with minimal length (which is still $\ge 2$): 
+	\[
+	a_1\to a_2\to \cdots a_k\to a_1
+	\]
+	Consider the subgraph with vertices in $\{a_1, \cdots, a_k\}$ and also $S=\{a_1, \cdots, a_k\}$. 
+	We first show that the only edges in this subgraph is $(a_i, a_i)$ and $(a_i, a_{i+1})$ for $i=1, 2, \cdots, k$ (indices taken modulo $k$). 
+	Suppose that there's another edge $(i, j)$ such that $j-i\neq 1\pmod{k}$. 
+	This means we have another cycle: 
+	\[
+	a_i\to a_j\to \cdots \to a_{k}\to a_1\cdots \to a_i
+	\]
+	which has length $k-(j-i)+1$ for $j>i$, and $i-j+1$ for $j<i$. This gives a cycle of length $2\le \ell < k$, contradicting the minimality of $k$. 
+	
+	Now we consider $|S|$. Denote $P_S$ as the set of permutations on $S$, then we have 
+	\[
+	|S|= \sum_{\sigma\in P_S}(-1)^{\text{sgn}(\sigma)}\prod_{i=1}^k A_{a_i\sigma(a_i)}
+	\equiv \sum_{\sigma\in P_S}\prod_{i=1}^k A_{a_i\sigma(a_i)}
+	\]\[
+	\equiv |\{\sigma\in P_S: A_{a_i\sigma(a_i)}\text{ odd}, \forall i=1, \cdots, k\}| \pmod{2}
+	\]
+	In our case, given the nature of our graph, we have 
+	\[
+	A_{a_i\sigma(a_i)}\text{ odd}, \forall i=1, \cdots, k
+	\]
+	if and only if $\sigma$ is identity, or $\sigma$ sends $a_i$ to $a_{i+1}$. 
+	This means $|S|$ will be even, hence $A$ isn't very odd. 
+	
+	\emph{If}: Now consider where $G$ has no directed cycle with all the self-loops. 
+	Consider any set $S$, and we still have 
+	\[
+	|S| \equiv |\{\sigma\in P_S: A_{i\sigma(i)}\text{ odd } \forall i\in S\}|
+	\equiv |\{\sigma\in P_S: (i, \sigma(i))\in E,  \forall i\in S\}|
+	\]
+	Given that a permutation can be seen as disjoint union of cycles, the only $\sigma\in P_S$ that satisfies above is when $\sigma$ is identity in $S$, which means $|S|$ is odd. $\square$
+	
+	Now we're left with proving that $A^k$ also satisfies the condition above. Now consider the following: 
+	\[
+	A^k_{ij} = \sum_{a_1, \cdots, a_{k-1}}A_{ia_1}A_{a_1a_2}\cdots A_{a_{k-1}j}
+	\]
+	for $k\ge 2$. This is equivalent to the number of ways to go from $i$ to $j$ in exactly $k$ steps, including self-loops. 
+	
+	If $i=j$, the only possible way above is for $a_1=a_2=\cdots = a_{k-1}=i$ given that $A$ has no directed cycle, so $A^k_{ii}$ is odd for each $i$. 
+	To show that $A^k$ cannot have any directed cycle of length $\ge 2$, consider 
+	\[
+	a_1\to a_2\to \cdots\to a_{\ell}\to a_1
+	\]
+	which each $\to$ meaning a path of length $\le k$. This would imply a cycle somewhere in the path that's more than just self-loop (since $a_{\ell}\neq a_1$). 
+	It therefore follows that either $A_{a_i}A_{a_{i+1}}=0$ for some $i$, or $A_{a_{\ell}a_1}=0$. 
+	This would imply that $A^k$ must not have nontrivial directed cycle, too, so $A^k$ is also very odd. 
+		
+\end{enumerate}
+
+\end{document}
