@@ -123,10 +123,236 @@
 	In both cases we have $s_n=x_{k+1}$ and since $s_k=0$, $x_{k+1}=s_{k+1}$ too. Since $s_n=-1$, we must have $s_{k+1}=-1$, too. 
 	By the minimality of $n$, we have $4k+1\le n\le k+1$, which can only happen when $k=0$. However, when $k=0$, we have $s_1=x_1=1$, contradiction. This means $s_n$ must be nonnegative for all $n$. 
 	
+	\item[\textbf{A5}] 
+	Denote by $\mathbb{Q}^+$ the set of all positive rational numbers. Determine all functions $f : \mathbb{Q}^+ \mapsto \mathbb{Q}^+$ which satisfy the following equation for all $x, y \in \mathbb{Q}^+:$\[f\left( f(x)^2y \right) = x^3 f(xy).\]
+	
+	\textbf{Answer.} $f(x)=\frac 1x$, which is rational for rational $x$ and both sides equal to $\frac{x^2}{y}$. 
+	
+	\textbf{Solution.} 
+	We split into the following steps: 
+	
+	\textbf{Step 1: injectivity of $f$ and $f(1)=1$}. 
+	If $f(x_0)=f(x_1)$, then plugging $x=x_0, x_1$ and $y=1$ for both yields 
+	\[
+	x_0^3f(x_0)=f\left( f(x_0)^2 \right)=f\left( f(x_1)^2 \right)=x_1^3f(x_1)
+	\]
+	so $x_0^3=x_1^3$, and therefore $x_0=x_1$. 
+	This means $f$ is injective. 
+	With $x=1$ and injectivity, we have $y=f(1)^2y$, and so $f(1)=1$. 
+	
+	\textbf{Step 2: multiplicativity of $f$}. 
+	Now, consider $y=\frac{1}{x}$, then $f\left(\frac{f(x)^2}{x}\right)=x^3$. 
+	Meanwhile, set $y=\frac{1}{f(x)^2}$ and we have $1=f(1)=x^3\left(\frac{x}{f(x)^2}\right)$. 
+	Changing $x$ to $\frac{1}{x}$ we have 
+	\[
+	f\left(\frac{f(x)^2}{x}\right)=x^3
+	=\left(\frac{1/x}{f(1/x)^2}\right)
+	\]
+	and so, by injectivity again, 
+	\[
+	\frac{1/x}{f(1/x)^2}=\frac{f(x)^2}{x}
+	\]
+	which means that $f(x)f(1/x)=1$ for all $x\in\bbQ$. 
+	In particular, $x_1x_2y_1y_2=1$ then $f(x_1x_2)f(y_1y_2)=1$. 
+	To use this to our advantage, we have 
+	\[
+	f\left( f(x_1)^2y_1 \right)f\left( f(x_2)^2y_2 \right)
+	=x_1^3 f(x_1y_1)x_2^3 f(x_2y_2)=x_1^3x_2^3
+	\]
+	or, after substituting $y_1=\frac{f(x_2)^2}{x_1x_2}, y_2=\frac{1}{f(x_2)^2}$, we have 
+	\[
+	f\left( \frac{f(x_1)^2f(x_2)^2}{x_1x_2} \right) = x_1^3x_2^3
+	\]
+	If we substitute $x_1$ with $x_1x_2$ and $x_2$ with 1, we also have 
+	\[
+	f\left( \frac{f(x_1x_2)^2f(1)^2}{x_1x_2} \right) = x_1^3x_2^3
+	\]
+	and by injectivity again, $f(x_1)f(x_2)=f(x_1x_2)$, as claimed. 
+	
+	\textbf{Step 3: establish $f(x)=\frac 1x$}. 
+	To do this, we focus on $f(f(x))^2=f(f(x)^2)=x^3f(x)$, the left allowed given the multiplicity of $f$. 
+	
+	Denote $(a, b)$ as good if $x^af(x)^b\in\bbQ$; this would hold if $a$ and $b$ are both integers. 
+	Next, given that $f(f(x))=x^{3/2}f(x)^{1/2}$, if $(a, b)$ is good then we have 
+	\[
+	f(f(x^af(x)^b))=(x^af(x)^b)^{3/2}f(x^af(x)^b)^{1/2}
+	=x^{3a/2}f(x)^{3b/2}f(x)^{a/2}f(f(x))^{b/2}
+	\]
+	\[
+	=x^{3a/2}f(x)^{3b/2}f(x)^{a/2}(x^{3/2}f(x)^{1/2})^{b/2}
+	=x^{3a/2+3b/4}f(x)^{a/2+3b/2+b/4}
+	=x^{3a/2+3b/4}f(x)^{a/2+7b/4}
+	\]
+	is also in $\bbQ$. 
+	It follows that $(a, b)$ is good implies that $\left(\frac{3a}{2}+\frac{3b}{4}, \frac{a}{2}+\frac{7b}{4}\right)$ is also good. 
+	This motivates us to consider the matrix 
+	\[
+	M=
+	\begin{pmatrix}
+	  \frac 32 & \frac 34\\
+	  \frac 12 & \frac 74\\
+	\end{pmatrix}
+	=\frac 14 \begin{pmatrix}
+	 6 & 3\\
+	2 & 7\\
+	\end{pmatrix}
+	=\frac14 
+	\begin{pmatrix}
+	3 & 1\\
+	-2 & 1\\
+	\end{pmatrix}
+	\begin{pmatrix}
+	4 & 0\\
+	0 & 9\\
+	\end{pmatrix}
+	\begin{pmatrix}
+	3 & 1\\
+	-2 & 1\\
+	\end{pmatrix}^{-1}
+	= 
+	\begin{pmatrix}
+	3 & 1\\
+	-2 & 1\\
+	\end{pmatrix}
+	\begin{pmatrix}
+	1 & 0\\
+	0 & \frac{9}{4}\\
+	\end{pmatrix}
+	\begin{pmatrix}
+	3 & 1\\
+	-2 & 1\\
+	\end{pmatrix}^{-1}
+	\]
+	Now if $v$ is a vector of good pair, then $Mv$ is good. It then follows that $M^kv$ is good for all $k\ge 0$. But we also have 
+	\[
+	M^k
+	=\begin{pmatrix}
+	3 & 1\\
+	-2 & 1\\
+	\end{pmatrix}
+	\begin{pmatrix}
+	1 & 0\\
+	0 & \frac{9^k}{4^k}\\
+	\end{pmatrix}
+	\begin{pmatrix}
+	3 & 1\\
+	-2 & 1\\
+	\end{pmatrix}^{-1}
+	=
+	\begin{pmatrix}
+	3 & \frac{9^k}{4^k}\\
+	-2 & \frac{9^k}{4^k}\\
+	\end{pmatrix}
+	\begin{pmatrix}
+	\frac{1}{5} & -\frac{1}{5}\\
+	\frac{2}{5} & \frac{3}{5}\\
+	\end{pmatrix}
+	=\frac 15
+	\begin{pmatrix}
+	3 + 2\cdot \frac{9^k}{4^k} & -3+3\cdot \frac{9^k}{4^k}\\
+	-2 +2\cdot \frac{9^k}{4^k} & 2+3\cdot \frac{9^k}{4^k}\\
+	\end{pmatrix}
+	\]
+	In particular, take $v$ to represent $(1, 0)$, then $\frac 15(3+2\cdot \frac{9^k}{4^k}. -2+2\cdot \frac{9^k}{4^k})$ is good. 
+	Since the good sequence is closed under scalar multiplication of integers and addition / subtraction of integer pairs, we have 
+	$(2\cdot \frac{9^k}{4^k}. 2\cdot \frac{9^k}{4^k})$ is good. 
+	That is, $(xf(x))^{2\cdot \frac{9^k}{4^k}}\in\bbQ$. 
+	We conclude that $xf(x)$ has to be a perfect $\frac{4^k}{2}$-th power of rationals, which can only happen when $xf(x)=1$. 
+	
+	\item [\textbf{A7}] (IMO 6) 
+	Let $a_1, a_2, a_3, \ldots$ be a sequence of positive real numbers, and $s$ be a positive integer, such that
+	\[a_n = \max \{ a_k + a_{n-k} \mid 1 \leq k \leq n-1 \} \ \textrm{ for all } \ n > s.\]
+	Prove there exist positive integers $\ell \leq s$ and $N$, such that
+	\[a_n = a_{\ell} + a_{n - \ell} \ \textrm{ for all } \ n \geq N.\]
+	
+	\textbf{Solution.} 
+	Let's first preprocess the sequence (which is unnecessary, but gives a clearer idea on how to solve this). 
+	Fix a real number $M$ and consider $b_n=Mn-a_n$. Then for all $n>s$ we have the following recursion: 
+	\[
+	b_n = Mn - a_n = Mn - \max \{a_k + a_{n-k}\}
+	= Mn - \max \{Mk  - b_k + M(n_k) b_{n-k}\}
+	= \min \{b_k + b_{n-k}\}
+	\]
+	Thus our objective stays the same: showing there's an $\ell\le s$ such thaat $b_n=b_{\ell}+b_{n-\ell}$. 
+	Next, consider: 
+	\[
+	M = \max \{\frac{a_k}{k}: 1\le k\le s\}
+	\quad 
+	\ell = \arg\max \{\frac{a_k}{k}: 1\le k\le s\}
+	\]
+	Then $b_{\ell}=0$ and for all $1\le k\le s$ we have $b_{k}\ge 0$. 
+	We now proceed to the following lemma: 
+	
+	\emph{Lemma}. Denote $S_n$ for all $n>s$ as the set containing sequences $(s_1, \cdots, s_{m})$ with $1\le s_i\le s$, $s_i+s_j>s$ for some $i, j$, and $s_1+\cdots + s_m = n$. Then for all $n>s$: 
+	\[
+	b_n = \min\{\sum_{(s_1, \cdots, s_{m})\in S_n}\sum_{i=1}^m b_{s_i}\}
+	\]
+	Proof: we proceed by induction. For base case, $n=s+1$. Here we have 
+	\[
+	S_n = \{(1, s), (2, s-1), \cdots, (s, 1)\}
+	\]
+	(the $s_i+s_j>s$ requirement means we cannot have more than two parts when $n=s+1$). 
+	By definition we have 
+	\[
+	b_n = \min \{b_1+b_s, b_2 + b_{s-1}, b_s+b_1\}
+	\]
+	which proves our base case. 
+	
+	Now suppose that this holds for $s+1, \cdots, n-1$. 
+	We have $b_n = b_u + b_{v}$ for some $1\le u, v<n$. 
+	If $u\le s$ and $v\le s$ then $(u, v)\in S_n$. 
+	Otherwise, say $u>s$. 
+	By induction hypothesis we have 
+	\[
+	b_u = b_{s_1}+\cdots + b_{s_p}
+	\]
+	for some $p$, where $\sum s_i = u$, and $s_i+s_j>s$ for some $(i, j)$. 
+	We also have $b_v = b_{t_1}+\cdots + b_{t_q}$ for some $q$, 
+	and $\sum t_i=v$ (if $v\le s$ we just have $q=1$ and $t_1=v$). 
+	Thus 
+	\[
+	s_1+\cdots + s_p + t_1+\cdots + t_q = u + v = n
+	\quad 
+	b_n = \sum b_{s_i} + \sum b_{t_j}
+	\]
+	and $s_i+s_j>s$ so $(s_1, \cdots, s_p, t_1, \cdots, t_q)\in S_n$. 
+	
+	To show that this sequence $(s_1, \cdots, s_p, t_1, \cdots, t_q)$ does give the minimal sum 
+	(that is, $\sum b_{s_i} + \sum b_{t_j}$ is the minimal possible). 
+	Suppose otherwise, that 
+	\[
+	\sum_{i=1}^w b_{r_i} < b_n
+	\]
+	for some $(r_1, \cdots, r_w)\in S_n$. 
+	If $w=2$ then $r_1, r_2<s$ but $r_1+r_2=n$ and so $b_{r_1}+b_{r_2}<b_n$. 
+	Otherwise, w.l.o.g. we have $r_1+r_2>s$. 
+	By induction hypothesis we have 
+	\[
+	b_{n-r_w}\le b_{r_1}+\cdots + b_{r_{w_1}}
+	\]
+	and so 
+	\[
+	b_{n-r_w}+b_{r_w}
+	\le b_{r_1}+\cdots + b_{r_{w_1}} + b_{r_w}
+	< b_n
+	\]
+	so in both cases there are $u, v$ with $u+v=n$ and $b_u+b_v<n$, which contradicts 
+	$b_n = \min \{b_u+b_v: u+v=n\}$. 
+	Thus this induction step establishes the lemma. $\square$
+	
+	Now (TODO)
+	
 \end{enumerate}
 	
 \section*{Combinatorics}
 \begin{enumerate}
+	\item [\textbf{C1}] In a concert, 20 singers will perform. For each singer, there is a (possibly empty) set of other singers such that he wishes to perform later than all the singers from that set. Can it happen that there are exactly 2010 orders of the singers such that all their wishes are satisfied?
+	
+	\textbf{Answer.} Yes. 
+	
+	\textbf{Solution.} TODO
+	
+	
 	\item [\textbf{C2}] On some planet, there are $2^N$ countries $(N \geq 4).$ Each country has a flag $N$ units wide and one unit high composed of $N$ fields of size $1 \times 1,$ each field being either yellow or blue. No two countries have the same flag. We say that a set of $N$ flags is diverse if these flags can be arranged into an $N \times N$ square so that all $N$ fields on its main diagonal will have the same color. Determine the smallest positive integer $M$ such that among any $M$ distinct flags, there exist $N$ flags forming a diverse set.
 	
 	\textbf{Answer.} $M=2^{N-2}+1$. \\
@@ -362,6 +588,24 @@
 	\[\frac {1}{33}\cdot\frac{34}{40}\cdot\frac{66}{67}=\frac{17}{670}=\frac{51}{2010}
 	\]
 	
+	Note: The original proposal has $\frac{42}{2010}$ instead of $\frac{51}{2010}$. 
+	The answer is 48 for the following reason: one of the numbers $s_k$ has the be a multiple of $67$ given that 2010 is. Therefore, 
+	\[
+	\frac{42}{2010}
+	=
+	\displaystyle\prod_{i=1}^n \left(1-\frac {1}{s_i}\right)
+	\ge \frac{66}{67}\displaystyle\prod_{i=1}^{n-1} \left(1-\frac {1}{s_{i}}\right) 
+	\Rightarrow
+	\displaystyle\prod_{i=1}^{n-1} \left(1-\frac {1}{s_{i}}\right) 
+	\le \frac{42}{2010}\cdot\frac{67}{66}
+	=\frac{7}{330}
+	\]
+	so $n\ge \frac{330}{7}=47+\frac{1}{7}$ and so $n\ge 48$. 
+	The construction is given by 
+	\[
+	2, 3, \cdots, 33, 36, \cdots, 50, 67
+	\]
+	
 	\item [\textbf{N2}] Find all pairs $(m,n)$ of nonnegative integers for which \[m^2 + 2 \cdot 3^n = m\left(2^{n+1} - 1\right).\]
 	
 	\textbf{Answer.} $(6, 3), (9, 3), (9, 5), (54, 5)$\\
@@ -400,7 +644,9 @@
 	\]
 	In other words $8^{(n+1)/3}>2^{n+1}-1 > 3^{n-k}=9^{(n-k)/2}$ so $\dfrac{n+1}{3}> \dfrac{n-k}{2}$, i.e. $2n+2> 3n-3k$ so $n<3k+2$. On the other hand we have $n+1\ge 2\cdot 3^{k-1}$ so $2\cdot 3^{k-1} -1 \le n\le 3k+1$. It's not hard to see that this only works when $k\ge 2$. We would now have the $2^{n+1}-1>3^{n-k}\ge 3^{n-2}$ but by above, $n<3k+2\ge 3(2)+2=8$ so we only need to test all $n\le 7$. Nevertheless, for $n=6, 7$ we have $n+1=7, 8$ which is not divisible by 6, so for them $k\ge 1$ and $3(1)+2=5<6$ so these cases can be disregarded and we have $n\le 5$ to test. 
 	
-	Recall that the discriminant is $(2^{n+1}-1)^2-8\cdot 3^n$. For $n=0, 1, 2, 3, 4, 5$ these discriminants are $-7, -15, -23, 9, 313, 2025$, so only $n=3, 5$ work as perfect squares. Plugging these into the quadratic formula we have: 
+	Recall that the discriminant is $(2^{n+1}-1)^2-8\cdot 3^n$. 
+	For $n=0, 1, 2, 3, 4, 5$ these discriminants are \[-7, -15, -23, 9, 313, 2025\] 
+	so only $n=3, 5$ work as perfect squares. Plugging these into the quadratic formula we have: 
 	\[
 	n=3: \dfrac{2^{3+1}-1 \pm \sqrt{(2^{3+1}-1)^2 - 8\cdot 3^n}}{2} = \dfrac{15\pm 3}{2}=6, 9;\]\[
 	n = 5: \dfrac{2^{5+1}-1 \pm \sqrt{(2^{5+1}-1)^2 - 8\cdot 3^n}}{2} = \dfrac{63\pm 45}{2} = 9, 54. 
@@ -448,13 +694,35 @@
 		Therefore, we need $67\mid a$. 
 	\end{itemize}
 	
-	Combining the two cases yuelds the results of this lemma. 
+	Combining the two cases yields the results of this lemma. 
 	
 	\emph{Step 3.} $(a, b)$ is $67^k$ good for all $k\ge 1$, which finishes the solution. \\
 	Proof: Let's say, $67^k\mid P(m)-P(n)=a(m^3-n^3)+b(m-n)=(m-n)(a(m^2+mn+n^2)+b)$. 
 	In modulo $67$, we have $67\mid a$ but $67\nmid b$, so $a(m^2+mn+n^2)+b\equiv b\not\equiv 0\pmod{67}$. This means, $a(m^2+mn+n^2)+b$ is relatively prime to $67$, and therefore same to $67^k$. This means, $67^k\mid m-n$, as desired. 
 	
-	\item[\textbf{N6.}] The rows and columns of a $2^n \times 2^n$ table are numbered from $0$ to $2^{n}-1.$ The cells of the table have been coloured with the following property being satisfied: for each $0 \leq i,j \leq 2^n - 1,$ the $j$-th cell in the $i$-th row and the $(i+j)$-th cell in the $j$-th row have the same colour. (The indices of the cells in a row are considered modulo $2^n$.) Prove that the maximal possible number of colours is $2^n$.
+	\item [\textbf{N5}] (IMO 5) Find all functions $g:\mathbb{N}\rightarrow\mathbb{N}$ such that\[\left(g(m)+n\right)\left(g(n)+m\right)\]is a perfect square for all $m,n\in\mathbb{N}.$
+	
+	\textbf{Answer.} $f(n)=n+c$ for some integer $c\ge 0$. 
+	
+	\textbf{Solution.} 
+	As per the official solution we'll use the lemma 
+	$p\mid g(m_1)-g(m_2)\to p\mid m_1-m_2$ for any prime $p$. 
+	Indeed, let $kp=g(m_1)-g(m_2)$. 
+	If $p\nmid k$ then we can choose $n$ such that $g(m_1)+n\equiv p^3\pmod{p^4}$. 
+	It follows that $g(m_2)+n\equiv p^3-kp\pmod{p^4}$. 
+	Otherwise, $p\mid k$ and we can choose $n$ such that $g(m_1)+n\equiv g(m_2)+n\equiv p\pmod{p^2}$. 
+	In both cases, $v_p(g(m_1)+n), v_p(g(m_2)+n)$ are either 1 or 3, hence is odd. 
+	It then follows that there exists an $n$ such that $p\mid g(n)+m_1$ and $p\mid g(n)+m_2$, so $p\mid m_1-m_2$. 
+	
+	Now by this lemma, $g(n+1)-g(n)=\pm 1$. We first show that the direction has to be monotonic: 
+	otherwise, let $n$ be the place it changes direction, then 
+	$g(n+1)-g(n)=-(g(n)-g(n-1))$, and $g(n-1)=g(n+1)$, which violates the lemma for all primes $p\neq 2$. 
+	If $g(n+1)-g(n)=-1$ for all $n$ then $g(g(1)+1)=g(1)-g(1)=0\not\in \bbN$, which isn't allowed either. 
+	Hence we have $g(n+1)-g(n)=1$ for all $n$ and therefore 
+	$g(n)=n+c$ for some integer $c\ge 0$. 
+	This function would work since the given equation will be $(m+n+c)^2$. 
+	
+	\item[\textbf{N6}] The rows and columns of a $2^n \times 2^n$ table are numbered from $0$ to $2^{n}-1.$ The cells of the table have been coloured with the following property being satisfied: for each $0 \leq i,j \leq 2^n - 1,$ the $j$-th cell in the $i$-th row and the $(i+j)$-th cell in the $j$-th row have the same colour. (The indices of the cells in a row are considered modulo $2^n$.) Prove that the maximal possible number of colours is $2^n$.
 	
 	\textbf{Solution.} Consider the sequence $S_{(i, j)}\in (\bbZ/2^n)^2$ modulo $2^n$: 
 	\[
