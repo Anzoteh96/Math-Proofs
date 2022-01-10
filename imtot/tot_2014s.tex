@@ -1,0 +1,217 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2014, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item[1.] 
+	Inspector Gadget has 36 stones with masses 1 gram, 2 grams, . . . , 36 grams.
+	Doctor Claw has a superglue such that one drop of it glues two stones together
+	(thus two drops glue 3 stones together and so on). Doctor Claw wants to glue
+	some stones so that in obtained set Inspector Gadget cannot choose one or more
+	stones with the total mass 37 grams. Find the least number of drops needed
+	for Doctor Claw to fulfil his task.
+	
+	\textbf{Answer.} 9. 
+	
+	\textbf{Solution.} 
+	The example of 9 is obtained simplyby gluing $(1, 18), (2, 17), \cdots, (9, 10)$. 
+	This way, we have the stones having weights 19, $\cdots, 19$, 20, $\cdots, 36$. 
+	Any one stone has weight at most 36, but any two or more stones have weight at least 38 in total. 
+	
+	To show 9 is necessary, consider the 18 pairs $(1, 36), (2, 35), \cdots, (18, 19)$. 
+	Since one drop of glue can take one or more stones from at most two of the pairs, 
+	at least one pair $(k, 37-k)$ is untouched after 8 (or fewer) drops of glue. 
+	
+	\item [2.] In a convex quadrilateral $ABCD$ the diagonals are perpendicular. Points $M$
+	and $N$ are marked on sides $AD$ and $CD$ respectively. Prove that lines $AC$ and
+	$MN$ are parallel given that angles $ABN$ and $CBM$ are right angles.
+	
+	\textbf{Solution.} 
+	Let $BM$ and $BN$ intersect $AC$ at $M_1$ and $N_1$, respectively, 
+	and $O$ be the intersection of diagonals $BD$ and $AC$. 
+	Then $\angle CBM_1=\angle BOC=90^{\circ}$ means $BO^2=M_1O\cdot OC$ and similarly 
+	$CO^2=AO\cdot N_1O$. Thus $\frac{AO}{OC}=\frac{M_1O}{N_1O}$. 
+	
+	Now consider the line from $M$ parallel to $AC$. 
+	Let this line intersect $CD$, $BN_1$ and $BD$ at $N_2$, $N_3$ and $O_1$, respectively.  
+	Then we have $\frac{MO_1}{O_1N_2}=\frac{AO}{OD}$, 
+	and also 
+	$\frac{MO_1}{O_1N_3}=\frac{M_1O}{N_1O}$. 
+	But then we have $\frac{AO}{OC}=\frac{M_1O}{N_1O}$ 
+	so we have $O_1N_2=O_1N_3$, and thus $N_2=N_3$. 
+	It follows that $N_2$ and $N_3$ are both equal to $N$, so $MN\parallel AC$. 
+	
+	\item [3.] 
+	Ali Baba and the 40 thieves want to cross Bosporus strait. They made a line
+	so that any two people standing next to each other are friends. Ali Baba is the
+	first; he is also a friend with the thief next to his neighbour. There is a single
+	boat that can carry 2 or 3 people and these people must be friends. Can Ali
+	Baba and the 40 thieves always cross the strait if a single person cannot sail?
+	
+	\textbf{Answer.} Yes. 
+	
+	\textbf{Solution.} Denote Ali Baba as index 0 and the thieves (in that order) as $1, 2, \cdots, n$ (here $n=40$). 
+	Let's claim the following: 
+	
+	\emph{Lemma}. Suppose that at given $k\ge 2$, we have $0, \cdots, k$ successfully crossed the strait (with boat on their side) and $k+1, \cdots, n$ still haven't. 
+	Then there exists an algorithm such that in the end, the only thing that changed is that $k+1$ is on the other side of the river. 
+	
+	Proof: ignore $k+2, \cdots, n$ for now. 
+	Now consider the following: 
+	\begin{itemize}
+		\item Among $0, 1, \cdots, k+1$, let $x\ge 3$ be the only guy who haven't crossed the river. 
+		Bring $x-1, x-2$ back home, and $x-1, x$ over. Now $x-2$ is the only one who haven't crossed the river. 
+		
+		\item Repeat until $x\le 2$. 
+	\end{itemize}
+    Since we started with $x=k+1$, we eventually reach $x=1$ or $x=2$. 
+    In either case, we can either bring $0, 2$ back or $0, 1$ back, and then all three will sail to the other side. 
+    This way we have 0, 1, $\cdots, k+1$ on the other side. $\square$. 
+    
+    Now with this lemma, observe that we can have $0, 1, 2$ to the other side of the river on the first step (hence $k=2$). Applying the lemma iteratively, we see that it will also work for $k=3, 4, \cdots, n$. 
+    
+    \item [4.] 
+    Positive integers $a, b, c, d$ are pairwise coprime and satisfy the equation
+    $ab + cd = ac - 10bd$.
+    Prove that one can always choose three numbers among them such that one
+    number equals the sum of two others.
+    
+    \textbf{Solution.} Rearranging, we have the following: 
+    \[
+    d(c+10b) = a(c-b)
+    \qquad 
+    b(a+10d) = c(a-d)
+    \]
+    Given $\gcd(a, d)=1$ and $\gcd(b, c)=1$, we have 
+    \[
+    a\mid c+10b\quad d\mid c-b\quad  b\mid a-d\quad c\mid a+10d
+    \]
+    Also $c-b>0$ and $a-d>0$ since $a, b, c, d$ are positive. 
+    Therefore, in particular, there exists a positive integer $k$ with $c+10b=ka$ and $c-b=kd$, 
+    which means $k$ divides both $c+10b$ and $c-b$. 
+    This gives $k\mid c+10b-(c-b)=11b$, and $k\mid c+10b+10(c-b)=11c$. 
+    But given $\gcd(b, c)=1$, we have either $k=1$ or $k=11$ (since 11 is prime). 
+    If $k=1$ then $c=b+d$. 
+    If $k=11$, then 
+    $11a - 11d = (c+10b)-(c-b)=11b$, so $a-d=b$. 
+    This gives $a=b+d$. 
+	
+	\item[5.] Park’s paths go along sides and diagonals of the convex quadrilateral $ABCD$.
+	Alex starts at A and hikes along $AB-BC -CD$. 
+	Ben hikes along $AC$; 
+	he leaves $A$ simultaneously with Alex and arrives to $C$ simultaneously with Alex. 
+	Chris hikes along $BD$; he leaves B at the same time as Alex passes $B$ and arrives to
+	$D$ simultaneously with Alex. 
+	Can it happen that Ben and Chris arrive at point $O$ of intersection of $AC$ and $BD$ at the same time? The speeds of the hikers are constant.
+	
+	\textbf{Answer.} No. 
+	
+	\textbf{Solution.} Let $B_1$ be on $AC$ such that Alex is at $B$ when Ben at $B_1$. 
+	Then $\frac{AB}{BC} = \frac{AB_1}{B_1C}$. 
+	Thus $BB_1$ bisects $\angle ABC$ by angle bisector theorem. 
+	Similarly, let $C_1$ be on $BD$ such that Alex is at $C$ when Chris at $C_1$. 
+	Then we also have $CC_1$ bisects angle $\angle BCD$. 
+	
+	Now as Alex moves from $B$ to $C$, 
+	Ben moves from $B_1$ to $C$ and Chris from $B$ to $C_1$. 
+	Thus $\frac{B_1O}{OC} = \frac{BO}{OC_1}$. 
+	It follows that $BB_1\parallel CC_1$, 
+	and therefore $\angle B_1BC+\angle BCC_1=180^{\circ}$ and 
+	since $BB_1$ and $CC_1$ bisect $\angle ABC$ and $\angle BCD$, 
+	$\angle ABC+\angle BCD=360^{\circ}$, 
+	which is impossible since this implies $\angle BAD=\angle BCD=0$. 
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[7.] 
+	Consider a polynomial $P(x)$ such that
+	$P(0) = 1; (P(x))^2 = 1 + x + x^{100}Q(x)$, 
+	where $Q(x)$ is also a polynomial.
+	Prove that in the polynomial $(P(x) + 1)^{100}$ the coefficient at $x^{99}$ is zero.
+	
+	\textbf{Solution.} 
+	Throughout the solution we use the generalized binomial: 
+	\[
+	\dbinom{x}{k} = \frac{1}{k!} x(x-1)\cdots (x-k+1)
+	\]
+	for real $x$ and negative integer $k$. 
+	We follow the following steps: 
+	
+	\emph{Lemma 1.} 
+	Let $N\ge 2$. 
+	In the expression $(1+\sqrt{1+x})^{2N}$, treated as power series, 
+	the coefficient is 0. 
+	
+	Proof: Expanding the outer binomial gives 
+	\[
+	\sum_{k=0}^{2N}\binom{2N}{k}\sqrt{1+x}^k
+	\]
+	and therefore we're interested in the sum 
+	\[
+	\sum_{k=0}^{2N}\binom{2N}{k}\binom{\frac k2}{2N-1}
+	\]
+	Let's claim that 
+	\[
+	\sum_{k=0}^{N-1}\binom{2N}{2k+1}\binom{x}{2N-1}
+	\equiv \binom{2x}{2N-1}
+	\]
+	(TODO)
+	
+	\emph{Lemma 2.} 
+	Let $P(x)$ be a polynomial be such that $P(0)=1$ and $P(x)^2 \equiv 1+x\pmod{x^{2N}}$. 
+	Then the coefficient of $x^k$ for $P(x)^{n}$ is $\dbinom{\frac n2}{k}$ for $k=0, 1, \cdots, 2N-1$. 
+	
+	Proof: Let the coefficient of $x^k$ of $P(x)^{n}$ be $a_k$. We have $a_0=P(0)^n=1$. 
+	Matching coefficients for $P(x)^{2n}$, which is $\equiv (1+x)^n\equiv{2N}$, we have 
+	\[
+	\sum_{i=0}^k a_{i}a_{k-i} = 
+	\dbinom{n}{k}
+	\]
+	Recursively, we have 
+	\[
+	a_k = \left(\frac 12\binom{n}{k}-\left(\sum_{i=1}^{k-1}a_ia_{k-i}\right)\right)
+	\]
+	If we consider $\sqrt{1+x}^{k}=b_0+b_1x+b_2x^2+\cdots$ then we also have $b_0=1$ and 
+	\[
+	b_k = \left(\frac 12\binom{n}{k}-\left(\sum_{i=1}^{k-1}b_ib_{k-i}\right)\right)
+	\]
+	so we need $a_k=b_k$ for all $k$ for $k=0, \cdots, 2N-1$. 
+	Now the conclusion since follows from 
+	\[
+	b_k=\dbinom{\frac n2}{k}
+	\]
+	
+	Having this, we have 
+	\[
+	(P(x)+1)^{2N}
+	=\sum_{n=0}^{2N}\binom{2N}{n}P(x)^n
+	\equiv \sum_{n=0}^{2N}\binom{2N}{n}\sqrt{1+x}^n
+	\equiv(1+\sqrt{1+x})^{2N}
+	\pmod{x^{2N}}
+	\]
+	and the conclusion then follows from Lemma 1 where we take $N=50$. 
+	
+\end{enumerate}
+\end{document}
