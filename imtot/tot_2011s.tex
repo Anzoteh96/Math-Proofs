@@ -1,0 +1,89 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2011, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item[1.] The faces of a convex polyhedron are similar triangles. Prove that this polyhedron has two pairs of congruent faces.
+	
+	\textbf{Solution.} Consider, now, the longest side of the polyhedron, and the two faces it's incident too. Since it's the longest side of the polyhedron, it must be the longest side of each of the two triangles. Since these two similar triangles have equal longest side, these two triangles are congruent. 
+	In a similar argument, the two triangular faces corresponding to the shortest side are also congruent. 
+	
+	If the two pairs of triangles above are disjoint, we're done. Otherwise, this means that the one of the faces contain both the shortest and the longest side of the polyhedron. This will imply that all faces of the polyhderon are congruent, and since each polyhedron must have at least 4 faces (take any triangular faces, consider the 3 sides, and the faces corresponding to the 3 sides), we can easily choose the 4 congruent faces here. 
+	
+	\item[2.] Worms grow at the rate of $1$ metre per hour. When they reach their maximal length of $1$ metre, they stop growing. A full-grown worm may be dissected into two not necessarily equal parts. Each new worm grows at the rate of $1$ metre per hour. Starting with $1$ full-grown worm, can one obtain $10$ full-grown worms in less than $1$ hour?
+	
+	
+	\item[3.] Along a circle are $100$ white points. An integer $k$ is given, where $2 \le k \le 50$. In each move, we choose a block of $k$ adjacent points such that the first and the last are white, and we paint both of them black. For which values of $k$ is it possible for us to paint all $100$ points black after $50$ moves?
+	
+	\textbf{Answer.} All $k$ with $k\not\equiv 1\pmod{4}$. 
+	
+	\textbf{Solution.} Considering the configuration as a graph with edges $(w, w\pm (k-1))$ for $w=1, 2, \cdots, 100$ (indices considered modulo 100), this edge labelling partitions the graph into disjoint cycles (since each vertex has degree 2). Additionally, the number of cycles is $\gcd(100, k-1)$ so the length of each cycle is $\frac{100}{\gcd(100, k-1)}$. 
+	
+	We see that in order to achieve our aim, we have to break each cycle into pairs and colour each pair from white to black. This is achievable if and only if the cycle has even length, so $\frac{100}{\gcd(100, k-1)}$ has to be even. In other words, since $2^2$ is the highest power of $2$ dividing 100, we have $4\nmid k-1$ as a necessary and sufficient condition. This means $k\not\equiv 1\pmod{4}$. 
+	
+	\item[4.] Four perpendiculars are drawn from four vertices of a convex pentagon to the opposite sides. If these four lines pass through the same point, prove that the perpendicular from the fifth vertex to the opposite side also passes through this point.
+	
+	\item[5.] In a country, there are $100$ towns. Some pairs of towns are joined by roads. The roads do not intersect one another except meeting at towns. It is possible to go from any town to any other town by road. Prove that it is possible to pave some of the roads so that the number of paved roads at each town is odd.
+	
+	\textbf{Solution.} We turn this into graph theory language, which reformulates the problem into: given graph $G=(V, E)$ connected and $|V|=100$, prove that there exists a subset $E_1$ of $E$ such that each vertex is incident to an odd number of vertices in $E_1$. 
+	
+	Consider, now, one spanning tree $E_0\subseteq E$ of $G$ and we will simply focus on $E_0$ instead of $E$ (such a tree exists because $G$ is connected). In this tree, choose an arbitrary root $V_0$; this gives a parent-child relationship for each of the edges. This allows us to sort (using breadth-first search, for example) $V$ such that every parent comes before the child. 
+	
+	Now, starting from an empty $E_1$, we iterate through $V$ in descending order (that is, starting from a leaf and ending at the root, $v_0$). We do this for each iteration landing at vertex $v\neq v_0$: 
+	
+	\emph{Consider the current $E_1$, $v$ and $e$ the edge connecting $v$ and its parent. If the number of edges in $E_1$ incident to $v$ is even, add $e$ to $E_1$; otherwise, don't.}
+	
+	We see that after each iteration, $v$ has odd `degree' in $E_1$, and moreover its `degree' will not change after that (all its children have been iterated through before itself). Thus after all these steps, all vertices $v\neq v_0$ have odd `degree' in $E_1$. By handshaking lemma there must be evenly many vertices with odd degree in $E_1$. Since $|V|=100$, it follows that $v_0$, too, has odd degree in $E_1$. 
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item [2.] In the coordinate space, each of the eight vertices of a rectangular box has integer coordinates. If the volume of the solid is $2011$, prove that the sides of the rectangular box are parallel to the coordinate axes.
+	
+	\textbf{Solution.} Let's use the fact that 2011 is prime. Denote width, length, and height of the box as $w, \ell, h$, then $w\ell h=2011$ and each $w^2, \ell^2, h^2$ are sum of three squares (and therefore integer). 
+	
+	Since $w^2\ell^2h^2=2011^2$ and 2011 is prime, one of $w^2, h^2, \ell^2$ (which are all integers), say $w$ must be equal to 1. Since the only way to write 1 as sum of 3 squares is $1^2+0^2+0^2$, one of the sides must be parallel to the axes. W.l.o.g. we may assume that two of its coordinates are $(0, 0, 0)$ and $(1, 0, 0)$ (i.e. parallel to $x$-axis), the two other lines originating from $(0, 0, 0)$ must be perpendicular to the $x$-axis, hence in the form of $(0, y_1, z_1)$ and $(0, y_2, z_2)$, giving the $h^2, \ell^2$ as both sum of two squares. Since $2011\equiv 3\pmod{4}$, it cannot be written as sum of 2 squares, hence one of them, say $h$, is 1, giving $\ell=2011$. Finally, since two lines originating from one vertex (0, 0, 0) are parallel to coordinate axes and third line is perpendicular to the two lines (and hence the two coordinate axes), it follows that the third line is also perpendicular to a coordinate axis. 
+	
+	\item [4.] There are $n$ red sticks and $n$ blue sticks. The sticks of each colour have the same total length, and can be used to construct an $n$-gon. We wish to repaint one stick of each colour in the other colour so that the sticks of each colour can still be used to construct an $n$-gon. Is this always possible if
+	\begin{enumerate}
+		\item $n = 3$,
+		\item $n > 3$
+	\end{enumerate}
+	\textbf{Solution.} 
+	\begin{enumerate}
+		\item The answer is no. Consider the first triangle as $(11, 11, 1)$ and the second one $(6, 8, 9)$, with total length 23. Consider the final configuration as $(a, b, 1), (c, d, e)$. Since all the side lengths are integers, we need $a=b$ for this to be a triangle. Therefore the only choice is $a=b=11$ and this means no legal swapping is possible. 
+		
+		\item 
+	\end{enumerate}
+	
+	\item [6.] In every cell of a square table is a number. The sum of the largest two numbers in each row
+	is $a$ and the sum of the largest two numbers in each column is $b$. Prove that $a = b$.
+	
+	\textbf{Solution.} Denote $n\times n$ as the dimension of the table. Suppose on the contrary that $a>b$. In each row, there's an entry that is at least $\frac{a}{2}$. Since $b<a$, each column can have at most one number that's $\ge \frac{a}{2}$. It follows that all such numbers, having appeared in every column, must be in different rows. Hence each column and each row has exactly one number $\ge\frac{a}{2}$. 
+	
+	Now let $c$ be the smallest of these $n$ numbers that's $\ge\frac{a}{2}$. This means one other entry in this row is $a-c$ (which we know is $<\frac{a}{2}$ since each row/column has exactly one such `big' number). Now, on the column of $a-c$ there's a number that's $\ge\frac{a}{2}$, say, $d$. By the minimality of $c$, $d\ge c$. Then the sum of two greatest number in this column is at least $a-c+d\ge a>b$, which is a contradiction. 
+	
+	Similarly, we cannot have $b<a$. Hence $a=b$ is necessary. 
+\end{enumerate}
+\end{document}
