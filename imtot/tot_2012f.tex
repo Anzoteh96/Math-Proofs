@@ -1,0 +1,304 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs, algorithm, algpseudocode}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Fall 2012, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item[1.] A table $10 \times 10$ was filled according to the rules of the game ``Bomb Squad'': several
+	cells contain bombs (one bomb per cell) while each of the remaining cells contains a number,
+	equal to the number of bombs in all cells adjacent to it by side or by vertex.
+	Then the table is rearranged in the “reverse” order: bombs are placed in all cells previously
+	occupied with numbers and the remaining cells are filled with numbers according to the same
+	rule. Can it happen that the total sum of the numbers in the table will increase in a result?
+	
+	\textbf{Answer.} No. 
+	
+	\textbf{Solution.} 
+	We see that the total sum of numbers is really just the number of pairs of  adjacent cells where 
+	one has bomb and one is empty. Flipping this would just make the set of pairs the same. 
+	
+	\item[2.]Given a convex polyhedron and a sphere intersecting each its edge at two points so that
+	each edge is trisected (divided into three equal parts). Is it necessarily true that all faces of
+	the polyhedron are
+	\begin{enumerate}
+		\item congruent polygons?
+		\item regular polygons?
+	\end{enumerate}
+    
+    \textbf{Solution.} The answer is no for (a) and yes for (b). 
+    
+    We first show that the polyhedron must be circumscribed in a sphere that's concentric with the said sphere. 
+    Let our sphere to have center $O$, 
+    and take any edge with endpoints $AB$. 
+    Let the sphere intersects $AB$ at $X$ and $Y$, 
+    and let the midpoint of $XY$ be $M$. 
+    We see that $M$ is also the midpoint of $AB$. 
+    Moreover, $OX=OY$ implies that $OM\perp AB$. 
+    It then follows that $OA=OB$ too. 
+    Doing this for all edges shows that $O$ must be equidistant from all points on the polyhdron. 
+    In particular, each face is a cyclic polygon. 
+    
+    Now let $r$ be the radius of the sphere, and $R$ be the distance from $O$ to each vertex. 
+    Consider the edge $AB$ and points $X, Y, M$ in previous paragraph again. 
+    We have 
+    \[
+    R^2=OA^2=OM^2+MA^2\quad 
+    r^2=OX^2=OM^2+MX^2
+    \]
+    Since $X, Y$ trisect $AB$, we have $MX=\frac 13 MA$, so 
+    \[
+    R^2=OM^2+MA^2\quad r^2=OM^2+(MX/3)^2=OM^2+MX^2/9
+    \]
+    Solving simultaneous equations give $OM^2=(9r^2-R^2)/8$, the perpendicular distance of $O$ to the side. 
+    Since this $r$ and $R$ do not depend on the choice of side $AB$, 
+    it follows that $O$ is also equidistant to each side. 
+    Finally, take any face of polyhedron. 
+    Given it's cyclic, we can let $O_1$ be its circumcenter, 
+    which is just the projection of $O$ to the face. 
+    It then follows that $O_1$ is equidistant to all points, and all edges. 
+    Thus this face has to be regular. 
+    
+    To construct a counterexample for (a), 
+    consider a pyramid with square base and 4 equilateral triangle faces, 
+    then we can have a sphere with center coincide with the ``circumcenter'' of this pyramid, and adjust its radius such that it will trisect one edge. 
+    It then follows that it will trisect the other edges, too. 
+    
+    \item[3.] For a class of 20 students several field trips were arranged. In each trip at least four students participated. Prove that there was a field trip such that each student who participated
+    in it took part in at least 1/17-th of all field trips
+    
+    \textbf{Solution.} 
+    Let $S$ be the set of students who went for fewer than $\frac{1}{17}$ of the trips. 
+    Let $S=\{1, 2, \cdots, k\}$ and $i$ went to $b_i$ of the $N$ trips, then 
+    $17b_i<N$ for each $i$. 
+    
+    Denote $c$ as the maximum possible integer such that each trip is attended by at least $c$ of the members in $S$. If $c\ge 1$, then $k\ge 1$ and 
+    Then 
+    Thus 
+    \[
+    cN\le \sum b_i < \sum_{i=1}^k \frac{N}{17} = N(\frac{k}{17})
+    \]
+    i.e. $k > 17c$. Thus $k\ge 17c+1$. 
+    Given that we have 20 students, we can only have $c\le 1$ here, so only $c=1$ is allowed and $|S|\ge 18$. 
+    Choose a trip attended by exactly one student in $S$, 
+    which means at least $|S|-1\ge 18-1=17$ students did not attended the trip. 
+    This contradicts that each trip is attended by at least 4 students. 
+    Hence $c=0$ and some trip is attended by nobody in $S$. 
+    
+    \item[4.] 
+    Let $C(n)$ be the number of prime divisors of a positive integer $n$.
+    \begin{enumerate}
+    	\item Consider set S of all pairs of positive integers $(a, b)$ such that $a\neq b$ and
+    	\[
+    	C(a + b) = C(a) + C(b)
+    	\]
+    	Is $S$ finite or infinite?
+    	\item Define $S'$ as a subset of $S$ consisting of the pairs $(a, b)$ such that $C(a+b) > 1000$. 
+    	Is $S$ finite or infinite?
+    	
+    \end{enumerate}
+
+    \textbf{Answer.} Infinite for both cases. 
+    
+    \textbf{Solution.} 
+    Let's first find an example $c$ where there exists $a, b$ with $a+b=c$, $C(c)\ge C(a)+C(b)$, and $C(c)>1000$. 
+    Indeed, take $a=1$ and consider $C(2), C(3), \cdots$. 
+    Such sequence is unbounded, and therefore for each threshold $r$ we can let $c$ be the minimum number with $C(c)\ge r$. 
+    Then $C(c-1)<C(c)$, and we have $C(c)\ge r > C(c-1)=C(1)+C(c-1)$; 
+    the $>$ inequality follows from the minimality of $c$. 
+    
+    Now, 
+    consider any number $k$ with $\gcd(k, c)=\gcd(k, c-1)=1$. 
+    Then 
+    \[
+    C(kc)=C(k)+C(c)\quad 
+    C(k(c-1))=C(k)+C(c-1)
+    \]
+    so we just need to find such $k$ such that $C(k)+C(c)=C(k)+C(k)+C(c-1)$. 
+    This means $k$ needs to have $C(c)-C(c-1)$ prime factors, and mutually relatively prime to both $c$ and $c-1$. 
+    This can be chosen by taking $k$ as product of $g:=C(c)-C(c-1)$ prime factors that are not part of $c$ or $c-1$'s prime factors; 
+    there are infinitely many such choices. 
+    Moreover $C(kc)=C(k)+C(c)\ge C(c)>r$, so taking $r=1000$ and we're done by taking $a=k, b=k(c-1)$. 
+    
+    \item[5.] 
+    Among 239 coins identical in appearance there are two counterfeit coins. Both counterfeit
+    coins have the same weight different from the weight of a genuine coin.
+    Using a simple balance, determine in three weighings whether the counterfeit coin is heavier
+    or lighter than the genuine coin. A simple balance shows if both sides are in equilibrium or
+    left side is heavier or lighter. It is not required to find the counterfeit coins. 
+    
+    \textbf{Solution.} 
+    Throughout the solution we use the following facts: 
+    
+    \emph{Lemma 1.} if we know a subset $P$ of the coins with even size having either 0 or 1 counterfeits, 
+    then we can split it evenly into $(P/2, P/2)$ coins. 
+    
+    Proof: An equilibrium means 0 counterfeit in $P$; a disequilibrium implies 1 counterfeit in $P$ (since the counterfeit has to be on one side of the balance).  
+    
+    \emph{Lemma 2.} If two disjoint subsets $P_1$ and $P_2$ of equal size, are not in equilibrium, 
+    and we know which one is heavier, then we can determine whether the counterfeit coins are heavier or lighter by determining which one among the two have counterfeit coins. 
+    
+    Proof: now $P_1$ and $P_2$ have different number of counterfeit coins, i.e. at least one of them has one. 
+    They cannot both have counterfeit coins since this means at least $1+2=3$ counterfeit coins in total. 
+    So exactly one of them has counterfeit coin and since we also know which one is heavier, then claim follows. 
+    
+    Now let's first single out a coin $C$, and for the rest we split into piles $P_1, P_2, P_3$ of weights 80, 79, 79. 
+    We do two weighings: $(P_1, P_2+C)$ (i.e. 80 on each side), and $(P_2, P_3)$ (i.e. 79 on each side). 
+    The third weighing will be determined according to the cases below. 
+    (Notice the use of Lemma 1 counts as one weighing). 
+    
+    \emph{Case 1.} Equilibrium for both weighings. 
+    Since $P_2$ and $P_3$ have the same number of counterfeits, and so does $P_1$ and $P_2+C$, the only possibility is 
+    where $P_1$ has one counterfeit, $C$ is counterfeit, and $P_2$ and $P_3$ are both genuine. 
+    Now weigh $C$ against any coin in $P_2$ to see if it's heavier. 
+    
+    \emph{Case 2.} Equilibrium in first but not second. 
+    Here, $P_1$ and $C+P_2$ either have both 0 or both 1 counterfeit coins. 
+    The former case gives $P_3$ both counterfeit coins; 
+    the latter case gives $P_3$ no counterfeit coin, so the counterfeits must be in $P_1$ and $P_2$
+     (in both cases, $C$ is real). 
+    Now use Lemma 1 on $C+P_2$ (size 80) to distinguish between the two cases, 
+    and then use Lemma 2 to conclude on ($P_2, P_3$). 
+    
+    \emph{Case 3.} Equilibrium in second but not first. 
+    Now $P_2$ and $P_3$ have the same number of counterfeits, 
+    so each has 0 or 1 counterfeit coins. 
+    In the former case, the only possibility is $P_1$ have both the counterfeits, i.e. $C+P_2$ has zero counterfeit. 
+    In the second case $P_2$ and $P_3$ have one counterfeit each, $P_1$ has none, $C$ is genuine. 
+    To distinguish between the two cases, we use Lemma 1 on $C+P_2$ ($C+P_2$ has size 80), 
+    and finish with Lemma 2 on $(P_1, C+P_2)$. 
+    
+    \emph{Case 4.} Both have disequilibrium. 
+    This has the most cases, but they can be characterized into the following: 
+    \begin{itemize}
+    	\item 
+    	case where $P_1$ has more counterfeit than $C+P_2$: 
+    	the only possibility is one counterfeit in each of $P_1$ and $P_3$
+    	($P_1$ cannot have two counterfeits since this means $(P_2, P_3)$ have all genuine coins, hence equilibrium). 
+    	\item 
+    	case where $P_1$ has fewer counterfeit than $C+P_2$: 
+    	This means $P_1$ cannot have counterfeit (otherwise $P_1$ has at least one, $C+P_2$ has at least two, contradiction). 
+    	
+    \end{itemize}
+    Therefore all we need to do is to apply Lemma 1 on $P_1$ and finish with Lemma 2 on $(P_1, C+P_2)$. 
+    
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.] 
+	Given an infinite sequence of numbers $a_1, a_2, a_3, .\cdots$.
+	For each positive integer $k$ there exists a positive integer $t = t(k)$ such that 
+	$a_k = a_{k+t} = a_{k+2t} = \cdots$. 
+	Is this sequence necessarily periodic? 
+	That is, does a positive integer $T$ exist such that $a_k = a_{k+T}$ for each positive
+	integer $k$?
+	
+	\textbf{Answer.} No. 
+	One example will be $a_k=v_2(k)$, 
+	the highest power of 2 dividing $k$. 
+	It's unbounded (so cannot be periodic), but we can pick $t(k)=2^{a_k+1}$. 
+	
+	\item [2.]
+	Chip and Dale play the following game. Chip starts by splitting 1001 nuts between three
+	piles, so Dale can see it. In response, Dale chooses some number $N$ from 1 to 1001. Then
+	Chip moves nuts from the piles he prepared to a new (fourth) pile until there will be exactly
+	$N$ nuts in any one or more piles. When Chip accomplishes his task, Dale gets an exact
+	amount of nuts that Chip moved. What is the maximal number of nuts that Dale can get
+	for sure, no matter how Chip acts? (Naturally, Dale wants to get as many nuts as possible,
+	while Chip wants to lose as little as possible).
+	
+	\textbf{Answer.} 71. 
+	
+	\textbf{Solution.} (TODO)
+	
+	\item [3.] 
+	A car rides along a circular track in the clockwise direction. At noon Peter and Paul took
+	their positions at two different points of the track. Some moment later they simultaneously
+	ended their duties and compared their notes. The car passed each of them at least 30 times.
+	Peter noticed that each circle was passed by the car 1 second faster than the preceding
+	one while Paul’s observation was opposite: each circle was passed 1 second slower than the
+	preceding one.
+	Prove that their duty was at least an hour and a half long.
+	
+	\item [4.] 
+	In a triangle $ABC$ two points, $C_1$ and $A_1$ are marked on the sides $AB$ and $BC$ respectively
+	(the points do not coincide with the vertices). 
+	Let $K$ be the midpoint of $A_1C_1$ and $I$ be the incentre of the triangle $ABC$. 
+	Given that the quadrilateral $A_1BC_1I$ is cyclic, prove that the angle $AKC$ is obtuse.
+	
+	\textbf{Solution.} 
+	Let the incircle to intersect $AB$ and $BC$ at $F$ and $D$, respectively. 
+	Then $F, K, D$ are feet of perpendicular from $I$ to $AC_1, C_1A_1, A_1A$, respectively. 
+	Thus by Simpson's theorem, $F, K, D$ are collinear since $I$ lies on the circumcircle of $A_1BC_1$. 
+	Therefore $K$ lies on line $DF$ even as $A_1$ and $C_1$ vary. 
+	
+	Now, let $K_A$ be what $K$ would have been, if $C_1=A$. 
+	Then $\angle IAA_1=\angle IBC$. 
+	We also have, by previous points, $\angle IK_AA=90^{\circ}$. 
+	This gives 
+	\[
+	\angle IAK_A+\angle IAC+\angle ICA = 
+	\angle IBC + \angle IAC+\angle ICA 
+	=\frac{\angle ABC+\angle BAC+\angle BCA}{2}
+	=90^{\circ}
+	\]
+	so coupled with $\angle IK_AA=90^{\circ}$, 
+	we havd $AK_AC=90^{\circ}$. 
+	Similarly, let $K_C$ be what $K$ would have been if $A_1=C$, then $AK_CC=90^{\circ}$. 
+	
+	Finally, as we vary $A_1$ and $C_1$ such that $A_1$ is on side $BC$ and $C_1$ on side $AB$, 
+	$K$ must lie strictly between $K_A$ and $K_C$. 
+	With $\angle AK_AC=\angle AK_CC=90^{\circ}$, 
+	$K_AK_C$ is a chord of circle with diameter $AC$ and therefore 
+	$K$ lies on the chord (segment), hence inside the circle. 
+	It then follows that $\angle AKC>90^{\circ}$. 
+	
+	\item[5.] 
+	Peter and Paul play the following game. First, Peter chooses some positive integer $a$ with
+	the sum of its digits equal to 2012. Paul wants to determine this number; he knows only
+	that the sum of the digits of Peter’s number is 2012. On each of his moves Paul chooses a
+	positive integer $x$ and Peter tells him the sum of the digits of $|x - a|$. What is the minimal
+	number of moves in which Paul can determine Peter’s number for sure?
+	
+	\textbf{Answer.} 2012. 
+	
+	\textbf{Solution.} Throughout we denote $S(g)$ as the sum of digits of $|g|$. 
+	
+	Replace 2012 with any integer $k$. 
+	We first show Paul can succeed in $k$ steps by inducting on $k$. 
+	Base case: when $k=1$, $a=10^g$ for some $g$. 
+	Then Paul can pick $x=1$ and $a-x=10^g-1$ is a string of $g$ 9's (hence $S=9g$ here). 
+	so $g$ can be determined uniquely. 
+	
+	Inductive step: we see that Paul can guess the last digit of $a$ by asking $1, 2, \cdots, 9$, until for the first time that the sum of digit goes beyond $k$. 
+	To see why, if $d$ is the last digit, and if $a=c\cdot 10^g+d$ with $10\nmid c$
+	\[
+	S(a-x) = k - x\forall d=1, \cdots, \min(9, d)
+	\quad 
+	S(a-(d+1)) = S(c\cdot 10^g - 1) = S(c) + 9g = S(a) - d + 9g
+	\]
+	Hence both $d$ and $g$ can determined uniquely after $d+1$ steps. 
+	
+	(TODO)
+\end{enumerate}
+\end{document}

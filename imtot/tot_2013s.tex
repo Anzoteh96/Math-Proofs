@@ -1,0 +1,140 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs, algorithm, algpseudocode}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2013, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item[1.] 
+	There is a positive integer $A$. Two operations are allowed: increasing this number by
+	9 and deleting a digit equal to 1 from any position. Is it always possible to obtain $A + 1$ by
+	applying these operations several times?
+	
+	\textbf{Answer.} Yes. 
+	
+	\textbf{Solution.} Starting from $A$, we can apply operation 1 repeatedly to get $A+9k$. 
+	Now consider the number
+	\[
+	B=(A+1)\underbrace{11\cdots 1}_{8\text{ one's}}
+	\]
+    By considering the sum of digits and congruence mod 9, we have $B\equiv A+1+9=A\pmod{9}$. 
+    So we can attain $B$. 
+    Now  apply operation 2 for 8 times from the ones digits to finish. 
+    
+    \item [2.] 
+    Let $C$ be a right angle in triangle $ABC$. On legs $AC$ and $BC$ the squares $ACKL$,
+    $BCMN$ are constructed outside of triangle. If $CE$ is an altitude of the triangle prove that
+    $LEM$ is a right angle.
+    
+    \textbf{Solution.} TODO
+    
+    \item [3.] 
+    Eight rooks are placed on a $8 \times 8$ chessboard, so no two rooks attack one another.
+    All squares of the board are divided between the rooks as follows. 
+    A square where a rook is placed belongs to it. 
+    If a square is attacked by two rooks then it belongs to the nearest rook; 
+    in case these two rooks are equidistant from this square then each of them possesses a half of the square. Prove that every rook possesses the equal area.
+    
+    \textbf{Solution.} 
+    Consider a rook $R_1$, and let the other rooks be $R_2, R_3, \cdots, R_8$. 
+    For each $R_i$ with $i\ge 2$, consider the two squares $A_i$ and $B_i$ attacked by both $R_1$ and $R_2$. 
+    Thus $A_i, R_1, B_i, R_i$ form a rectangle with $A_i, B_i$ being the opposite corner. 
+    If  this rectangle is not a square then exactly one of $A_i$ and $B_i$  is closer to $R_1$ than $R_i$, 
+    while the other further. 
+    If it's a square, both $A_i, B_i$ are equidistant to $R_1, R_i$. 
+    Thus $R_1$ owns exactly area 1 from $A_i$ and $B_i$. 
+    
+    Since no rooks attack each other, $A_2, \cdots, A_8$ and $B_2, \cdots, B_8$ 
+    are all distinct, and represent the 14 squares attacked by $R_1$. 
+    It then follows that $R_1$ owns area 7 from these squares, so adding the grid it occupies, $R_1$ owns area 8 in total. 
+    
+    \item [4.] 
+    Each of 100 stones has a sticker showing its true weight. No two stones weigh the
+    same. Mischievous Greg wants to rearrange stickers so that the sum of the numbers on the
+    stickers for any group containing from 1 to 99 stones is different from the true weight of this
+    group. Is it always possible?
+    
+    \textbf{Answer.} Yes. 
+    
+    \textbf{Solution.} 
+    Let $a_1<\cdots < a_{100}$ be the original weights of the stones. 
+    Rearrange such that $a_1$ gets $a_{100}$ and $a_{i+1}$ gets $a_i$ for all $i\ge 1$. 
+    Then for any subset, if $a_1$ is not chosen, 
+    the stickers are $\sum a_i$ with true weights $\sum a_{i+1}$ means the stickers are less than true weight. 
+    Similarly by symmetry, if $a_1$ is chosen, 
+    then the stickers are necessarily more than the true weight. 
+    
+    \item[5.] 
+    A quadratic trinomial with integer coefficients is called admissible if its leading coefficient is 1, its roots are integers and the absolute values of coefficients do not exceed 2013.
+    Basil has summed up all admissible quadratic trinomials. Prove that the resulting trinomial
+    has no real roots. 
+    
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.] 
+	Several positive integers are written on a blackboard. The sum of any two of them is a
+	positive integer power of two (for example, 2, 4, 8, . . .). What is the maximal possible number of
+	different integers on the blackboard?
+	
+	\textbf{Answer.} 2. 
+	
+	\textbf{Solution.} The example can be achieved by taking $1, 3$. 
+	To show we cannot do better, consider any 3 different integers on the blackboard $a<b<c$. 
+	Then $b+c=2^x$ and $a+c=2^y$. 
+	With $x>y$ we have $b+c=2^x\ge 2^{y+1}=2\cdot 2^y=2(a+c)$
+	so $b=2a+c$. This violates $a<b<c$. 
+	
+	\item[2.] 
+	A boy and a girl were sitting on a long bench. 
+	Then twenty more children one after another came to sit on the bench, 
+	each taking a place between already sitting children. Let us call a girl brave if she sat down between two boys, and let us call a boy brave if he sat down between two girls. 
+	It happened, that in the end all girls and boys were sitting in the alternating order. 
+	Is it possible to uniquely determine the number of brave children?
+	
+	\textbf{Answer.} Yes, and there's 10. 
+	
+	\textbf{Solution.} 
+	Transform the boys into 0 and girls into 1, 
+	and treat this as a string insertion game. 
+	At each stage, consider the parts of the string as the minimum number we need to partition the string into such that each partition has the same character. 
+	E.g. in 001011 there are four parts: 00, 1, 0, 11. 
+	
+	We see that if we insert 0, we have the following configuration: for brave: 
+	\[
+	11\to 101
+	\]
+	I.e. it splits the part of 1's into two and introduce a new single part 0 (hence the number of parts increase by 2). 
+	For non-brave:
+	\[
+	00\to 000, 10\to 100, 01\to 001
+	\]
+	so in each case the number never changes. 
+	Therefore the number of brave character is just half the number of increase of the parts. 
+	
+	Finally, there are two parts in the beginning (i.e. 01 or 10), 
+	while in the end we have $1010\cdots 10$ or $0101\cdots 01$, i.e. 22 parts. 
+	Thus the number of brave children is $(22-2)/2=10$. 
+	
+\end{enumerate}
+\end{document}
