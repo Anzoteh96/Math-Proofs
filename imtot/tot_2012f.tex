@@ -229,7 +229,50 @@
 	
 	\textbf{Answer.} 71. 
 	
-	\textbf{Solution.} (TODO)
+	\textbf{Solution.} 
+	Consider any initial configuration, 
+	and let $S$ be the power set of $\{1, 2, 3\}$, 
+	(i.e. the set of  all subsets of $\{1, 2, 3\}$). 
+	Now, for each $T\subseteq \{1, 2, 3\}$, 
+	let $a_T$ be the number of  of nuts in $T$ 
+	(e.g. if $T=\{1, 3\}$ then we're looking for the total number of nuts in boxes 1 and 3). 
+	We claim the following: 
+	
+	\emph{Lemma 1.} For each $N$, the number of nuts Dale can get is $\min_{T\in S}|a_T-N|$. 
+	
+	Proof: Consider, for each $T$, the minimum number of nuts Chip needs to move such that, either $T$ has $N$ nuts, or $T\cup \{4\}$ has $N$ nuts. 
+	The first case is possible only when $a_T\ge N$ to start with (since nuts move out of $T$ to 4). 
+	In this case, we need to move $a_T-N$ nuts from $T$ to 4. 
+	The second case is possible only when $a_{\{1, 2, 3\}\backslash T}\ge 1001 - N$ to start with, 
+	which is the same as saying $a_T\le N$. 
+	Here, we need to move $N-a_T$ nuts from $\{1, 2, 3\}\backslash T$ to 4. 
+	Therefore, considering both cases (where only one scenario can happen unless $N=a_T$), 
+	we need to move $|a_T-N|$ nuts. 
+	Since Chip can choose which $T$ he wants to achieve this goal, he can choose such $T$ that minimizes $|a_T-N|$, 
+	therefore giving the answer $\min_{T\in S}|a_T-N|$. 
+	
+	\emph{Lemma 2.} Label the elements in $S$ as 
+	$T_0, T_1, \cdots, T_7$ such that $0=a_{T_0}\le \cdots \le a_{T_7}=1001$. 
+	Then by optimizing across $N$, Dale can get $\max_{0\le i\le 6} \lfloor \frac{a_{T_{i+1}} - a_{T_i}}{2}\rfloor$
+	nuts. 
+	
+	Proof: in raw form, we're simply looking for $\max_N(\min_{T\in S}|a_T-N|)$. 
+	For any $N\le 1001$ there's a unique $i$ with $0\le i\le 6$ with $a_{T_i}\le N\le a_{T_{i+1}}$, 
+	so $\min_{T\in S}|a_T-N|=\min (N-a_{T_i}, a_{T_{i+1}}-N)$. 
+	Within each $N$ with $a_{T_i}\le N\le a_{T_{i+1}}$, 
+	$\min (N-a_{T_i}, a_{T_{i+1}}-N)$ is maximized when we take 
+	$N = \lfloor \frac{a_{T_{i+1}} + a_{T_i}}{2}\rfloor$, 
+	where $\min (N-a_{T_i}, a_{T_{i+1}}-N)=\lfloor \frac{a_{T_{i+1}} - a_{T_i}}{2}\rfloor$. 
+	Thus we just have to choose such $T_i$ that maximizes $\lfloor \frac{a_{T_{i+1}} - a_{T_i}}{2}\rfloor$. 
+	
+	Now we turn back to the problem. 
+	With $a_{T_0}=0$ and $a_{T_7}=1001$ (here $T_0=\emptyset, T_7=\{1, 2, 3\}$), 
+	we have $\max_{0\le i\le 6}a_{T_{i+1}} - a_{T_i}\ge \frac{1001}{7}=143$ by pigeonhole principle. 
+	Thus, $\max_{0\le i\le 6} \lfloor \frac{a_{T_{i+1}} - a_{T_i}}{2}\rfloor\ge 71$, 
+	and Dale is guaranteed to get 71 nuts. 
+	To achieve this bound, 
+	in the beginning Chip can distribute the nuts in the form $143, 286, 572$ to boxes 1, 2, 3, 
+	thereby giving $a_{T_i}=i\times 143$. 
 	
 	\item [3.] 
 	A car rides along a circular track in the clockwise direction. At noon Peter and Paul took
