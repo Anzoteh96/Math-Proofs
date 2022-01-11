@@ -1,0 +1,162 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs, algorithm, algpseudocode}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Fall 2013, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item[1.] 
+	Does there exist a ten-digit number such that all its digits are different and after removing any six digits we get a composite four-digit
+	number?
+	
+	\textbf{Answer.} Yes. 
+	
+	\textbf{Solution.} Pick 1397246850. 
+	We first note that removing 246850 gives 1397=127$\times$11. 
+	In other cases, at least one of 2, 4, 6, 8, 5, 0 will remain so the last digit would be 2, 4, 6, 8, 5 or 0, 
+	resulting in a number divisible by 2 or 5. 
+	Finally, 0 can never be a leading digit, so the resulting number will always have 4 digits. 
+	
+	\item[2.]
+	On the sides of triangle $ABC$, three similar triangles are constructed with triangle $Y BA$ and triangle $ZAC$ in the exterior and triangle $XBC$ in the interior. 
+	(Above, the vertices of the triangles are ordered so that the similarities take vertices to corresponding vertices, for example, the similarity between triangle $Y BA$ and triangle $ZAC$ takes
+	$Y$ to $Z$, $B$ to $A$ and $A$ to $C$). Prove that $AY XZ$ is a parallelogram.
+	
+	\item[3.]
+	Denote by $[a, b]$ the least common multiple of $a$ and $b$. Let $n$ be a
+	positive integer such that
+	\[
+	[n, n+1] > [n, n+2] > \cdots [n, n+35]
+	\]
+	Prove that $[n, n+35]>[n, n+36]$. 
+	
+	\item[4.]
+	Eight rooks are placed on a chessboard so that no two rooks attack
+	each other. Prove that one can always move all rooks, each by a move
+	of a knight so that in the final position no two rooks attack each other
+	as well. (In intermediate positions several rooks can share the same
+	square).
+	
+	\item[5.]
+	A spacecraft landed on an asteroid. It is known that the asteroid is
+	either a ball or a cube. The rover started its route at the landing site
+	and finished it at the point symmetric to the landing site with respect
+	to the center of the asteroid. On its way, the rover transmitted its
+	spatial coordinates to the spacecraft on the landing site so that the
+	trajectory of the rover movement was known. Can it happen that
+	this information is not sufficient to determine whether the asteroid is
+	a ball or a cube?
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+  \item[2.]
+  Find all positive integers $n$ for which the following statement holds:
+  For any two polynomials $P(x)$ and $Q(x)$ of degree $n$ there exist monomials $ax^k$ and 
+  $bx^\ell$, $0 \le  k  \le n$, such that the graphs of $P(x) + ax^k$ and $Q(x) + bx^{\ell}$ have no common points.
+  
+  \textbf{Answer.} $n=1$, and also $n$ even. 
+  
+  \textbf{Solution.} 
+  Denote $P(x)-Q(x)$ as $R(x)$, which has degree $\le n$ 
+  and $R(x)+ax^k-bx^{\ell}$ is $R(x)$ with at most two coefficients being altered, and must have no real roots. 
+  
+  Let's first get rid of the case where $n\ge$ 3 is odd. 
+  Choose $(P(x), Q(x))$ such that $R(x)=x^n+x^{n-2}$. 
+  Since we need $R(x)+ax^k-bx^{\ell}$ to have even degree, 
+  one of $k, \ell$ must be $n$. 
+  Since we cannot have $x=0$ as root, 
+  one of $k, \ell$ must be 0. 
+  Thus $ax^k-bx^{\ell}=-x^n+c$ for some constant $c$. 
+  But now $x^n+x^{n-2}-bx^{\ell}+ax^{k}=x^{n-2}+c$ has degree $n-2$, contradiction. 
+  
+  Now if $n=1$, consider $R(x)=rx+s$, then take $k=1, a=-r$ and $\ell=0, b=-s+1$, 
+  which gives $R(x)+ax^k-bx^{\ell}=1$. 
+  If $n$ is even, choose $k=n, \ell=0$ and $a, -b$ big enough such that, 
+  if $R(x)=\sum_{i=0}^n r_ix^i$, then 
+  \[
+  r_0-b = \sum_{i=1}^{n-1}|r_i|+1\quad 
+  r_n+a=\sum_{i=1}^{n-1} |r_i|+1
+  \]
+  i.e. $R(x)+ax^k-bx^{\ell}$ has coefficients  at $x^n$ and $x^0$ that's greater than 
+  the absolute values of $x^i$ combined for $i=1, \cdots, n-1$. 
+  This means: 
+  \[
+  |x|\le 1: 
+  R(x)+ax^k-bx^{\ell}
+  =(\sum_{i=1}^{n-1}|r_i|+1)(x^0+x^{2n}) + \sum_{i=1}^{n-1} r_ix^i
+  \ge (\sum_{i=1}^{n-1}|r_i|+1)(1) - \sum_{i=1}^{n-1} |r_i|
+  \ge 1
+  \]
+  \[
+  |x|>1: 
+  R(x)+ax^k-bx^{\ell}
+  =(\sum_{i=1}^{n-1}|r_i|+1)(x^0+x^{2n}) + \sum_{i=1}^{n-1} r_ix^i
+  \ge x^{2n}\left((\sum_{i=1}^{n-1}|r_i|+1)(1) - \sum_{i=1}^{n-1} |r_i|\right)
+  \ge x^{2n}
+  \]
+  and therefore $R(x)+ax^k-bx^{\ell}$ has no real root. 
+  
+  \item[4.]
+  Is it true that every integer is a sum of finite number of cubes of distinct integers?
+  
+  \textbf{Answer.} Yes. 
+  
+  \textbf{Solution.} TODO
+  
+  \item[6.]
+  On a table, there are 11 piles of ten stones each. Pete and Basil play the
+  following game. In turns they take 1, 2 or 3 stones at a time: Pete takes stones
+  from any single pile while Basil takes stones from different piles but no more
+  than one from each. Pete moves first. The player who cannot move, loses.
+  Which of the players, Pete or Basil, has a winning strategy?
+  
+  \textbf{Answer.} Basil has a winning strategy. 
+  
+  \textbf{Solution.} Let $a_{i, j}$ be the $j$-th stone in $i$-th pile, $1\le i\le 11$ and $1\le j\le 10$. 
+  Consider the following pairing: 
+  for each $1\le i\le j\le 10$, 
+  pair $(i, j)$ with $(j+1, i)$. 
+  This gives 55 disjoint pairs and cover all 110 stones 
+  (to see why, $j+1>i$ and for each $x>y$ we have $(x, y)$ paired to $(y, x-1)$ so they are disjoint). 
+  
+  The next observation is that Pete can only take 1 stone from each pair for each move: 
+  each move must be in the form of $(i, j)$ for a fixed $i$ for that move, which is paired either with $(j+1, i)$ for $i\le j$, 
+  or $(j, i-1)$ if $i>j$. 
+  In both cases, we have $i\le j\to j+1>j$ and $i>j\to j\neq i$ 
+  so the other element from the pair must be from other piles. 
+  
+  We also note that if $(i, j_1), \cdots, (i, j_c)$ are picked by Pete, 
+  then the mirror images, $(j_k+1, i)$ or $(j_k, i-1)$ must be from different piles. 
+  To see why, $(i, 1), \cdots, (i, i-1)$ are mapped to $(1, i-1), \cdots, (i-1, i-1)$, 
+  and $(i, i), \cdots, (i, 10)$ are mapped to $(i+1, i), \cdots, (11, i)$. 
+  The numbers $1, \cdots, i-1, i+1, \cdots, 11$ are all different. 
+  In other words, whenever Pete takes his stones, 
+  Basil can always pick the mirror image of those stones so long as they are not taken. 
+  
+  Having this, we can design the strategy for Basil as follows: 
+  take exactly the mirror image of the stones taken by Pete. 
+  This ensures that after each move of Basil, for each pair, each both or none of the stones are taken (as the invariant). 
+  This would allow Basil to make the last move. 
+  
+\end{enumerate}
+\end{document}
