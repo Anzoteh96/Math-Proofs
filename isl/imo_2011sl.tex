@@ -626,6 +626,21 @@
 	\]
 	W.L.O.G. let $f(bn)\le f(am)$, then since $f(d)$ and $f(am)$ are both positive, we have $|f(d)-f(am)|<\max\{f(d), f(am)\}\le f(bn)$ (we have $f(d)\mid f(bn)$ so $f(d)\le f(bn)$, too. This means that the only possibility is $f(d)-f(am)=0$, so $f(d)=f(am)$. But then $f(d)\mid f(m)\mid f(am)=f(d)$ so we also have $f(d)=f(m)$. Finally, $f(m)=f(d)\mid f(n)$ since $d\mid n$, completing the problem solution. 
 	
+	\item [\textbf{N8}] Let $k \in \mathbb{Z}^+$ and set $n=2^k+1.$ Prove that $n$ is a prime number if and only if the following holds: there is a permutation $a_{1},\ldots,a_{n-1}$ of the numbers $1,2, \ldots, n-1$ and a sequence of integers $g_{1},\ldots,g_{n-1},$ such that $n$ divides $g^{a_i}_i - a_{i+1}$ for every $i \in \{1,2,\ldots,n-1\},$ where we set $a_n = a_1.$
+	
+	\textbf{Solution (partial for now).}
+	We note that $n$ is odd. 
+	Let's first show that if such sequence exists, then $n$ must be prime (the easier direction). 
+	Suppose $n$ is composite, then there are two cases: 
+	\begin{itemize}
+		\item There's a odd prime number $p$ with $p^2\mid n$. 
+		If $a_{\ell+1}=p$ and $a_{m+1}=2p$, which means $g_{\ell}^{a_{\ell}}$ and $g_m^{a_m}$ must both be divisible by $p$ but not $p^2$. This implies $p\mid g_{\ell}, g_m$ and $a_{\ell}=a_m=1$, which is impossible. 
+		
+		\item There are distinct odd prime numbers $p$ and $q$ that divide $n$. 
+		If $\phi(n)$ is the number of integers $\le n$ and relatively prime to $n$ then 
+		by Fermat's little theorem, $a^{\phi(\gcd(p-1, q-1))}\equiv 1\pmod{n}$
+	\end{itemize}
+	
 \end{enumerate}
 
 \end{document}
