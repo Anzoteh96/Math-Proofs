@@ -29,6 +29,68 @@
 
 \section*{A-Level}
 \begin{enumerate}
+	\item[1.]
+	On an island with 2018 inhabitants each person is either a knight, or a liar, or a conformist.
+	Everyone knows about everyone who is who. One day all inhabitants of the island were arranged
+	in a line and every person answered in turn the same yes-or-no question “Are there more knights
+	than liars on the island?” Everybody heard all the previous answers. A knight always says the
+	truth, the liar always lies, and a conformist answers as the majority of people before him. In
+	case of the same number of “Yes” and “No” he chooses one of these answers at random. It
+	occurred that exactly 1009 inhabitants answered “Yes”. Determine the greatest possible number
+	of conformists among the inhabitants of the island.
+	
+	\textbf{Answer.} 1009. 
+	
+	\textbf{Solution.} 
+	The equality case is taken where we have 1009 conformist standing in front of 1009 knights (and 0 liar). 
+	Then it's possible that the first conformist says ``No'' (since it's random), 
+	and the rest would follow. 
+	And then the 1009 knights would say ``Yes''. 
+	
+	To establish the upper bound, let $a_k$ be the number of ``Yes'' minus the number of ``No'' from among the answers given by first $k$ people. 
+	Let $b_k$ be the number of conformists minus the number of nonconformists (knights and liars) among the first $k$ people. 
+	We claim that for all $k\ge 0$, $b_k\le |a_k|$. 
+	This claim is clear when $k=0$ since $b_0=a_0=0$, which serves as our base case. 
+	
+	Now for inductive step, assume that $b_k\le |a_k|$. 
+	Note that $|b_{k+1}-b_k|=|a_{k+1}-a_k|=1$. 
+	If $k+1$-th person is not a conformist we have $ b_{k+1}-b_k=1$, 
+	and $|a_{k+1}|-|a_k|\in \{-1, 1\}$ 
+	in which case our conclusion will still hold. 
+	Otherwise, $b_{k+1}-b_k=1$. 
+	If $a_k>0$ then the conformist will answer yes (so $a_{k+1}=a_k+1$), 
+	if $a_k<0$ the conformist will answer no (so $a_{k+1}-a_k=-1$), 
+	if $a_k=0$ then $a_k=\pm 1$. 
+	In all cases we have $|a_{k+1}|-|a_k|=1$, 
+	and therefore the induction step is complete. 
+	
+	\item[2.]
+	 In the acute non-isosceles triangle $ABC$, the point $O$ is the center of the circumcircle and $AH_a$
+	and $BH_b$ are altitudes. The points $X$ and $Y$ are symmetric to the points $H_a$ and $H_b$ with respect
+	to the midpoints of the sides $BC$ and $CA$, respectively. Prove that the line $CO$ divides the
+	segment $XY$ in half.
+	
+	\textbf{Solution.}
+	We first show that triangles $OBH_A$ and $OAH_B$ have the same area. 
+	Indeed, let $M_A$ and $M_B$ be midpoints of $BC$ and $CA$, respectively, 
+	and $H$ is the orthocenter of $ABC$, 
+	and $R$ the circumradius of $ABC$. 
+	We have $HAH_B$ and $HBH_A$ similar so $\frac{BH_A}{AH_B}=\frac{BH}{AH}$. 
+	Thus
+	\[
+	\frac{\text{Area}(OBH_A)}{\text{Area}(OAH_B)}
+	=\frac{BH_A\cdot OM_A/2}{AH_B\cdot OM_B/2}
+	=\frac{BH\cdot OM_A}{AH\cdot OM_B}
+	=\frac{\sin\angle HAB\cdot R\cos \angle BOM_A}{\sin\angle HBA\cdot R\cos \angle AOM_B}
+	\]
+	\[
+	\frac{\cos\angle ABC\cdot R\cos \angle BAC}{\cos\angle BAC\cdot R\cos \angle ABC}
+	=1
+	\]
+	And since $BH_A=CX$, $OBH_A$ and $OXC$ have the same area, 
+	and so do $OAH_B$ and $OYC$. 
+	So $OXC$ and $OYC$ have the same area, which means $CO$ bisects $XY$. 
+	
 	\item[3.]Prove that 
 	\begin{enumerate}
 		\item any integer of the form $3k - 2$, where $k$ is an integer, is the sum of a square and two cubes of
@@ -41,5 +103,116 @@
 	(3k+5)^2 + k^3 + (-(k+3))^3 = 9k^2+30k+25-9k^2-27k-27=3k-2
 	\]
 	(b) uses (a) in that for any integer $n$, either $n$, $n-1$ or $n-8$ is in the form of $3k-2$ (corresponding to the case where $n$ has remainder $1, 2, 0$ modulo 3). If $w\in \{n, n-1, n-8\}$ is in the form of $3k-2$ then one of $w+0^3, w+1^3, w+2^3$ is equal to $n$, and each of these expression is then sum of a square and 3 cubes. 
+	
+	\item[4.]
+	A finite number of cells of an infinite grid are painted black, all other cells are white. Consider
+	a paper polygon lying on the plane with sides along the grid lines containing at least two cells.
+	This polygon may be translated (but not rotated) at any direction and distance, so that after a
+	translation its sides are along the grid lines. If after a translation exactly one cell covered by the
+	translated polygon is white, then this cell is painted black. Prove that there exists a white cell
+	which will never be painted black, no matter of the number of translations.
+	
+	\textbf{Solution.} Take, say, the bottom left corner of all the cells in the polygon. 
+	They form a set $S$ of points in plane, 
+	and since $|S|\ge 2$, 
+	we can consider the ``convex hull'' of $S$ 
+	(which could be just a line if all points in $S$ are collinear). 
+	Now choose any side on this convex hull 
+	(which could have more than three points if they are collinear), 
+	and consider the line represented by the side as $ax+by=c'$ with $(a, b)\neq (0, 0)$. 
+	It then follows that for all points $(x, y)$ in $S$ we have $ax+by\le c'$
+	(technically, we may have $ax+by\ge c'$ for all $(x, y)$, 
+	but we could turn that by replacing $(a, b, c')$ by $(-a, -b, -c')$). 
+	In addition, equality would hold for at least 2 points (or more, if there are collinear ones). 
+	As the paper polygon is translated with coordinates $(x_0, y_0)$, 
+	it would mean that for all points in the polygon we have $ax+by\le c'+(ax_0+by_0)$, 
+	with equality holding for at least 2 points on the polygon. 
+	
+	Now let the black cells have coordinates $(x_1, y_1), \cdots, (x_n, y_n)$, 
+	and let $M=\max\{ax_i+by_i: 1\le i\le n\}$. 
+	We claim that all $(x, y)$ with $ax+by>M$ will never be painted black. 
+	Suppose otherwise, then consider the moment where the paper polygon supposedly paints a point $(x_1, y_1)$ with $ax+by>M$ black. 
+	Then by before, there exists a constant $M'$ such that $ax+by\le M'$ for all $(x, y)\in$ the polygon with equality for at least 2 points (grids). 
+	Since it passes through $(x_1, y_1)$, $M' > M$. 
+	But since $ax+by=M'$ for at least two $(x, y)$'s in the polygon, 
+	the polygon would pass through two white squares, hence contradiction. 
+	
+	\item[5.]
+	The three medians of a triangle divide its angles into six angles. What is the greatest possible
+	number $k$ of angles greater than $30^{\circ}$ among these six angles?
+	
+	\textbf{Answer.} $k=3$. 
+	
+	\textbf{Solution.} 
+	Let the triangle be $ABC$, and medians be $AD, BE, CF$. 
+	The key to the solution is the following: 
+	
+	\emph{Lemma.} angles $CAD$ and $EBC$ cannot both exceed $30^{\circ}$. 
+	Similarly, each of angles $BAD$ and $BCF$, and $ABE$ and $ACF$, cannot both exceed $30^{\circ}$. 
+	
+	Proof: notice that $ED\parallel AB$ and $ED=\frac 12 AB$. 
+	Consider the point $O$ such that $EDO$ is an equilateral triangle, and $O, A, B$ are on the same side as $DE$, 
+	and the circle $\omega$ with center $O$ and passes through $DE$. 
+	Then the angle subtended by $DE$ on to circumference of $\omega$ (on the $AB$ side) is $30^{\circ}$. 
+	If $\angle CAD$ and $\angle EBC$ are both $>30^{\circ}$, 
+	then $A$ and $B$ are both inside $\omega$. 
+	It follows that $AB$ must be on some chord of length $>AB=2DE=\text{diameter}(\omega)$, 
+	which is impossible since the diameter is the longest chord possible on the circle. 
+	The proof for the other two are similar. 
+	$\square$
+	
+	Now the lemma effectively put an upper bound of 3. 
+	To show that this is feasible, 
+	consider the construction of points as follows: 
+	$B, G, E$ on the line in that order, with $\frac{BG}{GE}=2$. 
+	Consider the point $A'$ such that $\angle A'EB=90^{\circ}$, 
+	and $\angle EBA'=30^{\circ}$. 
+	Then triangle $ABE'$ is a $90-60-30$ triangle with $\frac{A'B}{A'E}=2$, so 
+	by angle bisector theorem, 
+	$\angle BA'G=\angle EA'G=30^{\circ}$.
+	
+	\definecolor{zzttqq}{rgb}{0.6,0.2,0}
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm, scale=1.5]
+	\clip(-11.406320119340561,-3.2102877246846733) rectangle (-1.9525549567736689,2.7028087363125204);
+	\fill[line width=2pt,color=zzttqq,fill=zzttqq,fill opacity=0.10000000149011612] (-10.22,-1.2) -- (-7.588283042439342,0.9587912235848227) -- (-4.763973956175252,-3.0682518225712023) -- cycle;
+	\draw [line width=2pt] (-10.22,-1.2)-- (-6.176128499307297,-1.0547302994931897);
+	\draw [line width=2pt] (-6.8920428331024315,0.08842323350227034) circle (1.3488266505868471cm);
+	\draw [line width=2pt] (-10.22,-1.2)-- (-6.26,1.28);
+	\draw [line width=2pt] (-6.26,1.28)-- (-6.176128499307297,-1.0547302994931897);
+	\draw [line width=2pt,color=zzttqq] (-10.22,-1.2)-- (-7.588283042439342,0.9587912235848227);
+	\draw [line width=2pt,color=zzttqq] (-7.588283042439342,0.9587912235848227)-- (-4.763973956175252,-3.0682518225712023);
+	\draw [line width=2pt,color=zzttqq] (-4.763973956175252,-3.0682518225712023)-- (-10.22,-1.2);
+	\draw [shift={(-8.955914333795134,1.1831535329954586)},line width=2pt]  plot[domain=-2.0584871218806757:0.035907980512520636,variable=\t]({1*2.6976533011736956*cos(\t r)+0*2.6976533011736956*sin(\t r)},{0*2.6976533011736956*cos(\t r)+1*2.6976533011736956*sin(\t r)});
+	\begin{scriptsize}
+	\draw [fill=ududff] (-6.26,1.28) circle (2.5pt);
+	\draw[color=ududff] (-6.1492358797002264,1.4761557470631026) node {$A'$};
+	\draw [fill=uuuuuu] (-6.176128499307297,-1.0547302994931897) circle (2.5pt);
+	\draw[color=uuuuuu] (-6.104303535771677,-0.8603261372215028) node {$E$};
+	\draw [fill=ududff] (-10.22,-1.2) circle (2.5pt);
+	\draw[color=ududff] (-10.148214489341164,-1.004109637792863) node {$B$};
+	\draw [fill=uuuuuu] (-7.524085666204864,-1.1031535329954598) circle (2pt);
+	\draw[color=uuuuuu] (-7.4522738536281725,-0.9322178875071829) node {$G$};
+	\draw [fill=ududff] (-7.588283042439342,0.9587912235848227) circle (2.5pt);
+	\draw[color=ududff] (-7.515179135128142,1.1526428707775418) node {$A$};
+	\draw [fill=ududff] (-4.763973956175252,-3.0682518225712023) circle (2.5pt);
+	\draw[color=ududff] (-4.693427936415211,-2.8732951452205477) node {$C$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	Consider, now, the circumcircles of triangle $A'BG$ and $A'GE$, where $A'B$ is part of in the first one. 
+	For the second one, 
+	we see that $A'B>BG$ and $A'B>GE$ so $A'B$ is not tangent to the circle $A'GE$. 
+	It follows that there's a non-degenerate region lying in the interior of the intersection of the two circles, 
+	and also outside angle $\angle A'BE$ (beyond $A'B$). 
+	Thus for any $A$ in this region we have $\angle ABE, \angle BAG, \angle EAG$ all $>30^{\circ}$. 
+	Since $BG:GE=2:1$, reflect $A$ in $E$ to get $C$ and $G$ is the centroid of $ABC$. 
+	This gives us the construction of $k=30^{\circ}$ as desired. 
+	
+	\textbf{Remark}: 
+	We can, in fact, choose $A$ such that $\angle BAE=90^{\circ}$, $BG:GE=2:1$ and $AG$ is perpendicular to $BE$. 
+	This gives $\frac{BG}{AG}=\frac{AG}{AE}=\sqrt{2}$ and $\angle ABE=\angle GAE=\arctan\sqrt{1/2}$, $\angle BAG=\arctan\sqrt{2}$, 
+	all of which are greater than $30^{\circ}=\arctan\sqrt{1/3}$. 
 \end{enumerate}
 \end{document}
