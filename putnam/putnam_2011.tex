@@ -247,6 +247,152 @@
 	\end{flalign*}
 	as desired. 
 	
+	\item[\textbf{B5}]
+	Let $a_1,a_2,\dots$ be real numbers. Suppose there is a constant $A$ such that for all $n,$
+	\[\int_{-\infty}^{\infty}\left(\sum_{i=1}^n\frac1{1+(x-a_i)^2}\right)^2\,dx\le An.\]
+	Prove there is a constant $B>0$ such that for all $n,$
+	\[\sum_{i,j=1}^n\left(1+(a_i-a_j)^2\right)\ge Bn^3.\]
+	
+	\textbf{Solution.} 
+	We first consider these facts: for all $a, b$ we have 
+	\[
+	\int_{-\infty}^{\infty}
+	\frac1{b^2+(x-a)^2}
+	dx
+	=\frac 1b\arctan \infty - \frac 1b\arctan(-\infty)
+	=\frac{\pi}{b}
+	\]
+	Claim: for all $a, b$ we have
+	\[
+	\int_{-\infty}^{\infty}
+	\frac{1}{(1+(x-a)^2)(1+(x-b)^2)}dx
+	= \frac{2\pi}{4+(b-a)^2}
+	\]
+	Proof: 
+	when $a\neq b$,
+	let's write $\frac{1}{(1+(x-a)^2)(1+(x-b)^2)}$ into partial fraction 
+	\[
+	\frac{1}{(1+(x-a)^2)(1+(x-b)^2)}
+	=\frac{A(x)}{1+(x-a)^2} + \frac{B(x)}{1+(x-b)^2}
+	\]
+	i.e. solving 
+	\[
+	A(x)(1+(x-b)^2) + B(x)(1+(x-a)^2)=1
+	\]
+	Plugging $x=b+i$ and $b-i$ gives 
+	\[
+	B(b+i)=\frac{1}{1+(b-a+i)^2} = \frac{1}{(b-a)^2 + 2i(b-a)}
+	=\frac{1}{b-a}\frac{b-a-2i}{(b-a)^2+4}
+	\]\[
+	B(b-i)=\frac{1}{1+(b-a-i)^2} = \frac{1}{(b-a)^2 - 2i(b-a)}
+	=\frac{1}{b-a}\frac{b-a+2i}{(b-a)^2+4}
+	\]
+	Thus if we write $B(x)=p(x-b)+q$ we have 
+	\[
+	q = \frac 12 (B(b+i)+B(b-i))
+	=\frac{1}{b-a}\cdot \frac{b-a}{(b-a)^2+4}
+	=\frac{1}{(b-a)^2+4}
+	\]
+	and 
+	\[
+	p = \frac{1}{2i}(B(b+i)-B(b-i))
+	=\frac{1}{2i}\frac{1}{b-a}\cdot \frac{-4i}{(b-a)^2+4}
+	=\frac{-2}{(b-a)[(b-a)^2+4]}
+	\]
+	Thus 
+	\[
+	B(x)=
+	\frac{-2}{(b-a)[(b-a)^2+4]}(x-b)+\frac{1}{(b-a)^2+4}
+	\]
+	and similarly by flipping $a$ and $b$ we get 
+	\[
+	A(x)=
+	\frac{-2}{(a-b)[(b-a)^2+4]}(x-a)+\frac{1}{(b-a)^2+4}
+	\]
+	Now, 
+	write our term as 
+	\begin{flalign*}
+	  \frac{1}{(1+(x-a)^2)(1+(x-b)^2)}
+	  &= \frac{1}{(b-a)^2+4}\left(\frac{1}{1+(x-a)^2} + \frac{1}{1+(x-b)^2}\right)
+	  \\&+\frac{2}{(b-a)[(b-a)^2+4]}\left(\frac{x-a}{1+(x-a)^2} - \frac{x-b}{1+(x-b)^2}\right)
+	\end{flalign*}
+	By what we have before, 
+	\[
+	\int_{-\infty}^{\infty}
+	\frac{1}{(b-a)^2+4}\left(\frac{1}{1+(x-a)^2} + \frac{1}{1+(x-b)^2}\right)dx
+	=\frac{2\pi}{(b-a)^2+4}
+	\]
+	so it suffices to show that 
+	\[
+	\int_{-\infty}^{\infty}
+	\frac{x-a}{1+(x-a)^2} - \frac{x-b}{1+(x-b)^2}dx
+	= 0
+	\]
+	Taking the indefinite integral gives 
+	\[
+	\int
+	\frac{x-a}{1+(x-a)^2} - \frac{x-b}{1+(x-b)^2}dx
+	=\frac 12 (\ln(1+(x-a)^2) - \ln(1+(x-b)^2))
+	=\frac 12\ln\left(\frac{1+(x-a)^2}{1+(x-b)^2}\right)
+	\]
+	and since 
+	\[
+	\lim_{x\to+\infty} \frac{1+(x-a)^2}{1+(x-b)^2} 
+	= \lim_{x\to -\infty} \frac{1+(x-a)^2}{1+(x-b)^2} 
+	= 1
+	\]
+	we have $\int_{-\infty}^{\infty}
+	\frac{x-a}{1+(x-a)^2} - \frac{x-b}{1+(x-b)^2}dx = \frac 12 (\ln 1 - \ln 1)=0$, as claimed. 
+	
+	When $a=b$, our goal is to show that $\int_{-\infty}^{\infty} \frac{1}{(1+(x-a)^2)^2}dx=\frac{\pi}{2}$. 
+	By symmetry, we may assume that $a=0$. 
+	Now, $\frac{1}{1+x^2}=\frac{1}{2i}(\frac{1}{x-i}-\frac{1}{x+i})$ so 
+	\[
+	\frac{1}{(1+x^2)^2}
+	=-\frac 14 (\frac{1}{(x-i)^2}+\frac{1}{(x+i)^2})+\frac 12\frac{1}{1+x^2}
+	\]
+	We've already seen that $\int_{-\infty}^{\infty} \frac 12\frac{1}{1+x^2} dx = \frac{\pi}{2}$. 
+	Also, 
+	\[
+	-\int \frac{1}{(x-i)^2}+\frac{1}{(x+i)^2}dx
+	= \frac{1}{x-i}+\frac{1}{x+i}
+	=\frac{2x}{1+x^2}dx
+	\]
+	and 
+	\[
+	\lim_{x\to \infty}\frac{2x}{1+x^2}dx
+	=\lim_{x\to -\infty}\frac{2x}{1+x^2}dx
+	=0
+	\]
+	and so $\int_{-\infty}^{\infty} \frac 12\frac{1}{1+x^2} dx $, as desired. 
+	
+	Having this, we turn to the original expression and obtain 
+	\[
+	\int_{-\infty}^{\infty}\left(\sum_{i=1}^n\frac1{1+(x-a_i)^2}\right)^2\,dx
+	=\int_{-\infty}^{\infty}\sum_{1\le i, j\le n}\frac{1}{(1+(x-a_i)^2)(1+(x-a_j)^2)}dx
+	\]\[
+	=\sum_{1\le i, j\le n}\int_{-\infty}^{\infty}\frac{1}{(1+(x-a_i)^2)(1+(x-a_j)^2)}dx
+	=\sum_{1\le i, j\le n}\frac{2\pi}{4+(a_i-a_j)^2}
+	\]
+	By Cauchy-Schawz inequality, 
+	\[
+	\left(\sum_{1\le i, j\le n}\frac{2\pi}{4+(a_i-a_j)^2}\right)
+	\left(\sum_{1\le i, j\le n}(4 + (a_i-a_j)^2)\right)
+	\ge (\sum_{1\le i, j\le n} \sqrt{2\pi})^2
+	=2n^4\pi
+	\]
+	and with $\frac{2\pi}{4+(a_i-a_j)^2}\le An$ we have 
+	\[
+	\sum_{1\le i, j\le n}(4 + (a_i-a_j)^2) \ge \frac{2\pi}{A}n^3
+	\]
+	Therefore we can take 
+	\[
+	B = \min \{\min \{\frac{1}{n^3}\sum_{1\le i, j\le n}(1 + (a_i-a_j)^2) : n=1, 2, 3, \cdots, k\}, \frac{2\pi}{A} - \frac{3}{k^2}\}
+	\]
+	for some $k$, where $k$ is big enough such that $\frac{2\pi}{A} - \frac{3}{k^2}\ge \frac{\pi}{A}$. 
+	Note that $\frac{1}{n^3}\sum_{1\le i, j\le n}(1 + (a_i-a_j)^2)\ge \frac{1}{n^3}\sum_{1\le i, j\le n}1 = \frac{1}{n}$, 
+	so this $B$ will be $>0$. (I.e. we could have said, $B=\min \{\frac{1}{k}, \frac{2\pi}{A} - \frac{3}{k^2}\})$ above. 
+	
 \end{enumerate}
 
 \end{document}
