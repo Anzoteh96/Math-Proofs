@@ -92,6 +92,98 @@
 	\]
 	Since $Z$ is an integer, this also implies that $Z\in \{\lfloor \frac{m}{n}(Z+N)\rfloor , \lceil \frac{m}{n}(Z+N)\rceil\}$. This means we can find an arc $w$ of length $Z+N$ that has $Z(w)=Z$, and therefore $N(W)=N$. 
 	
+	\item[\textbf{A5}]
+	For $m\ge 3,$ a list of $\binom m3$ real numbers $a_{ijk}$ $(1\le i<j<k\le m)$ is said to be area definite for $\mathbb{R}^n$ if the inequality 
+	\[\sum_{1\le i<j<k\le m}a_{ijk}\cdot\text{Area}(\triangle A_iA_jA_k)\ge0\]
+	holds for every choice of $m$ points $A_1,\dots,A_m$ in $\mathbb{R}^n.$ 
+	For example, the list of four numbers $a_{123}=a_{124}=a_{134}=1, a_{234}=-1$ is area definite for $\mathbb{R}^2.$ 
+	Prove that if a list of $\binom m3$ numbers is area definite for $\mathbb{R}^2,$ then it is area definite for $\mathbb{R}^3.$
+	
+	\textbf{Solution.} 
+	Let's first claim the following: 
+	
+	\emph{Lemma.} Consider a plane $p$, and let $A_1A_2A_3$ be on a plane $q$. 
+	Let $B_i$ be the projection from $A_i$ to $p$. 
+	Then 
+	\[
+	|\triangle B_1B_2B_3|
+	=|\cos\angle(p, q)|\cdot |\triangle A_1A_2A_3|
+	\]
+	where $\angle(p, q)$ is the angle between the two planes. 
+	
+	Proof: if $A_1A_2A_3$ is degenerate (i.e. on the same line), 
+	then so would $B_1B_2B_3$. 
+	Now assume $A_1A_2A_3$ is not degenerate. 
+	By doing parallel shift on $p$ (which wouldn't change the area of $B_1B_2B_3$), 
+	we may shift $p$ such that $A_1$ on $p$, and therefore $B_1=A_1$. 
+	
+	Now, let the line $A_2A_3$ to intersect $p$ at $C$ 
+	(the case when $A_2A_3$ is parallel to $C$ can be dealt separately). 
+	Then $AC$ is the intersection line of $p$ and $q$ (either that, or $p$ and $q$ coincide). 
+	In addition, we have $C, B_2, B_3$ collinear in this case. 
+	If $h_A, h_B$ are the perpendiculars from $A_2, B_2$ to line $AC$, then 
+	$h_A$ and $h_B$ intersect on $AC$ and $|h_B|=\cos\angle(p, q)|h_A|$. 
+	Therefore, 
+	\[
+	|\triangle ACB_2|=\frac 12 AC|h_B|=\frac 12 AC\cos\angle(p, q)|h_A|=\cos\angle(p, q)|\triangle ACA_2|
+	\]
+	and similarly $|\triangle ACB_3|=\cos\angle(p, q)|\triangle ACA_3|$. 
+	If $A_2, A_3$ are on the same side of $C$, then so will $B_2, B_3$ and in this case, 
+	\[
+	|\triangle AB_3B_2|
+	=||\triangle ACB_2| - |\triangle ACB_3||
+	\]\[
+	=|\cos\angle(p, q)|\triangle ACA_2| - \cos\angle(p, q)|\triangle ACA_3||
+	=|\cos\angle(p, q)||\triangle AA_3A_2|
+	\]
+	and if $A_2, A_3$ are on different side of $C$, then so will $B_2, B_3$ and in this case, 
+	\[
+	|\triangle AB_3B_2|
+	=||\triangle ACB_2| + |\triangle ACB_3||
+	\]\[
+	=|\cos\angle(p, q)|\triangle ACA_2| + \cos\angle(p, q)|\triangle ACA_3||
+	=|\cos\angle(p, q)||\triangle AA_3A_2|
+	\]
+	as desired. 
+	
+	Now we turn back to the problem. Consider any list of $\{a_{ijk}\}_{1\le i<j<k\le m}$ that's area definite w.r.t. $\bbR^2$. 
+	Consider also, any $m$ points $A_1, \cdots, A_m$ in $\bbR^3$. 
+	Define $\Pi$ as the set of all planes passing through $(0, 0, 0)$, 
+	and let $B_{i, p}$ be the projection $A_i$ to plane $p\in \Pi$. 
+	Let's consider the quantity 
+	\[
+	S = \int_{p\in \Pi} \sum_{1\le i<j<k\le m}a_{i, j, k}|\triangle B_{i, p}B_{j, p}B_{j, p}|dp
+	\]
+	Since all points $B_{i, p}$ are on plane $p$, 
+	$\sum_{1\le i<j<k\le m}a_{i, j, k}|\triangle B_{i, p}B_{j, p}B_{j, p}|\ge 0$ since it's our numbers are
+	area definite w.r.t. $\bbR^2$. 
+	Hence $S\ge 0$. 
+	
+	Let's now compute $S$ in another way based on our lemma. Denote $p_{i, j, k}$ as the plane passing through $A_i, A_j, A_k$, then by our lemma we can rewrite $S$ as 
+	\begin{flalign*}
+	S &= \int_{p\in \Pi} \sum_{1\le i<j<k\le m}a_{i, j, k} |\cos\angle(p, p_{i, j, k})|\cdot |\triangle A_iA_jA_k|dp
+	\\&=  \sum_{1\le i<j<k\le m}a_{i, j, k} |\triangle A_iA_jA_k|\int_{p\in \Pi}|\cos\angle(p, p_{i, j, k})|dp
+	\end{flalign*}
+	But then $\int_{p\in \Pi}|\cos\angle(p, q)|dp$ is the same for all planes $q$, 
+	and it's positive. 
+	To see why, we can consider the unit vectors $p_1$ and $q_1$ from $(0, 0, 0)$ perpendicular to $p, q$ respectively, so that $\cos\angle(p, q)=p_1\cdot q_1=\cos\angle(p_1, q_1)$. 
+	For each $\theta\in [0, \pi]$, we have 
+	\[
+	\int_{p: \cos(p, q)=\theta}1 = 2\pi\sin\theta
+	\]
+	since such set $p$ is just the great circle on the unit sphere through the origin that's angle $\theta$ away from $q$, hence having radius $\sin\theta$. Therefore we have 
+	\[
+	\int_{p\in\Pi}|\cos\angle(p, q)|
+	=\int_{0}^{\pi}2\pi|\sin\theta\cos\theta|
+	=\pi\int_{0}^{\pi}|\sin2\theta|
+	=2\pi
+	\]
+	Thus there's constant $C=2\pi$ where $\int_{p\in \Pi}|\cos\angle(p, q)|dp=C$ and 
+	\[
+	\sum_{1\le i<j<k\le m}a_{i, j, k} |\triangle A_iA_jA_k| = \frac{S}{C}
+	\]
+	and the conclusion thus follows when $S\ge 0$ and $C>0$. 
+	
 	\item[\textbf{B1}] For positive integers $n,$ let the numbers $c(n)$ be determined by the rules $c(1)=1,c(2n)=c(n),$ and $c(2n+1)=(-1)^nc(n).$ Find the value of \[\sum_{n=1}^{2013}c(n)c(n+2).\]
 	
 	\textbf{Answer.} $-1$. \\
