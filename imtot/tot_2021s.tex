@@ -1,0 +1,201 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2021, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.] In a room there are several children and a pile of 1000 sweets. The children come to the pile one
+	after another in some order. Upon reaching the pile each of them divides the current number of
+	sweets in the pile by the number of children in the room, rounds the result if it is not integer, takes
+	the resulting number of sweets from the pile and leaves the room. All the boys round upwards and
+	all the girls round downwards. The process continues until everyone leaves the room. Prove that the
+	total number of sweets received by the boys does not depend on the order in which the children
+	reach the pile.
+	
+	\textbf{Solution.}
+	Consider the situation with $n$ sweets, $b$ boys and $g$ girls. Then we show that the number of sweets boys get will always be
+	\[
+	f(n, b, g) := b\lfloor \frac{n}{b+g}\rfloor + \min(n\% (b+g), b)
+	\]
+	where $0\le n\% (b+g) < b+g$ is the remainder after $n$ is divided by $b+g$. 
+	We proceed by induction on the total number of people, $b+g$. 
+	
+	Base case: $b+g=1$, in which case $f(n, 1, 0)=n$ and $f(n, 0, 1)=0$. 
+	
+	Base case: either $b=0$ or $g=0$. Then $f(n, b, 0)=b\lfloor \frac{n}{b}\rfloor +\min(n\%b, b)=n$
+	and $f(n, 0, g)=0$. 
+	
+	Inductive step: now consider the case where $b, g\ge 1$. 
+	Also let $n = k(b+g)+\ell$ with $0\le \ell < b+g$. 
+	We'll need to show that the boys will get $kb+\min(b, \ell)$ sweets. 
+	
+	If $\ell=0$, the first boy will take $k$ sweets; else he will take $k+1$ (hence he will always take $k+\min(1, \ell)$ sweets). 
+	Thus, $n-k=k(b+g-1)+\max(0, \ell-1)$ and the boys will get
+	\[
+	k + \min(1, \ell)
+	+f(n-k, b-1, g)
+	\]\[
+	=k + \min(1, \ell)+(b-1)\lfloor\frac{k(b+g-1)+\max(0, \ell-1)}{b+g-1}\rfloor
+	+\min\{\max(0, \ell-1), b\}
+	\]
+	\[
+	=kb + \min(1, \ell)+\min \{\max \{0, \ell-1\}, b\}
+	\]
+	Depending on the cases $\ell=0, 1\le\ell\le b, b\le \ell < b+g$, we will always have 
+	$\min(1, \ell)+\min \{\max \{0, \ell-1\}, b\}=\min(\ell, b)$. 
+	
+	If girl is the first, then she will take $k$ sweets regardless. Now our tally becomes 
+	\[
+	f(n-k, b, g-1)
+	=b\lfloor\frac{k(b+g-1)+\ell}{b+g-1}\rfloor + \min((n-k)\%(b+g-1), b)
+	\]
+	\[
+	=kb+b\lfloor\frac{\ell}{b+g-1}\rfloor + \min(\ell\%(b+g-1), b)
+	\]
+	So it suffices to show that $b\lfloor\frac{\ell}{b+g-1}\rfloor + \min((\ell\%(b+g-1), b)=\min(\ell, b)$. 
+	This is clear when $\ell<b+g-1$. 
+	If $\ell=b+g-1$ we get $b+0=b=\min(\ell, b)$ instead. This solves the claim. 
+	
+	\item[2.]
+	Does there exist a positive integer $n$ such that for any real $x$ and $y$ there exist real numbers $a_1, \cdots , a_n$
+	satisfying
+	\[
+	x=a_1+\cdots a_n
+	\quad 
+	y=\frac{1}{a_1}+\cdots+\frac{1}{a_n}
+	\]
+	
+	\textbf{Answer.} Yes, pick $n=4$. 
+	
+	\textbf{Solution.} 
+	Consider $x_1, x_2>0$ arbitrary such that $x_1-x_2=x$ (e.g. $x_1=2x, x_2=x$). 
+	Cosider, also, $a_1, a_2>0$ with $a_1+a_2=x_1$, and $a_3, a_4<0$ such that $a_3+a_4=-x_2$. 
+	Then as we vary $a_1, a_2, a_3, a_4$ in this range with $0<a_1, a_2<x_1$ and $-x_2<a_3, a_4<0$, we have 
+	\[
+	\text{Range}(\frac{1}{a_1}+\frac{1}{a_2}) = [\frac{x_1^2}{2}, \infty)
+	\quad 
+	\text{Range}(\frac{1}{a_3}+\frac{1}{a_4}) = (-\infty, -\frac{x_2^2}{2}]
+	\]
+	Thus $\frac{1}{a_1}+\frac{1}{a_2}+\frac{1}{a_3}+\frac{1}{a_4}$ has range $(-\infty, \infty)$, 
+	and therefore can satisfy the sum as $y$. 
+	
+	\item[3.]
+	Let $M$ be the midpoint of the side $BC$ of the triangle $ABC$. 
+	The circle $\omega$ passes through $A$, touches the line $BC$ at $M$, 
+	intersects the side $AB$ at the point $D$ and the side $AC$ at the point $E$. 
+	Let $X$ and $Y$ be the midpoints of $BE$ and $CD$ respectively. 
+	Prove that the circumcircle of the triangle $MXY$ touches $\omega$.
+	
+	\textbf{Solution.} 
+	Using power of point theorem, 
+	\[
+	BD\cdot BA = BM^2 = CM^2 = CE\cdot CA
+	\]
+	and since $\frac{BM}{BC}=\frac 12 = \frac{BX}{BE}$ and $\frac{CM}{CB}=\frac 12 =\frac{CY}{CD}$, 
+	we have triangles $BXM$ and $BEC$ similar, and $CMY$ and $CBD$ similar. 
+	Therefore, 
+	\[
+	MX =  \frac 12 CE\quad MY = \frac 12 BD
+	\]
+	and therefore $\frac{MX}{MY}=\frac{CE}{BD}=\frac{BA}{CA}$. 
+	Moreover, $\angle BMX = \angle BCE$ and $\angle CMY = \angle CBD$, 
+	and therefore $\angle XMY = \angle ABC$. 
+	It therefore follows that $ABC$ and $MXY$ are similar. 
+	This means, 
+	\[
+	\angle YMC = \angle ABC = \angle MXY
+	\]
+	and so $MXY$ touches $\omega$. 
+	
+	\item[4.]
+	There is a row of $100N$ sandwiches with ham. A boy and his cat play a game. In one action the
+	boy eats the first sandwich from any end of the row. In one action the cat either eats the ham from
+	one sandwich or does nothing. The boy performs 100 actions in each of his turns, and the cat makes
+	only 1 action each turn; the boy starts first. The boy wins if the last sandwich he eats contains ham.
+	Is it true that he can win for any positive integer $N$ no matter how the cat plays?	
+	
+	\textbf{Answer.} No. 
+	
+	\textbf{Solution.} Consider the general setting where we have $MN$ sandwiches and the boy making $M$ actions at one turn (thus we have $M=100$ here). 
+	We show that the cat can prevent the boy from winning when $N=2^M$. 
+	
+	Denote $a_i$ as sandwich with position $i$, such that $a_i=1$ if with ham, and $a_i=0$ if without ham. 
+	Denote also $S_i$ as the subsequence $a_{Mk+i}$ for $k=0, \cdots, N-1$. 
+	We claim the following claims: 
+	
+	\emph{Lemma 1.} For each $i$ with $1\le i\le M$, the boy will eat exactly one sandwich in $S_i$ in each of his turn. 
+	
+	Proof: since the boy takes $M$ sandwiches in each turn, the number of sandwiches after each turn is multiple of $M$. 
+	Let $N'\le N$ be such that there are $MN'$ sandwiches left, 
+	and that the index of the first sandwich at left end as $\ell$. 
+	Then the remaining sandwiches are 
+	\[
+	a_{\ell}, \cdots, a_{\ell+MN'-1}
+	\]
+	Now suppose the boy takes $k$ sandwiches from left end and $M-k$ sandwiches from right end. 
+	The sandwiches taken have indices
+	\[
+	\ell, \cdots, \ell+k-1, \ell+MN'-(M-k), \cdots, \ell+MN'-1
+	\]
+	which, considering modulo $M$, have indicies 
+	\[
+	\ell, \cdots, \ell+k-1, \ell+k, \cdots, \ell+M-1
+	\]
+	those containing all the remainders mod $M$ exactly once. In particular, this holds for those with indices $\equiv i\pmod{M}$. 
+	
+	\emph{Lemma 2.} Fix $i$ with $1\le i\le M$. 
+	Then starting with $MN'$ sandwiches with $N'$ even, 
+	the cat can perform actions such that after $\frac{N'}{2}$ turns from each player, 
+	all the remaining sandwiches in $S_i$ have no ham (i.e. $a_{Mk+i}=0, \forall k$ remaining). 
+	
+	Proof: 
+	By lemma 1, it suffices to focus on those $N'$ sandwiches in the form $S_i$, in which the boy will take just one sandwich from one end. 
+	Now at first turn, after the boy makes his move, the cat considers the middle sandwich in $S_i$ (i.e. $\frac{N'+1}{2}$-th from the left), 
+	and eats the ham from that sandwich (or do nothing, if the sandwich already didn't have ham). 
+	Now relabel the remaining $N'-2$ sandwiches into the following: 
+	\[
+	b_1, b_2, \cdots, b_{\frac{N'}{2}-1}, b_{\frac{N'}{2}+1}, \cdots, b_{N'-1}
+	\]
+	and consider the pairing $(b_g, b_{g+\frac{N'}{2}})$ for $g=1, \cdots, \frac{N'}{2}-1$. 
+	Then at each step, for each sandwich $A$ the boy takes, the cat removes ham from the sandwich paired with $A$. 
+	We see the boy will never take the image later on within the $\frac{N'}{2}$ steps: 
+	if the boy takes $b_g$ for some $g\le \frac{N'}{2}-1$, 
+	this means it already takes $g$ sandwiches from $S_i$ from the left, 
+	while $b_{\frac{N'}{2}+g}$ is the $\frac{N'}{2}-g$-th sandwich from the right. 
+	Thus for the boy to take that there needs to be at least $g+(\frac{N'}{2}-g)+1=\frac{N'}{2}+1$ steps 
+	(the +1 is for the very first step before the cat acts from the center). 
+	Consequently, after $\frac{N'}{2}$ steps, for each of the $\frac{N'}{2}-1$ pairs there's one sandwich being eaten by the boy and the other has ham taken out, establishing the lemma. 
+	
+	Now by Lemma 2, we can do the following: starting from $N=2^M$, 
+	the cat removes ham from $S_1$, then $M2^{M-1}$ sandwiches left, 
+	and then removes ham from $S_2$, then $M2^{M-2}$ sandwiches left. 
+	Continuing this until the cat reaches $S_M$, and exactly $M$ sandwiches left. 
+	But since $S_1, \cdots, S_M$ represents all sandwiches, 
+	we conclude that the all of the last $M$ sandwiches do not have ham, so the boy loses. 
+\end{enumerate}
+\end{document}
