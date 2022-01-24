@@ -1,0 +1,197 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Fall 2020, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.]
+	There were $n$ positive integers. For each pair of those integers Boris wrote their
+	arithmetic mean onto a blackboard and their geometric mean onto a whiteboard. It so
+	happened that for each pair at least one of those means was integer. Prove that on at
+	least one of the boards all the numbers are integer.
+	
+	\textbf{Solution.} 
+	Suppose that this is false. 
+	Choose a number on the blackboard that's not integer. 
+	This corresponds to a pair with different parity, 
+	which follows that there are both even and odd numbers among the $n$ positive integers. 
+	
+	Now choose a number on the whiteboard that's not integer. 
+	Then it corresponds to number $a, b$ such that $ab$ is not perfect square. 
+	Then $a+b$ has to be even, hence $a$ and $b$ are of the same parity. 
+	Now choose $c$ that's different parity with $a$ and $b$, 
+	then $ac$ and $bc$ both have to be perfect square, 
+	so $abc^2$ is a perfect square, and so is $ab$, contradiction. 
+	
+	\item[2.]
+	Baron Munchausen presented a new theorem: if a polynomial 
+	$x^n - ax^{n-1} + b^x{n-2} + \ldots$
+	has $n$ positive integer roots then there exist $a$ lines in the plane such that they have
+	exactly $b$ intersection points. Is the baron’s theorem true?
+	
+	\textbf{Answer.} Yes. 
+	
+	\textbf{Solution.} 
+	Let $a_1, \cdots, a_n$ be the $n$ roots, then 
+	\[
+	a=a_1+\cdots + a_n
+	\;\qquad 
+	b = \sum_{1\le i < j\le n} a_ia_j
+	\]
+	Now create $n$ classes $L_1, \cdots, L_n$, 
+	each $L_i$ containing $a_i$ parallel lines but each pair of lines in $L_i$ and $L_j$ are never parallel to each other when $L_i\neq L_j$. 
+	It follows that the number of intersection is 
+	\[
+	\sum_{1\le i<j\le n}|L_i|\cdot |L_j|
+	=\sum_{1\le i < j\le n} a_ia_j=b
+	\]
+	
+	\item[3.]
+	Two circles $\alpha$ and $\beta$ with centers $A$ and $B$ respectively intersect at points $C$ and $D$. The segment $AB$ intersects $\alpha$ and $\beta$ at points $K$ and $L$ respectively. 
+	The ray $DK$ intersects the circle $\beta$ for the second time at the point $N$, 
+	and the ray $DL$ intersects the circle $\alpha$ for the second time at the point $M$. 
+	Prove that the intersection point of the diagonals of the quadrangle $KLMN$ coincides with the incenter of the triangle $ABC$.
+	
+	\textbf{Solution.} 
+	Let $LN$ intersect the internal angle bisector of $\angle B$ at $J$. 
+	We show that $J$ is the incenter of triangle $ABC$, which is the same as showing that $CJ$ bisects 
+	$\angle ACB$. 
+	
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\clip(-10.52,-7.39) rectangle (10.52,7.39);
+	\draw [line width=2pt] (-3.94,0.55) circle (3.8385413896426854cm);
+	\draw [line width=2pt] (1.7,0.53) circle (4.770618408550405cm);
+	\draw [line width=2pt] (-3.94,0.55)-- (1.7,0.53);
+	\draw [line width=2pt] (2.4569886032695907,5.240177093753478)-- (-1.8427480666457088,-2.6649547940899088);
+	\draw [line width=2pt] (-3.0705884139989696,0.5469169801914857)-- (2.4569886032695907,5.240177093753478);
+	\draw [line width=2pt] (-3.94,0.55)-- (-1.82,3.75);
+	\draw [line width=2pt] (-1.82,3.75)-- (1.7,0.53);
+	\draw [line width=2pt] (-4.522195418860548,4.344133431266986)-- (-1.8427480666457088,-2.6649547940899088);
+	\draw [line width=2pt] (-1.82,3.75)-- (-3.0705884139989696,0.5469169801914857);
+	\draw [line width=2pt] (-2.4452942069994847,2.148458490095743)-- (1.7,0.53);
+	\draw [line width=2pt] (-1.82,3.75)-- (-1.5815335740977077,1.811218077251259);
+	\begin{scriptsize}
+	\draw [fill=ududff] (-3.94,0.55) circle (2.5pt);
+	\draw[color=uuuuuu] (-3.78,0.98) node {$A$};
+	\draw [fill=ududff] (1.7,0.53) circle (2.5pt);
+	\draw[color=uuuuuu] (1.86,0.96) node {$B$};
+	\draw [fill=ududff] (-1.82,3.75) circle (2.5pt);
+	\draw[color=ududff] (-1.66,4.18) node {$C$};
+	\draw[color=black] (-5.78,3.66) node {$\alpha$};
+	\draw[color=black] (-0.62,4.42) node {$\beta$};
+	\draw [fill=uuuuuu] (-1.8427480666457088,-2.6649547940899088) circle (2pt);
+	\draw[color=uuuuuu] (-1.68,-2.28) node {$D$};
+	\draw [fill=uuuuuu] (-0.10148274461356607,0.5363882366830268) circle (2pt);
+	\draw[color=uuuuuu] (0.06,0.92) node {$K$};
+	\draw [fill=uuuuuu] (-3.0705884139989696,0.5469169801914857) circle (2pt);
+	\draw[color=uuuuuu] (-2.92,0.94) node {$L$};
+	\draw [fill=uuuuuu] (2.4569886032695907,5.240177093753478) circle (2pt);
+	\draw[color=uuuuuu] (2.62,5.64) node {$N$};
+	\draw [fill=uuuuuu] (-4.522195418860548,4.344133431266986) circle (2pt);
+	\draw[color=uuuuuu] (-4.36,4.74) node {$M$};
+	\draw [fill=uuuuuu] (-1.5815335740977077,1.811218077251259) circle (2pt);
+	\draw[color=uuuuuu] (-1.42,2.2) node {$J$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	Now, $BC=BL$ is the radius of $\beta$, so with $BJ$ bisects $\angle ABC$, 
+	$BJ$ is the perpendicular bisector of $CL$. 
+	Therefore, $\angle JCB=\angle  JLB$. 
+	In addition, $C$ and $D$ are symmetric w.r.t. $AB$, so we can do angle chasing (henceforth $\angle A, B, C$ correspond to the angle at triangle $ABC$)
+	\[
+	\angle JLB = 
+	\angle JLD - \angle KLD
+	= 180^{\circ} - \angle LDK - \angle LNK  - \angle KLD 
+	=\angle LKD - \angle LCD
+	=\angle LKC - \angle LCD
+	\]
+	where we used $\angle LND = \angle LNK = \angle LCD$ since $C, D, L, N$ are on the same circle $\beta$. 
+	Now, $CD\perp AB$ so $\angle LCD=90^{\circ} - \angle CLB = \angle JBL = \frac{\angle B}{2}$, 
+	while $\angle LKC = \angle AKC = 90^{\circ} - \frac{\angle A}{2}$. 
+	It therefore follows that 
+	\[
+	\angle JCB=\angle  JLB=90^{\circ} - \frac{\angle A}{2}-\frac{\angle B}{2}=\frac{\angle C}{2}
+	\]
+	and so $CJ$ bisects angle $ACB$. 
+	Thus $LN$ passes through the incenter of $I$, and similarly we can show that so that $KM$. 
+	
+	\item[4.]
+	There are two round tables with $n$ dwarves sitting at each table. 
+	Each dwarf has only two friends: his neighbours to the left and to the right. 
+	A good wizard wants to seat the dwarves at one round table so that each two neighbours are friends. 
+	His magic allows him to make any $2n$ pairs of dwarves into pairs of friends 
+	(the dwarves in a pair may be from the same or from different tables). 
+	However, he knows that an evil sorcerer will break $n$ of those new friendships. 
+	For which $n$ is the good wizard able to achieve his goal no matter what the evil sorcerer does?
+	
+	\textbf{Answer.} All $n$ odd. 
+	
+	\textbf{Solution.} Label the people on the first round table as $a_1, \cdots, a_n$ in that order, 
+	and second as $b_1, \cdots, b_n$ in that order. 
+	If $n$ is odd, then the wizard can add the two classes of friendship links:
+	\[
+	\text{Class 1 }: (a_i, b_i), \forall i=1, \cdots, n
+	\] 
+	\[
+	\text{Class 2 }: (a_i, b_{n-i+1}), \forall i=1, \cdots, n
+	\]
+	Since $n$ is odd, after the removal of $n$ links by sorcerer, 
+	there's one class with at least $\frac{n+1}{2}$ links left. 
+	If this class is Class 1, then there's $k$ such that $(a_k, b_k)$ and $(a_{k+1}, b_{k+1})$ both remain 
+	(notice we take indices modulo $n$ since things are in a circle, so $(a_n, b_n)$ and $(a_1, b_1)$ would still count). 
+	Then the wizard can form the following cycle of length $2n$ as follows (again indices modulo $n$)
+	\[
+	a_k\to b_k\to b_{k-1}\cdots \to b_{k+1}\to a_{k+1}\to a_{k+2}\to \cdots \to a_{k+1}\to a_k
+	\]
+	The case for Class 2 is similar: 
+	\[
+	a_k\to b_{n-k+1}\to b_{n-k+2}\to\cdots \to b_{n-k}\to a_{k+1}\to a_{k+2}\to \cdots \to a_{k+1}\to a_k
+	\]
+	
+	Now when $n$ is even, it makes sense to distinguish between $a_{\text{odd}}$, $a_{\text{even}}$, $b_{\text{odd}}$, $b_{\text{even}}$, each containing $\frac{n}{2}$ of them. 
+	Consider the $2n$ new links $(x, y)$, which contains $4n$ entries in total. 
+	Hence, one of $a_{\text{odd}}$, $a_{\text{even}}$, $b_{\text{odd}}$, $b_{\text{even}}$ appears at most $n$ times. 
+	Let's say, w.l.o.g., that $a_{\text{even}}$ appears $\le n$ times in the $2n$ links created by the wizard, 
+	counted with multiciplicity: in particular, $a_{\text{even}}$ appears in at most $n$ of the $2n$ new friendship links. 
+	Then the evil sorcerer can remove all links containing $a_{\text{even}}$. 
+	
+	We now show that the wizard cannot achieve their goal given the action of  sorcerer. 
+	Suppose such a seating of $2n$ dwarfs is possible. 
+	Consider, now, partitioning the circle into a few segments as possible (arcs) where each segment contains only the old friendship not added by the wizard. 
+	Then each segment either have all $a$'s or all $b$'s. 
+	Now consider the $a$-segment. By the action of the sorcerer, 
+	the endpoints of the segments must be $a_{\text{odd}}$, 
+	and each element in a segment alternates between $a_{\text{odd}}$ and $a_{\text{even}}$. 
+	It follows that each segment has exactly one more $a_{\text{odd}}$ than $a_{\text{even}}$, 
+	so in total there are more $a_{\text{odd}}$ than $a_{\text{even}}$, 
+	which is a conatradiction. 
+	
+\end{enumerate}
+\end{document}
