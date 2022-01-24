@@ -1,0 +1,143 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Fall 2016, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item [1.]
+	Each of 100 boys has 100 biscuits in his plate. Instead of eating, they play a
+	game. At each step, one of the boys chooses a group of boys (including at least
+	one boy) and gives one biscuit to each of them. What is the minimal number of
+	steps needed to make the number of biscuits different for all the boys?
+	
+	\textbf{Answer.} 50. 
+	
+	\textbf{Solution.} 
+	We first show that 50 is necessary. 
+	Suppose $k<50$ steps are taken. 
+	This means at most $k$ kids have given their biscuits to other people, which means there are at most $k$ kids with $<100$ biscuits. 
+	Meanwhile, each kid has received at most $k$ biscuits, so they have at most $100+k$ biscuits. 
+	Consider, now, the following set: 
+	\[
+	S=\{a_1, \cdots, a_{100}\}
+	\]
+	where $a_i$ is the number of biscuit that kid $i$ has. 
+	We see that $|S\cap \{1, \cdots, 99\}|\le k$, and $\max S\le 100+k$, 
+	so $|S|\le k+(100+k-99)=2k+1\le 99$, i.e. not all of them can be distinct. 
+	
+	To construct the equality case, for each $i=1, \cdots, 50$, let kid $i$ give sweets to $50+j$ for $j=1, \cdots, i$. 
+	Then $a_i=100-i$ for $i\le 50$, and $a_i=i+50$ for $i>50$, 
+	so in total they have $50, \cdots, 99, 101, \cdots, 150$ sweets, i.e. all different. 
+	
+	\item [3.]
+	A quadrilateral $ABCD$ is inscribed into a circle centered at point $O$ not belonging
+	to the diagonals of the quadrilateral. The circle passing through points $A, O$ and
+	$C$ contains the midpoint of $BD$. Prove that the circle passing through points $B,
+	O$ and $D$ contains the midpoint of $AC$.
+	
+	\textbf{Solution.}
+	Let $T$ be such that $TA$ and $TC$ are tangent to the said circle centered at $O$, 
+	and let $M$ be midpoint of $BD$. 
+	This gives $OM\perp BD$
+	Since $M$ is on circle $AOC$ then line $BD$ will intersect the circle $AOC$ again at $T'$ such that $T'O$ is the diameter of the circle. 
+	But since $OT$ is also a diameter, we have $T=T'$. 
+	Hence $T, B, D$ are collinear so $ABCD$ is harmonic. 
+	This means $AB\cdot CD= AD\cdot BC$. 
+	
+	Now let $U$ be such that $UB$, $UD$ tangent to circle $ABCD$. 
+	Because $ABCD$ is harmonic, 
+	there $U, A, C$ are collinear. 
+	If $UA$ intersects circle $BOD$ again at $N$ then $\angle UNO=\angle UBO=90^{\circ}$ so 
+	$AN\perp NO$. 
+	Thus $N$ is the midpoint of $AC$ and is on circle $BOD$, done. 
+	
+	\item[6.]
+	Alice and Bob play the following game: Alice chooses a polynomial $P(x)$ with
+	integer coefficients. At each his move, Bob pays 1 dollar to Alice and reports her
+	some integer $a$. He cannot choose the same integer $a$ twice. Alice responds by
+	returning the number of integer solutions of the equation $P(x) = a$. Bob wins
+	when Alice repeats the number already reported by her (not necessarily at the
+	preceding move). Determine the minimal amount of cash sufficient for Bob to
+	win the game regardless of the polynomial chosen by Alice.
+	
+	\textbf{Answer.} 4. 
+	
+	\textbf{Solution.} 
+	To show that Bob cannot win in 3 turns, 
+	we first show that for all distinct integers $a, b, c$ there exists polynomial $P$ such that 
+	$P(x)=a, P(x)=b, P(x)=c$ has 2, 1, 0 integer solutions, respectively. 
+	
+	\emph{Case 1}: $b-a\neq 1$. Take 
+	\[
+	P(x)=(x-1)(x-(b-a))(Kx^2+1)+a, K>\max\{|b-a|, |c-a|, |c-b|\}
+	\]
+	where $K$ is some large number (determined later). 
+	Then $P(x)=a$ has solutions at $x=1, b-a$. 
+	$P(x)=b$ has solution at $x=0$. 
+	By construction of $K$, we have $|Kx^2+1| > |b-a|$ for $x\neq 0$, 
+	so $|(x-1)(x-(b-a))(Kx^2+1)|$ cannot be the same as $b-a$ when $x\neq 0$, 
+	hence $P(x)=b$ cannot have other integer root. 
+	Similarly, since $|Kx^2+1|>|c-a|$ for $x\neq 0$, 
+	we have $|(x-1)(x-(b-a))(Kx^2+1)|>|c-a|$ whenever $x\neq 1, 0, b-a$. 
+	So $P(x)=c$ cannot have integer root. 
+	
+	\emph{Case 2}: $b-a=1$. Then take 
+	\[
+	P(x)=(x-1)(x+1)(-Kx^2-1)+a, K>\max\{|b-a|, |c-a|, |c-b|\}
+	\]
+	and here $P(-1)=P(1)=a$, $P(0)=b$, and the rest of the analysis is similar to above. 
+	
+	Thus by this analysis, regardless of the 3 numbers $a, b, c$ Bob says, Alice can always say 0, 1, 2. 
+	
+	Now to show that Bob can win in 4 turns, we consider the following lemma: 
+	
+	\emph{Lemma}. Suppose that $P(x)=a$ has at least 3 integer roots. Then $P(x)=a+1$ and $P(x)=a-1$ have no integer root, each. 
+	
+	Proof: Write $P(x)=(x-a_1)(x-a_2)(x-a_3)Q(x)+a$, with $a_1, a_2, a_3$ distinct. 
+	If $P(x)=a\pm 1$ for some $x$, then $|(x-a_1)(x-a_2)(x-a_3)Q(x)|=1$. 
+	This means $|x-a_1|, |x-a_2|, |x-a_3|=1$, so $a_1, a_2, a_3$ are all $x\pm 1$. 
+	But this would contradict $a_1, a_2, a_3$ all distinct. 
+	
+	Now Bob can do the following: query $a=0, 1, 2$. 
+	If Alice repeats anywhere along then we're done, so assume all three answers are different. 
+	Consider the following scenarios: 
+	
+	\emph{Case 1.} Alice answers $\ge 3$ at least once. 
+	If $P(x)=1$ has at least 3 integer roots then by our  lemma above $P(x)=0$ and $P(x)=2$ would have none, 
+	so Alice repeats. 
+	If $P(x)=0$ has at least 3 integer roots then $P(x)=-1$ and $P(x)=1$ have none, 
+	so Bob can ask $-1$ in his next step. 
+	THe case where $P(x)=2$ has 3 integer roots is symmetric where Bob can ask 3 in his next turn. 
+	
+	\emph{Case 2.} Alice answers 0, 1, 2 in some order. 
+	Now at least one of $P(x)=0$ and $P(x)=2$ returns $\ge 1$ integer. 
+	If this is $P(x)=0$ then $P(x)=-1$ cannot have $\ge 3$ integer roots $\to$ Bob can query $-1$ in his next turn and Alice will repeat herself. 
+	If this is $P(x)=2$ then $P(x)=3$ cannot have $\ge 3$ integer roots $\to$ Bob can query $3$ in his next turn and Alice will repeat herself. 
+
+\end{enumerate}
+\end{document}
