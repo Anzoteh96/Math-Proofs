@@ -1,0 +1,201 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs, algorithm, algpseudocode}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2016, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item[1.]
+	A point inside a convex quadrilateral is connected with all the vertices
+	and with four more points such that each side contains one of them. The
+	quadrilateral dissects into eight triangles with equal radii of circumcircles.
+	Prove that the original quadrilateral is cyclic.
+	
+	\textbf{Solution}. 
+	Let the point be $O$, the quadrilateral be $ABCD$, and the point on $AB$ be $E$. 
+	We have, the cirumradii $R_1, R_2$ of $AEO$ and $BEO$ equal. 
+	Now, $AO=2R_1\sin \angle OEA$ and $BO=2R_2\sin\angle OEB$. 
+	But since $\angle OEA+\angle OEB=180^{\circ}$, 
+	$\sin\angle OEA=\sin\angle OEB$. 
+	Hence $R_1=R_2$ means $AO=BO$. 
+	In a similar way we can show that $BO=CO$ and $CO=DO$ so $O$ is equidistant from the four vertices. 
+	Therefore $ABCD$ is circumscribed in a circle with center $O$. 
+	
+	\item[2.] 
+	 Is it possible that the sum and the product of 2016 integers are both equal
+	to 2016?
+	
+	\textbf{Answer.} Yes: take 504 $\times -1$'s, 1510 $\times 1$'s, and 2 and 1008. 
+	
+	\item[5.]At each of the 12 edges of a cube, the midpoint is marked. Does a sphere
+	necessarily contain all these points if it contains
+	
+	\begin{enumerate}
+		\item at least 6 of marked points;
+		\item at least 7 of marked points?
+	\end{enumerate}
+    
+    \textbf{Answer.} No for (a) and yes for (b). 
+    
+    \textbf{Solution.} 
+    W.l.o.g. let our cube to have coordinates $\{0, 1\}^3$. 
+    Let the 6 points be 
+    \[
+    (0.5, 0, 0), (0, 0, 0.5), (0, 0.5, 1), (1, 0.5, 0), (1, 1, 0.5), (0.5, 1, 1)
+    \]
+    which are all on the plane $p$ given by the equation $x-y+z=0.5$. 
+    We know that the center of the cube $O=(0.5, 0.5, 0.5)$ is equidistant from the all the 12 points, 
+    so any point $O'$ lies on the line through $O$ perpendicular to plane $p$ is equidistant from the 6 said points. 
+    However, any such $O'\neq O$ cannot be equidistant to all 12 points since $O$ is the unique point in the space satisfying this property. 
+    
+    Now let any sphere pass through any 7 of the points. 
+    Then there's a face, say, $z=0$, that the sphere passes through at least three of the points. 
+    Let $O$ be the projection of the center of the sphere to this face $z=0$, 
+    then there's a circle passing through 3 of the points on this face, hence must pass through the 4th too. 
+    We therefore know that our sphere passes through all 4 points on $z=0$. 
+    
+    Now this means the center of the sphere must be $(0.5, 0.5, z_0)$ for some $z_0$. 
+    We see that $(0.5, 0.5, z_0)$ is equidistant from all 4 midpoints on the face $z=0$, 
+    all 4 midpoints on the face $z=1$, and the 4 remaining points $\{0, 1\}^2\times \{0.5\}$. 
+    This means if the sphere passes through any one of the 4 points in each category, 
+    it passes through all 4 such points. 
+    Since we also know our sphere passes through 7 such points, 
+    two of such things must hold (i.e. the sphere passes through midpoints on $z=0$, by our assumption, and also midpoints on one of $z=1$ and $\{0, 1\}^2\times \{0.5\}$). 
+    In any case, solving for them simultaneously would give $z_0=0.5$, 
+    showing that our sphere does pass through all 12 points. 
+\end{enumerate}
+    
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.] 
+	All integers from 1 to one million are written on a tape in some arbitrary order. Then the
+	tape is cut into pieces containing two consecutive digits each. Prove that these pieces contain
+	all two-digit integers for sure, regardless of the initial order of integers.
+	
+	\textbf{Solution.} Consider an arbitrary two-integer $10a+b$, 
+	i.e. with decimal representation $\overline{ab}$. 
+	Now consider the six-digit number $\overline{abaaba}$. 
+	Depending on its position on the tape, it's being cut into two consecutive digits into one of the two following fashions: 
+	\[
+	(\overline{ab}, \overline{aa}, \overline{ba})
+	\quad 
+	(\overline{?a}, \overline{ba}, \overline{ab},  \overline{a?}, 
+	)
+	\]
+	where ? denotes a digit before or after the digit from another number. 
+	Thus both contain the string $\overline{ab}$. 
+	
+	\item[3.]
+	 Let $M$ be the midpoint of the base $AC$ of an isosceles triangle $ABC$. Points $E$ and $F$ on
+	the sides $AB$ and $BC$ respectively are chosen so that $AE \neq CF$ and $\angle FMC = \angle MEF = \alpha$.
+	Determine $\angle AEM$.
+	
+	\textbf{Answer.} $\alpha$
+	
+	\textbf{Solution.} 
+	The angle condition implies that the circle passing through $M, E, F$ is tangent to $AC$. 
+	Thus, this circle is symmetric w.r.t. $BM$. 
+	Let this circle intersect $AB$ at $E\neq E_1$, 
+	so $\angle AEM=\angle E_1FM$. 
+	
+	Given the symmetry of the circle w.r.t. $BM$, the reflection of $F$ in $BM$ is also on this circle, and must be on $AB$. 
+	By the condition $AE\neq CF$, this reflection is indeed $E_1$, so $CF=AE_1$. 
+	Thus $ME_1=MF$ and so 
+	\[
+	\angle AEM=\angle E_1FM=\angle FE_1M=\angle FEM=\alpha
+	\]
+	
+	\item[4.]
+	There are 64 towns in a country, and some pairs of towns are connected by roads but we
+	don’t know these pairs. We may choose any pair of towns and find out whether they are
+	connected by a road. Our aim is to determine whether it is possible to travel between any
+	two towns using roads. Prove that there is no algorithm which would enable us to do this
+	in less than 2016 questions.
+	
+	\textbf{Solution.} Notice that $\binom{64}{2}=2016$, so we can transform the problem above into a more general one: 
+	given a graph $G=(V, E)$, 
+	and at each move we can ask if $(i, j)\in E$. 
+	Our goal is to find out if $G$ is connected. 
+	Prove that we need at least $\binom{|V|}{2}$ moves. 
+	
+	Suppose, on the contrary, that there exists such an algorithm. 
+	Let the queries $q_k$ to query about $(i_k, j_k)$ for $k=1, \cdots, Q$ with $Q<\binom{|V|}{2}$. 
+	(We may assume that $\{i_k, j_k\}\neq \{i_{\ell}, j_{\ell}\}$ 
+	since repeated queries will only waste things). 
+	Consider the following scenario: 
+	call a partition $V$ into $V_1, V_2$ of nonnegative subsets $(i_0, j_0)$-\emph{risky} for some
+	$i_0\in V_1$, $j_0\in V_2$
+	 if  for any $i\in V_1, j\in V_2$ where $\{i, j\}\neq \{i_0, j_0\}$, 
+	 $(i, j)$ is part of the previous queries, and answered ``no''. 
+	 Then we at each step with query $(i_k, j_k)$, 
+	 the answer is ``no'' is and only if there's no $(i_k, j_k)$-risky partition. 
+	 In other words, the answer is ``no'' if and only if the knowledge of 
+	$(i_1, j_1), \cdots, (i_k, j_k)$ (with the last one, $(i_k, j_k)\not\in E$) 
+	is insufficient to determine that $G$ is disconnected. 
+	
+	We first show that this algorithm cannot tell for sure that $G$ is disconnected. 
+	Otherwise, there's a partition of $V$ into two subsets $V_1$ and $V_2$ such that 
+	$(i, j)\not\in E$ for each $i\in V_1, j\in V_2$. 
+	This $(i, j)\not\in E$ must appear in the queries of the algorithm. 
+	Let $(i_{\ell}, j_{\ell})$ be the last query among all $(i, j)$ with $i\in V_1, j\in V_2$. 
+	Then as we query $(i_{\ell}, j_{\ell})$, the partition $V_1, V_2$ is $(i_{\ell}, j_{\ell})$-risky. 
+	By the construction of our answer, $(i_{\ell}, j_{\ell})$ must return ``yes'', contradiction. 
+	
+	Now suppose that the algorithm can tell for sure that $G$ is connected. 
+	Suppose, also, there's an edge $(i_0, j_0)$ that's never part of the query when our algorithm makes this verdict. 
+	Consider the first moment when we can guarantee that $(i_0, j_0)$ must be from the same connected component: 
+	this must be after receiving a ``yes'' from a query $(i_k, j_k)$ for some $k$, 
+	so there's a partition $V_1, V_2$ that is $(i_k, j_k)$-risky. 
+	Since $(i_0, j_0)$ is never asked, they must be in the same partition, $V_1$ or $V_2$. 
+	W.l.o.g. let $i_0, j_0$ both in $V_1$. 
+	Now consider any path connecting $i_0$ and $j_0$. 
+	Since there's only one (new) edge between $V_1$ and $V_2$ and $i_0, j_0\in V_1$, 
+	this path must use only vertices in $V_1$. 
+	This means $i_0$ and $j_0$ are already connected before $(i_k, j_k)$ is asked, 
+	again a contradiction. 
+	
+	\item[5.]
+	On a blackboard, several polynomials of degree 37 are written, each of them has the leading
+	coefficient equal to 1. Initially all coefficients of each polynomial are non-negative. By one
+	move it is allowed to erase any pair of polynomials $f, g$ and replace it by another pair
+	of polynomials $f_1, g_1$ of degree 37 with the leading coefficients equal to 1 such that either
+	$f_1+g_1$ = $f+g$ or $f_1g_1 = fg$. Prove that it is impossible that after some move each polynomial
+	on the blackboard has 37 distinct positive roots.
+	
+	\textbf{Solution.} 
+	We claim the following invariant: 
+	after the moves, the sum of  coefficients at $x^{36}$ of the polynomials remain the same. 
+	Indeed, if 
+	$f, g, f_1, g_1$ have $a_f, a_g, a_{f'}, a_{g'}$ as coefficient at $x^{36}$ then 
+	$f+g$ and $f_1+g_1$ have $a_f+a_g$ and $a_{f'}, a_{g'}$ as coefficient at $x^{36}$, respectively. 
+	So $f+g=f_1+g_1$ implies $a_f+a_g=a_{f'}+a_{g'}$. 
+	In addition, $fg$ and $f_1g_1$ have $a_f+a_g$ and $a_{f'}, a_{g'}$ as coefficient at $x^{73}$, respectively. 
+	So $fg=f_1g_1$ implies $a_f+a_g=a_{f'}+a_{g'}$. 
+	Thus for both of the operations, 
+	changing $(f, g)$ to $(f_1, g_1)$ does not change the sum of coefficient at $x^{36}$. 
+	
+	Now, the sum of coefficients at $x^{36}$ is nonnegative in the beginning. 
+	If the polynomials each have 37 distinct positive roots, then each of them has negative coefficient at $x^{36}$: this coefficient is the negative of sum of all roots. 
+	Thus in this case we end up with negative sum of coefficients at $x^{36}$, contradicting the invariant. 
+\end{enumerate}
+\end{document}
