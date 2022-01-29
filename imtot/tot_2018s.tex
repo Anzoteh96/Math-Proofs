@@ -29,6 +29,22 @@
 
 \section*{A-Level}
 \begin{enumerate}
+	\item[1.]
+	Aladdin has several gold ingots, and sometimes he asks the Genie to give him more. The Genie
+	first adds a thousand ingots, but then takes half of the total number. Could it be possible
+	that after asking the Genie for gold ten times, the number of Aladdin’s gold ingots increased,
+	assuming that each time the Genie took half, he took an integer number of ingots?
+	
+	\textbf{Answer.} No. 
+	
+	\textbf{Solution.} Let $a$ be the number of ingots Aladdin has the beginning. 
+	Iteratively, we can show that after asking Genie for $n$ times, 
+	the number of ingots Aladdin has becomes $\frac{a}{2^n}+1000(1-\frac{1}{2^n})$. 
+	Since the Genie takes an integer number every time, 
+	it means that $2^n\mid a-1000$. 
+	Moreover, this number increases (i.e. $>a$) if and only if $a < 1000$. 
+	But with $n=10$, the smallest positive $a$ satisfying $2^n\mid a-1000$ is $a=1000$, hence Aladdin cannot have more ingots later on. 
+	
 	\item[2.] Do there exist 2018 positive irreducible fractions, each with a different denominator, so that that the denominator of the difference of any two (after reducing the fraction) is less than the denominator of any of the initial 2018 fractions?
 	
 	\textbf{Solution.} Let $n=2018$. Define: 
@@ -40,5 +56,388 @@
 	a_k = \frac{2^n+2^k+1}{2^k(2^n+1)}
 	\]
 	is already in its lowest term, with denominator $2^k(2^n+1)\ge 2(2^n+1)>2^n$ (hence different for each of them), and certainly greater than $2^n$. 
+	
+	\item[3.] One hundred different numbers are written in the cells of a 10 $\times$ 10 square. Each step you can
+	select a rectangle formed by the cells, and for every cell inside swap its number with the number
+	in the cell opposite to it with respect to the center of the rectangle (``turn the rectangle by $180^{\circ}$'')
+	Is it always possible to arrange the numbers in the square so that they increase in every row
+	from left to right, and in every column from bottom to top, in no more than 99 turns?
+	
+	\textbf{Answer.} Yes. 
+	
+	\textbf{Solution.} 
+	Let $a_{i, j}$ with $1\le i, j\le 10$ be the cell, with $a_{1, 1}$ being the bottom-left cell. 
+	Denote $R_{i, j}$ as the rectangle with coordinates $(i', j')$ with $i'\ge i, j'\ge j$. 
+	Consider the following 99 operations: 
+	at step $10(i-1)+j$ (which we would also say step $(i, j)$) where $1\le i\le 10, 1\le j\le 10$ and $(i, j)\neq (10, 10)$, 
+	take 
+	\[a_{i_0, j_0} := \min\{a_{i', j'}\in R_{i, j}\}
+	\]
+	Then we choose a rectangle with opposite vertices $a_{i, j}$ and $a_{i_0, j_0}$ and perform the turn. 
+	(Basically, we're re-filling the first row from left to right, second row from left to right, etc). 
+	Notice that we could have $i_0=i$ and $j_0=j$, in which case we save one step. 
+	
+	To verify this works, we first see that after each step $(i, j)$ where we place $a_{i_0, j_0}$ to $a_{i, j}$, 
+	the new $a_{i, j}$ will not be changed anymore: in subsequent steps $(i', j')$, 
+	either $i'>i$ or $j'>j$, and therefore $a_{i, j}\not\in R_{i', j'}$. 
+	Thus it suffices to show that after each step $(i, j)$: 
+	\[
+	\forall j\ge 2: a_{i, j} > a_{i, j - 1}
+	\quad 
+	\forall i\ge 2: a_{i, j} > a_{i-1, j}
+	\]
+	The first one is relatively more straightforward: step $(i, j)$ follows right after step $(i, j-1)$. 
+	According to our algorithm, after step $(i-1, j)$ we have 
+	\[
+	a_{i, j-1} = \min\{a_{i', j'}\}_{i\le i', j-1\le j'}
+	\]
+	and therefore after this step, $\min\{a_{i', j'}\}_{i\le i', j\le j'} > a_{i, j-1}$
+	and $\min\{a_{i', j'}\}_{i\le i', j\le j'}$ would be the new $a_{i, j}$ after step $(i, j)$. 
+	
+	For the second claim, consider the set $S_{i, j}$ as the cells with values $<a_{i-1, j}$ after step $(i-1, j)$
+	and with coordinates $(i', j')$ with $10i'+j'>10(i-1)+j$. 
+	By how $a_{i-1, j}$ is constructed, $S_{i, j}\cap R_{i-1, j}=\emptyset$. 
+	It follows that all the cells in $S_{i, j}$ must have coordinates $(i', j')$ with $i'\ge i, j'<j$, 
+	after step $(i-1, j)$. 
+	We show that they will stay in that region until step $(i, j)$ by showing that this invariant stays from one step to the another. 
+	
+	Indeed, 
+	\begin{itemize}
+		\item At step $(i-1, j_1)$ where $j_1>j$, $S_{i, j}\cap R_{i-1, j_1}=\emptyset$, so cells in $S_{i, j}$ won't be moved. 
+		
+		\item At step $(i, j_1)$ where $j_1<j$, if $S_{i, j}\cap R_{i, j_1}=\emptyset$ then $S_{i, j}$ won't be moved; 
+		otherwise, given that $S_{i, j}$ have cell values $<a_{i-1, j}$, 
+		we have $a_{i_0, j_0}:=\min\{a_{i', j'}\in R_{i, j_1}\}$ coming from $S_{i, j}$. 
+		Since $j_0<j$, the rectangle where we swap at this step $(i, j_1)$ has $y$-coordinates in $j_1\le y\le j_0<j$. 
+		It follows that $S_{i, j}$ cannot be moved into $R_{i, j}$. 
+	\end{itemize}
+	Consequently, $a_{i, j}$ won't consider any cell in $S_{i, j}$ and therefore $a_{i, j}>a_{i-1, j}$. 
+	
+	Finally, we see why the 100-th step is not needed. At steps $(i, j)$ for $(i, j)\neq (10, 10)$, $R_{i, j}$ has area at least 2, 
+	so the biggest cell can never be placed at $a_{i, j}$. 
+	It follows that after 99 steps, $a_{10, 10}$ must have the biggest value. 
+	
+	\item[4.]
+	An equilateral triangle lying in the plane $\alpha$ is orthogonally projected onto a plane $\beta$, which is
+	not parallel to $\alpha$. The resulting triangle is again orthogonally projected onto a plane $\gamma$, and it
+	turned out that the image is again an equilateral triangle. Prove that
+	\begin{enumerate}
+		\item the angle between the planes $\alpha$ and $\beta$ is equal to the angle between the planes $\beta$ and $\gamma$;
+		\item the plane $\beta$ intersects the plane $\alpha$ and $\gamma$ along perpendicular lines.
+	\end{enumerate}
+
+    \textbf{Solution.}
+    Let the triangle on $\beta$ be $A_2B_2C_2$. 
+    Denote $d(X, y)$ as the unsigned distance of point $X$ to line $y$. 
+    Define a $(\ell, a)$transformation of a point $A$ on $\beta$ as point $A_1$ such that $A$ and $A_1$ has the same foot of perpendicular to $\ell$, 
+    and $d(A_1, \ell)=a\cdot d(A, \ell)$. 
+    
+    Now let $\alpha$ and $\beta$ intersect at $\ell_{1}$, with angle between them $\theta_{1}$. 
+    and $\beta$ and $\gamma$ intersect at $\ell_3$, with angle between them $\theta_3$. 
+    Let's consider the following lemma: 
+    
+    \emph{Lemma 1.} Suppose that $A_1, B_1, C_1$ are obtained by doing 
+    $(\ell_1, \frac{1}{\cos\theta_1})$-transformation on $A_2, B_2, C_2$, 
+    and $A_3, B_3, C_3$ are obtained by doing $(\ell_3, \cos\theta_3)$-transformation on $A_3, B_3, C_3$. 
+    Then $A_1B_1C_1$ and $A_3B_3C_3$ are both equilateral. 
+    
+    Proof: let $A_{\alpha}, B_{\alpha}, C_{\alpha}$ be the original equilateral triangle on 
+    plane $\alpha$. 
+    Recall that $\alpha$ can be obtained by rotating $\beta$ about line $\ell_{1}$ at angle $\theta_{\alpha}$. 
+    Since $A_2$ is projection of $A_{1}$, 
+    it follows that $A_{\alpha}$ can be obtained by rotating $A_1$ in that manner (and similarly for $B_1, C_1)$. 
+    Thus $A_1B_1C_1$ is congruent to $A_{\alpha}B_{\alpha}C_{\alpha}$. 
+    In a similar way, if $A_{\gamma}B_{\gamma}C_{\gamma}$ is the equilateral triangle on 
+    $\gamma$, 
+    then $A_3, B_3, C_3$ can be obtained by rotating $A_{\gamma}B_{\gamma}C_{\gamma}$ 
+    about $\ell_{3}$ at angle $\theta_3$, 
+    hence the two are congruent. 
+    
+    Before proceeding, let's dig further into the properties of  the transformations we talked about above: 
+    \begin{itemize}
+    	\item it maps lines to lines. I.e. $\ell_0$ is mapped under $(\ell, a)$-transformation 
+    	to a line $\ell_1$ such that $\ell_0, \ell, \ell_1$ are concurrent (or mutually parallel), 
+    	and $\tan(\angle(\ell_1, \ell))=a\tan\angle(\ell_0, \ell)$ (assuming $\neq 0$: if $\ell_0\perp\ell$ then $\ell_1\perp \ell$, for this limiting case). 
+    	
+    	\item By the first point, the same transformation will map parallel lines to parallel lines. 
+    	
+    	\item If $A_1, B_1, C_1$ on the same line with $\overrightarrow{A_1B_1}=\lambda\overrightarrow{A_1C_1}$ 
+    	are mapped under $(\ell, a)$-transformation to $A_2, B_2, C_2$, then we also have 
+    	$\overrightarrow{A_2B_2}=\lambda\overrightarrow{A_2C_2}$. 
+    \end{itemize}
+    Thus from now on we only consider lines mod $180^{\circ}$ after the transformations. 
+    Let's now proceed to the following: 
+    
+    \emph{Lemma 2.} There's a constant angle $\theta_0$ such that if any line $m$ is mapped under $(\ell_1, \frac{1}{\cos\theta_1})$-transformation to $m_1$ and under $(\ell_3, \cos\theta_3)$-transformation to $m_3$, then $\angle(m_1, m_3)=\theta_0$ (i.e. $\theta_0$ doesn't depend on $m$). 
+    
+    Proof: we may assume that $\theta_1$ and $\theta_3$ are acute (if any of them is $90^{\circ}$ we end up with degenerate triangles, if it's obtuse we may replace $\theta$ with $180^{\circ}-\theta$). 
+    This means that $A_1, B_1, C_1$ and $A_3, B_3, C_3$ have the same orientation, 
+    i.e. in directed angle, $\angle(A_1B_1,  A_3B_3)=\angle(A_1C_1, A_3C_3)=\angle(B_1C_1, B_3 C_3)$. 
+    Consider, now, any point $D_2$ on line $A_2B_2$ with $\overrightarrow{A_2D_2}=\lambda\overrightarrow{B_2D_2}$, 
+    and map $D_2$ under $(\ell_1, \frac{1}{\cos\theta_1})$-transformation
+    to $D_1$, 
+    and $(\ell_3, \cos\theta_3)$ to $D_3$, 
+    then we also have 
+    \[
+    \overrightarrow{A_1D_1}=\lambda\overrightarrow{B_1D_1}
+    \qquad 
+    \overrightarrow{A_3D_3}=\lambda\overrightarrow{B_3D_3}
+    \]
+    But given that $A_1B_1C_1$ and $A-3B_3C_3$ are similar, 
+    we also have 
+    \[
+    \angle(C_1D_1,  C_3D_3)=\angle(A_1B_1,  A_3B_3)
+    \]
+    and by varying $\lambda$ (i.e. varying $D$), lines $C_1D_1$ and $C_3D_3$ would run through all the lines in the plane (up to parallels) (technically, extra care need to be taken when $D_i$ are points of infinity, but that's fine since the transformations we talked about map parallel lines to parallel lines), 
+    which proves the lemma with $\theta_0=\angle(A_1B_1,  A_3B_3)$. 
+    
+    Now we can finish the solution. 
+    Consider, first, mapping $\ell_1$ under both transformations, 
+    which maps to $\ell_1$ and $\ell_2$ such that $\tan\angle(\ell_2, \ell_3)=\cos\theta_3\tan\angle(\ell_1, \ell_3)$. 
+    Then we map $\ell_3$ under both transformations, 
+    which maps to $\ell_4, \ell_3$ such that $\tan\angle(\ell_4, \ell_1)=\frac{1}{\cos\theta_1}\tan\angle(\ell_3, \ell_1)$. 
+    Since $\angle(\ell_1, \ell_2)=\angle(\ell_1, \ell_3)+\angle(\ell_3, \ell_2)$ 
+    and $\angle(\ell_4, \ell_3)=\angle(\ell_4, \ell_1)+\angle(\ell_1, \ell_3)$, 
+    from $\angle(\ell_1, \ell_2)=\angle(\ell_4, \ell_3)$
+    we have $\angle(\ell_3, \ell_2)=\angle(\ell_4, \ell_1)$, 
+    i.e. 
+    \[
+    \arctan(\cos\theta_3\tan\angle(\ell_3, \ell_1)) = \arctan(\frac{1}{\cos\theta_1}\tan\angle(\ell_3, \ell_1))
+    \]
+    Given that $0<b\le 1$ and $0<a<1$, by injectivity of $\arctan$ (even in modulo $180^{\circ}$)
+    we have either $\angle(\ell_3, \ell_1)\in \{0, 90^{\circ}\}$. 
+    
+    In the first case where $\ell_1\parallel \ell_3$, the expression $\angle(\ell_3, \ell_2)=\angle(\ell_4, \ell_1)$ gives 0. 
+    It then follows the outputs of $(\ell_1, \frac{1}{\cos\theta_1})$-transformation 
+    and $(\ell_3, \cos\theta_3)$-transformation must be parallel for every input line. 
+    However, this would only work if $\frac{1}{\cos\theta_1}=\cos\theta_3$, 
+    which is impossible with $|\cos\theta_1|<1$. 
+    
+    Thus we need $\ell_1\perp \ell_3$ (solving (b)). 
+    When the input angle is $\ell_1$ (resp $\ell_3$) then both transformations return $\ell_1$ (resp $\ell_3$), 
+    so we see that the two transformations must produce lines that are parallel. 
+    Now take any line $\ell$ that's the bisector of $\ell_1, \ell_3$ (i.e. $45^{\circ}$), and let $\ell_2$, $\ell_4$ be its image under the two transformations. 
+    Then  $\tan$ of $(\ell_2, \ell_3)$ and $(\ell_4, \ell_3)$ will be $\cos\theta_1$ and $\cos\theta_3$, 
+    respectively. 
+    Thus $\theta_1=\theta_3$ (solving (a)). 
+    
+	
+	\item[6.]
+	The quadrilateral $ABCD$ is inscribed into a circle $S$.
+	 Let $P$ be the intersection point of the rays $BA$ and $CD$. 
+	 Let $U$ and $V$ be the intersection points of the line, 
+	 which passes through $P$ and is parallel to the tangent to $S$ at the point $D$, 
+	 with the tangents to $S$ at points $A$ and $B$
+	respectively. Prove that the circumcircle of the triangle $CUV$ is tangent to the circle $S$.
+	
+	\textbf{Solution.}
+	    Let's define the following new points: 
+	    \begin{itemize}
+	    	\item $E$ as the point diametrically opposite $D$ on $S$
+	    	
+	    	\item $W$ as the intersection of the tangent to $S$ at $C$, and line $UV$  (could be point of infinity if $CD$ is the diemeter of $S$, i.e. $C$ coincides with $E$)
+	    	
+	    	\item $T_A$ be such that $T_AA$ and $T_AD$ tangent to $S$
+	    	
+	    	\item $T_B$ be such that $T_BB$ and $T_BD$ tangent to $S$
+	    	
+	    	\item $X$ the intersection of $AU$ and $CD$
+	    	
+	    	\item $Y$ the intersection of $BV$ and $CD$
+	    \end{itemize}
+        Also denote the diameter and radius of $S$ as $d$ and $r$, respectively, 
+        and $\angle(AB)$ as the non-obtuse angle subtended by chord $AB$ on $S$
+        (define this for other chords similarly). 
+        Then $AB=d\sin\angle (AB)$. 
+        Let's now set up some identity on the length of tangents
+        \[
+        T_AA=T_AD = r|\tan \angle(AD)|
+        =r|\sin\angle (AD) / \cos\angle(AD)|
+        =r|\frac{AD/d}{\sin\angle (AE)}|
+        =r\frac{AD}{AE}
+        \]
+        and similarly, $T_BB=T_BD=r\frac{BD}{BE}$. 
+        In a similar way we can show that $CW=WP=r\frac{CD}{CE}\cdot \frac{CP}{CD}=r\frac{CP}{CE}$. 
+        
+	    
+		\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+		\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+		\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+		\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm, scale=0.5]
+		\begin{scope}[shift={(-100,-100)}]
+		\clip(-13.891835513705532,-9.774652621583082) rectangle (21.896914183311154,15.365923448849884);
+		\draw [line width=2pt] (-3.5727197604952736,2.0334410291816316) circle (2.370067656956057cm);
+		\draw [line width=2pt] (-6.960243444604625,-1.4828124441950605)-- (7.400749642851678,-3.73963805339991);
+		\draw [line width=2pt] (0.4723076389937778,-2.6508355415558857) -- (0.17272074781344549,-2.9136906966417873);
+		\draw [line width=2pt] (0.4723076389937778,-2.6508355415558857) -- (0.26778545043360963,-2.308759800953183);
+		\draw [line width=2pt] (-5.863180638709392,2.6425466554237285)-- (-6.960243444604625,-1.4828124441950605);
+		\draw [line width=2pt] (-2.7432580368129584,-2.14551039300614)-- (-2.0886541179199245,3.8813506230407544);
+		\draw [line width=2pt] (-3.9406595420199375,-0.3078921414117284)-- (4.847249945936461,-1.6889093916127134);
+		\draw [line width=2pt] (0.7053497418285125,-1.038011059270622) -- (0.4057628506481821,-1.3008662143565215);
+		\draw [line width=2pt] (0.7053497418285125,-1.038011059270622) -- (0.5008275532683444,-0.6959353186679194);
+		\draw [line width=2pt] (-5.721960978953942,-1.6774081495819488)-- (-2.52,-0.09);
+		\draw [line width=2pt] (-11.700168486756919,11.600406953129657)-- (-2.7432580368129584,-2.14551039300614);
+		\draw [line width=2pt] (-11.700168486756919,11.600406953129657)-- (7.400749642851678,-3.73963805339991);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (1.3777089221149161,0.7169662569780524) circle (7.492552402414858cm);
+		\begin{scriptsize}
+		\draw [fill=ududff] (-2.52,-0.09) circle (2.5pt);
+		\draw[color=ududff] (-2.25708988977045,0.6523927986979794) node {$A$};
+		\draw [fill=ududff] (-2.0886541179199245,3.8813506230407544) circle (2.5pt);
+		\draw[color=ududff] (-1.8148334771647305,4.598680788102884) node {$B$};
+		\draw [fill=ududff] (-5.863180638709392,2.6425466554237285) circle (2.5pt);
+		\draw[color=ududff] (-5.591022846336643,3.3739707224254993) node {$C$};
+		\draw [fill=xdxdff] (-3.9406595420199375,-0.3078921414117284) circle (2.5pt);
+		\draw[color=xdxdff] (-4.468371952799047,0.38023500632522744) node {$D$};
+		\draw [fill=xdxdff] (-3.2047799789706097,4.374774199774992) circle (2.5pt);
+		\draw[color=xdxdff] (-3.5838591275876084,5.108976648801794) node {$E$};
+		\draw [fill=uuuuuu] (-2.7432580368129584,-2.14551039300614) circle (2pt);
+		\draw[color=uuuuuu] (-2.4612082340500128,-1.4908498162374426) node {$P$};
+		\draw [fill=uuuuuu] (-6.960243444604625,-1.4828124441950605) circle (2pt);
+		\draw[color=uuuuuu] (-6.679654015827645,-0.8104553353055626) node {$W$};
+		\draw [fill=uuuuuu] (-5.721960978953942,-1.6774081495819488) circle (2pt);
+		\draw[color=uuuuuu] (-5.454943950150268,-1.0145736795851266) node {$U$};
+		\draw [fill=uuuuuu] (7.400749642851678,-3.73963805339991) circle (2pt);
+		\draw[color=uuuuuu] (7.676669531834942,-3.0897768464273607) node {$V$};
+		\draw [fill=uuuuuu] (-3.7010969457247964,-0.6755420879308777) circle (2pt);
+		\draw[color=uuuuuu] (-3.821997195913765,-1.0485934036317206) node {$X$};
+		\draw [fill=uuuuuu] (-11.700168486756919,11.600406953129657) circle (2pt);
+		\draw[color=uuuuuu] (-11.442415382350779,12.253118698586533) node {$Y$};
+		\draw [fill=uuuuuu] (-3.1956639025945712,-0.42496797506488015) circle (2pt);
+		\draw[color=uuuuuu] (-3.2096421630750767,0.48229417846500944) node {$T_A$};
+		\draw [fill=uuuuuu] (4.847249945936461,-1.6889093916127134) circle (2pt);
+		\draw[color=uuuuuu] (5.227249400480187,-0.9125145074453445) node {$T_B$};
+		\end{scriptsize}
+		\end{scope}
+		\end{tikzpicture}
+		
+		Next, take triangle $ADP$ and the cevian $AX$. 
+		Then given $AX$ is tangent to $S$ we have 
+		\[
+		\frac{DX}{XP}
+		=\frac{\text{Area}(ADX)}{\text{Area}(AXP)}
+		=\frac{1/2 \cdot AD\cdot AX\cdot \sin\angle DAX}{1/2 \cdot AP\cdot AX\cdot\sin\angle PAX}
+		=\frac{AD\cdot \sin\angle DAX}{AP\cdot\sin\angle PAX}
+		\]\[
+		=\frac{AD\cdot \sin\angle (AD)}{AP\cdot\sin\angle (AB)}
+		=\frac{AD^2/d}{AB/d\cdot AP}
+		=\frac{AD^2}{AB\cdot AP}
+		\]
+		and since $DT_A$ and $UP$ are parallel with $T_AU$ and $PD$ meeting at $X$, 
+		\[
+		PU = T_AD\frac{PX}{XD}
+		=r\frac{AD}{AE}\cdot \frac{AB\cdot AP}{AD^2}
+		=r\frac{AB\cdot AP}{AE\cdot AD}
+		\]
+		and similarly, $PV = r\frac{AB\cdot BP}{BE\cdot BD}$. 
+		Finally, we also have 
+		\[
+		\frac{AP}{BP}
+		=\frac{\text{Area}(APD)}{\text{Area}(BPD)}
+		=\frac{1/2 \cdot PD\cdot DA\cdot \sin\angle PDA}{1/2\cdot PD\cdot DB\cdot \sin\angle PDB}
+		=\frac{DA\cdot \sin\angle (AC)}{\cdot DB\cdot \sin\angle (BC)}
+		=\frac{DA\cdot AC}{DB\cdot BC}
+		\]
+		This gives 
+		\[
+		\frac{PU}{PV}
+		=\frac{AP \cdot BE\cdot BD}{AE\cdot AD\cdot BP}
+		=\frac{DA\cdot AC\cdot BE\cdot BD}{DB\cdot BC\cdot AD\cdot AE}
+		=\frac{AC\cdot BE}{BC\cdot AE}
+		\]
+		Meanwhile, 
+		we have by sine rule 
+		\[
+		\frac{AP}{CP}=\frac{\sin\angle ACP}{\sin\angle CAP}
+		=\frac{\sin\angle (AD)}{\sin\angle (BC)}
+		=\frac{AD}{BC}
+		\quad 
+		\frac{BP}{CP}=\frac{\sin\angle BCP}{\sin\angle CBP}
+		=\frac{\sin\angle (BD)}{\sin\angle (AC)}
+		\]
+		so 
+		\[
+		\frac{PU}{PW}
+		=r\frac{AB\cdot AP}{AE\cdot AD}/r\frac{CP}{CE}
+		=\frac{AB\cdot AD \cdot CE}{AE\cdot AD\cdot BC}
+		=\frac{AB\cdot CE}{AE\cdot BC}
+		\]
+		and similarly 
+		\[
+		\frac{PV}{PW}
+		=r\frac{AB\cdot BP}{BE\cdot BD}/r\frac{CP}{CE}
+		=\frac{AB\cdot BD \cdot CE}{BE\cdot BD\cdot AC}
+		=\frac{AB\cdot CE}{BE\cdot AC}
+		\]
+		
+		Now that we have 
+		\[PU:PV:PW = (AC\cdot BE) : (BC\cdot AE) : (\frac{1}{AB\cdot CE})
+		\]
+		Ptolemy's theorem says that among $AC\cdot BE, BC\cdot AE$, and $AB\cdot CE$, 
+		one will be the sum of the other two. 
+		We'll distinguish into three cases as below: 
+		
+		\emph{Case 1.} $E, B, A, C$ are in that order (like provided in the figure). 
+		Then on line $UV$, $W, U, P, V$ will be in that order. In addition, we have 
+		by Ptolemy's theorem we have 
+		\[
+		EA\cdot BC = EC\cdot AB + EB\cdot AC
+		\]
+		Therefore 
+		\begin{flalign*}
+		  WU \cdot WV
+		  &= (WP-UP) \cdot (WP+PV)
+		  \\&=WP^2 + WP(PV-UP) - UP\cdot PV
+		  \\&=WP^2 + WP^2(\frac{AB\cdot CE}{BE\cdot AC}-\frac{AB\cdot CE}{AE\cdot BC})
+		  -WP^2 (\frac{AB^2\cdot CE^2}{BE\cdot AC\cdot AE\cdot BC})
+		  \\&=WP^2 + WP^2(AB\cdot CE)(\frac{AE\cdot BC - BE\cdot AC}{BE\cdot AC\cdot AE\cdot BC})
+		  -WP^2 (\frac{AB^2\cdot CE^2}{BE\cdot AC\cdot AE\cdot BC})
+		  \\&=WP^2 + WP^2(AB\cdot CE)(\frac{AB\cdot CE}{BE\cdot AC\cdot AE\cdot BC})
+		  -WP^2 (\frac{AB^2\cdot CE^2}{BE\cdot AC\cdot AE\cdot BC})
+		  \\&=WP^2
+		\end{flalign*}
+		
+		\emph{Case 2.} 
+		$E, C, B, A$ in that order. 
+		Then on line $UV$, $U, P, V, W$ will be in that order and Ptolemy's theorem would give 
+		\[
+		EB\cdot AC = EA\cdot BC + EC\cdot AB
+		\]
+		Therefore 
+		\begin{flalign*}
+		WU \cdot WV
+		&= (WP+UP) \cdot (WP-PV)
+		\\&=WP^2 + WP(UP-PV) - UP\cdot PV
+		\\&=WP^2 + WP^2(\frac{AB\cdot CE}{AE\cdot BC}-\frac{AB\cdot CE}{BE\cdot AC})
+		-WP^2 (\frac{AB^2\cdot CE^2}{BE\cdot AC\cdot AE\cdot BC})
+		\\&=WP^2 + WP^2(AB\cdot CE)(\frac{ BE\cdot AC-AE\cdot BC }{BE\cdot AC\cdot AE\cdot BC})
+		-WP^2 (\frac{AB^2\cdot CE^2}{BE\cdot AC\cdot AE\cdot BC})
+		\\&=WP^2 + WP^2(AB\cdot CE)(\frac{AB\cdot CE}{BE\cdot AC\cdot AE\cdot BC})
+		-WP^2 (\frac{AB^2\cdot CE^2}{BE\cdot AC\cdot AE\cdot BC})
+		\\&=WP^2
+		\end{flalign*}
+		
+		\emph{Case 3.} $E, B, C, A$ in that order. Then on line $UV$, we either have $P, W, U, V$ or $P, W, V, U$ in that order and Ptolemy's theorem gives 
+		\[
+		EC\cdot AB = EA\cdot BC + EB\cdot AC
+		\]
+		Therefore 
+		\begin{flalign*}
+		WU \cdot WV
+		&= (UP-WP) \cdot (VP-WP)
+		\\&=WP^2 - WP(UP+PV) + UP\cdot PV
+		\\&=WP^2 - WP^2(\frac{AB\cdot CE}{AE\cdot BC}+\frac{AB\cdot CE}{BE\cdot AC})
+		+WP^2 (\frac{AB^2\cdot CE^2}{BE\cdot AC\cdot AE\cdot BC})
+		\\&=WP^2 - WP^2(AB\cdot CE)(\frac{ BE\cdot AC+AE\cdot BC }{BE\cdot AC\cdot AE\cdot BC})
+		+WP^2 (\frac{AB^2\cdot CE^2}{BE\cdot AC\cdot AE\cdot BC})
+		\\&=WP^2 + WP^2(AB\cdot CE)(\frac{AB\cdot CE}{BE\cdot AC\cdot AE\cdot BC})
+		+WP^2 (\frac{AB^2\cdot CE^2}{BE\cdot AC\cdot AE\cdot BC})
+		\\&=WP^2
+		\end{flalign*}
+		
+		Thus all three cases point to $WP^2=WU\cdot WV$, and that $W$ does not lie between $U$ and $V$. 
+		Finally, $WC=WP$. This gives $WC$ tangent to both circles $S$ and $CUV$ so $CUV$ is indeed tangent to $S$. 
+		
+		\textbf{Remark}: we could have made things shorter by considering directed length for the three cases, 
+		but it's also harder to parse that way. 
 \end{enumerate}
 \end{document}
