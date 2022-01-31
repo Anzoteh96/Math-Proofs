@@ -51,6 +51,80 @@
 	(x + y + z)P(x, y, z) + (xy + yz + zx)Q(x, y, z) + xyzR(x, y, z)
 	\end{align*}with $P, Q, R \in \mathcal{A}$. Find the smallest non-negative integer $n$ such that $x^i y^j z^k \in \mathcal{B}$ for all non-negative integers $i, j, k$ satisfying $i + j + k \geq n$.
 	
+	\textbf{Answer.} $n=4$. 
+	
+	\textbf{Solution.} We first identify the following members of $\mathcal{B}$. 
+	Notice also that $\mathcal{B}$ is closed under scalar multiplication so it's legal to subtract and add (in a sense). 
+	\begin{itemize}
+		\item $x^iy^jz^k$: just take $R(x, y, z)=x^{i-1}y^{j-1}z^{k-1}$
+		
+		\item $x^ay^b$ with $a\ge 2, b\ge 2$ (with the symmetric sums): consider 
+		$Q(x, y, z)=x^{a-1}y^{b-1}$, giving 
+		\[
+		(xy + yz + zx)Q(x, y, z) = x^ay^b+x^{a-1}y^{b}z+x^{a}y^{b-1}z
+		\]
+		But then we already had $x^{a-1}y^{b}z$, $x^{a}y^{b-1}z$ both in $\mathcal{B}$. 
+		(Similarly so for each component in the symmetric sum of $x^ay^b$)
+		
+		\item $x^ay$ with $a\ge 3$. 
+		Consider $P(x, y, z)=x^{a-1}y$. Then 
+		\[
+		(x + y + z)P(x, y, z)=x^ay+x^{a-1}y^2+x^{a-1}yz
+		\]
+		which, with $a\ge 3$, gives both $x^{a-1}y^2$ and $x^{a-1}yz$ in $\mathcal{B}$. 
+		
+		\item$x^a$, $a\ge 4$. 
+		Now let $P=x^{a-1}$, giving 
+		\[
+		(x + y + z)P(x, y, z)=x^a+x^{a-1}y+x^{a-1}z
+		\]
+		Since $a\ge 4$, both $x^{a-1}y$ and $x^{a-1}z$ are in $\mathcal{B}$. 
+	\end{itemize}
+    Hence any $n\ge 4$ would work. 
+    
+    To show $n\ge 4$ is necessary, we show that we cannot have $x^2y$ in $\mathcal{B}$. 
+    Observe that, when limiting in the case $x^iy^jz^k$ with $i+j+k=3$, it suffices to consider $P, Q, R$ homogeneous with degrees $2, 1, 0$, respectively. 
+    We also notice that
+    \[
+    Q=ax+by+cz
+    \Rightarrow 
+    (xy+yz+zx)Q(x, y, z)=a(x^2y+x^2z)+b(y^2z+y^2x)+c(z^2x+z^2y)+(a+b+c)xyz
+    \]
+    Meanwhile, having $x^2$ as part of $P$ introduces $x^3$ term that cannot be found anywhere, so the coefficient of $x^2, y^2, z^2$ of $P$ must be 0. 
+    Thus let $P=pxy+qyz+rzx$, which gives 
+    \[
+    p(x^2y+xy^2)+q(y^2z+yz^2)+r(zx^2+z^2x)+(p+q+r)xyz
+    \]
+    Since $R$ is constant (and cannot produce terms $x^2y$), 
+    in order to get only $x^2y$ we need: $r=-a$ (eliminate $x^2z$), 
+    $b=-p$ (eliminate $xy^2$), 
+    $c=a$ (eliminate $xz^2$), 
+    $q=p$ (eliminate $y^2z$),  
+    giving us 
+    \[
+    (xy+yz+zx)Q(x, y, z)+(x+y+z)P(x, y, z)=(a+p)(x^2y+yz^2)
+    \]
+    but we need $a+p=1$, i.e. contradiction. 
+	
+	%%%A3%%%
+	\item[\textbf{A3}]Suppose that $a,b,c,d$ are positive real numbers satisfying $(a+c)(b+d)=ac+bd$. 
+	Find the smallest possible value of
+	$$\frac{a}{b}+\frac{b}{c}+\frac{c}{d}+\frac{d}{a}.$$
+	
+	\textbf{Answer.} 8. 
+	
+	\textbf{Solution.} By a slew of AM-GM inequality (in the form of $x+y\ge 2\sqrt{xy}$)
+	we have 
+	\begin{flalign*}
+	  \left(\frac{a}{b}+\frac{c}{d}\right)+\left(\frac{b}{c}+\frac{d}{a}\right)
+	  &=\ge 2\sqrt{\frac{ac}{bd}}+2\sqrt{\frac{bd}{ac}}
+	  \\&=\frac{2(ac+bd)}{\sqrt{abcd}}
+	  \\&=\frac{(a+c)(b+d)}{\sqrt{abcd}}
+	  \\&=2\left(\sqrt{\frac{ab}{cd}}+\sqrt{\frac{ad}{bc}}+\sqrt{\frac{bc}{ad}}+\sqrt{\frac{cd}{ab}}\right)
+	  \\&\ge 2\left(2\sqrt[4]{\frac{abcd}{abcd}}+2\sqrt[4]{\frac{abcd}{abcd}}\right)
+	  \\&=8
+	\end{flalign*}
+	Equality case when $a=c=2+\sqrt{3}$ and $b=d=1$, i.e. the solution to the equation $a^2+b^2=4ab$. 
 	
 	%%%A4%%%
 	\item [\textbf{A4.}] (IMO 2) The real numbers $a, b, c, d$ are such that $a\geq b\geq c\geq d>0$ and $a+b+c+d=1$. Prove that
@@ -106,6 +180,69 @@
 	
 	We now proceed by induction, if $n=1$ then we only have a set $\emptyset$; if $n=2$ we have $\emptyset, \{1\}$. For $n\ge 3$, depending on whether $n-1\in S$, it reduces to the number of sets among $\{1, 2, \cdots , n-2\}$ or $\{1, 2, \cdots , n-3\}$, which by induction hypothesis gives us $F_{n-1}$ and $F_{n-2}$ such sets, respectively. 
 	Therefore the number of such sets is $F_{n-2}+F_{n-1}=F_n$. 
+	
+	%%%C2%%%
+	\item[\textbf{C2}] In a regular 100-gon, 41 vertices are colored black and the remaining 59 vertices are colored white. Prove that there exist 24 convex quadrilaterals $Q_{1}, \ldots, Q_{24}$ whose corners are vertices of the 100-gon, so that
+	the quadrilaterals $Q_{1}, \ldots, Q_{24}$ are pairwise disjoint, and
+	every quadrilateral $Q_{i}$ has three corners of one color and one corner of the other color.
+	
+	\textbf{Solution.} 
+	We'll use the following claim: 
+	
+	\emph{Lemma.} 
+	Consider a $4k$-gon with $b$ black and $w$ white vertices ($b+w=4k$), 
+	such that $k<b<3k$ and $b\neq 2k$. 
+	Then there exists four consecutive corners with odd number of  each colours. 
+	
+	Proof: Let $A_1, \cdots, A_{4k}$ be the vertices in that order, and $a_i$ be the number of black vertices among $A_i, A_{i+1}, A_{i+2}, A_{i+3}$. 
+	Then $|a_{i+1}-a_i|\le 1$, 
+	and the average among $a_i$ is $\frac{b}{k}$, which is a non-integer lying strictly between 1 and 3. 
+	It therefore follows that we must be able to choose $i$ and $j$ with $a_i=\lfloor \frac{b}{k}\rfloor$, 
+	and $a_j=\lceil \frac{b}{k}\rceil$. 
+	This means either $a_i=1, a_j=2$, or $a_i=2, a_j=3$. 
+	Thus we can always choose an $i$ with $a_i$ odd in both cases. 
+	$\square$
+	
+	Now in addition, if $b>w$ we take the 4 vertices with 3 being black, and if $b<w$ we take 4 vertices with 1 being black, 
+	we see that we have, in each cases: 
+	\[
+	2k-2 \le b-3 < 3k - 3
+	\quad 
+	k - 1< b - 1\le 2k - 2
+	\]
+	so with $b'$ black vertices left we still have $(k-1)< b' < 3(k-1)$. 
+	
+	Now let's do the algorithm as per the lemma. 
+	That is, at each step, 
+	if we have $b, w$ black, white vertices with $b+w=4k$ with $k<b<3k$, $b\neq 2k$, 
+	then if $b>w$ choose 4 consecutive vertices with 3 blacks, and if $b<w$ choose 4 consecutive vertices with 1 black. 
+	If we get to a point where the condition no longer holds then $b=w=2k$, which we do the following: 
+	\begin{itemize}
+		\item If $k=0$, stop. 
+		
+		\item If there exists 4 consecutive vertices with odd number of black, choose that and continue as usual. 
+		
+		\item Otherwise, each 4 consecutive vertices have 2 blacks and 2 whites. 
+	\end{itemize}
+    The final case is of our interest, so we'll tackle just on that. Notice that by the $|a_{i+1}-a_i|=1$ in the lemma we have: 
+    either the whites and blacks alternate, or they come in pairs (i.e. 2 blacks, 2 whites, 2 blacks, 2 whites, etc in that order). 
+    Moreover, up to this point, by choosing along the consecutive vertices, we ensure that the quadrilaterals formed are disjoint, and will be disjoint with the ones we form later on the remaining vertices. 
+    Thus we only need to worry about those remaining ones. 
+    
+    Let our vertices be $A_1, \cdots, A_{4k}$. 
+    In the first case (alternate) we choose $k-1$ quadrilaterals according to the following (indices modulo $4k$)
+    \[
+    (i-1, 3(i+1), 3(i+1)+1, 3(i+1)+2), i=1, \cdots, k-1
+    \]
+    where we can see that each selection is congruent to $(i-1, i+1, i, i+1)$ mod 2 so odd number of them is black. 
+    In the second case, assume that $A_1, A_2$ black and $A_3, A_4$ white. Then we do the following: 
+    \[(4n-1, 1, 2, 3), 
+    (4n - 2i, 4n-1-2i, 2i+2, 2i+3), i=1, 2, \cdots, k-2
+    \]
+    which we can see that $2i+2$ and $2i+3$ are different colours, and also $4n - 2i, 4n-1-2i$ are of the same colour. 
+    Also the construction above guarantees that the $k-1$ vertices are distjoint so we're done. 
+    
+    Finally, the conclusion follows since $k=25$ and $n=41$ has $25<41<75$. 
 	
 	%%%C3%%%
 	\item [\textbf{C3.}] (IMO 4) There is an integer $n > 1$. There are $n^2$ stations on a slope of a mountain, all at different altitudes. Each of two cable car companies, $A$ and $B$, operates $k$ cable cars; each cable car provides a transfer from one of the stations to a higher one (with no intermediate stops). The $k$ cable cars of $A$ have $k$ different starting points and $k$ different finishing points, and a cable car which starts higher also finishes higher. The same conditions hold for $B$. We say that two stations are linked by a company if one can start from the lower station and reach the higher one by using one or more cars of that company (no other movements between stations are allowed). Determine the smallest positive integer $k$ for which one can guarantee that there are two stations that are linked by both companies.
