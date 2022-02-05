@@ -45,6 +45,88 @@
 
 \section*{Algebra}
 \begin{enumerate}
+	%%%A1%%%
+	\item [\textbf{A1}]
+	For every positive integer $N$, determine the smallest real number $b_{N}$ such that, for all real $x$,
+	\[
+	\sqrt[N]{\frac{x^{2 N}+1}{2}} \leqslant b_{N}(x-1)^{2}+x .
+	\]
+	
+	\textbf{Answer.} $b_n = \frac{N}{2}$. 
+	
+	\textbf{Solution.} 
+	First, we have LHS $> 0$, so RHS $> 0$ must hold, too. 
+	This immediately gives $b_N(x^2-2x+1)+x> 0$ for all $x\ge 0$, 
+	so $(2b_N-1)^2-4b_N^2<0$, or $(2-\frac{1}{b_N})$, so $b_N>\frac 14$. 
+	Conversely when $b_N>\frac 14$ this constraint is guaranteed. 
+	
+	Now with both sides positives, we can freely raise power on both sides. 
+	Raising both sides by power of $N$ and subtracting $x^N$, we get the following inequality: 
+	\[
+	\frac 12 (x-1)^2 (x^{N-1}+\cdots + x+1)^2
+	=
+	\frac{1}{2}(x^N-1)^2\le (b_N(x-1)^2+x)^N-x^N
+	\]\[
+	=b_N(x-1)^2\left(\sum_{k=0}^{N-1}(b_N(x-1)^2+x)^kx^{N-1-k}\right)
+	\]
+	So we need 
+	\[
+	(x^{N-1}+\cdots + x+1)^2
+	\le 2b_N\left(\sum_{k=0}^{N-1}(b_N(x-1)^2+x)^kx^{N-1-k}\right)
+	\]
+	whenever $x\neq 1$. 
+	
+	We first see that by taking $x=1$, 
+	\[
+	(x^{N-1}+\cdots + x+1)^2=N^2
+	\quad 
+	\sum_{k=0}^{N-1}(b_N(x-1)^2+x)^kx^{N-1-k}
+	=N
+	\]
+	so if $b_N<\frac{N}{2}$ there exists some $x$ in the neighbourhood of 1 such that 
+	\[
+	(x^{N-1}+\cdots + x+1)^2
+	> 2b_N\left(\sum_{k=0}^{N-1}(b_N(x-1)^2+x)^kx^{N-1-k}\right)
+	\]
+	which isn't allowed. Therefore $b_n\ge \frac{N}{2}$ is necessary. 
+	
+	Now we show this $b_N$ works. 
+	We'll proceed by induction: 
+	base case $N=1$ just gives $(x^{N-1}+\cdots + x+1)^2=1$, 
+	and $\sum_{k=0}^{N-1}(b_N(x-1)^2+x)^kx^{N-1-k}=1$, 
+	so equality holds on both sides. 
+	Now suppose that  for some $N\ge 2$, 
+	$(b_k(x-1)^2+x)^k\ge \frac 12(x^{2k}+1)$ for all $k<N$. 
+	We have $b_N>b_k$, so 
+	\[
+	\sum_{k=0}^{N-1}(b_N(x-1)^2+x)^kx^{N-1-k}
+	\ge \sum_{k=0}^{N-1}x^{N-1-k}\left(\frac 12(x^{2k}+1)\right)
+	=\frac 12 \sum_{k=0}^{N-1}\left(x^{N-k-1}+x^{N+k+1}\right)
+	\]
+	\[
+	=\frac 12 (x^{N-1}+\cdots + x+1)(x^{N-1}+1)
+	\]
+	To proceed further, 
+	we first consider the $x$ nonnegative case: 
+	this way, $x^{N-1}+1$ majorizes $x^{k}+x^{N-1-k}$, 
+	so Muirhead's inequality means that 
+	\[
+	\frac N2(x^{N-1}+1)\ge x^{N-1}+\cdots + x + 1
+	\]
+	which establishes our conclusion. 
+	Now when $x<0$: 
+	\begin{itemize}
+		\item When $x\le -\frac{1}{2}$, $(x-1)^2\ge (-x-1)^2$ and therefore 
+		\[
+		\sqrt[N]{\frac{x^{2 N}+1}{2}} 
+		=\sqrt[N]{\frac{(-x)^{2 N}+1}{2}} \leq b_{N}(-x-1)^{2}+x 
+		\le b_{N}(x-1)^{2}+x 
+		\]
+		
+		\item When $x<0$ and $|x|<\frac 12$, the LHS $\sqrt[N]{\frac{x^{2 N}+1}{2}} \le 1$. 
+		On the other hand, $b_N\ge 1$ so $b_N(x-1)^2+x\ge (x-1)^2+x=(x-\frac 12)^2+\frac 34\ge 1$ whenever $x<0$. 
+	\end{itemize}
+	
 	%%%A2%%%
 	\item [\textbf{A2}] Let $\mathcal{A}$ denote the set of all polynomials in three variables $x, y, z$ with integer coefficients. Let $\mathcal{B}$ denote the subset of $\mathcal{A}$ formed by all polynomials which can be expressed as
 	\begin{align*}
@@ -155,6 +237,62 @@
 	$(5-z)(1+\frac{z^2}{3})<8$.
 	
 	Finally $(5-z)(1+\frac{z^2}{3})<8$ iff $z<3$ there's a root at $z=3$, the rest is just quadratic equation with no root. In addition, $x=a-d$ and $y=b-c$, so $3x+y\le 3(a-d)+3(b-c)\le 3(a+b-c-d)<3(a+b+c+d)=3$. Thus $z<1$ and the desired inequality follows.
+	
+	%%%A5%%%
+	\item[\textbf{A5}]
+	A magician intends to perform the following trick. She announces a positive integer $n$, along with $2n$ real numbers $x_1 < \dots < x_{2n}$, to the audience. A member of the audience then secretly chooses a polynomial $P(x)$ of degree $n$ with real coefficients, computes the $2n$ values $P(x_1), \dots , P(x_{2n})$, and writes down these $2n$ values on the blackboard in non-decreasing order. After that the magician announces the secret polynomial to the audience. Can the magician find a strategy to perform such a trick?
+	
+	\textbf{Answer.} No. 
+	
+	\textbf{Solution.} 
+	We claim the following: 
+	
+	\emph{Lemma.} 
+	There exists polynomial $P$ and $Q$ of degree $n$, and values $a_1, \cdots, a_{2n}$, not all equal, such that (indices taken modulo $2n$)
+	\[
+	P(x_i)=Q(x_{i+1})=a_i, \forall i=1,\cdots, 2n
+	\]
+	
+	Proof: let's treat $a_i$'s as random variables. 
+	Then Lagrange interpolation formula says that 
+	\[
+	P(x)\equiv \sum_{i=1}^{2n} a_i \prod_{j\neq i}\frac{x-x_j}{x_i-x_j}
+	\quad 
+	Q(x)\equiv \sum_{i=1}^{2n} a_i \prod_{j\neq i+1}\frac{x-x_j}{x_{i+1}-x_j}
+	\]
+	(again, indices taken modulo $2n$). 
+	
+	Now, this gives us a polynomial of degree at most $2n-1$, so we need the coefficients of $x^k$ to be 0 for $k>n$, for both $P$ and $Q$ (as well as having the coefficient at $x^n$ to be nonzero). 
+	Notice each product is actually a polynomial: for each $i$, there exist $b_{i, 0}, \cdots, b_{i, 2n-1}$ such that 
+	\[
+	\prod_{j\neq i}\frac{x-x_j}{x_i-x_j}\equiv \sum_{j=0}^{2n-1}b_{ij}x^j
+	\]
+	so we essentially have the following: 
+	\[
+	\begin{pmatrix}
+	  b_{1, 2n-1} & \cdots b_{2n, 2n-1}\\
+	  b_{1, 2n-2} & \cdots b_{2n, 2n-2}\\
+	  \vdots \\
+	  b_{1, n+1} & \cdots b_{2n, n+1}\\
+	  b_{2, 2n-1} & \cdots b_{1, 2n-1}\\
+	  b_{2, 2n-2} & \cdots b_{1, 2n-2}\\
+	  \vdots \\
+	  b_{2, n+1} & \cdots b_{1, n+1}\\
+	\end{pmatrix}
+	\begin{pmatrix}
+	  a_1\\a_2\\ \ldots\\ a_{2n}\\
+	\end{pmatrix}
+	=0
+	\]
+	This is an equation of $2n$ variables, with $2n-2$ equations to solve, so the null space has degree at least 2. 
+	One guaranteed solution would be when $a_1=\cdots = a_{2n}$ (i.e. the span of $(1, 1, \cdots, 1)$). 
+	Thus there's a solution that's not in the span of $(1, \cdots, 1)$, 
+	i.e. $a_i$'s not all equal. 
+	
+	(TODO: ensure that the coeffs at $n$ is nonzero...check $b_{1, n}, ..., b_{2n, n}$ is not a linear combination of these??)
+	
+	Thus from our examples, $P$ and $Q$ are two possible polynomials to return, and $a_i$ not all the same means $P$ and $Q$ are not equal. 
+
 \end{enumerate}
 
 \section*{Combinatorics}
@@ -395,6 +533,133 @@
 	\textbf{Solution.} We first show that the first three circles are coaxial. If $K$, $L$ and $M$ are the perpendiculars from $A$, $B$, $C$ to lines $BC$, $CA$, $AB$, respectively, then $K$ is the reflection of $A$ in the corresponding midline. Then $AKPD$ is an isoceles trapezoid, and therefore cyclic. 
 	Similarly, $L$ lies on circumcicle of $BEP$ and $M$ lies on $CFP$. 
 	
+	(TODO...next time)
+	
+	%%%G8%%%
+	\item [\textbf{G8}]
+	Let $ABC$ be a triangle with incenter $I$ and circumcircle $\Gamma$. Circles $\omega_{B}$ passing through $B$ and $\omega_{C}$ passing through $C$ are tangent at $I$. Let $\omega_{B}$ meet minor arc $AB$ of $\Gamma$ at $P$ and $AB$ at $M\neq B$, and let $\omega_{C}$ meet minor arc $AC$ of $\Gamma$ at $Q$ and $AC$ at $N\neq C$. Rays $PM$ and $QN$ meet at $X$. Let $Y$ be a point such that $YB$ is tangent to $\omega_{B}$ and $YC$ is tangent to $\omega_{C}$.
+	
+	\textbf{Solution.} 
+	We break things down into several steps. 
+	
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm, scale = 1.2]
+	\clip(-8.081105750848476,-4.620366998260985) rectangle (5.748374835436061,5.081302842687707);
+	\draw [line width=2pt] (-1.9337545832442526,-0.021538726707125897) circle (3.575922427388784cm);
+	\draw [line width=2pt] (-3.2613071793416193,0.8670881056349335) circle (1.431122720356785cm);
+	\draw [line width=2pt] (-4.722615209762418,0.686896741137611) circle (1.472375661172013cm);
+	\draw [line width=2pt] (-0.5339504250973116,1.203393747421322) circle (2.748013164018579cm);
+	\draw [shift={(-4.197951117000675,4.539082876707524)},line width=2pt,dash pattern=on 1pt off 1pt]  plot[domain=4.47725100235184:5.869160831656574,variable=\t]({1*2.4478780793390276*cos(\t r)+0*2.4478780793390276*sin(\t r)},{0*2.4478780793390276*cos(\t r)+1*2.4478780793390276*sin(\t r)});
+	\draw [line width=2pt] (-4.450297071196617,2.6863096461174916) circle (0.6161241708028135cm);
+	\draw [line width=2pt] (-2.9807913308908303,3.430986288160808) circle (1.0312951510447146cm);
+	\draw [line width=2pt] (-3.9007114291388914,2.9648138936460553)-- (-5.465072826256629,-0.5845775115790762);
+	\draw [line width=2pt] (-5.465072826256629,-0.5845775115790762)-- (1.6074181960067557,-0.5188480411119442);
+	\draw [line width=2pt] (1.6074181960067557,-0.5188480411119442)-- (-3.9007114291388914,2.9648138936460553);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-3.9007114291388914,2.9648138936460553)-- (-0.6886528380964085,-3.373693682990008);
+	\draw [line width=2pt] (-3.397536542203804,1.9718750219500902)-- (-4.768250821765113,2.158565004887587);
+	\draw [line width=2pt] (-3.397536542203804,1.9718750219500902)-- (-1.9568961986239144,3.5543088193076247);
+	\draw [line width=2pt] (-5.465072826256629,-0.5845775115790762)-- (-0.6886528380964085,-3.373693682990008);
+	\draw [line width=2pt] (-0.6886528380964085,-3.373693682990008)-- (1.6074181960067557,-0.5188480411119442);
+	\draw [line width=2pt] (-4.28506317677037,2.0927553065830304)-- (-3.0077342819980286,2.4000431442610206);
+	\begin{scriptsize}
+	\draw [fill=ududff] (-3.9007114291388914,2.9648138936460553) circle (2.5pt);
+	\draw[color=ududff] (-4.111045734633714,3.3263259812152812) node {$A$};
+	\draw [fill=ududff] (-5.465072826256629,-0.5845775115790762) circle (2.5pt);
+	\draw[color=ududff] (-5.359905673509218,-0.3019407885704084) node {$B$};
+	\draw [fill=ududff] (1.6074181960067557,-0.5188480411119442) circle (2.5pt);
+	\draw[color=ududff] (1.7125853487541667,-0.23621131810327634) node {$C$};
+	\draw [fill=uuuuuu] (-3.2613071793416193,0.8670881056349335) circle (2pt);
+	\draw[color=uuuuuu] (-3.296000300841279,0.6577094802497196) node {$I$};
+	\draw [fill=uuuuuu] (-4.768250821765113,2.158565004887587) circle (2pt);
+	\draw[color=uuuuuu] (-5.070696003453838,2.3403839242083) node {$P$};
+	\draw [fill=uuuuuu] (-4.28506317677037,2.0927553065830304) circle (2pt);
+	\draw[color=uuuuuu] (-4.176775205100845,2.353529818301727) node {$M$};
+	\draw [fill=uuuuuu] (-3.0077342819980286,2.4000431442610206) circle (2pt);
+	\draw[color=uuuuuu] (-2.9016234780384877,2.6558853824505344) node {$N$};
+	\draw [fill=uuuuuu] (-1.9568961986239144,3.5543088193076247) circle (2pt);
+	\draw[color=uuuuuu] (-1.7053471155366884,3.484076710336398) node {$Q$};
+	\draw [fill=uuuuuu] (-0.6886528380964085,-3.373693682990008) circle (2pt);
+	\draw[color=uuuuuu] (-0.5879461175954473,-3.115162124563661) node {$Y$};
+	\draw [fill=uuuuuu] (-3.397536542203804,1.9718750219500902) circle (2pt);
+	\draw[color=uuuuuu] (-3.4011674535886898,1.8671317368449498) node {$X$};
+	\end{scriptsize}
+	\end{tikzpicture}
+	
+	\emph{Step 1.} $Y$ lies on $\Gamma$. 
+	Indeed, from the tangency of $\omega_B$ and $\omega_C$ at $I$ we got 
+	$\angle BIC = \angle BMI + \angle CNI$, 
+	and by definition of $Y$ (tangent to circles)
+	we have $\angle IBY = \angle BMI, \angle ICY = \angle INC$. 
+	Therefore, 
+	\[
+	\angle ABY + \angle ACY 
+	= \angle ABI + \angle ACI + \angle BMI + \angle CNI 
+	= \angle ABI + \angle ACI  + \angle BIC = 180^{\circ}
+	\]
+	
+	\emph{Step 2.} 
+	$I$ is the excenter opposite $A$ or triangle $AMN$. 
+	
+	Proof: by the tangency of $\omega$'s we have $\angle MCN = \angle ABI + \angle ACI = 90^{\circ}-\frac{BAC}{2}$. 
+	Now let the tangent to incircle of $ABC$ from $M$ to be line $AB$ and $MN'$ with $N'$ on $AC$, 
+	then by angle chasing we can get 
+	\[\angle MCN'=180^{\circ}-\frac 12 (\angle BMN'+\angle CN'M)
+	=180^{\circ}-\frac 12 (180^{\circ}+\angle BAC)
+	=90^{\circ}-\frac{BAC}{2}=\angle MCN'
+	\]
+	so indeed, $N=N'$ and therefore the incircle is tangent to $MN$, establishing this step. 
+	
+	\emph{Step 3.} 
+	$P, M, N, Q$ concyclic. 
+	Here we'll just angle chase: 
+	\[
+	\angle PMN = \angle PMA + \angle AMN
+	=180^{\circ} - \angle PMB + (180^{\circ} - 2\angle BMI)
+	\]
+	while 
+	\[
+	\angle PQN
+	=\angle AQN - \angle AQP
+	=\angle AQC - \angle NQC - \angle ABP 
+	= (180^{\circ} - \angle ABC) - (180^{\circ} - \angle NIC)-\angle ABP
+	\]
+	Finally, $\angle MIN + \angle BIC = 90^{\circ}+\frac{\angle BAC}{2} + 90 ^{\circ}-\frac{\angle BAC}{2}= 180^{\circ}$ so $\angle BIM + \angle NIC = 180^{\circ}$. 
+	Thus we're left with showing 
+	\[
+	\angle PMB + 2\angle BMI + \angle ABC + \angle MIB + \angle ABP = 360^{\circ}
+	\]
+	Indeed, 
+	\begin{flalign*}
+	  \angle PMB + 2\angle BMI + \angle ABC + \angle MIB + \angle ABP
+	  \\= \angle PMB + \angle BPI + \angle ABC + (180^{\circ} - \frac{\angle ABC}{2})+ \angle ABP
+	  \\= (180^{\circ} - \angle MPI)+ \angle ABC + (180^{\circ} - \frac{\angle ABC}{2})
+	  \\=360^{\circ} + \angle ABC - \frac{\angle ABC}{2}-\frac{\angle ABC}{2}
+	  \\=360^{\circ}
+	\end{flalign*}
+	as claimed. 
+	
+	\textbf{Step 4.} $APM$ and $AQN$ have circumcircles tangent at $A$, and common tangent line $AY$. 
+	
+	Proof: We have 
+	\[\angle APM
+	=\angle APB - \angle BPM 
+	= (180^{\circ} - \angle ACB) - (180^{\circ} - \angle MIB)
+	=\angle MIB - \angle ACB
+	\]
+	and also 
+	\[
+	\angle BAY = 180^{\circ}-\angle ABY - \angle AYB
+	= \angle MIB - \angle ACB = \angle APM
+	\]
+	so $AY$ is tangent to the circle $APM$ at $A$. 
+	Similarly $AY$ is tangent to circle $AQN$ at $A$, thus finishing the proof. 
+	
+	Now we can complete the solution. $AY$ is the radical axis of $APM$ and $AQN$, 
+	and since $P, M, N, Q$ cyclic, their intersection $X$ has $XM\cdot XP=XN\cdot XQ$. 
+	Therefore $X$ is on the radical axis of these two circles (i.e. done). 
+	
+	
 	%%%G9%%%
 	\item [\textbf{G9}] (IMO 6) Prove that there exists a positive constant $c$ such that the following statement is true:
 	Consider an integer $n > 1$, and a set $\mathcal S$ of $n$ points in the plane such that the distance between any two different points in $\mathcal S$ is at least 1. It follows that there is a line $\ell$ separating $\mathcal S$ such that the distance from any point of $\mathcal S$ to $\ell$ is at least $cn^{-1/3}$.
@@ -413,6 +678,35 @@
 
 \section*{Number Theory}
 \begin{enumerate}
+	%%%N1%%%
+	\item[\textbf{N1}]
+	Given a positive integer $k$ show that there exists a prime $p$ such that one can choose distinct integers $a_1,a_2\cdots, a_{k+3} \in \{1, 2, \cdots ,p-1\}$ such that $p$ divides $a_ia_{i+1}a_{i+2}a_{i+3}-i$ for all $i= 1, 2, \cdots, k$.
+	
+	\textbf{Solution.} 
+	Let $p$ be a random variable (for now), and allowing multiplicative inverse, we get the following requirement: 
+	\[
+	\frac{a_{i+4}}{a_i}=\frac{a_{i+1}a_{i+2}a_{i+3}a_{i+4}}{a_ia_{i+1}a_{i+2}a_{i+3}} = \frac{i+1}{i}
+	\]
+	Now consider $q, r, s>k$ prime numbers, with $a_1=q, a_2=r, a_3=\frac{1}{q}, a_4 = \frac{1}{r}$. 
+	Then $a_1a_2a_3a_4=1$ and by obeying $\frac{a_{i+4}}{a_i}=\frac{i+1}{i}$, we get $a_{i}a_{i+1}a_{i+2}a_{i+3}=i$. 
+	
+	Next we see that $a_i\neq a_j$ for all $i, j$: 
+	if $i\not\equiv j\pmod{4}$, then $a_{4x+1}$ and $a_{4x+2}$ have factors $q$ and $r$ on their numerators respectively (but not both); while $a_{4x+3}$ and $a_{4x+4}$ have those on their denominators respectively (but not both). 
+	This easily rules out the case where $i\not\equiv j\pmod{4}$. 
+	For $i\equiv j\pmod{4}$ we have $i<j$ implying 
+	\[
+	\frac{a_j}{a_i}=\dprod_{x=0}^{(j-i)/4-1}\frac{i+4x+1}{i+4x}
+	\]
+	which is a rational number that's strictly $>1$. 
+	So $a_i\neq a_j$ in this case. 
+	
+	Finally, having established above, all we need to do is to assemble all the rational numbers $\{\frac{a_i}{a_j}\}_{i\neq j}$, and choose $p$ such that: 
+	\begin{itemize}
+		\item $p$ is relatively prime to the numerators and denominators of all $\frac{a_i}{a_j}$. 
+		
+		\item $\frac{a_i}{a_j}\not\equiv 1\pmod{p}$. That is, choose $p$ such that $p$ does not divide the numerator of $a_i-a_j$ for all $(i, j)$. 
+	\end{itemize}
+	
 	%%%N2%%%
 	\item[\textbf{N2}] For each prime $p$, construct a graph $G_p$ on $\{1,2,\ldots p\}$, where $m\neq n$ are adjacent if and only if $p$ divides $(m^{2} + 1-n)(n^{2} + 1-m)$. Prove that $G_p$ is disconnected for infinitely many $p$. 
 	
@@ -557,6 +851,71 @@
 		Therefore only one prime $p$ can have $f(p)\neq 0$. For this $p$, by using prime factorization of an integer $n$ would yield $f(n)=f(p)v_p(n)$. To show that (iii) can be fulfilled, consider $n=p^{\alpha}$ for any $\alpha\ge 0$. Then for each $k<n$, if $b<\alpha$ is the highest power of $p$ dividing $k$ then $k=p^b\ell$ for some $\ell$ with $\ell$ not divisible by $p$. 
 		Then $n-k=p^{b}(p^{\alpha-b}-\ell)$ so $v_p(n-k)=b$, too, as claimed. 
 		
+		%%%N6%%%
+		\item[\textbf{N6}]
+		For a positive integer $n$, let $d(n)$ be the number of positive divisors of $n$, and let $\varphi(n)$ be the number of positive integers not exceeding $n$ which are coprime to $n$. Does there exist a constant $C$ such that
+		
+		$$ \frac {\varphi ( d(n))}{d(\varphi(n))}\le C$$for all $n\ge 1$
+		
+		\textbf{Answer.} No. 
+		
+		\textbf{Solution.} 
+		We first prove the following claim: 
+		
+		\emph{Lemma.} 
+		Let $k$ be an arbitrary positive integer. Then there exists an $N$ such that if we take the first $N$ primes $p_1, \cdots, p_N$, 
+		at least $k$ of those $p_i$'s is such that for all $j=1, \cdots, N$, $p_i\nmid p_j-1$. 
+		
+		Proof: In this collection, if $p_i$ is odd and $p_i\ge \frac{p_N}{2}$ then 
+		$p_j-1$ is either 1 or has prime divisors that are 2 and others at most $\frac{p_j-1}{2}>p_i$. 
+		Thus it suffices to show that $N$ can be chosen such that at least $k$ of those are at least $\frac{p_N}{2}$. 
+		By prime number theorem there exists function $f(N)\in o(1)$ such that the number of primes up to $N$ is $(1+f(N))\frac{N}{\log N}$. 
+		Thus, when considering $N$ and $2N$, big enough with $|f(N)|<0.01$ and $|f(2N)|<0.01$ for each of those we have the number of primes between $N$ and $2N$ as 
+		\[
+		(1+f(2N))\frac{2N}{\log (2N)} - (1+f(N))\frac{N}{\log N}
+		\ge 0.99\frac{2N}{\log 2 + \log (N)} - 1.01\frac{N}{\log N}
+		\]
+		\[
+		\ge\frac{0.95N}{\log N}
+		\]
+		for $N$ sufficiently big (to cover the addition $\log 2$ in denominator). 
+		Thus we can choose $N$ that satisfies the aforementioned constraint, and such that $ \frac{0.95N}{\log N}\ge k$ (here $\log$ is natural log). 
+		
+		Turning back to the problem, 
+		consider the collection $p_1, \cdots, p_{\ell}, q_1, \cdots, q_k$ as the first ${\ell}+k$ primes (in some order)
+		such that $q_i-1$ and $p_j-1$ are not divisible by $q_{x}-1$ for all $i, j, x$. 
+		Consider sequences $a_1, \cdots, a_{\ell}$ and the number 
+		\[
+		n = \prod_{i=1}^{\ell}p_i^{2^{a_i}-1}\prod_{j=1}^{k}q_j
+		\]
+		Then 
+		\[
+		d(n) = 2^k\prod_{i=1}^{\ell}2^{a_i}
+		\quad 
+		\varphi(n) = \prod_{i=1}^{\ell}(p_i-1)p_i^{2^{a_i}-2}\prod_{j=1}^{k}(q_j-1)
+		\]
+		By our construction, $p_i-1$ and $q_j-1$ are divisible by none of $q_x$'s, and since we're taking the first $n+k$ primes, $p_i-1$ and $q_j-1$ must have prime divisors that are only in the $p_x$'s. 
+		Thus let's name 
+		\[
+		\prod_{i=1}^{\ell}(p_i-1)
+		\prod_{j=1}^{k}(q_j-1)
+		=\prod_{i=1}^{\ell}p_i^{b_i}
+		\]
+		and we have 
+		\[\prod_{i=1}^{\ell}(p_i-1)p_i^{2^{a_i}-2}\prod_{j=1}^{k}(q_j-1)
+		=\prod_{i=1}^{\ell}p_i^{2^{a_i}+b_i-2}
+		\]
+		
+		Next, since $d(n)$ is power of 2, $\varphi(d(n))=\frac 12 d(n)$ and so 
+		\[\varphi(d(n)) = \varphi(2^k\prod_{i=1}^{\ell}2^{a_i})=2^{k-1+\sum_{i=1}^{k}a_i}
+		\]\[
+		d(\varphi(n))
+		=d\left(\prod_{i=1}^{\ell}(p_i-1)p_i^{2^{a_i}-2}\prod_{j=1}^{k}(q_j-1)\right)
+		=\prod_{i=1}^{\ell} (2^{a_i}+b_i-1)
+		\]
+		so our ratio is now $2^{k-1}\prod_{i=1}^{\ell}\frac{2^{a_i}}{2^{a_i}+b_i-1}$. 
+		By choosing $a_i$ large, each $\frac{2^{a_i}}{2^{a_i}+b_i-1}$ can stay close to 1 (while $\ell$ is finite), 
+		so we can make the ratio to be arbitrarily close to $2^{k-1}$. 
 	\end{enumerate}
 \end{enumerate}
 
