@@ -180,10 +180,73 @@
     \]
     as desired. 
 	
-	\item[\textbf{A4}] Suppose $X$ is a random variable that takes on only nonnegative integer values, with $E[X]=1,$ $E[X^2]=2,$ and $E[X^3]=5.$ (Here $E[Y]$ denotes the expectation of the random variable $Y.$) Determine the smallest possible value of the probability of the event $X=0.$
+	\item[\textbf{A4}] Suppose $X$ is a random variable that takes on only nonnegative integer values, with $\bbE[X]=1,$ $\bbE[X^2]=2,$ and $\bbE[X^3]=5.$ (Here $\bbE[Y]$ denotes the expectation of the random variable $Y.$) Determine the smallest possible value of the probability of the event $X=0.$
 	
-	\textbf{Answer.} $\dfrac 13$. \\
-	\textbf{Solution.} (by Kiran Kedlaya, modified) We let $a_i=P(X=i)$ for each $i\ge 0$ (which means $a_i\ge 0$ for each $i$). Consider the power series $f(x)=\displaystyle\sum_{n=0}^{\infty}a_nx^n$, and we have $f(1)=1$. 
+	\textbf{Answer.} $\dfrac 13$. This is achieved when $X$ only takes values 0, 1, 3 with probabilities $\dfrac 13, \dfrac 12, \dfrac 16$, respectively. \\
+	\textbf{Solution.} 
+	
+	Let $p_i = \bbE[X=i]$ for $i=0, 1, 2$, and $p_3 = \bbE[X\ge 3]$. 
+	Consider, now, the random variable $Y$, taking only nonnegative integer values, 
+	such that $\bbE[Y=y]=\frac{\bbE[X=y + 3]}{p_3}$, 
+	and $b_i = \bbE[Y^i]$ for $i=1, 2, 3$. 
+	Then: 
+	\[
+	\bbE[X^i] = p_00^i + p_11^i + p_22^i + p_3\bbE[(Y+3)^i]
+	\]
+	for $i=1, 2, 3$. 
+	Notice also 
+	\[
+	\bbE[(Y+3)]=b_1+3
+	\qquad 
+	\bbE[(Y+3)^2]
+	=\bbE[Y^2]+6\bbE[Y]+9
+	=b_2+6b_1+9
+	\]
+	\[
+	\bbE[(Y+3)^3]
+	=\bbE[Y^3]+9\bbE[Y^2]+27\bbE[Y]+27
+	=b_3+9b_2+27b_1+27
+	\]
+	This gives us the following: 
+	\[
+	\begin{pmatrix}
+		1 & 1 & 1 & 1\\
+		0 & 1 & 2 & b_1+3\\
+		0 & 1 & 4 & b_2+6b_1+9\\
+		0 & 1 & 8 & b_3+9b_2+27b_1+27
+	\end{pmatrix}
+    \begin{pmatrix}
+    	p_0 \\ p_1 \\ p_2 \\ p_3
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    	1 \\ 1 \\ 2 \\ 5
+    \end{pmatrix}
+	\]
+	We note that $b_1, b_2, b_3$ are all nonnegative by the definition of $Y$, 
+	so the left matrix is invertible, and gives the following solution: 
+	\[
+	p_3 = \frac{1}{D}
+	\qquad 
+	p_2 = \frac{b_3+5b_2+6b_1}{2D}
+	\qquad 
+	p_1 = \frac{b_2+4b_1+3}{D}
+	\qquad 
+	p_0 = \frac{b_3 + 5b_2 + 8b_1+4}{2D}
+	\]
+	where $D=b_3+6b_2+11b_1+6$. 
+	Therefore our required quantity is now 
+	\[
+	\frac{b_3 + 5b_2 + 8b_1+4}{2(b_3+6b_2+11b_1+6)}
+	=\frac 13 + \frac{b_3+3b_2+2b_1}{6(b_3+6b_2+11b_1+6)}
+	\ge \frac 13
+	\]
+	since $b_1, b_2, b_3\ge 0$. 
+	
+	
+	%%%Old solution, cited from Kiran Kedlaya
+	\iffalse
+	(by Kiran Kedlaya, modified) We let $a_i=P(X=i)$ for each $i\ge 0$ (which means $a_i\ge 0$ for each $i$). Consider the power series $f(x)=\displaystyle\sum_{n=0}^{\infty}a_nx^n$, and we have $f(1)=1$. 
 	By the problem condition, we also have 
 	\begin{itemize}
 		\item $f'(x)=\displaystyle\sum_{n=0}^{\infty}na_nx^{n-1}$, so $f'(1)=\displaystyle\sum_{n=0}^{\infty}na_n=E(X)=1$
@@ -207,6 +270,9 @@
 	$
 	for some $c\in (0, 1)$. 
 	We also note that $f^{(4)}(x)=\displaystyle\sum_{n=0}^{\infty}n(n-1)(n-2)(n-3)a_nx^{n-4}$ and for $x\ge 0$ and $n\ge 0$, the quantities $n(n-1)(n-2)(n-3)$, $a_n$, and $x^{n-4}$ are all nonnegative. Thus $f^{(4)}(x)\ge 0$ for all $x\ge 0$, and in particular $\dfrac{f^{(4)}(c)}{24}\ge 0$. Thus we have $f(0)=\dfrac{1}{3}+\dfrac{f^{(4)}(c)}{24}\ge \dfrac 13$, with equality holding when $a_0=\frac 13, a_1=\frac 12$ and $a_3=\frac 16$ and $a_n=0$ for other $n$'s. 
+	
+	\fi 
+	%%%End
 	
 	\item[\textbf{B1}] 
 	A base 10 over-expansion of a positive integer $N$ is an expression of the form $N=d_k10^k+d_{k-1}10^{k-1}+\cdots+d_0 10^0$ with $d_k\ne 0$ and $d_i\in\{0,1,2,\dots,10\}$ for all $i.$ For instance, the integer $N=10$ has two base 10 over-expansions: $10=10\cdot 10^0$ and the usual base 10 expansion $10=1\cdot 10^1+0\cdot 10^0.$ Which positive integers have a unique base 10 over-expansion?
