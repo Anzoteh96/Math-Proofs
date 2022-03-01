@@ -1,0 +1,211 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs, algorithm, algpseudocode}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2015, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item[1.]
+	Pete summed up 100 consecutive powers of two, while Basil summed up several
+	first consecutive positive integers. Can they get the same result?
+	
+	\textbf{Answer.} Yes, given by the following example: 
+	\[
+	2^{99}+2^{100}+\cdots + 2^{198}
+	=2^{99}(2^{100}-1)
+	\qquad 
+	1+2+\cdots + (2^{100}-1)
+	=\frac{2^{100}(2^{100-1})}{2}
+	=2^{99}(2^{100}-1)
+	\]
+	
+	\item[2.]
+	A moth made four small holes in a square carpet with a 275 cm side. Can one
+	always cut out a square piece with a 1 m side without holes? (Consider holes
+	as points).
+	
+	\textbf{Answer.} Yes. 
+	
+	\textbf{Solution.} Consider the four squares of side length $1$ contained in the square carpet and passing through the 4 corners of the carpet. 
+	The uncovered area then contains two strips of $0.75\times 2.75$ that intersect perpendicularly, 
+	the intersection being a square of side length $0.75$. 
+	
+	Now, consider the biggest square with center the center of the intersection of the two strips, 
+	oriented at $45^{\circ}$. 
+	This square has side length $0.75\sqrt{2} > 1$. Thus, we have 5 squares of side $\ge 1$ that's mutually disjoint. 
+	Since one of them cannot have holes, the conclusion follows. 
+	
+	\item[3.]
+	Among $2n+1$ positive integers there is exactly one 0, while each of the numbers
+	$1, \cdots, n$ is presented exactly twice. 
+	For which $n$ can one line up these numbers
+	so that for any $m = 1, \cdots, n$ there are exactly $m$ numbers between two $m$’s?
+	
+	\textbf{Answer.} All $n\ge 0$. 
+	
+	\textbf{Solution.} $n=0$ is vacuously true, and for $n=1, 2$ we have $(1, 0, 1)$ and $(2, 0, 1, 2, 1)$, 
+	respectively. 
+	Now, call an $n$-sandwich as a sequence of numbers 
+	\[
+	\begin{cases}
+	  n, n-2, \cdots,  3,1, a, 1, 3, \cdots, n-2, n  & n\text{ odd}\\
+	  n, n-2, \cdots, 4, 2, a, b, 2, 4, \cdots, n-2, n & n\text{even}\\
+	\end{cases}
+	\]
+	where $a, b$ could be anything. 
+	We denote the sandwiches above as $[n:(a):n]$ for $n$ odd, and $[n:(a,b):n]$ for $n$ even. 
+	We see that in $[n:(a):n]$, we have $m$ numbers between two $m$'s for $m=1, 3, \cdots, n$, 
+	and in $[n:(a,b):n]$ we have $m$ numbers between two $m$'s for $m=2, 4, \cdots, 2n$. 
+	
+	Then when $n\ge 4$ even we do 
+	\[
+	[n:(0, n-1):n][n-3:(n-1):n-3]
+	\]
+	and for $n\ge 3$ odd we do 
+	\[
+	[n:(n-1):n][n-3:(n-1, 0):n-3]
+	\]
+	By the properties of the sandwich, the only thing we need to verify is the number of numbers between the 
+	two $n-1$'s. 
+	The first one ($n$ even) gives $\frac{n}{2}+\frac{n-2}{2}=n-1$, 
+	the second one ($n$ odd) gives $\frac{n+1}{2}+\frac{n-3}{2}=n-1$, as desired. 
+	
+	\item[4.]Points $K$ and $L$ are marked on the median $AM$ of triangle ABC, so that
+	$AK = KL = LM$. Point $P$ is chosen so that triangles $KPL$ and $ABC$ are
+	similar (the corresponding vertices are listed in the same order). Given that
+	points $P$ and $C$ are on the same side of line $AM$, prove that point $P$ lies on
+	line $AC$.
+	
+	\item[5.]
+	2015 positive integers are arranged in a circular order. The difference between
+	any two adjacent numbers coincides with their greatest common divisor. 
+	Determine the maximal value of $N$ which divides the product of the numbers,
+	regardless of their choice.
+	
+	\textbf{Answer.} $3\times 2^{1009}$. 
+	
+	\textbf{Answer.} Replace 2015 with any odd number $k\ge 3$, and we show the answer is $3\cdot 2^{\frac{k+3}{2}}$. 
+	This example can be taken with 
+	\[2,4, 3, \underbrace{1,2,\cdots, 1,2}_{\frac{n-3}{2}\text{ pairs of 1, 2}}
+	\]
+	which has product precisely $3\cdot 2^{\frac{k+3}{2}}$. 
+	
+	It remains to show that all such numbers must be divisible by both 3 and $2^{\frac{k+3}{2}}$. 
+	First, we note that no two adjacent numbers can both be odd (its $\gcd$ is odd while the difference is even). 
+	Thus there must be at least $\frac{k+1}{2}$ even numbers. 
+	Since $k$ is odd, two of those even numbers are consecutive. 
+	We cannot have both these numbers in the form $4k+2$: the difference is divisible by 4 but the $\gcd$ is not. 
+	Hence, we must have one number in the sequence divisible by 4. 
+	This means $N$ is divisible by $4\cdot 2^{\frac{k-1}{2}}=2^{\frac{k+1}{2}}$. 
+	
+	It remains to show that one of the numbers are divisible by 3. 
+	Suppose otherwise, then since no $\gcd$ (and hence no difference) can be multiple of 3, 
+	the remainder of the numbers, when divided by 3, must alternate between $1, 2, 1, 2\cdots$. 
+	This is impossible since $k$ is odd. 
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.]
+	\begin{enumerate}
+		\item The integers $x, x^2$ and $x^3$ begin with the same digit. 
+		Does it imply that this digit is 1?
+		\item The same problem for $x, x^2, \cdots, x^{2015}$. 
+	\end{enumerate}
+	
+	\textbf{Answer.} No. 
+	
+	\textbf{Solution.} In fact, for each $n\ge 1$ we can choose $x$ such that $x, x^2, \cdots, x^{n}$ begin with 9. 
+	Now, consider $k$ such that the number $1-\frac{1}{10^k}\le \sqrt[n]{0.9}$. 
+	Then for all $m\le n$ we have $0.9\cdot 10^{km}\le (10^k-1)^m < 10^{km}$, 
+	meaning that $(10^k-1)^m$ has $km$ digits starting with 9. 
+	
+	\item[2.]
+	A point $X$ is marked on the base $BC$ of an isosceles triangle $ABC$, and points $P$ and $Q$ are
+	marked on the sides $AB$ and $AC$ so that $AP XQ$ is a parallelogram. Prove that the point $Y$
+	symmetrical to $X$ with respect to line $PQ$ lies on the circumcircle of the triangle $ABC$.
+	
+	\textbf{Solution.} 
+	Let $Y'$ be the intersection of circles $ABC$ and $APQ$, 
+	with $Y'\neq A$ unless the two circles are tangent to each other. 
+	We show that $Y'=Y$. 
+	In fact, $Y'$ is the center of spiral similarity that maps $Y'BC$ to $Y'PQ$, and consequently, $Y'PB$ to $Y'QC$. 
+	So in particular we have $\frac{Y'P}{Y'Q}=\frac{PB}{QC}=\frac{PX}{QX}$, 
+	the last equality following from $APXQ$ parallelogram and $AB=AC$ so $PB=PX$ and $QC=QX$. 
+	But since we also have $\angle PY'Q=PAQ=\angle PXQ$ by the definition of parallelogram, 
+	$PY'Q$ and $PXQ$ are congruent, so $Y'$ is the reflection of $X$ in $PQ$ (i.e. $Y=Y'$). 
+	
+	\item[4.]
+	A convex $N$-gon with equal sides is located inside a circle. Each side is extended in both directions
+	up to the intersection with the circle so that it contains two new segments outside the polygon.
+	Prove that one can paint some of these new $2N$ segments in red and the rest in blue so that the
+	sum of lengths of all the red segments would be the same as for the blue ones.
+	
+	\textbf{Solution.} 
+	Let the vertices as $A_1, \cdots, A_n$, and for each $i$ (taken modulo $i$), 
+	let $A_{i\to i+1}$ be the intersection of extension of $A_iA_{i+1}$ beyond $A_{i+1}$ and the circle, 
+	and define $A_{i+1\to i}$ similarly. 
+	Then by taking power of point theorem on $A_i$ and the coords $A_{i\to i+1}A_{i+1\to i}$ and $A_{i\to i-1}A_{i-1\to i}$, we have 
+	\[
+	A_{i\to i+1}A_i\cdot A_iA_{i+1\to i} = A_{i\to i-1}A_i\cdot A_iA_{i-1\to i}
+	\]
+	Now, let the extended segment $A_{i+1}A_{i\to i+1}$ have length $a_{i\to i+1}$, 
+	and similarly, the extended segment $A_iA_{i+1\to i}$ have length $a_{i+1\to i}$. 
+	Also let the common length $A_iA_{i+1}$ to be $b$. Then the equation above can be rewritten as 
+	\[
+	(b+a_{i\to i+1})a_{i+1\to i}= (b+a_{i\to i-1})a_{i-1\to i}
+	\]
+	Summing over all $i=1,\cdots, n$ gives 
+	\[
+	b\sum_{i=1}^na_{i+1\to i} + \sum_{i=1}^n a_{i\to i+1}a_{i+1\to i}
+	=b\sum_{i=1}^na_{i-1\to i} + \sum_{i=1}^n a_{i\to i-1}a_{i-1\to i}
+	\]
+	but since we're taking mod $n$, $\sum_{i=1}^n a_{i\to i+1}a_{i+1\to i}=\sum_{i=1}^n a_{i\to i-1}a_{i-1\to i}$. 
+	Therefore $\sum_{i=1}^na_{i+1\to i}=\sum_{i=1}^na_{i-1\to i}$. 
+	This means we can colour the $n$ segments $A_{i+1}A_{i\to i+1}$ red and $A_iA_{i+1\to i}$ blue. 
+	
+	\item[5.]
+	Do there exist two polynomials with integer coefficients such that each polynomial has a coefficient
+	with an absolute value exceeding 2015 but all coefficients of their product have absolute values
+	not exceeding 1?
+	
+	\textbf{Answer.} Yes. 
+	
+	\textbf{Solution.} Let $n=2017$. 
+	Consider the following polynomials: 
+	\[
+	f(x)=(x-1)^n
+	\qquad 
+	g(x) = \prod_{k=1}^{n-1} (1+x+\cdots + x^{2^k-1})
+	\]
+	Then given that $(x-1)(1+x+\cdots + x^{2^k-1})=x^{2^k}-1$, we have 
+	\[
+	f(x)g(x) = \prod_{k=0}^{n-1}(x^{2^k}-1)=\sum_{\ell=0}^{2^{n-1}-1}(-1)^{d(\ell)+n}x^{\ell}
+	\]
+	where $d(\ell)$ is the number of digits in the binary representation of $\ell$. 
+	Thus $fg$ does have coefficients that are in $\{-1, 0, 1\}$. 
+	Meanwhile, $f(x)$ has coefficient $-n$ at $x^{n-1}$, 
+	and $g(x)$ has coefficient $n-1$ at $x$, 
+	so each of them has coefficient with magnitude $\ge n-1=2016$. 
+	
+\end{enumerate}
+\end{document}
