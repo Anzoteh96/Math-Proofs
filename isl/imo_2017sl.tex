@@ -11,14 +11,44 @@
 \begin{document}
 \newcommand{\la}{\leftarrow}
 \newcommand{\lra}{\leftrightarrow}
-
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\ord}{\text{ord}}
 
 \title{Solution to IMO 2017 shortlisted problems.}
 \author{Anzo Teh}
-\date{\today}
+\date{}
 \maketitle
 
-Introduction: similar to last year I plan to do writeups on the problems that I nailed on this shortlist booklet. The only exception is that this problem sheet is harder than that of 2016 (C5 was on the IMO and almost everyone got 0), so I can anticipate that the progress to bit somewhat slower than last year. (To be added more)
+Introduction: similar to last year I plan to do writeups on the problems that I nailed on this shortlist booklet. The only exception is that this problem sheet is harder than that of 2016 (C5 was on the IMO and almost everyone got 0), so I can anticipate that the progress to bit somewhat slower than last year. (Edit: will add more from time to time, as my schedule permits!)
+
+
+% TODO: more like note for myself!
+\iffalse
+TODO: 
+
+
+A6: 
+Let $\mathbb{R}$ be the set of real numbers. Determine all functions $f: \mathbb{R} \rightarrow \mathbb{R}$ such that, for any real numbers $x$ and $y$,\[ f(f(x)f(y)) + f(x+y) = f(xy). \]
+
+C4: 
+An integer $N \ge 2$ is given. A collection of $N(N + 1)$ soccer players, no two of whom are of the same height, stand in a row. Sir Alex wants to remove $N(N - 1)$ players from this row leaving a new row of $2N$ players in which the following $N$ conditions hold:
+($1$) no one stands between the two tallest players,
+($2$) no one stands between the third and fourth tallest players,
+$\;\;\vdots$
+($N$) no one stands between the two shortest players.
+
+Show that this is always possible.
+
+G6: 
+Let $n\ge3$ be an integer. Two regular $n$-gons $\mathcal{A}$ and $\mathcal{B}$ are given in the plane. Prove that the vertices of $\mathcal{A}$ that lie inside $\mathcal{B}$ or on its boundary are consecutive.
+
+(That is, prove that there exists a line separating those vertices of $\mathcal{A}$ that lie inside $\mathcal{B}$ or on its boundary from the other vertices of $\mathcal{A}$.)
+
+N6: 
+Find the smallest positive integer $n$ or show no such $n$ exists, with the following property: there are infinitely many distinct $n$-tuples of positive rational numbers $(a_1, a_2, \ldots, a_n)$ such that both
+$$a_1+a_2+\dots +a_n \quad \text{and} \quad \frac{1}{a_1} + \frac{1}{a_2} + \dots + \frac{1}{a_n}$$are integers.
+\fi
 
 \newpage
 \section{Algebra}
@@ -78,7 +108,65 @@ $(1+\frac{x}{a_1})(1+\frac{x}{a_2})\cdots (1+\frac{x}{a_n}) \ge (x+1)^{\frac{1}{
 	
 	\textbf{Solution.} Suppose that it is unbounded. We first prove that it has to be unbounded in both directions (positive and negative). Indeed, if for any $M>\max\{|a_1|, \cdots , |a_{2017}|\}$ there exists $a_n>M$ (so $n>2017$), then from $a_i+a_j=-a_n<-M$ for some $i, j$ with $i+j=n$ we get $\min\{a_i, a_j\}<\frac{-M}{2}$. Similarly if for any $M>\max\{|a_1|, \cdots , |a_{2017}|\}$ there exists $a_n<-M$ then from $a_i+a_j=-a_n>M$ for some $i, j$ with $i+j=n$ we get $\max\{a_i, a_j\}>\frac{M}{2}$. Thus if the sequence is unbounded in any direction, it has to be unbounded in the opposite direction, too. 
 	
-	Now let $a_n$ to be the first number in the sequence greater than $M=\max\{|a_1|, \cdots , |a_{2017}|\}$, and by the unboundedness of the sequence there must also exist $m$ with $a_m>a_n$; we shall assume in the rest of the proof that this $m$ is minimal possible. The fact that $a_n<a_m=-\max_{i+j=m} (a_i+a_j)$ means that whenever $i+j=m$ we have $a_i+a_j\le -a_m$. In particular, $a_{n-i}\le -a_m-a_n<-a_n-a_n = -2a_n$. This implies the existence of an integer $k$ (take $k=n-i$) less than $m$ such that $a_{k}<-2a_n$, which also implies that $a_k<-\max\{|a_1|, \cdots , |a_{2017}|\}$, so $k>2017$. This would mean $a_k=-(a_i+a_j)$ for some $i, j$ with $i+j=k$ by the definition of max, so $a_i+a_j=-a_k>2a_n$ as $a_k<-2a_n$. Thus we have $\max\{a_i, a_j\}>a_n$. Since $i, j<m$, this will contradict the fact that $m$ is the minimal possible index with $a_m>a_n$. Hence the proof is complete with contradiction reached. 	
+	Now let $a_n$ to be the first number in the sequence greater than $M=\max\{|a_1|, \cdots , |a_{2017}|\}$, and by the unboundedness of the sequence there must also exist $m$ with $a_m>a_n$; we shall assume in the rest of the proof that this $m$ is minimal possible. The fact that $a_n<a_m=-\max_{i+j=m} (a_i+a_j)$ means that whenever $i+j=m$ we have $a_i+a_j\le -a_m$. In particular, $a_{n-i}\le -a_m-a_n<-a_n-a_n = -2a_n$. This implies the existence of an integer $k$ (take $k=n-i$) less than $m$ such that $a_{k}<-2a_n$, which also implies that $a_k<-\max\{|a_1|, \cdots , |a_{2017}|\}$, so $k>2017$. This would mean $a_k=-(a_i+a_j)$ for some $i, j$ with $i+j=k$ by the definition of max, so $a_i+a_j=-a_k>2a_n$ as $a_k<-2a_n$. Thus we have $\max\{a_i, a_j\}>a_n$. Since $i, j<m$, this will contradict the fact that $m$ is the minimal possible index with $a_m>a_n$. Hence the proof is complete with contradiction reached. 
+	
+	\item[\textbf{A5}]
+	An integer $n \geq 3$ is given. We call an $n$-tuple of real numbers $(x_1, x_2, \dots, x_n)$ Shiny if for each permutation $y_1, y_2, \dots, y_n$ of these numbers, we have
+	$$\sum \limits_{i=1}^{n-1} y_i y_{i+1} = y_1y_2 + y_2y_3 + y_3y_4 + \cdots + y_{n-1}y_n \geq -1.$$Find the largest constant $K = K(n)$ such that
+	$$\sum \limits_{1 \leq i < j \leq n} x_i x_j \geq K$$holds for every Shiny $n$-tuple $(x_1, x_2, \dots, x_n)$.	
+	
+	\textbf{Answer.} $-(\frac{n-1}{2})$. 
+	
+	\textbf{Solution.} 
+	We first show that this $K$ cannot be improved. 
+	Consider $\epsilon>0$ be arbitrarily small, 
+	and $x_1=\cdots = x_{n-1}=\epsilon, x_{n}=\frac{-1}{2\epsilon}$. 
+	Then for permutation $y_1, \cdots, y_n$ of $x_1, \cdots, y_n$ we have 
+	\[
+	\sum \limits_{i=1}^{n-1} y_i y_{i+1} = 
+	\begin{cases}
+	  -\frac 12 + (n-2)\epsilon^2 & y_1=\frac{-1}{2\epsilon}\text{ or }y_n=\frac{-1}{2\epsilon}\\
+	  -1+(n-3)\epsilon^2 & \text{otherwise}\\
+	\end{cases}
+	\]
+	and is hence shiny. 
+	On the other hand, 
+	\[
+	\sum \limits_{1 \leq i < j \leq n} x_i x_j 
+	=-\frac{n-1}{2} + \binom{n-1}{2}\epsilon^2
+	\]
+	which can be made arbitrarily close to $-\frac{n-1}{2}$. 
+	
+	Now to prove the bound, we'll show that average of $x_ix_j$ for $i\neq j$ 
+	is at least $-\frac{1}{n}$. 
+	Consider, now, putting the $x_i$'s on a circle in an arbitrary fashion, 
+	and label $y_1, \cdots, y_n$ in that order. 
+	
+	\emph{Case 1.} 
+	If there are two neighbouring numbers with same sign, 
+	i.e. both $\ge 0$ or both $<0$, 
+	then we can make those two as $y_1$ and $y_n$. 
+	It then follows that 
+	\[
+	\sum_{i=1}^{n-1}y_iy_{i+1}+y_1y_n\ge -1+0=-1
+	\]
+	so the average of the numbers $x_ix_j$ in this circular arrangement is indeed $\ge \frac{-1}{n}$. 
+	
+	\emph{Case 2.} 
+	If each of the neighbouring numbers have alternating sign, 
+	then we're in the situation where $n$ is even and exactly half are nonnegative. 
+	Consider $\mathbb{E}(x_ix_j|\text{Cond})$, 
+	the average of $x_ix_j$ under the condition $\text{Cond}$. 
+	Then $\mathbb{E}(x_ix_j|x_ix_j\ge 0)\ge 0$, 
+	and by considering all the permutations $y_1, \cdots, y_{2n}$ of alternating signs, 
+	we have $\mathbb{E}(x_ix_j|x_ix_j< 0)\ge \frac{-1}{n-1}$. 
+	But then there are $\frac{n^2}{4}$ pairs of $x_ix_j$ with $<0$ product, 
+	and $\frac{n(n-2)}{4}$ pairs with $\ge 0$ product. 
+	It then follows that the overall average is at least 
+	\[
+	\frac{n^2}{2n(n-1)}\cdot \frac{-1}{n-1}=-\frac{n}{2(n-1)^2} > -\frac{1}{n}
+	\]
+	as desired. 
 \end{enumerate}
 
 \section{Combinatorics}
@@ -195,31 +283,95 @@ Summarizing above, we will have $\sum_{i=1}^8\dbinom{n}{i}$ numbers represented 
     
     Conversely, if $n$ is a prime, we consider the sequence on a circle. Let $r$ to be the remaidner of $a_1+\cdots +a_n\pmod{n}$, and we have $\gcd(r, n)=1$. Consider the new sequence $a_1, a_1+a_2, \cdots a_1+\cdots +a_n, a_1+\cdots + a_n+a_1, \cdots , \underbrace{a_1+\cdots+a_n}_{\text{$n$ times}}$. If this sequence is named as $b_1, b_2, \cdots b_{n^2}$ then $b_{n+i}-b_i=r\pmod{n}$. Thus for all $i$ the sequence $\{b_i, b_{i+n}, \cdots b_{i + (n-1)n}\}$ leaves distinct remainders mod $n$, and each remainder $0, 1, \cdots n-1$ appears $n$ times in $b_1, b_2, \cdots b_{n^2}$. Since $b_{n^2}=n(a_1+\cdots a_n)=0\pmod{n}$, we can, again, wrap them on a circle. Now consider $\{i:b_i=0\}$. Since there are $n$ such $i$'s on the circle on $n^2$ numbers, there are two consecutive such $i$'s that are at least $n$ steps apart. If there's no condecutive such $i$'s that are more than $n$ steps apart, then any two consecutive $i$'s must be exactly $n$ steps apart, so $0=b_i=b_{n+i}=\cdots=b_{n(n-1)+i}$, contraidcting $b_{n+i}-b_i=r\pmod{n}$. So we have $b_i=b_j=0$ with $j-i>n$, with $b_k\neq 0$ for all $i<k<j$. Thus we can choose $a_{i+1}, a_{i+1}+a_{i+2}, \cdots, a_{i+1}+\cdots a_{i+n}$ that are exactly $b_{k}-b_i$ for all $i+1\le k\le i+n$, and none of them is divisible by $n$. 
     
+    \item[\textbf{N4}]
+    Call a rational number short if it has finitely many digits in its decimal expansion. For a positive integer $m$, we say that a positive integer $t$ is $m-$tastic if there exists a number $c\in \{1,2,3,\ldots ,2017\}$ such that $\dfrac{10^t-1}{c\cdot m}$ is short, and such that $\dfrac{10^k-1}{c\cdot m}$ is not short for any $1\le k<t$. Let $S(m)$ be the set of $m-$tastic numbers. Consider $S(m)$ for $m=1,2,\ldots{}.$ What is the maximum number of elements in $S(m)$?
+    
+    \textbf{Answer.} 807. 
+    
+    \textbf{Solution.} 
+    A rational number is short iff it's in the form of $\frac pq$ where $\gcd(p, q)=1$ and $q$ has no prime divisor other than 2 or 5. 
+    In particular, $\frac{10^t-1}{cm}$ short means $\gcd(cm, 10)=1$
+    so $S(m)=0$ whenever $2\mid m$ or $5\mid m$. 
+    
+    Now we focus on cases where $\gcd(m, 10)=1$, 
+    and notice that $t$ being $m$-tastic means that $\ord_{cm}(10)=t$ for some $c$ (here $\ord$ means the order of 10 modulo $cm$ for $\gcd(cm, 10)=1$). 
+    The valid $c$'s are 
+    \[
+    \{c=1, \cdots, 2017: c\equiv 1, 3, 7, 9\pmod{10}\}
+    \]
+    which we can verify there are 807 of them. 
+    It follows that at most 807 of those $t$'s have $\ord_{cm}(10)=t$ for some $c$ for any given $m$. 
+    
+    To show that equality can be obtained, 
+    let's show that there exists $m$ such that $\ord_{cm}(10)$ are different for each $c$. 
+    In fact, we'll show the following: 
+    
+    \emph{Lemma.} 
+    There exists $m$ such that $\ord_{cm}(10)=c\cdot\ord_m(10)$. 
+    
+    Proof: Choose $m=10^T-1$ for some $T$, then $\ord_m(10)=T$. 
+    Let's choose $T$ such that $\ord_c(10)\mid T$ for all $c=3, \cdots, 2017$ such that $\gcd(c, 10)=1$. 
+    That way $c\mid m$. 
+    
+    Now, to find the minimum $k$ with $cm\mid 10^k-1$, 
+    we first note that $m\mid 10^k-1$ iff $k$ is divisible by $\ord_m(10)=T$, so $k=\ell T$. 
+    Consider the following: 
+    \[
+    10^{\ell T}-1
+    =(m+1)^{\ell}-1
+    =\sum_{i=1}^{\ell}\binom{\ell}{i}m^{i}
+    \]
+    and since $c\mid m$, we have 
+    \[
+    \sum_{i=1}^{\ell}\binom{\ell}{i}m^{i}
+    \equiv \ell m
+    \]
+    so the minimum such $\ell$ is indeed $c$, so $\ord_{cm}(10)=cT$, as desired. 
+    
     \item[\textbf{N5}] Find all pairs $(p,q)$ of prime numbers which $p>q$ and
     $$\frac{(p+q)^{p+q}(p-q)^{p-q}-1}{(p+q)^{p-q}(p-q)^{p+q}-1}$$is an integer.
     
     \textbf{Answer.} $(p, q)=(3, 2)$. \\
-    \textbf{Solution.} The aforementioned pair claims that $5^1-1|5^5-1$, which holds true because $5^5-1=3124=778\times 4$. We now show there are no other pairs. For the rest of the part, $D=(p+q)^{p-q}(p-q)^{p+q}-1$. 
+    \textbf{Solution.} The aforementioned pair claims that $5^1-1|5^5-1$, which holds true because $5^5-1=3124=778\times 4$. We now show there are no other pairs. 
+    For the rest of the part, $D=(p+q)^{p-q}(p-q)^{p+q}-1$. 
     
     Now suppose that $D|(p+q)^{p+q}(p-q)^{p-q}-1$, we also have 
     $D|((p+q)^{p+q}(p-q)^{p-q}-1) - ((p+q)^{p-q}(p-q)^{p+q}-1)
     =(p+q)^{p-q}(p-q)^{p-q}((p+q)^{2q}-(p-q)^{2q}). 
     $
-    Since $\gcd(p+q, D)=1$ and $\gcd(p-q, D)=1$, this also implies that $D|(p+q)^{2q}-(p-q)^{2q}$. We first use this to eliminate the case when $q=2$ but $p > 3$: observe that $(p-q)^{2q} < (p-q)^{p+q} <= D$. If $(p+q)^{2q}>=D+1$ then we have $(p+q)^{2q}\ge (p+q)^{p-q}(p-q)^{p+q}$, a.k.a. $(p+q)^{3q-p}\ge (p-q)^{p+q}$ which means $3q\ge p$, hence $p\le 5$. For $p=5$ we have $7\ge 3^{7}$, which is absurd. Hence $(p+q)^{2q} <= D$ in the primes we are considering, and with $(p-q)^{2q}<D$ we will need $(p+q)^{2q}=(p-q)^{2q}$, contradiction since this implies $p+q=p-q$. 
+    We'll split into two cases: 
     
-    Hence we now assume (legitimately) that $p$ and $q$ are both odd. Recalling that $(p+q)^{2q}\equiv (p-q)^{2q}\pmod{D}$ and $p+q, p-q$ are both relatively prime to $D$, we will proceed by considering their order mod $D$. Now, we have $D|(p+q)^{2(p-q)}(p-q)^{2(p+q)}-1$ (since $(p+q)^{p-q}(p-q)^{p+q}\equiv 1\pmod{D}$ and we are squaring this left hand side term), leading to the following: 
-    \[1\equiv (p+q)^{2(p-q)}(p-q)^{2(p+q)}= (p+q)^{2(p-q)}(p-q)^{2p}(p-q)^{2q}\equiv (p+q)^{2(p-q)}(p-q)^{2p}(p+q)^{2q}\]
-    $\equiv (p+q)^{2p}(p-q)^{2p}$
-    To simplify our arithmetic, we will consider negative exponents of $p+q$ and $p-q$ mod $D$ as well, given that they are relatively prime to $D$ (and hence inverse mod $D$ exists). The the first statement $(p+q)^{2q}\equiv (p-q)^{2q}\pmod{D}$ simply means $1\equiv (p+q)^{2q}(p-q)^{-2q}\pmod{D}$. 
-    Returning to the original statement where $(p+q)^{p-q}(p-q)^{p+q}\equiv 1\pmod{D}$, and raising it to the power of $p$ we have $(p+q)^{p^2-pq}(p-q)^{p^2+pq}\equiv 1\pmod{D}$. Both $p-q$ and $p+q$ are even, so $2p|p^2-pq$, and thus $(p+q)^{p^2-pq}(p-q)^{p^2-pq}\equiv 1\pmod{D}$. This would imply that $(p-q)^{2pq}\equiv 1\pmod{D}$, so 
-    the order of $(p-q)$ mod $D$ divides $2pq$, and same goes for $p+q$ by a similar argument (by raising our expression to the power of $q$, for example). 
+    \emph{Case 1.} $q=2$. 
+    Here, if $p>3$, then $(p-q)^{2q} < (p-q)^{p+q} <= D$. If $(p+q)^{2q}>=D+1$ then we have $(p+q)^{2q}\ge (p+q)^{p-q}(p-q)^{p+q}$, a.k.a. $(p+q)^{3q-p}\ge (p-q)^{p+q}$ which means $3q\ge p$, hence $p\le 5$. For $p=5$ we have $7\ge 3^{7}$, which is absurd. Hence $(p+q)^{2q} <= D$ in the primes we are considering, and with $(p-q)^{2q}<D$ we will need $(p+q)^{2q}=(p-q)^{2q}$, contradiction since this implies $p+q=p-q$. 
     
-    We will keep our focus on $(p+q)^{p-q}(p-q)^{p+q}\equiv 1\pmod{D}$, this time raising it to the power of $\frac{pq+1}{2}$ ($pq$ is odd). Since $p$ and $q$ are both odd, exactly one of $p-q$ and $p+q$ is divisible by 4. Consider the case where $4|p+q$. Now, $(p+q)(\frac{pq+1}{2})
-    \equiv \frac{p+q}{2}\pmod{2pq}$ and $(p-q)(\frac{pq+1}{2})
-    \equiv \frac{p-q}{2}+pq\pmod{2pq}$. Thus, 
-    $(p+q)^{\frac{p-q}{2}+pq}(p-q)^{\frac{p+q}{2}}\equiv 1\pmod{D}$. Multiplying this by $[(p+q)(p-q)]^{pq}\equiv 1$ and taking each exponent mod $2pq$ gives 
-    $(p+q)^{\frac{p-q}{2}}(p-q)^{\frac{p+q}{2} + pq}\equiv 1\pmod{D}$. Raising this expression to the power of $p$ again, $(p+q)^{\frac{p(p-q)}{2}}(p-q)^{\frac{p(p+q)}{2} + p^2q}\equiv 1\pmod{D}$ and notice that $\frac{p(p+q)}{2} + p^2q= \frac{p(p-q)}{2}+pq+p^2q$ and since $2pq|pq(1+p)=pq+p^2q$ (again $p+1$ is odd). Thus we have $(p+q)^{\frac{p(p-q)}{2}}(p-q)^{\frac{p(p-q)}{2}}\equiv 1\pmod{D}$. 
-    Since $\gcd(\frac{p-q}{2}, 2q)=1$, we can find $k$ with $\frac{k(p-q)}{2}\equiv 1\pmod {2q}$. Thus this gives $(p+q)^{p}(p-q)^{p}\equiv 1\pmod{D}$. In the same way this can be established in the case where $4|p-q$ and $4\nmid p+q$ (so $(p+q)^{p}(p-q)^{p}\equiv 1\pmod{D}$ regardless). By this, we also get $(p+q)^{p-q}(p-q)^{p+q} ((p+q)^{p}(p-q)^{p})^{-1}=(p+q)^{-q}(p-q)^{q}\equiv 1\pmod{D}$. 
+    \emph{Case 2.} $q>2$. 
+    Consider this: 
+    
+    \emph{Lemma.} If $p$ and $q$ are odd primes and $r$ is an odd prime with $r\mid (p+q)^{2q}-(p-q)^{2q}$, then either $r=p, r=q$m or $r\equiv 1\pmod{q}$. 
+    
+    Proof: otherwise, $\gcd(r-1, 2q)=2$ so there's $k$ such that $2qk\equiv 2\pmod{r}$, i.e. 
+    \[
+    (p+q)^2\equiv (p+q)^{2qk}\equiv  (p-q)^{2qk}\equiv (p-q)^2
+    \]
+    so $r\mid 4pq$. So $r=p$ or $q$ here. $\square$ 
+    
+    Now we see that our $D$ has only prime divisors that could be $p, q,$ or $r=qk+1$ for some $k$. 
+    If $p\mid D$ then 
+    \[
+    0\equiv (p+q)^{p-q}(p-q)^{p+q}-1
+    \equiv q^{p-q}(-q)^{p+q}-1
+    =q^{2p}-1\equiv q^2-1
+    \]
+    so either $p\mid q-1$ or $p\mid q+1$. But this is impossible for $q<p$ and both being odd. 
+    
+    This reduces to $q$ and those primes $\equiv 1\pmod{q}$. 
+    Since $p, q$ both odd, we have the factorization 
+    \[
+    (p+q)^{p-q}(p-q)^{p+q}-1
+    =((p+q)^{\frac{p-q}{2}}(p-q)^{\frac{p+q}{2}}-1)((p+q)^{\frac{p-q}{2}}(p-q)^{\frac{p+q}{2}}+1)
+    \]
+    and with each factor having primes in terms of $q$ or $qk+1$ each of these must be either 0 or 1 mod $q$. 
+    This is impossible as the factors differ by 2. 
 	\end{enumerate}
 
 \end{document}
