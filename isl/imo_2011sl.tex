@@ -54,6 +54,77 @@
 	\end{flalign*}
 	which we can conclude that $\dsum_{1\le j\le 2011, x_j < X} j \left(\frac{x_j}{X}\right)^n - \left(\frac{1}{X}\right)^n=0$ for all sufficiently large $n$. Multiplying by $X^n$ again we get $1=\dsum_{1\le j\le 2011, x_j < X} jx_j^n$ for all sufficiently large $n$. Thus the only $j$ that can have $x_j<X$ is $j=1$, in which $x_1=1$. The other $j$ has $x_j=X=\dsum_{1\le j\le 2011, x_j=X} j = 2+\cdots + 2011$, as desired. 
 	
+	\item[\textbf{A3}]
+	Determine all pairs $(f,g)$ of functions from the set of real numbers to itself that satisfy
+	\begin{equation}\label{eqn:a3}
+	  g(f(x+y)) = f(x) + (2x + y)g(y)
+	\end{equation}
+	for all real numbers $x$ and $y$.
+	
+	\textbf{Answer.} 
+	Either $f\equiv g\equiv 0$, or $f(x)=x^2+C$ and $g(x)=x$ for some constant $C$. 
+	The first one gives both side $=0$; 
+	the second one gives both sides $=0$ $x^2+C$. 
+	
+	\textbf{Solution.} 
+	We'll first show that $g$ is linear. 
+	Fix constant $c$, and substitue $x+c$ into $x$ and $-x$ into $y$ into Eqn \ref{eqn:a3}, we get 
+	\begin{equation}\label{eqn:a3a}
+	  g(f(c)) = f(x+c) + (x+2c)g(-x)
+	\end{equation}
+	and comparing $x-c$ and $y-c$ in place of $x$ in \ref{eqn:a3a} we get 
+	\begin{equation}\label{eqn:a3b}
+	f(x) - f(y)= (y+c)g(-(y-c)) - (x+c)g(-(x-c)) 
+	\end{equation}
+	which holds for all $x, y$, and $c$. 
+	Thus \ref{eqn:a3b} tells us that, compared to $c=0$, 
+	\begin{equation}\label{eqn:a3c}
+	f(x) - f(y)= (y+c)g(-(y-c)) - (x+c)g(-(x-c)) = yg(-y) - xg(-x) 
+	\end{equation}
+	and similarly, consider substituting $x-c, y-c$ into \ref{eqn:a3b}
+	and $-c$ and 0, respectively into $c$ gives 
+	\begin{equation}\label{eqn:a3d}
+	f(x-c) - f(y-c) = (y-c)g(-(y-c)) - (x-c)g(-(x-c)) = (y-2c)g(-y) - (x-2c)g(-x) 
+	\end{equation}
+	Thus subtracting \ref{eqn:a3c} by \ref{eqn:a3d} (matching like terms) give 
+	\begin{equation}\label{eqn:a3linear}
+	  2cg(-(y-c)) - 2cg(-(x-c)) = 2cg(-y)-2cg(-x)
+	\end{equation}
+	i.e. for all $c\neq 0$, $g(-(y-c)) - g(-(x-c)) = g(-y)-g(-x)$, 
+	meaning that $(-x, g(-x)), (-y, g(-y))$ and $(-(x-c), g(-(x-c))), (-(y-c), g(-(y-c)))$ 
+	are two lines with the same slope. 
+	This would mean there exists $m$ (the gradient), 
+	$d_1, d_2$ such that 
+	\[g(-x)=-mx+d_1, g(-y)=-my+d_1, 
+	g(-(x-c))=-m(x-c)+d_2, g(-(y-c))=-m(y-c)+d_2
+	\]
+	which, substituting into \ref{eqn:a3c} gives 
+	\[
+	(y-x)d_1 = (y-x)d_2
+	\]
+	so whenever $x\neq y$, we have $d_1=d_2$. 
+	This means when $x\neq y, c\neq 0$ we have the four points
+	\[
+	(-x, g(-x)), (-y, g(-y))-(x-c), g(-(x-c))), (-(y-c), g(-(y-c)))
+	\]
+	all lie on the same line. Thus fixing some $x$ and $y$ (say, 0 and 1) and consider all other $c\neq 0$ we have all $(x, g(x))$ on the same line, hence $g$ linear. 
+	
+	Now we can write $g(x)=mx+c$, 
+	and substitute this into \ref{eqn:a3} once again. 
+	If $m=1$ then consiering $y=0$ we have $f(x)+c=f(x)+2xc$ for all $x$, 
+	so $c=0$ (i.e. $g(x)=x$). 
+	Now putting $x=0$ into \ref{eqn:a3} and $g(x)=x$ gives $f(y)=f(0)+y^2$, 
+	establishing $f(x)=x^2+C$. 
+	
+	If $m\neq 1$, then with $y=0$ into \ref{eqn:a3} we have $mf(x)+c=f(x)+2xc$, 
+	and therefore $f(x)=\frac{(2x-1)c}{m-1}$. 
+	This implies 
+	\[
+	m\left(\frac{(2x+2y-1)c}{m-1}\right)+c
+	=\frac{(2x-1)c}{m-1} + (2x+y)(my+c)
+	\]
+	The only combination that works for all $x$ and $y$ is $m=c=0$. 
+	
 	\item[\textbf{A5}] Prove that for every positive integer $n,$ the set $\{2,3,4,\ldots,3n+1\}$ can be partitioned into $n$ triples in such a way that the numbers from each triple are the lengths of the sides of some obtuse triangle.
 	
 	\textbf{Solution.} 
@@ -260,6 +331,56 @@
 
 \section*{Geometry}
 \begin{enumerate}
+	\item[\textbf{G1}]
+	Let $ABC$ be an acute triangle. Let $\omega$ be a circle whose centre $L$ lies on the side $BC$. Suppose that $\omega$ is tangent to $AB$ at $B'$ and $AC$ at $C'$. Suppose also that the circumcentre $O$ of triangle $ABC$ lies on the shorter arc $B'C'$ of $\omega$. Prove that the circumcircle of $ABC$ and $\omega$ meet at two points.
+	
+	\textbf{Solution.} 
+	Let $R$ be circumradius of $ABC$ and $r$ the radius of $\omega$. It suffices to show that $R<2r$. 
+	Henceforth we denote $\angle A = \angle BAC$. 
+	\emph{Case 1.} 
+	$\angle A < 60^{\circ}$. 
+	Denote $h$ as the distance from $O$ to $BC$, then 
+	\[
+	r = OL \ge h = R\cos\frac{\angle BOC}{2} = R\cos\angle BAC > \frac{R}{2}
+	\]
+	
+	\emph{Case 2.} 
+	$\angle A \ge 60^{\circ}$. 
+	Here we make use of $O$ on shorter arc $B'C'$, i.e. $O$ lies inside the quadrilateral $AB'LC'$. 
+	Given also that the projection on $O$ to $AB$ and $AC$ are the midpoints of $AB$ and $AC$, respectively, 
+	we have $AB'\ge B'B$ and $AC'\ge C'C$. 
+	Consequently, we also have $AL\ge LB$ and $AL\ge LC$. 
+	
+	Let $AL$ intersect the circumcircle again at $M$, 
+	then by power of point theorem we have $LM\le BL$ and $LM\le LC$. 
+	W.l.o.g. let $AB\le AC$. 
+	Then $\frac{\angle A}{2}=\angle CBM\le \angle BML$, 
+	so $ML\le BM\cdot \frac{\sin \angle A/2}{\sin\angle A}$
+	and given $MB^2 = ML\cdot MA=ML\cdot (ML+LA)$, 
+	\[
+	LA =\frac{BM^2}{ML}-ML \ge BM\cdot (\frac{\sin\angle A}{\sin \angle A/2} - \frac{\sin \angle A/2}{\sin\angle A})
+	\]
+	Finally, we have $r =LB'=LC'= AL\sin\frac{A}{2}$ and $BM=2R\sin \frac{\angle A}{2}$. 
+	This gives 
+	\[
+	r = AL\sin\frac{A}{2}
+	\ge 2R\sin^2\frac{A}{2}\cdot (\frac{\sin\angle A}{\sin \angle A/2} - \frac{\sin \angle A/2}{\sin\angle A})
+	= 
+	2R\sin^2\frac{A}{2}\cdot (\frac{\sin^2\angle A - \sin^2\angle A/2}{\sin \angle A/2\sin\angle A})
+	\]
+	and using the identity 
+	$\sin^2 A - \sin^2 B = \sin(A-B)\sin(A+B)$
+	 we get 
+	\[
+	2R\sin^2\frac{A}{2}\cdot (\frac{\sin^2\angle A - \sin^2\angle A/2}{\sin \angle A/2\sin\angle A})
+	= 2R\sin^2\frac{A}{2}\cdot (\frac{\sin(A/2)\sin (3A/2)}{\sin \angle A/2\sin\angle A})
+	\]
+	\[
+	=2R\sin^2 \frac{\angle A}{2}\sin\frac{3\angle A}{2}\div \sin\angle A
+	\]
+	
+	which, for $\angle A\ge 60^{\circ}$, has value $\frac{1}{\sqrt{3}}R> \frac 12R$.
+	
 	\item[\textbf{G2}] Let $A_1A_2A_3A_4$ be a non-cyclic quadrilateral. Let $O_1$ and $r_1$ be the circumcentre and the circumradius of the triangle $A_2A_3A_4$. Define $O_2,O_3,O_4$ and $r_2,r_3,r_4$ in a similar way. Prove that
 	\[\frac{1}{O_1A_1^2-r_1^2}+\frac{1}{O_2A_2^2-r_2^2}+\frac{1}{O_3A_3^2-r_3^2}+\frac{1}{O_4A_4^2-r_4^2}=0.\]
 	
@@ -383,6 +504,9 @@
 	as desired. 
 	
 	Similarly, if the perpendicular from $F$ to $AB$ and $CD$ are $U$ and $V$ respectively then the power of point from $M$ to $\omega_F$ is $-MU\cdot MV$. Notice that both $EP$ and $FU$ are perpendicular to $AB$, hence parallel to each other. The 'midline' between the two line (that is, the line equidistant to the two aforementioned parallel lines) passes through the midpoint of $EF$ (i.e. $M$), and with $PU$ perpendicular to these parallel lines we have $MP=MU$ and similarly $MR=MV$. Therefore $MP\cdot MR=MU\cdot MV$, so $M$ lies on the radical axis of $\omega_E$ and $\omega_F$, as desired. 
+	
+	\item[\textbf{G4}]
+	Let $ABC$ be an acute triangle with circumcircle $\Omega$. Let $B_0$ be the midpoint of $AC$ and let $C_0$ be the midpoint of $AB$. Let $D$ be the foot of the altitude from $A$ and let $G$ be the centroid of the triangle $ABC$. Let $\omega$ be a circle through $B_0$ and $C_0$ that is tangent to the circle $\Omega$ at a point $X\not= A$. Prove that the points $D,G$ and $X$ are collinear.
 	
 	\item[\textbf{G5}] Let $ABC$ be a triangle with incenter $I$ and circumcircle $\omega$. Let $D$ and $E$ be the second intersection points of $\omega$ with the lines $AI$ and $BI$, respectively. The chord $DE$ meets $AC$ at a point $F$, and $BC$ at a point $G$. Let $P$ be the intersection point of the line through $F$ parallel to $AD$ and the line through $G$ parallel to $BE$. Suppose that the tangents to $\omega$ at $A$ and at $B$ meet at a point $K$. Prove that the three lines $AE, BD,$ and $KP$ are either parallel or concurrent.
 	
@@ -542,17 +666,54 @@
 	\end{scriptsize}
 	\end{tikzpicture}
 	
-	Because we are using Casey's theorem, please expect some ratio bashing (including the notorious trigonometry!) Denote $A_1$, $B_1$, $C_1$ as $\ell_b\cap \ell_c$, $\ell_a\cap \ell_c$, $\ell_a\cap \ell_b,$ respectively. We claim that $AA_1$, $BB_1$, $CC_1$ concur on $\Gamma$.
+	Denote $A_1$, $B_1$, $C_1$ as $\ell_b\cap \ell_c$, $\ell_a\cap \ell_c$, $\ell_a\cap \ell_b,$ respectively. 
 	
-	Now denote the intersection of $BC, CA, AB$ with $\ell$ as $A',B'$ and $C'$, respectively. let us consider triangle $B_1A'C'$. Since $A'B$ bisects $\angle B_1A'C'$ and $C'B$ bisects $\angle B_1C'A'$, we know that $B$ is either the incenter or excenter of $B_1A'C'$ and it follows that $B_1B$ bisects angle $A'B_1C'$, which then follows that (well known: verify it yourself!) $BB_1$ passes through the circumentre of $BA'C'$. Using th notation of directed angles it follows that $\angle (BB_1,AB)=\angle (BB_1,BC')=90^{\circ}-\angle (A'C',A'B)=90^{\circ}-\angle (\ell, BC)$ and $\angle (BB_1,BC)=\angle (BB_1,BA')=90^{\circ}-\angle (A'C',C'B)=90^{\circ}-\angle (\ell,AB)$. In a similar way, $\angle (CC_1,AC)=90^{\circ}-\angle (\ell, BC)$ and $\angle (CC_1,BC)=90^{\circ}-\angle (\ell, AC).$ Now $\angle (BB_1,CC_1)=\angle (BB_1, BC)-\angle (CC_1, BC)$=$(90^{\circ}-\angle (\ell,AB))-(90^{\circ}-\angle (\ell,AC))=\angle (AB, AC)$, yielding that $BB_1$ and $CC_1$ indeed intersect on $\Gamma$. The concurrence of $AA_1, BB_1$ and $CC_1$ (namely $I$) follows from the fact that they intersect at either the incenter or excenter of triangle $A_1B_1C_1$, hence we are done.
+	\emph{Lemma 1.} $AA_1$, $BB_1$, $CC_1$ concur on $\Gamma$, 
+	and the common point $I$ is the incenter of triangle $A_1B_1C_1$. 
+	
+	Proof: 
+	Now denote the intersection of $BC, CA, AB$ with $\ell$ as $A',B'$ and $C'$, respectively. let us consider triangle $B_1A'C'$. Since $A'B$ bisects $\angle B_1A'C'$ and $C'B$ bisects $\angle B_1C'A'$, we know that $B$ is either the incenter or excenter of $B_1A'C'$ and it follows that $B_1B$ bisects angle $A'B_1C'$, which then follows that $BB_1$ passes through the circumentre of $BA'C'$. Using th notation of directed angles it follows that $\angle (BB_1,AB)=\angle (BB_1,BC')=90^{\circ}-\angle (A'C',A'B)=90^{\circ}-\angle (\ell, BC)$ and $\angle (BB_1,BC)=\angle (BB_1,BA')=90^{\circ}-\angle (A'C',C'B)=90^{\circ}-\angle (\ell,AB)$. In a similar way, $\angle (CC_1,AC)=90^{\circ}-\angle (\ell, BC)$ and $\angle (CC_1,BC)=90^{\circ}-\angle (\ell, AC).$ Now $\angle (BB_1,CC_1)=\angle (BB_1, BC)-\angle (CC_1, BC)$=$(90^{\circ}-\angle (\ell,AB))-(90^{\circ}-\angle (\ell,AC))=\angle (AB, AC)$, yielding that $BB_1$ and $CC_1$ indeed intersect on $\Gamma$. The concurrence of $AA_1, BB_1$ and $CC_1$ follows from the fact that they intersect at either the incenter or excenter of triangle $A_1B_1C_1$, hence we are done.
 	
 	Now we need the fact that $I$ is the incenter (not excentre opposite to any of the sides), given that $ABC$ is an acute triangle. Now let's investigate the relationship between $\angle A$, $\angle B$, $\angle C$ (of $\triangle ABC$) and $\angle A_1$, $\angle B_1$, $\angle C_1$ (of $\triangle A_1B_1C_1$). Take $B$ again. If $\angle A'BC'<90^{\circ}$ then $\angle B=\angle A'BC'$, and it can be verified that $B$ is now the excentre of $\triangle B_1A'C'$ and $\angle B_1A'C'=180^{\circ}-2\angle A'BC=180^{\circ}-2\angle B$. On the other hand, if $\angle A'BC$ is obtuse then $\angle B=180^{\circ}-\angle A'BC$ and $B$ is the incenter of $\triangle B_1A'C'$ so $\angle B_1A'C'=2\angle A'BC-360^{\circ}=2(180^{\circ}-\angle B)-180^{\circ}=180^{\circ}-2\angle B.$ So $\angle B_1$ is either $2\angle B$ or $180^{\circ}-2\angle B$, depending whether $BB_1$ is the external or internal angle bisector of angle $B_1$, respectively. Same goes for line angles $A_1$ and $C_1$. If $I$ is the excentre, then exactly two of the lines $AA_1$, $BB_1$, $CC_1$ are the external angle bisectors of the respective angles. So let say $AA_1$ and $BB_1$ are the external angle bisectors of angles $A_1$ and $B_1$ then angles $A_1$, $B_1$, $C_1$ are $2\angle A$, $2\angle B$ and $180^{\circ}-2\angle C$ respectively. As the three angles sum up to $180^{\circ}$ and $\angle A+\angle B+\angle C=180^{\circ},$ comparing the two equations yields $\angle C=90^{\circ}$ (contradiction).
 	
-	Now let's proceed to the solving of the main problem. Denote $T$ as the tangent point of $\ell$ and $\Gamma$, and $a,b,c$ as $\angle (TA,\ell),\angle (TB,\ell),\angle (TC,\ell)$. Speaking in modulo $180^{\circ}$, $\angle A$ is congruent to $b-c$, so $\sin\angle A$=$|\sin (b-c)|$. Similarly $\sin\angle B$=$|\sin (c-a)|$ and $\sin\angle C$=$|\sin (a-b)|.$ (we can change the $\pm$ sign to modulus, though). By applying Casey's theorem to degenerate circles $A_1, B_1, C_1$ and circle $\Gamma$ we need one of $A_1B_1\cdot t(C_1)$, $C_1A_1\cdot t(B_1)$, $B_1C_1\cdot t(A_1)$ to be the sum of the other two, which is evident, if, by changing some of the terms into its negative, the resulting three terms add up to 0. ($t(K)$ is the length of tangent from point $K$ to $\Gamma$.) Notice that it is the ratio $A_1B_1\cdot t(C_1)$ : $C_1A_1\cdot t(B_1)$ : $B_1C_1\cdot t(A_1)$ that matters, so we can divide each of them by a constant whenever necessary.
+	Now let's proceed to the solving of the main problem. Denote $T$ as the tangent point of $\ell$ and $\Gamma$, and $a,b,c$ as $\angle (TA,\ell),\angle (TB,\ell),\angle (TC,\ell)$. Speaking in modulo $180^{\circ}$, $\angle A$ is congruent to $b-c$, so $\sin\angle A$=$|\sin (b-c)|$. Similarly $\sin\angle B$=$|\sin (c-a)|$ and $\sin\angle C$=$|\sin (a-b)|.$ (we can change the $\pm$ sign to modulus, though).
+	Let's now show the following: 
 	
-	By power of point theorem we have $t(A_1)=\sqrt {A_1I\cdot A_1A}.$ Define $r$ as the inradius of triangle $A_1B_1C_1$ and $r_A$ the distance from $A$ to lines $A_1B'$, $A_1C'$ and $B'C'$ (or $\ell$) (the distance to the three lines are the same because $A$ is the incentre or excentre of $A_1B'C'$.) Now $A_1A=\dfrac{r_A}{\sin AA_1B'}=\dfrac{r_A}{\sin (90^{\circ}-\angle A)}=\dfrac{r_A}{\cos \angle A}$ as $\angle A_1=180^{\circ}-2\angle A.$ Similarly $\angle A_1I=\dfrac{r}{\cos \angle A}$ so $t(A_1)=\sqrt {A_1I\cdot A_1A}=\dfrac{\sqrt{r\cdot r_A}}{\cos \angle A}$. Now $B_1C_1=D\sin\angle A_1=D\sin\angle (180^{\circ}-2\angle A)=D\sin 2\angle A,$ where $D$ is the diameter of circumcircle $A_1B_1C_1$ so $B_1C_1\cdot t(A_1)=D\sin 2\angle A\cdot \dfrac{\sqrt{r\cdot r_A}}{\cos \angle A}=2D\sin \angle A\cdot\sqrt{r\cdot r_A}.$ The original ratio now becomes $\sin \angle A\cdot\sqrt{r_A}$ : $\sin \angle B\cdot\sqrt{r_B}$ : $\sin \angle C\cdot\sqrt{r_C}$ by eliminating constants $D$ and $r$. Now if $d$ is the diameter of $\Gamma$ then it is not hard to notice that $r_A$=distance from $A$ to $\ell$=$TA\sin\angle (TA,\ell)$=$(d\sin a)\cdot\sin a=d\sin^{2} a.$ Meanwhile $\sin\angle A=|\sin (b-c)|.$ So our original ratio becomes $\sin a\cdot|\sin (b-c)|$ : $\sin a\cdot|\sin (c-a)|$ : $\sin c\cdot|\sin (a-b)|$. But $\sin a\cdot\sin (b-c)+\sin a\cdot\sin (c-a)+\sin c\cdot\sin (a-b)=0,$ which confirms the identity we want to prove. $\blacksquare$
+	\emph{Lemma 2.} 
+	In unsigned length, 
+	among the three quantities 
+	$A_1B_1\cdot t(C_1)$, $C_1A_1\cdot t(B_1)$, $B_1C_1\cdot t(A_1)$, 
+	one of them is the sum of the other two, 
+	where $t(K)$ is the length of tangent from point $K$ to $\Gamma$.
 	
-	Errata: when we did the power of point theorem we ignored the sign convention: the power of points (``square of length of tangents'') could be negative (inside the circle $ABC$) and that could potentially jeopardize our argument. We show that this can be ruled out given that $ABC$ is acute: that is, $A_1, B_1, C_1$ will always be outside circle $ABC$. (To be continued :) )
+	Proof: 
+	Notice that it is the ratio $A_1B_1\cdot t(C_1)$ : $C_1A_1\cdot t(B_1)$ : $B_1C_1\cdot t(A_1)$ that matters, so we can divide each of them by a constant whenever necessary.
+	By power of point theorem we have 
+	\[t(A_1)=\sqrt {A_1I\cdot A_1A}\] 
+	Define $r$ as the inradius of triangle $A_1B_1C_1$ and $r_A$ the distance from $A$ to lines $A_1B'$, $A_1C'$ and $B'C'$ (or $\ell$) (the distance to the three lines are the same because $A$ is the incentre or excentre of $A_1B'C'$.)
+	Now 
+	\[A_1A=\dfrac{r_A}{\sin AA_1B'}=\dfrac{r_A}{\sin (90^{\circ}-\angle A)}=\dfrac{r_A}{\cos \angle A}\]
+	as $\angle A_1=180^{\circ}-2\angle A.$ Similarly $\angle A_1I=\dfrac{r}{\cos \angle A}$ so $t(A_1)=\sqrt {A_1I\cdot A_1A}=\dfrac{\sqrt{r\cdot r_A}}{\cos \angle A}$. Now $B_1C_1=D\sin\angle A_1=D\sin\angle (180^{\circ}-2\angle A)=D\sin 2\angle A,$ where $D$ is the diameter of circumcircle $A_1B_1C_1$ so $B_1C_1\cdot t(A_1)=D\sin 2\angle A\cdot \dfrac{\sqrt{r\cdot r_A}}{\cos \angle A}=2D\sin \angle A\cdot\sqrt{r\cdot r_A}.$ 
+	
+	The original ratio now becomes $\sin \angle A\cdot\sqrt{r_A}$ : $\sin \angle B\cdot\sqrt{r_B}$ : $\sin \angle C\cdot\sqrt{r_C}$ by eliminating constants $D$ and $r$. Now if $d$ is the diameter of $\Gamma$ then it is not hard to notice that $r_A$=distance from $A$ to $\ell$=$TA\sin\angle (TA,\ell)$=$(d\sin a)\cdot\sin a=d\sin^{2} a.$ Meanwhile $\sin\angle A=|\sin (b-c)|.$ So our original ratio becomes $\sin a\cdot|\sin (b-c)|$ : $\sin a\cdot|\sin (c-a)|$ : $\sin c\cdot|\sin (a-b)|$. 
+	Nevertheless, 
+	\[
+	\sin a\cdot\sin (b-c)+\sin a\cdot\sin (c-a)+\sin c\cdot\sin (a-b)=0
+	\]
+	which means one of them is the sum of the other two when we package them into absolute number. 
+	$\square$
+	
+	Finally, notice that $A_1, B_1, C_1$ must all lie outside $\Gamma$. 
+	W.l.o.g. let $T$ be opposite $A$ on $\Gamma$, 
+	then given that $ABC$ is acute, 
+	$OC'$ lies between $\ell$ and $AB$. 
+	It then follows that $\ell_C$, the reflection of $\ell$ in $AB$, 
+	has no intersection with $\Gamma$ (since $\ell$ is tangent to $\Gamma$). 
+	Similarly, $\ell_B$ has no intersection with $\Gamma$, hence the two reflections 
+	must lie entirely outside $\Gamma$, and therefore so are $A_1, B_1, C_1$. 
+	Therefore, this and Lemma 2 means that the conclusion follows 
+	 by applying Casey's theorem to degenerate circles $A_1, B_1, C_1$ and circle $\Gamma$. 
+
 	
 \end{enumerate}
 
