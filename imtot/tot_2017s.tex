@@ -1,0 +1,209 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2017, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item[3.]
+	Each cell of a square $1000 \times 1000$ table contains a number. It is known
+	that the sum of the numbers in each rectangle of area $S$ with sides along
+	the borders of cells, contained in the table, is the same. Find all values
+	of S which guarantee that all the numbers in the table are equal. 
+	
+	\textbf{Answer.} $S=1$ is the only possibility. 
+	
+	\textbf{Solution.} The case $S=1$ is clear. We now show that for any $S>1$ we can construct a counterexample. 
+	
+	Let $p$ be any prime divisor of $S$. Denote $a_{i, j}$ the squares of table, $1\le i, j\le 1000$. 
+	Let $a_{i, j}$ be filled with $i+j\pmod{p}$, taking values $0, 1, \cdots, p-1$. 
+	Then any rectangle with area $S$ will have either its row or column size divisible by $p$. 
+	In the first case (row size divisible by $p$), for each column there's equal representation of $0, 1, \cdots, p-1$; 
+	for the second case (column size divisible by $p$), 
+	for each row there's equal representation of $0, 1, \cdots, p-1$. 
+	It therefore follows that the average of the squares in $S$ is $\frac{p-1}{2}$, independent of $S$. 
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.] On the plane, there is a triangle and ten lines. Every line is equidistant from two of the
+	triangle’s vertices. Prove that either at least two of these lines are parallel or at least three
+	of them pass through a common point.
+	
+	\textbf{Solution.}
+	Let $A, B, C$ be the vertices of a triangle. We show that if no two lines are parallel and no three lines are concurrent then there can be at most 9 lines. 
+	
+	Consider any line $\ell$ equidistant to $A$ and $B$. 
+	If $A$ and $B$ are on the same side of $AB$, then $AB\parallel \ell$. 
+	Otherwise, $AB$ passes through midpoint of $AB$. 
+	Thus we see that there's at most one line parallel to $AB$ and two lines through the midpoint of $AB$. 
+	Doing the same analysis for $BC$ and $AC$, we get at most $3\times 3=9$ lines. 
+	
+	\item[2.] From given positive numbers, the following infinite sequence is defined: $a_1$ is the sum of all
+	original numbers, $a_2$ is the sum of the squares of all original numbers, $a_3$ is the sum of the
+	cubes of all original numbers, and so on ($a_k$ is the sum of the $k$-th powers of all original
+	numbers).
+	\begin{enumerate}
+		\item Can it happen that $a_1 > a_2 > a_3 > a_4 > a_5$ and $a_5 < a_6 < a_7 < \ldots$?
+		
+		\item Can it happen that $a_1 < a_2 < a_3 < a_4 < a_5$ and $a_5 > a_6 > a_7 > \ldots$? 
+	\end{enumerate}
+    
+    \textbf{Answer.} Yes for (a), no for (b). 
+    
+    \textbf{Solution.}
+    For (a), 
+    let the numbers given be $k$ copies of $2$ and $\ell$ copies of $0.5$. Then $a_n = k2^n+\ell\cdot \frac{1}{2^n}$ and therefore 
+    \[
+    a_{n+1}-a_n = k(2^{n+1}-2^n) + \ell(\frac{1}{2^{n+1}} - \frac{1}{2^{n}})
+    =k\cdot 2^n - \ell\cdot \frac{1}{2^{n+1}}
+    \]
+    which is strictly increasing. 
+    Now choose $k, \ell$ such that 
+    \[
+    2^4k-\frac{1}{2^5}\ell < 0 < 2^5k - \frac{1}{2^6}\ell
+    \]
+    or, in other words, $2^9<\frac{\ell}{k}<2^{11}$. We can, for example, take $k=1$ and $\ell=2^{10}$. 
+    
+    For (b), we see that the sequence $\{a_n\}_{n\ge 1}$ is bounded. 
+    Given that $\{a^n\}_{n\ge 1}$ is unbounded for any given $a>1$, we have all numbers given as $\le 1$. 
+    But then $\{a^n\}_{n\ge 1}$ is nonincreasing for any $a\le 1$, 
+    so we cannot have $a_1>a_2$. 
+    
+    \item[5.]
+    In a triangle $ABC$ with $\angle A = 45^{\circ}$, 
+    $AM$ is a median. 
+    Line $b$ is symmetrical to line $AM$
+    with respect to altitude $BB_1$, and line $c$ is symmetrical to line $AM$ with respect to altitude
+    $CC_1$. Lines $b$ and $c$ meet at point $X$. Prove that $AX = BC$.
+    
+    \textbf{Solution.}
+    Let $H, O$ be the orthocenter and circumcenter of triangle $ABC$, respectively. 
+    Then $HM$ and $AO$ intersect at a point $Z$ diametrically opposite $A$ on circumcircle of $ABC$, 
+    with $M$ being midpoint of $ZH$ and $O$ midpoint of $AZ$, so $AH\parallel OM$, 
+    with $AH=2OM$. The $45^{\circ}$ condition also implies 
+    $OM=MA=\frac 12 AB$ so $AH=AB$. 
+    We henceforth turn our attention to proving $AX=AH$. 
+    If $AB=AC$ we're done since $X=H$ here so we may assume, say, $AB>AC$. 
+    
+    Next, $ABC$ and $AC_1B_1$ are similar. Thus $AM$ being the median w.r.t. triangle $ABC$ means $AM$ is a symmedian w.r.t. triangle $AB_1C_1$. 
+    Additionally, $MB_1$ and $MC_1$ are the points of tangency to circle $AB_1C_1$. 
+    
+    Let $BB_1, CC_1$ intersect $AM$ at $E, F$, respectively. 
+    Then by the reflection condition and that $\angle EHF=45^{\circ}$ (i.e. acute), 
+    $H$ is the excenter of triangle $XEF$ and $\angle EXF=90^{\circ}$, 
+    with $\angle EXH=\angle FXH=45^{\circ}$. 
+    Let $Y$ be the intersection of $EF$ and $HX$, then we have the following equalities: 
+    \[
+    \frac{HE}{HF}\frac{\sin\angle EHX}{\sin\angle FHX}
+    =\frac{EY}{FY}
+    =\frac{XE}{XF}\frac{\sin\angle EXH}{\sin\angle FXH}
+    \]
+    \[
+    \frac{HE}{HF}\frac{\sin\angle EHA}{\sin\angle FHA}
+    =\frac{EA}{FA}
+    =\frac{XE}{XF}\frac{\sin\angle EXA}{\sin\angle FXA}
+    \]
+    Thus combining these two gives 
+    \[
+    \frac{\sin\angle EXA}{\sin\angle FXA}
+    =\frac{\sin\angle EHA}{\sin\angle FHA}\cdot\frac{HE}{HF}\cdot\frac{XF}{XE}
+    =\frac{\sin\angle EHA}{\sin\angle FHA}\cdot 
+    \frac{\sin\angle EXH}{\sin\angle FXH}
+    \frac{\sin\angle FHX}{\sin\angle EHX}
+    \]
+    Notice that $AB_1HC_1$ is cyclic so $\angle EHA = \angle B_1HA = \angle B_1C_1A$ and similarly 
+    $\angle FHA = \angle C_1B_1A$. 
+    $\angle EXH=\angle FXH=45^{\circ}$, and finally 
+    since $H$ is an excenter of $XEF$, $HX$ passes through the circumcenter of $HEF$ so 
+    $\angle EHX = 90^{\circ}-\angle HFE=90^{\circ}-\angle C_1FA = \angle FAC_1=\angle MAC_1$, 
+    since $\angle AC_1F=90^{\circ}$. 
+    Similarly, $\angle FHX = \angle MAB_1$. 
+    Thus putting this together, we get 
+    \[
+    \frac{\sin\angle EXA}{\sin\angle FXA}
+    =\frac{\sin\angle B_1C_1A}{\sin\angle C_1B_1A}
+    \frac{\sin\angle MAB_1}{\sin\angle MAC_1}
+    =\frac{AB_1}{AC_1}\cdot \frac{AB_1}{AC_1}
+    =\left(\frac{AB_1}{AC_1}\right)^2
+    \]
+    the first factor $\frac{AB_1}{AC_1}$ comes from sine rule on triangle $AB_1C_1$, 
+    the second comes from that $AM$ is a symmedian of $AB_1C_1$. 
+    
+    Finally, $\angle FXA=\sin\angle EXA+90^{\circ}$ so $\frac{\sin\angle EXA}{\sin\angle FXA}=
+    \frac{\sin\angle EXA}{\cos\angle EXA}=\tan\angle EXA$. 
+    On the other hand, $AM$ being a symmedian also means it cuts $B_1C_1$ into the ratio $\left(\frac{AB_1}{AC_1}\right)^2$, 
+    and with $MB_1=MC_1$, 
+    $\left(\frac{AB_1}{AC_1}\right)^2=\frac{\sin\angle B_1MA}{\sin\angle C_1MA}=
+    \frac{\sin\angle B_1MA}{\cos\angle B_1MA}=\tan\angle B_1MA$. 
+    This gives 
+    \[
+    \angle EXA=\angle B_1MA
+    \]
+    To finish off, recalling the identity $\angle MAC_1=\angle EHX$ we have 
+    \[
+    \angle AXH = \angle AXE+\angle EXH
+    =\angle B_1MA+\angle 45^{\circ}
+    =\angle B_1MA+\angle MB_1C
+    \]\[
+    =\angle M_AC_1+\angle ACB_1
+    =\angle EHX+\angle AHB_1
+    =\angle AHX
+    \]
+    so $AH=AX$, as desired. 
+    
+    
+    \item[6.]
+    Find all positive integers $n$ such that for any integer $k \ge n$ there is a number divisible by
+    $n$ and with the sum of digits equal to $k$.
+    
+    \textbf{Answer.} All integers not divisible by 3. 
+    
+    \textbf{Solution.} 
+    We see that if $3\mid n$, then any number of sum of digits equal to $k=n+1$ will be congruent to 1 mod 3, and therefore impossible to be divisible by 3. 
+    
+    Now consider $n$ not divisible by 3. 
+    Since adding trailing zeros to an integer $k$ will take care of the powers of 2 and 5 dividing $n$ without changing the sum of digits, 
+    we may assume that $\gcd(n, 10)=1$. 
+    Let's now claim the following: 
+    
+    \emph{Lemma.} For any $k\ge n$, there exist nonnegative integers $a$ and $b$ with $a+b=k$, and $n\mid a+10b$. 
+    
+    Proof: 
+    consider the sequence $x_a = a + 10(k-a)$ for $a=0, 1, \cdots, n-1$. 
+    Then for any $a\neq b$, we have $x_a-x_b = 9(b-a)$. Since $n$ is not divisible by 3, $\gcd(9, n)=1$ and since $0\le a, b\le n-1$, $n\nmid x_a-x_b$. 
+    It follows that $x_0, \cdots, x_{n-1}$ are different modulo $n$ and since there are $n$ of them, 
+    exactly one of them must be 0 mod $n$. $\square$
+    
+    Thus now we let $(a, b)$ satisfying the lemma condition. Let $\phi(n)$ be the number of integers in $[0, n-1]$ and relatively prime to $n$. 
+    Then the number 
+    \[
+    \sum_{i=0}^{a-1} 10^{i\phi(n)}
+    +\sum_{j=0}^{b-1} 10^{j\phi(n)+1}
+    =
+    1+10^{\phi(n)}+\cdots + 10^{(a-1)\phi(n)}
+    +10+10^{\phi(n)+1}+\cdots + 10^{(b-1)\phi(n)+1}
+    \]
+    has sum of digits $k$ and remainder $a+10b\equiv 0$ modulo $n$. 
+
+\end{enumerate}
+\end{document}
