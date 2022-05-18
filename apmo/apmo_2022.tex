@@ -1,0 +1,196 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs, float}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+	\newcommand{\la}{\leftarrow}
+	\newcommand{\lra}{\leftrightarrow}
+	\newcommand{\bbN}{\mathbb{N}}
+	\newcommand{\bbZ}{\mathbb{Z}}
+	\newcommand{\dsum}{\displaystyle\sum}
+	\newcommand{\dprod}{\displaystyle\prod}
+	
+	
+	\title{Solution to APMO 2022 Problems}
+	\author{Anzo Teh}
+	\date{}
+	\maketitle
+	
+	\textbf{Problem 1.} 
+		Find all pairs $(a,b)$ of positive integers such that $a^3$ is multiple of $b^2$ and $b-1$ is multiple of $a-1$.
+		
+		\textbf{Answer.} 
+		All pairs in the form $a=b$, and also $b=1$. 
+		
+		\textbf{Solution.} We can easily show that the combinations above would work, 
+		so it remains to show that these are the only combinations. 
+		
+		Now, let $a=p_1^{\alpha_1}\cdots p_k^{\alpha_k}$ (i.e. prime factorize), 
+		then $b=p_1^{\beta_1}\cdots p_k^{\beta_k}$ with $0\le \beta_i\le \frac 32\alpha_i$ to satisfy the condition $b^2|a^3$. 
+		In addition, $\gcd(p_i, a-1)=1$ for all the primes $p_i$, so we have 
+		\[
+		p_1^{\beta_1}\cdots p_k^{\beta_k}\equiv 1\pmod{a-1}
+		\]
+		and since we already have 
+		\[
+		p_1^{\alpha_1}\cdots p_k^{\alpha_k}\equiv 1\pmod{a-1}
+		\]
+		we can take multiplicative inverse to get 
+		\[
+		p_1^{\beta_1-\alpha_1}\cdots p_k^{\beta_k-\alpha_k}\equiv 1\pmod{a-1}
+		\]
+		which then becomes 
+		\[
+		\prod_{\beta_i\ge\alpha_i}p_i^{\beta_i-\alpha_i}
+		\equiv \prod_{\beta_i<\alpha_i}p_i^{\alpha_i-\beta_i}\pmod{a-1}
+		\]
+		Now the LHS is at most $\prod_{i}p_i^{\alpha_i}=\sqrt{a}$, 
+		and RHS is at most $a$ (both sides are at least 1). Also the gcd of the two sides is 1 so the only possibilities are: 
+		\begin{itemize}
+			\item LHS=RHS=1, which implies $\alpha_i=\beta_i$ for all $i$ and so $a=b$
+			
+			\item $|LHS-RHS|\ge a-1$, the only possibility is when $b=1$. 
+		\end{itemize}
+	    
+	    \textbf{Problem 2.}
+	    Let $ABC$ be a right triangle with $\angle B=90^{\circ}$. Point $D$ lies on the line $CB$ such that $B$ is between $D$ and $C$. Let $E$ be the midpoint of $AD$ and let $F$ be the seconf intersection point of the circumcircle of $\triangle ACD$ and the circumcircle of $\triangle BDE$. Prove that as $D$ varies, the line $EF$ passes through a fixed point.
+	    
+	    \textbf{Solution.} 
+	    Let $EF$ intersect line$ BC$ at $G$, and we claim that $BC=BG$, 
+	    i.e. $EF$ will always pass through the reflection of $C$ in $B$ regardless of $D$. 
+	    
+	    We see that by focusing on the triangles $ACD$ and $BDE$, 
+	    the point $F$ is the center of spiral similarity that brings $FEB$ to $FAC$, so 
+	    \[
+	    \frac{FE}{FB}=\frac{EA}{BC}=\frac{EB}{BC}
+	    \]
+	    where the equality $EA=EB=ED$ follows from that $\angle B=90^{\circ}$. 
+	    Now, the inversion with center $E$ and radius $ED=BE$ maps line $CG$ to circle $EDB$ 
+	    (and vice versa), so $F$ and $G$ are mapped to each other in this inversion, resulting in 
+	    \[
+	    \frac{EF}{EB} = \frac{EB}{EG}
+	    \]
+	    i.e. we have triangles $EFB$ and $EBG$ similar. Therefore 
+	    \[
+	    \frac{FE}{FB}=\frac{BE}{BG}=\frac{BE}{BC}
+	    \]
+	    i.e. $BG=BC$ as desired. 
+	    
+	    \textbf{Problem 3.} 
+	    \textbf{Answer.} 
+	    1, 100, 101, 201. 
+	    
+	    \textbf{Solution.} 
+	    Let's first give the constructions for those: we have these working pairs $(k, n)$: 
+	    \[
+	    (1, 101), (100, 2), (101, 99), (201, 1)
+	    \]
+	    The cases for $k=1, 100, 201$ are pretty clear, let's show for $k=101$, where, the numerators (in that order) are 
+	    \[
+	    99,198,95,194,\cdots, 3, 102, 201, 98, \cdots, 105, 2, 101
+	    \]
+	    which can be rearranged into 
+	    \[
+	    2+\cdots + 6 + \cdots +198+(3+\cdots + 99 + (101+105+\cdots + 201)
+	    =100\cdot 50+51\cdot 25+\cdot 151\cdot 26
+	    =101^2
+	    \]
+	    as desired. 
+	    
+	    To show that the others won't work, we first notice that the condition implies 
+	    \[
+	    n+2n+\cdots + kn\equiv 101k
+	    \]
+	    so we need $n\frac{k(k+1)}{2}$ to be divisible by 101. 
+	    The only $k$ with $101\mid k(k+1)$ are 100, 101, 201, so 
+	    we may now assume that $101\mid n$, 
+	    which then leaves us with $n=101$. 
+	    From here, we see that only $k=1$ works since the sequence alternates in $\frac 12, 0, \frac 12, 0, \cdots$. 
+	    
+	    \textbf{Problem 4.}
+	    Let $n$ and $k$ be positive integers. Cathy is playing the following game. There are $n$ marbles and $k$ boxes, with the marbles labelled $1$ to $n$. Initially, all marbles are placed inside one box. Each turn, Cathy chooses a box and then moves the marbles with the smallest label, say $i$, to either any empty box or the box containing marble $i+1$. Cathy wins if at any point there is a box containing only marble $n$.
+	    Determine all pairs of integers $(n,k)$ such that Cathy can win this game.
+	    
+	    \textbf{Note}: I guess that the answer should be all $n\ge 2^{k-1}$. 
+	    What I know is that the equality case $n=2^{k-1}$ does have an iterative algorithm, 
+	    and the numbers in a box must be consecutive. The rest are TODO. 
+	    
+	    \textbf{Problem 5.}
+	    Let $a,b,c,d$ be real numbers such that $a^2+b^2+c^2+d^2=1$. Determine the minimum value of $(a-b)(b-c)(c-d)(d-a)$ and determine all values of $(a,b,c,d)$ such that the minimum value is achived.
+	    
+	    \textbf{Answer.} $\dfrac{-1}{8}$, realized by the following: 
+	    \[
+	   \left(-\frac{\sqrt{3}}{4} - \frac 14, -\frac{\sqrt{3}}{4} + \frac 14, 
+	    +\frac{\sqrt{3}}{4} - \frac 14, +\frac{\sqrt{3}}{4} + \frac 14\right)
+	    \]
+	    assigned to $(a, b, c, d), (d, c, b, a)$, and all their cyclic shifts. 
+	    
+	    \textbf{Solution.} 
+	    It now remains to show that $-\frac 18$ is the optimal value. 
+	    Since it's negative, among $a-b, b-c, c-d, d-a$, either exactly 1 or 3 are positive. 
+	    This means that there's a cyclic shift among $(a, b, c, d)$ that's either monotonically increasing, 
+	    or monotonically decreasing. 
+	    These cases are symmetric, so we may assume $a<b<c<d$. 
+	    
+	    Next, let's show that we can consider only the case $a+b+c+d=0$. 
+	    Indeed, let $m$ be such that $a+b+c+d=4m$, 
+	    and consider the mapping $f:x\to \frac{x-m}{\sqrt{1-4m^2}}$. 
+	    Then 
+	    \[
+	    f(a)^2+f(b)^2+f(c)^2+f(d)^2=1
+	    \qquad 
+	    \]\[
+	    (f(a)-f(b))(f(b)-f(c))(f(c)-f(d))(f(d)-f(a)) 
+	    = \frac{(a-b)(b-c)(c-d)(d-a)}{(1-4m^2)^2}
+	    \le (a-b)(b-c)(c-d)(d-a)
+	    \]
+	    since $(a-b)(b-c)(c-d)(d-a)<0$ and $1-4m^2\le 1$. 
+	    
+	    We now show that we can consider only the case where $|d-c|=|b-a|$, 
+	    which now becomes $d-c=b-a$ since $a<b<c<d$. Indeed, 
+	    consider, now, the tuples $(a', b', c', d')$ with sum 0,  $c-b=c'-b'$ and $d'-c'=b'-a'=\frac{b-a+d-c}{2}$
+	    Then $d'-a'=d-a$. 
+	    In addition we have $a=-d$ and $c=-b$, so 
+	    \[
+	    a^2+b^2+c^2+d^2
+	    \ge \frac{(d-a)^2}{2}+\frac{(c-b)^2}{2}
+	    =a'^2+b'^2+c'^2+d'^2
+	    \]
+	    while 
+	    \[
+	    (a-b)(b-c)(c-d)(d-a)
+	    =(a-b)(b'-c')(c-d)(d'-a')
+	    \ge (a'-b')(b'-c')(c'-d')(d'-a')
+	    \]
+	    where we used $(a-b)(c-d)\le (\frac{d-c+b-a}{2})^2=(a'-b')(c'-d')$ 
+	    (since $a-b$ and $c-d$ have the same sign). 
+	    Thus by rescaling we can actually attain 
+	    \[
+	    \frac{1}{(a'^2+b'^2+c'^2+d'^2)^2}(a'-b')(b'-c')(c'-d')(d'-a')
+	    \le (a'-b')(b'-c')(c'-d')(d'-a')\le (a-b)(b-c)(c-d)(d-a)
+	    \]
+	    proving the claim. 
+	    
+	    Now that $a+b+c+d=0$ and $d-c=b-a$, we have $a=-d$ and $b=-c$, 
+	    so $(a, b, c, d)=(-y, -x, x, y)$ for some $x, y>0, y>x$ with $x^2+y^2=\frac 12$. 
+	    This gives 
+	    \[
+	    (a-b)(b-c)(c-d)(d-a)
+	    =-4(x-y)^2xy
+	    =-4\left(\frac 12 - 2xy\right)xy
+	    =8\left((xy-\frac 18)^2 - \frac{1}{64}\right)
+	    \ge -\frac 18
+	    \]
+	    which shows $-\frac 18$ is indeed optimal. 
+	    Equality holds when we have $x^2+y^2=\frac 12$ and $xy=\frac 18$, 
+	    i.e. $(x+y)^2=\frac 34$ and $(x-y)^2=\frac 14$. 
+	    Using $y>x>0$ we can solve these to get $y=\frac{\sqrt{3}}{4}+\frac 14$ and 
+	    $x=\frac{\sqrt{3}}{4}-\frac 14$. 
+	    
+\end{document}
