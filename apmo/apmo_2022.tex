@@ -83,6 +83,9 @@
 	    i.e. $BG=BC$ as desired. 
 	    
 	    \textbf{Problem 3.} 
+	    Find all positive integers $k<202$ for which there exist a positive integers $n$ such that
+	    $$\bigg {\{}\frac{n}{202}\bigg {\}}+\bigg {\{}\frac{2n}{202}\bigg {\}}+\cdots +\bigg {\{}\frac{kn}{202}\bigg {\}}=\frac{k}{2}$$
+	    
 	    \textbf{Answer.} 
 	    1, 100, 101, 201. 
 	    
@@ -117,9 +120,82 @@
 	    Let $n$ and $k$ be positive integers. Cathy is playing the following game. There are $n$ marbles and $k$ boxes, with the marbles labelled $1$ to $n$. Initially, all marbles are placed inside one box. Each turn, Cathy chooses a box and then moves the marbles with the smallest label, say $i$, to either any empty box or the box containing marble $i+1$. Cathy wins if at any point there is a box containing only marble $n$.
 	    Determine all pairs of integers $(n,k)$ such that Cathy can win this game.
 	    
-	    \textbf{Note}: I guess that the answer should be all $n\ge 2^{k-1}$. 
-	    What I know is that the equality case $n=2^{k-1}$ does have an iterative algorithm, 
-	    and the numbers in a box must be consecutive. The rest are TODO. 
+	    \textbf{Answer.} 
+	    All $n$ with $n\le 2^{k-1}$. 
+	    
+	    \textbf{Solution.} 
+	    We consider the following observations: 
+	    
+	    \begin{itemize}
+	    	\item \textbf{Consecutive}. 
+	    	For each box, there exists $i\le j$ such that $i, i+1, \cdots, j$ are all the balls in the box. 
+	    	This is an invariant that will be maintained via the valid moves. 
+	    	Thus the assignment of balls into boxes can now be seen as partition of $n$ into at most $k$ parts where the goal is to make the last part having size 1.
+	    	
+	    	\item \textbf{Reversibility}. 
+	    	Fix $i$, and the two types of moves (moving $i$ to an empty box vs to the box containing $i+1$) are reverse of each other. 
+	    	
+	    	\item \textbf{Dominance}. 
+	    	If $(n, k)$ is a winning pair for Cathy then so is $(n-1, k)$. 
+	    	To see why, the size of the last part cannot decrease by more than 1 for each iteration. 
+	    	Thus if we have a winning algorithm for $(n, k)$, we stop when the last part has size 2 and that's exactly the winning algorithm for $(n-1, k)$ (i.e. ignoring the ball of label $n$). 
+	    \end{itemize}
+        
+        Before we proceed, one other quantity is that, given $\ell<k$, 
+        what are the maximum number of marbles we can have in the first $\ell$ (or fewer) parts that exclude the last part. 
+        Let's also claim that this number satisfies the dominance property. 
+        Observe that, if $(n_0, \ell, k)$ is a winning triple 
+        (i.e. there's an algorithm to dump $n_0$ marbles to the first $\ell$ parts excluding the last part), 
+        then a winning strategy for $(n_0-1, \ell, k)$ will proceed like $(n_0, \ell, k)$ except ignoring the first marble (and hence will always use up no more boxes at any time). 
+        This means it suffices to consider the maximum $n$ in the following context: 
+        \begin{itemize}
+        	\item $f(k)$ the maximum $n$ where Cathy can win with $k$ boxes. 
+        	
+        	\item For $\ell<k$, $g_{\ell}(k)$ the maximum number of balls in the first $\ell$ parts (and excluding the last part). 
+        \end{itemize}
+	    We note that $f(k)=g_{k-1}(k)+1$, and proceed to the following. 
+	    
+	    \emph{Lemma.} For all $\ell\ge 1$, $g_{\ell}(k+\ell) = \sum_{j=0}^{\ell-1}f(k+j)$. 
+	    
+	    Proof: we first show $f(k)=g_{1}(k+1)$. 
+	    Consider, first, any algorithm that puts $g_1(k+1)$ balls into the first block (when we have $k+1$ boxes in total), 
+	    let this final configuration be $B$. 
+	    Let the initial configuration ($n$ balls all in one box) as $A$. 
+	    Then by the reversibility of the iterations, it's possible to go from $B$ to $A$. 
+	    Now, in the $B\to A$ algorithm, consider $C$, the iteration immediately before the first time where all parts except the last has fewer than $g_1(k+1)$ balls 
+	    (i.e. the last part now has $n-g_1(k+1)+1$ after $C$). 
+	    Then the second last part of $C$ has 1 ball, 
+	    and so $B\to C$ is a winning algorithm for $(g_1(k+1), k)$, and so $g_1(k+1)\ge f(k)$. 
+	    
+	    Conversely, consider the setting of $k+1$ boxes, and let's suppose we have $f(k)$ balls all in one box, and $n-f(k)$ balls in the rest (for arbitrary $n$). 
+	    Let's now show that we can now combine all $n$ balls into one box. 
+	    Iteratively, we do the following: 
+	    \begin{itemize}
+	    	\item With $x\le f(k)$ balls in all except last part, iterate until the second last part has $\le 1$ ball; 
+	    	
+	    	\item now combine the second last and the last part; 
+	    	
+	    	\item By dominance and reversibility, we can now make the first $x-1$ balls into one part again. Now repeat. 
+	    \end{itemize}
+        
+        To extend this for different $\ell$, 
+        we first show one side of the bound $g_{\ell}(k+\ell)\ge \sum_{j=0}^{\ell-1} f(k+j)$. 
+        Indeed, with $k$ balls, 
+        first place $f(k-1)$ balls into the first box, 
+        and then with $k-2$ empty ones in the middle, 
+        place $f(k-2)$ balls from the last part into the second part (leaving the first one untouched), 
+        etc. 
+        
+        For the converse bound, suppose otherwise. 
+        Then consider the minimum $k$ such that there's an $\ell$ such that 
+        $g_{k}(\ell) > f(k-1)+\cdots + f(k-\ell)$. 
+        We may also consider the minimum $\ell$ for this $k$ that it's possible for this to happen; 
+        this way, the middle part (i.e. excluding the first $\ell-1$ and the last) would have $>$ 
+        $f(k-\ell)$ balls (with all in one box at some point). 
+        This means, we must be able to find an algorithm to make the second last part as 1 with only the middle $k-\ell$ boxes, contradicting the definition of $f(k-\ell)$. $\square$
+        
+        Now with the lemma shown, 
+        we can now use the observation that $f(1)=1$ to conclude rather immediately that $f(k)=2^{k-1}$ and $g_\ell(k+1)=2^k - 2^{k-\ell}$. 
 	    
 	    \textbf{Problem 5.}
 	    Let $a,b,c,d$ be real numbers such that $a^2+b^2+c^2+d^2=1$. Determine the minimum value of $(a-b)(b-c)(c-d)(d-a)$ and determine all values of $(a,b,c,d)$ such that the minimum value is achived.
