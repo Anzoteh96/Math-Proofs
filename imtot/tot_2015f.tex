@@ -1,0 +1,174 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs, algorithm, algpseudocode}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Fall 2015, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item[1.]
+	Let $p$ be a prime number. Determine the number of positive integers $n$ such
+	that $pn$ is a multiple of $p + n$.
+	
+	\textbf{Answer.} 1. 
+	
+	\textbf{Solution.} 
+	We have $p(p+n)-pn = p^2$ so this is equivalent to saying $p+n\mid p^2$. 
+	The only positive divisors of $p^2$ are $1, p, p^2$, 
+	and only $p^2>p+n$. 
+	Thus $n=p(p-1)$ is the only answer (and it works). 
+	
+	\item[2.]
+	Suppose that ABC and ABD are right-angled triangles with common hypotenuse AB (D and C are on the same side of line AB). If AC = BC and
+	DK is a bisector of angle ADB, prove that the circumcenter of triangle ACK
+	belongs to line AD. 
+	
+	\item[3.]
+	Three players play the game “rock-paper-scissors”. In every round, each player
+	simultaneously shows one of these shapes. Rock beats scissors, scissors beat
+	paper, while paper beats rock. If in a round exactly two distinct shapes are
+	shown (and thus one of them is shown twice) then 1 point is added to the score
+	of the player(s) who showed the winning shape, otherwise no point is added.
+	After several rounds it occurred that each shape had been shown the same
+	number of times. Prove that the total sum of points at this moment was a
+	multiple of 3.
+	
+	\textbf{Solution.} Keep another table that adds 0 for any occurence of scissor, 
+	1 for any occurence of rock and 2 for any occurence of paper. 
+	Then after each round, the number added to the table is congruent to the score added modulo 3. 
+	Since $3\mid 0+1+2$, the conclusion follows. 
+	
+	\item[4.]In a country there are 100 cities. Every two cities are connected by direct
+	flight (in both directions). Each flight costs a positive (not necessarily integer)
+	number of doubloons. The flights in both directions between two given cities
+	are of the same cost. The average cost of a flight is 1 doubloon. A traveller
+	plans to visit any $m$ cities for $m$ flights, starting and ending at his native city
+	(which is one of these $m$ cities). Can the traveller always fulfil his plans given
+	that he can spend at most $m$ doubloons if 
+	\begin{enumerate}
+		\item $m=99$;
+		\item $m=100$?
+	\end{enumerate}
+    
+    
+    \item[5.] 
+    An infinite increasing arithmetical progression is given. A new sequence is
+    constructed in the following way: its first term is the sum of several first terms
+    of the original sequence, its second term is the sum of several next terms of the
+    original sequence and so on. Is it possible that the new sequence is a geometrical
+    progression?
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.]
+	A geometrical progression consists of $37$ positive integers. 
+	The first and the last terms are relatively prime numbers. 
+	Prove that the $19^{th}$ term of the progression is the $18^{th}$ power of some positive integer.
+	
+	\textbf{Solution.} 
+	Consider a prime $p$ that divides some term in the sequence, 
+	and let $a_i$ be the highest power of $p$ dividing the $i$-th term. 
+	Then either $\{a_i\}$ is an arithmetic sequence. 
+	Since the first and last term given are relatiely prime, either $a_1=0$ or $a_{37}=0$. 
+	It then follows that $a_{19} = \frac{\max(a_1, a_{37})}{2}$ and since all $a_i$ are integers, 
+	$a_{19}$ is divisible by 18. 
+		
+	\item[2.]
+	A $10 \times 10$ square on a grid is split by $80$ unit grid segments into $20$ polygons of equal area (no one of these segments belongs to the boundary of the square). 
+	Prove that all polygons are congruent.
+	
+	\textbf{Solution.} 
+	There are $10\times 10 \times 2 - 10-10=180$ unit grid segments that are not boundary of the square. 
+	This means 100 of those segments are in the interior of the polygons. 
+	
+	Now, each of the polygons has area 5 (hence comprises 5 square grids). 
+	Consider each square grid as a graph with edge iff they are adjacent on the $10\times 10$ square. 
+	Consider, also, coloring the square in checkerboard fashion. Then here's some properties of this graph: 
+	\begin{itemize}
+		\item it's connected;
+		\item separating into white and black squares would show that this graph is bipartite;
+		\item two squares (of the same colour) that's distance 2 apart and on the same row/column, 
+		has exactly one common neighbour: the square in between
+		\item the only two squares with $\ge 2$ common neighbours are those share a common vertex: 
+		the two common neighbours also have common vertex. 
+	\end{itemize}
+	
+	We now show that the number of edges in each polygon cannot exceed 5. 
+	Given our black vs white partition, the only possible way when we have this edge count $>5$ is when we have $K_{2, 3}$: the sides have 2, 3 squares, and every pair of  squares (of different color) are neighbours. 
+	W.l.o.g. let our polygon to have 2 whites, $W_1, W_2$, each with the same 3 black neighbours, $B_1, B_2, B_3$. 
+	Then two of the black squares, say, $B_1, B_2$, must lie on opposite sides of $W_1$. 
+	But this would mean that the only common neighbour of $B_1$ and $B_2$ can be $W_1$, 
+	contradiction. 
+	
+	On the other hand, the fact that the 20 polygon graphs have total edge count 100 means each graph has average edge count 5. With the upper bound shown before, 
+	each graph must have edge count 5. 
+	Thus each of them must have a cycle (having $>4$ edges), and with the bipartiteness, 
+	this cycle must have length 4. 
+	If $A_1, A_2, A_3, A_4$ are the cycle in that order then $A_i$ and $A_{i+2}$ have the other two as common neighbours for each $i$ (indices taken modulo 2). 
+	Then $A_1$ and $A_3$ share a common vertex, and so do $A_2$ and $A_4$. 
+	This means, $A_1, A_2, A_3, A_4$ must be a $2\times 2$ square. 
+	
+	We conclude that each polygon is $2\times 2$ square, plus another square attached to this $2\times 2$ square. 
+	It therefore follows that all those polygons are congruent. 
+	
+	\item[3.]
+	Each coefficient of a polynomial is an integer with absolute value not exceeding $2015$.
+	Prove that every positive root of this polynomial exceeds $\frac{1}{2016}$.
+	
+	\textbf{Solution.} 
+	By dividing by $x^k$ for some $k$, i.e. removing all the root at $x=0$, we may assume that the constant term is nonzero. 
+	Let $y$ be a positive root. 
+	Then 
+	\[
+	0 = P(y) := \sum_{k=0}^n a_ky^k
+	\]
+	Thus we have 
+	\[
+	1\le |a_0| = |-\sum_{k=1}^n a_ky^k|\le \sum_{k=1}^n |a_ky^k|
+	\]
+	Suppose, now, $|y|\le \frac{1}{2016}$. 
+	Then with $|a_k|\le 2015$ for each $k$ we have 
+	\[
+	\sum_{k=1}^n |a_ky^k|
+	\le \sum_{k=1}^n 2015\cdot \frac{1}{2016^k}
+	=2015\left(\frac{1}{2016}\frac{1-(1/2016)^n}{1-1/2016}\right)
+	< 1
+	\]
+	i.e. contradiction. 
+	
+	\item[4.]
+	Let $ABCD$ be a cyclic quadrilateral, $K$ and $N$ be the midpoints of the diagonals and $P$ and $Q$ be points of intersection of the extensions of the opposite sides. 
+	Prove that $\angle PKQ + \angle PNQ = 180$.
+	
+	\textbf{Solution.} 
+	W.l.o.g. let rays $BA$ and $CD$ intersect at $P$ and rays $DA$ and $CB$ intersect at $Q$. 
+	Also consider $K$ as midpoint of $BD$ and $N$ the midpoine of $AC$. 
+	Then triangles $PAC$ and $PDB$ are similar, 
+	so $\angle APK=\angle DPN$, 
+	i.e. $PK$ and $PN$ are reflections of each other w.r.t. the internal angle bisector of 
+	$\angle BPC$. 
+	Similarly, $QK$ and $QN$ are reflections of each other w.r.t. the internal angle bisector of $\angle CQD$. 
+	Therefore, we have $\angle PKQ+\angle PNQ = \angle PAQ+\angle PCQ=\angle PBQ+\angle PDQ=180^{\circ}$, 
+	the last two equality is because $ABCD$ cyclic. 
+	
+\end{enumerate}
+\end{document}
