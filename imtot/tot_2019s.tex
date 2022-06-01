@@ -1,0 +1,207 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, float}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Spring 2019, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.]
+	 Some positive integer, divisible by 7, is shown on a computer screen. The cursor marks
+	a gap between some two of its consecutive digits. Prove that there is a digit that can
+	be inserted into the marked gap any number of times so that the resulting number is
+	always divisible by 7.
+	
+	\textbf{Solution.} 
+	Let $k$ be the position of split (0-indexed, counting from right), 
+	and $(a, b)$ be the digits of split. 
+	Then $7\mid 10^ka+b$. 
+	If we insert digit $c$ for $\ell$ times then we have $10^{k+\ell}a+10^k\cdot c\cdot \frac{10^{\ell}-1}{9}+b$ as the final number. 
+	The difference of the two numbers are now 
+	\[
+	10^ka(10^{\ell}-1)+10^k\cdot c\cdot \frac{10^{\ell}-1}{9}
+	=\frac{10^{\ell}-1}{9}\cdot 10^k\cdot (9a+c)
+	\]
+	Thus, we just need to pick the unique $c\in \{0, 1, 2, 3, 4, 5, 6\}$ such that $7\mid 9a+c$. 
+	
+	\item[2.]
+	$2019$ point grasshoppers sit on a line. 
+	At each move one of the grasshoppers jumps over another one and lands at the point the same distance away from it. 
+	Jumping only to the right, the grasshoppers are able to position themselves so that some two of them are exactly $1$ mm apart. 
+	Prove that the grasshoppers can achieve the same, jumping only to the left and starting from the initial position.
+	
+	\textbf{Solution.} 
+	Here, we see that only the relative (not absolute) positions of the grasshoppers matter. 
+	Let $a_0$ be the leftmost grasshopper in the original position. 
+	Thus from the initial position, let's have all the grasshoppers except $a_0$ jump to the left with respect to the grasshopper $a_0$, 
+	this position is now the mirror image of the initial position. 
+	
+	Thus if from the original position there's an algorithm of ``jumping only to the right'', 
+	we can mimic the algorithm in a reverse manner (from the mirrored image, and then to the left). 
+	
+	\item[3.]
+	Two not necessarily equal non-intersecting wooden disks, one gray and one black, are glued to a plane. 
+	An infinite angle with one gray side and one black side can be moved along the plane so that the disks remain outside the angle, 
+	while the colored sides of the angle are tangent to the disks of the same color (the tangency points are not the vertices). 
+	Prove that it is possible to draw a ray in the angle, 
+	starting from the vertex of the angle and such that no matter how the angle is positioned, 
+	the ray passes through some fixed point of the plane.
+	
+	\item[4.]
+	One needs to fill the cells of an $n\times n$ table ($n > 1$) with distinct integers from $1$ to $n^2$ so that every two consecutive integers are placed in cells that share a side, 
+	while every two integers with the same remainder if divided by $n$ are placed in distinct rows and distinct columns. 
+	For which $n$ is this possible?
+	
+	\textbf{Answer.} All $n$ even. 
+	
+	\textbf{Solution.} 
+	Colour the cells in checkerboard fashion with top left corner black. 
+	Since consecutive integers must be on adjacent cells (which have different colours), 
+	we see that all odd integers must be of the same colour, and even integers of same (and opposite) colour. 
+	Consider, now, $n$ odd. 
+	There is one more black square than white, and one more odd integers than even, 
+	so all odd integers are in black square and even in white. 
+	
+	Break the integers into classes $S_1, \cdots, S_n$ where $S_i$ has $i$ integers congruent to $i$ mod $n$. 
+	If we label the positions of grids as $a_{ij}$ with $1\le i, j\le n$ then for each $k$ there's a permutation $\sigma_k$ of $1, \cdots, n$ such that numbers in $S_k$ have coordinates $a_{i, \sigma_k(i)}, i=1, \cdots, n$. 
+	We see that $a_{i, j}$ is black if $i+j$ is even and white if $i+j$ is odd (since $a_{1, 1}$, the top left corner, is black). 
+	Then when we sum up all the $(x, y)$, coordinates  we get $\sum i = \sum_i \sigma_k(i) = \frac{n(n+1)}{2}$, which add up to $n(n+1)$ which is even. 
+	This means, there are evenly many numbers in $S_k$ in white squares (and oddly many in black squares). 
+	On the other hand, consider: 
+	\[
+	S_1 = \{1, n+1, \cdots, n^2-n+1\}
+	\equiv \{1, 0, 1, 0, \cdots, 1\}\pmod{2}
+	\]\[
+	S_2 = \{2, n+2, \cdots, n^2-n+2\}
+	\equiv \{0, 1, 0, 1, \cdots, 0\}
+	\]
+	so $S_1$ has $\frac{n+1}{2}$ has black squares while $S_2$, $\frac{n-1}{2}$. 
+	But $\frac{n+1}{2}$ and $\frac{n-1}{2}$ cannot be simultaneously odd. 
+	
+	Now consider $n$ even. Let's claim that the following construction works: 
+	\[1, 2, \cdots, n
+	\]
+	\[n^2, n^2-1, \cdots, n^2-n+2, n+1
+	\]
+	\[n^2-2n+3 ,n^2-n+1,n+2
+	\]
+	\[
+	\vdots
+	\]
+	\[
+	3n-1, 3n, \cdots,  4n-3, 2n-2
+	\]
+	\[
+	3n-2, 3n-3, \cdots, 2n+1, 2n, 2n-1
+	\]
+	Pictorially, it means go from top left corner (1), go to the top right corner ($n$), then to bottom right ($2n-1$), 
+	and then from there traverse the remaining $(n-1)^2$ squares in a horizontal zigzag manner. 
+	Here's an example for $n=4$: 
+	
+	\begin{table}[H]
+		\centering 
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			1 & 2 & 3 & 4\\
+			\hline
+			16 & 15 & 14 & 5\\
+			\hline
+			11 & 12 & 13 & 6\\
+			\hline
+			10 & 9 & 8 & 7\\
+			\hline
+		\end{tabular}
+		\caption{Example for $n=4$}
+		\label{tab:q4}
+	\end{table}
+    To see why the modulo condition is fulfilled, in terms of mod $n$ the first row is 1 to $n$, 
+    and the last $k$ rows comprise $kn$ consecutive integers for each $k=1, \cdots, n-1$ so each of those rows must also be $1, 2, \cdots, n$ modulo $n$ in some order. 
+    For column check, consider $a_{i, k}$ and $a_{j, k}$ on the same column, with the following cases: 
+    \begin{itemize}
+    	\item if $i\neq j\pmod{2}$ then $a_{i, k}$ and $a_{j, k}$ are of different colour. But then with $n$ even all numbers in the same class $S_{\ell}$ must be of same parity. 
+    	
+    	\item If $2\le i\neq j\le n$ then $a_{i, k}$ and $a_{j, k}$ are part of the zigzag pattern on same direction for $k\le n-1$, or equal to $i+n-1$ vs $j+n-1$ when $k=n$. 
+    	In either case,  $a_{i, k}-a_{j, k}\equiv\pm (i-j)\not\equiv 0\pmod{n}$. 
+    	
+    	\item If one of $i, j$, say $i$, is 1, then $a_{1, k}=k$. But from the construction we can show that when $j$ odd, 
+    	$a_{j, k}\equiv j+k\pmod{n}$. 
+    \end{itemize}
+	
+	\item[5.]
+	The orthogonal projection of a tetrahedron onto a plane containing one of its faces is a trapezoid of area $1$, which has only one pair of parallel sides.
+	\begin{enumerate}
+		\item Is it possible that the orthogonal projection of this tetrahedron onto a plane containing another its face is a square of area $1$?
+		\item The same question for a square of area $1/2019$.
+	\end{enumerate}
+    
+    \textbf{Answer.} No for (a) and yes for (b). 
+    
+    \textbf{Solution.} 
+    We consider the problem in reverse: 
+    consider a tetrahedron where the orthogonal projection onto a plane containing a face is 
+    square of side length $a$. 
+    Is it possible that the orthogonal projection onto a plane containing another face is a non-paralellogram trapezoid of area $c$? 
+    
+    Now consider the face $ABC$ which gives the square orthogonal projection, 
+    this face must be an isoceles right triangle with side lengths $a, a, \sqrt{2}a$, all positive. 
+    W.l.o.g. the face (and plane) be the $xy$-plane, 
+    and $A=(a, 0, 0), B=(0, 0, 0), C=(0, a, 0)$. 
+    Then there's a nonzero real number $b$ such that the last vertex is $D=(a, a, b)$.
+    
+    We first show that $ACD$ cannot be the face we're looking for. 
+    We have $AB=BC$ so the projection $B'$ from $B$ to the plane containing $ACD$ also has $AB'=B'C$. 
+    But we also have $AD=CD$, 
+    so line $B'D$ is the perpendicular bisector of $AC$ (i.e. $AB'CD$ is a kite). 
+    Thus, if $AB'CD$ is a trapezoid then it has to be a rhombus, which isn't allowed. 
+    
+    Now consider face $BCD$. 
+    Observe that $\angle BCD=90^{\circ}$. 
+    Denote $\theta\neq 0$ as the angle between the planes $ABD$ and $ABC$. 
+    Then $\tan\theta = \frac{b}{a}$. 
+    Let $A'$ be the projection from $A$ to this plane. 
+    Then since the plane $BCD$ contains the line $BC$ (i.e. the $y$-axis), 
+    $A$ and $A'$ must have the same $y$-coordinate, i.e. 0. 
+    Thus $\angle A'BC=90^{\circ}$ too and so $A'B\parallel CD$. 
+    We also have $\angle A'BA=\theta$ so $A'B = |\cos\theta| = \frac{a^2}{\sqrt{a^2+b^2}}$, 
+    and recall that $CD=\sqrt{a^2+b^2}$. 
+    Thus the area of the trapezoid is now 
+    \[
+    \frac 12 \cdot a(\frac{a^2}{\sqrt{a^2+b^2}} + \sqrt{a^2+b^2})
+    \]
+    and since $\sqrt{a^2+b^2}>\frac{a^2}{\sqrt{a^2+b^2}}$ whenever $b\neq 0$, 
+    this trapezoid only has one pair of parallel sides (hence fulfiling the condition). 
+    Finally, by AM-GM we have $\frac 12 (\frac{a^2}{\sqrt{a^2+b^2}} + \sqrt{a^2+b^2})\ge a$, 
+    but equality cannot hold given that $\sqrt{a^2+b^2}>\frac{a^2}{\sqrt{a^2+b^2}}$. 
+    But as we vary $b$ continuously in $b>0$: 
+    \begin{itemize}
+    	\item as $b\to 0^+$ we have $\frac{a^2}{\sqrt{a^2+b^2}} + \sqrt{a^2+b^2}\to 2a$
+    	\item as $b\to\infty$ we have $\frac{a^2}{\sqrt{a^2+b^2}} + \sqrt{a^2+b^2}\to \infty$
+    \end{itemize}
+    Therefore, all the allowable $c$ is $(a^2, \infty)$. 
+    In particular, when $a=1$ we need $c>1$, but when $a=\sqrt{1/2019}$ we can have $c=1$. 
+
+\end{enumerate}
+\end{document}
