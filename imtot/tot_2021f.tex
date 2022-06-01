@@ -1,0 +1,193 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\dsum}{\displaystyle\sum}
+\newcommand{\dprod}{\displaystyle\prod}
+
+
+\title{Solutions to Tournament of Towns, Fall 2021, Senior}
+\author{Anzo Teh}
+\date{}
+\maketitle
+
+\section*{O-Level}
+\begin{enumerate}
+	\item
+\end{enumerate}
+
+\section*{A-Level}
+\begin{enumerate}
+	\item[1.]
+	The wizards $A, B, C, D$ know that the integers 1, 2, . . . , 12 are written on 12 cards, one integer
+	on each card, and that each wizard will get three cards and will see only his own cards. Having
+	received the cards, the wizards made several statements in the following order.
+	
+	$A$: “One of my cards contains the number 8”.
+	
+	$B$: “All my numbers are prime”.
+	
+	$C$: “All my numbers are composite and they all have a common prime divisor”.
+	
+	$D$: “Now I know all the cards of each wizard”.
+	
+	What were the cards of $A$ if everyone was right?
+	
+	\textbf{Answer.} 1, 8, 9. 
+	
+	\textbf{Solution.}
+	We first claim that $A$ must have all composite numbers or 1. 
+	Notice that there are 5 primes 2, 3, 5, 7, 11. 
+	If $A$ has at least one prime numbers, then $D$ will not be able to tell which of the prime numbers belong to $A$, and which one belong to $D$ based on information from $A, B, C$. 
+	
+	Thus $D$ will have two of the remaining prime numbers (after $B$). We show that the other cards by $D$ must either be 6 or 12. 
+	Now, we see that the cards of $C$ could be one of the following: 
+	\[
+	(6, 9, 12), 
+	(4, 6, 10), (4, 6, 12), 
+	(6, 10, 12), 
+	(4, 10, 12)
+	\]
+	Thus for $D$ to uniquely determine the cards of $C$, this non-prime card of $D$ must fall into all but one of the triples above, and hence can either be 6 or 12. 
+	If it's 6, then $C$ has $4, 10, 12$; if it's 12, then $C$ has $4, 6, 10$. 
+	Thus, the cards of $B, C, D$ are the 5 primes and $4, 6, 10, 12$, leaving $A$ with $1, 8, 9$. 
+	
+	\item[2.]
+	 There was a rook at some square of a 10 $\times 10$ chessboard. At each turn it moved to a square
+	adjacent by side. It visited each square exactly once. Prove that for each main diagonal (the
+	diagonal between the corners of the board) the following statement is true: in the rook’s path
+	there were two consecutive steps at which the rook first stepped away from the diagonal and
+	then returned back to the diagonal.
+	
+	\item[3.]
+	Grasshopper Gerald and his 2020 friends play leapfrog on a plane as follows. At each turn
+	Gerald jumps over a friend so that his original point and his resulting point are symmetric
+	with respect to this friend. Gerald wants to perform a series of jumps such that he jumps
+	over each friend exactly once. Let us say that a point is achievable if Gerald can finish the
+	2020th jump in it. What is the maximum number $N$ such that for some initial placement of
+	the grasshoppers there are just $N$ achievable points?
+	
+	\textbf{Answer.} $\dbinom{2020}{1010}$. 
+	
+	\textbf{Solution.} We'll use the following identity: the reflection of $a$ in $b$ is $2b-a$. 
+	Thus if $a_0$ is the original location of Gerald and 
+	$a_1, \cdots, a_n$ are the locations of other $n=2020$ grasshoppers (which Gerald jumps over in that order) 
+	then Gerald's final position is 
+	\[
+	a_0 + 2\left(\sum_{i=1}^{n/2}a_{2i} - \sum_{i=1}^{n/2}a_{2i-1}\right)
+	\]
+	(note the use that $n$ is even here). 
+	Note that Gerald is allowed to permute $(a_1, \cdots, a_n)$, 
+	and also this sum depends only on the $n/2$ points Gerald chooses to jump on odd (respectively even) time. 
+	This means $N\le \dbinom{n}{n/2}$. 
+	
+	To show equality, we just need to show that it's possible to have $\sum_{i=1}^{n/2}a_{2i}\neq \sum_{i=1}^{n/2}b_{2i}$ whenever $\{a_{2i}\}$ and $\{b_{2i}\}$ are two different subsets of 
+	$\{a_j\}_{j\le n}$. 
+	This can be accomplished by, say, having the $n$ points to be $a_i = 2^i$. 
+	
+	
+	\item[4.]
+	What is the minimum $k$ for which among any three nonzero real numbers there are two
+	numbers $a$ and $b$ such that either $|a-b|\le k$ or $|\frac{1}{a}-\frac{1}{b}|\le k$? 
+	
+	\textbf{Answer.} $\frac 32$. 
+	
+	\textbf{Solution.} 
+	For any triple $(a_1, a_2, a_3)$ nonzero real numbers, denote 
+	\[
+	f(a_1, a_2, a_3) = \min_{i\neq j}\left\{|a_i-a_j|, |\frac{1}{a_i}-\frac{1}{a_j}|\right\}
+	\]
+	Then $f(-1, \frac 12, 2)=\frac 32$. 
+	
+	To show that $f\le \frac 32$ in all cases, 
+	consider $a_1<a_2<a_3$. 
+	Consider the following cases: 
+	
+	\emph{Case 0.} $\min \{a_2-a_1, a_3-a_2\}\le \frac 32$. This is obvious. 
+	So for each of the following cases, assume $\min \{a_2-a_1, a_3-a_2\}\ge \frac 32$. 
+	
+	\emph{Case 1a}. $a_1> 0$. 
+	Then $a_2\ge \frac 32$ and 
+	\[
+	\frac{1}{a_2}-\frac{1}{a_3}< \frac{1}{a_2} \le \frac{2}{3}<\frac 32
+	\]
+	
+	\emph{Case 1b}. $a_3< 0$. 
+	This case is symmetric to 1a. 
+	
+	\emph{case 2a}. $a_1<0<a_2$. 
+	Let $x=-a_1$. 
+	Then we have $a_2\ge a_1+\frac 32 = \frac 32 - x$, 
+	and $\frac{1}{a_3}\ge \frac 32 +\frac{1}{a_1}=\frac 32-\frac 1x$, i.e. 
+	$a_3\le \frac{1}{\frac 32-\frac 1x}$. 
+	Now consider the function 
+	\[
+	\frac{1}{\frac 32-\frac 1x} - (\frac 32 - x)
+	\]
+	which has desirvative $1-\frac{1}{(\frac 32x-1)^2}$, hence decreasing for $x\ge 1$. 
+	We thus see that if $a_1\le -1$, 
+	\[
+	a_3-a_2\le \frac{1}{\frac 32-\frac 1x} - (\frac 32 - x)\le 
+	\frac{1}{\frac 32-1} - (\frac 32 - 1) = \frac 32
+	\] 
+	Similarly, consider the function 
+	\[
+	\frac{1}{\frac 32 - x} - \frac{1}{\frac 32- \frac{1}{x}}
+	\]
+	similar to before cases, when $-1\le a_1<0$, we have $0\le x\le 1$
+	\[
+	\frac{1}{a_2}-\frac{1}{a_3}
+	\le \frac{1}{\frac 32 - x} - \frac{1}{\frac 32- \frac{1}{x}}
+	\le \frac{1}{\frac 32-1} - (\frac 32 - 1) = \frac 32
+	\]
+	Thus $f(a_1, a_2, a_3)\le \frac 32$. 
+	
+	\emph{case 2b}. $a_2<0<a_3$. It's symmetric to 2a. 
+	
+	\item[5.]
+	Let $ABCD$ be a parallelogram and let $P$ be a point inside it such that $\angle P DA = \angle P BA$.
+	Let $\omega_1$ be the excircle of $P AB$ opposite to the vertex $A$. Let $\omega_2$ be the incircle of the
+	triangle $PCD$. Prove that one of the common tangents of $\omega_1$ and $\omega_2$ is parallel to $AD$.
+	
+	\textbf{Solution.} 
+	Let $E$ be such that $AEPD$ is a parallelogram. 
+	Then $\angle AEP=\angle ADP=\angle ABP$, and $B$ and $E$ are on the same side of $AP$. 
+	Therefore $A, E, B, P$ are concyclic. 
+	In addition, $PE\parallel AD\parallel BC$ and $PE=AD=BC$ (length) so $PEBC$ is also a parallelogram. 
+	Thus $AEB$ and $DPC$ are congruent triangles, 
+	and are in fact translation with axis parallel to $AD$. 
+	Therefore, if we denote $\omega_3$ as the incircle of $AEB$ then it suffices to show that $\omega_1$ and $\omega_3$ have common tangent parallel to $PE$ (given also that $PE\parallel AD$). 
+	
+	Now let the centers of $\omega_1$ and $\omega_3$ be $I_1$ and $I_3$, respectively. 
+	We first have $\angle I_1AI_3=\frac{\angle EAP}{2}$ 
+	since $I_1$ is the incenter of $AEB$ and $I_3$ the $A$-excenter of $ABP$. 
+	Also $\angle I_1BI_3=90^{\circ}+\frac{\angle EBP}{2}$. 
+	Thus $\angle I_1AI_3+\angle I_1BI_3=180^{\circ}$, 
+	since $\angle EAP+\angle EBP=180^{\circ}$, 
+	($A, E, B, P$ concyclic). 
+	So $I_1BPI_3$ also cyclic. This means: 
+	\[
+	\angle(AB, EP)
+	=\angle(AB, AE)+\angle(AE, EP)
+	=\angle(AB, AE)+\angle(AB, BP)
+	=2\angle(AB, AI_3)+2\angle(AB, BI_1)
+	\]\[
+	=2\angle(AB, AI_3)+2\angle(AI_3, I_1I_3)
+	=2\angle(AB, I_1I_3)
+	\]
+	and since $AB$ is a common tangent to both $\omega_1, \omega_3$, it follows that so is $AB$'s reflection in $I_1I_3$, namely $\ell$. 
+	With $2\angle(AB, I_1I_3)=\angle(AB, EP)=\angle(AB, \ell)$ we have $\ell\parallel EP$, as desired. 
+	
+\end{enumerate}
+\end{document}
