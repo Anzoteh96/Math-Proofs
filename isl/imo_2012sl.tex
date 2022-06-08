@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, fullpage}
 \usepackage{mathrsfs}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
@@ -205,6 +205,105 @@
 		B_0\to B_{-1}, B_1\to B_2, B_2\to B_3
 		\]
 		which means $B_1$ is now empty. As $B_0$ and $B_2$ both have 1 coin before $B$'s move, $A$ cannot transfer coin from either box to $B_1$. Hence $B_1$ remains empty. 
+		
+		\item[\textbf{C6}] (IMO 3)
+		The liar's guessing game is a game played between two players $A$ and $B$. The rules of the game depend on two positive integers $k$ and $n$ which are known to both players.
+		
+		At the start of the game $A$ chooses integers $x$ and $N$ with $1 \le x \le N.$ Player $A$ keeps $x$ secret, and truthfully tells $N$ to player $B$. Player $B$ now tries to obtain information about $x$ by asking player $A$ questions as follows: each question consists of $B$ specifying an arbitrary set $S$ of positive integers (possibly one specified in some previous question), and asking $A$ whether $x$ belongs to $S$. Player $B$ may ask as many questions as he wishes. After each question, player $A$ must immediately answer it with yes or no, but is allowed to lie as many times as she wants; the only restriction is that, among any $k+1$ consecutive answers, at least one answer must be truthful.
+		
+		After $B$ has asked as many questions as he wants, he must specify a set $X$ of at most $n$ positive integers. If $x$ belongs to $X$, then $B$ wins; otherwise, he loses. Prove that:
+		\begin{enumerate}
+			\item 
+			If $n \ge 2^k,$ then $B$ can guarantee a win.
+			
+			\item For all sufficiently large $k$, there exists an integer $n \ge (1.99)^k$ such that $B$ cannot guarantee a win.
+		\end{enumerate}
+		
+		\textbf{Solution.} 
+		
+		The query-answer protocol is the same as $B$ partitioning $\{1, \cdots, N\}$ into two parts and $A$ says which set $x$ belongs to (which we call the correct set, as opposed to wrong set)
+		$B$ can guarantee a win iff for all but $n$ numbers $y$, $A$ says $y$ doesn't belong to the correct set for $k+1$ consecutive times. 
+		
+		This motivates the following formulation of the problem: 
+		let $a_1, \cdots, a_N$ be written on the board. 
+		Initially, all numbers are equal to 0. 
+		Thereafter, $B$ and $A$ play the following: 
+		$B$ chooses a partition $\{1, \cdots, N\}$ into two parts, 
+		and $A$ chooses one part, say $U$ and set $a_i=0$ for $i\in U$, 
+		while for the other part (say $V$) she replaces $a_i$ by $a_i+1$ for all $i\in V$. 
+		If $a_i=k+1$, then the number is erased from the board permanently. 
+		
+		The game ends when there are $\le n$ numbers on the board, where $B$ wins. 
+		We'll need to prove the winning conditions. 
+		
+		\textbf{Part 1, $n=2^k$} Let's first consider $N = n + 1$, so $B$'s goal is to remove one number from the board. 
+		We consider the following two phases (a bit lengthy compared to the official but easier to think of). 
+		
+		Phase 1: we show that $B$ can maintain the invariant that at step $\ell$ (starting with step 0), 
+		the size of $A_{\ell}=\{i\in 1, \cdots, N: a_i\ge \ell\}$ is at least $2^{k-\ell}$ regardless of $A$'s strategy. 
+		Indeed, $|A_0|=N=n+1>2^k$, 
+		and with $A_{\ell}$ at hand, 
+		at step $\ell+1$ for $k<\ell$, $B$ would simply partition $\{1, \cdots, N\}$ into $U$ and $V$ such that the sizes $|A_{\ell}\cap U|$ and $|A_{\ell}\cap V|$ differ by no more than 1
+		(i.e. as evenly as possible). 
+		Then no matter how $A$ acts, either $A_{\ell}\cap U$ or $A_{\ell}\cap V$ has all its $a_i$ increased by 1, 
+		thereby forming part of $A_{\ell+1}$. 
+		Finally, $|A_{\ell+1}|\ge \min \{|A_{\ell}\cap U|, |A_{\ell}\cap V|\}$, 
+		but since we have already have $|A_{\ell}|\ge 2^{k-\ell}$, 
+		according our partition we have both $A_{\ell}\cap U, A_{\ell}\cap V$ of size $\ge 2^{k-\ell-1}$. 
+		This proves the induction. 
+		In particular, $A_k$ is nonempty. 
+		
+		Phase 2: if $|A_k|\ge 2$, then $B$ is done: simply make sure the two elements in $A_k$ are in different partitions in the next step and one of them, say $j$, will be forced to become $a_j=k+1$. 
+		Otherwise, w.l.o.g. we have $A_k=\{N\}$ (so we have $a_N=k$ here). 
+		$B$ can now partition into $\{1, \cdots, N-1\}$ and $\{N\}$. 
+		If $A$ picks $N$ to increase count by 1, we're done. 
+		Otherwise, after this step $a_i\ge 1$ for all $i=1, \cdots, N-1=n$. 
+		Thus here we have $A_1=\{1, \cdots, n\}$. 
+		
+		We may repeat the protocol above: this time ensuring that at step $\ell$, $|A_{\ell}|\ge 2^{k-\ell+1}$, noting that $|A_1|=n=2^k$ here. 
+		Eventually, $|A_{k+1}|\ge 1$, as desired. 
+		
+		To generalize $N=n+1$ to arbitrary $N$, 
+		if $N\le n$ there's nothing to prove. For all bigger $N$, 
+		so long as there are $>n$ numbers on the board, 
+		$B$ can choose any set $n+1$ numbers to play the game with $A$ and eliminate 1 number at one time. 
+		
+		
+	    \textbf{Part 2}. Consider any $\beta$ with $1.99 < \beta < 2$, 
+	    and $n=\lceil \beta^k\rceil$
+	    Pick $\alpha$ such that $\beta < \alpha < 2$, 
+	    and $k$ such that $(1-\frac{\alpha}{2})\alpha^{k+1} > \beta^k$ 
+	    (this would work so long as $k> \frac{-\log (\alpha(1-\frac{\alpha}{2}))}{\log \alpha - \log \beta}$). 
+		Assuming $N > n$, $A$ just need to predetermine $n + 1$ numbers to `protect' 
+		(say, $S=\{1, \cdots, n + 1\}$). 
+		Then $A$'s strategy will be, regardless of the partitions $U$ and $V$ by $B$, 
+		$A$ considers the following expressions and choose the smaller one: 
+		\[
+		\sum_{i\in U\cap S} \alpha^{a_i}
+		\qquad 
+		\sum_{i\in V\cap S} \alpha^{a_i}
+		\]
+		First, note that we start with value of $n + 1=\lceil \beta^k\rceil + 1 < \alpha^k$. 
+		Let's now show that the value $\sum_{i\in S} \alpha^{a_i}$ will always be less than $\alpha^{k+1}$ under this strategy. 
+		Indeed, suppose that 
+		\[
+		\sum_{i\in U\cap S} \alpha^{a_i} + \sum_{i\in V\cap S} \alpha^{a_i} = \sum_{i\in S} \alpha^{a_i} < \alpha^{k+1}
+		\]
+		Then, if $U$ contributes less compared to $V$, after $A$'s move the value now becomes 
+		\begin{flalign*}
+			\sum_{i\in U\cap S} \alpha^{a_i + 1} + \sum_{i\in V\cap S} \alpha^{0}
+			&=\alpha\sum_{i\in U\cap S} \alpha^{a_i} + |V\cap S|
+			\\&\le \frac{\alpha^{k+2}}{2} + \beta^k
+			\\& < \frac{\alpha^{k+2}}{2} + (1-\frac{\alpha}{2})\alpha^{k+1}
+			\\&=\alpha^{k+1}
+			\\
+		\end{flalign*}
+	    as desired. 
+	    In particular, at any time all $a_i$'s are $\le k$, hence will not be erased. 
+	    This means that $B$ cannot tell which one among $\{1, \cdots, n + 1\}$ is not equal to $x$. 
+	    
+	    \textbf{Comment.} Using such an analysis, when $\beta=1.99$ the optimal $\alpha$ (that results in the lowest threshold $k$) is around $1.9987$, and the required $k$ is around 1523. 
+	    Such $n$ will then be enormously large for the game to be played in real life. 
 		
 	\end{enumerate}
 	
