@@ -108,6 +108,87 @@
 	
 	Finally, such function works: we have the left hand side as $4(2017)+6m+2n$, and same goes to right hand. Q.E.D. 
 	
+	\item[\textbf{A5}] 
+	Consider all polynomials $P(x)$ with real coefficients that have the following property: for any two real numbers $x$ and $y$ one has\[|y^2-P(x)|\le 2|x|\quad\text{if and only if}\quad |x^2-P(y)|\le 2|y|.\]Determine all possible values of $P(0)$.
+	
+	\textbf{Answer.} $P(0)=1$ or $P(0) < 0$ are all the answers. 
+	
+	\textbf{Solution.} 
+	Let $A(P)$ be the area in $\mathbb{R}^2$ covered by 
+	$A(P) = \{(x, y): |y^2-P(x)|\le 2|x|\}$, and the condition suggests $A(P)$ is symmetric 
+	w.r.t. the both the $x=y$ line, and also the $x$ axis (and therefore w.r.t. the $x=-y$ line and the $y$ axis). 
+	
+	We first give an example for $P(0) < 0$. 
+	Take $a, c > 0$ such that $ac > 1$. 
+	Consider, also, $P(x)=-(ax^2+c)$. 
+	Then $P(x) \le -c < 0$ and therefore for any $y$, 
+	\[
+	y^2-P(x) \ge ax^2+c = a(|x| - \frac{1}{a})^2 + (c - \frac{1}{a}) + 2|x| > 2|x|
+	\]
+	since $c > \frac{1}{a}$. 
+	This means that we in fact have $A(P)=\emptyset$ here, 
+	which is valid. Since $P(0)=-c$ and $c$ can be anything $> 0$ (just make sure $a>\frac{1}{c}$), 
+	any $P(0) < 0$ works. 
+	
+	Thus now we consider $P(0)\ge 0$. 
+	Here, when $x=0$ the only possible points for $y$ are $\pm \sqrt{P(0)}$, 
+	so analogously $(x, 0)\in A(P)$ iff $x=\pm \sqrt{P(0)}$. 
+	To start off, we give a working example for $P(0)=1$. 
+	This is taken with $P(x)=x^2+1$, and the condition now becomes 
+	$y^2-(x^2+1)\le 2|x|$. Squaring both sides, we get 
+	\[
+	(x^2-1)^2+(y^2-1)^2-2x^2y^2\le 1
+	\]
+	which is symmetric with $x$ and $y$. 
+	
+	Let's first show we cannot have $P(x_0)-2|x_0| < 0 < P(x_0) + 2|x_0|$ for any $x_0$. 
+	Otherwise, since $P$ and the absolute function are continuous, 
+	there's an interval $[x_0-\epsilon, x_0+\epsilon]$ such that $P(x)-2|x| < 0 < P(x)+2|x|$ 
+	for all $x$ in this interval (which is uncountable). 
+	This contradicts $(x, 0)\in A(P)\Leftrightarrow x=\pm\sqrt{P(0)}$. 
+	In particular, $P(x)\neq 0$ when $x\neq 0$. 
+	
+	Now, consider the case $P(0) > 0$. This would mean $P(x) > 0$ for all $x$, 
+	and that $[P(x)-2|x|, P(x)+2|x|]$ can ever touch 0 only when $x^2=P(0)$. 
+	In particular, $P(x)$ cannot be constant (otherwise for $x > P(0)$ we have $P(x) - 2x < 0 < P(x)+2x$). 
+	
+	Thus $P(x)$ has degree at least 2 (it cannot be linear since $P(x)$ has no real root). 
+	Here, let's show that $P(x)$ must be quadratic, and must be monic. 
+	Consider, now, $(x, y)\in A(P)$. 
+	Let's consider what happens for $(x, y)$ sufficiently large. 
+	Here, if the leading coefficient of $P(x)$ is $ax^b$ where $a>0$ and $b$ even, 
+	then $y^2\in [P(x)-2|x|, P(x)+2|x|]$ for positive $y$ means for any $a'<a$ and sufficiently large $x$ we must have $y > a'x^{\frac{b}{2}}$. But the other side of the inequality would entail 
+	$x > a'y^{\frac{b}{2}} > a'^2 x^{(\frac{b}{2})^2}$, 
+	showing that we need $b=2$, and $a' < 1$. We therefore have $a\le 1$. 
+	Likewise, for any $a''>a$ and sufficiently lagr $x$ we have $y < a''^2x$, which means $a''>1$ is necessary. 
+	Repeating this argument gives us $1$, so $P$ is monic and quadratic. 
+	
+	Since $P(x)\ge 2x$ throughout, with the only positive root at $x=\sqrt{P(0)}$. 
+	It follows that $P(x)-2x$ must have double root at $\sqrt{P(0)}$. 
+	Similarly, $P(x)+2x$ must have double root at $-\sqrt{P(0)}$. 
+	If $P(x)=x^2+ax+b$ then we have $(a-2)^2=(a+2)^2=4b$ (i.e. discriminant 0), 
+	which then forces $a=0$, and $b=1$. 
+	Thus $P(x)=x^2+1$ here and the only working $P(0)$ is 1. 
+	
+	Finally, we consider the case $P(0)=0$. Using the lemma that we cannot have $P(x)-2|x| < 0 < P(x)+2|x|$ for any $x$, 
+	we see that the only root is 0. 
+	Let's now distinguish into several cases: 
+	\begin{itemize}
+		\item $P(x) > 0$ for all $x\neq 0$. 
+		By our lemma, we need $P(x)\ge 2|x|$ for all $x$, which is impossible since here, $P$ had double root at 0 and thus the derivative has $P'(0)=0$ (i.e. at 0 it will grow slower than $2|x|$). 
+		
+		\item $P(x) < 0$ for all $x\neq 0$. 
+		Same thing, we need $P(x) \le -2|x|$ for all $x$, which is also impossible with $P'(0)=0$. 
+		
+		\item $P(x) > 0$ for $x>0$ and $P(x)<0$ for $x<0$. 
+		Here, we need $P(x)\ge 2|x|$ for $x>0$, and $P(x)\le -2|x|$ for all $x<0$. 
+		For $x>0$, the region $y\in [\sqrt{P(x)-2|x|}, \sqrt{P(x)+2|x|}]$ contains positive $y$ 
+		(here $P(x)+2|x|\ge 2|x|+2|x|=4|x|>0$)
+		while for $x<0$ this is either empty or can only be 0. 
+		This contradicts the fact that $A(P)$ is symmetric w.r.t. the $y$-axis. 
+		
+		\item $P(x) < 0$ for $x>0$ and $P(x)>0$ for $x<0$, symmetric to above. 
+	\end{itemize}
 \end{enumerate}
 
 \section*{Combinatorics}
@@ -349,6 +430,52 @@
 	since $\angle CHS>90^{\circ}$ by the problem definition. 
 	Since $CQ=CS$, we have $\angle CSQ = 90^{\circ} - \frac{\angle CQS}{2} = 90^{\circ} - \frac{360^{\circ} - 2\angle CHS}{2} = \angle CHS - 90^{\circ} = \angle CSB$, implying that $Q, S, B$ are collinear and therefore all lie on line $AB$. Similarly, naming $R$ as the circumcenter of $DHT$ we have $R$ on $AD$. 
 	
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+		\clip(-13.16618923340823,-11.014882328407293) rectangle (11.24783371628891,6.112065330220502);
+		\draw [line width=2pt] (-3.58,0.04) circle (3.3458615956848012cm);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-5.095346372448951,-5.672474501237494) circle (4.257385531622247cm);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-1.4878035010175643,-1.1660966388607872) circle (1.7396394100390575cm);
+		\draw [line width=2pt] (-5.256739923962409,2.935398598616256)-- (-8.287432668860308,-8.489550403858733);
+		\draw [line width=2pt] (-5.256739923962409,2.935398598616256)-- (-0.23413840431519883,0.04);
+		\draw [line width=2pt] (-0.23413840431519883,0.04)-- (-1.9032600760375908,-2.855398598616256);
+		\draw [line width=2pt] (-6.471411222043291,-1.6436065343543205)-- (-1.9032600760375908,-2.855398598616256);
+		\draw [line width=2pt] (-6.471411222043291,-1.6436065343543205)-- (-0.23413840431519883,0.04);
+		\draw [line width=2pt] (-5.256739923962409,2.935398598616256)-- (-4.187174591870141,-1.027030054704387);
+		\draw [line width=2pt] (-6.104229997941373,-0.25942571724807206)-- (-4.187174591870141,-1.027030054704387);
+		\draw [line width=2pt] (-4.187174591870141,-1.027030054704387)-- (-4.086634001027033,2.260863094207449);
+		\draw [line width=2pt] (-4.187174591870141,-1.027030054704387)-- (-1.9032600760375908,-2.855398598616256);
+		\draw [line width=2pt] (-1.0723469259975378,0.523205320894682)-- (-8.287432668860308,-8.489550403858733);
+		\draw [line width=2pt] (-3.045217333953865,-1.9412143266603212)-- (-6.471411222043291,-1.6436065343543205);
+		\draw [line width=2pt] (-4.77036394304444,-1.9311315587874773) -- (-4.746264612952715,-1.6536893022271637);
+		\draw [line width=2pt] (-3.045217333953865,-1.9412143266603212)-- (-0.23413840431519883,0.04);
+		\draw [line width=2pt] (-1.719894078647529,-0.8367910590636544) -- (-1.5594616596215338,-1.064423267596667);
+		\begin{scriptsize}
+			\draw [fill=ududff] (-5.256739923962409,2.935398598616256) circle (2.5pt);
+			\draw[color=ududff] (-5.066860327092354,3.4316283999068027) node {$A$};
+			\draw [fill=ududff] (-1.9032600760375908,-2.855398598616256) circle (2.5pt);
+			\draw[color=ududff] (-1.7250168815064333,-2.3469758914188352) node {$C$};
+			\draw [fill=xdxdff] (-6.471411222043291,-1.6436065343543205) circle (2.5pt);
+			\draw[color=xdxdff] (-6.296844373037172,-1.140199091623923) node {$B$};
+			\draw [fill=xdxdff] (-0.23413840431519883,0.04) circle (2.5pt);
+			\draw[color=xdxdff] (-0.05409515871347294,0.5307226311690324) node {$D$};
+			\draw [fill=uuuuuu] (-4.187174591870141,-1.027030054704387) circle (2pt);
+			\draw[color=uuuuuu] (-3.999327004196852,-0.5832251840262713) node {$H$};
+			\draw [fill=uuuuuu] (-1.0723469259975378,0.523205320894682) circle (2pt);
+			\draw[color=uuuuuu] (-0.8895560201099532,0.9716603080171735) node {$R$};
+			\draw [fill=uuuuuu] (-8.287432668860308,-8.489550403858733) circle (2pt);
+			\draw[color=uuuuuu] (-8.594361741877492,-8.636139598042321) node {$Q$};
+			\draw [fill=uuuuuu] (-6.104229997941373,-0.25942571724807206) circle (2pt);
+			\draw[color=uuuuuu] (-5.9255284346387365,0.18261393892049999) node {$S$};
+			\draw [fill=uuuuuu] (-4.086634001027033,2.260863094207449) circle (2pt);
+			\draw[color=uuuuuu] (-3.9064980195972425,2.7122037692598355) node {$T$};
+			\draw [fill=uuuuuu] (-3.045217333953865,-1.9412143266603212) circle (2pt);
+			\draw[color=uuuuuu] (-3.2799023735498825,-1.3954787992728468) node {$N$};
+		\end{scriptsize}
+	\end{tikzpicture}
+	
 	Now, with the fact that $AH$ is perpendicular to $BD$, the goal reduces to showing that the circumcenter $O$ of $TSH$ lies on $AH$. But then $O$ is on the perpendicular bisector of $SH$, which is in turn the internal angle bisector of $SQH$ (i.e. angle bisector of $AQH$) because $SQ=QH$. Similarly $O$ is on the angle bisector of $ARH$. So all we need to prove is that the angle bisectors of $\angle SQH$ and $\angle ARH$ intersect at $AH$. By the angle bisector theorem this is equivalent to proving the following ratio: 
 	\[
 	\frac{AQ}{QH} = \frac{AR}{RH}\to \frac{AQ}{AR} = \frac{QH}{RH}
@@ -370,8 +497,144 @@
 	\item[\textbf{G6}] Let $ABC$ be a fixed acute-angled triangle. Consider some points $E$ and $F$ lying on the sides $AC$ and $AB$, respectively, and let $M$ be the midpoint of $EF$ . Let the perpendicular bisector of $EF$ intersect the line $BC$ at $K$, and let the perpendicular bisector of $MK$ intersect the lines $AC$ and $AB$ at $S$ and $T$ , respectively. We call the pair $(E, F )$ $\textit{interesting}$, if the quadrilateral $KSAT$ is cyclic.
 	Suppose that the pairs $(E_1 , F_1 )$ and $(E_2 , F_2 )$ are interesting. Prove that $\displaystyle\frac{E_1 E_2}{AB}=\frac{F_1 F_2}{AC}$
 	
-	\textbf{Solution.} TODO
+	\textbf{Solution.} 
+	We'll show that $\frac{AE}{AB} + \frac{AF}{AC} = 2\cos\angle BAC$ whenever $(E, F)$ is interesting, which will immediately prove the problem. 
 	
+	Let's first look at the quadrilateral $KSAT$. 
+	Since $EF$ and $ST$ are parallel, $AM$ would intersect $ST$ at midpoint of $ST$, say $N$. 
+	This means we would also have $NM\cdot NA = NS^2=NT^2$ (reflect $M$ in $N$ to get $P$, $P$ is on circle $AST$ and $MTPS$ is parallelogram). 
+	Therefore 
+	\[
+	\angle KMS = \angle KTS = \angle MTS = \angle MAT
+	\]
+	so $AK$ and $AM$ are reflection of each other w.r.t. bisector of $\angle BAC$. 
+	It sollows then $AK$ is a symmedian of $\angle TAS$. 
+	
+	Next, let tangents to circle $AST$ at $S$ and $T$ to intersect at $L$. 
+	From before, $A, K, L$ are collinear. 
+	In addition, $NL$ and $MK$ are both perpendicular to $ST$, 
+	so triangles $ALN$ and $AKM$ are similar. This means 
+	\[
+	\frac{AF}{AT}=\frac{AM}{AN} = \frac{AK}{AL}
+	\]
+	so $FK\parallel LT$ and similarly $EK\parallel LS$. 
+	By tangency of the lines $LT$ and $LS$ we have 
+	\[
+	\angle KFT = 180^{\circ} - \angle ATL = \angle AST
+	\qquad 
+	\angle KES = \angle ATS
+	\]
+	Consider, now, circle with radius $KE=KF$ intersect $AT$ and $AS$ at 
+	$F_1$ and $E_1$ again, respectively. 
+	Then 
+	\[
+	\angle AF_1K = \angle AST\qquad \angle AE_1K = \angle ATS
+	\]
+	so in particular, $F_1, K, E_1$ are collinear and $K$ is the midpoint of $E_1F_1$. 
+	This also gives us $AS\perp EF_1$ and $AT\perp FE_1$, giving 
+	\[
+	\frac{AE}{AF_1}=\frac{AF}{AE_1}=\cos \angle TAS
+	\]
+	Finally, consider $E_2, F_2$ as the midpoints of $AE_1$ and $AF_1$, respectively. 
+	Then $F_2K\parallel AE_1\parallel AS\parallel AC$ ($AS_1, AS, AC$ are all the same line) 
+	and similarly $E_2K\parallel AB$. 
+	So looking (finally) at triangle $ABC$ we have 
+	\[
+	\frac{BC}{AB} = \frac{BK}{BF_2} = \frac{CK}{AF_2}
+	\qquad 
+	\frac{BC}{AC} = \frac{CK}{CE_2} = \frac{BK}{AE_2}
+	\]
+	
+	\definecolor{qqwuqq}{rgb}{0,0.39215686274509803,0}
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+		\clip(-9.311123409547324,-4.712123761117267) rectangle (6.2890994179244135,6.23175879275551);
+		\draw[line width=2pt,color=qqwuqq,fill=qqwuqq,fill opacity=0.10000000149011612] (-3.418341224869141,1.122153962878833) -- (-3.431338770190094,0.8078496851175936) -- (-3.117034492428855,0.7948521397966402) -- (-3.1040369471079012,1.1091564175578796) -- cycle; 
+		\draw[line width=2pt,color=qqwuqq,fill=qqwuqq,fill opacity=0.10000000149011612] (-2.8743042777612398,-0.19700245467904645) -- (-2.8873018230821934,-0.511306732440286) -- (-2.5729975453209537,-0.5243042777612396) -- (-2.56,-0.21) -- cycle; 
+		\draw [line width=2pt] (-2.4794473077373302,1.7379105583518444) circle (3.299779428926932cm);
+		\draw [line width=2pt] (-4.453755836691207,4.381894316257579)-- (-5.7843982618248075,-3.4012628126980693);
+		\draw [line width=2pt] (-5.7843982618248075,-3.4012628126980693)-- (-0.6377943567825096,0.44179558525544976);
+		\draw [line width=2pt] (-4.453755836691207,4.381894316257579)-- (0.1,-0.32);
+		\draw [line width=2pt] (-2.09950330093086,1.951055462813537) -- (-2.2727479527239067,1.9380976172310977);
+		\draw [line width=2pt] (-2.09950330093086,1.951055462813537) -- (-2.0810078839673007,2.123796699026482);
+		\draw [line width=2pt] (-2.2542525357603473,2.110838853444042) -- (-2.427497187553394,2.0978810078616026);
+		\draw [line width=2pt] (-2.2542525357603473,2.110838853444042) -- (-2.235757118796788,2.283580089656987);
+		\draw [line width=2pt] (-1.9447540661013731,1.7912720721830313) -- (-2.1179987178944195,1.778314226600592);
+		\draw [line width=2pt] (-1.9447540661013731,1.7912720721830313) -- (-1.9262586491378137,1.9640133083959763);
+		\draw [line width=2pt] (-5.22,-0.1)-- (-2.7102122357443212,-3.842404973453586);
+		\draw [line width=2pt] (-3.9031597585752285,-2.0635721948040557) -- (-4.075949767564874,-2.045538117883112);
+		\draw [line width=2pt] (-3.9031597585752285,-2.0635721948040557) -- (-3.8542624681794466,-1.896866855570475);
+		\draw [line width=2pt] (-2.7102122357443212,-3.842404973453586)-- (0.1,-0.32);
+		\draw [line width=2pt] (-1.1663832988869638,-1.907323111599976) -- (-1.1314170833034722,-2.0774964905545033);
+		\draw [line width=2pt] (-1.1663832988869638,-1.907323111599976) -- (-1.3400723334556526,-1.9110291077722668);
+		\draw [line width=2pt] (-1.305106117872161,-2.081202486726794) -- (-1.2701399022886695,-2.2513758656813216);
+		\draw [line width=2pt] (-1.305106117872161,-2.081202486726794) -- (-1.4787951524408498,-2.084908482899085);
+		\draw [line width=2pt] (-4.999873874303608,1.187555688983266)-- (-3.2110963093036573,-1.4797336137213115);
+		\draw [line width=2pt] (-4.0435387325067005,-0.23845867044628558) -- (-4.216328741496346,-0.22042459352534186);
+		\draw [line width=2pt] (-4.0435387325067005,-0.23845867044628558) -- (-3.994641442110919,-0.07175333121270593);
+		\draw [line width=2pt] (-3.2110963093036573,-1.4797336137213115)-- (-1.2082000199121943,1.0307571461324934);
+		\draw [line width=2pt] (-2.0709253456227286,-0.05060885866759117) -- (-2.035959130039237,-0.22078223762211852);
+		\draw [line width=2pt] (-2.0709253456227286,-0.05060885866759117) -- (-2.2446143801914173,-0.05431485483988193);
+		\draw [line width=2pt] (-2.2096481646079256,-0.22448823379440927) -- (-2.174681949024434,-0.39466161274893663);
+		\draw [line width=2pt] (-2.2096481646079256,-0.22448823379440927) -- (-2.3833371991766144,-0.22819422996670002);
+		\draw [shift={(-3.2110963093036586,-1.4797336137213097)},line width=2pt]  plot[domain=0.6413968964197572:3.7829895500095505,variable=\t]({1*3.211566191341761*cos(\t r)+0*3.211566191341761*sin(\t r)},{0*3.211566191341761*cos(\t r)+1*3.211566191341761*sin(\t r)});
+		\draw [line width=2pt] (-2.5457750967368584,2.4118449507565143)-- (-3.2110963093036573,-1.4797336137213115);
+		\draw [line width=2pt] (-4.999873874303608,1.187555688983266)-- (-1.2082000199121943,1.0307571461324934);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-4.453755836691207,4.381894316257579)-- (-2.7102122357443212,-3.842404973453586);
+		\draw [line width=2pt] (-5.22,-0.1)-- (0.1,-0.32);
+		\draw [line width=2pt] (-4.453755836691207,4.381894316257579)-- (-2.56,-0.21);
+		\draw [line width=2pt] (-3.1040369471079012,1.1091564175578796)-- (-3.2110963093036573,-1.4797336137213115);
+		\draw [line width=2pt] (-2.56,-0.21)-- (-2.7102122357443212,-3.842404973453586);
+		\draw [line width=2pt] (-5.119077049258007,0.49031575177975495)-- (-3.2110963093036573,-1.4797336137213115);
+		\draw [line width=2pt] (-4.087712061866089,-0.574600626286031) -- (-4.260956713659135,-0.5875584718684704);
+		\draw [line width=2pt] (-4.087712061866089,-0.574600626286031) -- (-4.0692166449025295,-0.4018593900730861);
+		\draw [line width=2pt] (-4.242461296695576,-0.41481723565552625) -- (-4.415705948488622,-0.4277750812379656);
+		\draw [line width=2pt] (-4.242461296695576,-0.41481723565552625) -- (-4.223965879732017,-0.24207599944258126);
+		\draw [line width=2pt] (-3.9329628270366017,-0.7343840169165368) -- (-4.106207478829648,-0.747341862498976);
+		\draw [line width=2pt] (-3.9329628270366017,-0.7343840169165368) -- (-3.9144674100730423,-0.5616427807035917);
+		\begin{scriptsize}
+			\draw [fill=ududff] (-4.453755836691207,4.381894316257579) circle (2.5pt);
+			\draw[color=ududff] (-4.328542734613386,4.696945995566035) node {$A$};
+			\draw [fill=ududff] (-5.22,-0.1) circle (2.5pt);
+			\draw[color=ududff] (-5.099656410496019,0.2185550317861183) node {$T$};
+			\draw [fill=ududff] (0.1,-0.32) circle (2.5pt);
+			\draw[color=ududff] (0.2239937749244697,-0.0038816054877186257) node {$S$};
+			\draw [fill=uuuuuu] (-2.7102122357443212,-3.842404973453586) circle (2pt);
+			\draw[color=uuuuuu] (-2.6973407279385837,-3.9780828581136047) node {$L$};
+			\draw [fill=uuuuuu] (-3.2110963093036573,-1.4797336137213115) circle (2pt);
+			\draw[color=uuuuuu] (-3.2163595482442027,-1.7092291579204684) node {$K$};
+			\draw [fill=uuuuuu] (-3.1040369471079012,1.1091564175578796) circle (2pt);
+			\draw[color=uuuuuu] (-2.979093801818777,1.4048837639132485) node {$M$};
+			\draw [fill=uuuuuu] (-4.999873874303608,1.187555688983266) circle (2pt);
+			\draw[color=uuuuuu] (-4.8772197732221825,1.4790293096711942) node {$F$};
+			\draw [fill=uuuuuu] (-1.2082000199121943,1.0307571461324934) circle (2pt);
+			\draw[color=uuuuuu] (-1.0957969395669607,1.3159091090037138) node {$E$};
+			\draw [fill=uuuuuu] (-5.7843982618248075,-3.4012628126980693) circle (2pt);
+			\draw[color=uuuuuu] (-5.826282758923885,-3.5925260201722877) node {$F_1$};
+			\draw [fill=uuuuuu] (-0.6377943567825096,0.44179558525544976) circle (2pt);
+			\draw[color=uuuuuu] (-0.4729743552002182,0.7820611795465052) node {$E_1$};
+			\draw [fill=uuuuuu] (-2.5457750967368584,2.4118449507565143) circle (2pt);
+			\draw[color=uuuuuu] (-2.3859294357552128,2.7395035875562703) node {$E_2$};
+			\draw [fill=uuuuuu] (-5.119077049258007,0.49031575177975495) circle (2pt);
+			\draw[color=uuuuuu] (-4.951365318980128,0.8265485070012726) node {$F_2$};
+			\draw [fill=uuuuuu] (-2.56,-0.21) circle (2pt);
+			\draw[color=uuuuuu] (-2.445245872361569,0.08509304942181614) node {$N$};
+		\end{scriptsize}
+	\end{tikzpicture}
+	
+	We can now do our calculations. Observe that 
+	\[
+	\frac{AF_2}{AB} + \frac{AE_2}{AC} = \frac{CK}{BC} + \frac{BK}{BC} = 1
+	\]
+	and therefore, 
+	\[
+	\frac{AE}{AB} + \frac{AF}{AC}
+	 = \frac{AF_1\cos\angle TAS}{AB} + \frac{AF_2\cos\angle TAS}{AC}
+	 = 2\cos\angle(TAS)(\frac{AF_2}{AB} + \frac{AE_2}{AC})
+	 =2\cos\angle(BAC)
+	\]
+	as desired. 
 	%%%G7%%%
 	\item[\textbf{G7}] Let $ABC$ be a triangle with circumcircle $\Omega$ and incentre $I$. Let the line passing through $I$ and perpendicular to $CI$ intersect the segment $BC$ and the arc $BC$ (not containing $A$) of $\Omega$ at points $U$ and $V$ , respectively. Let the line passing through $U$ and parallel to $AI$ intersect $AV$ at $X$, and let the line passing through $V$ and parallel to $AI$ intersect $AB$ at $Y$ . Let $W$ and $Z$ be the midpoints of $AX$ and $BC$, respectively. Prove that if the points $I, X,$ and $Y$ are collinear, then the points $I, W ,$ and $Z$ are also collinear.
 	
@@ -388,6 +651,67 @@
 	\frac{AV}{AM}=\frac{VC}{CM}
 	\]
 	by considering the angle subtended by each chord of $\Omega$. Since $AM=CM$, we have $VA=VC$. 
+	
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+		\clip(-10.207022992333032,-8.241114601363567) rectangle (9.962403788475998,5.9081600794701385);
+		\draw [line width=2pt] (-3.863628994462391,0.29940008165229465) circle (3.8283598084586115cm);
+		\draw [line width=2pt] (-4.107257988924784,-3.521199836695412) circle (3.9614839759975045cm);
+		\draw [shift={(-2.1068244469700144,1.2142643365728536)},line width=2pt]  plot[domain=2.0509095134795166:5.19250216706931,variable=\t]({1*3.2761257607118814*cos(\t r)+0*3.2761257607118814*sin(\t r)},{0*3.2761257607118814*cos(\t r)+1*3.2761257607118814*sin(\t r)});
+		\draw [line width=2pt] (-3.62,4.12)-- (-7.36,-1.26);
+		\draw [line width=2pt] (-3.62,4.12)-- (-0.5936488939400282,-1.691471326854293);
+		\draw [line width=2pt] (-6.169078002858015,3.355744907209268)-- (-7.36,-1.26);
+		\draw [line width=2pt] (-6.169078002858015,3.355744907209268)-- (-0.5936488939400282,-1.691471326854293);
+		\draw [line width=2pt] (-6.169078002858015,3.355744907209268)-- (-5.2449424461670855,0.27340546133418475);
+		\draw [line width=2pt] (-7.36,-1.26)-- (-0.5936488939400282,-1.691471326854293);
+		\draw [line width=2pt] (-4.558687290865145,1.8979216641956065)-- (-5.78050142336836,1.0121129257428467);
+		\draw [line width=2pt] (-5.2860113240136455,1.3706156140276593) -- (-5.270876374246633,1.5947176552454978);
+		\draw [line width=2pt] (-5.2860113240136455,1.3706156140276593) -- (-5.068312339986873,1.315316934692955);
+		\draw [line width=2pt] (-5.2449424461670855,0.27340546133418475)-- (-7.36,-1.26);
+		\draw [line width=2pt] (-6.418888189980436,-0.5776989502744748) -- (-6.403753240213424,-0.3535969090566363);
+		\draw [line width=2pt] (-6.418888189980436,-0.5776989502744748) -- (-6.201189205953662,-0.6329976296091793);
+		\draw [line width=2pt] (-3.62,4.12)-- (-6.5130604453641565,2.0225465860955194);
+		\draw [line width=2pt] (-5.182947189578972,2.986871612106193) -- (-5.167812239811959,3.2109736533240314);
+		\draw [line width=2pt] (-5.182947189578972,2.986871612106193) -- (-4.965248205552197,2.9315729327714886);
+		\draw [line width=2pt] (-5.2449424461670855,0.27340546133418475)-- (-0.5936488939400282,-1.691471326854293);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-6.57025071168418,-0.12394353712857664)-- (-2.1068244469700144,1.2142643365728536);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-4.063065377657387,0.6277514513934896) -- (-4.151246847489432,0.42117260455598854);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-4.063065377657387,0.6277514513934896) -- (-4.250356109495052,0.7517392465596398);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-4.338537579327097,0.5451603997221386) -- (-4.426719049159142,0.3385815528846375);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-4.338537579327097,0.5451603997221386) -- (-4.525828311164762,0.6691481948882888);
+		\draw [line width=2pt] (-3.62,4.12)-- (-6.169078002858015,3.355744907209268);
+		\draw [line width=2pt] (-5.170011203098718,3.6552814019332827) -- (-5.081829733266674,3.8618602487707845);
+		\draw [line width=2pt] (-5.170011203098718,3.6552814019332827) -- (-4.982720471261051,3.5312936067671328);
+		\draw [line width=2pt] (-4.894539001429007,3.737872453604634) -- (-4.806357531596964,3.944451300442136);
+		\draw [line width=2pt] (-4.894539001429007,3.737872453604634) -- (-4.707248269591341,3.6138846584384843);
+		\draw [line width=2pt] (-3.62,4.12)-- (-5.2449424461670855,0.27340546133418475);
+		\begin{scriptsize}
+			\draw [fill=ududff] (-3.62,4.12) circle (2.5pt);
+			\draw[color=ududff] (-3.458317453507197,4.537329266896142) node {$V$};
+			\draw [fill=ududff] (-7.36,-1.26) circle (2.5pt);
+			\draw[color=ududff] (-7.752948250941819,-1.137718572571036) node {$A$};
+			\draw [fill=xdxdff] (-0.5936488939400282,-1.691471326854293) circle (2.5pt);
+			\draw[color=xdxdff] (-0.23734435543123064,-1.578685127664769) node {$C$};
+			\draw [fill=uuuuuu] (-5.2449424461670855,0.27340546133418475) circle (2pt);
+			\draw[color=uuuuuu] (-5.279701050633488,0.031801421373213484) node {$I$};
+			\draw [fill=uuuuuu] (-6.169078002858015,3.355744907209268) circle (2pt);
+			\draw[color=uuuuuu] (-6.276668914323668,3.7704309102113878) node {$B$};
+			\draw [fill=uuuuuu] (-4.558687290865145,1.8979216641956065) circle (2pt);
+			\draw[color=uuuuuu] (-4.24438826910907,2.064082066587811) node {$U$};
+			\draw [fill=uuuuuu] (-5.78050142336836,1.0121129257428467) circle (2pt);
+			\draw[color=uuuuuu] (-6.046599407318242,1.2013214153174627) node {$X$};
+			\draw [fill=uuuuuu] (-6.5130604453641565,2.0225465860955194) circle (2pt);
+			\draw[color=uuuuuu] (-6.832670222920115,2.1215994433391674) node {$Y$};
+			\draw [fill=uuuuuu] (-3.3813634483990214,0.8321367901774877) circle (2pt);
+			\draw[color=uuuuuu] (-3.2282479465017713,1.2013214153174627) node {$Z$};
+			\draw [fill=uuuuuu] (-6.57025071168418,-0.12394353712857664) circle (2pt);
+			\draw[color=uuuuuu] (-6.755980387251639,0.26187092837863957) node {$W$};
+			\draw [fill=uuuuuu] (-2.1068244469700144,1.2142643365728536) circle (2pt);
+			\draw[color=uuuuuu] (-1.962865657971927,1.5847705936598397) node {$N$};
+		\end{scriptsize}
+	\end{tikzpicture}
 	
 	Now that $BI$ intersects $\Omega$ again at $M$, we have $MA=MI=MC$. If $N$ were to be the midpoint of $VC$ then from $\angle VIC=90^{\circ}$, $I$ is simply the second intersection (other than $C$) of the circles with diameter $VC$ (and center $N$), and circle with center $M$ and radius $MA=MC$. 
 	
