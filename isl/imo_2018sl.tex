@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, float}
 \usepackage{mathrsfs}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
@@ -45,12 +45,10 @@
 
 \title{Solution to IMO 2018 shortlisted problems.}
 \author{Anzo Teh}
-\date{\today}
+\date{}
 \maketitle
 
-\textbf{Preface}: It's coronavirus lockdown period, and I'm bored. Hence this project. 
 
-\newpage
 \section*{Algebra}
 \begin{enumerate}
 	\item [\textbf{A1}] Let $\mathbb{Q}_{>0}$ denote the set of all positive rational numbers. Determine all functions $f:\mathbb{Q}_{>0}\to \mathbb{Q}_{>0}$ satisfying $$f(x^2f(y)^2)=f(x)^2f(y)$$for all $x,y\in\mathbb{Q}_{>0}$. 
@@ -149,6 +147,45 @@
 	\]
 	which all has sum $3^n$. 
 	
+	\item[\textbf{C2}] (IMO 4) 
+	A site is any point $(x, y)$ in the plane such that $x$ and $y$ are both positive integers less than or equal to 20.
+	
+	Initially, each of the 400 sites is unoccupied. Amy and Ben take turns placing stones with Amy going first. On her turn, Amy places a new red stone on an unoccupied site such that the distance between any two sites occupied by red stones is not equal to $\sqrt{5}$. On his turn, Ben places a new blue stone on any unoccupied site. (A site occupied by a blue stone is allowed to be at any distance from any other occupied site.) They stop as soon as a player cannot place a stone.
+	
+	Find the greatest $K$ such that Amy can ensure that she places at least $K$ red stones, no matter how Ben places his blue stones.
+	
+	\textbf{Answer.} $K=100$. 
+	
+	\textbf{Solution.} 
+	If we colour the whole lattice space in chessboard fashion, then Amy can focus on putting all the stones on white grid (any sites with distance $\sqrt{5}$ must have different colours). 
+	Since there are 200 white grids and players take alternate turns, then Amy can achieve at least 100. 
+	
+	Now let's design a strategy that prevents Amy from achieving more than 100. 
+	We first consider partitioning the $20\times 20$ grid into 25 $4\times 4$ grid. 
+	For each of the $4\times 4$ grid, we do the following labelling: 
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			A1 & C2 & D1 & B2\\
+			\hline
+			D2 & B1 & A2 & C1\\
+			\hline
+			C1 & A2 & B1 & D2\\
+			\hline
+			B2 & D1 & C2 & A1\\
+			\hline
+		\end{tabular}
+	\end{table}
+    Ben's strategy is to place the stone at the location with the same label where Amy put the stone at (e.g. if Amy put it in the topleft corner, A1, then Ben would do the bottomright corner). 
+    
+    Let's now show that Amy can only place one stone in each of A, B, C, and D-labelled stones. 
+    Consider a grid with label $XY$ which Amy places a stone ($X\in \{A, B, C, D\}$ and $Y\in \{1, 2\}$). 
+    Then Ben would put in another $XY$ grid. 
+    Both the grids with label $XY'$ (Y'=1 if Y=2 and vice versa) are distance $\sqrt{5}$ away from both the $XY$ grid, 
+    thereby forbidden to be placed by Amy by our rules. 
+    It then follows that Amy cannot place more than $25\times 4=100$ stones. 
+	
 	\item[\textbf{C3}]Let $n$ be a given positive integer. Sisyphus performs a sequence of turns on a board consisting of $n + 1$ squares in a row, numbered $0$ to $n$ from left to right. Initially, $n$ stones are put into square $0$, and the other squares are empty. At every turn, Sisyphus chooses any nonempty square, say with $k$ stones, takes one of these stones and moves it to the right by at most $k$ squares (the stone should say within the board). Sisyphus' aim is to move all $n$ stones to square $n$.
 	Prove that Sisyphus cannot reach the aim in less than
 	\[ \left \lceil \frac{n}{1} \right \rceil + \left \lceil \frac{n}{2} \right \rceil + \left \lceil \frac{n}{3} \right \rceil + \dots + \left \lceil \frac{n}{n} \right \rceil \]turns. (As usual, $\lceil x \rceil$ stands for the least integer not smaller than $x$. )
@@ -207,6 +244,182 @@
 	\]
 	which then show that $(PA_1, PM; PX, PY)$ is a harmonic bundle. 
 	
+	\item[\textbf{G3}] A circle $\omega$ with radius $1$ is given. A collection $T$ of triangles is called good, if the following conditions hold:
+	
+	\begin{itemize}
+		\item each triangle from $T$ is inscribed in $\omega$;
+		
+		\item no two triangles from $T$ have a common interior point.
+	\end{itemize}
+	Determine all positive real numbers $t$ such that, for each positive integer $n$, there exists a good collection of $n$ triangles, each of perimeter greater than $t$.
+	
+	\textbf{Answer.} Any $t\le 4$. 
+	
+	\textbf{Solution.} 
+	Let's first construct a series of solution for $t=4$. 
+	Set $A$ and $C_0$ as the diameter of the circle, and focus on just one side of the arc separated by $A$ and $C_0$ (i.e. a semicircle). 
+	Then for any $B$ on the semicircle, the perimeter of $ABC_0$ is $>4$ (so long as this is not degenerate). 
+	
+	Consider, now, the following algorithm: start with $B_1$ anywhere on the semicircle. 
+	Thereafter, suppose we have $B_i$ on the semicircle not equal to $A$ or $C_0$. Consider moving $C_i$ on the minor arc from $B_i$ to $C_0$. 
+	The perimeter would move continuously (and increasing) 
+	from $2AB_i$ (i.e. $<4$) to the perimeter of $AB_iC_0$ (which is $>4$), 
+	so there by intermediate value theorem there's a point $C_i'$ in this minor arc such that $AB_iC_i'$ has perimeter 4. 
+	This means we may choose $C_i\in$ the minor arc $(C_i', C_0)$ to ensure perimter of $AB_iC_i$ is $>4$, 
+	and choose $B_{i+1}$ atrictly in the minor arc $(C_i, C_0)$, 
+	thereby making sure that the triangles $AB_iC_i$ do not intersect in interior point. 
+	Thus we can construct arbitrarily many such triangles. 
+	
+	Now suppose $t>4$. Consider $\epsilon=t - 4>0$. Since the total length of any two sides is at most 4, the shortest side must have length at least $\epsilon$, i.e. the angle subtended by the center must exceed $\epsilon$. Now we proceed with the following: 
+	
+	\emph{Lemma.} Given an arc of unit circle of measure $\theta$, the number of triangles with all angles $\ge \epsilon$ that can be placed on this circle (with no intersection), denoted by $f(\theta)$, is no more than $\max(0, \lfloor \frac{\theta}{\epsilon}\rfloor - 1)$. 
+	
+	Proof: within an arc of $<2\epsilon$, among three vertices, two of them is $<\epsilon$ apart. 
+	It then follows that we need an arc of measure at least $2\epsilon$ to place a single triangle of the said criterion. 
+	
+	For induction purpose, assume that our statement is true for all $\theta' \le k\epsilon$ for some $k\ge 2$. 
+	Consider, now, an arc with measure $\theta$ such that $\theta \le (k + 1)\epsilon$. 
+	Consider any triangle $ABC$ satisfying the condition, 
+	and let the endpoints of arc be $D$ and $E$. 
+	Here, we may pick such $ABC$ such that $D, A, B, C, E$ are in that order, 
+	and $(DA) + (CE)$ is as small as possible. 
+	Given also that the triangles do not intersect each other in the interior, 
+	it follows that no other triangles are in the $(DA)$ or $(CE)$ region. 
+	
+	In addition, any triangle with a vertex in $AB$ must have all vertices in $AB$, similarly for $BC$. 
+	Given also that $(AB)$ and $(BC)$ have measures $\ge \epsilon$, by induction hypothesis the number of valid triangles is bounded by 
+	\[
+	1 + (\lfloor\frac{(AB)}{\epsilon}\rfloor) - 1 + (\lfloor\frac{(BC)}{\epsilon}\rfloor) - 1
+	\le \lfloor \frac{(AB)+(BC)}{\epsilon}\rfloor - 1
+	\le \lfloor \frac{(DE)}{\epsilon}\rfloor - 1
+	\]
+	as desired. 
+	
+	In particular, considering the whole circle, we cannot have more than $\frac{2\pi}{\epsilon}-1$ such triangles. 
+	Therefore, any $n$ with $n > \frac{2\pi}{\epsilon}-1$ would fail. 
+	
+	\item[\textbf{G4}] A point $T$ is chosen inside a triangle $ABC$. Let $A_1$, $B_1$, and $C_1$ be the reflections of $T$ in $BC$, $CA$, and $AB$, respectively. Let $\Omega$ be the circumcircle of the triangle $A_1B_1C_1$. The lines $A_1T$, $B_1T$, and $C_1T$ meet $\Omega$ again at $A_2$, $B_2$, and $C_2$, respectively. Prove that the lines $AA_2$, $BB_2$, and $CC_2$ are concurrent on $\Omega$.
+	
+	\textbf{Solution.} 
+	Denote $\omega_A, \omega_B, \omega_C$ as the circumcircles of $TB_1C_1, TA_1C_1$, 
+	and $TA_1B_1$, respectively. 
+	These circles have centers $A, B, C$ by the definition of reflection. 
+	
+	Consider, now, the common chord of $\omega_A$ and $\omega_C$, i.e. $TB_1$. 
+	The angle subtended by $TB_1$ (on the circumference) on $\omega_A$ and $\omega_C$ 
+	are $\angle TC_1B_1$ and $\angle TA_1B_1$, respectively. 
+	In other words, since $AC$ is the perpendicular bisector of $TB_1$, 
+	we have 
+	\[\angle CAB_1=\frac 12 \angle TAB_1 = \angle TC_1B_1=\angle C_2C_1B_1=\angle C_2A_2B_1\]
+	and similarly $\angle ACB_1=\angle A_2C_2B_1$. 
+	It follows that triangles $ACB_1$ and $A_2C_2B_1$ are similar (and in fact, determined by spiral similarity under center $B_1$). 
+	This means we have $\angle(B_1A_2, AA_2)=\angle(B_1C_2, CC_2)$, which means that 
+	$AA_2$ and $CC_2$ will meet on the circumcircle of $AB_1A_2C_2$, i.e. $\Omega$. 
+	Similarly we can deduce that the other two pairs $AA_2$ and $BB_2$, and $BB_2$ and $CC_2$, 
+	will meet on $\Omega$. 
+	
+	\item[\textbf{G5}] Let $ABC$ be a triangle with circumcircle $\Omega$ and incentre $I$. A line $\ell$ intersects the lines $AI$, $BI$, and $CI$ at points $D$, $E$, and $F$, respectively, distinct from the points $A$, $B$, $C$, and $I$. The perpendicular bisectors $x$, $y$, and $z$ of the segments $AD$, $BE$, and $CF$, respectively determine a triangle $\Theta$. Show that the circumcircle of the triangle $\Theta$ is tangent to $\Omega$.
+	
+	\textbf{Solution.} 
+	Let $AI, BI, CI$ intersect $\Omega$ again at $X, Y, Z$ (i.e. the midpoints of arcs $BC, CA, AB$ not containing the other point). 
+	Then $XY, YZ, ZX$ are perpendicular bisectors of $CI, AI, BI$, respectively. 
+	Now let $x\cap y=Z'$, $y\cap z=X'$ and $x\cap z=Y'$, 
+	then $XYZ$ and $X'Y'Z'$ are homothetic with each other, 
+	so it suffices to show that the homothetic center, $T$, lies on $\Omega$. 
+	
+	\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+		\clip(-7.930520945815427,-5.581502425633184) rectangle (7.343139368219336,5.133289695809467);
+		\draw [line width=2pt] (-1.69449308628286,0.06504750551397935) circle (3.9285060304176453cm);
+		\draw [line width=2pt,domain=-7.930520945815427:7.343139368219336] plot(\x,{(--1.0246606043280535--0.24005718909459195*\x)/1.0668750921729284});
+		\draw [line width=2pt] (-3.75096262297712,3.412299016183039)-- (-5.44,-1.12);
+		\draw [line width=2pt] (-5.44,-1.12)-- (2.18903737702288,-0.5277009838169613);
+		\draw [line width=2pt] (2.18903737702288,-0.5277009838169613)-- (-3.75096262297712,3.412299016183039);
+		\draw [line width=2pt] (-3.75096262297712,3.412299016183039)-- (-1.3904089594312452,-3.8516721008434507);
+		\draw [line width=2pt] (-5.44,-1.12)-- (0.4770128214658619,3.338840676079311);
+		\draw [line width=2pt] (-5.375683963676418,1.4369051348699744)-- (2.18903737702288,-0.5277009838169613);
+		\draw [line width=2pt] (-1.1771367432806237,-5.091423076913557)-- (-2.7167291665389346,3.858224673436736);
+		\draw [line width=2pt] (-5.80324374840327,1.0475570866146813)-- (-2.7167291665389346,3.858224673436736);
+		\draw [line width=2pt] (0.9905663569883538,3.2553237579505123)-- (-2.7167291665389346,3.858224673436736);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-5.80324374840327,1.0475570866146813)-- (-1.1771367432806237,-5.091423076913557);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-3.3591258036218647,-2.195859367808353) -- (-3.5290138483272546,-2.1875348468109452);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-3.3591258036218647,-2.195859367808353) -- (-3.3203022011365575,-2.030257516146846);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-3.4901902458419465,-2.0219329951494385) -- (-3.660078290547336,-2.0136084741520306);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-3.4901902458419465,-2.0219329951494385) -- (-3.4513666433566392,-1.8563311434879315);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-1.1771367432806237,-5.091423076913557)-- (0.9905663569883538,3.2553237579505123);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-0.06591373272466218,-0.8126557747700132) -- (0.03318746850767765,-0.9508954119872899);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-0.06591373272466218,-0.8126557747700132) -- (-0.21975785479994658,-0.8852039069757561);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-0.12065665356760676,-1.023443544193032) -- (-0.021555452335266925,-1.1616831814103086);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-0.12065665356760676,-1.023443544193032) -- (-0.27450077564289116,-1.095991676398775);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-0.011170811881717604,-0.6018680053469935) -- (0.08793038935062222,-0.7401076425642702);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-0.011170811881717604,-0.6018680053469935) -- (-0.165014933957002,-0.6744161375527364);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (0.9905663569883538,3.2553237579505123)-- (-5.80324374840327,1.0475570866146813);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-2.5098979442126494,2.117787044603274) -- (-2.446722748922646,2.275711520488827);
+		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-2.5098979442126494,2.117787044603274) -- (-2.3659546424922704,2.027169324076367);
+		\draw [line width=2pt] (-5.375683963676418,1.4369051348699744)-- (0.4770128214658619,3.338840676079311);
+		\draw [line width=2pt] (-2.3457763226000865,2.421526283153966) -- (-2.40895151789009,2.2636018072684125);
+		\draw [line width=2pt] (-2.3457763226000865,2.421526283153966) -- (-2.4897196243204656,2.512144003680873);
+		\draw [line width=2pt] (0.4770128214658619,3.338840676079311)-- (-1.3904089594312452,-3.8516721008434507);
+		\draw [line width=2pt] (-0.48406952940416387,-0.36180959709357985) -- (-0.5831707306365028,-0.22356995987630318);
+		\draw [line width=2pt] (-0.48406952940416387,-0.36180959709357985) -- (-0.33022540732887945,-0.28926146488783694);
+		\draw [line width=2pt] (-0.4293266085612193,-0.15102182767056105) -- (-0.5284278097935583,-0.01278219045328435);
+		\draw [line width=2pt] (-0.4293266085612193,-0.15102182767056105) -- (-0.2754824864859349,-0.0784736954648181);
+		\draw [line width=2pt] (-0.5388124502471084,-0.5725973665165995) -- (-0.6379136514794475,-0.4343577292993228);
+		\draw [line width=2pt] (-0.5388124502471084,-0.5725973665165995) -- (-0.384968328171824,-0.5000492343108566);
+		\draw [line width=2pt] (-5.375683963676418,1.4369051348699744)-- (-1.3904089594312452,-3.8516721008434507);
+		\draw [line width=2pt] (-3.2519820193337496,-1.3813098556456533) -- (-3.421870064039139,-1.3729853346482455);
+		\draw [line width=2pt] (-3.2519820193337496,-1.3813098556456533) -- (-3.2131584168484424,-1.2157080039841464);
+		\draw [line width=2pt] (-3.383046461553832,-1.2073834829867387) -- (-3.552934506259221,-1.1990589619893308);
+		\draw [line width=2pt] (-3.383046461553832,-1.2073834829867387) -- (-3.344222859068524,-1.0417816313252317);
+		\begin{scriptsize}
+			\draw [fill=ududff] (-3.75096262297712,3.412299016183039) circle (2.5pt);
+			\draw[color=ududff] (-3.879806851123698,3.8774231395699155) node {$A$};
+			\draw [fill=ududff] (-5.44,-1.12) circle (2.5pt);
+			\draw[color=ududff] (-5.796273734633764,-1.1605617738997327) node {$B$};
+			\draw [fill=ududff] (2.18903737702288,-0.5277009838169613) circle (2.5pt);
+			\draw[color=ududff] (2.4067852743297737,-0.43462734832773714) node {$C$};
+			\draw [fill=uuuuuu] (-2.9000939290760828,0.7939786990778764) circle (2pt);
+			\draw[color=uuuuuu] (-2.8344612783000263,1.1769470764420926) node {$I$};
+			\draw [fill=xdxdff] (-2.752892050543351,0.34100437760974556) circle (2.5pt);
+			\draw[color=xdxdff] (-2.616680950628428,0.654274290030256) node {$D$};
+			\draw [fill=xdxdff] (-3.8197671427162794,0.10094718851515361) circle (2.5pt);
+			\draw[color=xdxdff] (-4.024993736238097,0.4364939623586573) node {$E$};
+			\draw [fill=uuuuuu] (-1.897246544649124,0.5335328718199137) circle (2pt);
+			\draw[color=uuuuuu] (-1.7745970169649143,0.8139798636560949) node {$F$};
+			\draw [fill=uuuuuu] (-1.3904089594312452,-3.8516721008434507) circle (2pt);
+			\draw[color=uuuuuu] (-1.2809616075759582,-3.5706640667987575) node {$X$};
+			\draw [fill=uuuuuu] (0.4770128214658619,3.338840676079311) circle (2pt);
+			\draw[color=uuuuuu] (0.5919492103997875,3.616086746363997) node {$Y$};
+			\draw [fill=uuuuuu] (-5.375683963676418,1.4369051348699744) circle (2pt);
+			\draw[color=uuuuuu] (-5.636568161007925,1.7431759283882489) node {$Z$};
+			\draw [fill=uuuuuu] (-1.1771367432806237,-5.091423076913557) circle (2pt);
+			\draw[color=uuuuuu] (-0.9325130833014008,-5.109645049011387) node {$X'$};
+			\draw [fill=uuuuuu] (0.9905663569883538,3.2553237579505123) circle (2pt);
+			\draw[color=uuuuuu] (1.1581780623459432,3.5434933038067977) node {$Y'$};
+			\draw [fill=uuuuuu] (-5.80324374840327,1.0475570866146813) circle (2pt);
+			\draw[color=uuuuuu] (-6.0576101278396814,1.118872322396333) node {$Z'$};
+			\draw [fill=uuuuuu] (-2.7167291665389346,3.858224673436736) circle (2pt);
+			\draw[color=uuuuuu] (-2.7763865242542667,4.211352975333034) node {$T$};
+		\end{scriptsize}
+	\end{tikzpicture}
+	
+	Now we consider just the angle $\angle(ZX, XT)$ vs $\angle(XT, XY)$. 
+	Let $d(a, b)$ be the distance between parallel lines $a, b$, then 
+	\[
+	\frac{\sin\angle (ZX, XT)}{\sin\angle (XT, XY)}
+	=\frac{d(ZX, Z'X')}{d(XY, X'Y')}
+	=\frac{IE}{IF}
+	=\frac{\sin\angle IFE}{\sin\angle IEF}
+	\]
+	and since $\angle IFE+\angle IEF=\angle ZXY$, 
+	we have $\angle(ZX, XT)=\angle (EF, IE)=\angle(\ell, IF)$ and similarly 
+	$\angle(XT, XY)=\angle(IE, \ell)$. 
+	Then similarly, 
+	$\angle(ZY, YT)=\angle(\ell, IF)$, so $\angle(ZX, XT)=\angle(ZY, YT)$
+	and $T$ lies on $\Omega$. 
+	
 	\item[\textbf{G6}] (IMO 6) A convex quadrilateral $ABCD$ satisfies $AB\cdot CD = BC\cdot DA$. Point $X$ lies inside $ABCD$ so that \[\angle{XAB} = \angle{XCD}\quad\,\,\text{and}\quad\,\,\angle{XBC} = \angle{XDA}.\]Prove that $\angle{BXA} + \angle{DXC} = 180^\circ$.
 	
 	\textbf{Solution.} Now consider the second intersection (namely $Y$) of the circles $ABX$ and $CDX$, we get (using oriented angles to prevent case distinction) $\angle(YB, YX)=\angle (AB, AX)=\angle (CD, CX)=\angle (YD, YX)$ (the first and the last inequality follows from that $A, B, Y, X$ and $C, D, Y, X$ are each concyclic; the middle one follows from the problem condition). Thus we get that $YD, YB$ are actually the same line (so $Y, D, B$ collinear). Also from we have $\angle XBC=\angle XDA$ which translates into $\angle(XB, BC)=\angle XD, AD)$ so we get $\angle (AY, YX)=\angle (AB, BX)=\angle (AB, BC)-\angle(XB, BC)$ and $\angle (CD, AD)-\angle (XD, AD)=\angle (CD, DX)=\angle (CY, YX)$ This gives the important property:
@@ -245,6 +458,7 @@
 	\angle(m_A, m_B)
 	=\angle(m_A, OO_C)-\angle(m_B, OO_C)
 	=\angle(OO_B, \ell)-\angle(OO_A, \ell)
+	\]\[
 	=\angle(OO_B, OO_A)
 	=\angle(O_AP, O_BP)
 	\]
@@ -273,6 +487,7 @@
 	\[
 	\angle(A_1P, OP)=-\angle(OO_C, \ell)+\angle(\ell_B, OP)
 	90^{\circ}-\angle(\ell_B, OO_A)+\angle(\ell_B, OP)
+	\]\[
 	=90^{\circ}+\angle(OO_A, OP)
 	=\angle(OO_A, \ell)
 	\]
@@ -294,8 +509,37 @@
 \begin{enumerate}
 	\item[\textbf{N1}] Determine all pairs $(n, k)$ of distinct positive integers such that there exists a positive integer $s$ for which the number of divisors of $sn$ and of $sk$ are equal.
 	
-	\textbf{Answer.} All pairs $(n, k)$ such that neither of them divides each other. \\
+	\textbf{Answer.} All pairs $(n, k)$ such that neither of them divides each other. 
+	
 	\textbf{Solution.} If $k\mid n$ then $sk$ is a proper divisor of $sn$, so $sn$ always has strictly more divisors than $sk$. 
+	
+	Now we show that if $n$ and $k$ do not divide each other than there exists such an $s$. 
+	To do this, let primes $p_1, \cdots, p_k$ and $q_1, \cdots, q_{\ell}$ be all the primes such that the power dividing $n$ and $k$ are not equal. 
+	such that the power of $p_i$ dividing $n$ and $k$ are $a_i$ and $b_i$, 
+	respectively, and power of $q_i$ dividing $n$ and $k$ are $c_i$ and $d_i$, 
+	respectively. 
+	Also consider $a_i<b_i$, $c_i>d_i$. We have $k, \ell\ge 1$ by our problem condition. 
+	
+	Now consider the number $N=k\ell(\max(\max a_i, \max b_i, \max c_i, \max d_i) + 1)$, 
+	and integers $e_1, \cdots, e_k, f_1, \cdots, f_{\ell}$ such that 
+	\[
+	\frac{a_i+e_i+1}{b_i+e_i+1} = \frac{N - i\ell}{N - (i-1)\ell}
+	\qquad 
+	\frac{d_i+f_i+1}{c_i+f_i+1} = \frac{N - ki}{N - k(i-1)}
+	\]
+	These have solutions $e_i=\frac{(b_i-a_i)N}{\ell}-1$ and $f_i = \frac{(c_i-d_i)N}{k}-1$, 
+	which are nonnegative integers since $N$ is divisible by both $k$ and $\ell$. 
+	Thus, if $s = \prod_{i=1}^{k} p_i^{e_i}\prod_{j=1}^{\ell}q_i^{f_{\ell}}$ then 
+	\[
+	\frac{d(sn)}{d(sk)} = \frac{\prod_{i=1}^k (a_i + e_i + 1)\prod_{i=1}^{\ell} (c_i + f_i + 1)}
+	{\prod_{i=1}^k (b_i + e_i + 1)\prod_{i=1}^{\ell} (d_i + f_i + 1)}
+	\]\[
+	= \frac{\prod_{i=1}^k (N-i\ell)\prod_{i=1}^{\ell} (N - k(i-1))}
+	{\prod_{i=1}^k (N - (i-1)\ell)\prod_{i=1}^{\ell} (N - ki)}
+	=\frac{N-k\ell}{N}\cdot \frac{N}{N-k\ell}
+	=1
+	\]
+	as desired. 
 	
 	\item[\textbf{N2}] Let $n>1$ be a positive integer. Each cell of an $n\times n$ table contains an integer. Suppose that the following conditions are satisfied:
 	\begin{itemize}
@@ -405,6 +649,107 @@
 	\equiv \dsum_{j=1}^n c_jS_{j}^{c(2)}
 	\]
 	as desired. 
+	
+	\item[\textbf{N3}] Define the sequence $a_0,a_1,a_2,\hdots$ by $a_n=2^n+2^{\lfloor n/2\rfloor}$. Prove that there are infinitely many terms of the sequence which can be expressed as a sum of (two or more) distinct terms of the sequence, as well as infinitely many of those which cannot be expressed in such a way.
+	
+	\textbf{Solution.} 
+	Throughout, we focus on writing $a_n$ in terms of sum of distinct $a_{k}$'s for $k<n$, 
+	and $n$ odd. 
+	
+	\emph{Lemma 1.} 
+	If $a_{2\ell+1}$ can be written as sum of distinct $a_k$ for $k<2\ell+1$, 
+	then this sum must contain $a_k$ for all $k=\ell+1, \cdots, 2\ell$. 
+	
+	Proof: here, we have $a_{2\ell+1}=2^{2\ell+1}+2^{\ell}$, and 
+	\[
+	\sum_{i=0}^{2\ell} a_{i}
+	=(2^0+\cdots + 2^{2\ell})
+	+2(2^0+\cdots + 2^{\ell-1}) + 2^{\ell}
+	=2^{2\ell+1}-1 + 2^{\ell} + 2(2^{\ell}-1)
+	\]
+	\[
+	=a_{2\ell+1}+2^{\ell+1}-3
+	\]
+	which means all $a_k > 2^{\ell+1}-3$ cannot be omitted from summation. 
+	This would be the case for all $k\ge \ell+1$. 
+	
+	\emph{Lemma 2.} $a_{2\ell+1}$ can be written in our desired sum if and only if $2^{2\ell}$ can be wirrten as sum of distinct $a_k$'s for $k<2\ell$. 
+	
+	Proof: from lemma 1, the summation for $a_{2\ell+1}$ necessarily contains $a_{2\ell}$, 
+	and the difference now is $a_{2\ell+1}-a_{2\ell}=2^{2\ell}$. 
+	
+	Thus the problem now becomes showing that there exists infinitely many $\ell$ such that $2^n$ can be represented this way. 
+	
+	\emph{Lemma 3.} Call $\ell$ good if we can write $2^{2\ell}$ as sum of distinct $a_k$'s. 
+	Then $\ell$ is good if and only if $4\ell-3$ is good. 
+	
+	Proof: again consider 
+	\[
+	a_0+\cdots + a_{2\ell-1}
+	= (2^0+\cdots + 2^{2\ell-1}) + 2(2^0+\cdots + 2^{\ell-1})
+	=2^{2\ell}-1 + 2(2^{\ell}-1)
+	=2^{2\ell-1}+2^{\ell+1}-3
+	\]
+	so like above, anything $a_{\ell+1}$ and above must be part of sum of $2^{2\ell}$. 
+	
+	Now consider, instead, $2^{2(4\ell-3)}$. 
+	Then $a_{4\ell-2}, \cdots, a_{8\ell-7}$ all be part of the sum. Now consider 
+	\[
+	a_{4\ell-2}+\cdots + a_{8\ell-7}
+	= (2^{4\ell-2}+\cdots + 2^{8\ell-7})
+	+2(2^{2\ell-1}+\cdots + 2^{4\ell-4})
+	=(2^{8\ell-6}-2^{4\ell-2})+ 2^{4\ell-2} - 2^{2\ell}
+	=2^{8\ell-6} -  2^{2\ell}
+	\]
+	which follows that $4\ell-3$ is good if and only if $\ell$ is good. 
+	
+	Now we can complete the solution. 
+	Observe, first, that 2 is good since $16=10+6=a_3+a_2$. 
+	This gives us the sequence of good numbers $2, 5, 17, \cdots$. 
+	Conversely, we show that 6 is not good. 
+	From before, we see that $a_7$ to $a_{11}$ must all be part of $2^{12}$, so 
+	\[
+	a_7+\cdots + a_{11} = (2^7+\cdots+2^{11}) + 2^3+2(2^4+2^5)
+	=2^{12}-2^7 + 2^5+2^6+2^3
+	=2^{12}-24
+	\]
+	we have $a_0, \cdots, a_4$ as 2, 3, 6, 10, 20, which we can manually verify that there's no subset of $\{2, 3, 6, 10, 20\}$ sums to 24. 
+	
+	\item[\textbf{N4}] (IMO 5) 
+	Let $a_1$, $a_2$, $\ldots$ be an infinite sequence of positive integers. 
+	Suppose that there is an integer $N > 1$ such that, for each $n \geq N$, the number
+	$$\frac{a_1}{a_2} + \frac{a_2}{a_3} + \cdots + \frac{a_{n-1}}{a_n} + \frac{a_n}{a_1}$$is an integer. 
+	Prove that there is a positive integer $M$ such that $a_m = a_{m+1}$ for all $m \geq M$.
+	
+	\textbf{Solution.} 
+	Let the sum $d(n) = \frac{a_1}{a_2} + \frac{a_2}{a_3} + \cdots + \frac{a_{n-1}}{a_n} + \frac{a_n}{a_1}$. 
+	Then $d(n+1)-d(n) = \frac{a_n}{a_{n+1}} + \frac{a_{n+1}-a_n}{a_1}$. 
+	It follows that this difference is an integer for all $n\ge N$. 
+	Effectively, for all primes $p$, one of the two following situations must happen: 
+	\begin{itemize}
+		\item $v_p(a_n)\ge v_p(a_{n+1})$ and $v_p(a_{n+1}-a_n)\ge v_p(a_1)$. 
+		
+		\item $v_p(a_{n+1}) - v_p(a_n) = v_p(a_1)- v_p(a_{n+1}-a_n) > 0$. 
+	\end{itemize}
+    Consider, now, the scenario where $v_p(a_n)\neq v_p(a_{n+1})$, 
+    so $v_p(a_{n+1}-a_n)=\min(v_p(a_n), v_p(a_{n+1}))$. 
+    The first scenario essentially means 
+    \[
+    v_p(a_n)\ge v_p(a_{n+1})\ge v_p(a_1)
+    \]
+    and the second means $v_p(a_{n+1})=v_p(a_1)>v_p(a_n)$. 
+    This means, given fixed $v_p(a_n)$, we either have $v_p(a_{n+1})=v_p(a_n)$, 
+    or have $v_p(a_n)\ge v_p(a_{n+1})\ge v_p(a_1)$ 
+    if $v_p(a_n)\ge v_p(a_1)$, 
+    or $v_p(a_{n+1})=v_p(a_1)$.
+    It then follows that there are only finitely many $n\ge N$ with $v_p(a_n)\neq v_p(a_{n+1})$. 
+    (either at most 1 if $v_p(a_N) < v_p(a_1)$, or at most $v_p(a_N) - v_p(a_1)$ otherwise). 
+    
+    We also note that only those $p$ dividing $a_1a_N$ are relevant, 
+    i.e. only finitely many those primes. 
+    It then follows that for all but finitely many $n$, $v_p(a_n)=v_p(a_{n+1})$ for all $p$, 
+    i.e. $a_n=a_{n+1}$. 
+    Thus the sequence is eventually constant. 
 	
 	\item[\textbf{N5}] Four positive integers $x,y,z$ and $t$ satisfy the relations
 	\[ xy - zt = x + y = z + t \]Is it possible that both $xy$ and $zt$ are perfect squares?
