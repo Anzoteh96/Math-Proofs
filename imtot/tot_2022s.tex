@@ -1,0 +1,134 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+	\newcommand{\la}{\leftarrow}
+	\newcommand{\lra}{\leftrightarrow}
+	\newcommand{\bbN}{\mathbb{N}}
+	\newcommand{\bbZ}{\mathbb{Z}}
+	\newcommand{\dsum}{\displaystyle\sum}
+	\newcommand{\dprod}{\displaystyle\prod}
+	
+	
+	\title{Solutions to Tournament of Towns, Spring 2022, Senior}
+	\author{Anzo Teh}
+	\date{}
+	\maketitle
+	
+	\section*{A-Level}
+	\begin{enumerate}
+		\item[1.] 
+		For each of the nine positive integers $n, 2n, 3n, \cdots, 9n$ Alice takes the first decimal digit
+		(from the left) and writes it onto a blackboard. She selected $n$ so that among the nine
+		digits on the blackboard there is the least possible number of different digits. What is this
+		number of different digits equal to?
+		
+		\textbf{Answer.} 4. This is achieved by taking $n=29$, 
+		and the different digits are $1, 2, 5, 8$. 
+		
+		\textbf{Solution} We now show that this cannot be improved. 
+		Let's change the setting and consider $n$ not an integer, 
+		but a rational number with $1\le n < 10$, instead (this can be done by dividing $n$ by $10^k$ for some integer $k$), and let $d=\lfloor n\rfloor$, the leading digit of $n$. 
+		
+		Let $m$ be the minimum integer such that $mn\ge 10$ (i.e. $2\le m\le 10$). Then: 
+		\begin{itemize}
+			\item $n, 2n, \cdots, (m-1)n$ all have different leading digits, all at least $d$. 
+			
+			\item $mn, \cdots, 9n, 10n$ are all $\ge 10$ and $<100$, so the leading digits differ by at most 1 at each step. Considering $(m-1)n$, too, means leading digit of $mn$ is 1. 
+			Since the leading digit of $10n$ is $d$, it follows that we must have the leading digits of $mn, \cdots, 9n$ as $1, \cdots, d-1$, and maybe $d$ too. 
+		\end{itemize}
+	    Thus the number of digits is $d-1 + (m-1)=\lfloor n\rfloor + \lceil \frac{10}{n} \rceil - 2$, 
+	    and in all cases, $\lceil \frac{10}{n} \rceil\ge 2$ since $n<10$. 
+	    So if $\lfloor n\rfloor \ge 4$ the number of digits is $\ge 4$, 
+	    and if $\lfloor n\rfloor =1$ then $\lceil \frac{10}{n} \rceil=6$, giving a total of $\ge 1+6-2=5$. 
+	    Thus we only need to consider $d=2, 3$. 
+	    
+	    When $d=2$, $\lfloor n\rfloor + \lceil \frac{10}{n} \rceil \ge \lceil \frac{10}{3} \rceil =4$, 
+	    when $d=3$, $\lfloor n\rfloor + \lceil \frac{10}{n} \rceil \ge \lceil \frac{10}{4} \rceil =3$, 
+	    so in both cases the number of digits is $\ge 4$. 
+		
+		\item [2.]
+		On a blank paper there were drawn two perpendicular axes $x$ and $y$ with the same scale.
+		The graph of a function $y = f(x)$ was drawn in this coordinate system. Then the $y$ axis
+		and all the scale marks on the $x$ axis were erased. Provide a way how to draw again the
+		$y$ axis using pencil, ruler and compass if:
+		\begin{enumerate}
+			\item $f(x)=3^x$; 
+			\item $f(x)=\log_a x$, where $a>1$ is an unknown number. 
+		\end{enumerate}
+	    
+	    \textbf{Solution.} 
+	    The main goal of both part is to draw a distance of exactly 1. 
+	    For $f(x)=3^x$, this can be achieved via the following: 
+	    \begin{itemize}
+	    	\item choose any point on the graph, say, $A=(x_0, 3^{x_0})$, with $x_0$ unknown.  
+	    	
+	    	\item Draw the line perpendicular from $A$ to the $x$-axis, which intersects the $x$-axis at $B=(x_0, 0)$. 
+	    	
+	    	\item Let $C$ be on line $AB$ such that $\vec{BC}=3\vec{BA}$, we know $C=(x_0, 3^{x_0+1})$. 
+	    	
+	    	\item Let $D$ be the foot of perpendicular to $AB$ to $f(x)$, we have $D=(x_0+1, 3^{x_0+1})$. Hence we have $CD=1$. 
+	    \end{itemize}
+        Now that we know how to draw distance 1, we can draw the line $y=1$ by referencing to the $x$-axis. 
+        Then the intersection of $y=1$ and $f(x)$ is $(0, 1)$, 
+        and the $y$-axis can be taken as the perpendicular from $(0, 1)$ to the $x$-axis. 
+        
+        For $f(x)=\log_a x$, we may draw a line $\ell_1$ parallel to the $x$-axis and above the $x$-axis, and $\ell_2$ that's the $x$-axis reflected in $\ell_1$. 
+        Now consider $A_1, A_2$ the intersections of $\ell_1$ and $\ell_2$ (respectively) with the $f(x)$, 
+        and $B_1, B_2$ their projection to the $x$-axis. 
+        We have $B_1=(x_0, 0)$ and $B_2=(x_0^2, 0)$ for some unknown $x_0 \ge 1$. 
+        We also have the point $(1, 0)$, which is just the intersection of $x$-axis and $f(x)$. 
+        
+        \item [5.] 
+        What is the maximal possible number of roots on the interval (0, 1) for a polynomial of
+        degree 2022 with integer coefficients and with the leading coefficient equal to 1?
+        
+        \textbf{Answer.} 2021. 
+        
+        \item [6.]
+        The king assembled 300 wizards and gave them the following challenge. For this challenge,
+        25 colors can be used, and they are known to the wizards. Each of the wizards receives a
+        hat of one of those 25 colors. If for each color the number of used hats would be written
+        down then all these numbers would be different, and the wizards know this. Each wizard
+        sees what hat was given to each other wizard but does not see his own hat. Simultaneously
+        each wizard reports the color of his own hat. Is it possible for the wizards to coordinate
+        their actions beforehand so that at least 150 of them would report correctly?
+        
+        \textbf{Answer.} Yes. 
+        
+        \textbf{Solution.} 
+        If the frequencies of the colours used are $c_0, \cdots, c_{24}$ in some order, 
+        then $\sum c_i = 300$. On the other hand, all $c_i$ are different, which gives another bound: 
+        \[
+        300= \sum c_i \ge 0 + 1 + \cdots + 24 = 300
+        \]
+        so $\{c_i\}=\{0, \cdots, 24\}$ in some order. 
+        This means, when wearing the hats later, if the color worn by a wizard has frequency $i\ge 1$, 
+        then the wizard will see the colour frequency as $0, 1, \cdots, i-1, i-1, i+1, \cdots, 24$, 
+        i.e. they will only have to decide between the two. 
+        
+        Now, the wizards can do the following coordination: 
+        label the colours as $0, \cdots, 24$, and the wizards themselves as $1, \cdots, 300$. 
+        Let $c_i$ be the frequency of colour $i$, which is a permutation $\sigma$ of $0, \cdots, 24$, used later on. 
+        Then for each wizard: 
+        \begin{itemize}
+        	\item The wizard knows all $c_i$ except for two values, $x$ and $y$. 
+        	
+        	\item The wizard also knows $\{c_x, c_y\}=\{j-1, j\}$, the hat they have is either $x$ or $y$, 
+        	with frequency $j$. 
+        	
+        	\item One of the selection ($c_x=j$, or $c_y=j$) will yield $\sigma$ (and therefore correct hat). Since swapping any two elements in a permutation changes its parity, 
+        	the other permutation has parity different from $\sigma$. 
+        \end{itemize}
+        Thus the wizard will choose the permutation with the same parity as their own label. 
+        Consequently, regardless of $\sigma$, the wizards can always achieve exactly accuracy count of 150. 
+        
+	\end{enumerate}
+\end{document}
