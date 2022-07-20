@@ -251,6 +251,35 @@
 		and are either spaced $n$ or $n+1$ apart, 
 		which guarantees that any $n+1$ consecutive marbles would cover this $C_i$. 
 		
+		\item [C3.] (IMO 5)
+		Two squirrels, Bushy and Jumpy, have collected 2021 walnuts for the winter. 
+		Jumpy numbers the walnuts from 1 through 2021, 
+		and digs 2021 little holes in a circular pattern in the ground around their favourite tree. 
+		The next morning Jumpy notices that Bushy had placed one walnut into each hole, but had paid no attention to the numbering. 
+		Unhappy, Jumpy decides to reorder the walnuts by performing a sequence of 2021 moves. 
+		In the $k$-th move, Jumpy swaps the positions of the two walnuts adjacent to walnut $k$.
+		
+		Prove that there exists a value of $k$ such that, on the $k$-th move, Jumpy swaps some walnuts $a$ and $b$ such that $a<k<b$.
+		
+		\textbf{Solution.} 
+		W.l.o.g. let the arc length of circle be 2021 and each adjacent walnuts have arc length 1 between them. 
+		Suppose that the conclusion doesn't hold. 
+		That is, on each $k$-th move, the walnuts being swapped are either both greater than $k$ or both smaller than $k$. 
+		Now an observer squirrel (say Humpy) would simply mark the $k$-th walnut at the $k$-th move, starting from all unmarked walnuts. 
+		If, in addition, the two walnuts swapped are smaller than $k$, then Humpy colours the arc containing the three walnuts black (i.e. arc length 2). 
+		
+		A few observations are in order. First, 
+		we see that after $k$ moves, a walnut is marked iff the value is $\le k$. 
+		Next, at $k$-th move, the two walnuts adjacent to $k$ will both be unmarked (if both bigger than $k$) or both be marked (if both smaller than $k$). 
+		This means that apart from the walnut numbered $k$, the positions of other marked and unmarked walnut doesn't change. 
+		Finally, notice that by the segment colouring protocol, we see that an arc is coloured if and only if the two endpoints are marked walnuts 
+		(indeed, Humpy either marks a walnut with two unmarked neighbours and do not colour any segment, 
+		or with two marked neighbours and colour this segment). 
+		
+		Finally, the total length of black arcs increased by 0 or 2 after iteration, 
+		hence even. At the end of the procedure, however, we see that the number of black arcs must be 2021 since all the walnuts would have been marked. 
+		This is a contradiction. 
+		
 		\item [C4.] 
 		The kingdom of Anisotropy consists of $n$ cities. For every two cities there exists exactly one direct one-way road between them. We say that a path from $X$ to $Y$ is a sequence of roads such that one can move from $X$ to $Y$ along this sequence without returning to an already visited city. A collection of paths is called diverse if no road belongs to two or more paths in the collection.
 		
@@ -326,6 +355,69 @@
 	    N_{AB} - N_{BA} = \text{out}(A) - \text{out}(B)
 	    \]
 	    as desired. 
+	    
+	    \item [C8.] 
+	    Determine the largest integer $N$ for which there exists a table $T$ of integers with $N$ rows and $100$ columns that has the following properties:
+	    \begin{itemize}
+	    	\item Every row contains the numbers $1$, $2$, $\ldots$, $100$ in some order.
+	    	
+	    	\item For any two distinct rows $r$ and $s$, there is a column $c$ such that $|T(r,c) - T(s, c)|\geq 2$. (Here $T(r,c)$ is the entry in row $r$ and column $c$.)
+	    \end{itemize}
+        
+        \textbf{Answer.} $N = \frac{100!}{2^{50}}$. 
+        
+        \textbf{Solution.} 
+        In general, we can view the rows as a permutation of $1, \cdots, 2n$ (here $n=50$), 
+        and therefore we need to find the maximal number of such permutation set $S$ such that for any pairs $\sigma_1\neq \sigma_2\in S$ we have $|\sigma_1(k)-\sigma_2(k)|$ for some $k$. 
+        Denote such number as $f(n)$, and we claim $f(n)=\frac{(2n!)}{2^n}$. 
+        
+        \textbf{Upper bound.} 
+        Group the set $S_{2n}$ of all permutations of $\{1, \cdots, 2n\}$ into equivalence classes determined by following: we say $\sigma_1\sim \sigma_2$ if and only if for all $i=1, \cdots, n$, $\{2i-1, 2i\}$ are in the same two positions for $\sigma_1, \sigma_2$, though could be swaped. 
+        (For example, when $n=2$, the permutations $(1234), (1243), (2134), (2143)$ are all the permutations in the same equivalence class). 
+        In other words, each class is characterized by partitioning $\{1, \cdots, 2n\}$ into $n$ pairs 
+        $\{a_1, b_1\}, \cdots, \{a_n, b_n\}$ such that for a permutation $\sigma$ in this class, 
+        $\{\sigma(a_i), \sigma(b_i)\}=\{2i-1, 2i\}$ for all $i=1, \cdots, n$. 
+        Then, for any two permutations $\sigma_1, \sigma_2$ in this class, for each $k$ there's an $i$ such that $\{\sigma_1(k), \sigma_2(k)\}\subseteq \{2i-1, 2i\}$, 
+        hence having $|\sigma_1(k) -\sigma_2(k)|\le 1$. 
+        It then follows that for each class we can only choose at most one such permutation, giving the upper bound 
+        $\frac{(2n)!}{2^{n}}$ since there are $2^n$ elements in each class 
+        (given such partitions $\{a_1, b_1\}, \cdots, \{a_n, b_n\}$ there are two ways to place $\{2i-1, 2i\}$ for each $i$). 
+        
+        \textbf{Construction.} 
+        We use induction on $n$, where base case $n=1$ we just need $(12)$. 
+        
+        Inductive step: suppose for some $n\ge 2$ we have $f(n-1)=\frac{(2n-2)!}{2^{n-1}}$ such permutations of $\{1, \cdots, 2n-2\}$. Consider, now, such collection $U_{n-1}$ of permutations. 
+        The key idea is as follows: 
+        \begin{itemize}
+        	\item Notice that $(123), (231), (312)$ (the even permutations of $S_3$) itself would satisfy our condition, and so will the similar idea applied to their counterparts in $\{2n-2, 2n-1, 2n\}$ (we'll see why it's important later). 
+        	
+        	\item Group each permutation into $T_{x, y}$ where $x<y$ denote the positions of $\{2n-1, 2n\}$ (again, can be swapped within). 
+        \end{itemize}
+       
+        Concretely, our construction for the set $U_n$ is as follows: for each $1\le x < y\le 2n$, we consider each $\sigma\in U_{n-1}$, insert a blank space at position $x$, and then a blank space at position $y$. E.g. if $n=3, x=2, y=5, \sigma=(2341)$ then we have $(2?34?1)$ with $?$ being the blank space. 
+        Then we insert $2n-1, 2n$ in the blank space according to the position of $2n-2$: we make $2n-1$ to come before $2n$ if and only if $2n-2$ is between the two blank spaces. 
+        Hence the relative order of the three numbers are one of the following: $(2n-2, 2n-1, 2n), (2n-1, 2n, 2n-2)$, or $(2n, 2n-2, 2n-1)$ (or if you like, these three are cyclic shifts of each other). 
+        This would give $|U_n|$ is $\frac{(2n-2)!}{2^{n-1}}\cdot \binom{2n}{2} = \frac{(2n)!}{2^n}$, 
+        the optimal number. 
+        
+        Finally to verify, consider any $\sigma_1, \sigma_2$ in $U_n$. Consider the following cases depending on their class $T_{x, y}$ as denoted before. 
+        
+        \textbf{Case 1.} For some $x < y$ we have $\sigma_1, \sigma_2\in T_{x, y}$. 
+        Then by induction hypothesis on the first $2n-2$ numbers these two permutations are valid by judging only on the positions of $\{1, \cdots, 2n-2\}$ (since they both come from $U_{n-1}$, and shifted at the same two positions for $\{2n-1, 2n\}$). 
+        
+        \textbf{Case 2.} For some four pairwise distinct $x_1<y_1, x_2<y_2$ we have $\sigma_1\in T_{x_1, y_1}$ and $T_{x_2, y_2}$. 
+        Here, we have either $\sigma_1(x_1)=2n$ or $\sigma_1(y_1)=2n$, but $\sigma_2(x_1)$ and $\sigma_2(y_1)$ both $\le 2n-2$. 
+        
+        \textbf{Case 3.} Same $x_1 < y_1, x_2 < y_2$ but with exactly one overlap, say $z$ where $z\in \{x_1, y_1\}$ and $z\in \{x_2, y_2\}$. 
+        If $\sigma_1(z)=2n-1$ then $\sigma_1(w)=2n$ where $w$ is such that $\{w, z\}=\{x_1, y_1\}$. 
+        But then by our assumption (of one overlap), $\sigma_2(w)\le 2n-2$. 
+        A similar verification can be done in case $\sigma_2(z)=2n$. 
+        
+        Hence $\sigma_1(z)=\sigma_2(z)=2n$, which leaves some $w_1\neq w_2$ such that $\sigma_1(w_1)=\sigma_2(w_2)=2n-1$. For a condition violation to happen, 
+        we'll need $\sigma_1(w_2)=\sigma_2(w_1)=2n-2$ (they cannot be $2n$ since the spot is taken at position $z$ for both). 
+        Such a construction, however, means $\sigma_1$ and $\sigma_2$ restricted to positions $w_1, w_2, z$ (and elements $\{2n-2, 2n-1, 2n\}$) are obtained by swapping a pair of elements from each other, 
+        hence having different permutation parity. 
+        This is a contradiction of the cyclic shift construction we discussed earlier. 
 	\end{enumerate}
 	
 	
@@ -361,6 +453,74 @@
 		
 		Prove that the lines $AC, DT$ and $BK$ intersect at one point.
 		
+		\textbf{Solution.} 
+		Let $AC$ intersect $TE$ and $TF$ at $U$ and $V$, respectively. 
+		Using some angle chasing, we can get 
+		\[
+		\angle UEF = \angle TEF \angle FDC = \angle DAC
+		\]
+		and therefore $DEAU$ is cyclic. Similarly, $EDVC$ is cyclic. 
+		Moreover, since $\angle DCB+\angle DAB=180^{\circ}$, 
+		we have 
+		\[
+		180^{\circ}
+		=\angle FCD + \angle EAD
+		=\angle FVD + \angle EUD
+		\]
+		angle therefore $DUTV$ is also cyclic. 
+		This gives 
+		\[
+		\angle TDE
+		=\angle TDU + \angle UDE
+		=\angle TVU + (180^{\circ} - \angle UAE)
+		=\angle FVC + \angle CAB
+		\]\[
+		=\angle FDC + \angle CAB 
+		= \angle DAC + \angle CAB
+		=\angle DAB
+		\]
+		Meanwhile, $TD=TK$ would mean $\angle TKE = 180^{\circ} - \angle TDE$, 
+		and $\angle BDE=\angle DCB = 180^{\circ} - \angle DAB = 180^{\circ} - \angle TDE$, 
+		therefore we may conclude $BD\parallel TK$. 
+		
+		Now let $BD$ intersect $AC$ at $G$, and $DT$ intersect $AC$ at $W$. 
+		We have 
+		\[
+		\frac{FK}{KE}
+		=\frac{BF\sin\angle FBK}{BE\sin\angle EBK}
+		\qquad 
+		\frac{FW}{WE}
+		=\frac{BC\sin\angle FBW}{BA\sin\angle EBW}
+		\]
+		so showing that $B, W, K$ collinear is the same as showing 
+		\[
+		\frac{FK}{KE}:\frac{BF}{BE}=\frac{CW}{WA}:\frac{BC}{BA}
+		\]
+		Given also that $D, G, B$ collinear, we have 
+		\[
+		\frac{FD}{DE}:\frac{BF}{BE}=\frac{CG}{GA}:\frac{BC}{BA}
+		\]
+		Hence it suffices to show 
+		\[
+		\frac{FK}{KE}:\frac{FD}{DE}=\frac{CW}{WA}:\frac{CG}{GA}
+		\]
+		For the first ratio, looking at triangle $TFE$ and cevians $TD, TK$ we have 
+		\[
+		\frac{FK}{KE}:\frac{FD}{DE}
+		=\frac{TF\sin\angle FTK}{TE\sin\angle ETK}:\frac{TF\sin\angle FTD}{TE\sin\angle ETD}
+		=\frac{\sin\angle ADB}{\sin\angle CDB}:\frac{\sin\angle FTD}{\sin\angle ETD}
+		\]
+		where $\angle FTK=\angle ADB$ follows from $TK\parallel BD$ and $TF\parallel AD$ (and similarly for $\angle ETK=\angle CDB$). 
+		Similarly by looking at triangle $CDA$ and cevians $DW, DG$ we have 
+		\[
+		\frac{CW}{WA}:\frac{CG}{GA}
+		=\frac{CD\sin\angle CDW}{DA\sin\angle ADW}:\frac{CD\sin\angle CDG}{DA\sin\angle ADG}
+		=\frac{\sin\angle ETD}{\sin\angle FTD}:\frac{\sin\angle CDB}{\sin\angle ADB}
+		\]
+		Here, $\angle CDW=\angle CDT=\angle ETD$ follows from $CD\parallel TE$ and similarly $\angle ADW=\angle ADT=\angle FTD$ follows from $AD\parallel TF$. 
+		
+		Thus both ratios turn out to be $\sin\angle ADB\sin\angle ETD: \sin\angle CDB\sin\angle FTD$, 
+		as desired. 
 		\item [G5.]
 		Let $ABCD$ be a cyclic quadrilateral whose sides have pairwise different lengths. 
 		Let $O$ be the circumcenter of $ABCD$. 
@@ -370,6 +530,49 @@
 		
 		Assume that $BD_1 \parallel DB_1$. Prove that $O$ lies on the line $O_BO_D$.
 		
+		\textbf{Solution.} 
+		Let $E$ be the intersection between diagonals $AC$ and $BD$, and denote the circle $ABCD$, 
+		circle with center $O_B$ and tangent to $AC$, 
+		and circle with center $O_D$ and tangent to $AC$ as $\Omega, \omega_B, \omega_D$, respectovely. 
+		Then the condition $BD_1 \parallel DB_1$ implies that $E$ must be between $B_1$ and $D_1$. 
+		W.l.o.g. let $A, B_1, E, D_1, C$ be in that order, 
+		then $\angle ACD=\angle ABE>\angle CBE=\angle DAC$, 
+		so $AD>DC$, and similarly $BC>AB$. 
+		
+		Now we have 
+		\[
+		\angle E_BBB_1
+		= \frac{\angle T_BBB_1}{2}
+		= \frac{\angle BAC - \angle BCA}{2}
+		= \frac{\angle BDC - \angle BAC}{2}
+		=\angle BDD_1
+		\]
+		and therefore $BE_BDD_1$ is cyclic. Similarly $DE_DBB_1$ is cyclic. This gives us 
+		\[
+		\angle DE_BD_1=\angle DBD_1
+		=\angle BDB_1 = \angle BE_DB_1
+		\]
+		middle equality is due to $BD_1 \parallel DB_1$. Thus we in fact have $DE_B\parallel BE_D$. 
+		Now that $BD_1 \parallel DB_1$ and $DE_B\parallel BE_D$, triangles $E_BDB_1$ 
+		and $E_DBD_1$ are similar. 
+		
+		Now let $T_B, T_D$ be on $AC$ such that lines $BT_B$ and $DT_D$ are tangent to circle $\Omega$.  
+		Let the external bisectors of $\angle ABC$ and $\angle ADC$ intersect line $AC$ at $E_B$ and $E_D$, respectively. 
+		Then $\angle E_BBB_1=90^{\circ}$ and $BT_B = T_BB_1$, so $T_B$ is the midpoint of $E_BB_1$. 
+		Similarly, $T_D$ is the midpoint of $E_DD_1$. 
+		Thus combined with $E_BDB_1\sim E_DBD_1$ we also have 
+		$DT_B\parallel BT_D$. 
+		
+		Finally, $T_BB_1^2 = T_BB^2 = T_BA\cdot T_BC$ 
+		(first equality by angle chasing, second equality follows from $T_BB$ tangent to $\Omega$). 
+		With $\omega_D$ tangent to $AC$ at $B_1$ this means that $T_B$ has same power of point to $\Omega$ and $\omega_D$. 
+		Since $D$ is on both circles, 
+		$DT_B$ is the radical axis of $\Omega$ and $\omega_D$. 
+		Similarly, $BT_D$ is the radical axis of $\Omega$ and $\omega_B$. 
+		With $DT_B\parallel BT_D$, the centers of the three circles, $O, O_B, O_D$ are collinear, as desired. 
+		
+		\textbf{Remark}: one way to say $BD_1\parallel DB_1$ is to say \[\frac{1}{AB^2}-\frac{1}{BC^2}=\frac{1}{DC^2}-\frac{1}{AD^2}\]
+		which can also be used to show $T_BD\parallel T_DB$. 
 	\end{enumerate}
 	
 	\section*{Number Theory}
@@ -401,6 +604,30 @@
 		To see why we cannot have $n=1$, we have $\frac{(a+1)^3}{a+2}$ an integer, 
 		but since $a+1\equiv -1\pmod{a+2}$ we have $a+2\mid -1$. 
 		This is impossible since $a\ge 1$. 
+		
+		\item [N2.] 
+		(IMO 1)
+		Let $n \geqslant 100$ be an integer. Ivan writes the numbers $n, n+1, \ldots, 2 n$ each on different cards. 
+		He then shuffles these $n+1$ cards, and divides them into two piles. 
+		Prove that at least one of the piles contains two cards such that the sum of their numbers is a perfect square.
+		
+		\textbf{Solution.}
+		Consider the numbers $a = 2((k-1)^2-1), b = 2k^2+1, c=2((k+1)^2-1)$ for some positive integer $k$. 
+		Then $a + b = (2k-1)^2, a + c = (2k)^2$ and $b + c = (2k+1)^2$. Hence if $n\le a$ and $c\le 2n$, by pigeonhole principle two of the three numbers above must be in the same pile. 
+		
+		It then remains to show that we can find such a $k$ such that $n\le a$ and $c\le 2n$. 
+		Let $k$ be the least integer such that $n\le a$, i.e. $n\le 2((k-1)^2-1)$. 
+		This also means that $n > 2((k-2)^2-1)$. 
+		For $100\le n\le 126$, we may pick $k = 9$, 
+		resulting in $a=126$ and $b=198$. 
+		For $n\ge 127$ we have $k\ge 10$, and therefore 
+		\[
+		c = 2((k+1)^2 - 1) = 2((k-2)^2-1) \cdot \frac{(k+1)^2-1}{(k-2)^2-1}
+		< n \cdot \frac{k}{k - 3}\cdot \frac{k + 2}{k - 1}
+		\le n \cdot \frac{10}{7}\cdot \frac{12}{9}
+		< 2n
+		\]
+		as desired. 
 		
 		\item [N3.] 
 		Find all positive integers $n$ with the following property: the $k$ positive divisors of $n$ have a permutation $(d_1,d_2, \cdots ,d_k)$ such that for every $i = 1,2,\cdots ,k$, 
@@ -488,16 +715,177 @@
 	    In particular, the position of red bead will always be congruent to 0 $\pmod{d}$, 
 	    i.e. cannot reach 1. 
 	    
-	    We're left to consider $r = 1 + \frac 1{\ell}$ for some $\ell$, so our goal now becomes showing that $\ell\le 1010$. (TODO)
+	    We're left to consider $r = 1 + \frac 1{\ell}$ for some $\ell$, so our goal now becomes showing that $\ell\le 1010$. 
+	    Consider, now, the following problem formulation instead:
+	    starting at distance 1 between the two beads, we may move the beads such that the ordering is preserved (blue always to the right of the red), and the distance is $r^{m}$ for some $m$. 
+	    This means moving the same bead more than once in consecutive moves can be unified into one move, 
+	    and we may then assume that every consecutive move would move beads of different colour. 
+	    Consider the following cases: 
+	    
+	    \textbf{Case 1.} 
+	    Blue goes first. If the chosen distance is $r^{b_1}, r^{r_1}, r^{r_2}, r^{b_2}, \cdots$ then after $2p$ or $2p+1$ moves. Suppose also that $p < \ell$, then the position of red bead is 
+	    \[
+	    P = \sum_{i=1}^p r^{b_i} - \sum_{j=1}^p r^{r_j}
+	    \]
+	    if $b_i=r_i=0$ for all $i$ then the red bead remains at 0. 
+	    If $b_i=r_j$ for some $i, j$ then these two moves could be removed (while the number of steps cannot increase). 
+	    Hence we may assume $b_i\neq r_j$ for any $i, j\le p$. 
+	    
+	    Consider $M = \max \{b_i, r_j\}$. If $M > 0$, w.l.o.g. let $M$ appear on the $b$ side (i.e. positive sign). 
+	    Since $r^M$ appears at most $p<\ell$ times overall, we have $P=\frac{x}{y}$ where $\ell^M\mid y$ and $\ell\nmid x$, which means $P\neq 1$. 
+	    In a similar fashion, 
+	    if $M = \min \{b_i, r_j\} < 0$ then again w.l.o.g. let $M$ appear on the $b$ side. 
+	    With $r^M$ appears at most $p<\ell$ times overall, $P=\frac{x}{y}$ where $(\ell+1)^{|M|}\mid y$ but $\ell+1\nmid x$, which also means $P\neq 1$. 
+	    
+	    This means at least $2\ell$ moves is necessary, forcing $\ell\le 1010$. 
+	    
+	    \textbf{Case 2.} Now red goes first. 
+	    Let the chosen distance be $r^{r_1}, r^{b_2}, r^{r_2}, \cdots$, then after $2p-1$ moves ($p\le\ell$) we have the position of red bead as 
+	    \[
+	    P = 1 +\sum_{i=2}^p r^{b_i} -\sum_{j=1}^p r^{r_j}
+	    \] 
+	    where the first 1 is due to the initial position of the blue bead. 
+	    Using the similar analysis, we would get $P\neq 1$, unless $M = \max \{b_i, r_j\} > 0$ and appear at least $\ell$ times. 
+	    With $p\le\ell$, this means we need $p=\ell$ and this $M$ must appear on the $r$ side. 
+	    We then in fact have 
+	    \[
+	    \sum_{j=1}^p r^{r_j}
+	    =\sum_{j=1}^{\ell} \left(\frac{\ell+1}{\ell}\right)^M
+	    =\sum_{j=1}^{\ell} \frac{(\ell+1)^{M}}{\ell^{M-1}}
+	    \]
+	    Notice that if $M'=\min\{b_i, r_j\}<0$ this would also land us problem as this $M'$ cannot appear $\ell+1$ times, hence all exponents have to be nonnegative here. 
+	    
+	    We now determine $b_2, \cdots, b_{\ell}$ in the following manner: 
+	    suppose that $r^{b_2}+\cdots + r^{b_i} + r_{r_1}+\cdots + r_{r_\ell} = -\frac{(\ell+1)^{k}}{\ell^{k-1}}$ for some $k$. 
+	    Then: 
+	    \begin{itemize}
+	    	\item If $k=1$ then we need $b_j=0$ for all $j>i$. 
+	    	
+	    	\item If $k>1$ then we need one of the remaining numbers (say $b_{i+1}$) to be $k-1$. 
+	    \end{itemize}
+        For the first case, we need $r^{b_{i+1}}+\cdots + r^{b_{\ell}}$ to be an integer (here $i$ could be 1), 
+        so by the analysis before all $b_{i}$'s have to be 0. 
+        For the second case, a similar analysis means all the remaining $b_j$'s have to be $\le k-1$, 
+        and we need one exactly $k-1$ to match the denominator coefficient, hence the result. 
+        Given this, we have 
+        \[
+        -\frac{(\ell+1)^{k}}{\ell^{k-1}}
+        + \frac{(\ell+1)^{k-1}}{\ell^{k-1}}
+        =\frac{(\ell+1)^{k-1}(1-\ell-1)}{\ell^{k-1}}
+        =-\frac{(\ell+1)^{k-1}}{\ell^{k-2}}
+        \]
+        i.e. the telescoping sum. 
+        
+        To summarize, given $r_i=M$ for all $i$'s, we need $b_2, b_3, \cdots, b_{\ell}$ to be $M-1, M-2, \cdots, 1, 0, 0, \cdots, 0$. 
+        At the end of telescoping we have $-\frac{(\ell+1)^{k}}{\ell^{k-1}}=-(\ell+1)$, 
+        so $P=C-(\ell+1)$ where $C=1 + (\ell-1-(M-1))$ so $P\le -1-(M-1)\le -1$, also a contradiction. 
+        
+        \item [N6.]
+        Determine all integers $n\geqslant 2$ with the following property: every $n$ pairwise distinct integers whose sum is not divisible by $n$ can be arranged in some order $a_1,a_2,\ldots, a_n$ so that $n$ divides $1\cdot a_1+2\cdot a_2+\cdots+n\cdot a_n.$
+        
+        \textbf{Answer.} All odd numbers and powers of 2. 
+        
+        \textbf{Solution.} 
+        Henceforth denote the quantity $S=a_1+\cdots + a_n$, and $T = (1\cdot a_1+2\cdot a_2+\cdots+n\cdot a_n)$. 
+        Let's first give an example of the case $n = 2^ka$ where $a > 1$ odd and $k\ge 1$. 
+        Let $b_1, \cdots, b_n$ be $n$ positive integers whose sum is not divisible by $a$, 
+        and the $n$ positive inegers be $\{2^kb_i + 1\}$ for $i=1, \cdots, n$. 
+        Then $S = \sum_{i=1}^n (2^kb_i + 1)\equiv 2^k\sum_{i=1}^n b_i\pmod{n}$ 
+        is not divisible by $b$, and therefore not divisible by $n$. 
+        However, regardless of how we permute the $n$ numbers, we have 
+        \[
+        T = 1\cdot a_1+2\cdot a_2+\cdots+n\cdot a_n
+        \equiv (1 + 2 + \cdots + n)
+        =2^{k-1}b(2^kb + 1)
+        \equiv 2^{k-1}\pmod{2^k}
+        \]
+        and therefore not divisible by $n$. 
+        
+        For $n$ in the other category, let's consider the following. 
+        Denote $a_1, \cdots, a_n$ as our $n$ integers. The main idea, both inside and outside the lemma, is the cyclic shift. 
+        \begin{lemma}
+        	\label{lemma:n6}
+        	Let $d = \gcd(n, S) < n$. 
+        	Suppose $n$ is power of 2 or odd number, then we can rearrange $a_1, \cdots, a_n$ such that 
+        	$d \mid T$. 
+        \end{lemma}
+        \begin{proof}
+        	Consider the following prime factorization of $d$: 
+        	\[
+        	d = \prod_{i=1}^k p_i^{e_i}
+        	\]
+        	Consider an arbitrary arrangement of $a_1, \cdots, a_n$. 
+        	Consider, also, the maximal index $u$ such that the resulting $T$ is divisible by $d'=\prod_{i=1}^u p_i^{e_i}$. 
+        	If $u=k$ we're done. 
+        	Here, $d$ is either power of 2, or is odd. It then follows that $d'$ has to be odd. 
+        	
+        	Now we focus on the prime power $p_{u+1}^{e_{u+1}}$. 
+        	Denote $p_{u+1}^{\ell} = \gcd(p_{u+1}^{e_{u+1}}, \gcd(a_i - a_j))$, 
+        	the inner gcd taken across all $i, j$ with $d'\mid i - j$. 
+        	Then w.r.t. $p_{u+1}^{\ell}$ we have 
+        	\[
+        	T \equiv \sum_{i=1}^{d'} a_i\left(\sum_{j=0}^{\frac{n}{d'}-1}(d'j + i)\right)
+        	\equiv \sum_{i=1}^{d'} a_i\left(\frac{n}{d'} + d'\cdot \frac 12 \frac{n}{d'}\cdot \left(\frac{n}{d'} - 1\right)\right)
+        	\equiv 0\pmod{p_{u+1}^{\ell}}
+        	\]
+        	The equality follows from that $\frac{n}{d'}=\prod_{i=u+1}^k p_i^{e_i}$ is divisible by $p_{u+1}^{\ell+1}$, 
+        	and so is $\frac 12\frac{n}{d'}\left(\frac{n}{d'} - 1\right)$: this wouldn't be an issue if $p_{u+1}$ is odd; 
+        	if $p_{u+1}=2$ then we have $d'=1$, $n = 2^{\ell'}$ for some $\ell'>\ell$ so $\frac 12 n$ is also divisible by $2^{\ell}$. 
+        	
+        	Next, we claim that we can do some rearragement such that there exists a segment of length $s = d'p_{u+1}^{e_{u+1}}$ such that the sum of $a_i$'s is not divisible by $p_{u+1}^{\ell+1}$. 
+        	Notice that by the definition of $\ell$, there exists $i_0, j_0$ such that $p_{u+1}^{\ell} = \gcd(p_{u+1}^{e_{u+1}}, a_{i_0}-a_{j_0})$, and $d'\mid i_0 - j_0$. 
+        	W.l.o.g. suppose $i_0 < j_0$, 
+        	and consider any such segment of length $s$ containing only $i_0$ and not $j_0$, or vice versa.  
+        	Such a segment exists since $n\ge 2s$: 
+        	\begin{itemize}
+        		\item If $j_0\ge s$, then we may take a segment ending at $a_{i_0}$ (or if $i_0 < s$, take segment starting at $a_1$). 
+        		
+        		\item Otherwise, we may just take segment starting at $a_{j_0}$ (or if $j_0 + s > n$, take segment ending at $a_n$). 
+        	\end{itemize}
+            Let this segment be $a_{x+1}, \cdots, a_{x+s}$ for some $x$. 
+            If $p_{u+1}^{\ell+1}\nmid a_{x+1}+\cdots + a_{x+s}$ we're done. 
+            Otherwise, we may just swap $a_{i_0}$ and $a_{j_0}$, 
+            and the conclusion follows from that exactly one of $a_{i_0}, a_{j_0}$ is in the segment, 
+            and also $p_{u+1}^{\ell+1}\nmid a_{i_0}-a_{j_0}$. 
+            Notice that $T$ is now changed by $(i_0-j_0)(a_{i_0}-a_{j_0})$, 
+            which by our assumption the difference is divisible by $d'$ since $d'\mid i_0-j_0$. 
+            So $T$ remains divisible by $d'$. 
+            
+            We're now ready to show that we can shift this segment around to make $T$ divisible by $s$. Consider the following $m$-step cyclic shift: 
+            \[
+            (a_{x+1}, \cdots, a_{x+s})\to (a_{x+s-m+1},\cdots, a_{x+s}, a_{x+1}, \cdots, a_{x+s-m})
+            \]
+            where now $T$ changes by 
+            \[m(a_{x+1}+\cdots + a_{x+s}) - s(a_{x+s-m+1}+ \cdots + a_{x+s})\equiv m(a_{x+1}+\cdots + a_{x+s})\pmod{s}\]
+            Now consider $k=0, d', \cdots, s - d'$ (notice the last quantity is the same as $d'(p_{u+1}^{e_{u+1}}-1)$). 
+            Here, $T$ remains devisible by $d'$ after any such shifts, 
+            so it suffices to consider modulo $p_{u+1}^{e_{u+1}}$. 
+            Moreover, we also have $p_{u+1}^{\ell} \mid T$, and so the solution 
+            \[
+            md'(a_{x+1}+\cdots + a_{x+s})+ T\equiv 0\pmod{p_{u+1}^{e_{u+1}}}
+            \]
+            has a solution $m$ given that $p_{u+1}^{\ell+1}\nmid d'(a_{x+1}+\cdots + a_{x+s})$. 
+        	This completes the induction step. 
+        \end{proof}
+        
+        Now, the extension from the lemma to the whole problem is now straightforward: 
+        given $\gcd(S, n)=d$, we may first rearrange $a_1, \cdots, a_n$ such that $d\mid T$. 
+        Thereafter, we do cyclic shift on the whole interval: 
+        \[
+        (a_1, \cdots, a_n)\to (a_{n-k+1}, \cdots, a_n, a_1, \cdots, a_{n-k})
+        \]
+        where $T$ is now changed by $k(a_1+\cdots + a_n)$ mod $n$. 
+        Since $T\mid \gcd(a_1+\cdots + a_n, n)$, it then follows that we can find such $k$ such that 
+        $k(a_1+\cdots + a_n)+T\equiv 0\pmod{n}$. 
 	    
 	    \item [N8.]
 	    For a polynomial $P(x)$ with integer coefficients let $P^{1}(x) = P(x)$ and $P^{k+1}(x) = P(P^k(x))$ for $k \ge 1$. 
 	    Find all positive integers $n$ for which there exist a polynomial $P(x)$ with integer coefficients such that for every integer $m \ge 1$, 
 	    the numbers $P^m(1), \cdots, P^ m(n)$ leave exactly $\lceil n/2m\rceil$ distinct remainders when divided by $n$. 
 	    
-	    \textbf{Answer.} All the prime powers $p^k$ for some prime $p$ and $k\ge 0$. 
+	    \textbf{Conjectured answer.} All the powers of 2 and prime numbers. 
 	    
-	    \textbf{Solution.} 
+	    \textbf{Partial Solution.} 
 	    Throughout we assume $P$ is a polynomial with integer coefficients. 
 	    The following identity will be used profusely: for any $m\ge 0$ and integers $x\neq y$ we have 
 	    \[
@@ -556,46 +944,17 @@
         \ge \sigma(P, m_p, q) + 1
         \]
         i.e. a contradiction. 
-        This effectively reduces $n$ to the cases of prime powers, which we consider in the following: 
-        
-        \begin{lemma}
-        	\label{lemma_n8b}
-        	Let $n=p^d$ for some prime $p$, and $a_1, \cdots, a_n$ be such that for each $k\le d$, 
-        	$p^k \mid x-y$ implies $p^k\mid a_x-a_y$. 
-        	Then there exists a polynomial $P$ with integer coefficients such that $P(x)\equiv a_x\pmod{n}$ for $x=1, \cdots, n$. 
-        \end{lemma}
-        \begin{proof}
-        	We do induction on $d$. For base case $d=0$ there's nothing to prove since any polynomial would work. 
-        	
-        	Now suppose that for some $d\ge 1$, the conclusion above holds for $d-1$, 
-        	i.e. there exists $P(x)$ such that $P(x)\equiv a_x\pmod{p^{d-1}}$ for all $x=1, \cdots, p^{d-1}$. 
-        	Consider the number $r_x = P(x)-a_x$, which is divisible by $p^{d-1}$ for $x=1, \cdots, p^{d-1}$ (and therefore for all $x\in\bbZ$). 
-        	
-        	(LOL this lemma is wrong :( will fix stuff later)
-        \end{proof}
-        
-        Now we can finish the proof. Here, consider $n=p^d$. 
-        Consider the function $s(\cdot)$ that maps $\{0, 1, \cdots, p - 1\}$ to itself such that, 
+        This effectively reduces $n$ to the cases of prime powers. 
+        For $n=2^k$, the polynomial $P(x)=2x$ would do the job; 
+        for $n=p$ an odd prime number, 
+        consider 
         \[
-        0\le a_i\le p - 1, 
-          \ell = \sum_{i=0}^{d-1} a_ip^i \Rightarrow s(\ell) = \sum_{i=0}^{d-1} a_{d-i-1}p^i 
-        \] 
-        I.e. $s(\ell)$ is the number obtained by reversing the digits of $\ell$ written in base $p$ (with leading zeros until there are $d$ digits in total). 
-        By Lemma \ref{lemma_n8b}, there exists a polynomial $P$ satisying 
-        \[
-        P(x) \equiv s(\lfloor \frac{s(x)}{2} \rfloor)\pmod{n}, \forall x=0, 1, \cdots, n-1
+        P(x) = \sum_{i=0}^{p-1} \lfloor \frac{i}{2}\rfloor (1 - (x-i)^{p-1})
         \]
-        Indeed, if $p^k\mid x-y$, then:
-        \begin{itemize}
-        	\item $x$ and $y$ have identical last $k$ digits;
-        	\item $s(x)$ and $s(y)$ have identical first $k$ digits;
-        	\item $\lfloor \frac{s(x)}{2} \rfloor$ and $\lfloor \frac{s(y)}{2} \rfloor$ have identical first $k$ digits
-        	\item $s(\lfloor \frac{s(x)}{2} \rfloor)$ and $s(\lfloor \frac{s(y)}{2} \rfloor)$ have identical last $k$ digits
-        \end{itemize}
-        which then means $p^k \mid P(x)-P(y)$. 
-        Finally, given that $s$ is bijective with $s(s(x))=x$, the distinct values of $P^m(x)$ mod $n$ are 
-        $s(\lfloor \frac{x}{2^m}\rfloor), \forall x=0, 1, \cdots, n-1$, thus giving us 
-        $1 + \lfloor \frac{n - 1}{2^m}\rfloor=\lceil \frac{n}{2^m}\rceil$ distinct values, as desired. 
+        which by Fermat's little theorem satisfies $P(x) \equiv \lfloor \frac{x}{2}\rfloor$ for $x=0, \cdots, p-1$. 
+        It then follows that the set $\{P^m(x)\}$ for $x=0, \cdots, p-1$ is $0, \cdots, \lfloor \frac{p-1}{2^m}\rfloor$ for each $m$, which contains $1 + \lfloor\frac{p-1}{2^m}\rfloor = \lceil \frac{p}{2^m}\rfloor$ distinct entries. 
+        
+        It then remains to consider $n=p^k$ for some odd prime $p$ and $k\ge 2$. (TODO: this is the harder part.)
          
 	\end{enumerate}
 \end{document}
