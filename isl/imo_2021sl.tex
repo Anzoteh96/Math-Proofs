@@ -186,6 +186,103 @@
 		    \]
 		    
 		\end{itemize}
+	
+	    \item[A4.] (IMO 2)
+	    Show that the inequality\[\sum_{i=1}^n \sum_{j=1}^n \sqrt{|x_i-x_j|}\leqslant \sum_{i=1}^n \sum_{j=1}^n \sqrt{|x_i+x_j|}\]holds for all real numbers $x_1,\ldots x_n.$
+	    
+	    \textbf{Solution.} 
+	    The main idea is to move all the $x_i$'s by a constant (say $\frac{c}{2}$): here, the LHS remains the same, while the RHS varies. 
+	    The precise formulation is as follows: 
+	    \begin{lemma}
+	    	Suppose that 
+	    	\[
+	    	c_0\in \arg\min_{c}\sum_{i=1}^n \sum_{j=1}^n \sqrt{|x_i+x_j + c|}
+	    	\]
+	    	(i.e. $c_0$ is one of the minimizers above). 
+	    	Then there exists $i$ and $j$ such that $x_i+x_j+c_0=0$. 
+	    \end{lemma}
+        
+        \begin{proof}
+        	For each $c$ with $x_i+x_j+c\neq 0$ for all $i, j$, we have 
+        	\[
+        	\frac{d}{dc} \sum_{i=1}^n \sum_{j=1}^n \sqrt{|x_i+x_j + c|}
+        	=\frac 12\sum_{i=1}^n \sum_{j=1}^n\text{sign}(x_i+x_j+c)|x_i+x_j + c|^{-1/2}
+        	\]
+        	where $\text{sign}(x)=1$ if $x>0$ and $-1$ if $x<0$ (let's not worry about the $x=0$ case here). 
+        	Differentiating once more, we have 
+        	\[
+        	\frac{d^2}{dc^2} \sum_{i=1}^n \sum_{j=1}^n \sqrt{|x_i+x_j + c|}
+        	=-\frac 14\sum_{i=1}^n \sum_{j=1}^n(\text{sign}(x_i+x_j+c))^2|x_i+x_j + c|^{-3/2}
+        	< 0
+        	\]
+        	since $|x_i+x_j + c| > 0$. 
+        	Therefore, if such $c$ is a minimum point, we must have the first derivative as $=0$ and second derivative as $\ge 0$, which is impossible. 
+        	It then follows that all such $c$ cannot be a minimum point. 
+        \end{proof}
+        Now we may proceed by induction on $n$. 
+        For $n=0$ there's nothing to prove; for $n=1$ we're showing $0\le \sqrt{|2x_1|}$ which is trivial. 
+        
+        Suppose for some $n$ our desired inequality holds for $k$ variables for all $k\le n-1$. 
+        Consider, now, $n$ variables $x_1, \cdots, x_n$, and let $y_1, \cdots, y_n$ be such that $y_i=x_i+\frac{c}{2}$ for some $c$, and such that $\sum_{i=1}^{n}\sum_{j=1}^n \sqrt{|y_i+y+j|}$ is minimal.
+        Then we have 
+        \[
+        \sum_{i=1}^n \sum_{j=1}^n \sqrt{|x_i-x_j|}=\sum_{i=1}^n \sum_{j=1}^n \sqrt{|y_i-y_j|}
+        \qquad 
+        \sum_{i=1}^n \sum_{j=1}^n \sqrt{|x_i+x_j|}\ge \sum_{i=1}^n \sum_{j=1}^n \sqrt{|y_i+y_j|}
+        \]
+        so it suffices to show $\sum_{i=1}^n \sum_{j=1}^n \sqrt{|y_i-y_j|}\ge \sum_{i=1}^n \sum_{j=1}^n \sqrt{|y_i+y_j|}$. 
+        
+        By our lemma, 
+        there exists $i_0, j_0$ such that $y_{i_0} + y_{j_0}=0$. 
+        If $i_0=j_0$, then essentially $y_{i_0}=0$ and 
+        \[
+        \sum_{i=1}^n \sum_{j=1}^n \sqrt{|y_i-y_j|}
+        =\sum_{i\neq i_0} \sum_{j\neq i_0} \sqrt{|y_i-y_j|}
+        + 2\sum_{i=1}^n \sqrt{|y_i|}
+        \]
+        and 
+        \[
+        \sum_{i=1}^n \sum_{j=1}^n \sqrt{|y_i+y_j|}
+        =\sum_{i\neq i_0} \sum_{j\neq i_0} \sqrt{|y_i+y_j|}
+        + 2\sum_{i=1}^n \sqrt{|y_i|}
+        \]
+        but then we have $\sum_{i\neq i_0} \sum_{j\neq i_0} \sqrt{|y_i-y_j|}\le \sum_{i\neq i_0} \sum_{j\neq i_0} \sqrt{|y_i+y_j|}$ by the inductive hypothesis (with $n-1$ variables). 
+        
+        Similarly, when $i_0\neq j_0$ we have $y_{i_0}=v, y_{j_0}=-v$ for some real $v$. Therefore 
+        \[
+        \sum_{i=1}^n \sum_{j=1}^n \sqrt{|y_i-y_j|}
+        =\sum_{i\neq i_0, j_0} \sum_{j\neq i_0, j_0} \sqrt{|y_i-y_j|}
+        + \sum_{i=1}^n \sqrt{|y_i-v|} + \sum_{j=1}^n \sqrt{|y_i+v|} 
+        \]
+        \[
+        \sum_{i=1}^n \sum_{j=1}^n \sqrt{|y_i+y_j|}
+        =\sum_{i\neq i_0, j_0} \sum_{j\neq i_0, j_0} \sqrt{|y_i+y_j|}
+        + \sum_{i=1}^n \sqrt{|y_i-v|} + \sum_{j=1}^n \sqrt{|y_i+v|} 
+        \]
+        and again the inequality $\sum_{i\neq i_0, j_0} \sum_{j\neq i_0, j_0} \sqrt{|y_i-y_j|}\le \sum_{i\neq i_0, j_0} \sum_{j\neq i_0, j_0} \sqrt{|y_i+y_j|}$ follows from inductive hypothesis with $n-2$ variables. 
+	    
+	    \item[A5.]
+	    Let $n\geq 2$ be an integer and let $a_1, a_2, \ldots, a_n$ be positive real numbers with sum $1$. Prove that
+	    $$\sum_{k=1}^n \frac{a_k}{1-a_k}(a_1+a_2+\cdots+a_{k-1})^2 < \frac{1}{3}.$$
+	    
+	    \textbf{Solution.}
+	    For each $k$, denote $s_k = a+1 + \cdots a_{k}$, with $s_0=0$, $s_n=1$, and $s_k$ strictly increasing. 
+	    Then the LHS is now equivalent to 
+	    \[
+	    \sum_{k=1}^n \frac{s_k - s_{k-1}}{1-(s_k - s_{k-1})}s_{k-1}^2
+	    \]
+	    We first notice that $0 < s_k\le 1$ for all $k$, so $s_k - s_{k-1}\le \frac{s_k - s_{k-1}}{s_k}=1-\frac{s_{k-1}}{s_k}$. Therefore, 
+	    \begin{flalign*}
+	    	\sum_{k=1}^n \frac{s_k - s_{k-1}}{1-(s_k - s_{k-1})}s_{k-1}^2
+	    	&\le\sum_{k=1}^n \frac{s_k - s_{k-1}}{\left(\frac{s_{k-1}}{s_k}\right)}s_{k-1}^2
+	    	\\&=\sum_{k=1}^n s_{k-1}s_k(s_k - s_{k-1})
+	    	\\&\le \sum_{k=1}^n \frac 13 (s_k^2 + s_ks_{k-1} + s_{k-1}^2)s_k(s_k - s_{k-1})
+	    	\\&=\sum_{k=1}^n \frac 13 (s_k^3 - s_{k-1}^3)
+	    	\\&=\frac 13
+	    \end{flalign*}
+        It now remains to show that the equality cannot hold. 
+        Indeed, for $k=1$ we have the LHS as 0 since $s_{0}^2=0$, while the RHS is $\frac 13(s_1^3 - s_{0}^3) > 0$ since $s_1>0$. 
+        This means either one of the $\le$ inequality is, in fact, strict for $k=1$. 
 	\end{enumerate}
 	
 	\section*{Combinatorics}
@@ -356,6 +453,20 @@
 	    \]
 	    as desired. 
 	    
+	    \item [C6.]
+	    A hunter and an invisible rabbit play a game on an infinite square grid. First the hunter fixes a colouring of the cells with finitely many colours. The rabbit then secretly chooses a cell to start in. Every minute, the rabbit reports the colour of its current cell to the hunter, and then secretly moves to an adjacent cell that it has not visited before (two cells are adjacent if they share an edge). The hunter wins if after some finite time either:
+	    \begin{itemize}
+	    	\item the rabbit cannot move; or
+	    	
+	    	\item the hunter can determine the cell in which the rabbit started.
+	    \end{itemize}
+	    
+	    Decide whether there exists a winning strategy for the hunter.
+	    
+	    \textbf{Answer.} Yes, the hunter can win. 
+	    
+	    \textbf{Solution.} (TODO)
+	    
 	    \item [C8.] 
 	    Determine the largest integer $N$ for which there exists a table $T$ of integers with $N$ rows and $100$ columns that has the following properties:
 	    \begin{itemize}
@@ -445,6 +556,64 @@
 		\angle QAP = \angle QTC = \angle QR'C
 		\]
 		and so $APR'Q$ is indeed cyclic. 
+		
+		\item [G2.] (IMO 4)
+		Let $\Gamma$ be a circle with centre $I$, and $A B C D$ a convex quadrilateral such that each of the segments $A B, B C, C D$ and $D A$ is tangent to $\Gamma$. Let $\Omega$ be the circumcircle of the triangle $A I C$. The extension of $B A$ beyond $A$ meets $\Omega$ at $X$, and the extension of $B C$ beyond $C$ meets $\Omega$ at $Z$. The extensions of $A D$ and $C D$ beyond $D$ meet $\Omega$ at $Y$ and $T$, respectively. Prove that\[A D+D T+T X+X A=C D+D Y+Y Z+Z C.\]
+		
+		\textbf{Solution.} 
+		Here, $IA$ is the external angle bisector of $\angle XAY$, and since $X, A, I, Y$ are all on $\Omega$, 
+		$I$ is equidistant from $X$ and $Y$. 
+		Similarly, 
+		$T$ and $Z$ are equidistant from $I$. This gives $TX = YZ$ and we're therefore left to prove 
+		\[
+		A D+D T+X A=C D+D Y+Z C
+		\]
+		Now, let $p(A)$ be the length of tangent from $A$ to $\Gamma$ (only defined for points outside $\Gamma$). 
+		Then the tangent of $AD$ to $\Gamma$ is in between $A$ and $D$, but not between $A$ and $X$ (with $X$ further).
+		Therefore, $AD = p(A) + p(D)$ and $XA=p(X) - p(A)$. 
+		Similarly, $DT = p(T) - p(D)$, $DC = p(D) + p(C)$, $DY = p(Y) - p(D)$ and $CZ = p(Z) - p(C)$. 
+		This gives 
+		\[
+		A D+D T+X A
+		=p(A) + p(D) + p(X) - p(A) + p(T) - p(D) = p(X) + p(T)
+		\]\[
+		C D+D Y+Z C
+		=p(C) + p(D) + p(Y) - p(D) + p(Z) - p(C) = p(Y) + p(Z)
+		\]
+		but since $IT=IZ$, $p(T)^2 = IT^2 - r^2 = IZ^2 - r^2 = p(Z)^2$ (here $r$ is the radius of $\Gamma$). 
+		So $p(T)=p(Z)$ and similarly $p(X)=p(Y)$. 
+		Therefore $p(X) + p(T)=p(Y) + p(Z)$ as desired. 
+		
+		\item [G3.] 
+		Let $n$ be a fixed positive integer, and let $\mathcal{S}$ be the set of points $(x, y)$ on the Cartesian plane such that both coordinates $x$ and $y$ are nonnegative integers smaller than $2n$ (thus $|\mathcal{S}| = 4n^2$). 
+		Assume $\mathcal{F}$ is a set consisting of $n^2$ quadrilaterals such that all their vertices lie in $\mathcal{S}$,
+		 and each point in $\mathcal{S}$ is a vertex of exactly one of the quadrilaterals in $\mathcal{F}$.
+		Determins the largest possible sum of areas of all $n^2$ quadrilaterals in $\mathcal{F}$.
+		
+		\textbf{Answer.} $\frac{n^2(2n-1)(2n+1)}{3}$
+		
+		\textbf{Solution.} 
+		The center (say, point $O$), is at coordinate $(n - \frac 12, n - \frac 12)$. 
+		For a given quadrilateral $A_1A_2A_3A_4$, the area is bounded by (indices taken modulo 4)
+		\[
+		\frac 12\sum_{i=1}^4 A_iO\cdot A_{i+1}O\cdot \sin\angle A_iOA_{i+1}
+		\le \frac 14\sum_{i=1}^4 (A_i^2 + A_{i+1}^2)
+		=\frac 12\sum_{i=1}^4 A_i^2
+		\]
+		with equality iff $O$ lies in all the four triangles formed by the triangulation of the quadrilateral 
+		(and all the inequalities are equality). 
+		It therefore follows that the area sum is bounded by half the sum of squared distance from $O$ to the $4n^2$ points, i.e. 
+		\[
+		\frac 12 \sum_{i=0}^{2n-1}\sum_{j=0}^{2n-1} (i - (n - \frac 12))^2 + (j - (n - \frac 12))^2 
+		= 2n\sum_{i=0}^{2n - 1} (i - (n - \frac 12))^2
+		\]\[
+		=2n(\frac{(2n-1)(2n)(4n-1)}{6} - n(2n - 1)^2 + \frac{n(2n-1)^2}{2})
+		=\frac{n^2(2n-1)(2n+1)}{3}
+		\]
+		Equality can hold by the following construction: for each point $A$ in $\mathcal{S}$ and in the bottom left quadrant (i.e. both coordinates are less than those of $O$), 
+		consider the square with center $O$ (such square is uniquely formed once $A$ and $O$ are fixed), 
+		then the all the four vertices of the square are in $\mathcal{S}$ and in 4 different quadrants. 
+		It then follows that we can form such $n^2$ quadrilaterals fulfilling the problem formulation. 
 		
 		\item [G4.] 
 		Let $ABCD$ be a quadrilateral inscribed in a circle $\Omega$. 
@@ -573,6 +742,130 @@
 		
 		\textbf{Remark}: one way to say $BD_1\parallel DB_1$ is to say \[\frac{1}{AB^2}-\frac{1}{BC^2}=\frac{1}{DC^2}-\frac{1}{AD^2}\]
 		which can also be used to show $T_BD\parallel T_DB$. 
+		
+		\item [G7.] (IMO 3)
+		Let $D$ be an interior point of the acute triangle $ABC$ with $AB > AC$ so that $\angle DAB = \angle CAD.$ The point $E$ on the segment $AC$ satisfies $\angle ADE =\angle BCD,$ the point $F$ on the segment $AB$ satisfies $\angle FDA =\angle DBC,$ and the point $X$ on the line $AC$ satisfies $CX = BX.$ Let $O_1$ and $O_2$ be the circumcenters of the triangles $ADC$ and $EXD,$ respectively. Prove that the lines $BC, EF,$ and $O_1O_2$ are concurrent.
+		
+		\textbf{Solution.} 
+		Let $T$ be the intersection point of $BC$ and $EF$, $Z$ be the second intersection of circles $ADC$ and $EXD$. 
+		Let $M$ be the second intersection of $AD$ and circumcircle of triangle $ABC$, 
+		and $N$ be the point diametrically opposite it. 
+		Then the task $O_1, O_2, T$ collinear is equivalent to showing that $D\neq Z$ (i.e. $ADC$ and $EXD$ are not tangent to each other) and that $TD=TZ$. 
+		Our approach is broken down into the following steps: 
+		
+		\begin{lemma}
+			\label{lemma_g7a}
+			$T$ is the center of the Appollonius' circle of triangle $DBC$ passing through $D$. 
+		\end{lemma}
+	    \begin{proof}
+	    	Consider the following: 
+	    	\[
+	    	\frac{AE}{EC}=\frac{|\triangle ADE|}{|\triangle DEC|}=\frac{\frac 12 AD\cdot DE\cdot \sin \angle ADE}{\frac 12 DE\cdot DC\cdot \sin \angle CDE}
+	    	=\frac{AD\cdot \sin \angle BCD}{DC\cdot \sin \angle CDE}
+	    	\]
+	    	and similarly, 
+	    	\[
+	    	\frac{AF}{FB}=\frac{AD\cdot\sin \angle DBC}{DB\cdot\sin \angle FDB}
+	    	\]
+	    	We also notice that by sine rule, $\frac{DB}{DC}=\frac{\sin\angle DCB}{\sin\angle DBC}$. 
+	    	In addition, $\angle FDB+\angle CDE=360^{\circ}-\angle FDA-\angle ADE-\angle BDC
+	    	=360^{\circ}-\angle DBC-\angle BCD-\angle BDC=180^{\circ}$. 
+	    	This means, $\sin \angle FDB=\sin\angle CDE$. 
+	    	By Menelaus' theorem applied on triangle $ABC$ and line $FET$ (without taking signs into consideration), we have 
+	    	\[
+	    	1=\frac{CE}{EA}\cdot\frac{AF}{FB}\cdot\frac{TB}{TC}
+	    	=\frac{\cdot DC\cdot \sin \angle CDE}{AD\cdot \sin \angle BCD}
+	    	\cdot\frac{AD\cdot\sin \angle DBC}{DB\cdot\sin \angle FDB}
+	    	\cdot\frac{TB}{TC}
+	    	=\frac{DC}{DB}\cdot\frac{\sin \angle DBC}{\sin\angle DCB}\cdot \frac{TB}{TC}
+	    	=\frac{DC^2}{DB^2}\cdot \frac{TB}{TC}
+	    	\]
+	    	so $\frac{TB}{TC}=\frac{DB^2}{DC^2}$. Given also that $E$ and $F$ are on the segments $AC$ and $AB$ respectively, we have $T$ lying outside of segment $BC$. The point $T'$ on $BC$ with $T'D$ tangent to circumcircle of $DBC$ must satisfy $\frac{DB}{DC}=\frac{T'D}{T'C}=\frac{T'B}{T'D}$ which means that $\frac{T'B}{T'C}=\frac{DB^2}{DC^2}$. Thus $T'=T$ and $TD$ is tangent to the circumcircle of $DBC$, hence being the center of an Appolonius circle. 
+	    \end{proof}
+        \begin{lemma}
+        	\label{lemma_g7b}
+        	$X, A, N, Z$ are concyclic. 
+        \end{lemma}
+        
+        \begin{proof}
+        	Using directed angles, we have 
+        	\[\angle(XZ, ZC)
+        	=\angle(XZ, ZD)+\angle(ZD, ZC)
+        	=\angle(XE, ED)+\angle(AD, AC)
+        	\]\[
+        	=\angle(AC, ED)+\angle(AD, AC)
+        	=\angle(AD, ED)
+        	\]
+        	where we used $Z, X, E, D$ concyclic and $Z, D, A, C$ concyclic. 
+        	Analogously we have 
+        	\[
+        	\angle(XZ, ZA)
+        	=\angle(ZX, ZC)+\angle(ZC, ZA)
+        	=\angle(AD, ED)+\angle (CD, DA)
+        	=\angle(CD, ED)
+        	\]
+        	Recall that we have $\angle(DC, CB)=\angle(DE, DA)$ from the problem condition (and taking care of the clockwise/anticlockwise direction). 
+        	This gives 
+        	\[
+        	\angle(CD, ED)=\angle(CD, DA)+\angle(DA, DE)=\angle(CD, DA)+\angle(BC, CD)=\angle(BC, DA)
+        	\]
+        	In addition, $X, M, N$ collinear and perpendicular to $BC$, and $\angle NAM=90^{\circ}$ since $NM$ is the diameter of the circle $ABC$. This gives 
+        	\[
+        	\angle(XN, NA)=\angle(XM, BC)+\angle(BC, DA)+\angle(DA, NA)
+        	\]\[=90^{\circ}+\angle(BC, DA)+90^{\circ}=\angle(BC, DA)=\angle(XZ, ZA)
+        	\]
+        	since directed angles are modulo $180^{\circ}$.
+        \end{proof}
+        
+        \begin{lemma}
+        	\label{lemma_g7c}
+        	Let $DZ$ intersect $MN$ at $Q$. Then line $QC$ is tangent to the circle $ADC$ at $C$. 
+        \end{lemma}
+        
+        \begin{proof}
+        	let the circle $DQC$ intersect $AM$ again at $R$, and let $MRC$ intersect $NM$ again at $S$. Then we have: 
+        	\[
+        	\angle AZC=\angle MDC=\angle RDC=\angle RQC
+        	\qquad 
+        	\angle ACZ=\angle ADZ=\angle QDR=\angle QCR
+        	\]
+        	so triangles $AZC$ and $RQC$ are similar. Similarly, 
+        	$S, R, C, M$ are concyclic, and then $N, A, C, M$ are also concyclic. This means, 
+        	\[
+        	\angle SRC=180^{\circ}-\angle SMC=180^{\circ}-\angle NMC=\angle NAC
+        	\qquad
+        	\frac{SR}{RC}=\frac{\sin\angle SMR}{\sin\angle RMC}=\frac{\sin\angle NMA}{\sin\angle AMC}=\frac{NA}{AC}
+        	\]
+        	so triangles $SRC$ and $NAC$ are also similar. 
+        	Thus this gives us 
+        	\[
+        	\frac{QR}{RS}=\frac{QR}{RC}\frac{RC}{RS}=\frac{AZ}{AC}\frac{AC}{NA}=\frac{AZ}{NA}
+        	\]
+        	and 
+        	\[
+        	\angle QRS=360^{\circ}-\angle QRC-\angle SRC=360^{\circ}-\angle ZAC -\angle NAC=\angle NAZ
+        	\]
+        	so triangles $NAZ$ and $SRQ$ are also similar. This gives 
+        	\[
+        	\angle MQR=\angle SQR=\angle MXA=\angle NZA=\angle NXA=\angle MXA
+        	\]
+        	so lines $AC$ and $QR$ are parallel. 
+        	This would entail $\angle QRA=\angle DAC$. Since $D, A, C, Z$ are concyclic, $\angle DAC=\angle DZC$ and with $Q, D, R, C$ concyclic, $\angle QRD=\angle QCD$. Thus $\angle QCD=\angle DZC$ so $QC$ is indeed tangent to circle $DZC$. 
+        \end{proof}
+        
+        Now we can complete the solution. 
+        First, $D\neq Z$: otherwise, $D$ would have lied on circle $XNA$. 
+        We have $D$ on internal angle bisector (segment) $AM$ of $\angle BAC$, but segment $AM$ only intersects circle $XNA$ at point $A$. 
+        Next, with $QC$ tangent to circle $ADCZ$ and $Q$ on line $DZ$, 
+        $Q$ is the center of Appolonius circle of $CDZ$ passing through $C$. 
+        But since $Q$ is on $NM$, $QB=QC$ so $Q$ is also the center of Appolonius circle of $BDZ$ passing through $B$. 
+        This gives us 
+        \[
+        \frac{CD}{CZ}=\sqrt{\frac{QD}{QZ}} = \frac{BD}{BZ}
+        \]
+        or in other words, $\frac{BD}{CD}=\frac{BZ}{CZ}$. 
+        This means $D$ and $Z$ both lie on the same Appolonius circle, or $TD=TZ$, as desired. 
+        
 	\end{enumerate}
 	
 	\section*{Number Theory}
