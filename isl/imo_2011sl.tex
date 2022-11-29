@@ -1,6 +1,6 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
-\usepackage{mathrsfs}
+\usepackage{mathrsfs, amsthm}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
 %\setlength{\topmargin}{0in}
@@ -14,6 +14,8 @@
 \newcommand{\bbN}{\mathbb{N}}
 \newcommand{\dsum}{\displaystyle\sum}
 \newcommand{\dprod}{\displaystyle\prod}
+
+\newtheorem{lemma}{Lemma}
 
 
 \section*{Algebra}
@@ -668,40 +670,45 @@
 	
 	Denote $A_1$, $B_1$, $C_1$ as $\ell_b\cap \ell_c$, $\ell_a\cap \ell_c$, $\ell_a\cap \ell_b,$ respectively. 
 	
-	\emph{Lemma 1.} $AA_1$, $BB_1$, $CC_1$ concur on $\Gamma$, 
-	and the common point $I$ is the incenter of triangle $A_1B_1C_1$. 
+	\begin{lemma}
+		$AA_1$, $BB_1$, $CC_1$ concur on $\Gamma$, 
+		and the common point $I$ is the incenter of triangle $A_1B_1C_1$. 
+	\end{lemma}
 	
-	Proof: 
-	Now denote the intersection of $BC, CA, AB$ with $\ell$ as $A',B'$ and $C'$, respectively. let us consider triangle $B_1A'C'$. Since $A'B$ bisects $\angle B_1A'C'$ and $C'B$ bisects $\angle B_1C'A'$, we know that $B$ is either the incenter or excenter of $B_1A'C'$ and it follows that $B_1B$ bisects angle $A'B_1C'$, which then follows that $BB_1$ passes through the circumentre of $BA'C'$. Using th notation of directed angles it follows that $\angle (BB_1,AB)=\angle (BB_1,BC')=90^{\circ}-\angle (A'C',A'B)=90^{\circ}-\angle (\ell, BC)$ and $\angle (BB_1,BC)=\angle (BB_1,BA')=90^{\circ}-\angle (A'C',C'B)=90^{\circ}-\angle (\ell,AB)$. In a similar way, $\angle (CC_1,AC)=90^{\circ}-\angle (\ell, BC)$ and $\angle (CC_1,BC)=90^{\circ}-\angle (\ell, AC).$ Now $\angle (BB_1,CC_1)=\angle (BB_1, BC)-\angle (CC_1, BC)$=$(90^{\circ}-\angle (\ell,AB))-(90^{\circ}-\angle (\ell,AC))=\angle (AB, AC)$, yielding that $BB_1$ and $CC_1$ indeed intersect on $\Gamma$. The concurrence of $AA_1, BB_1$ and $CC_1$ follows from the fact that they intersect at either the incenter or excenter of triangle $A_1B_1C_1$, hence we are done.
+	\begin{proof}
+		Now denote the intersection of $BC, CA, AB$ with $\ell$ as $A',B'$ and $C'$, respectively. let us consider triangle $B_1A'C'$. Since $A'B$ bisects $\angle B_1A'C'$ and $C'B$ bisects $\angle B_1C'A'$, we know that $B$ is either the incenter or excenter of $B_1A'C'$ and it follows that $B_1B$ bisects angle $A'B_1C'$, which then follows that $BB_1$ passes through the circumentre of $BA'C'$. Using th notation of directed angles it follows that $\angle (BB_1,AB)=\angle (BB_1,BC')=90^{\circ}-\angle (A'C',A'B)=90^{\circ}-\angle (\ell, BC)$ and $\angle (BB_1,BC)=\angle (BB_1,BA')=90^{\circ}-\angle (A'C',C'B)=90^{\circ}-\angle (\ell,AB)$. In a similar way, $\angle (CC_1,AC)=90^{\circ}-\angle (\ell, BC)$ and $\angle (CC_1,BC)=90^{\circ}-\angle (\ell, AC).$ Now $\angle (BB_1,CC_1)=\angle (BB_1, BC)-\angle (CC_1, BC)$=$(90^{\circ}-\angle (\ell,AB))-(90^{\circ}-\angle (\ell,AC))=\angle (AB, AC)$, yielding that $BB_1$ and $CC_1$ indeed intersect on $\Gamma$. The concurrence of $AA_1, BB_1$ and $CC_1$ follows from the fact that they intersect at either the incenter or excenter of triangle $A_1B_1C_1$, hence we are done.
+		
+		Now we need the fact that $I$ is the incenter (not excentre opposite to any of the sides), given that $ABC$ is an acute triangle. Now let's investigate the relationship between $\angle A$, $\angle B$, $\angle C$ (of $\triangle ABC$) and $\angle A_1$, $\angle B_1$, $\angle C_1$ (of $\triangle A_1B_1C_1$). Take $B$ again. If $\angle A'BC'<90^{\circ}$ then $\angle B=\angle A'BC'$, and it can be verified that $B$ is now the excentre of $\triangle B_1A'C'$ and $\angle B_1A'C'=180^{\circ}-2\angle A'BC=180^{\circ}-2\angle B$. On the other hand, if $\angle A'BC$ is obtuse then $\angle B=180^{\circ}-\angle A'BC$ and $B$ is the incenter of $\triangle B_1A'C'$ so $\angle B_1A'C'=2\angle A'BC-360^{\circ}=2(180^{\circ}-\angle B)-180^{\circ}=180^{\circ}-2\angle B.$ So $\angle B_1$ is either $2\angle B$ or $180^{\circ}-2\angle B$, depending whether $BB_1$ is the external or internal angle bisector of angle $B_1$, respectively. Same goes for line angles $A_1$ and $C_1$. If $I$ is the excentre, then exactly two of the lines $AA_1$, $BB_1$, $CC_1$ are the external angle bisectors of the respective angles. So let say $AA_1$ and $BB_1$ are the external angle bisectors of angles $A_1$ and $B_1$ then angles $A_1$, $B_1$, $C_1$ are $2\angle A$, $2\angle B$ and $180^{\circ}-2\angle C$ respectively. As the three angles sum up to $180^{\circ}$ and $\angle A+\angle B+\angle C=180^{\circ},$ comparing the two equations yields $\angle C=90^{\circ}$ (contradiction).
+	\end{proof}
 	
-	Now we need the fact that $I$ is the incenter (not excentre opposite to any of the sides), given that $ABC$ is an acute triangle. Now let's investigate the relationship between $\angle A$, $\angle B$, $\angle C$ (of $\triangle ABC$) and $\angle A_1$, $\angle B_1$, $\angle C_1$ (of $\triangle A_1B_1C_1$). Take $B$ again. If $\angle A'BC'<90^{\circ}$ then $\angle B=\angle A'BC'$, and it can be verified that $B$ is now the excentre of $\triangle B_1A'C'$ and $\angle B_1A'C'=180^{\circ}-2\angle A'BC=180^{\circ}-2\angle B$. On the other hand, if $\angle A'BC$ is obtuse then $\angle B=180^{\circ}-\angle A'BC$ and $B$ is the incenter of $\triangle B_1A'C'$ so $\angle B_1A'C'=2\angle A'BC-360^{\circ}=2(180^{\circ}-\angle B)-180^{\circ}=180^{\circ}-2\angle B.$ So $\angle B_1$ is either $2\angle B$ or $180^{\circ}-2\angle B$, depending whether $BB_1$ is the external or internal angle bisector of angle $B_1$, respectively. Same goes for line angles $A_1$ and $C_1$. If $I$ is the excentre, then exactly two of the lines $AA_1$, $BB_1$, $CC_1$ are the external angle bisectors of the respective angles. So let say $AA_1$ and $BB_1$ are the external angle bisectors of angles $A_1$ and $B_1$ then angles $A_1$, $B_1$, $C_1$ are $2\angle A$, $2\angle B$ and $180^{\circ}-2\angle C$ respectively. As the three angles sum up to $180^{\circ}$ and $\angle A+\angle B+\angle C=180^{\circ},$ comparing the two equations yields $\angle C=90^{\circ}$ (contradiction).
 	
 	Now let's proceed to the solving of the main problem. Denote $T$ as the tangent point of $\ell$ and $\Gamma$, and $a,b,c$ as $\angle (TA,\ell),\angle (TB,\ell),\angle (TC,\ell)$. Speaking in modulo $180^{\circ}$, $\angle A$ is congruent to $b-c$, so $\sin\angle A$=$|\sin (b-c)|$. Similarly $\sin\angle B$=$|\sin (c-a)|$ and $\sin\angle C$=$|\sin (a-b)|.$ (we can change the $\pm$ sign to modulus, though).
 	Let's now show the following: 
 	
-	\emph{Lemma 2.} 
-	In unsigned length, 
-	among the three quantities 
-	$A_1B_1\cdot t(C_1)$, $C_1A_1\cdot t(B_1)$, $B_1C_1\cdot t(A_1)$, 
-	one of them is the sum of the other two, 
-	where $t(K)$ is the length of tangent from point $K$ to $\Gamma$.
+	\begin{lemma}
+		In unsigned length, 
+		among the three quantities 
+		$A_1B_1\cdot t(C_1)$, $C_1A_1\cdot t(B_1)$, $B_1C_1\cdot t(A_1)$, 
+		one of them is the sum of the other two, 
+		where $t(K)$ is the length of tangent from point $K$ to $\Gamma$.
+	\end{lemma}
 	
-	Proof: 
-	Notice that it is the ratio $A_1B_1\cdot t(C_1)$ : $C_1A_1\cdot t(B_1)$ : $B_1C_1\cdot t(A_1)$ that matters, so we can divide each of them by a constant whenever necessary.
-	By power of point theorem we have 
-	\[t(A_1)=\sqrt {A_1I\cdot A_1A}\] 
-	Define $r$ as the inradius of triangle $A_1B_1C_1$ and $r_A$ the distance from $A$ to lines $A_1B'$, $A_1C'$ and $B'C'$ (or $\ell$) (the distance to the three lines are the same because $A$ is the incentre or excentre of $A_1B'C'$.)
-	Now 
-	\[A_1A=\dfrac{r_A}{\sin AA_1B'}=\dfrac{r_A}{\sin (90^{\circ}-\angle A)}=\dfrac{r_A}{\cos \angle A}\]
-	as $\angle A_1=180^{\circ}-2\angle A.$ Similarly $\angle A_1I=\dfrac{r}{\cos \angle A}$ so $t(A_1)=\sqrt {A_1I\cdot A_1A}=\dfrac{\sqrt{r\cdot r_A}}{\cos \angle A}$. Now $B_1C_1=D\sin\angle A_1=D\sin\angle (180^{\circ}-2\angle A)=D\sin 2\angle A,$ where $D$ is the diameter of circumcircle $A_1B_1C_1$ so $B_1C_1\cdot t(A_1)=D\sin 2\angle A\cdot \dfrac{\sqrt{r\cdot r_A}}{\cos \angle A}=2D\sin \angle A\cdot\sqrt{r\cdot r_A}.$ 
-	
-	The original ratio now becomes $\sin \angle A\cdot\sqrt{r_A}$ : $\sin \angle B\cdot\sqrt{r_B}$ : $\sin \angle C\cdot\sqrt{r_C}$ by eliminating constants $D$ and $r$. Now if $d$ is the diameter of $\Gamma$ then it is not hard to notice that $r_A$=distance from $A$ to $\ell$=$TA\sin\angle (TA,\ell)$=$(d\sin a)\cdot\sin a=d\sin^{2} a.$ Meanwhile $\sin\angle A=|\sin (b-c)|.$ So our original ratio becomes $\sin a\cdot|\sin (b-c)|$ : $\sin a\cdot|\sin (c-a)|$ : $\sin c\cdot|\sin (a-b)|$. 
-	Nevertheless, 
-	\[
-	\sin a\cdot\sin (b-c)+\sin a\cdot\sin (c-a)+\sin c\cdot\sin (a-b)=0
-	\]
-	which means one of them is the sum of the other two when we package them into absolute number. 
-	$\square$
+	\begin{proof}
+		Notice that it is the ratio $A_1B_1\cdot t(C_1)$ : $C_1A_1\cdot t(B_1)$ : $B_1C_1\cdot t(A_1)$ that matters, so we can divide each of them by a constant whenever necessary.
+		By power of point theorem we have 
+		\[t(A_1)=\sqrt {A_1I\cdot A_1A}\] 
+		Define $r$ as the inradius of triangle $A_1B_1C_1$ and $r_A$ the distance from $A$ to lines $A_1B'$, $A_1C'$ and $B'C'$ (or $\ell$) (the distance to the three lines are the same because $A$ is the incentre or excentre of $A_1B'C'$.)
+		Now 
+		\[A_1A=\dfrac{r_A}{\sin AA_1B'}=\dfrac{r_A}{\sin (90^{\circ}-\angle A)}=\dfrac{r_A}{\cos \angle A}\]
+		as $\angle A_1=180^{\circ}-2\angle A.$ Similarly $\angle A_1I=\dfrac{r}{\cos \angle A}$ so $t(A_1)=\sqrt {A_1I\cdot A_1A}=\dfrac{\sqrt{r\cdot r_A}}{\cos \angle A}$. Now $B_1C_1=D\sin\angle A_1=D\sin\angle (180^{\circ}-2\angle A)=D\sin 2\angle A,$ where $D$ is the diameter of circumcircle $A_1B_1C_1$ so $B_1C_1\cdot t(A_1)=D\sin 2\angle A\cdot \dfrac{\sqrt{r\cdot r_A}}{\cos \angle A}=2D\sin \angle A\cdot\sqrt{r\cdot r_A}.$ 
+		
+		The original ratio now becomes $\sin \angle A\cdot\sqrt{r_A}$ : $\sin \angle B\cdot\sqrt{r_B}$ : $\sin \angle C\cdot\sqrt{r_C}$ by eliminating constants $D$ and $r$. Now if $d$ is the diameter of $\Gamma$ then it is not hard to notice that $r_A$=distance from $A$ to $\ell$=$TA\sin\angle (TA,\ell)$=$(d\sin a)\cdot\sin a=d\sin^{2} a.$ Meanwhile $\sin\angle A=|\sin (b-c)|.$ So our original ratio becomes $\sin a\cdot|\sin (b-c)|$ : $\sin a\cdot|\sin (c-a)|$ : $\sin c\cdot|\sin (a-b)|$. 
+		Nevertheless, 
+		\[
+		\sin a\cdot\sin (b-c)+\sin a\cdot\sin (c-a)+\sin c\cdot\sin (a-b)=0
+		\]
+		which means one of them is the sum of the other two when we package them into absolute number. 
+	\end{proof}
 	
 	Finally, notice that $A_1, B_1, C_1$ must all lie outside $\Gamma$. 
 	W.l.o.g. let $T$ be opposite $A$ on $\Gamma$, 
@@ -777,15 +784,136 @@
 	Now $n+a, n+2+a, n+4+a, n+6+a$ are all even, and since $4\mid t(n+a+k)-t(n+k)=t(n+a+k)-(n+k)$ for $k=0, 2, 4, 6$. Since $n\equiv n+4$ and $n+2\equiv n+6$, we have $t(n+a)\equiv t(n+a+4)\pmod{4}$ and $t(n+a+2)\equiv t(n+a+6)\pmod{4}$. If $n+a\equiv 2\pmod{4}$ then so is $n+a+4$, and therefore $t(n+a+4)-t(n+a)=(\frac{n+a+4}{2})-(\frac{n+a}{2})=2\not\equiv 0\pmod{4}$, contradiction. 
 	If $n+a\equiv 0\pmod{4}$, then $n+a+2\equiv n+a+6\equiv 2\pmod{4}$, so $t(n+a+6)-t(n+a+2)=\frac{n+a+6}{2}-\frac{n+a+2}{2}=2\not\equiv 0\pmod{4}$, another contradiction. Therefore $a<7$ is necessary. 
 	
-	\item[\textbf{N5}] (IMO 5) Let $f$ be a function from the set of integers to the set of positive integers. Suppose that, for any two integers $m$ and $n$, the difference $f(m) - f(n)$ is divisible by $f(m- n)$. Prove that, for all integers $m$ and $n$ with $f(m) \leq f(n)$, the number $f(n)$ is divisible by $f(m)$.
+	\item[\textbf{N5}] (IMO 5) Let $f$ be a function from the set of integers to the set of positive integers. Suppose that, for any two integers $m$ and $n$, the difference $f(m) - f(n)$ is divisible by $f(m- n)$. 
+	Prove that, for all integers $m$ and $n$ with $f(m) \leq f(n)$, the number $f(n)$ is divisible by $f(m)$.
 	
-	\textbf{Solution.} We first notice that $f(m-0)\mid f(m)-f(0)$ so $f(0)$ is divisible by $f(m)$ for all integers $m$. Also, $f(-n)=f(0-n)\mid f(0)-f(n)$ and since $f(0)$ is divisible by $f(n)$ from just now we have $f(-n)\mid f(n)$. Similarly $f(n)\mid f(-n)$ and since both are positive, we have $f(n)=f(-n)$ for all $n$. Notice also that for all $k\ge 0$ we have $f((k+1)n - kn) = f(n)\mid f((k+1)n) - f(kn)$ and by considering $k=1$ as base case and perform induction from there, we have $f(n)\mid f(kn)$ for all $k\ge 1$. But since $f$ is an even function with $f(n)=f(-n)$ for all $n$, we have $f(n)\mid f(kn)$ for all $k$. 
+	\textbf{Solution.} We first notice that: 
+	\begin{equation}
+		f(m - 0)\mid f(m) - f(0)\qquad 
+		\to 
+		\qquad 
+		\text{$f(0)$ is divisible by $f(m)$ for all integers $m$}
+	\end{equation}
+    And also 
+    \begin{equation}
+    	f(-n)=f(0-n)\mid f(0)-f(n)
+    	\qquad 
+    	\to 
+    	\qquad f(-n)\mid f(n)
+    \end{equation}
+    the last one follows from $f(n)\mid f(0)$ for all integers $n$. 
+    By symmetry, $f(n)\mid f(-n)$ and since both are positive, we have $f(n)=f(-n)$ for all $n$. 
+    
+    Next, we'll show that $f(n)\mid f(kn)$ for all integers $k, n$. 
+    Notice that for all $k\ge 0$ we have 
+    \begin{equation}
+    	f((k+1)n - kn) = f(n)\mid f((k+1)n) - f(kn)
+    \end{equation}
+    and by considering $k=1$ as base case and perform induction from there, we have $f(n)\mid f(kn)$ for all $k\ge 1$. But since $f$ is an even function with $f(n)=f(-n)$ for all $n$, we have $f(n)\mid f(kn)$ for all $k$. 
 	
 	Now consider $m, n$ arbitrary, and let $\gcd(m, n)=d$. By Euclidean algorithm there exist integers $a$ and $b$ such that $am+bn=d$. We know by above, $f(d)\mid f(am)$ and $f(d)\mid f(bn)$. This gives us the following relation: 
 	\[f(am)=f(d-bn)\mid f(d)-f(bn);\quad
 	  f(bn)=f(d-am)\mid f(d)-f(am)
 	\]
 	W.L.O.G. let $f(bn)\le f(am)$, then since $f(d)$ and $f(am)$ are both positive, we have $|f(d)-f(am)|<\max\{f(d), f(am)\}\le f(bn)$ (we have $f(d)\mid f(bn)$ so $f(d)\le f(bn)$, too. This means that the only possibility is $f(d)-f(am)=0$, so $f(d)=f(am)$. But then $f(d)\mid f(m)\mid f(am)=f(d)$ so we also have $f(d)=f(m)$. Finally, $f(m)=f(d)\mid f(n)$ since $d\mid n$, completing the problem solution. 
+	
+	\item [\textbf{N7}]
+	Let $p$ be an odd prime number. 
+	For every integer $a,$ define the number $S_a = \sum^{p-1}_{j=1} \frac{a^j}{j}.$ Let $m,n \in \mathbb{Z},$ such that 
+	\[S_3 + S_4 - 3S_2 = \frac{m}{n}\] 
+	
+	Prove that $p$ divides $m.$
+	
+	\textbf{Solution.} 
+	We denote the following: 
+	\begin{equation}
+		O_a = \sum_{1\le j\le p-1, j\text{ odd}} \frac{a^j}{j}
+		\qquad 
+		E_a = \sum_{1\le j\le p-1, j\text{ even}} \frac{a^j}{j}
+	\end{equation}
+    Observe that $S_a = O_a + E_a$ for all integers $a$. 
+    In addition, 
+    we will consider the modulo of a rational number mod $p$ so long as the denominator is not divisible by $p$, 
+    via multiplicative inverse. 
+    Thus from now on, all the equivalences are in modulo $p$. 
+    
+    We first consider the following: 
+    
+    \begin{lemma}
+    	$S_{a + 1}\equiv E_a - O_a$
+    \end{lemma}
+    
+    \begin{proof}
+    	Expanding $S_{a+1}$ gives us the following: 
+    	\begin{flalign}
+    		S_{a + 1} &= 
+    		\sum^{p-1}_{j=1} \frac{1}{j}\sum_{\ell = 0}^j \binom{j}{\ell}a^{\ell}
+    		\nonumber\\
+    		&=\sum_{\ell = 0}^{p - 1} a^{\ell}\sum_{j = \max(1, \ell)}^{p - 1}\frac{1}{j}\binom{j}{\ell}
+    		\nonumber\\
+    		&=\sum_{\ell=1}^{p - 1}\frac{a^0}{\ell} 
+    		+ \sum_{\ell = 1}^{p - 1} a^{\ell}\sum_{j = \ell}^{p - 1}\frac{1}{j}\binom{j}{\ell}
+    		\nonumber\\
+    		&=S_1 + \sum_{\ell = 1}^{p - 1} a^{\ell}\sum_{j = \ell}^{p - 1}\frac{(j - 1)!}{\ell!(j - \ell)!}
+    		\nonumber\\
+    		&=S_1 + \sum_{\ell = 1}^{p - 1} \frac{a^{\ell}}{\ell}\sum_{j = \ell}^{p - 1}\binom{j - 1}{\ell - 1}
+    	\end{flalign}
+        To proceed, notice the following: 
+        \begin{equation}
+        	S_1 = \sum_{j=1}^{p - 1}\frac{1}{j}
+        	= \sum_{j=1}^{(p -1) / 2}\frac{1}{j} + \frac{1}{p -j}
+        	=\sum_{j=1}^{(p -1) / 2}\frac{p}{j(p - j)}
+        	\equiv 0
+        \end{equation}
+    and also by telescoping sum, we have 
+    \begin{equation}
+    	\sum_{j = \ell}^{p - 1}\binom{j - 1}{\ell - 1}
+    	=\sum_{j = \ell}^{p - 1}\binom{j}{\ell} - \binom{j - 1}{\ell} 
+    	=\binom{p - 1}{\ell} - \binom{\ell - 1}{\ell}
+    	=\binom{p - 1}{\ell}
+    \end{equation}
+    Finally, we also have $\binom{p - 1}{\ell}=\frac{(p-1)\cdots (p-\ell)}{\ell!}
+    \equiv \frac{(-1)\cdots (-\ell)}{\ell!}=(-1)^{\ell}$, therefore 
+    \begin{equation}
+    	S_{a+1}
+    	=S_1 + \sum_{\ell = 1}^{p - 1} \frac{a^{\ell}}{\ell}\sum_{j = \ell}^{p - 1}\binom{j - 1}{\ell - 1}
+    	\equiv 0 + \sum_{\ell = 1}^{p - 1} \frac{a^{\ell}}{\ell}(-1)^{\ell}
+    	=E_a - O_a
+    \end{equation}
+    \end{proof}
+    
+    Now we have the next one: 
+    \begin{lemma}
+    	$S_{a^2} \equiv 2E_a + 2aO_a$
+    \end{lemma}
+    \begin{proof}
+    	Again we have the following expansion: 
+    	\begin{equation}
+    		S_{a^2} = \sum^{p-1}_{j=1}\frac{a^{2j}}{j}
+    		= \sum_{j=1}^{(p - 1)/ 2} \left(\frac{a^{2j}}{j} + \frac{a^{2j + (p - 1)}}{(p - 1)/ 2 + j}\right)
+    		\equiv \sum_{j=1}^{(p - 1)/ 2} a^{2j}\left(\frac{1}{j} + \frac{1}{-\frac 12 + j}\right)
+    	\end{equation}
+        which can then be decomposed into the following: 
+        \begin{equation}
+        	\sum_{j=1}^{(p - 1)/ 2} \frac{a^{2j}}{j}
+        	=2\sum_{j=1}^{(p - 1)/ 2} \frac{a^{2j}}{2j}
+        	=2E_a
+        \end{equation}
+        and also 
+        \begin{equation}
+        	\sum_{j=1}^{(p - 1)/ 2} \frac{a^{2j}}{-\frac 12 + j}
+        	\equiv \sum_{j=1}^{(p - 1)/ 2} \frac{2a^{2j}}{2j - 1}
+        	=2a\sum_{j=1}^{(p - 1)/ 2} \frac{a^{2j - 1}}{2j - 1}
+        	=2aO_a
+        \end{equation}
+    \end{proof}
+    Therefore considering $a = 2$ we have 
+    \begin{equation}
+    	S_3 + S_4 - 3S_2
+    	\equiv (E_2 - O_2) + (2E_2 + 2\cdot 2\cdot O_2) - 3(E_2 + O_2)
+    	= 0
+    \end{equation}
+    as desired. 
 	
 	\item [\textbf{N8}] Let $k \in \mathbb{Z}^+$ and set $n=2^k+1.$ Prove that $n$ is a prime number if and only if the following holds: there is a permutation $a_{1},\ldots,a_{n-1}$ of the numbers $1,2, \ldots, n-1$ and a sequence of integers $g_{1},\ldots,g_{n-1},$ such that $n$ divides $g^{a_i}_i - a_{i+1}$ for every $i \in \{1,2,\ldots,n-1\},$ where we set $a_n = a_1.$
 	
@@ -801,6 +929,9 @@
 		If $\phi(n)$ is the number of integers $\le n$ and relatively prime to $n$ then 
 		by Fermat's little theorem, $a^{\phi(\gcd(p-1, q-1))}\equiv 1\pmod{n}$
 	\end{itemize}
+    
+    
+    
 	
 \end{enumerate}
 

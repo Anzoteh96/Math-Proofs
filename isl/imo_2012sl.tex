@@ -206,6 +206,51 @@
 		\]
 		which means $B_1$ is now empty. As $B_0$ and $B_2$ both have 1 coin before $B$'s move, $A$ cannot transfer coin from either box to $B_1$. Hence $B_1$ remains empty. 
 		
+		\item[\textbf{C5}]
+		
+		The columns and the row of a $3n \times 3n$ square board are numbered $1,2,\ldots ,3n$. 
+		Every square $(x,y)$ with $1 \leq x,y \leq 3n$ is colored asparagus, byzantium or citrine according as the modulo $3$ remainder of $x+y$ is $0,1$ or $2$ respectively. 
+		One token colored asparagus, byzantium or citrine is placed on each square, so that there are $3n^2$ tokens of each color.
+		
+		Suppose that one can permute the tokens so that each token is moved to a distance of at most $d$ from its original position, each asparagus token replaces a byzantium token, each byzantium token replaces a citrine token, and each citrine token replaces an asparagus token. 
+		Prove that it is possible to permute the tokens so that each token is moved to a distance of at most $d+2$ from its original position, and each square contains a token with the same color as the square.
+		
+		\textbf{Solution.} 
+	    Let asparagus = $A$, byzantium = $B$, and citrine = $C$, 
+	    and call a token $A$-token, $B$-token, $C$-token based on its colour 
+	    (and similarly, $A$-square, $B$-square, $C$-square based on its colour). 
+		For each token, call a square $u$-good w.r.t. the token if the square is at most distance $u$ away and has the same colour as the token. 
+		Then by Hall's lemma, it suffices to show that for any subset $S$ of the $9n^2$ tokens, 
+		the number of squares that are $d+2$-good to at least one token in $S$ is at least $|S|$. 
+		Since a good square-token pair must have the same colour, 
+		it suffices to consider the case where $S$ is all of the same colour. 
+		
+		Consider the case where $S$ as a subset of $A$-tokens, with $k\triangleq |S|\le 3n^2$. 
+		Denote $S_B$ be the set of $k$ $B$-tokens that each token in $S_A$ can replace within $d$ steps, 
+		and $S_C$ the set of $k$ $C$-tokens that replaces each token in $S_A$ within $d$ steps. 
+		Denote, now, $T$ as $S\cup S_B\cup S_C$. 
+		Also denote $D_{u}(U)$ as the set of $A$-squares that are $u$-good to at least one token in $U$. 
+		
+		We first show that $|D_{2}(U)|\ge \frac{|U|}{3}$ for any subset $U$ of the $9n^2$ tokens. 
+		Consider each triple of coordinates $\{(x, 3y - 2), (x - 3y - 1), (x, 3y)\}$, 
+		where $x=1,\cdots, 3n$ and $y=1, \cdots, n$. 
+		We see that each such triple has exactly one $A$-square. 
+		Suppose $\ell\le 3n^2$ of these triples have at least one token in $U$ occupying a space in one of these coordinates. 
+		For each of these $\ell$ triples, the $A$-square has distance at most 2 with the token in $U$ (since $|3y - (3y-2)|\le 2$). 
+		Thus this $A$-square is in $D_2(U)$, so $|D_2(U)|\ge \ell$. 
+		Meanwhile, $|U|\le 3\ell$ since the squares in $U$ must be in these $\ell$ triples. 
+		This gives $|D_{2}(U)|\ge \frac{|U|}{3}$. 
+		
+		In particular, $|D_2(T)|\ge \frac{|T|}{3}=\frac{3k}{3} = k$. 
+		We'll now show that $D_2(T)\subseteq D_{d + 2}(S)$. 
+		Indeed, for each $A$-square in $D_2(T)$, 
+		if it's $2$-close with a token in $S$ then it's in $D_2(S)\subseteq D_{d+2}(S)$; 
+		if it's in $2$-close with a token in $S_B$ or $S_C$, this token is of distance $\le d$ with some $A$-token 
+		(either replaces or being replaced), 
+		and hence $d+2$-close to that $A$-token. 
+		Therefore it's in $D_{d+2}(S)$. 
+		We therefore conclude that $|D_{d+2}(S)|\ge k = |S|$, as desired. 
+		
 		\item[\textbf{C6}] (IMO 3)
 		The liar's guessing game is a game played between two players $A$ and $B$. The rules of the game depend on two positive integers $k$ and $n$ which are known to both players.
 		

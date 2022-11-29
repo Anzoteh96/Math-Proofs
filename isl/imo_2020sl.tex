@@ -462,6 +462,104 @@
 	Now, reflect $A$ in $BD$ to get $G$. To avoid cases on whether $K$ lies between $E$ and $A$ we use directed angles here. From $E$ being the reflection of $A$ in $BC$ we get $\angle (AE, AB)=\angle(EB, AE)$ and similarly by definition of $G$ we get $\angle (AE, AB)=\angle(AK, AB)=\angle(BG, GK)$. 
 	Therefore, $\angle(BG, GK)=\angle(BE, EA)=\angle(BE, EK)$ so $B, G, K, E$ are concyclic. Similarly, $L, D, F, G$ are concyclic. This means that $G$ is an intersection of circumcircles of $BDK$ and $DFL$. Finally, since circles $BAK$ and $ALD$ are tangent to each other, same goes to circles $BDK$ and $DFL$ as they are simply the reflections of $BAK$ and $ALD$ in line $BD$. 
 	
+	\item [\textbf{G5}] 
+	Let $ABCD$ be a cyclic quadrilateral. 
+	Points $K, L, M, N$ are chosen on $AB, BC, CD, DA$ such that $KLMN$ is a rhombus with $KL \parallel AC$ and $LM \parallel BD$. 
+	Let $\omega_A, \omega_B, \omega_C, \omega_D$ be the incircles of $\triangle ANK, \triangle BKL, \triangle CLM, \triangle DMN$.
+	
+	Prove that the common internal tangents to $\omega_A$, and $\omega_C$ and the common internal tangents to $\omega_B$ and $\omega_D$ are concurrent.
+	
+	\textbf{Solution.} 
+	Let $O_A, O_B, O_C, O_D$ be the centers of $\omega_A, \omega_B, \omega_C, \omega_D$. 
+	Denote the common internal tangency point of incircles $BAD$ and $BCD$ as $P$, 
+	and the common internal tangency point of incircles $ABC$ and $ADC$ as $Q$. 
+	Denote, also, the inradius of triangle $XYZ$ as $r(XYZ)$. 
+	We see that $P$ lies on $BD$ and $Q$ lies on $AC$. 
+	
+	Let's first show the following: 
+	\[
+	\frac{BP}{PD} = \frac{r(BKL)}{r(DMN)}
+	\]
+	Indeed, we see that triangles $BKL$ and $BAC$ are similar, with similitude, say, $\beta$. 
+	Similarly, $AKN$ and $ABD$ are similar, with similitude, say, $\alpha$. 
+	Then $\alpha + \beta = \frac{AK+KB}{KB}=1$. 
+	It then follows that the similitude of $DMN$ and $DCA$ is also $\beta$, 
+	and the similitude of $CLM$ and $CBD$ is $\alpha$. 
+	Thus $\frac{r(BKL)}{r(DMN)} = \frac{r(BAC)}{r(DCA)}$, so it suffices to show that 
+	$\frac{BP}{PD} = \frac{r(BAC)}{r(DCA)}$. 
+	
+	Now $P$ is the intersection of $BD$ and $I_AI_C$, where $I_A$ is the incenter of $ABD$ and $I_C$
+	the incenter of $CBD$. 
+	Then we have (using $|\triangle|$ as the area of a triangle)
+	\[
+	\frac{BP}{PD}
+	=\frac{|BI_AI_C|}{|DI_AI_C|}
+	=\frac{BI_A\cdot BI_C\cdot \sin\angle I_ABI_C}
+	{DI_A\cdot DI_C\cdot \sin\angle I_ADI_C}
+	=\frac{\sin\angle I_ADB\cdot \sin\angle I_CDB\cdot \sin\angle I_ABI_C}
+	{\sin\angle I_ABD\cdot \sin\angle I_CBD\cdot \sin\angle I_ADI_C}
+	\]
+	(the last equality by sine rule). 
+	Meanwhile, denoting $I_B$ the incenter of $ABC$ and $I_D$ the incenter of $ADC$ we have 
+	\[
+	\frac{r(BAC)}{r(DCA)}
+	=\frac{|AI_BC|}{|AI_DC|}
+	=\frac{AI_B\cdot I_BC\cdot \sin\angle AI_BC}{AI_D\cdot I_DC\cdot \sin\angle AI_DC}
+	=\frac{(AC\frac{\sin\angle I_BCA}{\sin\angle AI_BC})\cdot (AC\frac{\sin\angle I_BAC}{\sin\angle AI_BC})\cdot \sin\angle AI_BC}
+	{(AC\frac{\sin\angle I_DCA}{\sin\angle AI_DC})\cdot (AC\frac{\sin\angle I_DAC}{\sin\angle AI_DC})\cdot \sin\angle AI_DC}
+	\]
+	\[
+	=\frac{\sin\angle I_BCA\sin\angle I_BAC\sin\angle AI_DC}{\sin\angle I_DCA\sin\angle I_DAC\sin\angle AI_BC}
+	\]
+	We also have 
+	\[
+	\angle I_ADB
+	=\frac 12\angle ADB=\frac 12\angle ACB=\frac 12\angle I_BCA
+	\qquad 
+	\angle I_CDB
+	=\frac 12\angle CDB=\frac 12\angle CAB=\frac 12\angle I_BAC
+	\]
+	\[
+	\angle I_ABD
+	=\frac 12\angle ABD=\frac 12\angle ACD=\frac 12\angle I_DCA
+	\qquad 
+	\angle I_CBD
+	=\frac 12\angle CBD=\frac 12\angle CAD=\frac 12\angle I_DAC
+	\]
+	and finally, 
+	\[
+	\angle AI_DC = 90^{\circ} + \frac{\angle ADC}{2}
+	=180^{\circ} - \frac{\angle ABC}{2}
+	=180^{\circ} - \angle I_ABI_C
+	\]\[
+	\angle AI_BC = 90^{\circ} + \frac{\angle ABC}{2}
+	=180^{\circ} - \frac{\angle ADC}{2}
+	=180^{\circ} - \angle I_ADI_C
+	\]
+	so the two ratios are indeed equal, as desired. 
+	In a similar way we also have 
+	\[
+	\frac{AQ}{QC}
+	=\frac{r(AKN)}{r(CLM)}
+	\]
+	Next, let $R$ be on $PQ$ such that $\frac{PR}{RQ} = \frac{\beta}{\alpha}$, 
+	i.e. $R = \alpha P + \beta Q$ . 
+	We show that $R$ is the desired point of concurrency. 
+	To see why, let $\frac{AQ}{QC}=\frac{r(AKN)}{r(CLM)}=\frac{r(ABD)}{r(CBD)}=\frac{\gamma}{\mu}$ for some $\gamma, \mu>0$ and $\gamma + \mu = 1$. 
+	Then we have $Q = \mu C + \gamma A$, 
+	$P = \mu I_C + \gamma I_A$. 
+	We also have $A, O_A, I_A$ collinear with $O_A = \beta A + \alpha I_A$ and 
+	$C, O_C, I_C$ collinear with $O_C = \beta C + \alpha I_C$. 
+	Thus the common internal tangents of $\omega_A, \omega_C$ intersect at the following point: 
+	\[
+	\mu O_C + \gamma O_A
+	=\mu (\beta C + \alpha I_C) + \gamma (\beta A + \alpha I_A)
+	=\beta(\mu C + \gamma A) + \alpha(\mu I_C + \gamma I_A)
+	=\beta Q + \alpha P
+	\]
+	so this point is indeed $R$. 
+	In a similar way we can also show that the common internal tangents of $\omega_B, \omega_D$ will intersect at $R$. 
+	
 	\item [\textbf{G6}] Let $ABC$ be a triangle with $AB < AC$, incenter $I$, and $A$ excenter $I_{A}$. The incircle meets $BC$ at $D$. Define $E = AD\cap BI_{A}$, $F = AD\cap CI_{A}$. Show that the circumcircle of $\triangle AID$ and $\triangle I_{A}EF$ are tangent to each other. 
 	
 	\textbf{Solution.} We first claim that the circles $AID$ and $I_AEF$ have an intersection on the circle $IBC$. 
@@ -538,6 +636,8 @@
 	%%%G8%%%
 	\item [\textbf{G8}]
 	Let $ABC$ be a triangle with incenter $I$ and circumcircle $\Gamma$. Circles $\omega_{B}$ passing through $B$ and $\omega_{C}$ passing through $C$ are tangent at $I$. Let $\omega_{B}$ meet minor arc $AB$ of $\Gamma$ at $P$ and $AB$ at $M\neq B$, and let $\omega_{C}$ meet minor arc $AC$ of $\Gamma$ at $Q$ and $AC$ at $N\neq C$. Rays $PM$ and $QN$ meet at $X$. Let $Y$ be a point such that $YB$ is tangent to $\omega_{B}$ and $YC$ is tangent to $\omega_{C}$.
+	
+	Show that $A,X,Y$ are collinear.
 	
 	\textbf{Solution.} 
 	We break things down into several steps. 
