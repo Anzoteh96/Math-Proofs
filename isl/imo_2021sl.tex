@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, float}
 \usepackage{mathrsfs,amsthm}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
@@ -465,7 +465,219 @@
 	    
 	    \textbf{Answer.} Yes, the hunter can win. 
 	    
-	    \textbf{Solution.} (TODO)
+	    \textbf{Solution.} 
+	    Disclaimer: this solution deliberately wastes colour (to make analysis easier) since we aren't interested in optimizing the number of colours. 
+	    
+	    Assume that the grid is infinite in both directions for both coordinates 
+	    (if it's only infinite in one direction the problem would just get easier). 
+	    We may then denote the coordinates as $(x, y)$ with $x\in\bbZ$ and $y\in\bbZ$. 
+	    In our solution we denote $x$-gap of two cells as distance in $x$-coordinates; 
+	    define $y$-gap analogously. 
+	    
+	    Now consider the following attributes of the squares: 
+	    \begin{itemize}
+	    	\item $x\pmod 3$, $y\pmod{3}$ (call these $M3x$ and $M3y$). 
+	    	
+	    	\item Binary variable on whether $x\ge 0$, and whether $y\ge 0$ 
+	    	(call these $x0$ and $y0$). 
+	    	
+	    	\item Binary variable on whether $|x|$ is a power of 2, and $|y|$ is a power of 2 
+	    	(call these $P2x$ and $P2y$). 
+	    	
+	    	\item 
+	    	We encode the following into one of $\{s, 0, 1\}$. 
+	    	For each $(x, y)$, let $\ell_x$ be the number of digits of $|x|$ in binary representation (thus $\ell_x=1$ for $x=-1, 0, 1$). 
+	    	Let $r$ be the remainder of $y$ when divided by $\ell_x + 1$, 
+	    	then if $r=0$ we encode $s$ (call this separator); 
+	    	otherwise we encode the $r$-th digit of $x$. 
+	    	(Call this $D_x$). 
+	    	Repeat the same with $(x, y)$ reversed, call this $D_y$. 
+	    	
+	    	\item Finally, for each $(x, y)$ we also encode where $y$ is divisible by $\ell_x + 2$, 
+	    	and also whether $x$ is divisible by $\ell_y + 2$. (Call these $N_x, N_y$ respectively). 
+	    \end{itemize}
+        These would put them into $3^2\times 2^2\times 2^2 \times 3^2\times 2^2 = 5084$ classes, 
+        thus the hunter may colour according to the classes. 
+        
+        We now show that the farmer can obtain victory after the rabbit travels finitely many steps, 
+        via the following protocol: 
+        \begin{itemize}
+        	\item Determine the trajectory (and track it all the time)
+        	
+        	\item Determine one of its coordinates
+        	
+        	\item Determine the other coordinate
+        \end{itemize}
+        The trajectory can be determined via $M3x$ and $M3y$ at all times, 
+        hence the farmer only needs to learn the current coordinate of the rabbit. 
+        Next, as the rabbit is only permitted to visit squares it has not visited before, 
+        either the $x$-coordinate or the $y$-coordinate has to be unbounded in one of the directions. 
+        W.l.o.g. we assume that the $x$-coordinate it visits is unbounded. 
+        
+        We first claim that the farmer can learn the $x$-coordinate of the rabbit, given that the $x$-coordinate it visits is unbounded. 
+        If the rabbit ever crosses both the negative and nonnegative region, 
+        then the indicator $x0$ will be flipped at $-1\leftrightarrow 0$ region, 
+        allowing the farmer to learn the $x$-coordinate immediately. 
+        Otherwise, we assume that the rabbit it's in one region only; w.l.o.g. it's only in the nonnegative region. 
+        Since $x$-coordinate of the rabbit's trajectory is unbounded, 
+        and that the coordinate they visit have to be consecutive, 
+        it has to pass through both $2^k, 2^{k+1}$ for some $k\ge 1$. 
+        The farmer can then determine $k$ via $P2x$, 
+        where the two consecutive cells with $P2x$ turned on have $x$-distance $2^k$ (which the farmer knows). 
+        
+        It now remains to determine the $y$-coordinate. 
+        Using similar logic as the $x$-coordinate case, 
+        if the $y$-coordinate ever changes sign, or the rabbit ever lands on two cells with different $y$-coordinates with $P2y$ turned on, 
+        then the farmer can determine this $y$-coordinate. 
+        Hence we assume it's not the case here. 
+        Similar as before, we assume that the $y$-coordinate is nonnegative throughout. 
+        
+        We divide our analysis into whether the rabbit lands on a cell (say, $c_0$, with $y$ coordinate $y_0$) with $P2y$ turned on. 
+        If this is the case, then the hunter knows that the cell with $y$-coordinate a power of 2. 
+        It therefore remains to just learn the number of digits. 
+        Here's where the separator variable comes in: via $N_y$ and $D_y$. 
+        If the rabbit goes below $c_0$ (i.e. strictly lower $y$-coordinate) then the farmer focuses on $N_y$; 
+        otherwise the farmer focuses on $D_y$: whether a separator is turned on (not the digits 0 or 1)
+        (call these `variable of interest' here). 
+        In any case, the flag of interest is on if and only if the $x$-coordinate (which the farmer knows by now) is divisible by $\ell_{y_0}+1$. 
+        The hunter can learn $\ell_{y_0}$ by looking at the of the $x$-gap of the consecutive cells (of different $x$-coordinate) with the variable of interest turn on 
+        (which will exist as $x$-coordinate of the rabbit is unbounded). 
+        
+        Otherwise, if the rabbit never steps on cells with $y$-coordinate that's a power of 2, 
+        then $\ell_y$ is constant throughout. 
+        Since the $x$-coordinate of the rabbit is unbounded, 
+        the farmer can first learn $\ell_y$ by identifying the two `consecutive' cells 
+        with different $y$-coordinates that have $s$ (separator) variable encoded (so $\ell_y+1$ is the $x$-gap). 
+        Then, the rabbit will have to traverse the whole spectrum where $x$-coordinate has remainder $0, 1, \cdots, \ell_y$ when 
+        divided by $\ell_y+1$. 
+        Although the $y$-coordinate itself changes across steps, the farmer can use the trajectory of the rabbit to determine the corresponding digits 
+        (starting from the unit digits, and then 2, 4, $\cdots$).
+        This enables the hunter to learn the precise $y$-coordinates, eventually. 
+	    
+	    \item [C7.]
+	    Consider a checkered $3m\times 3m$ square, where $m$ is an integer greater than $1.$ A frog sits on the lower left corner cell $S$ and wants to get to the upper right corner cell $F.$ The frog can hop from any cell to either the next cell to the right or the next cell upwards.
+	    
+	    Some cells can be sticky, and the frog gets trapped once it hops on such a cell. A set $X$ of cells is called blocking if the frog cannot reach $F$ from $S$ when all the cells of $X$ are sticky. A blocking set is minimal if it does not contain a smaller blocking set.
+	    
+	    \begin{enumerate}
+	    	\item [(a)] 
+	    	Prove that there exists a minimal blocking set containing at least $3m^2-3m$ cells.
+	    	
+	    	\item [(b)]
+	    	Prove that every minimal blocking set contains at most $3m^2$ cells.
+	    \end{enumerate}
+        
+        \textbf{Solution.} 
+        Throughout the solution, we denote the phrase $B$ is ``reachable'' from $A$ by the meaning that there's a path from cell $A$ to cell $B$ with only upwards and rightwards moves, 
+        without passing through any cell in $X$. 
+        
+        A construction for (a) is as follows: we partition our checkered square into $m$ subsquares with 3 rows each (and $3m$ columns). 
+        Then for each of these subsquares, we block off: 
+        \begin{itemize}
+        	\item the second cell from the left for the top row; 
+        	
+        	\item all except the leftmost two and the rightmost two for the middle row; 
+        	
+        	\item the second cell from the right for the bottom row. 
+        \end{itemize}
+        
+        \begin{table}[H]
+        	\centering
+        	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        		\hline 
+        		& x & & & & & & & \\
+        		\hline 
+        		&  & x & x & x & x & x & & \\
+        		\hline 
+        		&  & & & & & & x & \\
+        		\hline 
+        	\end{tabular}
+            \caption{An illustration of one of the $3\times 3m$ subsquare when $m=3$}
+        \end{table}
+        As a short justification on why this works, we have a total of $m(3m-2)=3m^2-2m$ cells. 
+        Within each subsquare, the blocking cells partition the non-blocking cells into ``bottom-left'' (BL) and ``top right'' (TR) region; 
+        when travelling from BL region of a subsquare, 
+        the frog either goes to another cell of the BL region of this subsquare 
+        or the BL region of the subsquare above it, 
+        hence keep staying in BL region.  
+        This proves blockingness since $S$ is in BL region while $F$ is in TR region (of their respective subsquare). 
+        Finally, removal of any x's above allows the frog to traverse from BL to TR region. 
+        Given that any cell in BL region of any subsquare is reachable from $S$ 
+        while $F$ is reachable from any cell in TR region of any subsquare, 
+        this proves minimality. 
+        
+        For (b), we consider the following characteristics of any minimal blocking set $X$. 
+        For each $x\in X$ we see the following: 
+        \begin{itemize}
+        	\item $X\backslash \{x\}$ is non-blocking, so there's a valid path that passes through no cell in $X$ other than $x$. 
+        	
+        	\item $X$ is blocking, so this path must pass through $x$ (and no other cell in $X$). 
+        \end{itemize}
+        
+        Now let $Y$ be the set reachable by $S$, and $Z$ be the set where $F$ is reachable from. 
+        Since $X$ is blocking, $Y$ and $Z$ are disjoint. 
+        We'll show that $|Y|\ge |X|-1$ and $|Z|\ge |X|-1$. 
+        This would then imply 
+        \begin{equation}
+        	9m^2 \ge |X| + |Y| + |Z| \ge 3|X| - 2
+        \end{equation}
+        which means $|X|\le 3m^2$. 
+        
+        To do so we appeal to the following graph theory formulation. 
+        \begin{lemma}
+        	Let $G$ be a directed acyclic graph. If $u\to v$ is an edge, 
+        	we say $u$ is a parent of $v$, and $v$ is a child of $u$. 
+        	We say that a node is a root if it has no parent, 
+        	and a node is a leaf if it has no children. 
+        	
+        	Suppose that $G$ has exactly one root and each node has at most two children. 
+        	let $k$ be the number of leaf and $\ell$ the number of non-leaf. 
+        	Then $k-\ell \le 1$. 
+        \end{lemma}
+        
+        \begin{proof}
+        	Denote a path by a sequence of nodes connected by directed edge, 
+        	and a reverse path as the sequence reversed (traversed by reverse edge). 
+        	We now proceed by induction on the graph. 
+        	Base case is where we have a single node; here $k=1, \ell=0$. 
+        	
+        	Inductive step: suppose that for some $G$, 
+        	this statement holds for all graphs $G'$ with fewer nodes than $G$. 
+        	We see that by traversing from any node in reverse direction it will reach the root eventually 
+        	(since there's only one root and our graph is acyclic). 
+        	Consider a non-leaf $p$ in $G$ such that all its children are leaves; 
+        	this choice exist by considering an arbitrary topological ordering of $G$ and we choose $p$ that's ranked last among the non-leaves 
+        	(there must be one non-leaf if $G$ has $>1$ node since we only have one root). 
+        	Denote $G'$ as $G$ with all the children of $p$ deleted. 
+        	This means $G'$ also has a single root (as all the nodes deleted are leaves). 
+        	
+        	Since $p$ (and possibly some other node that shares children with $p$) is now a leaf, 
+        	$\ell'\le \ell-1$. 
+        	Meanwhile, given that $p$ has no more than two children (which got deleted) while $p$ is now a leaf, 
+        	we have $k'\ge k-1$. 
+        	By induction hypothesis, 
+        	$k'-\ell'\le 1$, 
+        	so $k-\ell \le (k' + 1) - (\ell'+1) \le 1$, as desired. 
+        \end{proof}
+        
+        Now to complete the solution, consider the cells $X\cup Y$, 
+        and cell $u$ is a parent of cell $v$ if $v$ is next cell right or next cell upwards to $u$, 
+        and $u, v$ not both in $X$. 
+        By our construction, each cell in $X$ cannot have any child (and hence must be all the leaves), 
+        and each cell in $Y$ can have at most two child. 
+        Finally, the only root can be $S$: 
+        all cells in $X\cup Y$ are reachable from $S$. 
+        Take $x\in X\cup Y$ and $y$ be the cell immediately before $x$ in the path from $S$ to $x$, 
+        $y\in Y$ and therefore $y$ is a parent of $x$ 
+        ($y\not\in Z$ since $X$ is blocking). 
+        Thus our lemma is applicable here, and $|X|-|Y|\le 1$. 
+        Analogously, 
+        we may consider $Z\cup X$ 
+        and cell $u$ is parent of cell $v$ if $v$ is cell left or bottom to $u$, and adjacent to $u$, 
+        and $u, v$ not both in $X$ (we can similarly show that $F$ is the only root). 
+        Similar to the previous case, we have a generalized binary tree and so $|X|-|Z|\le 1$. 
+        
+        \textbf{Remark.} The construction of (a) is motivated by mazes. 
 	    
 	    \item [C8.] 
 	    Determine the largest integer $N$ for which there exists a table $T$ of integers with $N$ rows and $100$ columns that has the following properties:

@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage{amsfonts}
-\usepackage{amsmath}
+\usepackage{amsmath, amsthm}
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -59,51 +59,74 @@
 \newcommand{\qubits}[1]{|{#1}\rangle}
 \newcommand{\dsum}{\displaystyle\sum}
 
+\newtheorem{lemma}{Lemma}
+
 \begin{document}
 \section*{Algebra}
 \begin{enumerate}
 	\item [\textbf{A1}] (IMO 1) Find all function $f:\mathbb{R}\rightarrow\mathbb{R}$ such that for all $x,y\in\mathbb{R}$ the following equality holds \[
 	f(\left\lfloor x\right\rfloor y)=f(x)\left\lfloor f(y)\right\rfloor \] where $\left\lfloor a\right\rfloor $ is greatest integer not greater than $a.$
 	
-	\textbf{Solution.} Plugging $x=y=0$ gives $f(0)=f(0)\lfloor f(0)\rfloor$, i.e. $f(0)(\lfloor f(0)\rfloor-1)=0$. 
+	\textbf{Answer.} Such $f$ is a constant (say $c$), where $c=0$ or $1\le c < 2$. 
+	
+	\textbf{Solution.} 
+	We first verify our solution, noting that LHS is the constant $c$, 
+	while the RHS is $c\lfloor c\rfloor=c$ since $c=0$ or $\lfloor c\rfloor=1$. 
+	Now plugging $x=y=0$ gives 
+	\begin{equation}
+		f(0)=f(0)\lfloor f(0)\rfloor
+	\end{equation}
+	i.e. $f(0)(\lfloor f(0)\rfloor-1)=0$. 
 	This means either $f(0)=0$ or $\lfloor f(0)\rfloor=1$. 
 	
-	In the second case with $\lfloor f(0)\rfloor=1$, plugging just $y=0$ gives $f(0)=f(x)\lfloor f(0)\rfloor=f(x)$, so $f(x)=f(0)$ for all $x$ and we have $f\equiv c$ for some constant $c\in [1, 2)$. Otherwise, $f(0)=0$. 
+	In the second case with $\lfloor f(0)\rfloor=1$, plugging just $y=0$ gives $f(0)=f(x)\lfloor f(0)\rfloor=f(x)$, so $f(x)=f(0)$ for all $x$ and we have $f\equiv c$ for some constant $c\in [1, 2)$. 
+	
+	Now consider the case $f(0) = 0$. 
 	Let $0\le x<1$ be arbitrary, then $\lfloor x\rfloor =0$ so in this case plugging $y=x$ gives $0=f(0)=f(x)\lfloor f(x)\rfloor $, meaning that 
 	$f(x)=0$ or $\lfloor f(x)\rfloor =0$, though the first condition actually means $\lfloor f(x)\rfloor =0$ too. 
 	Therefore $0\le x<1$ means $\lfloor f(x)\rfloor =0$ for all $x$. 
 	Now for any real number $z$, choose an integer $x$ such that $|x|>|z|$ and both $x$ and $z$ have the same sign. Then $0<z/x<1$. Let $y=z/x$ and we have 
 	$f(z)=f(xy)=f(\lfloor x\rfloor y)=f(x)\left\lfloor f(y)\right\rfloor =f(x)(0)=0$, so $f\equiv 0$. 
 	
-	Finally, to show these work, if $f\equiv 0$ then LHS=RHS=0 and if $f\equiv c$ for some $c\in [1, 2)$ we have LHS=RHS$=c$. 
 	
 	\item[\textbf{A2}] Let the real numbers $a,b,c,d$ satisfy the relations $a+b+c+d=6$ and $a^2+b^2+c^2+d^2=12.$ Prove that
 	\[36 \leq 4 \left(a^3+b^3+c^3+d^3\right) - \left(a^4+b^4+c^4+d^4 \right) \leq 48.\]
 	
 	\textbf{Solution.} For the right inequality, all we need is the following AM-GM inequality: 
-	\begin{flalign*}
+	\begin{flalign}
 	\frac{a^4+b^4+c^4+d^4+48}{2}
-	&=\frac{(a^4+4a^2)+(b^4+4b^2)+(c^4+4c^2)+(d^4+4d^2)}{2}\\
-	&=\ge \sqrt{4a^6} + \sqrt{4b^6} + \sqrt{4c^6}+\sqrt{4d^6}\\
-	&=\ge 2|a^3| + 2|b^3| + 2|c^3| + 2|d^3|\\
+	&=\frac{(a^4+4a^2)+(b^4+4b^2)+(c^4+4c^2)+(d^4+4d^2)}{2}
+	\nonumber\\
+	&\ge \sqrt{4a^6} + \sqrt{4b^6} + \sqrt{4c^6}+\sqrt{4d^6}
+	\nonumber\\
+	&\ge 2|a^3| + 2|b^3| + 2|c^3| + 2|d^3|
+	\nonumber\\
 	&\ge 2a^3+2b^3+2c^3+2d^3
-	\end{flalign*}
+	\end{flalign}
 	rearranging gives $4 \left(a^3+b^3+c^3+d^3\right) - \left(a^4+b^4+c^4+d^4 \right) \leq 48$. 
 	
-	For the left inequality, we notice the following: $(a-1)^4=(a^4-4a^3)+6a^2-6a+1$ and if we denote $S_k=a^k+b^k+c^k+d^k$ we have $(a-1)^4+(b-1)^4+(c-1)^4+(d-1)^4=S_4-4S_3+6S_2-6S_1+4=S_4-4S_3+6(12)-4(6)+4=S_4-4S_3+52$. 
+	For the left inequality, we notice the following: $(a-1)^4=(a^4-4a^3)+6a^2-6a+1$ and if we denote $S_k=a^k+b^k+c^k+d^k$ we have
+	\begin{equation}
+		(a-1)^4+(b-1)^4+(c-1)^4+(d-1)^4=S_4-4S_3+6S_2-6S_1+4=S_4-4S_3+52
+	\end{equation}
+	using $S_1=6$ and $S_2=12$. 
 	This means, \[4S_3-S_4=52-\left[(a-1)^4+(b-1)^4+(c-1)^4+(d-1)^4\right]\]
 	On the other hand, 
 	$(a-1)^2+(b-1)^2+(c-1)^2+(d-1)^2=S_2-2S_1+4=12-2(6)+4=4$. Considering the following identity for all reals $x_1, \cdots , x_n$
 	\[
 	\left(\displaystyle\sum_{i=1}^n x_i^2\right)^2
-	=\displaystyle\sum_{i=1}^n x_i^4 + 2\displaystyle\sum_{i < j} x_ix_j
+	=\displaystyle\sum_{i=1}^n x_i^4 + 2\displaystyle\sum_{i < j} x_i^2x_j^2
 	\ge \displaystyle\sum_{i=1}^n x_i^4
 	\]
-	(since all squares are nonnegative), we have $(a-1)^4+(b-1)^4+(c-1)^4+(d-1)^4\le ((a-1)^2+(b-1)^2+(c-1)^2+(d-1)^2)^2=4^2=16$, so $4S_3-S_4\ge 52-16=36$, as desired. 
+	(since all squares are nonnegative), we have 
+	\[(a-1)^4+(b-1)^4+(c-1)^4+(d-1)^4\le ((a-1)^2+(b-1)^2+(c-1)^2+(d-1)^2)^2=4^2=16\] so $4S_3-S_4\ge 52-16=36$, as desired. 
 	
 	\item[\textbf{A4}] A sequence $x_1, x_2, \ldots$ is defined by $x_1 = 1$ and $x_{2k}=-x_k, x_{2k-1} = (-1)^{k+1}x_k$ for all $k \geq 1.$ Prove that $\forall n \geq 1$ $x_1 + x_2 + \ldots + x_n \geq 0.$
 	
-	\textbf{Solution.} Let $s_n=x_1 + x_2 + \ldots + x_n$. Suppose on the contrary, there exists $n$ such that $s_n<0$. Choose the smallest such $n$. Note that all $x_i$'s are $\pm 1$, so it must be that $s_{n-1}=0$ and $x_n=-1$. In addition, $s_n\equiv n\pmod{2}$ since all terms are $\pm 1$, so $n$ must be odd. We follow up with the following observations: 
+	\textbf{Solution.} Let $s_n=x_1 + x_2 + \ldots + x_n$. Suppose on the contrary, there exists $n$ such that $s_n<0$; 
+	consider the smallest such $n$. Note that all $x_i$'s are $\pm 1$, so it must be that $s_{n-1}=0$ and $x_n=-1$. In addition, $s_n\equiv n\pmod{2}$ since all terms are $\pm 1$, so $n$ must be odd. 
+	
+	We now follow up with the following observations: 
 	\begin{itemize}
 		\item $x_{4k+1}=(-1)^{2k+1+1}x_{2k+1}=x_{2k+1}$ while $x_{4k+2}=-x_{2k+1}$, so $s_{4k}=s_{4k+2}$ for all $k\ge 0$. 
 		
@@ -259,6 +282,104 @@
 	That is, $(xf(x))^{2\cdot \frac{9^k}{4^k}}\in\bbQ$. 
 	We conclude that $xf(x)$ has to be a perfect $\frac{4^k}{2}$-th power of rationals, which can only happen when $xf(x)=1$. 
 	
+	\item [\textbf{A6}] 
+	Suppose that $f$ and $g$ are two functions defined on the set of positive integers and taking positive integer values. Suppose also that the equations $f(g(n)) = f(n) + 1$ and $g(f(n)) = g(n) + 1$ hold for all positive integers. 
+	
+	Prove that $f(n) = g(n)$ for all positive integer $n.$
+	
+	\textbf{Solution.} 
+	We first notice the following identity: for any integers $m, n$ we have 
+	\begin{equation}\label{eq:a6_mn}
+		f(m) = f(n)\to g(f(m) = g(f(n)))\to g(m) = g(n)
+	\end{equation}
+	For each integer $n$, consider the following two sets: 
+	\begin{equation}
+		S_n\triangleq \{b: f(b) = n\}
+		\qquad 
+		T_n\triangleq \{b: f(b) = n\}
+	\end{equation}
+    The problem is then equivalent to showing that $S_n = T_n$ for all $n$. 
+    
+    First, we consider the ranges of $f$ and $g$. 
+    That is, the set $\mathsf{Range}(f)\triangleq \{n: S_n\neq\emptyset\}$. 
+    Let $m_f = \min_n\{S_n\neq \emptyset\}$ and $\mathsf{Range}(f) = \{n: n\ge m_f\}$. 
+    Then from the problem statement, $m\in S_n\to g(m)\in S_{n+1}$, 
+    so $S_n\neq\emptyset$ for all $n\ge m_f$. 
+    Considering the same for $g$ we have 
+    \begin{equation}
+    	\mathsf{Range}(f) = \{n: n\ge m_f\}\qquad \mathsf{Range}(g) = \{n: n\ge m_g\}
+    \end{equation}
+    
+    We then show that for each $n$ and $m$, 
+    \begin{equation}
+    	\text{ either } S_n = T_m \text{ or } S_n\cap T_m = \emptyset
+    \end{equation}
+    Consider $S_n$ for any $n\ge m_f$, let $b\in S_n$ 
+    (so $f(b)=n$), and let $g(b)=m$ for some integer $m$. 
+    Then from \ref{eq:a6_mn}, 
+    $c\in S_n\to f(b)=f(c)\to g(b)=g(c)\to c\in T_m$, 
+    and similarly $c\in T_m\to c\in S_n$. 
+    It then follows that $T_m = S_n$. 
+    
+    Next, let's show the following: for each set $S_k$: 
+    \begin{itemize}
+    	\item If $k = m_f$, then no element in $f$ can be a value of $g$; 
+    	\item If $k > m_f$, then exactly one element in $S_k$ is a value of $g$. 
+    \end{itemize}
+    To start with uniqueness, suppose $x, y\in S_k$ with $g(a)=x, g(b)=y$ (possibly, $x=y$). 
+    Then $f(a)+1=f(g(a))=f(x)=k=f(y)=f(g(b))=f(b)+1$. 
+    This means $k\ge m_f + 1$, proving the first bullet point. 
+    Now, with $f(a)=f(b)=k-1$ we have $g(a)=g(b)$ too, 
+    and therefore $x=y$, showing that at most one element in $S_k$ can be a value of $g$. 
+    To show existence for the second bullet point, 
+    for each $n\ge m_f$, we have $m\in S_n\to f(m)=n\to f(g(m)) = n + 1\to g(m)\in S_{n+1}$. 
+    so for each $n\ge m_f + 1$ there's one element in $S_n$ that's a value in $g$. 
+    
+    We also notice that $x\in\mathsf{Range}(g)$ if and only if $x\ge m_g$. 
+    Therefore, for each $n\ge m_f$, 
+    denote the number 
+    \begin{equation}
+    	M_f(n) = \max_k \{k\in S_n\}
+    \end{equation}
+    (we may define $M_g$ similarly). 
+    Then we have $M_f(m_f) < m_g$, while $M_f(x) \ge m_g$ for all $x\ge m_f + 1$. 
+    But since $\cup_{i=m_f}^{\infty} S_i = \bbN$, 
+    each $k\ge m_g$ is in $S_u$ for some $u$, and by our lemma we have $u \ge m_f + 1$, 
+    and $k=M_f(u)$. 
+    This means that 
+    \begin{equation}
+    	M_f(m_f) < m_g\qquad \{M_f(k): k\ge m_f + 1\} = \{m_g, m_g + 1, \cdots\}
+    \end{equation}
+    which, in a similar way, also implies 
+    \begin{equation}
+    	M_g(m_g) < m_f\qquad \{M_g(k): k\ge m_g + 1\} = \{m_f, m_f + 1, \cdots\}
+    \end{equation}
+    But since each pair of sets $(S_m, T_n)$ are either equal or disjoint, 
+    and $\cup S_m = \cup T_n = \bbN$, $\{S_m\}$ and $\{T_n\}$ are just bijection of each other. 
+    This means the numbers $M_f(\cdot)$ and $M_g(\cdot)$ are also mappings (bijection) of each other. 
+    We therefore have 
+    \begin{equation}
+    	\{M_f(m_f)\}\cup \{m_g, m_g + 1, \cdots\}
+    	=\cup_{k\ge m_f} M_k = \cup_{\ell\ge m_g} M_{\ell}
+    	=\{M_g(m_g)\}\cup \{m_f, m_f + 1, \cdots\}
+    \end{equation}
+    and with $M_f(m_f) < m_g$ and $M_g(m_g) < m_f$ we have $M_f(m_f) = M_g(m_g)$, 
+    and consequently $m_f = m_g$, and also $S_{m_f} \cap T_{m_g}\neq\emptyset$ (and therefore equal). 
+    This means there's a number $b\in S_{m_f}$ such that $f(b)=m_f=m_g = g(b)$. 
+    
+    Finally, consider the following logical chain: 
+    \begin{align}
+    	  \forall b\ge m_f: 
+    	  S_b = T_b
+    	  \to f(M_f(b)) = f(M_g(b)) = g(M_g(b)) = g(M_f(b))  = b
+    	  \nonumber\\
+    	  \to f(g(M_f(b))) = b + 1 = g(f(M_g(b)))
+    	  \to b\in S_{b + 1}\cap T_{b+1}
+    	  \to S_{b+1}=T_{b+1}
+    \end{align}
+    and therefore with $S_{m_f}=T_{m_g}$ and $m_f=m_g$, we have $S_b=T_b$ for all $b\ge m_f$, 
+    as desired. 
+	
 	\item [\textbf{A7}] (IMO 6) 
 	Let $a_1, a_2, a_3, \ldots$ be a sequence of positive real numbers, and $s$ be a positive integer, such that
 	\[a_n = \max \{ a_k + a_{n-k} \mid 1 \leq k \leq n-1 \} \ \textrm{ for all } \ n > s.\]
@@ -405,22 +526,67 @@
 		\item The two megasquares share exactly one vertex, and WLOG (the other case is similar) let's say one is on the top left of the other. If the kings were to attack, then we have BT-switch and RL-switch simultaneously. Both our configurations avoid that. 
 	\end{itemize}
 
+    \item [\textbf{C5}]
+    	$n \geq 4$ players participated in a tennis tournament. Any two players have played exactly one game, and there was no tie game. We call a company of four players $bad$ if one player was defeated by the other three players, and each of these three players won a game and lost another game among themselves. Suppose that there is no bad company in this tournament. Let $w_i$ and $l_i$ be respectively the number of wins and losses of the $i$-th player. Prove that\[\sum^n_{i=1} \left(w_i - l_i\right)^3 \geq 0.\]
+
 	\item [\textbf{C6}] 
 	Given a positive integer $k$ and other two integers $b > w > 1.$ There are two strings of pearls, a string of $b$ black pearls and a string of $w$ white pearls. The length of a string is the number of pearls on it. One cuts these strings in some steps by the following rules. In each step:
 	\begin{enumerate}
 		\item [(i)] The strings are ordered by their lengths in a non-increasing order. If there are some strings of equal lengths, then the white ones precede the black ones. Then $k$ first ones (if they consist of more than one pearl) are chosen; if there are less than $k$ strings longer than 1, then one chooses all of them.
 		
-		\item [(ii)] Next, one cuts each chosen string into two parts differing in length by at most one. (For instance, if there are strings of $5, 4, 4, 2$ black pearls, strings of $8, 4, 3$ white pearls and $k = 4,$ then the strings of 8 white, 5 black, 4 white and 4 black pearls are cut into the parts $(4,4), (3,2), (2,2)$ and $(2,2)$ respectively.) The process stops immediately after the step when a first isolated white pearl appears.
+		\item [(ii)] Next, one cuts each chosen string into two parts differing in length by at most one. 
 	\end{enumerate}
 	
+	(For instance, if there are strings of $5, 4, 4, 2$ black pearls, strings of $8, 4, 3$ white pearls and $k = 4,$ then the strings of 8 white, 5 black, 4 white and 4 black pearls are cut into the parts $(4,4), (3,2), (2,2)$ and $(2,2)$ respectively.) 
+	
+	The process stops immediately after the step when a first isolated white pearl appears.
 	Prove that at this stage, there will still exist a string of at least two black pearls.
 	
 	\textbf{Solution.} 
-	Throughout the solution we use black string to denote string of black pearls. 
-	We consider the following two cases: the first case is when $k$ is large enough that at each step, all the pearls are chosen to be cut, and at the last step a first isolated white pearl appears. At step $i$, the shortest white pearl has length $\lfloor \frac{w}{2^i}\rfloor$. Therefore if $m$ steps have been taken, then the shortest white pearl after step $m-1$ has length $\lfloor \frac{w}{2^{m-1}}\rfloor\ge 2$ and therefore $w\ge 2^{m-1}$. 
-	Now the longest black pearl after step $m$ has length $\lceil \frac{b}{2^m}\rceil\ge \lceil \frac{w+1}{2^m}\rceil\ge \lceil \frac{2^m+1}{2^m}\rceil=2$ so there's a string of at least 2 black pearls will exist after step $m$, where at least one white pearl is isolated. 
+	Throughout the solution we use black string (repsectively, white string) to denote string of black (respectively, white) pearls. 
+	Let's consider the moment right before the occurence of the first isolated white pearl, which we partition into the following cases. Denote $M$ as the number of steps to reach this. 
 	
-	Now consider the case where $k$ is not large enough: at one point there will be more than $k$ strings of pearls of length $>1$.
+	\textbf{Case 1.} 
+	The number of strings never exceeds $k$ in steps $1, \cdots, M-1$. 
+	This means, up to step $M$, all the strings are cut. 
+	At step $i$, the shortest white pearl has length $\lfloor \frac{w}{2^i}\rfloor$. Therefore if $m$ steps have been taken, then the shortest white string after step $m-1$ has length $\lfloor \frac{w}{2^{m-1}}\rfloor\ge 2$ and therefore $b > w\ge 2^{m-1}$, 
+	i.e. the shortest black string has length $\ge 2$ too (i.e. no isolated black pearl). 
+	The longest black string has length 
+	$\lceil \frac{b}{2^{m-1}}\rceil\ge \lceil \frac{w+1}{2^{m-1}}\rceil\ge \lceil \frac{2^m+1}{2^{m-1}}\rceil=3$, 
+	so after the next step (where we see the first isolated white pearl), 
+	this longest black string is either uncut (length $\ge 3$)
+	or cut into two parts, one of which has length at least $\lceil \frac{3}{2}\rceil$. 
+	
+	\textbf{Case 2.} 
+	The number of strings exceeds $k$ at some point before $M - 1$; let $N < M$ be the number of steps for this to happen. 
+	Intuitively, there will be enough white strings to `shield' some black strings of length 2 (i.e. at critical length) from being cut at each stage, which we will show it rigorously. 
+	
+	We now establish the following: 
+	\begin{lemma}
+		Denote $N$ as the moment where the number of strings exceed $k$ for the first time. 
+		Then between after each step $\ell=N+1, \cdots, M$, the number of white strings is at least $k$. 
+	\end{lemma}
+    \begin{proof}
+    	Up to step $M$, there's no isolated white string, so each cut of a white string only increases the number of white strings of length $\ge 2$. 
+    	Thus it suffices to show that at step $N + 1$ we have at least $k$ white string. 
+    	
+    	As per case 1, we can show that up to step $N$, all white strings have length $\ge 2$ (by assumption), 
+    	so do all black strings. 
+    	In addition, each step $i\le N$ sees $2^i$ cuts, resulting in $2^i$ white and $2^i$ black strings. 
+    	At step $N + 1$, $k$ of the strings are being cut, at least $k-2^i$ of which are white. 
+    	It then follows that there are at least $k-2^i+2^i=k$ white strings after the procedure. 
+    \end{proof}
+    
+    Now, to show the problem conclusion, modifying proof from Case 1 yields a black string of length $\ge 3$ at step $N$, 
+    so a black string of length $\ge 2$ remains after step $N + 1$. 
+    We show that at each step $i=N+2, \cdots, M, M+1$, if there's a black string of length $\ge 2$ at the beginning of step $i$ then this still holds after step $i$. 
+    Consider the shortest non-isolated black string (if tied, choose the one placed last). 
+    If its length is $\ge 3$, this string will change into another string of length $\ge 2$ regardless if it's cut. 
+    Otherwise if it's length is $\ge 2$, this string will be placed last among all strings of length $\ge 2$, 
+    and since by our lemma there are at least $k$ white strings, all of which are length $\ge 2$, 
+    this string will not be cut, 
+    hence doesn't get isolated. 
+	
 	\iffalse
 	Lemma: at any time there exists a black string of length $b_0$ and white string of length $w_0$ such that $w_0\le 2b_0-1$. 
 	
@@ -433,13 +599,7 @@
 	\]
 	as desired. 
 	\fi
-	Suppose on the contrary that our conclusion doesn't hold. We investigate the following two steps: 
-	\begin{itemize}
-		\item The first point where there are more than $k$ pearls and we don't cut them all. Given $b>w$ and the assumption that conclusion doesn't hold, we may assume all strings (black or white) have lengths at least 2 tight before that. We see that for all $i$ with $2^i\le k$, the $i$-step sees $2^i$ cuts, half of which to black strings nad half for white strings (resulting in $2^i$ white and $2^i$ black strings). 
-		Then the next step, $k\ge 2^i$ strings are being cut, so at least $k-2^i$ of the white strings are being cut, resulting in at least $k$ white strings in total (we may still assume that all white strings have length at least 2; we can show that the previous assumption of all strings having length $\ge 2$ implies that after this step some black string have length at least 2). 
-		
-		\item The step at which all black pearls become isolated. This means before this step, all black strings of length $>1$ must have length 2, and must be cut. By (i), all strings of length $>1$ must be cut (which means there cannot be more than $k$ of them). We also know that we have at least $k$ black strings, none of them is isolated, so the presence of at least one white string of length $>1$ means not all strings can be cut, contradiction. 
-	\end{itemize}
+	
 \end{enumerate}
 
 \section*{Geometry}
@@ -543,26 +703,74 @@
 	\]
 	(the last step is due to the previous equation), as desired. 
 	
+	\item [\textbf{G6}] 
+	The vertices $X, Y , Z$ of an equilateral triangle $XYZ$ lie respectively on the sides $BC, CA, AB$ of a  triangle $ABC.$ 
+	Prove that if the incenter of triangle $ABC$ lies outside triangle $XY Z$, 
+	then one of the angles of triangle $ABC$ is greater than $120^{\circ}$. 
+	
+	\textbf{Solution.} 
+	Suppose all angles in triangle $ABC$ are at most $120^{\circ}$, 
+	and that the incenter $I$ of $ABC$ lies insode triangle $AYZ$. 
+	Let $A_1$ be the second intersection of line $AI$ with the circumcenter of triangle $AYZ$; 
+	define $B_1$ and $C_1$ similarly. 
+	Denote also $B_2$ as the midpoint of $XZ$ and $C_2$ the midpoint of $XY$. 
+	Then we have $A_1Y=A_1Z$ and $\angle YA_1Z\ge 60^{\circ} = \angle YXZ$ means that $A_1$ lies in triangle $XYZ$, 
+	and similarly so do points $B_1, C_1$. 
+	
+	Now that $X, Y, Z$ are on the sides of triangle $ABC$, 
+	the quadrilaterals $BZYX$ and $CXZY$ are convex. 
+	Since $B, B_1, I$ are collinear and both $B, B_1$ are in quadrilateral $BZYX$, 
+	$I$ cannot be on segment $BB_1$. 
+	Thus $B, B_1, I$ are on the line in that order, and similarly $C, C_1, I$ are on the line in that order (and $B_1\neq I, C_1\neq I$).
+	It then follows that the quadrilateral $IB_1XC_1$ is also convex. 
+	
+	We now have $\angle BIC = \angle B_1IC_1 = 90^{\circ} + \frac{\angle BAC}{2}$, 
+	so $\angle BIC$ is obtuse. 
+	In fact, with $B, B_1, I$ in that order and $C, C_1, I$ in that order we also have $\angle BAC > 60^{\circ}$, 
+	so $\angle B_1IC_1 > 120^{\circ}$. 
+	Since $I$ is in triangle $AYZ$, while $B_1, C_1$ are in $XYZ$, segments $IB_1$ and $IC_1$ each intersect segment $YZ$. 
+	Thus we may choose a point $I_1$, lying on $YZ$ and the interior of triangle $I_1B_1C_1$, 
+	and thus $\angle B_1I_1C_1 > \angle B_1IC_1 > 120^{\circ}$. 
+	
+	On the other hand, since $B_1X=B_1Z$, 
+	we have $B_2B_1\perp XZ$ and similarly $C_2C_1\perp XY$. 
+	Given also that $I_1$ is on side $YZ$, 
+	$IZ\le IX$ and $IY\le IX$, 
+	and therefore both $B_2, C_2$ are outside angle domain $\angle B_1I_1C_1$. 
+	Thus $\angle B_2I_1C_2 \ge \angle B_1I_1C_1$. 
+	However, both $B_2, C_2$ are on the incircle of $XYZ$ which subtends an angle of $60^{\circ}$ on the circumference, 
+	while $I_1$ can either be on or outside this incircle. 
+	It then follows that $\angle B_2I_1C_2 \le 60^{\circ}$, giving us 
+	\begin{equation}
+		120^{\circ} < \angle B_1IC_1 < \angle B_1I_1C_1 \le \angle B_2I_1C_2 \le 60^{\circ}
+	\end{equation}
+    which is a contradiction. 
+	
 	\item [\textbf{G7}] Three circular arcs $\gamma_1, \gamma_2,$ and $\gamma_3$ connect the points $A$ and $C.$ These arcs lie in the same half-plane defined by line $AC$ in such a way that arc $\gamma_2$ lies between the arcs $\gamma_1$ and $\gamma_3.$ Point $B$ lies on the segment $AC.$ Let $h_1, h_2$, and $h_3$ be three rays starting at $B,$ lying in the same half-plane, $h_2$ being between $h_1$ and $h_3.$ For $i, j = 1, 2, 3,$ denote by $V_{ij}$ the point of intersection of $h_i$ and $\gamma_j$ (see the Figure below). Denote by $\widehat{V_{ij}V_{kj}}\widehat{V_{kl}V_{il}}$ the curved quadrilateral, whose sides are the segments $V_{ij}V_{il},$ $V_{kj}V_{kl}$ and arcs $V_{ij}V_{kj}$ and $V_{il}V_{kl}.$ We say that this quadrilateral is $circumscribed$ if there exists a circle touching these two segments and two arcs. Prove that if the curved quadrilaterals $\widehat{V_{11}V_{21}}\widehat{V_{22}V_{12}}, \widehat{V_{12}V_{22}}\widehat{V_{23}V_{13}},\widehat{V_{21}V_{31}}\widehat{V_{32}V_{22}}$ are circumscribed, then the curved quadrilateral $\widehat{V_{22}V_{32}}\widehat{V_{33}V_{23}}$ is circumscribed, too.
 	
 	\textbf{Solution.} 
-	Consider $\gamma_1, \gamma_2, \gamma_3$ as in the problem, and consider the following claim: consider $O_1$ as the set of all circles tangent to $\gamma_1$ externally and to $\gamma_2$ internally, and $O_2$ as the set of all circles tangent to $\gamma_2$ externally and to $\gamma_3$ internally. If the exsimilicenter (that is, the intersection of common external tangent) of $\omega_1$ and $\omega_2$ lies on $AC$ for \emph{some} $\omega_1\in O_1$ and $\omega_2\in O_2$, then the exsimilicenter of $\omega_1$ and $\omega_2$ lies on $AC$ for \emph{all} $\omega_1\in O_1$ and $\omega_2\in O_2$. 
-	
-	To show this, consider $\omega_A$ and $\omega_B$ both in $O_1$. Let $A_1$ and $A_2$ be the tangency points of $\omega_A$ with $\gamma_1$ and $\gamma_2$, respectively. Define $B_1$ and $B_2$ similarly. By Monge Alembert's theorem, $A_1$ and $A_2$ passes through the insimilicenter of the circles determined by arcs $\gamma_1$ and $\gamma_2$; we name them as $\Gamma_1$ and $\Gamma_2$. 
-	
-	Let the intersection of $A_1A_2$ and $B_1B_2$ as $X$, the insimilicenter of $\Gamma_1$ and $\Gamma_2$. By this definition, if $A_2X$ intersects $\Gamma_2$ at $A_2'$ again and $B_2X$ intersects $\Gamma_2$ again at $B_2'$ then $\dfrac{A_1X}{A_2X'}=\dfrac{B_1X}{B_2X'}=\dfrac{r_1}{r_2}$ with $r_1, r_2$ denoting the radii of $\Gamma_1$ and $\Gamma_2$ respectively. We now have: 
-	\[
-	XA_1\cdot XA_2 = \dfrac{A_1X}{A_2X'} (XA_2' \cdot XA_2) = \dfrac{A_1X}{A_2X'} (XB_2' \cdot XB_2)
-	= \dfrac{B_1X}{B_2X'} (XB_2' \cdot XB_2) = XB_1\cdot XB_2
-	\]
-	where the equality $XA_2' \cdot XA_2 = XB_2' \cdot XB_2$ follows from the fact that $A_2, B_2, A_2' B_2'$ all on $\Gamma_2$ and that $A_2A_2'$ and $B_2B_2'$ intersect at $X$. 
-	Therefore, $A_1, A_2, B_1, B_2$ are concyclic. Now, consider this circle containing the four points as $\Gamma_0$, we know that $\Gamma_0$ and $\Gamma_1$ intersect at $A_1B_1$, $\Gamma_0$ and $\Gamma_2$ at $A_2B_2$, $\Gamma_1$ and $\Gamma_2$ at $AC$. This means $A_1B_1$ and $A_2B_2$ concur on $AC$ by the radical axis theorem. 
-	Finally, $A_1$, $B_1$ are the exsimilicenters of $\Gamma_1$ and $\omega_A, \omega_B$, respectively, so by Monge-Alembert theorem again the exsimilicenter of $\omega_A$ and $\omega_B$ must be on $A_1B_1$. Similarly, the same exsimilicenter must be on $A_2B_2$ (except $A_2, B_2$ are actually the insimilicenters of $\Gamma_2$ and the $\omega$s). This means $A_1B_1$ and $A_2B_2$ intersect at the the exsimilicenter of $\omega_1$ and $\omega_2$: in other words, by the previous points, $\omega_1$ and $\omega_2$ have exsimilicenter on $AC$. 
-	By a similar logic, any two difference circles in $O_2$ also have their exsimilicenter on $AC$. 
-	
-	Now, suppose that $\omega_1$ and $\omega_2$ are such that the exsimilicenter lies on $AC$, say $B$. 
-	Consider all $\omega_2'\in O_2$ varying from $A$ to $C$. From above, the exsimilicenter of $\omega_2$ and $\omega_2'$ will also lie on $AC$ (except when $\omega_2=\omega_2'$). At most one of the circle $\omega_2'$ will have their exsimilicenter coincide with $B$. In other words, for all $\omega_2'$ except this circle and the circle coincide with $\omega_2$, the exsimilicenter of $\omega_2$ and $\omega_2'$ lies on $AC$ other than $B$. By Monge-Alembert theorem again, the exsimilicenter of $\omega_1$ and $\omega_2'$ will also be on $AC$ for all those $\omega_2'$. As $\omega_2'$ varies continuously, the exsimilicenter of $\omega_1$ and $\omega_2'$ will also vary continuously. This means that this exsimilicenter of the two circles will also be on $AC$ even for the two edge cases. 
-	Finally, if $\omega_1'$ is any other circle in $O_1$, then a similar logic yields that $\omega_1'$ and $\omega_2'$ have exsimilicenters on $AC$, which solves the lemma. 
+	The key to solving this problem is the following. 
+	\begin{lemma}
+		Cconsider $O_1$ as the set of all circles tangent to $\gamma_1$ externally and to $\gamma_2$ internally, and $O_2$ as the set of all circles tangent to $\gamma_2$ externally and to $\gamma_3$ internally. If the exsimilicenter (that is, the intersection of common external tangent) of $\omega_1$ and $\omega_2$ lies on $AC$ for \emph{some} $\omega_1\in O_1$ and $\omega_2\in O_2$, then the exsimilicenter of $\omega_1$ and $\omega_2$ lies on $AC$ for \emph{all} $\omega_1\in O_1$ and $\omega_2\in O_2$. 
+	\end{lemma}
+    
+    \begin{proof}
+    	Consider $\omega_A$ and $\omega_B$ both in $O_1$. Let $A_1$ and $A_2$ be the tangency points of $\omega_A$ with $\gamma_1$ and $\gamma_2$, respectively. Define $B_1$ and $B_2$ similarly. By Monge Alembert's theorem, $A_1$ and $A_2$ passes through the insimilicenter of the circles determined by arcs $\gamma_1$ and $\gamma_2$; we name them as $\Gamma_1$ and $\Gamma_2$. 
+    	
+    	Let the intersection of $A_1A_2$ and $B_1B_2$ as $X$, the insimilicenter of $\Gamma_1$ and $\Gamma_2$. By this definition, if $A_2X$ intersects $\Gamma_2$ at $A_2'$ again and $B_2X$ intersects $\Gamma_2$ again at $B_2'$ then $\dfrac{A_1X}{A_2X'}=\dfrac{B_1X}{B_2X'}=\dfrac{r_1}{r_2}$ with $r_1, r_2$ denoting the radii of $\Gamma_1$ and $\Gamma_2$ respectively. We now have: 
+    	\[
+    	XA_1\cdot XA_2 = \dfrac{A_1X}{A_2X'} (XA_2' \cdot XA_2) = \dfrac{A_1X}{A_2X'} (XB_2' \cdot XB_2)
+    	= \dfrac{B_1X}{B_2X'} (XB_2' \cdot XB_2) = XB_1\cdot XB_2
+    	\]
+    	where the equality $XA_2' \cdot XA_2 = XB_2' \cdot XB_2$ follows from the fact that $A_2, B_2, A_2' B_2'$ all on $\Gamma_2$ and that $A_2A_2'$ and $B_2B_2'$ intersect at $X$. 
+    	Therefore, $A_1, A_2, B_1, B_2$ are concyclic. Now, consider this circle containing the four points as $\Gamma_0$, we know that $\Gamma_0$ and $\Gamma_1$ intersect at $A_1B_1$, $\Gamma_0$ and $\Gamma_2$ at $A_2B_2$, $\Gamma_1$ and $\Gamma_2$ at $AC$. This means $A_1B_1$ and $A_2B_2$ concur on $AC$ by the radical axis theorem. 
+    	Finally, $A_1$, $B_1$ are the exsimilicenters of $\Gamma_1$ and $\omega_A, \omega_B$, respectively, so by Monge-Alembert theorem again the exsimilicenter of $\omega_A$ and $\omega_B$ must be on $A_1B_1$. Similarly, the same exsimilicenter must be on $A_2B_2$ (except $A_2, B_2$ are actually the insimilicenters of $\Gamma_2$ and the $\omega$s). This means $A_1B_1$ and $A_2B_2$ intersect at the the exsimilicenter of $\omega_1$ and $\omega_2$: in other words, by the previous points, $\omega_1$ and $\omega_2$ have exsimilicenter on $AC$. 
+    	By a similar logic, any two difference circles in $O_2$ also have their exsimilicenter on $AC$. 
+    	
+    	Now, suppose that $\omega_1$ and $\omega_2$ are such that the exsimilicenter lies on $AC$, say $B$. 
+    	Consider all $\omega_2'\in O_2$ varying from $A$ to $C$. From above, the exsimilicenter of $\omega_2$ and $\omega_2'$ will also lie on $AC$ (except when $\omega_2=\omega_2'$). At most one of the circle $\omega_2'$ will have their exsimilicenter coincide with $B$. In other words, for all $\omega_2'$ except this circle and the circle coincide with $\omega_2$, the exsimilicenter of $\omega_2$ and $\omega_2'$ lies on $AC$ other than $B$. By Monge-Alembert theorem again, the exsimilicenter of $\omega_1$ and $\omega_2'$ will also be on $AC$ for all those $\omega_2'$. As $\omega_2'$ varies continuously, the exsimilicenter of $\omega_1$ and $\omega_2'$ will also vary continuously. This means that this exsimilicenter of the two circles will also be on $AC$ even for the two edge cases. 
+    	Finally, if $\omega_1'$ is any other circle in $O_1$, then a similar logic yields that $\omega_1'$ and $\omega_2'$ have exsimilicenters on $AC$, which solves the lemma. 
+    \end{proof}
 	
 	Now go back to the problem. Despite the fancy formulation of the problem, really all we need is this: let the circle inscribed in $\widehat{V_{11}V_{21}}\widehat{V_{22}V_{12}}$ as $\omega_{11}$ and $\widehat{V_{12}V_{22}}\widehat{V_{23}V_{13}}$ as $\omega_{12}$; their exsimilicenters intersect at $B$. Let the circle inscribed in $\widehat{V_{21}V_{31}}\widehat{V_{32}V_{22}}$ be $\omega_{21}$, and let $\omega_{22}$ to be the unique circle tangent to $h_2$, $\gamma_2$ and $\gamma_3$. By our lemma above, the exsimilicenter must be on $AC$. Since $h_2$ is an external common tangent of $\omega_{21}$ and $\omega_{22}$ and $h_2$ intersect $AC$ at $B$, $B$ is indeed the exsimilicenter. Thus, the other common tangent must also pass through $B$, and so must be $h_3$. This means $h_3$ is also tangent to $\omega_{22}$. In other words, $\widehat{V_{22}V_{32}}\widehat{V_{33}V_{23}}$ is circumscribed. Q.E.D. 
 	
@@ -614,30 +822,42 @@
 	\begin{itemize}
 		\item Given that $2^{n+1}-1-a\equiv 2^{n+1}-1+a\pmod{2}$, both must be even for their product to be divisible by 8. This means one of the numbers $2^{n+1}-1-a$ and $2^{n+1}-1+a$ must be $2\cdot 3^{n_1}$ and the other $4\cdot 3^{n_2}$, with $n_1+n_2=n$. 
 		
-		\item Adding $2^{n+1}-1-a$ and $2^{n+1}-1+a$ together gives $2(2^{n+1}-1)=2\cdot 3^{n_1}+4\cdot 3^{n_2}$, so $2^{n+1}-1=2\cdot 3^{n_1}+2\cdot 3^{n_2}$, and therefore $3^{\min(n_1, n_2)}\mid 2^{n+1}-1$. 
+		\item Adding $2^{n+1}-1-a$ and $2^{n+1}-1+a$ together gives $2(2^{n+1}-1)=2\cdot 3^{n_1}+4\cdot 3^{n_2}$, so $2^{n+1}-1= 3^{n_1}+2\cdot 3^{n_2}$, and therefore $3^{\min(n_1, n_2)}\mid 2^{n+1}-1$. 
 	\end{itemize}
 	
-	We now consider the following lemma: for each $k\ge 1$, the order of $2$ modulo $3^k$ is $2\cdot 3^{k-1}$. We will prove by induction that the minimum $\ell$ with $3^k\mid 2^{\ell}-1$ is $\ell=2\cdot 3^{k-1}$ and at the same time for this $\ell$, $3^{k+1}\nmid 2^{\ell}-1$. 
-	
-	Base case: $k=1$ we have $2^1-1$ not divisible by 3, and $2^2-1$ divisible by 3 not 9. Now suppose that this is true for some $k\ge 1$, such that $\ell=2\cdot 3^{k-1}$ we have $3^k\mid 2^{\ell}-1$ but $3^{k+1}\nmid 2^{\ell}-1$. Let $2^{\ell}=3^kx+1$ with $3\nmid x$. Let $\ell_1$ be the smallest number with $3^{k+1}\mid 2^{\ell_1}-1$; we have $\ell\mid \ell_1$ so let $\ell_1=y\ell$. This means: 
-	\[
-	2^{\ell_1}-1 = 2^{y\ell}-1=(3^kx+1)^y-1 = \displaystyle\sum_{i=1}^y \dbinom{y}{i}(3^kx)^i
-	\]
-	and for the purpose of modulo $3^{k+2}$, for all $k\ge 1$ we have $3k\ge k+2$ so we have 
-	\[
-	\displaystyle\sum_{i=1}^y \dbinom{y}{i}(3^kx)^i\equiv 
-	\dbinom{y}{2}(3^kx)^2 + \dbinom{y}{1}(3^kx)
-	\pmod{3^{k+2}}
-	\]
-	now if this is divisible by $3^{k+1}$, since $2k\ge k+1$, we have $\dbinom{y}{2}(3^kx)^2 + \dbinom{y}{1}(3^kx)\equiv 3^kxy\pmod{3^{k+1}}$. This means $3\mid xy$ and with $3\nmid x$ we have $3\mid y$. Thus the smallest such $y$ is $y=3$. Now, for this $y=3$ we have 
-	\[
-	\displaystyle\sum_{i=1}^y \dbinom{y}{i}(3^kx)^i\equiv 
-	\dbinom{3}{2}(3^kx)^2 + \dbinom{3}{1}(3^kx)
-	=3(3^{2k})x^2+3^{k+1}x
-	=3^{k+1}(3^kx^2+x)
-	\pmod{3^{k+2}}
-	\]
-	and since $3^kx^2+x\equiv x\not\equiv 0\pmod{3}$, we have $3^{k+2}\nmid 2^{3\ell}-1$, as desired. 
+	We now consider the following.
+	\begin{lemma}
+		For each $k\ge 1$, the order of $2$ modulo $3^k$ is $2\cdot 3^{k-1}$.
+	\end{lemma}
+    
+    \begin{proof}
+    	We will prove by induction that when $\ell = 2\cdot 3^{k-1}$, 
+    	\begin{equation}
+    		  3^k\mid 2^{\ell}-1\qquad 3^{k+1}\nmid 2^{\ell}-1
+    	\end{equation}
+    	Base case: $k=1$ we have $2^1-1$ not divisible by 3, and $2^2-1$ divisible by 3 not 9. 
+    	
+    	Induction step: 
+    	now suppose that this is true for some $k\ge 1$, such that $\ell=2\cdot 3^{k-1}$ we have $3^k\mid 2^{\ell}-1$ but $3^{k+1}\nmid 2^{\ell}-1$. Let $2^{\ell}=3^kx+1$ with $3\nmid x$. Let $\ell_1$ be the smallest number with $3^{k+1}\mid 2^{\ell_1}-1$; we have $\ell\mid \ell_1$ so let $\ell_1=y\ell$. This means: 
+    	\[
+    	2^{\ell_1}-1 = 2^{y\ell}-1=(3^kx+1)^y-1 = \displaystyle\sum_{i=1}^y \dbinom{y}{i}(3^kx)^i
+    	\]
+    	and for the purpose of modulo $3^{k+2}$, for all $k\ge 1$ we have $3k\ge k+2$ so we have 
+    	\[
+    	\displaystyle\sum_{i=1}^y \dbinom{y}{i}(3^kx)^i\equiv 
+    	\dbinom{y}{2}(3^kx)^2 + \dbinom{y}{1}(3^kx)
+    	\pmod{3^{k+2}}
+    	\]
+    	now if this is divisible by $3^{k+1}$, since $2k\ge k+1$, we have $\dbinom{y}{2}(3^kx)^2 + \dbinom{y}{1}(3^kx)\equiv 3^kxy\pmod{3^{k+1}}$. This means $3\mid xy$ and with $3\nmid x$ we have $3\mid y$. Thus the smallest such $y$ is $y=3$. Now, for this $y=3$ we have 
+    	\[
+    	\displaystyle\sum_{i=1}^y \dbinom{y}{i}(3^kx)^i\equiv 
+    	\dbinom{3}{2}(3^kx)^2 + \dbinom{3}{1}(3^kx)
+    	=3(3^{2k})x^2+3^{k+1}x
+    	=3^{k+1}(3^kx^2+x)
+    	\pmod{3^{k+2}}
+    	\]
+    	and since $3^kx^2+x\equiv x\not\equiv 0\pmod{3}$, we have $3^{k+2}\nmid 2^{3\ell}-1$, as desired. 
+    \end{proof}
 	
 	Now going back to the problem, where we left off at $3^{\min(n_1, n_2)}\mid 2^{n+1}-1$. If $k=\min(n_1, n_2)$ then we have $2\cdot 3^{k-1}\mid n+1$. In particular, $n+1\ge 2\cdot 3^{k-1}$.  Moreover, we have 
 	\[2^{n+1}-1= 3^{n_1}+2\cdot 3^{n_2}\le 3^{n-k}+2\cdot 3^k > 3^{n-k}
@@ -652,6 +872,14 @@
 	n = 5: \dfrac{2^{5+1}-1 \pm \sqrt{(2^{5+1}-1)^2 - 8\cdot 3^n}}{2} = \dfrac{63\pm 45}{2} = 9, 54. 
 	\]
 	Since these are obtained from the quadratic equations, they work as fine, giving us our desired pairs. 
+	
+	\item[\textbf{N3}] 
+	Find the smallest number $n$ such that there exist polynomials $f_1, f_2, \ldots , f_n$ with rational coefficients satisfying\[x^2+7 = f_1\left(x\right)^2 + f_2\left(x\right)^2 + \ldots + f_n\left(x\right)^2.\]
+	
+	\textbf{Answer.} $n = 5$. 
+	
+	\textbf{Solution.} The example $n = 5$ is realized by taking $f_i$ as $x, 2, 1, 1, 1$
+	for $i=1, \cdots, 5$. 
 	
 	\item [\textbf{N4}]Let $a, b$ be integers, and let $P(x) = ax^3+bx.$ For any positive integer $n$ we say that the pair $(a,b)$ is $n$-good if $n | P(m)-P(k)$ implies $n | m - k$ for all integers $m, k.$ We say that $(a,b)$ is $very \ good$ if $(a,b)$ is $n$-good for infinitely many positive integers $n.$
 	\begin{enumerate}
@@ -700,7 +928,7 @@
 	Proof: Let's say, $67^k\mid P(m)-P(n)=a(m^3-n^3)+b(m-n)=(m-n)(a(m^2+mn+n^2)+b)$. 
 	In modulo $67$, we have $67\mid a$ but $67\nmid b$, so $a(m^2+mn+n^2)+b\equiv b\not\equiv 0\pmod{67}$. This means, $a(m^2+mn+n^2)+b$ is relatively prime to $67$, and therefore same to $67^k$. This means, $67^k\mid m-n$, as desired. 
 	
-	\item [\textbf{N5}] (IMO 5) Find all functions $g:\mathbb{N}\rightarrow\mathbb{N}$ such that\[\left(g(m)+n\right)\left(g(n)+m\right)\]is a perfect square for all $m,n\in\mathbb{N}.$
+	\item [\textbf{N5}] (IMO 3) Find all functions $g:\mathbb{N}\rightarrow\mathbb{N}$ such that\[\left(g(m)+n\right)\left(g(n)+m\right)\]is a perfect square for all $m,n\in\mathbb{N}.$
 	
 	\textbf{Answer.} $f(n)=n+c$ for some integer $c\ge 0$. 
 	
@@ -742,63 +970,65 @@
 	
 	We first notice that any Fibonacci sequence is periodic modulo $k$ for any positive integer $k$. Indeed, the pairs $\{(F_i, F_{i+1})\}_{i\ge 1}$ repeats itself via Pigeonhole principle, and if $(F_i, F_{i+1})=(F_j, F_{j+1})$ then $(F_{i+1}, F_{i+2})=(F_{j+1}, F_{j+2})$. 
 	
-	With this, we proceed to the following crucial claim: 
+	With this, we proceed to the following. 
+	\begin{lemma}
+		The sequence $\{F_k\}_{k\ge 0}$ modulo $2^n$ has minimal period $3\cdot 2^{n-1}$. 
+	\end{lemma}
 	
-	\emph{Lemma}. The sequence $\{F_k\}_{k\ge 0}$ modulo $2^n$ has minimal period $3\cdot 2^{n-1}$. 
+	\begin{proof}
+		\[
+		F_n=\frac{1}{\sqrt{5}}(\beta^n-\alpha^n)
+		\]
+		where $\beta=\frac{1+\sqrt{5}}{2}$ and $\alpha=\frac{1-\sqrt{5}}{2}$. 
+		This follows from that $F_{k+2}=F_{k+1}+F_k$ has characteristic polynomial $x^2-x-1=0$, which has roots $\alpha, \beta$. 
+		Define also the sequences
+		\[
+		G_k = \frac{F_{2k}}{F_k}=\beta^k+\alpha^k \quad H_k = G_k-F_k\quad \forall k>0
+		\]
+		we see that $G_k$ also follows the update rule $G_{k+2}=G_{k+1}+G_k$ 
+		(since it's in the form of $p\alpha^k+q\beta^k$), 
+		and analogously, $H_{k+2}=H_{k+1}+H_k$ (as it's the difference between two sequences that also follow the same form). 
+		
+		Given $F_0=0$ and $F_1=1$, the problem now becomes finding the minimal $k$ such that 
+		\[
+		2^n\mid F_k\quad F_{k+1}\equiv 1\pmod{2^n}
+		\]
+		Let's claim the following: 
+		\begin{itemize}
+			\item $2^{n+1}\mid F_{3\cdot 2^{n-1}}, \forall n\ge 2$
+			\item $F_{3\cdot 2^{n-1}+1}\equiv 2^n+1\pmod{2^{n+1}}, \forall n\ge 2$.  
+		\end{itemize}
+		To see why these claims would imply our lemma, let $f(n)$ be the minimal period mod $2^n$. 
+		The facts above do show that for all $n\ge 3$, $3\cdot 2^{n-1}$ is a period of $F_k$ mod $2^n$, but $3\cdot 2^{n-2}$ is not. 
+		Thus $f(n)\mid 3\cdot 2^{n-1}$ but $f(n)\nmid 3\cdot 2^{n-2}$. In other words $f(n)$ can either be $3\cdot 2^{n-1}$ or $2^{n-1}$. But the latter cannot be, because $F_{2^{n-1}}$ is odd ($F_k$ is even iff $3\mid k$). 
+		The smaller cases $n\le 2$ can be verified manually. 
+		
+		For the first claim, 
+		we first notice that $G_1=\frac{F_2}{F_1}=1$ and $G_2=\frac{F_4}{F_2}=\frac{3}{1}=3$, so continuing this (via induction) we see that $G_k$ is even iff $3\mid k$. 
+		For base case $n=2$ we have $F_6=8\equiv 0\pmod{2^3}$; 
+		for inducting step all we need is that $F_{3\cdot 2^{n}}=F_{3\cdot 2^{n-1}}\cdot G_{3\cdot 2^{n-1}}$
+		and $G_{3\cdot 2^{n-1}}$ is even. 
+		
+		For the second claim, againwe use induction to establish $F_7=13\equiv 5\pmod{8}$. 
+		Let $n\ge 3$ now. 
+		We note that the first claim implies $F_{3\cdot 2^{n-1}+1}\equiv F_{3\cdot 2^{n-1}+2}\pmod{2^{n+1}}$. Also, investigating the sequence $\{H_k\}_{k\ge 1}$ gives $H_1=0, H_1=2, \cdots$, so we can deduces $H_k=2F_{k-1}$. 
+		This means we got 
+		\begin{flalign*}
+			F_{3\cdot 2^{n-1}+1}
+			&\equiv F_{3\cdot 2^{n-1}+2}\pmod{2^{n+1}}
+			\\&=F_{3\cdot 2^{n-2}+1}\cdot G_{3\cdot 2^{n-2}+1}
+			\\&=F_{3\cdot 2^{n-2}+1}(F_{3\cdot 2^{n-2}+1}+H_{3\cdot 2^{n-2}+1})
+			\\&=F_{3\cdot 2^{n-2}+1}(F_{3\cdot 2^{n-2}+1}+2F_{3\cdot 2^{n-2}})
+			\\&\equiv F_{3\cdot 2^{n-2}+1}^2\pmod{2^{n+1}}
+		\end{flalign*}
+		Assuming induction hypothesis for $n-1$, writing $F_{3\cdot 2^{n-2}+1}=a2^{n-1}+1$ for some odd $a$ gives 
+		\[
+		F_{3\cdot 2^{n-2}+1}^2=a^22^{2n-2} + 1 + a2^n\equiv 2^n+1\pmod{2^{n+1}}
+		\]
+		where $2n-2\ge n+1$ since $n\ge 3$.
+	\end{proof}
 	
-	Proof: we need the following equivalence: 
-	\[
-	F_n=\frac{1}{\sqrt{5}}(\beta^n-\alpha^n)
-	\]
-	where $\beta=\frac{1+\sqrt{5}}{2}$ and $\alpha=\frac{1-\sqrt{5}}{2}$. 
-	This follows from that $F_{k+2}=F_{k+1}+F_k$ has characteristic polynomial $x^2-x-1=0$, which has roots $\alpha, \beta$. 
-	Define also the sequences
-	\[
-	G_k = \frac{F_{2k}}{F_k}=\beta^k+\alpha^k \quad H_k = G_k-F_k\quad \forall k>0
-	\]
-	we see that $G_k$ also follows the update rule $G_{k+2}=G_{k+1}+G_k$ 
-	(since it's in the form of $p\alpha^k+q\beta^k$), 
-	and analogously, $H_{k+2}=H_{k+1}+H_k$ (as it's the difference between two sequences that also follow the same form). 
-	
-	Given $F_0=0$ and $F_1=1$, the problem now becomes finding the minimal $k$ such that 
-	\[
-	2^n\mid F_k\quad F_{k+1}\equiv 1\pmod{2^n}
-	\]
-	Let's claim the following: 
-	\begin{itemize}
-		\item $2^{n+1}\mid F_{3\cdot 2^{n-1}}, \forall n\ge 2$
-		\item $F_{3\cdot 2^{n-1}+1}\equiv 2^n+1\pmod{2^{n+1}}, \forall n\ge 2$.  
-	\end{itemize}
-    To see why these claims would imply our lemma, let $f(n)$ be the minimal period mod $2^n$. 
-    The facts above do show that for all $n\ge 3$, $3\cdot 2^{n-1}$ is a period of $F_k$ mod $2^n$, but $3\cdot 2^{n-2}$ is not. 
-    Thus $f(n)\mid 3\cdot 2^{n-1}$ but $f(n)\nmid 3\cdot 2^{n-2}$. In other words $f(n)$ can either be $3\cdot 2^{n-1}$ or $2^{n-1}$. But the latter cannot be, because $F_{2^{n-1}}$ is odd ($F_k$ is even iff $3\mid k$). 
-    The smaller cases $n\le 2$ can be verified manually. 
-    
-    For the first claim, 
-	we first notice that $G_1=\frac{F_2}{F_1}=1$ and $G_2=\frac{F_4}{F_2}=\frac{3}{1}=3$, so continuing this (via induction) we see that $G_k$ is even iff $3\mid k$. 
-	For base case $n=2$ we have $F_6=8\equiv 0\pmod{2^3}$; 
-	for inducting step all we need is that $F_{3\cdot 2^{n}}=F_{3\cdot 2^{n-1}}\cdot G_{3\cdot 2^{n-1}}$
-	and $G_{3\cdot 2^{n-1}}$ is even. 
-	
-	For the second claim, againwe use induction to establish $F_7=13\equiv 5\pmod{8}$. 
-	Let $n\ge 3$ now. 
-	We note that the first claim implies $F_{3\cdot 2^{n-1}+1}\equiv F_{3\cdot 2^{n-1}+2}\pmod{2^{n+1}}$. Also, investigating the sequence $\{H_k\}_{k\ge 1}$ gives $H_1=0, H_1=2, \cdots$, so we can deduces $H_k=2F_{k-1}$. 
-	This means we got 
-	\begin{flalign*}
-	  F_{3\cdot 2^{n-1}+1}
-	  &\equiv F_{3\cdot 2^{n-1}+2}\pmod{2^{n+1}}
-	  \\&=F_{3\cdot 2^{n-2}+1}\cdot G_{3\cdot 2^{n-2}+1}
-	  \\&=F_{3\cdot 2^{n-2}+1}(F_{3\cdot 2^{n-2}+1}+H_{3\cdot 2^{n-2}+1})
-	  \\&=F_{3\cdot 2^{n-2}+1}(F_{3\cdot 2^{n-2}+1}+2F_{3\cdot 2^{n-2}})
-	  \\&\equiv F_{3\cdot 2^{n-2}+1}^2\pmod{2^{n+1}}
-	\end{flalign*}
-	Assuming induction hypothesis for $n-1$, writing $F_{3\cdot 2^{n-2}+1}=a2^{n-1}+1$ for some odd $a$ gives 
-	\[
-	F_{3\cdot 2^{n-2}+1}^2=a^22^{2n-2} + 1 + a2^n\equiv 2^n+1\pmod{2^{n+1}}
-	\]
-	where $2n-2\ge n+1$ since $n\ge 3$. $\square$ 
-	
-	Now that we have this lemma, we shall investigate the minimal period of $S_{i, j}$. 
+	Now we shall investigate the minimal period of $S_{i, j}$. 
 	This is the same as finding the minimal positive $k$ with 
 	\[
 	F_{k-1}i+F_kj\equiv i\quad F_ki + F_{k+1}j\equiv j

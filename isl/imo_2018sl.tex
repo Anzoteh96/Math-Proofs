@@ -1,6 +1,6 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, float}
-\usepackage{mathrsfs}
+\usepackage{mathrsfs, amsthm, prettyref}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
 %\setlength{\topmargin}{0in}
@@ -48,6 +48,7 @@
 \date{}
 \maketitle
 
+\newtheorem{lemma}{Lemma}
 
 \section*{Algebra}
 \begin{enumerate}
@@ -73,19 +74,20 @@
 	$$a_ia_{i + 1} + 1 = a_{i + 2},$$for $i = 1, 2, \dots, n$.
 	
 	\textbf{Answer.} All $n$ that are multiples of 3. \\
-	\textbf{Solution.} (Paraphrased and copy-pasted from my solution on AoPS). 
+	\textbf{Solution.} (Modified from my solution on AoPS). 
 	For $3\mid n$ we have the construction that's a repetition of $(2, -1, -1)$. 
 	For the rest of the solutions we visualize the numbers on a circle. 
 	We'll now eliminate the following cases: 
 	
-	Case $a_i=0$ for some $i$; by the cyclic condition above we may assume that $a_1=0$. 
+	\textbf{Case $a_i=0$ for some $i$.} By the cyclic condition above we may assume that $a_1=0$. 
 	Then we must have $a_2=a_3=1$ and $a_4=2$, etc. Now some inductive statement shows that if $a_i, a_{i+1}>0$ then $a_{i+2}>0$, and we also have $a_2>0$ too. Hence $a_i>0$ for all $i>0$, including when $i=n+1$, contradiction.
+
 	
-	Case consecutive positive numbers. That is, $a_i, a_{i+1}>0$ for some $i$. Again here we consider indices mod $n$. Now $a_{i+2}>1$, and therefore $a_{i+3}>1$. Subsequently, we have $a_{i+4}=a{i+2}a{i+3}+1>a{i+2}a{i+3}\ge a{i+3}\ge 1$, which shows that this sequence is actually increasing after $a_{i+3}$. This cannot happen since the sequence of real numbers are on a circle.
+	\textbf{Case $a_i, a_{i+1}>0$ for some $i$.} Again here we consider indices mod $n$. Now $a_{i+2}>1$, and therefore $a_{i+3}>1$. Subsequently, we have $a_{i+4}=a_{i+2}a_{i+3}+1>a_{i+2}a_{i+3}\ge a_{i+3}\ge 1$, which shows that this sequence is actually increasing after $a_{i+3}$. This cannot happen since the sequence of real numbers are on a circle.
 	
-	This therefore imply that between any two positive numbers there must be at least one negative number; if $a_{i}, a_{i+1}<0$ then $a_{i+2}=a_{i}a_{i+1}+1>1$, so there must be at most two negative numbers between any two consecutive positive numbers. As the goal is to show that there are exactly two negative numbers between any two consecutive positive numbers, it suffices to show that the configuration $+-+$ cannot happen. To do this we do 'backtracking', i.e. consider $a_i, a_{i-1}, a_{i-2}$, etc, given the circular structure of our sequence.
+	This therefore implies that between any two positive numbers there must be at least one negative number; if $a_{i}, a_{i+1}<0$ then $a_{i+2}=a_{i}a_{i+1}+1>1$, so there must be at most two negative numbers between any two consecutive positive numbers. As the goal is to show that there are exactly two negative numbers between any two consecutive positive numbers, it suffices to show that the configuration $+-+$ cannot happen. To do this we do 'backtracking', i.e. consider $a_i, a_{i-1}, a_{i-2}$, etc, given the circular structure of our sequence.
 	
-	Now suppose that $a_{i+2}>0$ and $a_{i+1}<0$ and $a_i>0$. We first see that $a_ia_{i+1}<0$ so $a_{i+2}<1$. Also $a_{i+3}<0$ by the ''no consecutive positive'' lemma we established in the beginning. This means, $a_{i+1}a_{i+2}<-1$ and with $a_{i+2}<1$ (comparing modulus) we get $a_{i+1}<-1$, actually. Now that $a_i=\frac{a_{i+2}-1}{a_{i+1}}$ with $|a_{i+2}-1|<1$ (since $0<a_{i+2}<1$) and $|a_{i+1}|>1$ as proven we have $|a_i|<1$; combining this with $a_i>0$ we get $0<a_i<1$. Going a bit further, $a_{i-1}=\frac{a_{i+1}-1}{a_{i}}$; $a_{i+1}<0$ so $|a_{i+1}-1|=|a_{i+1}|+1$; and $0<a_i<1$ so $|a_{i-1}|=\frac{|a_{i+1}-1|}{|a_{i}|}>|a_{i+1}|+1$, and bear in mind that $a_{i-1}<0$ here. Therefore $a_{i-1} <a_{i+1}-1$, i.e. getting more negative. Continuing this backtracking process, we see that the numbers must be alternating in sign, with positive numbers bounded above by 1, and negative numbers given by $a_{i-1} <a_{i+1}-1$ whenever both numbers are negative. This cannot happen on a circle, reaching our contradiction.
+	Now suppose that $a_{i+2}>0$ and $a_{i+1}<0$ and $a_i>0$. We first see that $a_ia_{i+1}<0$ so $a_{i+2}<1$. Also $a_{i+3}<0$ by the ``no consecutive positive'' lemma we established in the beginning. This means, $a_{i+1}a_{i+2}<-1$ and with $a_{i+2}<1$ (comparing modulus) we get $a_{i+1}<-1$, actually. Now that $a_i=\frac{a_{i+2}-1}{a_{i+1}}$ with $|a_{i+2}-1|<1$ (since $0<a_{i+2}<1$) and $|a_{i+1}|>1$ as proven we have $|a_i|<1$; combining this with $a_i>0$ we get $0<a_i<1$. Going a bit further, $a_{i-1}=\frac{a_{i+1}-1}{a_{i}}$; $a_{i+1}<0$ so $|a_{i+1}-1|=|a_{i+1}|+1$; and $0<a_i<1$ so $|a_{i-1}|=\frac{|a_{i+1}-1|}{|a_{i}|}>|a_{i+1}|+1$, and bear in mind that $a_{i-1}<0$ here. Therefore $a_{i-1} <a_{i+1}-1$, i.e. getting more negative. Continuing this backtracking process, we see that the numbers must be alternating in sign, with positive numbers bounded above by 1, and negative numbers given by $a_{i-1} <a_{i+1}-1$ whenever both numbers are negative. This cannot happen on a circle, reaching our contradiction.
 	
 	\item [\textbf{A3}] 
 	Given any set $S$ of postive integers, show that at least one of the following two assertions holds:
@@ -94,7 +96,7 @@
 	
 	(2) There exists a positive rational number $r<1$ such that $\sum_{x\in F}1/x\neq r$ for all finite subsets $F$ of $S$.
 	
-	\textbf{Solution.} Suppose that there exists a set $S$ such that bpth (1) and (2) fail. That is, finite subset sums are pairwise distinct (or injective, if you like), and for each $r<1$ there's finite $F$ with $\sum_{x\in F}1/x=r$. 
+	\textbf{Solution.} Suppose that there exists a set $S$ such that both (1) and (2) fail. That is, finite subset sums are pairwise distinct (or injective, if you like), and for each $r<1$ there's finite $F$ with $\sum_{x\in F}1/x=r$. 
 	This second contrapositive can be extended to include $r=0$ as all we need is the empty set. 
 	This $S$ is infinite because there are at most $2^n$ subset sums that can be attained by a set of size $n$ and there are infinitely many positive rational numbers $r<1$. Since $S\subseteq\bbN$, it's countable so we can enumerate $S\backslash\{1\}$ as $\{a_1<a_2<a_3<\cdots\}$. 
 	
@@ -125,7 +127,95 @@
 	\]
 	which means $a_2=4$. Continuing this, we get $a_i=2^i$ for all $i\ge 1$. 
 	But then for finite $F$, the denominator of $s(F)$ is a power of 2 in this case, contradiction. 
+	
+	\item[\textbf{A4}]
+	Let $a_0,a_1,a_2,\dots $ be a sequence of real numbers such that $a_0=0, a_1=1,$ and for every $n\geq 2$ there exists $1 \leq k \leq n$ satisfying\[ a_n=\frac{a_{n-1}+\dots + a_{n-k}}{k}. \]
+	
+	\textbf{Answer.} $\frac{2016}{2017^2}$. 
+	
+	\textbf{Solution.} 
+	We'll show a more general statement whereby for each $m\ge 2$, the maximum possible value of $a_{m+1}-a_m$ is $\frac{(m-1)}{m^2}$. 
+	The equality case can be taken following the following recursive manner: for all $k\ge 2$ we have 
+	\begin{equation}
+		a_k
+		=\begin{cases}
+			a_{k-1} & k\le m - 1\\
+			\frac{a_{k-1} + \cdots + a_0}{k} & k=m\\
+			\frac{a_{k-1} + \cdots + a_1}{k - 1} & k = m + 1\\
+		\end{cases}
+	\end{equation}
+    This means $a_k=1$ for all $k\le m-1$, $a_m = \frac{m-1}{m} = 1 - \frac{1}{m}$ and $a_{m+1} = \frac{m - \frac{1}{m}}{m} = 1 - \frac{1}{m^2}$. 
+    It then follows that the desired difference is $\frac{1}{m} - \frac{1}{m^2} = \frac{(m-1)}{m^2}$. 
+    
+    It then remains to prove the bound. 
+    We claim the following: conditioned on $a_0, \cdots, a_{m-1}$ (i.e. fixing these variables), 
+    \begin{equation}
+    	\max a_{m+1} - a_m = \frac{(a_{m-1} + \cdots + a_1) - (m-1)a_0}{m^2}
+    \end{equation}
+    That is, $a_m$ is the average of $a_0, \cdots, a_{m-1}$ and $a_{m+1}$ the average of $a_1, \cdots, a_m$. 
+    Let's first determine when would $a_{m+1}-a_m$ be maximized. 
+    Conditioned on $a_0, \cdots, a_m$ (i.e. fixing these numbers), 
+    we need to maximize $a_{m+1}$. 
+    Next, let $a_{m+1} = \frac{a_m+\cdots + a_{m-k+1}}{k}$ for some $k$. 
+    Then $a_{m+1}-a_m = \frac{a_{m-1} + \cdots + a_{m-k+1} - (k-1)a_m}{k}$. 
+    Thus conditioned on $a_1, \cdots, a_{m-1}$, maximizing $a_{m+1}-a_m$ would require minimizing $a_m$ too. 
+    It follows that to obtain the optimal answer, we take the minimal possible $a_m$, 
+    and conditioned on $a_0, \cdots, a_m$, take the maximal possible $a_{m+1}$. 
+    
+    Next, we show that, regardless of how $a_0, \cdots, a_m, \cdots$ are constructed, 
+    the following two sequences: 
+    \begin{equation}
+    	\{\frac{a_0+\cdots + a_m}{m + 1}\}_{m\ge 1}
+    	\qquad 
+    	\{\frac{a_1+\cdots + a_m}{m}\}_{m\ge 1}
+    \end{equation}
+    are, respectively, nondecreasing and nonincreasing. 
+    By rearranging the terms, we see that an equivalent statement is that for all $m\ge 1$, 
+    \begin{equation}
+    	  \frac{a_0+\cdots + a_m}{m + 1}\le a_{m+1}\le \frac{a_1+\cdots + a_m}{m}
+    \end{equation}
+    We'll do induction on $m$ for each of them: 
+    base case is where $m=1$, and $\frac{a_0+a_1}{2}=\frac 12$, $a_1=1$. 
+    Since $a_2$ can either be $\frac 12$ or 1, the conclusion follows. 
+    
+    Inductive step: suppose that our statement holds for all $m=1, \cdots, m_0$. 
+    Suppose for some $k\ge 1$ we have $a_{m_0+1}=\frac{a_{m_0} + \cdots + a_{m_0-k+1}}{k}$ with $1\le k\le m_0+1$. 
+    If $k=m_0+1$ we have equality. Otherwise, 
+    by our induction hypothesis, 
+    \begin{equation}
+    	\frac{a_0+\cdots + a_{m_0}}{m_0 + 1}\ge \frac{a_0+\cdots + a_{m_0-k}}{m_0 - k + 1}
+    	= (\frac{m_0+1}{m_0-k+1})\frac{a_0+\cdots + a_{m_0}}{m_0 + 1}
+    	-\frac{k}{m_0-k+1}\cdot a_{m_0+1}
+    \end{equation}
+    i.e. rearranging, yields $a_{m_0+1}\ge \frac{a_0+\cdots + a_m}{m_0 + 1}$. 
+    
+    The proof for the other sequence is similar (with all signs reverse) with a catch: if only works for $k\le m_0$. 
+    The non-covered case is $k=m_0 + 1$, so we need to show that 
+    $\frac{a_{m_0} + \cdots + a_{0}}{m_0 + 1}\le \frac{a_{m_0} + \cdots + a_{1}}{m_0}$, 
+    or equivalently, $a_0\le \frac{a_{m_0} + \cdots + a_{1}}{m_0}$. 
+    This nevertheless follows from the fact that with $a_0<a_1$, we always have $a_0\le a_m\le a_1$ 
+    (since $a_m$ is simply the averages of some previous terms for all $m\ge 2$). 
+    This finishes the induction step. 
+    
+    Finally, the sequence lemma entails that for each $m$, 
+    the maximum $a_{m+1}$ is obtained by taking $a_{m+1}=\frac{a_1+\cdots + a_m}{m}$ 
+    and the minimum, by taking $a_{m+1}=\frac{a_0+\cdots + a_m}{m+1}$. 
+    Thus to determine the maximum of $a_{m+1}-a_m$, 
+    we do 
+    \begin{equation}
+    	a_m = \frac{a_0+\cdots + a_{m-1}}{m}
+    	\qquad 
+    	a_{m+1} = \frac{a_1+\cdots + a_m}{m} = \frac{a_1+\cdots + a_{m-1}}{m} + \frac{1}{m^2}(a_0+\cdots + a_{m-1})
+    \end{equation}
+    It then follows that $a_{m+1}-a_m = \frac{a_1+\cdots + a_{m-1} - (m-1)a_0}{m^2}$. 
+    Finally, to determine the chooices of $a_2, \cdots, a_{m-1}$ that maximizes this difference, 
+    we take $a_2, \cdots, a_{m-1}$ to be maximum possible, 
+    i.e. all $=a_1$. 
+    Given also $a_0=0$ we have $\frac{a_1+\cdots + a_{m-1} - (m-1)a_0}{m^2}=\frac{m-1}{m^2}$, 
+    as desired. 
+    
 \end{enumerate}
+
 
 \section*{Combinatorics}
 \begin{enumerate}
@@ -261,39 +351,46 @@
 	Then for any $B$ on the semicircle, the perimeter of $ABC_0$ is $>4$ (so long as this is not degenerate). 
 	
 	Consider, now, the following algorithm: start with $B_1$ anywhere on the semicircle. 
-	Thereafter, suppose we have $B_i$ on the semicircle not equal to $A$ or $C_0$. Consider moving $C_i$ on the minor arc from $B_i$ to $C_0$. 
+	Thereafter, suppose we have $B_i$ on the semicircle not equal to $A$ or $C_0$. 
+	Consider moving $C_i$ on the minor arc from $B_i$ to $C_0$. 
 	The perimeter would move continuously (and increasing) 
 	from $2AB_i$ (i.e. $<4$) to the perimeter of $AB_iC_0$ (which is $>4$), 
 	so there by intermediate value theorem there's a point $C_i'$ in this minor arc such that $AB_iC_i'$ has perimeter 4. 
 	This means we may choose $C_i\in$ the minor arc $(C_i', C_0)$ to ensure perimter of $AB_iC_i$ is $>4$, 
-	and choose $B_{i+1}$ atrictly in the minor arc $(C_i, C_0)$, 
+	and choose $B_{i+1}$ strictly in the minor arc $(C_i, C_0)$, 
 	thereby making sure that the triangles $AB_iC_i$ do not intersect in interior point. 
 	Thus we can construct arbitrarily many such triangles. 
 	
 	Now suppose $t>4$. Consider $\epsilon=t - 4>0$. Since the total length of any two sides is at most 4, the shortest side must have length at least $\epsilon$, i.e. the angle subtended by the center must exceed $\epsilon$. Now we proceed with the following: 
 	
-	\emph{Lemma.} Given an arc of unit circle of measure $\theta$, the number of triangles with all angles $\ge \epsilon$ that can be placed on this circle (with no intersection), denoted by $f(\theta)$, is no more than $\max(0, \lfloor \frac{\theta}{\epsilon}\rfloor - 1)$. 
+	\begin{lemma}
+		  Given an arc of unit circle of measure $\theta$, the number of triangles with all angles $\ge \epsilon$ that can be placed on this circle (with no intersection), denoted by $f(\theta)$, is no more than $\max(0, \lfloor \frac{\theta}{\epsilon}\rfloor - 1)$. 
+	\end{lemma}
 	
-	Proof: within an arc of $<2\epsilon$, among three vertices, two of them is $<\epsilon$ apart. 
-	It then follows that we need an arc of measure at least $2\epsilon$ to place a single triangle of the said criterion. 
+	\begin{proof}
+		Within an arc of $<2\epsilon$, among three vertices, two of them is $<\epsilon$ apart. 
+		It then follows that we need an arc of measure at least $2\epsilon$ to place a single triangle of the said criterion. 
+		
+		For induction purpose, assume that our statement is true for all $\theta' \le k\epsilon$ for some $k\ge 2$. 
+		Consider, now, an arc with measure $\theta$ such that $\theta \le (k + 1)\epsilon$. 
+		Consider any triangle $ABC$ satisfying the condition, 
+		and let the endpoints of arc be $D$ and $E$. 
+		Here, we may pick such $ABC$ such that $D, A, B, C, E$ are in that order, 
+		and $(DA) + (CE)$ is as small as possible. 
+		Given also that the triangles do not intersect each other in the interior, 
+		it follows that no other triangles are in the $(DA)$ or $(CE)$ region. 
+		
+		In addition, any triangle with a vertex in $AB$ must have all vertices in $AB$, similarly for $BC$. 
+		Given also that $(AB)$ and $(BC)$ have measures $\ge \epsilon$, by induction hypothesis the number of valid triangles is bounded by 
+		\[
+		1 + (\lfloor\frac{(AB)}{\epsilon}\rfloor) - 1 + (\lfloor\frac{(BC)}{\epsilon}\rfloor) - 1
+		\le \lfloor \frac{(AB)+(BC)}{\epsilon}\rfloor - 1
+		\le \lfloor \frac{(DE)}{\epsilon}\rfloor - 1
+		\]
+		as desired. 
+	\end{proof}
 	
-	For induction purpose, assume that our statement is true for all $\theta' \le k\epsilon$ for some $k\ge 2$. 
-	Consider, now, an arc with measure $\theta$ such that $\theta \le (k + 1)\epsilon$. 
-	Consider any triangle $ABC$ satisfying the condition, 
-	and let the endpoints of arc be $D$ and $E$. 
-	Here, we may pick such $ABC$ such that $D, A, B, C, E$ are in that order, 
-	and $(DA) + (CE)$ is as small as possible. 
-	Given also that the triangles do not intersect each other in the interior, 
-	it follows that no other triangles are in the $(DA)$ or $(CE)$ region. 
 	
-	In addition, any triangle with a vertex in $AB$ must have all vertices in $AB$, similarly for $BC$. 
-	Given also that $(AB)$ and $(BC)$ have measures $\ge \epsilon$, by induction hypothesis the number of valid triangles is bounded by 
-	\[
-	1 + (\lfloor\frac{(AB)}{\epsilon}\rfloor) - 1 + (\lfloor\frac{(BC)}{\epsilon}\rfloor) - 1
-	\le \lfloor \frac{(AB)+(BC)}{\epsilon}\rfloor - 1
-	\le \lfloor \frac{(DE)}{\epsilon}\rfloor - 1
-	\]
-	as desired. 
 	
 	In particular, considering the whole circle, we cannot have more than $\frac{2\pi}{\epsilon}-1$ such triangles. 
 	Therefore, any $n$ with $n > \frac{2\pi}{\epsilon}-1$ would fail. 
@@ -567,7 +664,7 @@
 	both taken modulo $n^4$. 
 	We now compare the coefficients of $1, n, n^2, n^3$ in $R_1+\cdots R_n$ and $C_1+\cdots C_n$. 
 	We will, in fact, show that the difference of each term is divisible by $n^4$. 
-	The coefficient of 1 in both expressions are $n$, and the coefficient of $n$ in $R_1+\cdots R_n$ is: 
+	The coefficient of 1 in both expressions are 1, and the coefficient of $n$ in $R_1+\cdots R_n$ is: 
 	\[
 	\displaystyle\sum_{i=1}^n \displaystyle\sum_{k=1}^n a_{ik}
 	=\displaystyle\sum_{j=1}^n \displaystyle\sum_{k=1}^n a_{kj}
@@ -790,6 +887,140 @@
 		which gives $X_0>2X_0\sqrt{\frac{1}{2}}-1=\sqrt{2}X_0-1$ which means $X_0\le 2$. But since $X_0$ is odd, $X_0=1$ and the only solution is $1^2+0^2$. This gives $X=4$, and the only possible combinations of $(p, q)$ and $(r, s)$ are $(4, 0, 0, 4)$ which we can solve as $a=2, b=0$. Now $b=0$ means $zt=0$, contradiction. 
 	\end{itemize}
 	Therefore the contradiction above means a solution does not exist. 
+	
+	\item[\textbf{N6}] 
+	Let $f : \{ 1, 2, 3, \dots \} \to \{ 2, 3, \dots \}$ be a function such that $f(m + n) | f(m) + f(n) $ for all pairs $m,n$ of positive integers. Prove that there exists a positive integer $c > 1$ which divides all values of $f$.
+	
+	\textbf{Solution.} 
+	We first start with the following lemma. 
+	\begin{lemma}\label{lmm:n6limits}
+		  $\lim_{n\to\infty} \frac{f(n)}{n}$ exists and is either $f(1)$ or 0. 
+		  In addition, this limit is $f(1)$ precisely when $f(n)=nf(1)$ for all $n$. 
+	\end{lemma}
+    
+    \begin{proof}
+    	Let's first show the existence of such limit. 
+    	Let $L_0 = \lim\inf \frac{f(n)}{n}$ and $L_1=\lim\sup\frac{f(n)}{n}$, 
+    	i.e. $L_0\le L_1$. 
+    	An important property is the sublinearity of the function, i.e. $f(m+n)\le f(m)+f(n)$. 
+    	Now suppose that $c, n$ are such that $f(n)\le cn$. 
+    	We show that for all $c' > c$ and $m$ sufficiently large (threshold depending on $c'$), 
+    	$f(m)\le c'm$
+    	Using repeated iteration of this inequality, by setting $m=kn+r$ with $0\le r < n$ we have 
+    	\begin{equation}
+    		f(m)\le f(n)+\cdots + f(n) + f(r) = kf(n)+r\le kcn + f(r)
+    	\end{equation}
+    	and therefore choosing $k\ge \frac{\max(f(1), \cdots, f(n-1))}{n(c'-c)}$ we get $f(m)\le kc'n \le c'(kn+r)=c'm$ 
+    	(i.e. $f(m)\le c'm$ for all $m\ge kn$ for this choice of $k$). 
+    	Since $c'$ can be anything greater than $c$, it then follows that $L_1\le c$ (by definition of $\lim\sup$). 
+    	Since $c$ can also be taken arbitrarily close to $L_0$ (be definition of $\lim\inf$), 
+    	this implies $L_1\le L_0$ too. 
+    	We then have $L_0=L_1$, i.e. the limit is indeed $L_0$ (call this $L$ from now). 
+    	
+    	From the proof above we can also deduce that $\frac{f(n)}{n}\ge L$ for all $n$. 
+    	In particular we also have $L\le f(1)$. 
+    	Suppose, now, $L > 0$. 
+    	We claim that $f(n + 1) = f(n) + f(1)$ for $n$ sufficiently large. 
+    	Consider $L'=1.01L$ (i.e. $L>\frac{L'}{2}$), which then follows that there exists an $N$ such that $f(n)\le L'n$ for all $n\ge N$. 
+    	For all $n > \max(N, \frac{f(1)/2 - L}{L-L'/2})$, 
+    	consider the relation $f(n + 1)\mid f(n)+f(1)$, 
+    	i.e. $f(n + 1) = f(n) + f(1)$ or $f(n + 1)\le \frac{f(n)+f(1)}{2}$. 
+    	In the latter case we have 
+    	\begin{equation}
+    		  L(n + 1)\le f(n + 1)\le \frac{f(n)+f(1)}{2} \le \frac{L'n + f(1)}{2} < L(n + 1)
+    	\end{equation}
+        i.e. a contradiction. This then show that $f(n + 1) = f(n) + f(1)$ for $n$ sufficiently large, 
+        which will then entail $L = f(1)$. 
+        
+        Finally, we have seen that $\frac{f(n)}{n}\le f(1) = L$ for all $n$, on the other hand $\frac{f(n)}{n}\ge L$ too. 
+        Thus the equality holds here, i.e. $\frac{f(n)}{n}=L$. 
+    \end{proof}
+    
+    Now in view of the lemma, we either have $f(n) \equiv cn$ or $\lim_{n\to\infty} \frac{f(n)}{n} = 0$. 
+    In the first case, using $f(1)\ge 2$, we have $c\ge 2$, 
+    which implies the conclusion. 
+    We now focus on the second case, 
+    which brings us into the following. 
+    
+    \begin{lemma}\label{lmm:n6primes}
+    	  Denote the set of primes as $\mathcal{P}$, and for each $n\ge 1$, $\mathcal{P}_n=\mathcal{P}\cap \{n, n + 1, \cdots \}$. 
+    	  Suppose that the conclusion is false. 
+    	  Then there exists an $M$ and an injective mapping $\varphi:\mathcal{P}_M\to \mathcal{P}$ such that 
+    	  $\varphi(p) \mid f(p)$ for all $p$. 
+    \end{lemma}
+    
+    \begin{proof}
+    	  We first see that 
+    	  \begin{equation}
+    	  	  \cdots \mid \gcd(f(n), f(1)) \mid \cdots \mid \gcd(f(2), f(1))\mid \gcd(f(1), f(1))
+    	  \end{equation}
+    	  Indeed $f(n+1)\mid f(1) + f(n)$, so from $\gcd(f(n + 1), f(1))$ dividing both $f(n+1)$ and $f(1)$ follows that 
+    	  it also divides $f(n)$. 
+    	  Thus there exists a constant $c$ such that for $n$ sufficiently large, $\gcd(f(n), f(1))=c$. 
+    	  If $c > 1$ then we have $c\mid f(n)$ for all $n$ and we're done. 
+    	  We now assume $c = 1$, so there exists an $M$ such that $\gcd(f(n), f(1))=1$ for all $n\ge M$. 
+    	  
+    	  Next, let's show that for all $p\ge M$ we have $\gcd(f(p), f(n)) = 1$ for all $n < p$. 
+    	  A more general claim is that for each pair $(m, n)$, we have $\gcd(f(m), f(n))\mid f(\gcd(m, n))$. 
+    	  Indeed, 
+    	  starting from $(m_0, n_0)=(m, n)$, consider the pair $(m_0, n_0), \cdots$ via the following Euclidean iteration:  
+    	  \begin{equation}
+    	  	(m_{k+1}, n_{k+1})
+    	  	=
+    	  	\begin{cases}
+    	  		(m_k, n_k) & m_k=n_k\\
+    	  		(m_k - n_k, n_k) & m_k > n_k\\
+    	  		(m_k, n_k - m_k) & n_k > m_k\\
+    	  	\end{cases}
+    	  \end{equation}
+          Assume that $m_k > n_k$, then 
+          \begin{equation}
+          	  \gcd(m_k - n_k, n_k) =\gcd(m_k, n_k)
+          	  \qquad 
+          	   f(m_k)\mid f(n_k)+f(m_k - n_k)
+          	  \to \gcd(f(m_k), f(n_k)) \mid f(m_k - n_k)
+          \end{equation}
+    	  So considering all the 3 cases we have 
+    	  \begin{equation}
+    	  	  \gcd(f(m_{k}), f(n_{k})) \mid \gcd(f(m_{k + 1}), f(n_{k+1}))
+    	  	  \qquad 
+    	  	  \gcd(m_k, n_k) = \gcd(m_{k+1}, n_{k+1})
+    	  \end{equation}
+    	  
+    	  Notice by Euclid's algorithm, there exists a $K$ such that $m_k=n_k$ for all $k\ge K$. 
+    	  For those $k$, $\gcd(f(m_k), f(n_k))=f(\gcd(m_k, n_k))=f(m_k)$. 
+    	  This means we have 
+    	  \begin{equation}
+    	  	\gcd(f(m), f(n))=\gcd(f(m_0), f(n_0))\mid \gcd(f(m_K), f(n_K))=f(\gcd(m_K, n_K))=f(\gcd(m, n))
+    	  \end{equation}
+    	  as claimed. 
+    	  
+    	  In particular, for any prime $p\ge M$, for any $n$ with $p \nmid n$, 
+    	  we have $\gcd(f(n), f(p))\mid f(\gcd(n, p)) = f(1)$. 
+    	  But since $\gcd(f(p), f(1))=1$ we do have $\gcd(f(n), f(p)) = 1$. 
+    	  Since $f(p) > 1$, there's a prime $q\mid f(p)$; we may define $\varphi(p) = q$. 
+    	  Such a mapping is an injection since $\gcd(f(p), f(q))=1$ for different primes $p, q$ and $p, q\ge M$. 
+    \end{proof}
+    
+    Now we may complete our proof. Let threshold $M$ as per Lemma \prettyref{lmm:n6primes}, 
+    As per Lemma \prettyref{lmm:n6limits}, choose $N$ such that $\frac{f(n)}{n}\le \frac 13$. 
+    Let $M_1=\max(M, N)$; we see that the mapping $\varphi_{\mid \ge M_1}$ (that is, $\varphi$ restricted to $\ge M_1$) is still an injection. 
+    It then follows that for each $n\ge M_1$, 
+    \begin{equation}
+    	\begin{aligned}
+    		|\mathcal{P}\cap \{1, \cdots, n\}| 
+    		- |\mathcal{P}\cap \{1, \cdots, M_1 - 1\}| 
+    		|\mathcal{P}\cap \{M_1, \cdots, n\}| \\
+    		= |\{\varphi(p): M_1\le p\le n\}|
+    		\le |\mathcal{P}\cap \{1, 2, \cdots, \frac 13 n\}|
+    	\end{aligned}    	
+    \end{equation}
+    So rearranging yields that for each $n$, 
+    $|\mathcal{P}_{\le n}| - |\mathcal{P}_{\le \frac13 n}|\le |\mathcal{P}_{\le M_1 - 1}|$ 
+    (where $\mathcal{P}_{\le n}=\mathcal{P}\cap\{1, \cdots, n\}$. 
+    This means for $n$ sufficiently large, there are only bounded number of prime numbers between $\frac 13n$ and $n$. 
+    But this contradicts the prime number theorem, which states that the number of prime numbers between $\frac 13 n$ and $n$ is $\simeq (\frac{n}{\log n} - \frac{n}{3(\log n - \log 3)})(1 + o(1))$, which is unbounded as $n$ large.  
+    
 	\end{enumerate}
 
 \end{document}
