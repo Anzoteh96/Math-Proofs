@@ -1,6 +1,6 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
-\usepackage{mathrsfs}
+\usepackage{mathrsfs, float}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
 %\setlength{\topmargin}{0in}
@@ -137,5 +137,96 @@
 		\end{tikzpicture}
 	
 	Now with the claim, we can finish the solution: now that $BCYX$ is cyclic with circumcircle $\Omega$, we consider the line $IL$, which, by Brokard's theorem, its pole is the intersection of $XY$ and $BC$ (say, $Z$). Meanwhile, $MB$ and $MC$ are tangeent to $\Omega$ so $M$'s polar is $BC$. We have $Z$ lies on $BC$ by definition, so by La Hire's theorem, $Z$'s polar (i.e. $LI$) contains $BC$'s pole (i.e. $M$). 
+	
+	\item[\textbf{Problem 4.}]
+	Given a 32 $\times$ 32 table, we put a mouse (facing up) at the bottom left
+	cell and a piece of cheese at several other cells. The mouse then starts moving. It
+	moves forward except that when it reaches a piece of cheese, it eats a part of it, turns
+	right, and continues moving forward. We say that a subset of cells containing cheese
+	is good if, during this process, the mouse tastes each piece of cheese exactly once and
+	then falls off the table. Show that:
+	
+	\begin{enumerate}
+		\item No good subset consists of 888 cells
+		
+		\item There exists a good subset consisting of at least 666 cells. 
+	\end{enumerate}
+    
+    \textbf{Solution.}
+    Part (a) is hinged among these two facts: 
+    \begin{itemize}
+    	\item In a $4\times 4$ grid, at least 2 cells cannot be good; 
+    	
+    	\item Not all cells in any $2\times 3$ grid with one side of length 3 on the table edge can be good, 
+    	except for one of them where the mouse falls off. 
+    \end{itemize}
+    
+    To see why, suppose a $3\times 3$ grid is good. 
+    Consider the time the mouse reaches the center of the grid. 
+    Since it must come from another good cell to reach the grid center and a good cell can only be visited once, we have the following configuration (up to rotation), where $?$ means direction known. 
+    \begin{table}[H]
+    	\begin{center}
+    		\begin{tabular}{ccc}
+    			? & ? & ?\\
+    			? & $\rightarrow$ & $\downarrow$\\
+    			? & $\uparrow$ & $\leftarrow$\\
+    		\end{tabular}
+    	\end{center}
+    \end{table}
+    This is to say, if it goes up to the center cell $C$ from some cell $D$, then 
+    since $D$ is good, it must have made a turn to reach $D$ (i.e. the direction to $D$ cannot be up)
+    so it must come from the cell to its right $R$. 
+    But this would end up in a 4-cycle as shown in the picture. 
+    
+    The second one, $2\times 3$ grid, is also similar. Consider the center of the 3-square on the side. 
+    Again, the mouse cannot come from below, so it must also come from a good cell. 
+    This leads to one of the following situations (here $\times$ means falls off). 
+    \begin{table}[H]
+    	\begin{center}
+    		\begin{tabular}{ccc}
+    			? & ? & ?\\
+    			$\rightarrow$ & $\downarrow$ & ?\\
+    			- & $\times$ & -\\
+    		\end{tabular}
+    	\end{center}
+    \end{table}
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{ccc}
+			? & $\rightarrow$ & $\downarrow$\\
+			? & $\uparrow$ & $\leftarrow$\\
+			- & - & -\\
+		\end{tabular}
+	\end{center}
+\end{table}
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{ccc}
+			$\rightarrow$ & $\downarrow$ & ?\\
+			$\uparrow$ & $\leftarrow$ & ?\\
+			- & - & -\\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{ccc}
+			? & ? & ?\\
+			? & $\rightarrow$ & $\downarrow$\\
+			- & - & $\times$\\
+		\end{tabular}
+	\end{center}
+\end{table}
+(TODO: actually prove the $4\times 4$ case, shouldn't be hard). 
+
+Now, aside from the $28\times 28$ innermost cells, 
+we have $240$ cells on the outer cells that can be partitioned into 40 $2\times 3$ cells, 
+with one longer side along the edge. 
+Then we have 39 cells that cannot be good. 
+For the innermost cells, we can split into 49 $4\times 4$ grids, so 98 cells cannot be good. 
+So the number of good cells is at most $1024-(39+98)=887$. 
+
+
 \end{enumerate}
 \end{document}
