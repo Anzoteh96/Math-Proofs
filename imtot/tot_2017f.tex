@@ -29,6 +29,42 @@
 
 \section*{A-Level}
 \begin{enumerate}
+	\item [2.]
+	Six circles of radius 1 with centers in the vertices of a regular hexagon are drawn, so that
+	the center $O$ of the hexagon lies inside all six circles. An angle with angular measure $\alpha$
+	and vertex $O$ cuts out six arcs in these circles. Prove that the sum of the sizes of these
+	arcs is equal to $6\alpha$. 
+	
+	\textbf{Solution.} 
+	We make the assumption that the size of arc is with respect to the center not circumference. 
+	The claim is that the sum of the sizes of arcs from the two circles with centers of opposite vertices of the hexagon is always exactly $2\alpha$. 
+	
+	Now let the centers of the two circles $\omega_1, \omega_2$ be $O_1$ and $O_2$ respectively, 
+	which are the opposite vertices of the hexagon. 
+	Then $O$ is the midpoint of $O_1$ and $O_2$. 
+	In addition, 
+	let the ray for one of the angles hit the circles $\omega_1, \omega_2$ at $A_1, A_2$, respectively, 
+	and the other hit the circles $\omega_1, \omega_2$ at $B_1, B_2$, respectively. 
+	Reflect $A_2, B_2$ in $O$ to get $A_3, B_3$, respectively. 
+	Then we notice: 
+	\begin{itemize}
+		\item $A_3, B_3$ both lie on $\omega_1$ since $\omega_2$ is precisely the reflection of $\omega_1$ in $O$; 
+		
+		\item The arc $A_2B_2$ and $A_3B_3$ have the same angle. 
+	\end{itemize}
+    Thus it suffices to show that $(A_1B_1)$ and $(A_3B_3)$ have angle summed to $2\alpha$. 
+    Here, $A_1, O, A_3$ are collinear in that order, 
+    as are $B_1, O, B_3$. 
+    Since $A_1A_3B_3B_1$ is cyclic, the angle subtended on the circumference satisfies 
+    \[
+    \angle A_1B_1A_3 + \angle B_1A_1B_3
+    =\angle A_3B_1A_1 + \angle B_3A_1B_1
+    =\angle A_3B_1O + \angle B_3A_1O
+    =\angle A_1OA_3
+    =\alpha
+    \]
+    so it follows that the sum of angles subtended in the center is indeed $2\alpha$. 
+	
 	\item [3.] An analyst made a prediction for the change in the dollar/euro rate for each of the next 12 months: by what percentage the rate would change in October, in November, in December, and so on. It turned out that for every month, he predicted the right percentage but was mistaken if it will go up or down (i.e., if he predicted that the rate will decrease by $x\%$, then the real rate increased by $x\%$, and vice versa). Nevertheless, the dollar/euro rate after 12 months coincided with the prediction. Did the dollar/euro rate go up or down on the whole?
 	
 	\textbf{Answer.} It decreases.
@@ -67,13 +103,98 @@
 	
 	Finally, by convention $s_{-1}=0$ and $s_n-s_{n-1}=\pm 1$ for all $n$. If $|s_{m+1}|\ge 2017$ then there must be an $x\le m+1$ such that $|s_{m+1}|=2017$ and we're done. Otherwise, we have $s_{m+1}, s_{m+2}, \cdots , s_{m+c}$ all one more than the term before or one less than the term before. This means $s_{m+c}=s_{m+1}+(c-1)$ or $s_{m+c}=s_{m+1}-(c-1)$. Since $-2016\le s_{m+1}\le 2016$, $s_{m+c}$ must lie outside the $[-2016, 2016]$ interval and so there's an $x\le c$ with $|s_{m+x}|=2017$, done. 
 	
+	\item[5.]
+	You must cut a piece of cheese into parts following the rules:
+	\begin{itemize}
+		\item[(1)] The first cut must divide
+		the cheese into two pieces, every next cut divides one of the existing pieces into two;
+		
+		\item[(2)] after every cut, the ratio of the weight of any piece to the weight to any other one
+		must be greater than a given number $R$. 
+	\end{itemize}
+    \begin{enumerate}
+    	\item Prove that for $R = 0.5$ we can cut the cheese so that the process will never stop 
+    	(i.e., after any number of cuts, we will still be able to make one more cut).
+    	
+    	\item Prove that if $R > 0.5$, then at some point we will have to stop cutting.
+    	
+    	\item What is the greatest number of parts we can achieve if $R = 0.6$?
+    \end{enumerate}
+    
+    \textbf{Answer to (c)}. 6 parts. 
+    
+    \textbf{Solution.} For (a) the algorithm is simply 	``take the largest piece and cut that into even pieces''. 
+    Then at any time, there's a nonnegative integer $k$ such that the weight of the piece is either $\frac{1}{2^k}$ or $\frac{1}{2^{k+1}}$ of the original. 
+    
+    For the next two parts, let's consider the following lemma: 
+    
+    \emph{Lemma.} Let $R>0.5$, such that $(2R)^k > \frac{1}{R}$. 
+    Then we cannot have more than $2k$ parts. 
+    
+    Proof: let $a$ be the weight of piece we're cutting. Then for any other piece with weight $b$ we have 
+    $\frac 12 a\ge Rb$ so $a\ge 2Rb > b$. 
+    This means, we must choose the heaviest piece to cut, and this piece must have weight at least $2R\times$ the next one. 
+    
+    Consider a configuration where the pieces have weights 
+    $a_1\ge \cdots a_{\ell}$, 
+    such that there exists $m < \ell$ such that $\frac{a_m}{a_{m+1}} < 2R$ 
+    (if multiple such $m$'s exist, choose the smallest such $m$). 
+    For $i=1, \cdots, m-1$, denote $d_i$ as the maximum integer such that $(2R)^{d_i}\le \frac{a_i}{a_{i+1}}$, 
+    denote the score of the score $s$ of the configuration as 
+    $\sum_{i=1}^{m-1} d_i$. 
+    
+    We claim that we cannot do more than $s$ cuts from here. 
+    Indeed, if $d_1=0$ then $\frac{a_1}{a_2} < 2R$ then we cannot make anymore cut. 
+    Otherwise, we consider cutting $a_1$ into $b_1\ge b_2$, 
+    with $\frac{b_2}{b_1}\ge R$. 
+    It then follows that $\frac{b_1}{a_1}\le \frac{1}{1+R}\le \frac{1}{2R}$ since $R\le 1$. 
+    Let's now consider one of the two cases: 
+    
+    \emph{Case 1.} 
+    $b_1\le a_2$. 
+    Now, given that $\frac{a_m}{a_{m+1}} < 2R$, 
+    if $b_2$ is the smallest piece then its ratio with the next smallest piece will not contribute to the score of this new configuration. 
+    Suppose that $a_i\ge b_1\ge a_{i+1}$ for some $i$, 
+    Defining $e_{i1} = \lfloor \frac{\log (a_i/b_1)}{\log (2R)}\rfloor$ and 
+    $e_{i2}=\lfloor \frac{\log (b_1/a_{i+1})}{\log (2R)}\rfloor$ we get 
+    $e_{i1}+e_{i2}\le \lfloor \frac{\log (a_i/a_{i+1})}{\log (2R)}\rfloor=d_i$ 
+    (basically, $\lfloor x\rfloor + \lfloor y\rfloor \le \lfloor x+y\rfloor$ for all reals $x, y$). 
+    We may also do the same for $b_2$, 
+    and then the score is now no more than $\sum_{j=2}^{m-1}d_j + (e_{i1}+e_{i2} - d_i)\le \sum_{j=2}^{m-1}d_j =s-d_1 < s$. 
+    
+    \emph{Case 2.} $b_1 > a_2$. 
+    With $\frac{b_1}{a_1} \le \frac{1}{2R}$, $\lfloor \frac{\log (b_1/a_2)}{\log (2R)}\rfloor
+    \le \lfloor \frac{\log (a_1/a_2)}{\log (2R)} - 1\rfloor
+    =d_1-1$. 
+    A similar proof idea would yield that the score now is at most $s-1$. 
+    
+    Therefore in each of the cases we have the score decreasing by at least 1, showing that we cannot perform more than $s$ cuts. 
+    
+    Finally, consider the first moment where we have this $m$ with $\frac{a_m}{a_{m+1}} < 2R$. 
+    Since $(2R)^k > \frac{1}{R}$, 
+    $m$ cannot exceed $k$ and the score cannot exceed $k-1$, so this must happen when we have done $k$ cuts. 
+    It then follows that no more than $2k-1$ cuts can be made. 
+    
+    In particular for (c), $1.2^3=1.728$ and $\frac{1}{0.6}\simeq 1.666$, i.e. we cannot do more than 6 cuts. 
+    An example of 6 cuts is as follows (normalizing the weights we may assume the total was $M = 1.2^3+1.2^2+1.2+1.2$ to start with)
+    \begin{equation}
+    	\begin{aligned}
+    		M\to (1.2^3+1.2^2, 1.2+1.2)
+    		\to (1.2+1.2, 1.2^3, 1.2^2)
+    		\to (1.2^3, 1.2^2, 1.2, 1.2)
+    		\\
+    		\to (1.2^2, 1.2, 1.2, 1.2^3/2, 1.2^3/2)
+    		\to (1.2, 1.2, 1.2^3/2, 1.2^3/2, 1.2^2/2, 1.2^2/2)
+    	\end{aligned}
+    \end{equation}
+	
 	\item[6.] A triangle $ABC$ is given. Let $I$ be the center of its excircle tangent to the segment $AB$, and let $A_1$ and $B_1$ be the points where the segments $BC$ and $AC$ touch the corresponding excircles. Let $M$ be the midpoint of the segment $IC$, and let the segments $AA_1$ and $BB_1$ intersect at point $N$. Prove that the points $N, B_1, A$, and $M$ are concyclic.
 	
 	\textbf{Solution.} In fact, we'll show that $M$ is the second intersection of circles $AB_1N$ and $BA_1N$. First, consider the second intersection of line $IC$ with circumcircle of $CAA_1$, namely $M'$. $M'A=M'A_1$ and therefore by Ptolemy's theorem,
 	\[
 	M'C\cdot AA_1 = M'A \cdot (CA+CA_1) 
 	\]
-	but if the excircle touches $CA$ and $CB$ at $B_2$ and $A_2$ respectively, we have $B_2, C, A_2, I$ concyclic and therefore 
+	but if the excircle opposite $C$ touches $CA$ and $CB$ at $B_2$ and $A_2$ respectively, we have $B_2, C, A_2, I$ concyclic and therefore 
 	\[
 	IC\cdot A_2B_2 = IA_2 \cdot (CA_2+CB_2) 
 	\]
@@ -82,6 +203,61 @@
 	\frac{M'C}{CA+CA_1}=\frac{IC}{CA_2+CB_2}
 	\]
 	but by definition of $A_2$ and $B_2$, $CA_2$ and $CB_2$ are each equal to $s$, the semiperimeter of triangle $ABC$, same goes to the sum $CA+CA_1$ given the definition of $A_1$. We $IC=2CM'$, and so $M'=M$, i.e. $M, A, C, A_1$ are concyclic and therefore $MA=MA_1$. Similarly $MB=MB_1$. 
+	
+	\definecolor{ffeacd}{rgb}{1,0.9176470588235294,0.803921568627451}
+	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+	\clip(-11.01202764609108,-4.840697651823524) rectangle (5.90060976596652,7.039947830600865);
+	\fill[line width=2pt,color=ffeacd,fill=ffeacd,fill opacity=0.1] (-6.660399928918092,4.377452069779885) -- (-7.06,-0.17) -- (-1.74,-0.13) -- cycle;
+	\draw [line width=2pt] (-3.92177765666494,1.8686705057318924)-- (-7.06,-0.17);
+	\draw [line width=2pt] (-6.800993204098606,2.7774994509383433)-- (-1.74,-0.13);
+	\draw [line width=2pt] (-6.17588027073389,1.2374390233427819) circle (1.66209274714309cm);
+	\draw [line width=2pt] (-3.342586770825239,0.31075837153886265) circle (1.6620927471430884cm);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-6.272208149461533,2.0520571954028766) circle (2.357573790874108cm);
+	\draw [line width=2pt] (-6.660399928918092,4.377452069779885)-- (-7.385111854433759,-3.869775556475656);
+	\draw [line width=2pt] (-3.315355832444698,-4.227398852052594)-- (-7.385111854433759,-3.869775556475656);
+	\draw [line width=2pt] (-3.315355832444698,-4.227398852052594)-- (-0.5556941388403823,-1.2149121986533606);
+	\draw [line width=2pt] (-6.660399928918092,4.377452069779885)-- (-0.5556941388403823,-1.2149121986533606);
+	\draw [line width=2pt] (-7.06,-0.17)-- (-1.74,-0.13);
+	\draw [line width=2pt] (-7.06,-0.17)-- (-4.987877880681393,0.07502660886364859);
+	\draw [line width=2pt] (-6.0352663197127,0.048305812272074825) -- (-6.012611560968693,-0.14327920340842693);
+	\draw [line width=2pt] (-4.987877880681393,0.07502660886364859)-- (-3.92177765666494,1.8686705057318924);
+	\draw [line width=2pt] (-4.537746456452955,1.0211334971743704) -- (-4.371909080893379,0.9225636174211711);
+	\draw [line width=2pt] (-6.800993204098606,2.7774994509383433)-- (-4.987877880681393,0.07502660886364859);
+	\draw [line width=2pt] (-5.836725509329109,1.5133803829023136) -- (-5.996930076676416,1.4058975799610534);
+	\draw [line width=2pt] (-5.791941008103583,1.446628479840937) -- (-5.95214557545089,1.3391456768996766);
+	\draw [line width=2pt] (-4.987877880681393,0.07502660886364859)-- (-1.74,-0.13);
+	\draw [line width=2pt] (-3.3979736635421203,0.0713137028442185) -- (-3.4101277909236445,-0.12122287423826923);
+	\draw [line width=2pt] (-3.317750089757749,0.06624948310191708) -- (-3.3299042171392736,-0.12628709398057064);
+	\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-3.156199077852411,3.2633725155901936) circle (3.677036423218152cm);
+	\draw [line width=2pt] (-6.660399928918092,4.377452069779885)-- (-3.315355832444698,-4.227398852052594);
+	\draw [line width=2pt,color=ffeacd] (-6.660399928918092,4.377452069779885)-- (-7.06,-0.17);
+	\draw [line width=2pt,color=ffeacd] (-7.06,-0.17)-- (-1.74,-0.13);
+	\draw [line width=2pt,color=ffeacd] (-1.74,-0.13)-- (-6.660399928918092,4.377452069779885);
+	\begin{scriptsize}
+	\draw [fill=ududff] (-7.06,-0.17) circle (2.5pt);
+	\draw[color=ududff] (-7.3143977936450275,0.10287269438148336) node {$A$};
+	\draw [fill=ududff] (-1.74,-0.13) circle (2.5pt);
+	\draw[color=ududff] (-1.6071864996522063,0.21540925510810138) node {$B$};
+	\draw [fill=ududff] (-6.660399928918092,4.377452069779885) circle (2.5pt);
+	\draw[color=ududff] (-6.526641868558695,4.716871684172823) node {$C$};
+	\draw [fill=uuuuuu] (-3.315355832444698,-4.227398852052594) circle (2pt);
+	\draw[color=uuuuuu] (-3.182698349824873,-3.9162901887120176) node {$I$};
+	\draw [fill=uuuuuu] (-6.800993204098606,2.7774994509383433) circle (2pt);
+	\draw[color=uuuuuu] (-6.6231017777529395,3.14135983400017) node {$B_1$};
+	\draw [fill=uuuuuu] (-3.92177765666494,1.8686705057318924) circle (2pt);
+	\draw[color=uuuuuu] (-3.7453811534579677,2.2249906966548516) node {$A_1$};
+	\draw [fill=uuuuuu] (-4.530589160877736,1.4731707860179981) circle (2pt);
+	\draw[color=uuuuuu] (-4.404523866285308,1.7909211052807537) node {$N$};
+	\draw [fill=uuuuuu] (-4.987877880681393,0.07502660886364859) circle (2pt);
+	\draw[color=uuuuuu] (-4.854670109191783,0.3922524219642154) node {$M$};
+	\draw [fill=uuuuuu] (-7.385111854433759,-3.869775556475656) circle (2pt);
+	\draw[color=uuuuuu] (-7.201861232918409,-3.5143739004026675) node {$B_2$};
+	\draw [fill=uuuuuu] (-0.5556941388403823,-1.2149121986533606) circle (2pt);
+	\draw[color=uuuuuu] (-0.38536098319177126,-0.8456497460285828) node {$A_2$};
+	\end{scriptsize}
+	\end{tikzpicture}
 	
 	Notice also that $AB_1=BA_1$: each of them are equal to the length of tangent from $C$ to the incircle of $ABC$. Therefore by spiral similarity, if $O$ is the intersection of the circles $AB_1N$ and $BA_1N$ we have $OA=OA_1$ and $OB=OB_1$ but then $O$ and $M$ are both on the intersection of perpendicular bisectors of $AA_1$ and $BB_1$ (which are not parallel as the lines themselves intersect at $N$), we have $O=M$, so $M$ is indeed on the intersection of the two circles. 
 \end{enumerate}

@@ -65,6 +65,74 @@
 	
 	Since $w^2\ell^2h^2=2011^2$ and 2011 is prime, one of $w^2, h^2, \ell^2$ (which are all integers), say $w$ must be equal to 1. Since the only way to write 1 as sum of 3 squares is $1^2+0^2+0^2$, one of the sides must be parallel to the axes. W.l.o.g. we may assume that two of its coordinates are $(0, 0, 0)$ and $(1, 0, 0)$ (i.e. parallel to $x$-axis), the two other lines originating from $(0, 0, 0)$ must be perpendicular to the $x$-axis, hence in the form of $(0, y_1, z_1)$ and $(0, y_2, z_2)$, giving the $h^2, \ell^2$ as both sum of two squares. Since $2011\equiv 3\pmod{4}$, it cannot be written as sum of 2 squares, hence one of them, say $h$, is 1, giving $\ell=2011$. Finally, since two lines originating from one vertex (0, 0, 0) are parallel to coordinate axes and third line is perpendicular to the two lines (and hence the two coordinate axes), it follows that the third line is also perpendicular to a coordinate axis. 
 	
+	\item [3.] 
+	\begin{enumerate}
+		\item [(a)]
+		Does there exist an infinite triangular beam such that two of its cross-sections are similar
+		but not congruent triangles?
+		
+		\item [(b)]
+		Does there exist an infinite triangular beam such that two of its cross-sections are equilateral triangles of sides 1 and 2 respectively?
+	\end{enumerate}
+    
+    \textbf{Answer.} Yes for (a) and no for (b). 
+    
+    \textbf{Solution.} We model each triangular beam as lines $(x = x_i, y = y_i)$ for some $(x_i, y_i)\in\mathbb{R}^2$, 
+    $i=1, 2, 3$. 
+    
+    For (a), consider $(x_1, y_1) = (0, 0), (x_2, y_2) = (\frac 12, \frac 12)$ and $(x_3, y_3) = (0, 1)$. 
+    Let $z_1, z_2, z_3$ be $0, \sqrt{\frac 32}, 1$, respectively, meaning that the triangular cross section is now 
+    \[
+    (0, 0, 0), (\frac 12, \frac 12, \sqrt{\frac 32}), (0, 1, 1)
+    \]
+    which has length $\sqrt{2}, \sqrt{\frac 14 + \frac 14 + \frac 32} = \sqrt{2}$, 
+    and $\sqrt{\frac 14 + \frac 14 + (\sqrt{\frac 32} - 1)^2} = \sqrt{3 - 2\sqrt{\frac 32}}$ 
+    (i.e. an isoceles triangle). 
+    Denote $a\triangleq 3 - 2\sqrt{\frac 32} < 1$. 
+    
+    Now consider another cross section in the form $z_1 = z_3 = 0$, and $z_2 = \sqrt{2(\frac 1a - \frac 14)}$ 
+    (which is valid since $a < 1$ so $\frac 1a - \frac 14 > 0$), 
+    i.e. the triangular cross section is now 
+    \[
+    (0, 0, 0), (\frac 12, \frac 12, z_2), (0, 1, 0)
+    \]
+    with sides equal to 
+    $1, \sqrt{\frac 12 + z_2^2}, \sqrt{\frac 12 + z_2^2}$, 
+    which is another isoceles triangle. 
+    We first see that $\frac 12 + z_2^2
+    =\frac 12 + 2(\frac 1a - \frac 14) = \frac 2a$. 
+    This gives the two cross sections being triangles of lengths 
+    \[
+    (\sqrt{2}, \sqrt{2}, \sqrt{a}), (\sqrt{\frac 2a}, \sqrt{\frac 2a}, 1)
+    \]
+    i.e. similar with similitude $\sqrt{a} < 1$, fulfilling the conclusion. 
+    
+    Now for (b), we will show that for each triangular beam as modelled, 
+    there exists an equilateral triangle cross section with side lengths uniquely determined 
+    (hence cannot have two equilateral cross sections of different side lengths). 
+    Consider the cross section as having coordinates $(x_i, y_i, z_i)$ with $x_i, y_i$ fixed, 
+    we want to solve for $z_1, z_2, z_3, R$ where $(x_i - x_j)^2 + (y_i - y_j)^2 + (z_i - z_j)^2 = R$ for all $i, j$ with $1\le i\neq j\le 3$. 
+    
+    Denote, now, $d_{ij} = (x_i - x_j)^2 + (y_i - y_j)^2$ and $z_{ij} = |z_i - z_j|$. 
+    Then $z_{ij}^2 = R - d_{ij}$. 
+    W.l.o.g. let $d_{23}$ be the biggest, i.e. $|z_2-z_3|\ge |z_1 - z_3|$ and $|z_2-z_3| \ge |z_2 - z_1|$. 
+    But since $(z_1 - z_3) + (z_2 - z_1) + (z_3 - z_2) = 0$, 
+    this means $|z_2-z_3| = |z_1 - z_3| + |z_2 - z_1|$. 
+    
+    On one hand, we have $z_{12}^2 - z_{13}^2 = d_{13} - d_{12}$. 
+    Thus we have 
+    \[
+    R - d_{23} = 
+    z_{23}^2 = (z_{12} + z_{13})^2 = z_{12}^2 + z_{13}^2 + 2z_{12}z_{13} = (R - d_{12}) + z_{13}^2 + 2z_{12}z_{13}
+    \]
+    so $z_{13}^2 + 2z_{12}z_{13} = d_{12} - d_{23}$. 
+    To show uniqueness, 
+    notice that the $(z_{12}, z_{13})\ge (0, 0)$ pair with $d_{13} - d_{12}$ must have coordinates being monotone, so $z_{13}^2 + 2z_{12}z_{13}$ is also monotone. 
+    (i.e. if $(z_{12}, z_{13}), (z_{12}', z_{13}')$ both satisfy the conditions, 
+    and $z_{12}'> z_{12}$ then $z_{13}'> z_{13}$, 
+    and $z_{13}'^2 + 2z_{12}'z_{13}' \ge z_{13}^2 + 2z_{12}z_{13}$). 
+    
+	
 	\item [4.] There are $n$ red sticks and $n$ blue sticks. The sticks of each colour have the same total length, and can be used to construct an $n$-gon. We wish to repaint one stick of each colour in the other colour so that the sticks of each colour can still be used to construct an $n$-gon. Is this always possible if
 	\begin{enumerate}
 		\item $n = 3$,

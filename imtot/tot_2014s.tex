@@ -145,6 +145,54 @@
 
 \section*{A-Level}
 \begin{enumerate}
+	\item[1.]
+	Doono wrote several 1s, placed signs ``+'' or ``$\times$'' between every two of them, put
+	several brackets and got 2014 in the result. His friend Dunno replaced all ``+'' by ``$\times$''
+	and all ``$\times$'' by ``+'' and also got 2014. Can this be true?
+	
+	\item[3.]The King called two wizards. He ordered First Wizard to write down 100 positive real
+	numbers (not necessarily distinct) on cards without revealing them to Second Wizard.
+	Second Wizard must correctly determine all these numbers, otherwise both wizards
+	will lose their heads. First Wizard is allowed to provide Second Wizard with a list of
+	distinct numbers, each of which is either one of the numbers on the cards or a sum of
+	some of these numbers. He is not allowed to tell which numbers are on the cards and
+	which numbers are their sums. If Second Wizard correctly determines all 100 numbers
+	the King tears as many hairs from each wizard’s beard as the number of numbers in
+	the list given to Second Wizard. What is the minimal number of hairs each wizard
+	should sacrifice to stay alive?
+	
+	\textbf{Answer.} 101. 
+	
+	\textbf{Solution.} 
+	
+	\item[4.]
+	In the plane are marked all points with integer coordinates $(x, y), 0 \le y \le 10$. Consider
+	a polynomial of degree 20 with integer coefficients. Find the maximal possible number
+	of marked points which can lie on its graph.
+	
+	\textbf{Answer.} 20. 
+	
+	\textbf{Solution.} The example is taken as $(x-1)(x-2)\cdots (x-20)$ which passes through $(1, 0), \cdots, (20, 0)$. 
+	
+	To show that we cannot do better, consider any integer $k$ with $0\le k\le 10$ such that $P(x)=k$ has an integer solution. 
+	Let $x_1, \cdots, x_{\ell}$ be all the integer solutions, with $1\le\ell\le 20$, and thus 
+	\[
+	P(x)=k+(x-x_1)\cdots (x-x_{\ell})Q(x)
+	\]
+	with $Q$ not having any integer root. We see that if $0\le P(x)\le 10$ then 
+	\[
+	|(x-x_1)\cdots (x-x_{\ell})|\le 10
+	\]
+	(TODO)
+	
+	\item[5.]
+	There is a scalene triangle. Peter and Basil play the following game. On each his
+	turn Peter chooses a point in the plane. Basil responds by painting it into red or
+	blue. Peter wins if some triangle similar to the original one has all vertices of the same
+	colour. Find the minimal number of moves Peter needs to win no matter how Basil
+	would play (independently of the shape of the given triangle)?
+	
+	
 	\item[7.] 
 	Consider a polynomial $P(x)$ such that
 	$P(0) = 1; (P(x))^2 = 1 + x + x^{100}Q(x)$, 
