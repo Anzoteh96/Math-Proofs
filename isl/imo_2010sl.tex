@@ -463,6 +463,80 @@
 	
 	Now (TODO)
 	
+	\item [\textbf{A8}]
+	Given six positive numbers $a,b,c,d,e,f$ such that $a < b < c < d < e < f.$ Let $a+c+e=S$ and $b+d+f=T.$ Prove that
+	\[2ST > \sqrt{3(S+T)\left(S(bd + bf + df) + T(ac + ae + ce) \right)}.\]
+	
+	\textbf{Solution.} 
+	Denote $P = \sqrt{(a-c)^2 + (a-e)^2 + (c-e)^2}$, and $Q = \sqrt{(b-d)^2 + (b-f)^2 + (d-f)^2}$. 
+	It then follows that 
+	\begin{equation}
+		3(bd + bf + df) = T^2 - \frac 12Q^2
+		\qquad 
+		3(ac + ae + ce) = S^2 - \frac12 P^2
+	\end{equation}
+    Thus taking squares on both sides and taking the difference gives 
+    \begin{align}
+    	4S^2T^2 - (S + T)(S(T^2 - \frac 12Q^2) + T(S^2 - \frac12 P^2))
+    	= \frac 12 (S + T)(SQ^2 + PT^2) - ST(T-S)^2
+    \end{align}
+	 I.e. our task is to show that 
+    \begin{equation}
+    	S^2Q^2 + T^2P^2 + ST(P^2+Q^2) > 2ST(T-S)^2
+    \end{equation}
+    Let's now show that $P + Q > \sqrt{2}(T - S)$. 
+    Indeed, with $a < c < e$ we have 
+    \begin{align}
+    	P^2 &
+       = (a-c)^2 + ((c-a) + (e-c))^2 + (c-e)^2 
+       \nonumber\\
+       &= 2((c-a)^2 + (e-c)^2 + (c-a)(e-c)) 
+       \nonumber\\
+       &= 2[(c-a) + \frac12 (e-c)]^2 + \frac 32 (e-c)^2
+       \nonumber\\
+       & > 2[(c-a) + \frac12 (e-c)]^2
+    \end{align}
+    and similarly $Q^2 > 2[(f-d) + \frac12 (d-b)]^2$. 
+    Thus combining them gives 
+    \begin{equation}
+    	\begin{aligned}
+    			P + Q > \sqrt{2}((c-a) + \frac12 (e-c) +(f-d) + \frac12 (d-b))
+    			\\> \sqrt{2}(f - a -(e + c - d - b))
+    			= \sqrt{2}(T - S)
+    	\end{aligned}
+    	\end{equation}
+    The inequality is due to that $e > d$ and $c > b$. 
+	It then follows that 
+	\begin{equation}
+		S^2Q^2 + T^2P^2 + ST(P^2+Q^2)
+		=(SQ - TP)^2 + ST(P + Q)^2
+		> (SQ - TP)^2 + 2ST(T - S)^2
+		\ge 2ST(T - S)^2
+	\end{equation}
+    as desired. 
+    
+    \textbf{Remark.} 
+    In the case of non-strict inequality, i.e. $a\le b\le c\le d\le e\le f$, we see a necessary and sufficient condtion for equality is when 
+    $e = c$, $d = b$, and $SQ=TP$. 
+    Thus $b=c=d=e$, and given this, $(a+2c)(f-c) = (2c+f)(c-a)$. 
+    
+    Let's describe how did we get to this -- first, it's natural to expand the RHS while keeping the $bd+bf+df$ term intact, 
+    and subtracting $S^2T^2$ by $3S^2(bd+bf+df)$ does give $\frac 12S^2Q^2$ 
+    (and similarly to the $\frac 12T^2P^2$ out there). 
+    The remaining ones are $ST(2ST-3(bd + bf + df + ac + ae + ce))$, which then rearranges into the terms above. 
+    
+    The next step is to compare $T - S$ and the magnitude of $P, Q$, where the intuition tells us that $P, Q$ cannot be too small since $a,b,c,d,e,f$ are in that order. 
+    (Another way to see it: how do we bound $\mu_y-\mu_x$ in terms of $\sigma_y, \sigma_x$ 
+    where $\mu_x, \mu_y, \sigma_x,\sigma_y$ are the mean / standard deviation of 
+    $\{a, c, e\}$ and $\{b, d, f\}$ respectively). 
+    Also by keeping track the pairwise difference of $b-a, c-b, d-c, e-d, f-e$ (by writing as, say, $x_1, y_1, x_2, y_2, x_3$) we can (probably) assme that $c=b$ and $e=d$ (while making constant shifts to $a$ and $f$), so that $P, Q$ decreases while $T-S$ stays. 
+    The lemma on $P^2 > 2[(c-a) + \frac12 (e-c)]^2$ is a further manifest on assuming that $x_2$ can be made 0 too 
+    (albeit a bit more technicality). 
+    
+    An initial hurdle is, of course, that $S^2, T^2, ST$ seem to have no relation with $P, Q, T-S$. 
+    Fortunately, this is sorted out rather beautifully in the end. 
+    
+    %(Note to self: can we generalize this to $n$-variable?)
 \end{enumerate}
 	
 \section*{Combinatorics}

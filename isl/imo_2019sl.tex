@@ -82,7 +82,7 @@
 	\item [\textbf{G8.}] Let $\mathcal L$ be the set of all lines in the plane and let $f$ be a function that assigns to each line $\ell\in\mathcal L$ a point $f(\ell)$ on $f(\ell)$. Suppose that for any point $X$, and for any three lines $\ell_1,\ell_2,\ell_3$ passing through $X$, the points $f(\ell_1),f(\ell_2),f(\ell_3)$, and $X$ lie on a circle.
 	Prove that there is a unique point $P$ such that $f(\ell)=P$ for any line $\ell$ passing through $P$.
 	
-	\item[\textbf{N7.}] Prove that there is a constant $c>0$ and infinitely many positive integers $n$ with the following property: there are infinitely many positive integers that cannot be expressed as the sum of fewer than $cn\log(n)$ pairwise coprime $n$th powers.
+	%\item[\textbf{N7.}] Prove that there is a constant $c>0$ and infinitely many positive integers $n$ with the following property: there are infinitely many positive integers that cannot be expressed as the sum of fewer than $cn\log(n)$ pairwise coprime $n$th powers.
 	
 	\item[\textbf{N8.}] Let $a$ and $b$ be two positive integers. Prove that the integer
 	\[a^2+\left\lceil\frac{4a^2}b\right\rceil\]is not a square. (Here $\lceil z\rceil$ denotes the least integer greater than or equal to $z$.)
@@ -1095,6 +1095,77 @@
 	a_k-a_1 =\dsum_{i=1}^{k-1} d_i \ge \dsum_{i=1}^{k-1} \frac{1}{2f(d_i)} = \frac{(k-1)^2}{2(\sqrt{2}-1)}
 	\]
 	and therefore $a_k-a_1\in \Omega(k^2)$, as desired. 
+	
+	\item[\textbf{N7.}] Prove that there is a constant $c>0$ and infinitely many positive integers $n$ with the following property: there are infinitely many positive integers that cannot be expressed as the sum of fewer than $cn\log(n)$ pairwise coprime $n$th powers.
+	
+	\textbf{Solution.} 
+	We first show that there exists infinitely many primes $p$ such that there are two primes $q< r$ and $p\mid q-1$, $p\mid r - 1$, and in addition $qr< 6^p$. 
+	
+	Consider, the two numbers $2^p - 1$ and $\frac{3^p - 1}{2}$. 
+	Recall that if a prime number $p'$ divides $\frac{x^p-1}{x - 1}$ for some integer $x > 1$, then either $p=p'$ or $p\mid p' - 1$ (properties of cyclotomic polynomial). 
+	Indeed, with $p'\mid x^p-1$ we have the order of $x$ mod $p'$ either 1 or $p$, 
+	the latter case would imply the claim. 
+	For the former, write $x=k(p')^{\ell} + 1$ for some $\ell\ge 1$ and $k$ with $p'\nmid k$. 
+	Then $x^p-1 = \sum_{m=1}^p \binom{p}{m} k^{m}(p')^{\ell m}$, 
+	which is congruent to $p(p')^{\ell}\pmod{p^{\ell+1}}$ and therefore not divisible by $(p')^{\ell+1}$. 
+	It then follows that $p'\nmid \frac{x^p-1}{x - 1}$. 
+	
+	We claim that there are two distinct primes dividing $(2^p - 1)\cdot (\frac{3^p - 1}{2})$. 
+	Suppose otherwise, then both $2^p-1$ and $\frac{3^p - 1}{2}$ are powers of the same primes, 
+	say, $q'$. 
+	By Catalan's conjecture (proven by Mihăilescu), 
+	$2^q-1$ cannot be a perfect power, hence $2^p-1=q'$. 
+	But this means $q' < \frac{3^p - 1}{2} < (q')^2$ for $p$ sufficiently large, 
+	so $\frac{3^p - 1}{2}$ cannot be a perfect $q'$-th power. 
+	
+	Thus summing the claims above give two primes, $r\neq s$, dividing $(2^p - 1)\cdot (\frac{3^p - 1}{2})$, 
+	and also $rs \le (2^p - 1)\cdot (\frac{3^p - 1}{2}) < 6^p$. 
+	In addition, by the properties of cyclotomic polynomial we have $r-1, s-1$ both multiples of $p$, 
+	hence the claim is done. 
+	
+	With this claim, we consider $n = \text{lcm}(r - 1, s - 1)$. 
+	Since $p$ divides both $r-1$ and $s-1$, we have $n\le \frac{(r - 1)(s - 1)}{p}$. 
+	Now consider $x^n\pmod{rs}$, 
+	and consider the map $\varphi: n\to (n\pmod{r}, n\pmod{s})$; 
+	the Chinese remainder theorem implies a bijection between $(n\pmod{r}, n\pmod{s})$ with $n\pmod{rs}$. 
+	In addition, with $n$ divisible by both $r$ and $s$, 
+	we have the following map between $\varphi(x)$ and $\varphi(x^n)$: 
+	\begin{equation}
+		(0, 0)\to (0, 0), (x_1, 0)\to (1, 0), (0, x_2)\to (0, 1), (x_1, x_2)\to (1, 1)
+	\end{equation}
+    where $0<x_1<r$ and $0<x_2<s$ arbitrary integers. 
+	We also see that $(1, 1)$ corresponds to $1\pmod{rs}$. 
+	This means $x^n\pmod{r, s}$ can only take values $0, 1$ and two other values (say $u < v$ corespond to $(0, 1)$ and $(1, 0)$ in some order). 
+	
+	Now show that there are infinitely many numbers $m$ that cannot be written as sum of at most $\frac{rs}{3} - 3 > \frac{rs}{4}$ pairwise coprime $n$-th powers. 
+	First, we see that $u + v$ corresponds to $(1, 0) + (0, 1)$ so $u + v\equiv 1\pmod{rs}$. 
+	Next, lay out $0, u, v, rs$ in that order, then $\max\{u, v - u, rs - v\}\ge \frac{rs}{3}$. 
+	This means among the numbers $u - 1, v - 1, rs - 1$, we can choose a number $w$ such that all three numbers 
+	$\{w, w - u, w - v\}$ are not in $\{0, 1, \cdots, \frac{rs}{3} - 2\}\pmod{rs}$. 
+	Consider any number $m\equiv w\pmod{rs}$. 
+	Suppose that $m = \sum_{i=1}^k x_i^n$ for some pairwise coprime $x_1, \cdots, x_k$. 
+	At most one of these numbers can be divisible by $r$, 
+	and at most one by $s$. 
+	If $x_1\equiv 0\pmod{rs}$ then $x_2, \cdots, x_k$ must be coprime to $rs$ (so $x_i^n\equiv 1\pmod{rs}$ for all $i\ge 2$), 
+	which gives $x_i^n\equiv 1\pmod{rs}$ 
+	and hence $k\ge w + 1 > \frac{rs}{3} - 2$. 
+	Similarly, if $\gcd(x_i, rs)=1$ for all $i$, 
+	or if $\gcd(x_1, rs)=r$, $\gcd(x_2, rs)=s$ and $\gcd(x_i, rs) = 1$ for the rest (which then gives $x_1^n+x_2^n\equiv 1\pmod{rs}$), 
+	then we'd need at least $w > \frac{rs}{3} - 3$ many numbers. 
+	Finally, if $\gcd(x_1, rs)\in\{r, s\}$ and $\gcd(x_i, rs) = 1$ for the rest then 
+	we need either (at least) $1 + (w - u \pmod{rs})$ or $1 + (w - v \pmod{rs})$-many numbers 
+	(the modulo here are considered remainders). 
+	Both of these are $\ge \frac{rs}{3} - 2$, proving the conclusion. 
+	
+	Finally, $n \le \frac{(r-1)(s-1)}{p} < \frac{rs}{p}$. On the other hand $rs < 6^p$, i.e. 
+	$p > \frac{\log rs}{\log 6} > \frac{\log n}{\log 6}$. 
+	Hence we've effectively demonstrated that for this $n$, 
+	there are infinitely many numbers that cannot be written as fewer than $\frac 14 np > \frac {1}{4\log 6}n\log n$ pairwise coprime $n$-th powers. 
+	On the other hand, $n=\text{lcm}(r-1, s-1)\ge \max(r-1, s-1)\ge p$. 
+	Since this argument works for all sufficiently large primes $p$, 
+	the set of $n$ for which the our argument works is also unbounded. 
+	Hence the conclusion, with $c = \frac {1}{4\log 6}$. 
+	
 \end{enumerate}
 
 \end{document}
