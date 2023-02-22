@@ -339,6 +339,7 @@
 	\textbf{Solution.} 
 	Let $R$ be circumradius of $ABC$ and $r$ the radius of $\omega$. It suffices to show that $R<2r$. 
 	Henceforth we denote $\angle A = \angle BAC$. 
+	
 	\emph{Case 1.} 
 	$\angle A < 60^{\circ}$. 
 	Denote $h$ as the distance from $O$ to $BC$, then 
@@ -510,62 +511,124 @@
 	\item[\textbf{G4}]
 	Let $ABC$ be an acute triangle with circumcircle $\Omega$. Let $B_0$ be the midpoint of $AC$ and let $C_0$ be the midpoint of $AB$. Let $D$ be the foot of the altitude from $A$ and let $G$ be the centroid of the triangle $ABC$. Let $\omega$ be a circle through $B_0$ and $C_0$ that is tangent to the circle $\Omega$ at a point $X\not= A$. Prove that the points $D,G$ and $X$ are collinear.
 	
+	\textbf{Solution.} 
+	W.l.o.g. suppose that $AB<AC$. 
+	We first determine the ratio $\frac{BX}{XC}$. 
+	Observe, first, that $\frac{AB}{AC}=\frac{C_0X}{B_0X}$. 
+	Indeed: the circle tangency condition implies that $\angle BXC_0=\angle CXB_0$, 
+	and 
+	\[
+	\frac 12 = \frac{BC_0}{BA}=\frac{XC_0\sin\angle BXC_0}{AX\sin\angle BXA}=\frac{XC_0\sin\angle BXC_0}{AX\sin\angle BCA}
+	\]
+	and similarly 
+	$\frac 12 = \frac{XB_0\sin\angle CXB_0}{AX\sin\angle CBA}$. 
+	Comparing the two ratio, we have $\frac{XC_0}{XB_0}=\frac{\sin\angle BCA}{\sin\angle ABC}=\frac{AB}{AC}$. 
+	
+	Next, Stewart's theorem says that $AC_0^2 + C_0B^2 + 2XC_0^2 = BX^2 + AX^2$, 
+	and similarly $AB_0^2 +B_0C^2+2XB_0^2 = CX^2 + AX^2$. 
+	Since $\frac{AC_0}{AB_0}=\frac{C_0B}{B_0C}=\frac{C_0X}{B_0X}=\frac{AB}{AC}$, 
+	we deduce that $\frac{BX^2+AX^2}{CX^2 + AX^2}=\frac{AB^2}{AC^2} = \frac{BX^2+AX^2 - 2BX\cdot AX \cdot \cos\angle BXA}{CX^2 + AX^2- 2CX\cdot AX \cdot \cos\angle CXA}$. 
+	the latter by cosine rule. 
+	Doing cross multiplication on the fraction terms, we get 
+	\begin{equation}
+		\frac{AB^2}{AC^2} = 
+		\frac{BX\cdot AX \cdot \cos\angle BXA}{CX\cdot AX \cdot \cos\angle CXA}
+		=\frac{BX \cdot \cos\angle BCA}{CX \cdot \cos\angle CBA}
+	\end{equation}
+    so it follows that 
+    $\frac{BX}{CX} = \frac{AB^2 \cdot \cos\angle CBA}{AC^2\cos\angle BCA}$. 
+    
+    
+    Now let $A_0$ be the midpoint of $BC$. 
+    We see that $A_0DC_0B_0$ is an isoceles trapezoid. 
+    Consider the homothety centered at $G$ with scale $-2$ (which brings $B_0$ to $B$, $C_0$ to $C$, and $A_0$ to $A$). 
+    Suppose that it brings $D$ to $T$, 
+    then $ATCB$ is also an isoceles trapezoid, so $A, T, C, B, X$ are concyclic. 
+    In addition, we have 
+    \begin{equation}
+    	\frac{|\triangle TBX|}{|\triangle TCX|}
+    	=\frac{TB\cdot BX\cdot \sin\angle TBX}{TC\cdot CX\cdot \sin\angle TCX}
+    	=\frac{AC\cdot AB^2 \cdot \cos\angle CBA}{AB\cdot AC^2\cdot\cos\angle BCA}
+    	=\frac{AB\cos\angle CBA}{AC\cos\angle BCA}
+    \end{equation}
+    where we used $\angle TBX+\angle TCX=180^{\circ}$ (and therefore the sine of the angles are equal). 
+    Meanwhile, 
+    $\frac{BD}{DC}=\frac{AB\sin\angle BAD}{AC\sin\angle CAD}
+    =\frac{AB\cos\angle ABC}{AC\sin\angle ACB}$. 
+    Thus we have $\frac{|\triangle TBX|}{|\triangle TCX|}=\frac{BH}{HC}$, 
+    so $TX$ passes through $D$. 
+    Since $D, G, T$ are collinear (by the definition of homothety), 
+    $X$ also lies on this line. 
+	
 	\item[\textbf{G5}] Let $ABC$ be a triangle with incenter $I$ and circumcircle $\omega$. Let $D$ and $E$ be the second intersection points of $\omega$ with the lines $AI$ and $BI$, respectively. The chord $DE$ meets $AC$ at a point $F$, and $BC$ at a point $G$. Let $P$ be the intersection point of the line through $F$ parallel to $AD$ and the line through $G$ parallel to $BE$. Suppose that the tangents to $\omega$ at $A$ and at $B$ meet at a point $K$. Prove that the three lines $AE, BD,$ and $KP$ are either parallel or concurrent.
 	
-	\textbf {Solution}: (Cited directly from my notes to the IMO training camp). Let's split the problems into two parts:
-	\\ \emph{Part 1: prove that $K, I, P$ are collinear.}
-	\\Proof: First notice that $\angle DEB=\angle DAB=\frac{\angle A}{2}=\angle CAD=\angle CED$ and similarly $\angle CDE=\frac{\angle B}{2}=\angle EDA$. Therefore $\triangle CED\cong\triangle IED$ and $ED$ is the perpendicular bisector of segment $CI$. This entails that $CF=CG$ and $\angle CFG=\angle CGF=\angle IFG=\angle IGF=90^{\circ}-\frac{\angle C}{2}.$Knowing that $FP\parallel AI$ and $GP\parallel BI$, we want to prove that $\angle FPI=\angle AIK$, or equivalently $\angle GPI=\angle BIK$. It suffices to prove that $\frac{\sin\angle FPI}{\sin\angle GPI}=\frac{\sin\angle AIK}{\sin\angle BIK}$.
+	\textbf {Solution}: 
+	We first establish this. 
 	
-	\usetikzlibrary{arrows}
-	\pagestyle{empty}
-	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
-	\definecolor{qqqqff}{rgb}{0.3333333333333333,0.3333333333333333,0.3333333333333333}
-	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
-	\clip(-3.527272727272727,-3.39454545454545) rectangle (17.381818181818183,6.732727272727267);
-	\draw(2.162839829942502,1.4242993272629518) circle (3.618338460700848cm);
-	\draw (0.6181818181818187,4.696363636363633)-- (3.861297172049131,-1.7706366459970866);
-	\draw (-0.7636363636363631,-0.7036363636363628)-- (3.5405214941984724,4.770097654741744);
-	\draw (3.5405214941984724,4.770097654741744)-- (3.861297172049131,-1.7706366459970866);
-	\draw (0.6181818181818187,4.696363636363633)-- (5.5636363636363635,2.66);
-	\draw (-0.7636363636363631,-0.7036363636363628)-- (5.5636363636363635,2.66);
-	\draw (0.6181818181818187,4.696363636363633)-- (-0.7636363636363631,-0.7036363636363628);
-	\draw (3.604442394979802,3.466726928270348)-- (4.190404128514835,2.298277988671306);
-	\draw (3.6927826311665535,1.6654369525663366)-- (4.190404128514835,2.298277988671306);
-	\draw (3.604442394979802,3.466726928270348)-- (1.733588662509991,2.472163880836684);
-	\draw (1.733588662509991,2.472163880836684)-- (3.6927826311665535,1.6654369525663366);
-	\draw (0.6181818181818187,4.696363636363633)-- (-3.3336448230410487,2.830807184592077);
-	\draw (-3.3336448230410487,2.830807184592077)-- (-0.7636363636363631,-0.7036363636363628);
-	\draw [domain=0.6181818181818187:17.381818181818183] plot(\x,{(--13.67878875800446--0.07373401837811144*\x)/2.922339676016654});
-	\draw [domain=-0.7636363636363631:17.381818181818183] plot(\x,{(-4.069071630730523-1.0670002823607239*\x)/4.624933535685494});
-	\draw [dash pattern=on 5pt off 5pt,domain=-3.3336448230410487:17.381818181818183] plot(\x,{(--19.523868632187387-0.532529195920771*\x)/7.5240489515558835});
-	\begin{scriptsize}
-	\draw [fill=qqqqff] (0.6181818181818187,4.696363636363633) circle (2.5pt);
-	\draw[color=qqqqff] (0.7454545454545459,5.02363636363636) node {$A$};
-	\draw [fill=qqqqff] (-0.7636363636363631,-0.7036363636363628) circle (2.5pt);
-	\draw[color=qqqqff] (-0.6363636363636358,-0.37636363636363585) node {$B$};
-	\draw [fill=qqqqff] (5.5636363636363635,2.66) circle (2.5pt);
-	\draw[color=qqqqff] (5.6909090909090905,2.987272727272725) node {$C$};
-	\draw [fill=uuuuuu] (1.733588662509991,2.472163880836684) circle (1.5pt);
-	\draw[color=uuuuuu] (1.854545454545455,2.7327272727272707) node {$I$};
-	\draw [fill=uuuuuu] (3.861297172049131,-1.7706366459970866) circle (1.5pt);
-	\draw[color=uuuuuu] (3.9818181818181824,-1.5218181818181804) node {$D$};
-	\draw [fill=uuuuuu] (3.5405214941984724,4.770097654741744) circle (1.5pt);
-	\draw[color=uuuuuu] (3.6727272727272733,5.02363636363636) node {$E$};
-	\draw [fill=uuuuuu] (3.604442394979802,3.466726928270348) circle (1.5pt);
-	\draw[color=uuuuuu] (3.727272727272728,3.7145454545454517) node {$F$};
-	\draw [fill=uuuuuu] (3.6927826311665535,1.6654369525663366) circle (1.5pt);
-	\draw[color=uuuuuu] (3.818181818181819,1.9145454545454532) node {$G$};
-	\draw [fill=uuuuuu] (-3.3336448230410487,2.830807184592077) circle (1.5pt);
-	\draw[color=uuuuuu] (-3.2,3.078181818181816) node {$K$};
-	\draw [fill=uuuuuu] (4.190404128514835,2.298277988671306) circle (1.5pt);
-	\draw[color=uuuuuu] (4.3090909090909095,2.550909090909089) node {$P$};
-	\end{scriptsize}
-	\end{tikzpicture}
+	\begin{lemma}
+		$K, I, P$ are collinear. 
+	\end{lemma}
 	
-	Now from the corollary we have: $$\frac{\sin\angle FPI}{\sin\angle GPI}=\frac{FI}{GI}\cdot\frac{\sin\angle PFI}{\sin\angle PGI}=\frac{\sin (\angle CFI-\angle CFP)}{\sin(\angle CGI-\angle CGP)}=\dfrac{\sin (180^{\circ}-\angle C-\frac{\angle A}{2})}{\sin (180^{\circ}-\angle C-\frac{\angle B}{2})}=\dfrac{\sin (\angle C+\frac{\angle A}{2})}{\sin (\angle C+\frac{\angle B}{2})}$$ (Why? Recall that $FP\parallel AI\Rightarrow \angle CFP=\angle CAI$, $GP\parallel BI\Rightarrow\angle CPG=\angle CBI$, and that $CFIG$ is a rhombus so $FI=GI$). Then $$\frac{\sin\angle AIK}{\sin\angle BIK}=\frac{AK}{BK}\cdot\frac{\sin\angle IAK}{\sin\angle IBK}=\dfrac{\sin (\angle C+\frac{\angle A}{2})}{\sin (\angle C+\frac{\angle B}{2})}=\frac{\sin\angle FPI}{\sin\angle GPI},$$ as desired. (Don't ask me why $AK=BK$. You should know it.)
+	\begin{proof}
+		First notice that $\angle DEB=\angle DAB=\frac{\angle A}{2}=\angle CAD=\angle CED$ and similarly $\angle CDE=\frac{\angle B}{2}=\angle EDA$. Therefore $\triangle CED\cong\triangle IED$ and $ED$ is the perpendicular bisector of segment $CI$. This entails that $CF=CG$ and $\angle CFG=\angle CGF=\angle IFG=\angle IGF=90^{\circ}-\frac{\angle C}{2}.$Knowing that $FP\parallel AI$ and $GP\parallel BI$, we want to prove that $\angle FPI=\angle AIK$, or equivalently $\angle GPI=\angle BIK$. It suffices to prove that $\frac{\sin\angle FPI}{\sin\angle GPI}=\frac{\sin\angle AIK}{\sin\angle BIK}$.
+		
+		\usetikzlibrary{arrows}
+		\pagestyle{empty}
+		\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+		\definecolor{qqqqff}{rgb}{0.3333333333333333,0.3333333333333333,0.3333333333333333}
+		\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.0cm,y=1.0cm]
+			\clip(-3.527272727272727,-3.39454545454545) rectangle (17.381818181818183,6.732727272727267);
+			\draw(2.162839829942502,1.4242993272629518) circle (3.618338460700848cm);
+			\draw (0.6181818181818187,4.696363636363633)-- (3.861297172049131,-1.7706366459970866);
+			\draw (-0.7636363636363631,-0.7036363636363628)-- (3.5405214941984724,4.770097654741744);
+			\draw (3.5405214941984724,4.770097654741744)-- (3.861297172049131,-1.7706366459970866);
+			\draw (0.6181818181818187,4.696363636363633)-- (5.5636363636363635,2.66);
+			\draw (-0.7636363636363631,-0.7036363636363628)-- (5.5636363636363635,2.66);
+			\draw (0.6181818181818187,4.696363636363633)-- (-0.7636363636363631,-0.7036363636363628);
+			\draw (3.604442394979802,3.466726928270348)-- (4.190404128514835,2.298277988671306);
+			\draw (3.6927826311665535,1.6654369525663366)-- (4.190404128514835,2.298277988671306);
+			\draw (3.604442394979802,3.466726928270348)-- (1.733588662509991,2.472163880836684);
+			\draw (1.733588662509991,2.472163880836684)-- (3.6927826311665535,1.6654369525663366);
+			\draw (0.6181818181818187,4.696363636363633)-- (-3.3336448230410487,2.830807184592077);
+			\draw (-3.3336448230410487,2.830807184592077)-- (-0.7636363636363631,-0.7036363636363628);
+			\draw [domain=0.6181818181818187:17.381818181818183] plot(\x,{(--13.67878875800446--0.07373401837811144*\x)/2.922339676016654});
+			\draw [domain=-0.7636363636363631:17.381818181818183] plot(\x,{(-4.069071630730523-1.0670002823607239*\x)/4.624933535685494});
+			\draw [dash pattern=on 5pt off 5pt,domain=-3.3336448230410487:17.381818181818183] plot(\x,{(--19.523868632187387-0.532529195920771*\x)/7.5240489515558835});
+			\begin{scriptsize}
+				\draw [fill=qqqqff] (0.6181818181818187,4.696363636363633) circle (2.5pt);
+				\draw[color=qqqqff] (0.7454545454545459,5.02363636363636) node {$A$};
+				\draw [fill=qqqqff] (-0.7636363636363631,-0.7036363636363628) circle (2.5pt);
+				\draw[color=qqqqff] (-0.6363636363636358,-0.37636363636363585) node {$B$};
+				\draw [fill=qqqqff] (5.5636363636363635,2.66) circle (2.5pt);
+				\draw[color=qqqqff] (5.6909090909090905,2.987272727272725) node {$C$};
+				\draw [fill=uuuuuu] (1.733588662509991,2.472163880836684) circle (1.5pt);
+				\draw[color=uuuuuu] (1.854545454545455,2.7327272727272707) node {$I$};
+				\draw [fill=uuuuuu] (3.861297172049131,-1.7706366459970866) circle (1.5pt);
+				\draw[color=uuuuuu] (3.9818181818181824,-1.5218181818181804) node {$D$};
+				\draw [fill=uuuuuu] (3.5405214941984724,4.770097654741744) circle (1.5pt);
+				\draw[color=uuuuuu] (3.6727272727272733,5.02363636363636) node {$E$};
+				\draw [fill=uuuuuu] (3.604442394979802,3.466726928270348) circle (1.5pt);
+				\draw[color=uuuuuu] (3.727272727272728,3.7145454545454517) node {$F$};
+				\draw [fill=uuuuuu] (3.6927826311665535,1.6654369525663366) circle (1.5pt);
+				\draw[color=uuuuuu] (3.818181818181819,1.9145454545454532) node {$G$};
+				\draw [fill=uuuuuu] (-3.3336448230410487,2.830807184592077) circle (1.5pt);
+				\draw[color=uuuuuu] (-3.2,3.078181818181816) node {$K$};
+				\draw [fill=uuuuuu] (4.190404128514835,2.298277988671306) circle (1.5pt);
+				\draw[color=uuuuuu] (4.3090909090909095,2.550909090909089) node {$P$};
+			\end{scriptsize}
+		\end{tikzpicture}
+	    
+	    Recall that $FP\parallel AI\Rightarrow \angle CFP=\angle CAI$, $GP\parallel BI\Rightarrow\angle CPG=\angle CBI$. 
+	    Thus $CFIG$ is a rhombus and $FI=GI$. 
+	    This gives 
+	    \[
+	    \frac{\sin\angle FPI}{\sin\angle GPI}=\frac{FI}{GI}\cdot\frac{\sin\angle PFI}{\sin\angle PGI}=\frac{\sin (\angle CFI-\angle CFP)}{\sin(\angle CGI-\angle CGP)}=\dfrac{\sin (180^{\circ}-\angle C-\frac{\angle A}{2})}{\sin (180^{\circ}-\angle C-\frac{\angle B}{2})}=\dfrac{\sin (\angle C+\frac{\angle A}{2})}{\sin (\angle C+\frac{\angle B}{2})}
+	    \]
+	    Given also that $AK=BK$, we have 
+	    \[\frac{\sin\angle AIK}{\sin\angle BIK}=\frac{AK}{BK}\cdot\frac{\sin\angle IAK}{\sin\angle IBK}=\dfrac{\sin (\angle C+\frac{\angle A}{2})}{\sin (\angle C+\frac{\angle B}{2})}=\frac{\sin\angle FPI}{\sin\angle GPI},\] as desired. 
+	\end{proof}
 	
-	\emph{Part 2: prove that $AE, BD$ and $KI$ are concurrent (or parallel).}
-	\\Proof: For convenience we assume that $AE$ and $BD$ are not parallel; the limit case (i.e. parallel) happens when $\angle C=60^{\circ}$ and quadrilateral $AIBK$ is cyclic, which is left as an exercise (no trigo needed because angle chasing method becomes straightforward). Now let $AE$ and $BD$ intersect at $Q$. We need $\frac{\sin\angle AKQ}{\sin\angle BKQ}=\frac{\sin\angle AKI}{\sin\angle BKI}$, or $\frac{AQ}{BQ}\cdot\frac{\sin\angle QAK}{\sin\angle QBK}=\frac{AI}{BI}\cdot\frac{\sin\angle IAK}{\sin\angle IBK}$. Now $\frac{AQ}{BQ}=\frac{\sin\angle QBA}{\sin\angle QAB}=\frac{\sin\angle DBA}{\sin\angle EAB}=\frac{DA}{EB}$ and $\angle QAK=\angle EAK=180^{\circ}-\angle EBA$ so $\sin\angle EAK=\sin\angle EBA$. Similarly $\sin\angle QBK=\sin\angle DAB$. Thus, $$\frac{\sin\angle QAK}{\sin\angle QBK}=\frac{\sin\angle EBA}{\sin\angle DAB}=\frac{AI}{BI}=\dfrac{\sin\frac{\angle B}{2}}{\sin\frac{\angle A}{2}}$$ and $\frac{\sin\angle IAK}{\sin\angle IBK}=\frac{\sin\angle DAK}{\sin\angle EBK}=\frac{AD}{EB}.$ Therefore $\frac{AQ}{BQ}\cdot\frac{\sin\angle QAK}{\sin\angle QBK}=\frac{\sin\frac{\angle B}{2}}{\sin\frac{\angle A}{2}}\cdot\frac{AD}{EB}=\frac{AI}{BI}\cdot\frac{\sin\angle IAK}{\sin\angle IBK}$. $\blacksquare$
+	For convenience we assume that $AE$ and $BD$ are not parallel; the limit case (i.e. parallel) happens when $\angle C=60^{\circ}$ and quadrilateral $AIBK$ is cyclic, which is left as an exercise (no trigo needed because angle chasing method becomes straightforward). Now let $AE$ and $BD$ intersect at $Q$. We need $\frac{\sin\angle AKQ}{\sin\angle BKQ}=\frac{\sin\angle AKI}{\sin\angle BKI}$, or $\frac{AQ}{BQ}\cdot\frac{\sin\angle QAK}{\sin\angle QBK}=\frac{AI}{BI}\cdot\frac{\sin\angle IAK}{\sin\angle IBK}$. Now $\frac{AQ}{BQ}=\frac{\sin\angle QBA}{\sin\angle QAB}=\frac{\sin\angle DBA}{\sin\angle EAB}=\frac{DA}{EB}$ and $\angle QAK=\angle EAK=180^{\circ}-\angle EBA$ so $\sin\angle EAK=\sin\angle EBA$. Similarly $\sin\angle QBK=\sin\angle DAB$. Thus, $$\frac{\sin\angle QAK}{\sin\angle QBK}=\frac{\sin\angle EBA}{\sin\angle DAB}=\frac{AI}{BI}=\dfrac{\sin\frac{\angle B}{2}}{\sin\frac{\angle A}{2}}$$ and $\frac{\sin\angle IAK}{\sin\angle IBK}=\frac{\sin\angle DAK}{\sin\angle EBK}=\frac{AD}{EB}.$ Therefore $\frac{AQ}{BQ}\cdot\frac{\sin\angle QAK}{\sin\angle QBK}=\frac{\sin\frac{\angle B}{2}}{\sin\frac{\angle A}{2}}\cdot\frac{AD}{EB}=\frac{AI}{BI}\cdot\frac{\sin\angle IAK}{\sin\angle IBK}$. $\blacksquare$
 	
 	\item[\textbf{G6}] Let $ABC$ be a triangle with $AB=AC$ and let $D$ be the midpoint of $AC$. The angle bisector of $\angle BAC$ intersects the circle through $D,B$ and $C$ at the point $E$ inside the triangle $ABC$. The line $BD$ intersects the circle through $A,E$ and $B$ in two points $B$ and $F$. The lines $AF$ and $BE$ meet at a point $I$, and the lines $CI$ and $BD$ meet at a point $K$. Show that $I$ is the incentre of triangle $KAB$.
 	
@@ -817,6 +880,60 @@
 	\]
 	W.L.O.G. let $f(bn)\le f(am)$, then since $f(d)$ and $f(am)$ are both positive, we have $|f(d)-f(am)|<\max\{f(d), f(am)\}\le f(bn)$ (we have $f(d)\mid f(bn)$ so $f(d)\le f(bn)$, too. This means that the only possibility is $f(d)-f(am)=0$, so $f(d)=f(am)$. But then $f(d)\mid f(m)\mid f(am)=f(d)$ so we also have $f(d)=f(m)$. Finally, $f(m)=f(d)\mid f(n)$ since $d\mid n$, completing the problem solution. 
 	
+	\item[\textbf{N6}]
+	Let $P(x)$ and $Q(x)$ be two polynomials with integer coefficients, 
+	such that no nonconstant polynomial with rational coefficients divides both $P(x)$ and $Q(x).$ 
+	Suppose that for every positive integer $n$ the integers $P(n)$ and $Q(n)$ are positive, and $2^{Q(n)}-1$ divides $3^{P(n)}-1.$ 
+	Prove that $Q(x)$ is a constant polynomial.
+	
+	\textbf{Solution.} 
+	Suppose that $Q$ is nonconstant. 
+	We first show that there exist infinitely many primes $p$ such that there exists $x$ (that depends on $x$) where $p$ divides $P(x)$ and $Q(x)$ simultanteously. 
+	For each number $q$ with $\gcd(q, 3)=1$, denote $g(q)=\text{ord}_q(3)$, 
+	i.e. the smallest $n > 0$ such that $q\mid 3^n-1$. 
+	A quick check yields that $Q(x)$ even implies that $3\mid 2^{Q(x)} - 1$ but $3\nmid 3^{P(x)}-1$. 
+	Thus $Q$ can only take odd values. 
+	
+	By Schur's theorem, there are infinitely many odd primes $p$ that divides one of $\{Q(1), Q(2), \cdots\}$ 
+	(since $Q$ is nonconstant). 
+	Among those primes, consider those such that $2^p > 3^{P(1)}$ (which there are also infinitely many of these since $3^{P(1)}$ is bounded), 
+	which then follows that $2^p-1\nmid 3^{P(1)}-1$ and therefore 
+	$g(2^p-1)\nmid P(1)$. 
+	For each such prime $p$, let $n_p$ be such that $p\mid Q(n_p)$. 
+	Using the fact that $x - y\mid Q(x)-Q(y)$ for each pairs $x, y$, 
+	we have $p\mid Q(n_p+kp)$ for each integer $k\ge 0$. 
+	Since $2^{p}-1\mid 2^{pq}-1$ for all nonnegative integers $q$, 
+	we have $2^p-1 \mid 2^{Q(n_p+kp)}-1\mid 3^{P(n_p+kp)}-1$, 
+	which also means $g(2^p-1)\mid P(n_p+kp)$ for all integers $k\ge 0$. 
+	Suppose that $p\nmid g(2^p-1)$, 
+	i.e. $\gcd(p, g(2^p-1))=1$. 
+	Then $\{n_p+kp\pmod{g(2^p-1)}: k\ge 0\}$
+	is complete residue mod $g(2^p-1)$. 
+	Using $x - y\mid P(x)-P(y)$, 
+	we have $g(2^p-1)\mid P(x)$ for all $x \ge 1$. 
+	This contradicts $g(2^p-1)\nmid P(1)$. 
+	It then follows that $p\mid g(2^p-1)\mid P(n_p)$, 
+	and so $p$ divides $P(n_p)$ and $Q(n_p)$ simultaneously. 
+	
+	We now consider the following sequence following iteration Bezout's theorem: 
+	set $P_0=P, Q_0=Q$, 
+	and subsequently, 
+	$P_{n+1}=Q_n, Q_{n+1}$ is the remainder of $P_n$ when divided by $Q_n$ 
+	(i.e. there exists a polynomial $A_n$ such that $P_n=Q_{n+1}+Q_nA$, and $\deg(Q_{n+1}) < \deg Q_n$; 
+	such $A_n$ must have rational coefficients). 
+	This process persists until one of the terms hit constant or 0. 
+	Since $P$ and $Q$ has no nonconstant polynomial divisors (with rational coefficients), 
+	this also applies to each pair $(P_i, Q_i)$. 
+	It follows that there exists an $n$ such that $Q_n\equiv d$ for some nonzero constant $d$. 
+	Since all the terms $A_n$ involved are of rational coefficients, 
+	it follows that $d$ is also rational. 
+	This means that there exist $A, B$ or rational coefficients such that 
+	$AP+BQ=d_0\neq 0$ for some rational constant $d_0$. 
+	Multiplying by some suitable nonzero integer, we may assume that $A, B$ are of integer coefficient, 
+	and that $d_0$ is an integer. 
+	This means that for each $x$, $\gcd(A(x), B(x))\mid d_0$. 
+	This contradicts the claim that there are infinitely many primes $p$ such that for some $n_p$, 
+	$p$ divides $P(n_p), Q(n_p)$ simultanteously. 
 
 	\item [\textbf{N7}]
 	Let $p$ be an odd prime number. 
@@ -919,19 +1036,110 @@
 
 	\item [\textbf{N8}] Let $k \in \mathbb{Z}^+$ and set $n=2^k+1.$ Prove that $n$ is a prime number if and only if the following holds: there is a permutation $a_{1},\ldots,a_{n-1}$ of the numbers $1,2, \ldots, n-1$ and a sequence of integers $g_{1},\ldots,g_{n-1},$ such that $n$ divides $g^{a_i}_i - a_{i+1}$ for every $i \in \{1,2,\ldots,n-1\},$ where we set $a_n = a_1.$
 	
-	\textbf{Solution (partial for now).}
+	\textbf{Solution.}
 	We note that $n$ is odd. 
-	Let's first show that if such sequence exists, then $n$ must be prime (the easier direction). 
+	Let's first show that if such sequence exists, then $n$ must be prime. 
 	Suppose $n$ is composite, then there are two cases: 
 	\begin{itemize}
 		\item There's a odd prime number $p$ with $p^2\mid n$. 
 		If $a_{\ell+1}=p$ and $a_{m+1}=2p$, which means $g_{\ell}^{a_{\ell}}$ and $g_m^{a_m}$ must both be divisible by $p$ but not $p^2$. This implies $p\mid g_{\ell}, g_m$ and $a_{\ell}=a_m=1$, which is impossible. 
 		
-		\item There are distinct odd prime numbers $p$ and $q$ that divide $n$. 
-		If $\phi(n)$ is the number of integers $\le n$ and relatively prime to $n$ then 
-		by Fermat's little theorem, $a^{\phi(\gcd(p-1, q-1))}\equiv 1\pmod{n}$
+		\item $n$ is squarefree with at least two distinct prime divisors. 
+		We see that among $1, \cdots, n-1$, $\frac{n-1}{2}$ are even. 
+		Also, if $a_i$ is even, then $a_{i+1}$ must be a quadratic residue mod $n$. 
+		Now, for each prime $p$, the number of quadratic residues modulo $p$ is $\frac{p+1}{2}$. 
+		This means that 
+		if $p_1, \cdots, p_k$ are prime divisors of $n$ then the number of quadratic residue (excluding 0) is 
+		\[
+		\left(n\cdot \prod \frac{p_i+1}{2p_i}\right)- 1
+		\]
+		where the $-1$ is considering that we need to subtract 0 off. 
+		This means $\left(n\cdot \prod \frac{p_i+1}{2p_i}\right)\ge \frac{n-1}{2}$, 
+		or $\prod \frac{p_i+1}{2p_i}>\frac 12$. 
+		On the other hand, for each prime $p_i$, $\frac{p_i+1}{2}=\frac 12 + \frac{1}{2p_i} \le \frac 12 + \frac 16=\frac 23$ so 
+		with $k\ge 2$, 
+		we have $\prod \frac{p_i+1}{2p_i}\le (\frac 23)^2=\frac 49 < \frac 12$. 
 	\end{itemize}
-
+    
+    It now remains to provide a construction when such $n$ is prime. 
+    Observe that $k$ must be a power of 2; 
+    if $k=ab$ for some odd $a > 1$ then $2^b+1\mid 2^{ab}+1$ (thus not prime). 
+    We write $k=2^m$ for some $m\ge 0$. 
+    In fact, we may settle the case where $k=1$ immediately by just letting $a_1=g_1=1, a_2=g_2=1$, 
+    so $k\ge 2$ and so $m\ge 1$. 
+    This would also mean that $n\equiv 2\pmod{3}$. 
+    
+    Consider, now, a bipartite graph with $(1, 1), \cdots, (1, n-1)$ appearing on one side, 
+    and $(2, 1), \cdots, (2, n-1)$ appearing on the other side. 
+    Denote $\nu_2(x)$ as the highest power of 2 dividing $x$, 
+    and consider any primitive root $g$ of $n$. 
+    Then $g^1, \cdots, g^{n-2}, g^{n-1}=1$ are all distinct mod $n$, 
+    so in our graph we can have edges $(1, a)$ and $(2, g^b)$ for all pairs $(a, b)$ satisfying $\nu_2(a)=\nu_2(b)$. 
+    Note that a perfect matching exists: 
+    just take $(1, a), (2, g^a)$. 
+    
+    Now we consider a directed graph $(V, E)$ where $V=\{1, \cdots, n-1\}$, 
+    and $E=\{a\to b\}$ is determined by the perfect matching. 
+    Observe that each node has an indegree and outdegree of 1 each, so the resulting graph is a set of disjoint cycles (including possible self-loop). 
+    We now consider the following claim: 
+    \begin{lemma}
+    	By modifying the graph such that a new edge $a\to b$ can only be added if there is an edge between $(1, a), (2, b)$ (but there is no rule of edge deletion), 
+    	we can produce $(V, E)$ with a single cycle that traverses all vertices (Hamiltonian). 
+    \end{lemma}
+    
+    \begin{proof}
+    	Consider, now, any two cycles $C_1$ and $C_2$. 
+    	We claim that if $a\in C_1$ and $b\in C_2$ such that $\nu_2(a)=\nu_2(b)$, 
+    	then it is possible to merge $C_1$ and $C_2$ into one. 
+    	Indeed, 
+    	let $C_1$ be $a_1\to \cdots \to a_u\to a_1$ and $b_1\to\cdots\to b_v\to b_1$, 
+    	with $\nu_2(a_1)=\nu_2(b_1)$. 
+    	Then by our construction, $a_2=g^{c_2}$ and $b_2=g^{d_2}$ for some $c_2, d_2$ 
+    	such that $\nu_2(a_1)=\nu_2(b_1)=\nu_2(c_2)=\nu_2(d_2)$. 
+    	We can therefore take the cycle 
+    	$a_1\to b_2\to\cdots \to b_v\to b_1\to a_2\cdots \to a_u\to a_1$, 
+    	justifying such a merge 
+    	(in other words we delete $a_1\to a_2, b_1\to b_2$ and replace by $a_1\to b_2, b_1\to a_2$ to maintain the structure of disjoint cycles). 
+    	
+    	Now suppose after several such merging steps we can no longer proceed. 
+    	In particular, all odd numbers are in the same cycle, say $C_1$. 
+    	It then follows that all the quadratic nonresidues are also in $C_1$. 
+    	We now show that $C_1$ contains all $1, \cdots, n-1$. 
+    	
+    	We have shown the case $n=3$ above. 
+    	For $n=5$, using $g=3$ (i.e. $g, g^2, g^3, g^4=3,4,2,1$) we have the cycle 
+    	$1\to 3\to 2\to 4\to 1$, 
+    	hence we may assume $n\ge 17$.
+    	Since $n\equiv 2\pmod{3}$ and $n\equiv 1\pmod{4}$, 
+    	we use the famous property of Legendre's symbol 
+    	$(\frac{3}{n})(\frac{n}{3})=(-1)^{\frac{(3-1)(n-1)}{2}}=1$, 
+    	and with $(\frac{n}{3})=-1$, $(\frac{3}{n})=-1$. 
+    	In other words, $\frac 3n$ is not a quadratic residue. 
+    	On the other hand, 
+    	since $2^k\equiv -1$ (i.e. $2^{2k}\equiv 1$) 
+    	and $2k < 2^k$ for $k\ge 4$, 
+    	2 is a quadratic residue of $n$. 
+    	This means that $3\cdot 2^{\ell}$ is a quadratic nonresidue for 
+    	$\ell=0, \cdots, k-2$, 
+    	which means for each $\ell=0, \cdots, 2^{\ell}$, 
+    	$C_1$ contains at least a member in the form $\nu_2(\cdot)=\ell$. 
+    	Since we can no longer merge two different cycles, 
+    	all numbers with $\nu_2(\cdot)\le k-2$ must be in this cycle $C_1$. 
+    	
+    	Finally, the only numbers not in the form $\nu_2(\cdot)\le k-2$ are $2^{k-1}$ and $2^k$. 
+    	But in our matching, the only outdegree from $2^{k}$ is to 1, 
+    	and the only outdegree from $2^{k-1}$ is to $-1=2^k$. 
+    	Thus both numbers are in $C_1$ (since 1 is in this cycle), 
+    	completing the proof. 
+    \end{proof}
+    
+    Now we can finish the solution. In our single cycle above, we get $a_1\to\cdots \to a_{n-1}\to a_1$. 
+    By the method we construct our edges, $a_i\to a_{i+1}$ implies that if $a_{i+1}=g^{b_{i+1}}$ then $\nu_2(a_i)=\nu_2(b_{i+1})$. 
+    It then follows that a suitable $g_i$ can be found such that $g_i^{a_i}=a_{i+1}$ given that $a_{i+1}$ is the $2^{\nu_2(a_i)}$-th power residue of $n$ and $\gcd(n-1, a_i)=2^{\nu_2(a_i)}$. 
+    
+    
+    
+    
 	
 \end{enumerate}
 

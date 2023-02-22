@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{amsmath, amssymb, fullpage, amsthm, mathrsfs, bm, pgf, tikz}
 \usepackage{mathrsfs}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
@@ -43,9 +43,11 @@
 \newcommand{\dsum}{\displaystyle\sum}
 \newcommand{\dprod}{\displaystyle\prod}
 
+\newtheorem{lemma}{Lemma}
+
 \title{Solution to IMO 2019 shortlisted problems.}
 \author{Anzo Teh}
-\date{\today}
+\date{}
 \maketitle
 
 \section*{Currently Unsolved / TODO}
@@ -73,16 +75,11 @@
 	\end{enumerate}
 	Bob wins if, at the end of any round, some box contains no pebbles. Find the smallest $n$ such that Alice can prevent Bob from winning.
 	
-	\item [\textbf{C8.}] Alice has a map of Wonderland, a country consisting of $n \geq 2$ towns. For every pair of towns, there is a narrow road going from one town to the other. One day, all the roads are declared to be “one way” only. Alice has no information on the direction of the roads, but the King of Hearts has offered to help her. She is allowed to ask him a number of questions. For each question in turn, Alice chooses a pair of towns and the King of Hearts tells her the direction of the road connecting those two towns.
-	
-	Alice wants to know whether there is at least one town in Wonderland with at most one outgoing road. Prove that she can always find out by asking at most $4n$ questions.
-	
 	\item [\textbf{C9.}] For any two different real numbers $x$ and $y$, we define $D(x,y)$ to be the unique integer $d$ satisfying $2^d\le |x-y| < 2^{d+1}$. Given a set of reals $\mathcal F$, and an element $x\in \mathcal F$, we say that the scales of $x$ in $\mathcal F$ are the values of $D(x,y)$ for $y\in\mathcal F$ with $x\neq y$. Let $k$ be a given positive integer.
 	
-	\item [\textbf{G8.}] Let $\mathcal L$ be the set of all lines in the plane and let $f$ be a function that assigns to each line $\ell\in\mathcal L$ a point $f(\ell)$ on $f(\ell)$. Suppose that for any point $X$, and for any three lines $\ell_1,\ell_2,\ell_3$ passing through $X$, the points $f(\ell_1),f(\ell_2),f(\ell_3)$, and $X$ lie on a circle.
-	Prove that there is a unique point $P$ such that $f(\ell)=P$ for any line $\ell$ passing through $P$.
-	
-	%\item[\textbf{N7.}] Prove that there is a constant $c>0$ and infinitely many positive integers $n$ with the following property: there are infinitely many positive integers that cannot be expressed as the sum of fewer than $cn\log(n)$ pairwise coprime $n$th powers.
+	%\item [\textbf{G8.}] Let $\mathcal L$ be the set of all lines in the plane and let $f$ be a function that assigns to each line $\ell\in\mathcal L$ a point $f(\ell)$ on $f(\ell)$. Suppose that for any point $X$, and for any three lines $\ell_1,\ell_2,\ell_3$ passing through $X$, the points $f(\ell_1),f(\ell_2),f(\ell_3)$, and $X$ lie on a circle.
+	%Prove that there is a unique point $P$ such that $f(\ell)=P$ for any line $\ell$ passing through $P$.
+
 	
 	\item[\textbf{N8.}] Let $a$ and $b$ be two positive integers. Prove that the integer
 	\[a^2+\left\lceil\frac{4a^2}b\right\rceil\]is not a square. (Here $\lceil z\rceil$ denotes the least integer greater than or equal to $z$.)
@@ -306,7 +303,7 @@
 	for $n>3$. For $n=3$, only one $i$ satisfies $i\neq k, \ell$ so the overall sum of products is $P_3(x_kx_{\ell})=x_kx_{\ell}$. 
 	
 	We're now ready to show that $P_n$ is the polynomial described for $n\ge 3$. Given that $P_n$ has degree at most $n-1$ (or is zero), and that $P_n(x_0)=x_0P_{n-2}(x_0)$ for $x_0=x_kx_{\ell}$ for $k\neq \ell$, it suffices to show that $\{x_kx_{\ell}: k\neq \ell\}$ takes on at least $n$ distinct values for $n\ge 3$ (here's when we need the assumption where none of the numbers are all positive). 
-	W.l.o.g. we sort $x_1<\cdots < x_n$. Then we have $x_1x2<x_1x_3<\cdots < x_1x_n < x_2x_n < \cdots < x_{n-1}x_n$, showing at least $2n-3$ distinct values. For $n\ge 3, 2n-3\ge n$, proving the results. Therefore, $P_n(x)=xP_{n-2}(x)$ for all $n\ge 4$. For $n$ even this will be 0 and for $n$ odd, since $P_3(x)=x$, we have inductively $P_n(x)=x^{\frac{n-1}{2}}$. 
+	W.l.o.g. we sort $x_1<\cdots < x_n$. Then we have $x_1x_2<x_1x_3<\cdots < x_1x_n < x_2x_n < \cdots < x_{n-1}x_n$, showing at least $2n-3$ distinct values. For $n\ge 3, 2n-3\ge n$, proving the results. Therefore, $P_n(x)=xP_{n-2}(x)$ for all $n\ge 4$. For $n$ even this will be 0 and for $n$ odd, since $P_3(x)=x$, we have inductively $P_n(x)=x^{\frac{n-1}{2}}$. 
 	
 	Finally, for the general case, we further denote 
 	\[
@@ -537,11 +534,72 @@
 	is either $180^{\circ}+180^{\circ}, 180^{\circ}-180^{\circ}, -180^{\circ}-180^{\circ}$, therefore either 0 or $\pm 360^{\circ}$. 
 	
 	\emph{Lemma 3}. There exists an ordering of vertices such that $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})=0$. \\
-	\textbf{Solution.} Let's start with an arbitrary ordering. Suppose that $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})\neq 0$, and w.l.o.g. we assume that it's positive, i.e. $>0$. Reversing the order (e.g. $A_{i}\to A_{2n-i+1}$) makes $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ become $\dsum_{i=1}^{2n}\theta(A_{i+2}, A_{i+1}, A_{i})$, i.e. instead of moving $A_iA_{i+1}$ to $A_{i+1}A_{i+2}$, we make $A_{i+1}A_{i+2}$ to $A_iA_{i+1}$. This essentially negates each term $\theta(A_i, A_{i+1}, A_{i+2})$, and therefore $\dsum_{i=1}^{2n}\theta(A_{i+2}, A_{i+1}, A_{i})$, the new $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ becomes negative. 
+	Let's start with an arbitrary ordering. Suppose that $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})\neq 0$, and w.l.o.g. we assume that it's positive, i.e. $>0$. Reversing the order (e.g. $A_{i}\to A_{2n-i+1}$) makes $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ become $\dsum_{i=1}^{2n}\theta(A_{i+2}, A_{i+1}, A_{i})$, i.e. instead of moving $A_iA_{i+1}$ to $A_{i+1}A_{i+2}$, we make $A_{i+1}A_{i+2}$ to $A_iA_{i+1}$. This essentially negates each term $\theta(A_i, A_{i+1}, A_{i+2})$, and therefore $\dsum_{i=1}^{2n}\theta(A_{i+2}, A_{i+1}, A_{i})$, the new $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ becomes negative. 
 	
 	We recall that this summation $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$ is a multiple of $360^{\circ}$. To reverse it, we simply have to swap $A_i$ and $A_{i+1}$ iteratively (think of it as doing bubble sort). Along the way, we monitor $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})$. Since we start at positive multiple of $360^{\circ}$, end at negative, and move by either exactly 0 or $360^{\circ}$ at each time, there must be a point where we hit exactly 0, completing the proof. 
 	
 	Now we can complete the solution. Label the vertices such that $\dsum_{i=1}^{2n}\theta(A_i, A_{i+1}, A_{i+2})=0$. Notice that $\theta(A_i, A_{i+1}, A_{i+2})=\pm \angle A_iA_{i+1}A_{i+2}$, so we simply have to split these angles into two groups such that one group has $\theta(A_i, A_{i+1}, A_{i+2})>0$ and the other group has $\theta(A_i, A_{i+1}, A_{i+2})<0$. 
+	
+	\item [\textbf{C8.}] Alice has a map of Wonderland, a country consisting of $n \geq 2$ towns. For every pair of towns, there is a narrow road going from one town to the other. One day, all the roads are declared to be “one way” only. Alice has no information on the direction of the roads, but the King of Hearts has offered to help her. She is allowed to ask him a number of questions. For each question in turn, Alice chooses a pair of towns and the King of Hearts tells her the direction of the road connecting those two towns.
+	
+	Alice wants to know whether there is at least one town in Wonderland with at most one outgoing road. Prove that she can always find out by asking at most $4n$ questions.
+	
+	\textbf{Solution.} 
+	For each vertex, we mark its outdegree based solely on the queries performed. 
+	That is, all vertices are marked 0 in the beginning, 
+	and each query involving $u$ and $v$ increases the count of exactly one of them by exactly one. 
+	We proceed according to the following steps. 
+	
+	\emph{Step 1.} 
+	At each round, pick any two vertices with count 0, and query the direction of the edge between them. 
+	Notice that we can perform this operation $n - 1$ times, after which there is a unique vertex (namely $v_0$) with 0 marked on it 
+	(i.e. all queries involving $v_0$ becomes an incoming edge to $v_0$). 
+	
+	We now show that the subgraph induced by this queries cannot have a directed cycle. 
+	Suppose otherwise. Consider the query that produces the first directed cycle. 
+	Then this query is responsible to adding the last directed edge that is forms the cycle. 
+	In particular, both vertices incident to the edge must now have outdegree at least 1. 
+	On the other hand, each query involves two vertices with outdegree 0 to start with, 
+	so one of them will still have degree 0 after the query, which is a contradiction. 
+	
+	%Now for each vertex $v\neq v_0$, denote $c(v)$ as the unique vertex such that 
+	%the subgraph induced by the $n-1$ queries has edge $v\to c(v)$
+	%Given this claim, we may now perform topological sorting using $<$ (i.e. if $a < b, b < c$ then $a < c$), such that $v < c(v)$. 
+	%Notice that $v < v_0$ for all vertices $v \neq v_0$. 
+	
+	\emph{Step 2.} 
+	Now query $(v_0, v)$ if it has not been done in step 1, and stop whenever $v_0$ has two outgoing edges from this seqires of queries, 
+	or all the edges have been used up. 
+	In the latter case, if $v_0$ has at most one outgoing edge, then we are done with less than $2n$ queries. 
+	Otherwise, suppose $k + 2$ queries have been performed at this stage for some $k\le n - 3$. 
+	It then follows that there are $k$ queries that resulted in the edges $v\to v_0$ and two in the form $v_0\to v$; 
+	the first $k$ vertices $v$ now has the number 2 written on them. 
+	Notice, also, that all vertices now have numbers $\ge 1$ written, with $k+1$ (including $v_0$ itself) have 2 written. 
+	
+	\emph{Step 3.} 
+	Here, we choose two vertices with 1 written on them such that this pair has not been queried before, 
+	and query the edge direction until we run out of choices. 
+	We now show that we have at most two vertices with 1 written at the end of this protocol. 
+	Suppose otherwise, that vertices $u, v, w$ have numbers 1 written on them and all three queries $(u, v), (v, w), (u, w)$ have been used. 
+	It follows that the three edges must now form a directed cycle (such that we have had 1 written on them), 
+	say, $u\to v, v\to w, w\to u$. 
+	Given that these vertices are different from $v_0$ (who now has 2 written on it), 
+	they have 1 written at the end of step 1, 
+	so all three queries must have been done in step 1 itself. 
+	This contradicts that the queries induced by step 1 has no drected cycle. 
+	Since there is at least a vertex with 1 written on it at the end of this step, 
+	the number of queries done here is at most $n - k - 2$, so the cumulative number of queries done up to this step is at most $(n - 1) + (k + 2) + (n - k - 2) = 2n - 1$. 
+	
+	\emph{Step 4.} To finish the proof, now that there are at most 2 vertices with 1 written on them (with the rest with $\ge 2$ written), 
+	Alice's answer can be determined by simply querying the direction between these (one or two) vertices with the rest of the graph, 
+	resulting in no more than $2(n - 1)$ additional queries. 
+	This gives a total of at most $4n - 3$ queries. 
+	
+	\textbf{Remark.} 
+	The fact that only a linear number of queries is needed can be deduced by just looking at the local connections between any 4 vertices: 
+	we cannot have all 4 of them having at most 1 outgoing edge. But most optimizations I have tried can only prove an upper bound of $5n$ queries, 
+	precisely because of the pathological example where we eliminate all except 3 vertices who could have outdegree 1 (and form a directed cycle themselves). 
+	It then makes sense to identify this example early on, and the acyclic query construction works. 
 \end{enumerate}
 
 \section*{Geometry}
@@ -815,21 +873,48 @@
 	
 	Prove that lines $DI$ and $PQ$ meet on the line through $A$ perpendicular to $AI$.
 	
-	\textbf{Solution.} (Reproduced from AoPS) Here's a solution using inversion and trigonometric bashing: by inverting in $\omega$ we turn the problem into the follows: keep $A, D, E, F, P$ as they are, $A_1, B_1, C_1$ as midpoints of $EF, DF, DE$. Let the circumcircles of triangles $PC_1E$ and $PB_1F$ meet again on $Q_1$. Let $\gamma$ be the circle with diameter $A_1I$. Prove that the second intersection of circumcircle of $PQ_1I$ and line $DI$ (or $I$ if tangent) meet on $\gamma$. The last statement (to prove) is the same as proving that the radical axis of $\gamma$, circumcircles of triangles $PC_1E$ and $PB_1F$ lie on line $DI$. Equivalently, the radical axis of $PC_1E$ and $\gamma$, and the radical axis of $PB_1F$ and $\gamma$ concur on $DI$. This last statement is our focus. W.L.O.G. assume $AB<AC$, so $DF<DE$ too and we know $DEF$ is acute. In this setting (details skipped), $P$ will lie on minor arc $DF$, and in particular $P, D, F$ are different points.
+	\textbf{Solution.} (Reproduced from AoPS) 
+	By inverting around $\omega$, the problem now becomes the following. 
 	
-	We need to identify those radical axes, and for each of them it's defined based on two points. We first focus on finding the radical axis of $PB_1F$ and $\gamma$. We need the following lemma:
+	Keep $A, D, E, F, P$ as they are, $A_1, B_1, C_1$ as midpoints of $EF, DF, DE$. Let the circumcircles of triangles $PC_1E$ and $PB_1F$ meet again on $Q_1$. Let $\gamma$ be the circle with diameter $A_1I$. Prove that the second intersection of circumcircle of $PQ_1I$ and line $DI$ (or $I$ if tangent) meet on $\gamma$. 
 	
-	Lemma: $A$ is on the radical axis of $\omega$ and $\gamma$.\\
-	Proof: The power of point of $A$ to $\omega$ is $AE=AF$; to $\gamma$ is $AA_1\cdot AI$. But then $AA_1\perp EF$ and $\angle AFI=90^{\circ}$, the conclusion follows by similarity of triangles. This means the radical axis is actually line through $A$ perpendicular to $AA_1$ (parallel to $EF$, in other words), let's name it $\ell$.
+    Our goal is the same as showing that the radical center of $\gamma$ and the circumcircles of triangles $PC_1E$ and $PB_1F$ lie on line $DI$. Equivalently, the radical axis of $PC_1E$ and $\gamma$, and the radical axis of $PB_1F$ and $\gamma$ concur on $DI$. This last statement is our focus. W.L.O.G. assume $AB<AC$, so $DF<DE$ too and we know $DEF$ is acute. In this setting (details skipped), $P$ will lie on minor arc $DF$, and in particular $P, D, F$ are different points.
+    
+    We first start with the following. 
+    \begin{lemma}
+    	Let $\ell$ be the external angle bisector of $\angle BAC$. 
+    	Let $X=\ell\cap PF$ and $M=DF\cap A_1I$. 
+    	Similarly, let $Y=\ell\cap PE$ and $N=DE\cap A_1I$. 
+    	Then $XM$ is the radical axis of $\gamma$ and $PB_1F$, and $YN$ is the radical axis of $\gamma$ and $PC_1E$. 
+    \end{lemma}
+    
+    \begin{proof}
+    	We first show that the radixal axis of $\gamma$ and $\omega$ is $\ell$. 
+    	The power of point of $A$ to $\omega$ is $AE=AF$; to $\gamma$ is $AA_1\cdot AI$. But then $AA_1\perp EF$ and $\angle AFI=90^{\circ}$, the conclusion follows by similarity of triangles. This means the radical axis is actually line through $A$ perpendicular to $AA_1$ (parallel to $EF$, in other words), which is $\ell$ itself. 
+    	
+    	Consider, now, the circles $PB_1F$, $\gamma$ and $\omega$. The radical axis for $\omega$ and $PB_1F$ is $PF$, so one such point must be $X=\ell\cap PF$. Consider, now, the circles $PB_1F$, $\gamma$ and the circle $B_1FA_1I$ (the four points are concylic bcz $\angle FB_1I=\angle FA_1I$). The radical axis of $\gamma$ and $B_1FA_1I$ is $A_1I$; the one for $PB_1F$ and $B_1FA_1I$ is $B_1F$ which is $DF$. Thus $M$ is the radical centre of the three circles, hence on the radical axis of $\gamma$ and $PB_1F$. The radical axis, therefore, is $XM$ (we need to be careful in showing $X\neq M$; suppose $X=M$, then the fact that both pass through $F$ via $FP$ and $FD$ and that $F, D, P$ are not collinear because they are different point on $\omega$ means $X=M=F$. But the power of point of $F$ to $FPB_1$ is 0 while to $\gamma$ is $A_1F\neq 0$, assuming nondegenerate here).
+    	
+    	In a similar fashion, we can show that $YN$ is the radical axis of $\gamma$ and $PC_1E$.
+    \end{proof}
 	
-	Consider, now, the circles $PB_1F$, $\gamma$ and $\omega$. The radical axis of $\omega$ and $\gamma$ has been established above; the one for $\omega$ and $PB_1F$ is $PF$, so one such point must be $X=\ell\cap PF$. Consider, now, the circles $PB_1F$, $\gamma$ and the circle $B_1FA_1I$ (the four points are concylic bcz $\angle FB_1I=\angle FA_1I$). The radical axis of $\gamma$ and $B_1FA_1I$ is $A_1I$; the one for $PB_1F$ and $B_1FA_1I$ is $B_1F$ which is $DF$. Thus $M=DF\cap A_1I$ is the radical centre of the three circles, hence on the radical axis of $\gamma$ and $PB_1F$. The radical axis, therefore, is $XM$ (we need to be careful in showing $X\neq M$; suppose $X=M$, then the fact that both pass through $F$ via $FP$ and $FD$ and that $F, D, P$ are not collinear because they are different point on $\omega$ means $X=M=F$. But the power of point of $F$ to $FPB_1$ is 0 while to $\gamma$ is $A_1F\neq 0$, assuming nondegenerate here).
-	In a similar fashion, if $Y=\ell\cap PE$ and $N=DE\cap A_1I$ then $YN$ is the radical axis of $\gamma$ and $PC_1E$.
 	
-	We are left with proving that $YN, XM, DI$ are concurrent, which we will use bashing (trigonometric) here! Extend line $MFD$ to meet $\ell$ at $X_1$ and $NED$ to meet $\ell$ at $Y_1$. We now have $MF>DF$ and $NE<DE$ According to our assumption, $X$ will be between $P$ and $X_1$ and $MX$ will be in the angle domain of $\angle AMX_1$. So goes to segment $DI$ so $MX$ will intersect segment $DI$ (and not anything outside). Similarly, $Y_1$ will be between $A$ and $Y$, which also means $NY$ is outside angle domain $\angle ANY_1$. But then segment $DI$ won't be on the angle domain either so $YN$ intersects $DI$ in its segment. These realization are here to free us from using signed convention later (well we could but I am lazy now).
+	We're now left with proving that $YN, XM, DI$ are concurrent. 
+	But first, we need to establish some side convention. 
+	If $AB=AC$ (equivalently, $PE=PF$) we're (the intersection in the original version will just be $A$ itself). 
+	So assume that $PF < PE$. 
+	Now, $DF$ intersects $A_1I$ outside segment $PF$ so $F, P, M$ are in that order. 
+	Also, $MF, MX, MA_1$ are concurrent in that order. 
+	Thus $XM$ intersects $DI$ at some point $Z_1$ in the segment $DI$. 
+	On the other hand $DE$ intersects $A_1I$ in the segment $PE$ so 
+	$P, N, E$ are in that order. 
+	Also, $NY, NE, NA_1$ are concurrent in that order. 
+	It follows that $YN$ also intersects $A_1I$ at some point $Z_2$ in segment $DI$. 
+	Thus we'll now focus on showing $\frac{IZ_1}{Z_1D} = \frac{IZ_2}{Z_2D}$, 
+	which will then solve the problem since this would imply $Z_1=Z_2$. 
 	
 	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
 	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
-	\clip(-10.971232482661602,-5.9877742343874925) rectangle (1.8020795587887677,8.162301979195165);
+	\clip(-10.971232482661602,-4.5877742343874925) rectangle (1.8020795587887677,5.762301979195165);
 	\draw [line width=2pt] (-3.175194024761697,0.6174435442270204) circle (2.5239023008529298cm);
 	\draw [line width=2pt] (-3.2875970123808482,1.4537217721135103) circle (0.8437983799834406cm);
 	\draw [line width=2pt] (-3.6780175212591555,4.358450358168106)-- (-5.26,2.04);
@@ -877,35 +962,139 @@
 	\end{scriptsize}
 	\end{tikzpicture}
 	
-	Now a not-so-well-known trigonometric identity says that considering the triangle $AFX_1$ and the cevian $FX$ we get $\frac{AX}{XX_1}=\frac{AF}{FX_1}\cdot \frac{\sin\angle AFX}{\sin\angle XFX_1}$. Considering the triangle $AMX_1$ and cevian $MX$ we get $\frac{AX}{XX_1}=\frac{AM}{MX_1}\cdot \frac{\sin\angle AMX}{\sin\angle XMX_1}$. Finally, if $MX$ intersects $DI$ at $Z_1$, considering triangle $MDI$ and the cevian $MZ_1$ we get, $\frac{IZ_1}{Z_1D}=\frac{MI}{MD}\cdot \frac{\sin\angle AMX}{\sin\angle XMX_1}$. Thus we have
-	\[
-	\frac{IZ_1}{Z_1D}=\frac{MI}{MD}\cdot \frac{\sin\angle AMX}{\sin\angle XMX_1}
-	=\frac{MI}{MD}\cdot \frac{AX}{XX_1}\div \frac{AM}{MX_1}
-	=\frac{MI}{MD}\frac{AF}{FX_1}\cdot \frac{\sin\angle AFX}{\sin\angle XFX_1}\div \frac{AM}{MX_1}
-	\]and similarly if $NY$ intersects $DI$ at $Z_2$ we get
-	\[
-	\frac{IZ_2}{Z_2D}
-	=\frac{NI}{ND}\frac{AE}{EY_1}\cdot \frac{\sin\angle AEY}{\sin\angle YEY_1}\div \frac{AN}{NY_1}
-	\]so we need to prove the two ratios are equal (and this would be sufficient since we know that $Z_1$ and $Z_2$ are both on segment $DI$, i.e.
-	\[
-	\frac{MI}{MD}\frac{AF}{FX_1}\cdot \frac{\sin\angle AFX}{\sin\angle XFX_1}\div \frac{AM}{MX_1}
-	=\frac{NI}{ND}\frac{AE}{EY_1}\cdot \frac{\sin\angle AEY}{\sin\angle YEY_1}\div \frac{AN}{NY_1}
-	\]First, notice that $AF=AE$, so these can be cancelled out. Next, $\angle AFX=\angle FEP$ and $\angle AEY=\angle EFP$, but then by sine rule $\sin\angle FEP/\sin\angle EFP=FP/EP$. These two angles are on numerators of two different sides so they can be replaces with $FP$ and $EP$, respectively. Then, $\angle XFX_1=\angle FPD=\angle PED = \angle YEY_1$, again can be cancelled.
-	Also, since $\ell\parallel EF$ we have $FX_1/EY_1=DF/DE$.
-	Thus we now need to check the following:
-	\[
-	\frac{MI}{MD}\frac{1}{DF}\cdot \frac{FP}{1}\div \frac{AM}{MX_1}
-	=(?)\frac{NI}{ND}\frac{1}{DE}\cdot \frac{EP}{1}\div \frac{AN}{NY_1}
-	\]Next, $AM/MX_1$ is actually $\cos \angle AMX_1=\sin \angle DFA_1=\sin\angle DFE$ and similarly $AN/NY_1=\sin \angle DEA_1=\sin\angle DEF$ (notice the implicit use of the fact that $A_1I\perp EF$ and $A_1I\perp XY=\ell$. But then by sine rule $\sin\angle DFE/\sin\angle DEF=DE/DF$. Thus we have the equation to prove above becomes the following:
-	\[
-	\frac{MI}{MD}\frac{1}{DF}\cdot \frac{FP}{1}\div DE
-	=(?)\frac{NI}{ND}\frac{1}{DE}\cdot \frac{EP}{1}\div DF
-	\]so now it suffices to show that
-	\[
-	\frac{MI}{MD}\cdot FP
-	=(?)\frac{NI}{ND}\cdot EP
-	\]Using sine rule again, $\frac{MI}{MD}=\frac{\sin\angle MDI}{\sin\angle MID}$ and $\frac{NI}{ND}=\frac{\sin\angle NDI}{\sin\angle NID}$. But then both $\angle MID$ and $\angle NID$ are angle between $DI$ and $IM$ so they must be either equal or supplementary, hence having equal since. We now reduce everything to the following: $\sin\angle MDI\cdot FP=(?)\sin\angle NDI\cdot EP$.
-	But now, $\sin\angle MDI=\sin\angle IDF$ and notice that $\angle IDF=90^{\circ}-\angle DEF=\angle EDR=\angle EFR$ so $\sin\angle MDI=\angle EFR$ and $\sin\angle NDI=\sin\angle FER$ for the similar reason. But then $\sin\angle EFR/\sin\angle FER = ER/FR$ so we are left with proving that $ER\cdot FP=FR/ EP$. But this follows from the fact that $PEFR$ is a harmonic quadrilateral!
+	We first start with the following: 
+	\begin{equation}
+		\frac{IZ_1}{Z_1D}=\frac{MI}{MD}\cdot \frac{\sin\angle XMA_1}{\sin\angle FMX}
+		=\frac{MI}{MD}\cdot \frac{XA}{XF}\frac{\sin\angle XAM}{\sin\angle XFM}
+	\end{equation}
+	the second equality due to $M, A, A_1$ collinear and 
+	\begin{equation}
+		\frac{MA\sin\angle XMA}{MF\sin\angle FMX}
+		=\frac{|\triangle XAM|}{|\triangle XFM|}
+		=\frac{MA\cdot XA\sin\angle XAM}{MF\cdot FX\sin\angle XFM}
+	\end{equation}
+	Similarly, 
+	\begin{equation}
+		\frac{IZ_2}{Z_2D}
+		=\frac{NI}{ND}\cdot \frac{YA}{YE}\frac{\sin\angle YAN}{\sin\angle YEN}
+	\end{equation}
+	First, both $\angle YAN=\angle XAM=90^{\circ}$ since $\ell$ is perpendicular to $A_1I$. 
+	In addition, by the properties of cyclic quadrilateral we have 
+	\begin{equation}
+		\angle XFM = 180^{\circ} - \angle PFD = 180^{\circ} - \angle PED = \angle YEN
+	\end{equation}
+	Hence $\frac{\sin\angle XAM}{\sin\angle XFM} = \frac{\sin\angle YAN}{\sin\angle YEN}$. 
+	
+	Next, let's study the ratios $\frac{XA}{YA}$ and $\frac{XF}{YE}$. 
+	We see that $EF\parallel XY$, so $\frac{XF}{YE} = \frac{PF}{PE}$. 
+	In addition, since $A, P, R$ collinear, $PFRE$ is harmonic so 
+	$\frac{PF}{PE} = \frac{RF}{RE}$. 
+	This also implies that in the context of both triangles $PEF$ and $PYX$, $PA$ is the symmedian line from line $P$. 
+	It then follows that $\frac{XA}{YA}=(\frac{PF}{PE})^2 = (\frac{RF}{RE})^2$
+	
+	Finally, by sine rule, 
+	\begin{equation}
+		\frac{MI}{MD}
+		=\frac{\sin\angle MDI}{\sin\angle MID}
+		=\frac{\sin\angle FDI}{\sin\angle MID}
+	\end{equation}
+	(recall that sines of supplementary angles are equal), 
+	and also 
+	\begin{equation}
+		\frac{NI}{ND}
+		=\frac{\sin\angle NDI}{\sin\angle NID}
+		=\frac{\sin\angle EDI}{\sin\angle NID}
+	\end{equation}
+	Since $DR\perp EF$, $DR, DI$ are cevian conjugates of each other; 
+	with some angle chasing we have $\angle RFE = \angle RDE = \angle IDF$ and similarly 
+	$\angle REF = \angle IDE$. Also $\angle MID = \angle NID$ as $M, N, I$ collinear. 
+	
+	We're now ready to put things together. Here, 
+	\begin{equation}
+		\frac{MI}{MD}\cdot \frac{XA}{YA}
+		=\frac{\sin\angle FDI}{\sin\angle MID}\left(\frac{RF}{RE}\right)^2
+		=\frac{\sin\angle RFE}{\sin\angle MID}\left(\frac{\sin\angle REF}{\sin\angle RFE}\right)^2
+		=\frac{\sin^2\angle REF}{\sin\angle MID\sin\angle RFE}
+	\end{equation}
+	while 
+	\begin{equation}
+		\frac{NI}{ND}\cdot \frac{XF}{YE}
+		=\frac{\sin\angle NDI}{\sin\angle NID}\frac{RF}{RE}
+		=\frac{\sin\angle REF}{\sin\angle NID}\frac{\sin\angle REF}{\sin\angle RFE}
+		=\frac{\sin^2\angle REF}{\sin\angle MID\sin\angle RFE}
+	\end{equation}
+	So the ratios above are indeed equal. 
+	Together with $\frac{\sin\angle XAM}{\sin\angle XFM} = \frac{\sin\angle YAN}{\sin\angle YEN}$, 
+	we just have to rearrange terms to get 
+	\begin{equation}
+		\frac{IZ_1}{Z_1D}
+		=\frac{MI}{MD}\cdot \frac{XA}{XF}\frac{\sin\angle XAM}{\sin\angle XFM}
+		=\frac{NI}{ND}\cdot \frac{YA}{YE}\frac{\sin\angle YAN}{\sin\angle YEN}
+		=\frac{IZ_2}{Z_2D}
+	\end{equation}
+	as desired. 
+	
+	\item [\textbf{G8.}] Let $\mathcal L$ be the set of all lines in the plane and let $f$ be a function that assigns to each line $\ell\in\mathcal L$ a point $f(\ell)$ on $f(\ell)$. Suppose that for any point $X$, and for any three lines $\ell_1,\ell_2,\ell_3$ passing through $X$, the points $f(\ell_1),f(\ell_2),f(\ell_3)$, and $X$ lie on a circle.
+	Prove that there is a unique point $P$ such that $f(\ell)=P$ for any line $\ell$ passing through $P$.
+	
+	\textbf{Solution.} 
+	We first show that there cannot be more than one such point. 
+	Suppose otherwise, that $P$ and $Q$ are both such points. 
+	Then the line $PQ$ has $f(PQ)=P, Q$ simultaneously. 
+	
+	Now we show the existence of such point. 
+	By the problem condition, there exist a mapping $g$ from point to circle such that for each point $X$, 
+	all lines $\ell$ passing through $X$ has $f(\ell)\in g(X)$. 
+	We start with the following. 
+	\begin{lemma}
+		There exist distinct points $A, B, C$ such that $f(AB), f(BC), f(CA)$ are all distinct from $A, B, C$. 
+	\end{lemma}
+    
+    \begin{proof}
+    	Let $\ell_1$ be any line, and $P$ any point not on $\ell_1$. Since $g(P)$ intersects $\ell_1$ on at most two points, we may identity a point $A\in\ell_1$ that is not on $g(P)$, and also different from $f(\ell_1)$. 
+    	Denote $\ell_2$ as the line $PA$. 
+    	This means, now, $A$ is on the lines $\ell_1$ and $\ell_2$ but different from $f(\ell_1)$ and $f(\ell_2)$. 
+    	Now choose any three points $X_1, X_2, X_3$ on $\ell_1$ that are different from $f(\ell_1)$ and $A$. 
+    	$g(X_1), g(X_2), g(X_3)$ jointly intersect $\ell_2$ at at most sixpoints, so we can choose a point $X_4\neq f(\ell_2), A$ on $\ell_2$ that is not on any of these circles. 
+    	Observe that $g(X_4)$ cannot pass through all $X_1, X_2, X_3$ since they are all on the same line $\ell_1$. 
+    	W.l.o.g. suppose $X_1\not\in g(X_4)$. 
+    	Then letting $\ell_3=X_1X_4$ means that $f(\ell_3)$ cannot be any of $X_1$ or $X_4$. 
+    	By our choice, $f(\ell_1)\neq X_1, A$ and $f(\ell_2)\neq X_4, A$, 
+    	meaning that we may take $B=X_1$ and $C=X_2$. 
+    \end{proof}
+    
+    Now that we have triangle $A, B, C$ with this property, 
+    we see that $g(A)$ passes through $A, f(AB), f(AC)$. 
+    In other words $g(A)$, $g(B)$ and $AB$ have a common point (i.e. $f(AB)$). 
+    Doing this for other pairs of circles $AC$ and $BC$, by Miquel's theorem $g(A), g(B), g(C)$ have a common point $P$, 
+    which has to be distinct from $A, B, C$. 
+    We now show that $P$ is the point we are looking for. 
+    
+    Consider any point $Q\neq P$. We show that $f(PQ)\neq Q$, and the conclusion will follow considering all such points $Q$. 
+    Since $A, B, C, P$ are pairwise distinct, 
+    the tangents $t(A), t(B), t(C)$ to $g(A), g(B), g(C)$ at $A, B, C$, respectively, do not pass through $P$ ($P$ are on all three circles and the only point each tangent line can intersect the circles are $A, B, C$, respectively). 
+    This means we can choose $R$ on line $PQ$ that are not on $t(A), t(B), t(C)$, 
+    and also not on circles $QAB, QAC, QBC$ (*). 
+    
+    If $f(PQ)=Q$, then $g(R)$ passes through $Q$. 
+    On the other hand, let $A', B', C'$ be the second intersection of $g(A), g(B), g(C)$ with $AR, BR, CR$, respectively. 
+    By our problem condition, $f(AR)$ has to be either $A$ or $A'$, and similarly $f(BR)\in \{B, B'\}$ and $f(CR)\in \{C, C'\}$. 
+    Given also that $g(R)$ passes through $R, Q, f(AR), f(BR), f(CR)$, 
+    by our choice of $R$ in (*), at least two of $f(AR), f(BR), f(CR)$ must be $A', B', C'$. 
+    
+    Finally, we show that $A', B', C', P, R$ lie on a circle. 
+    Indeed, using directed angles we have 
+    \[
+    \angle (A'R, B'R)
+    =\angle(AA', A'P)+\angle(A'P, B'P) + \angle(B'P, BB')
+    \]\[
+    =\angle(Af(AB), f(AB)P)+\angle(A'P, B'P) + \angle(f(AB)P, Bf(AB))
+    =\angle(A'P, B'P)
+    \]
+    i.e. $A', B', P, R$ lie on a circle. Similarly, we can show that $C'$ lie on this circle too. 
+    Since two of $A', B', C'$ must be $f(AR), f(BR), f(CR)$, these two points, togther with $R$, 
+    uniquely determines $g(R)$ (and therefore must pass through $P$, not $Q$). 
+    This gives us the desired contradiction. 
 \end{enumerate}
 
 \section*{Number Theory}
