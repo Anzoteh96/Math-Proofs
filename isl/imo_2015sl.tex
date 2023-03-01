@@ -1,31 +1,172 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{prettyref, amsthm}
+
+\newtheorem{lemma}{Lemma}
 
 \begin{document}
 
 \title{Solution to IMO 2015 shortlisted problems.}
 \author{Anzo Teh}
-\date{25 June 2017}
+\date{}
 \maketitle
 
-\section{Algebra}
+\section*{Algebra}
 \begin{enumerate}
-\item\textbf{A2.}Determine all functions $f:\mathbb{Z}\rightarrow\mathbb{Z}$ with the property that \[f(x-f(y))=f(f(x))-f(y)-1\]holds for all $x,y\in\mathbb{Z}$.
+\item[\textbf{A1.}]
+Suppose that a sequence $a_1,a_2,\ldots$ of positive real numbers satisfies\[a_{k+1}\geq\frac{ka_k}{a_k^2+(k-1)}\]for every positive integer $k$. 
+Prove that $a_1+a_2+\ldots+a_n\geq n$ for every $n\geq2$.
+
+\textbf{Solution.} 
+Throughout the solution, we note $f_k(x) = \frac{kx}{x^2+(k - 1)}$ for all $x > 0$. 
+Observe that our condition is $a_{k+1}\ge f_k(a_k)$. 
+
+We first establish this for a special case where $a_1$ is arbitrary and equality holds for the recursion 
+(that is, $a_{k+1} = f_k(a_k)$). 
+Notice that $a_3 = \frac{2a_2}{a_2^2 + 1}\le 1$, 
+and when $k\ge 2$, $x^2 + (k - 1) - kx = (x - 1)(x - (k - 1))$ which is nonnegative for $x\le 1$. 
+It then follows that in our case, 
+$a_k\le 1$ for all $k\ge 3$. 
+
+We now also claim that $\sum_{i=1}^n a_i = \frac{n-1}{a_n} + a_n$. 
+Indeed, this holds when $n = 1$. 
+Suppose for some $n\ge 1$ it holds that $\sum_{i=1}^n a_i = \frac{n-1}{a_n} + a_n$, 
+then 
+\[
+\sum_{i=1}^{n+1} a_i 
+=\frac{n-1}{a_n} + a_n + \frac{na_n}{a_n^2 + (n - 1)}
+=\frac{n-1 + a_n^2}{a_n} + \frac{na_n}{a_n^2 + (n - 1)}
+=\frac{n}{a_{n+1}} + a_{n+1}
+\]
+as claimed. 
+Finally, for $n=2$ the sum is $a_2+\frac{1}{a_2}\ge 2$ for all $a_2\in\mathbb{R}_{>0}$; 
+for $n > 2$, since $a_n \le 1$ and $\frac{(n - 1)}{a_n} + a_n$ is decreasing in $0<a_n\le \sqrt{n-1}$, 
+we do get 
+$\frac{(n - 1)}{a_n} + a_n\le (n - 1) + 1 = n$, as desired. 
+Notice that this is also generalizable to $a_3, \cdots, a_n\le 1$, but where $a_{k+1}\ge f_k(a_k)$ instead of equality, 
+since $f_k$ is increasing in $(0, \sqrt{k-1})$ for all $k\ge 2$. 
+
+We now relax the equality constraint. 
+To this end, consider the following claim: 
+suppose for some $m\ge 1$, $a_m\ge 1$ while $a_{m+1}, \cdots, a_n\le 1$. 
+Then $a_m + \cdots + a_n\ge n - m + 1$. 
+To see why this is true, 
+we see that $a_{m+1}\le 1$ means that $ma_m\le a_m^2 + (m - 1)$, 
+so $a_m\ge m - 1$. 
+Next, the function for all $k\ge 2$, $f_k$ is increasing in $x\in (0, \sqrt{k-1})$ (hence increasing in $(0, 1)$). 
+This means with $a_{m+1}, \cdots, a_n\le 1$ it suffices to consider the case where equality holds 
+(i.e. $a_{k+1}=f_k(a_k)$ for all $k\ge m$). 
+In addition, for all $k\ge 2$, $f_k(x)=f_k(\frac{k - 1}{x})$. 
+
+Thus we can do induction on $m$. 
+For $m = 1$ we have exactly the simplified equality case that we established. 
+Now suppose that this is true for $m - 1$ for some $m\ge 2$, and consider the case for $m$ (that is, $a_{m}\ge 1, a_{m+1}, \cdots, n\le 1$). 
+We note that $a_{m+1} = f_m(a_m) = f_m(\frac{m-1}{a_m})$, 
+Now, consider adding $a_{m-1}$ and substituting $a_m$ with $\frac{m-1}{a_m}$ such that 
+$\frac{m-1}{a_m} = f_{m-1}(a_{m-1})$. 
+By induction hypothesis, 
+$a_{m-1} + \frac{m-1}{a_m}  + a_{m+1} + \cdots + a_n \ge n - m$. 
+Now that $a_m = \frac{m-1}{f_{m-1}(a_{m-1})} = a_{m-1} + \frac{m - 2}{a_{m-1}}$, 
+we have 
+\[a_m + 1 - (a_{m-1} + f_{m-1}(a_{m-1}))
+= \frac{m - 2}{a_{m-1}} + 1 - f_{m-1}(a_{m-1})
+\ge 0
+\]
+since $f_{m-1}(a_{m-1})  = \frac{m-1}{a_m}\le 1$. Thus the induction step follows. 
+
+We now finish the proof in the following manner. 
+Let $k_0\ge 3$ be the minimum number such that $a_3, \cdots, a_{k_0}\le 1$; 
+the initial case yields that $a_1+\cdots + a_{k_0}\ge k_0$. 
+For $a_i$'s after $k_0$, 
+we partition them into segments of consecutive numbers where the first element is $\ge 1$, and the rest $\le 1$. 
+The second part of our analysis shows that each segment has average $\ge 1$, so the conclusion follows. 
+
+\item[\textbf{A2}.] Determine all functions $f:\mathbb{Z}\rightarrow\mathbb{Z}$ with the property that \[f(x-f(y))=f(f(x))-f(y)-1\]holds for all $x,y\in\mathbb{Z}$.
+
+\textbf{Answer.} $f\equiv x+1$, or $x\equiv -1$. 
 
 \textbf{Solution.}
-Plugging $y=f(x)$ yields $f(x-f(f(x)))=-1$, meaning that -1 is in the range of $f$. Take $y$ such that $f(y)=-1$ we  have $f(x+1)=f(f(x))$. For the case where $f$ is injective, we must have $f(x)=x+1$, and this function obviously works with both sides equal $x-y$.
+We first see that these two functions satisfy the equation. The first one gives both sides as $x - y$; the second case just gives $-1$. 
+It now remains to show that these are the only such functions. 
 
-Now, let $f$ not be injective, and let $f(x)=f(z)$ for some $x,z\in\mathbb{R}$. Then take $y$ such that $f(y)=-1$ we have $f(x+1)=f(f(x))=f(f(z))=f(z+1)$. This means the function is periodic for sufficiently large domain (i.e. $\ge x_1$). Let $M$ and $m$ be real numbers $\ge x$ such that the numbers $f(M)$ and $f(m)$ are the maximum and minimum numbers in the period, respectively. Plug $x=M-1$ yields R.H.S. as $f(f(M-1))-f(y)-1=f(M)-f(y)-1$, and with L.H.S. at most $f(M)$ we have $f(y)\ge -1$ for any real $y$ (if $x-f(y)<x_1$ then we can change $x$ to $M-1+kc$ where $c$ is the length of functional period, so that $f(M)=f(M+kc)$ and $k$ sufficiently large positive integer). A similar substitution yields R.H.S. as $f(m)-f(y)-1$ and L.H.S. at least $f(m)$, so $f(y)\le -1$. Combining both yields $f\equiv -1$, a constant, and this satisfies the functional equation too.
+Plugging $y=f(x)$ yields $f(x-f(f(x)))=-1$, meaning that $-1$ is a value of $f$. 
+Define $y_0$ as an integer with $f(y_0)=-1$. 
+Then substituting $y := y_0$ we have 
+\begin{equation}\label{eq:a2}
+	f(x+1)=f(f(x)).
+\end{equation} For the case where $f$ is injective, we must have $f(x)=x+1$. 
 
-\item\textbf{A3.} Let $n$ be a fixed positive integer. Find the maximum possible value of \[ \sum_{1 \le r < s \le 2n} (s-r-n)x_rx_s, \]where $-1 \le x_i \le 1$ for all $i = 1, \cdots , 2n$.
+Now, let $f$ not be injective, and let $f(x)=f(z)$ for some $x,z\in\mathbb{Z}$. Then \prettyref{eq:a2} implies $f(x+1)=f(f(x))=f(f(z))=f(z+1)$. This means the function is eventually periodic, i.e. there exists $N$ and $d>0$ such that $f(x)=f(x+d)$ for all $x\ge N$. 
+Now define 
+\[
+M = \arg\max\{f(N), \cdots, f(N + d - 1)\}
+\qquad 
+m = \arg\min\{f(N), \cdots, f(N + d - 1)\}
+\]
+i.e. the arguments that give maximum and minimum numbers in the period, respectively. 
+Now for any positive integer $k$, plugging $x = M - 1 + kd$ yields 
+\[
+f((M - 1 + kd) - f(y)) = f(f(M - 1 + kd)) - f(y) - 1 = f(M + kd) - f(y) - 1 = f(M) - f(y) - 1
+\]
+Fixing $y$, for $k$ sufficiently large we have $(M - 1 + kd) - f(y)\ge N$ so $f((M - 1 + kd) - f(y)) \le f(M)$ and therefore $f(y)\le -1$. 
+Similarly we may substutute $x = m - 1 + kd$ to get 
+\[
+f((m - 1 + kd) - f(y)) =f(m) - f(y) - 1
+\]
+and taking $k$ sufficiently large, $f(y)\le -1$. Combining both yields $f\equiv -1$, a constant. 
 
-\textbf{Solution.} Let $x=x_1$ and fix other indices, we know that this is a linear function in $x$ (with constant term $\displaystyle\sum_{2\le i<j\le 2n} (j-i-n)x_ix_j$ and coefficient of $x$ as $\displaystyle\sum_{2\le i< 2n} (i-1-n)x_i$ and thereore the maximum value can be attained when $x=1$ or -1. We can then safely assume that $\mid x_i\mid =1, \forall i\in[1,2n]$.
+\item[\textbf{A3.}] Let $n$ be a fixed positive integer. Find the maximum possible value of \[ \sum_{1 \le r < s \le 2n} (s-r-n)x_rx_s, \]where $-1 \le x_i \le 1$ for all $i = 1, \cdots , 2n$.
 
-Now let $p,q$ be the number of 1's and -1's in the sequence respectively, with $p+q=2n$. W.L.O.G. let $p\le q$ (replacing $x_i$ by $-x_i$ for all $i$ yields the same sum). We further name $a_1< a_2<\cdots <a_p$ and $b_1< b_2<\cdots <b_q$ such that $x_{a_i}=1$ and $x_{b_i}=-1$. Now, the required sum becomes $\displaystyle\sum_{1\le i<j\le p} (a_j-a_i-n)$ + $\displaystyle\sum_{1\le i<j\le q} (b_j-b_i-n)$ $-$ $\displaystyle\sum (|a_j-b_i|-n)$ =$\displaystyle\sum_{1\le i<j\le p} (a_j-a_i)$ + $\displaystyle\sum_{1\le i<j\le q} (b_j-b_i)$ $-$ $\displaystyle\sum (|a_j-b_i|)$ $-n(\binom{p}{2}+\binom{q}{2}-pq)$ = $2(\displaystyle\sum_{1\le i<j\le p} (a_j-a_i)$ + $\displaystyle\sum_{1\le i<j\le q} (b_j-b_i))$ $-\displaystyle\sum_{1\le r< s\le 2n} (s-r)$ $-n(\binom{2n}{2}-2pq)$, since $\binom{2n}{2}$ = $\binom{p+q}{2}$ = $\binom{p}{2}+\binom{q}{2}+pq$ and $\displaystyle\sum_{1\le r< s\le 2n} (s-r)$=$\displaystyle\sum_{1\le i<j\le p} (a_j-a_i)$ + $\displaystyle\sum_{1\le i<j\le q} (b_j-b_i)$ $+$ $\displaystyle\sum (|a_j-b_i|)$. The aim is therefore to maximize $\displaystyle\sum (a_j-a_i)$ + $\displaystyle\sum (b_j-b_i)$ + $pqn$.
+\textbf{Answer.} $n(n - 1)$. 
 
-Telescoping the terms we know that $\displaystyle\sum (a_j-a_i)$ = $(a_2-a_1)+(a_3-a_2)+\cdots +(a_p-a_{p-1})+(a_3-a_1)+(a_4-a_2)+\cdots +(a_p-a_{p-2})+\cdots + (a_p-a_1)$ = $\sum_{i=1}^{p}((i-1)-(p-i))a_i$ = $\displaystyle\sum_{i=1}^{p} (2i-p-1)a_i$. Similarly, $\displaystyle\sum (b_j-b_i)$ = $\displaystyle\sum_{i=1}^{q} (2i-q-1)b_i$. Since $\{a_i\}\cup\{b_j\}=[1,2n]$, by rearranging inequality, for fixed $p, q$ the maximum is attained when the terms $1,2,\cdots , 2n$ have coefficient $-(q-1),-(q-3),\cdots -(p+1), -(p-1),-(p-1),\cdots +(p-1),+(p-1), +(p+1),\cdots +(q-1)$ (basically, the weightage $k$ appears two times if $|k|<p$ and $k\ne 0$, and one time otherwise.) (Remember that $p\equiv q\pmod {2}$).
+\textbf{Solution.} Let $x=x_1$ and fix other indices, we know that this is a linear function in $x$ (with constant term $\displaystyle\sum_{2\le i<j\le 2n} (j-i-n)x_ix_j$ and coefficient of $x$ as $\displaystyle\sum_{2\le i< 2n} (i-1-n)x_i$ and therefore the maximum value can be attained when $x=1$ or $-1$. 
+Extending this logic to other $x_i$'s, 
+we may assume that $\mid x_i\mid =1, \forall i\in[1,2n]$.
 
-Now we will prove that the maximum of $\displaystyle\sum (a_j-a_i)$ + $\displaystyle\sum (b_j-b_i)$ + $pqn$ occurs iff $\{p, q\}=\{n,n\}$ or $\{n-1, n+1\}$. For $p=q=n$ we have $pqn$ as $n^3$ and the coefficient (or weightage) of $1,2,\cdots 2n$ as $-(n-1), -(n-1), -(n-3), -(n-3),\cdots +(n-1), +(n-1)$ while for the second case we have $pqn$ as $n(n-1)(n+1)$ (i.e. $n$ less than the first case) and he coefficients as $-n, -(n-2), -(n-2), -(n-4), -(n-4),\cdots (n-2), (n-2), n$. The difference of coefficient between this and the first case will therefore be $-1, +1, -1, +1,\cdots -1, +1$, from which we know that the resulting difference between the second and the first case is $-1+2-3+4\cdots -(2n-1)+2n=n$. (i.e. $n$ more than the first case). Hence, the sum in these two cases are equal. For other $p<n-1$, we split into two cases. For $p\equiv n\pmod{2}$, subtracting the coefficients $-(q-1),-(q-3),\cdots -(p+1), -(p-1),-(p-1),\cdots +(p-1),+(p-1), +(p+1),\cdots +(q-1)$ by $-(n-1), -(n-1), -(n-3), -(n-3),\cdots +(n-1), +(n-1)$ yields $-(q-n), -(q-n-2), -(q-n-2),\cdots 0, 0, 0,\cdots +(q-n-2), +(q-n-2), +(q-n)$ so after multplying by $1,2,\cdots 2n$ and considering the difference $n(pq-n^2)$ = $-n(q-n)^2$ (since $p+q=2n$) and the difference is now $(q-n)(2n-1)+(q-n-2)(2n-3)+(q-n-2)(2n-5)+\cdots -n(q-n)^2<2n((q-n)+2(q-n-2)+2(q-n-4)+\cdots+2(2))-n(q-n)^2$=$2n(q-n+4\cdot \frac{q-n-1}{2}\cdot\frac{q-n}{2})-n(q-n)^2=0.$ If $p\equiv n-1\mod{2}$ then use the same weightage to subtract $-n, -(n-2), -(n-2), -(n-4), -(n-4),\cdots (n-2), (n-2), n$ we get $-(q-1-n), -(q-1-n), -(q-3-n), -(q-3-n),\cdots ,0,0,0,\cdots +(q-1-n), +(q-1-n)$. The difference is $(q-1-n)(2n-1)+(q-1-n)(2n-3)+\cdots -n((q-n)^2-1)<2(2n-1)(2+4+\cdots +(q-1-n))-n((q-n)^2-1)$= $2(2n-1)\frac{q-n-1}{2}\cdot\frac{q-n+1}{2}-n((q-n)^2-1)<n(q-n-1)(q+n-1)-n((q-n)^2-1)=0.$ Summing up, we know that for other $p$, the resulting sum is smaller so we can safely assume that $p=q=n$. If we let $x_1=x_3=\cdots =x_{2n-1}=1$ and $x_2=x_4\cdots =x_{2n}=-1$ then obviously, $a_i=2i-1$ and $b_i=2i$, so they have the same weightage $2i-n-1$. This means the equality case is attained here.
+Now let $p,q$ be the number of 1's and $-1$'s in the sequence respectively, with $p+q=2n$. 
+W.L.O.G. let $p\le q$ (replacing $x_i$ by $-x_i$ for all $i$ yields the same sum). We further name $a_1< a_2<\cdots <a_p$ and $b_1< b_2<\cdots <b_q$ such that $x_{a_i}=1$ and $x_{b_i}=-1$. Now, the required sum becomes 
+\begin{align*}
+	&~\displaystyle\sum_{1\le i<j\le p} (a_j-a_i-n) + \displaystyle\sum_{1\le i<j\le q} (b_j-b_i-n)
+	-\displaystyle\sum (|a_j-b_i|-n)
+	\nonumber\\
+	=&\displaystyle\sum_{1\le i<j\le p} (a_j-a_i) + \displaystyle\sum_{1\le i<j\le q} (b_j-b_i)
+	-\displaystyle\sum (|a_j-b_i|)-n\left(\binom{p}{2}+\binom{q}{2}-pq\right)
+	\nonumber\\
+	\stackrel{\text{(a)}}{=}&2\left(\displaystyle\sum_{1\le i<j\le p} (a_j-a_i)
+	+\displaystyle\sum_{1\le i<j\le q} (b_j-b_i)\right)
+	-\displaystyle\sum_{1\le r< s\le 2n} (s-r)
+	-n\left(\binom{2n}{2}-2pq\right)
+	\nonumber\\
+	\stackrel{\text{(b)}}{=}&2\left(\displaystyle\sum_{i=1}^{p} (2i-p-1)a_i
+	+\displaystyle\sum_{j=1}^{q} (2j - q - 1)b_j \right)
+	-\displaystyle\sum_{1\le r< s\le 2n} (s-r)
+	-n\left(\binom{2n}{2}-2pq\right)
+\end{align*}
+  where (a) is due to that 
+  \[
+  \binom{2n}{2}
+  =\binom{p+q}{2}
+  =\binom{p}{2}+\binom{q}{2}+pq
+  \]
+  \[
+  \displaystyle\sum_{1\le r< s\le 2n} (s-r)=\displaystyle\sum_{1\le i<j\le p} (a_j-a_i) + \displaystyle\sum_{1\le i<j\le q} (b_j-b_i)+ \displaystyle\sum (|a_j-b_i|)
+  \]
+  and (b) is telescoping sum. 
+  Thus our quantity of interest now becomes 
+  \[
+  \displaystyle\sum_{i=1}^{p} (2i-p-1)a_i
+  +\displaystyle\sum_{j=1}^{q} (2j - q - 1)b_j 
+  +pqn
+  \]
+  Given that $p\equiv q\pmod{2}$, and $\{a_i\}\cup \{b_i\}=[1, 2n]$, 
+  we see that the coefficient multiset is $\{k: -(q-1)\le k\le (q-1), k\not\equiv q\pmod{2}\}$ and such $k$ appears two times if $|k|\le p-1$, and one time otherwise. 
+  It then follows that for fixed $p, q$, our maximum is attained when the terms $1,2,\cdots , 2n$ have coefficient $-(q-1),-(q-3),\cdots -(p+1), -(p-1),-(p-1),\cdots +(p-1),+(p-1), +(p+1),\cdots +(q-1)$ in that order. 
+
+Now we will prove that the maximum is achieved iff $\{p, q\}=\{n,n\}$ or $\{n-1, n+1\}$. 
+For $p=q=n$ we have $pqn=n^3$ and the coefficient (or weightage) of $1,2,\cdots 2n$ as $-(n-1), -(n-1), -(n-3), -(n-3),\cdots +(n-1), +(n-1)$ while for the second case we have $pqn$ as $n(n-1)(n+1)$ (i.e. $n$ less than the first case) and the coefficients as $-n, -(n-2), -(n-2), -(n-4), -(n-4),\cdots (n-2), (n-2), n$. 
+The difference of coefficient between this and the first case will therefore be $-1, +1, -1, +1,\cdots -1, +1$, from which we know that the resulting difference between the second and the first case is $-1+2-3+4\cdots -(2n-1)+2n=n$. (i.e. $n$ more than the first case). Hence, the sum in these two cases are equal. 
+
+For other $p<n-1$, we split into two cases. For $p\equiv n\pmod{2}$, subtracting the coefficients $-(q-1),-(q-3),\cdots -(p+1), -(p-1),-(p-1),\cdots +(p-1),+(p-1), +(p+1),\cdots +(q-1)$ by $-(n-1), -(n-1), -(n-3), -(n-3),\cdots +(n-1), +(n-1)$ yields $-(q-n), -(q-n-2), -(q-n-2),\cdots 0, 0, 0,\cdots +(q-n-2), +(q-n-2), +(q-n)$ so after multplying by $1,2,\cdots 2n$ and considering the difference $n(pq-n^2)$ = $-n(q-n)^2$ (since $p+q=2n$) and the difference is now $(q-n)(2n-1)+(q-n-2)(2n-3)+(q-n-2)(2n-5)+\cdots -n(q-n)^2<2n((q-n)+2(q-n-2)+2(q-n-4)+\cdots+2(2))-n(q-n)^2$=$2n(q-n+4\cdot \frac{q-n-1}{2}\cdot\frac{q-n}{2})-n(q-n)^2=0.$ If $p\equiv n-1\mod{2}$ then use the same weightage to subtract $-n, -(n-2), -(n-2), -(n-4), -(n-4),\cdots (n-2), (n-2), n$ we get $-(q-1-n), -(q-1-n), -(q-3-n), -(q-3-n),\cdots ,0,0,0,\cdots +(q-1-n), +(q-1-n)$. The difference is $(q-1-n)(2n-1)+(q-1-n)(2n-3)+\cdots -n((q-n)^2-1)<2(2n-1)(2+4+\cdots +(q-1-n))-n((q-n)^2-1)$= $2(2n-1)\frac{q-n-1}{2}\cdot\frac{q-n+1}{2}-n((q-n)^2-1)<n(q-n-1)(q+n-1)-n((q-n)^2-1)=0.$ Summing up, we know that for other $p$, the resulting sum is smaller so we can safely assume that $p=q=n$. If we let $x_1=x_3=\cdots =x_{2n-1}=1$ and $x_2=x_4\cdots =x_{2n}=-1$ then obviously, $a_i=2i-1$ and $b_i=2i$, so they have the same weightage $2i-n-1$. This means the equality case is attained here.
 
 To compute the sum, notice that for each $k\in [1, 2n-1]$ there are exactly $2n-k$ ordered pairs $(r,s)$ with $s-r=k$ and $1\le r, s\le 2n$. 
 In addition, $r+s\equiv k\pmod{2}$ for those pairs satifsying this property, hence $x_rx_s=(-1)^{r+s}={-1}^k$. 
@@ -37,20 +178,66 @@ Thus our sum now becomes
 $2((n-1)^2-(n-2)^2+\cdots +(-1)^{n-1}(1^2))$
 $=2((n-1)+(n-2)+\cdots + 1)$
 $=n(n-1)$. 
+An example where this is attained is when $x_1, \cdots, x_{2n}$ are alternating 1's and $-1$'s. 
 
-\item\textbf{A4/IMO 5.} Let $\mathbb R$ be the set of real numbers. Determine all functions $f:\mathbb R\to\mathbb R$ that satisfy the equation\[f(x+f(x+y))+f(xy)=x+f(x+y)+yf(x)\]for all real numbers $x$ and $y$.
+\item[\textbf{A4}.] (IMO 5) Let $\mathbb R$ be the set of real numbers. Determine all functions $f:\mathbb R\to\mathbb R$ that satisfy the equation\[f(x+f(x+y))+f(xy)=x+f(x+y)+yf(x)\]for all real numbers $x$ and $y$.
 
-\textbf{Solution.} Plugging $x=y=0$ into the original equation gives $f(f(0))=0$, so if $f(0)=c$ then $f(c)=0$. Plugging $x=c, y=0$ yields $f(f(c))+f(0)=f(c)+cf(0)$, or $c+c=c^2$, yielding $c=0,2$. When $y=1$, $f(x+f(x+1))=x+f(x+1)$, so \textbf{$x+f(x+1)$ is a fixed point of $f$ at all times} (1). Let $x=0$ and $y$ be a fixed point, then $y+f(0)=f(f(y))+f(0)=f(y)+yf(0)=y+yf(0)$. In other words, $(y-1)f(0)=0$ so if $f(0)=2$, then $y=1$, i.e. 1 is the only fixed point of $f$. This means $x+f(x+1)\equiv 1=x-1+f(x)$, yielding $f(x)=2-x$. This function satisfies the equation as $f(x+f(x+y))+f(xy)=2-(x+(2-x-y))+2-xy=2+y-xy=x+2-x-y+2y-xy=x+f(x+y)+yf(x)$.
+\textbf{Answer.} $f(x)=x$ or $f(x)=2-x$. 
 
-If $f(0)=0$, we show that $f(x)\equiv x$. when $x=-1$, $-1=-1+0=-1+f(-1+1)$ is a fixed point, too. When $x=1, y=-1$, $f(1)+f(-1)=1+f(0)-f(1)$, or $2f(1)=2$ so $f(1)=1$. Now plugging $y=0$ into the original equation yields $x+f(x)$ is a fixed point, because $f(xy)=yf(x)=0$ (2). We show that $x+n+f(x)$ is a fixed point of $f$, $\forall n\in\mathbb{Z}_{\ge 1}$ (3). Indeed, if $z$ and $z+1$ are both fixed point of $f$, then plugging $x=1$ and $y=z$ we have LHS= $f(1+f(y+1))+f(y)$ = $f(1+y+1)+y$ = $f(y+2)+y$ while RHS is $1+f(1+y)+yf(1)$ = $1+1+y+1+y$. With RHS=LHS, $f(y+2)=y+2$. Doing this repeatedly yields $y+3, y+4,\cdots $ fixed points of $f$. Now plug $z=x-1+f(x)$, any $x$. By (1), $z$ is a fixed point and $z+1=x+f(x)$ is a fixed point by (2), too. We conclude that we established (3). In particular, $n=1$ yields $x+1+f(x)$, or $x+f(x-1)$ fixed points ($\forall x\in\mathbb{R}$), so plugging $y=-1$ yields $f(x+f(x-1))+f(-x)=x+f(x-1)-f(x)$, or $f(x)=-f(x)$. (4)
+\textbf{Solution.} 
+We first verify that these two functions work. The first one yields both sides as $2x + y + xy$; 
+the second one $2 + y - xy$. 
 
-Finally, replacing $x$ by $-x$ and $y$ by $-y$ in the problem yields $-x+f(-x-y)$=$-x-f(x+y)=-(x+f(x+y)$ by (4), so by (4) again we have $f(-x+f(-x-y))=-f(x+f(x+y))$. $-yf(-x)=yf(x)$, so $-f(x+f(x+y))+f(xy)=-(x+f(x+y))+yf(x)$. Adding this LHS to the original equation, and the RHS to the original equation, and equating them, we have $2f(xy)=2yf(x)$ or $f(xy)=yf(x)$. In particular, $f(y)=yf(1)=y$ when $x=1$, an this function obiously satisfies the problem condition. Q.E.D.
+We now show that these are all the functions. 
+Plugging $x=y=0$ into the original equation gives $f(f(0))=0$, so if $f(0)=c$ then $f(c)=0$. Plugging $x=c, y=0$ yields $f(f(c))+f(0)=f(c)+cf(0)$, or $c+c=c^2$, yielding $f(0)\in \{0,2\}$. 
+
+When $y=1$, $f(x+f(x+1))=x+f(x+1)$, i.e. $x + f(x + 1)$ is a fixed point of $f$ (*). 
+Let $x=0$ and $y$ be a fixed point, then 
+\begin{equation}
+	y+f(0)=f(f(y))+f(0)=f(y)+yf(0)=y+yf(0)
+\end{equation}
+In other words, $(y-1)f(0)=0$. 
+If $f(0)=2$, then $y=1$, i.e. 1 is the only fixed point of $f$. This means $x+f(x+1)\equiv 1$, yielding $f(x)\equiv 2-x$.
+
+Now consider the case $f(0)=0$, for which we show that all $x$ is a fixed point of $f$.
+First, notice that with $x=-1, y=1$ gives 
+\[
+f(-1) + f(-1) = -1+ f(-1)
+\]
+so $-1$ is also a fixed point. Reversing the roles $(x=1, y=-1$) gives 
+$f(1) + f(-1) = 1 - f(1)$, so $f(1) = 1$. 
+In addition, plugging $y=0$ gives 
+\begin{equation}\label{eq:a4eq1}
+	f(x + f(x)) = x + f(x)
+\end{equation}
+so $x + f(x)$ is also a fixed point for all $x$. 
+
+We show that $x+n+f(x)$ is a fixed point of $f$ for all $n\ge 1$. 
+Indeed, if $z$ and $z+1$ are both fixed point of $f$, then plugging $x=1$ and $y=z$, we have 
+\[
+f(z + 2) + z = f(1 + f(z + 1)) + f(z) = 1 + f(z + 1) + zf(1) = 2z + 2
+\]
+so $z + 2$ is also a fixed point. 
+Since $x + f(x), x - 1 + f(x)$ are both fixed points of $f$ due to (*) (via change of variables) and \prettyref{eq:a4eq1}, the claim now follows by induction on $n$. 
+In particular, $n=1$ yields $x+1+f(x)$, or $x+f(x-1)$ fixed points ($\forall x\in\mathbb{R}$), so plugging $y=-1$ yields $f(x+f(x-1))+f(-x)=x+f(x-1)-f(x)$, or $f(x)=-f(x)$. (i.e. $f$ is an odd function). 
+
+Finally, with $f$ being odd, replacing $x$ by $-x$ and $y$ by $-y$ in the equation yields 
+\[
+-f(x + f(x + y)) + f(xy) = -x - f(x + y) + yf(x)
+\]
+which means we can now compare this with the original equation to get 
+\begin{equation}
+	f(x + f(x + y)) = x + f(x + y)
+	\qquad 
+	f(xy) = yf(x)
+\end{equation}
+In particular, $f(y)=yf(1)=y$ when $x=1$, so $f(x)\equiv x$. 
 
 \end{enumerate}
 
-\section{Combinatorics}
+\section*{Combinatorics}
 \begin{enumerate}
-\item\textbf{C1.} In Lineland there are $n\geq1$ towns, arranged along a road running from left to right. Each town has a left bulldozer (put to the left of the town and facing left) and a right bulldozer (put to the right of the town and facing right). The sizes of the $2n$ bulldozers are distinct. Every time when a left and right bulldozer confront each other, the larger bulldozer pushes the smaller one off the road. On the other hand, bulldozers are quite unprotected at their rears; so, if a bulldozer reaches the rear-end of another one, the first one pushes the second one off the road, regardless of their sizes.
+\item[\textbf{C1.}] In Lineland there are $n\geq1$ towns, arranged along a road running from left to right. Each town has a left bulldozer (put to the left of the town and facing left) and a right bulldozer (put to the right of the town and facing right). The sizes of the $2n$ bulldozers are distinct. Every time when a left and right bulldozer confront each other, the larger bulldozer pushes the smaller one off the road. On the other hand, bulldozers are quite unprotected at their rears; so, if a bulldozer reaches the rear-end of another one, the first one pushes the second one off the road, regardless of their sizes.
 
 Let $A$ and $B$ be two towns, with $B$ to the right of $A$. We say that town $A$ can sweep town $B$ away if the right bulldozer of $A$ can move over to $B$ pushing off all bulldozers it meets. Similarly town $B$ can sweep town $A$ away if the left bulldozer of $B$ can move over to $A$ pushing off all bulldozers of all towns on its way.
 
@@ -60,30 +247,60 @@ Prove that there is exactly one town that cannot be swept away by any other one.
 
 By induction hypothesis we can assume that there is a unique town $T_s$ that is not swept when there are $n$ towns, and add a town $T_{n+1}$ on the right. Obviously, there are no way for $R_i$ and $L_j$ to reach $T_s$, $\forall i\in[1,s-1], \forall j\in [s+1, n]$. We show that exactly one of $T_s$ and $T_{n+1}$ will be swept. Indeed, denote $M$ such that $R_M=\max \{R_i\mid i\in [s, n]\}$, meaning that $R_M$ can sweep $T_k, \forall k\in[M+1, n]$. If $R_M>L_{n+1}$, then after sweeping $T_n$, $R_M$ can sweep $T_{n+1}$ but $L_{n+1}$ can't sweep $T_M$, so it can't sweep $T_s$ (since $s\le M$). By our hypothesis no other bulldozer can sweep $T_s$ so here, $T_{n+1}$ is swept but not $T_s$. Conversely, if $L_{n+1}>R_M$, then $L_{n+1}$ can sweep $T_n, T_{n-1},\cdots , T_{M},\cdots , T_{s}$. No single town $T_{i}, \forall i\in [s,n]$ can sweep $T_{n+1}$ and by the second sentence of this paragraph, no town $T_i, \forall i\in [1, s-1]$ can sweep $T_{n+1}$. Hene $T_{s}$ can be swept, but not $T_{n+1}$.
 
-\item\textbf{C2/IMO 1.} We say that a finite set $\mathcal{S}$ of points in the plane is balanced if, for any two different points $A$ and $B$ in $\mathcal{S}$, there is a point $C$ in $\mathcal{S}$ such that $AC=BC$. We say that $\mathcal{S}$ is centre-free if for any three different points $A$, $B$ and $C$ in $\mathcal{S}$, there is no points $P$ in $\mathcal{S}$ such that $PA=PB=PC$.
+\item[\textbf{C2}.] (IMO 1) We say that a finite set $\mathcal{S}$ of points in the plane is balanced if, for any two different points $A$ and $B$ in $\mathcal{S}$, there is a point $C$ in $\mathcal{S}$ such that $AC=BC$. We say that $\mathcal{S}$ is centre-free if for any three different points $A$, $B$ and $C$ in $\mathcal{S}$, there is no points $P$ in $\mathcal{S}$ such that $PA=PB=PC$.
 
-(a) Show that for all integers $n\ge 3$, there exists a balanced set consisting of $n$ points.
+\begin{enumerate}
+	\item [(a)] Show that for all integers $n\ge 3$, there exists a balanced set consisting of $n$ points.
+	
+	\item [(b)] Determine all integers $n\ge 3$ for which there exists a balanced centre-free set consisting of $n$ points.
+\end{enumerate}
 
-(b) Determine all integers $n\ge 3$ for which there exists a balanced centre-free set consisting of $n$ points.
+\textbf{Answer for (b).} All odd $n$. 
 
-\textbf{Solution.} For $n$ odd, taking $A_1A_2\cdots A_n$ a regular $n$-gon yields that the perpendicular bisector of $A_iA_j$ passes through $A_\frac{i+j}{2}$ for $i+j$ even, or $A_\frac{i+j+n}{2}$ for $i+j$ odd (indices taken modulo $n$). This configuration is therefore balanced, and since $P$ with $PA_i=PA_j=PA_k$ implies $P$ is the centre of the polygon (i.e. $P\ne A_i$, $\forall\in[1,n]$), this configuration is also centre-free.
+\textbf{Solution.} We first construct a balanced centre-free set when $n$ is odd. 
+Taking $A_1A_2\cdots A_n$ a regular $n$-gon yields that the perpendicular bisector of $A_iA_j$ passes through $A_\frac{i+j}{2}$ for $i+j$ even, or $A_\frac{i+j+n}{2}$ for $i+j$ odd (indices taken modulo $n$). This configuration is therefore balanced, and since $P$ with $PA_i=PA_j=PA_k$ implies $P$ is the centre of the polygon (i.e. $P\ne A_i$, $\forall\in[1,n]$), this configuration is also centre-free.
 
 Now, for even $n$, consider a circle with centre $O$ and vertices $A,B,C$ such that $A,B,C$ lie on this circle in that order and that triangles $AOB$ and $BOC$ are both equlateral. Obviously, the perpendicular bisector of any point on the circle pass through $O$, and the perpendicular bisectors of $OA,OB,OC$ pass through $B,C,B$, respectively. Hence $OABC$ is balanced. Now we add two points $X, Y$ on the circumfence at a time, such that $X,Y$ do not overlap the previous points and $XOY$ equilateral. $O$ is equidistant from any point on the circle, so we only need to consider lines $XO$, $YO$. However, their perpendicular bisectors pass through $Y,X$ respectively (so the configuration is balanced too). 
 
-Finally, if a configuration of $n$ points $(A_1, A_2,\cdots , A_n)$ is centre-free, then we denote $f(i,j)$ ($i\ne j$) such that $A_{f(i,j)}$ is equidistant from $A_i$ and $A_j$ (if there are more than one such point we take this $f$ arbitrarily). Now $f(i,j)\not\in\{i,j\}$ and $f(i,j)\ne f(i,k)$ if $j\ne k$ (otherwise, $A_{f(i,j)}$ is equidistant from $A_i, A_j, A_k$, contradiction. Therefore, for fixed $i$, $\{f(i,j)|j\in[1,n]\backslash \{i\}\}=\{j|j\in[1,n]\backslash \{i\}\}$. Summing this for all $i$ entails that we counted each $f(i,j)$ twice, and for each number $k$, $k$ is in $n-1$ of the sets $\{j|j\in[1,n]\backslash \{i\}\}$, $i=1,2,\cdots n$. Therefore, for each $k\in[1,n]$ there are $\frac{n-1}{2}$ unordered paris of $i,j$ for which $f(i,j)$=$A_k$. Therefore $n$ is odd. (Answer for (b): all odd $n$).
+Finally, if a configuration of $n$ points $(A_1, A_2,\cdots , A_n)$ is centre-free, then we denote $f(i,j)$ ($i\ne j$) such that $A_{f(i,j)}$ is equidistant from $A_i$ and $A_j$ (if there are more than one such point we take this $f$ arbitrarily). Now $f(i,j)\not\in\{i,j\}$ and $f(i,j)\ne f(i,k)$ if $j\ne k$ (otherwise, $A_{f(i,j)}$ is equidistant from $A_i, A_j, A_k$, contradiction. Therefore, for fixed $i$, $\{f(i,j)|j\in[1,n]\backslash \{i\}\}=\{j|j\in[1,n]\backslash \{i\}\}$. Summing this for all $i$ entails that we counted each $f(i,j)$ twice, and for each number $k$, $k$ is in $n-1$ of the sets $\{j|j\in[1,n]\backslash \{i\}\}$, $i=1,2,\cdots n$. Therefore, for each $k\in[1,n]$ there are $\frac{n-1}{2}$ unordered paris of $i,j$ for which $f(i,j)$=$A_k$. Therefore $n$ is odd. 
 
-\item\textbf{C3.} For a finite set $A$ of positive integers, a partition of $A$ into two disjoint nonempty subsets $A_1$ and $A_2$ is $\textit{good}$ if the least common multiple of the elements in $A_1$ is equal to the greatest common divisor of the elements in $A_2$. Determine the minimum value of $n$ such that there exists a set of $n$ positive integers with exactly $2015$ good partitions.
+\item[\textbf{C3.}] For a finite set $A$ of positive integers, a partition of $A$ into two disjoint nonempty subsets $A_1$ and $A_2$ is $\textit{good}$ if the least common multiple of the elements in $A_1$ is equal to the greatest common divisor of the elements in $A_2$. Determine the minimum value of $n$ such that there exists a set of $n$ positive integers with exactly $2015$ good partitions.
+
+\textbf{Answer.} $n=3024$. 
 
 \textbf{Solution.} The largest element in $A_1$ cannot be greater than the smallest element in $A_2$, so if we sort the numbers in $a_1<a_2<\cdots <a_n$ then $A_1$=$\{a_1,a_2,\cdots , a_i\}$ for some $i\in[1,n]$ and $A_2=\{a_{i+1}, a_{i+2},\cdots , a_n\}$. Also, any element in $A_1$ must divide any element in $A_2$. 
 
-Denote $k$-partition as the partition of the set in $A_1$ and $A_2$ s.t. $A_1=\{a_1,a_2,\cdots , a_k\}$ and $A_2=\{a_{k+1}, a_{k+2},\cdots , a_n\}$. Also denote the LCM and GCD of this $k$-partition as the LCM of $A_1$ and GCD of $A_2$, respectively. Suppose also that $k-1$-partition and $k$-partition are both good. We show that $3\le k\le n-2$, and that $k+1$-partition and $k-2$-partition cannot be good. Indeed, every element in $\{a_1,a_2,\cdots , a_{k-1}\}$ divides $\{a_{k}, a_{k+1},\cdots , a_n\}$ and every element in $\{a_1,a_2,\cdots , a_k\}$ divides $\{a_{k+1}, a_{k+2},\cdots , a_n\}$. This entails the fact that $a_k$ is a divisor of $a_{k+1}, a_{k+2},\cdots , a_n$ and multiple of $a_1,a_2,\cdots , a_{k-1}$. This means the GCD of $k-1$-partition is $a_k$, (so same goes for the LCM of this partition) and the LCM of $k$-partition is also $a_k$ (so same goes for the GCD of this partition). If $k=2$ then the LCM of 1-partition is $a_2$. However, $A_1=\{a_1\}$, contradiction. Similarly, $k$ cannot be $n-1$ as well. Consider $k+1$-partition. Now in $A_1$, $a_{k+1}$ is obviously a multiple of every other element (by hypothesis above) so the LCM is $a_{k+1}$. However, since the GCD of $k$-partition is $a_k$, there exists element $a_i$ ($i>k+1$) where $a_{k+1}\nmid a_i$, so the GCD of this $k+1$-partition cannot be $a_{k+1}$, and $k+1$-partition is not good. Similarly, $k-2$-partition is not good.
+Denote $k$-partition as the partition of the set in $A_1$ and $A_2$ s.t. $A_1=\{a_1,a_2,\cdots , a_k\}$ and $A_2=\{a_{k+1}, a_{k+2},\cdots , a_n\}$. Also denote the LCM and GCD of this $k$-partition as the LCM of $A_1$ and GCD of $A_2$, respectively. 
+We show the following claim: 
+\begin{itemize}
+	\item for each $k$ with $2\le k\le n-2$ we cannot have $k-1$-, $k$-, $k+1$-partition to be all good. 
+	
+	\item We cannot have both $1-$ and $2-$ partition to be good; similarly, $n-2$- and $n-1$-partition cannot be both good. 
+\end{itemize}
+For the first claim, suppose that $k-1$-partition and $k$-partition are both good. 
+Then $a_i\mid a_j$ for all $i=1, \cdots, k$, and $j = k, \cdots, n$. 
+Thus the GCD and LCM of both the $k-1$-partition and $k$-partition are both $a_k$. 
+In particular, $\gcd(\{a_{k+1}, \cdots, a_n\}) = a_k < a_{k + 1}$ so $a_{k+1}\nmid a_i$ for some $i > k + 1$. 
+Now consider the $k+1$-partition into $A_1=\{a_1, \cdots, a_{k+1}\}$ and $A_2 = \{a_{k+2}, \cdots, a_n\}$. 
+Then LCM of $A_1$ is $a_{k+1}$. 
+But since $a_{k+1}\nmid a_i$ for some $i > k + 1$, 
+the GCD of $A_2$ cannot be $a_{k+1}$, a contradiction. 
+
+For the second claim it suffices to show that in our example above $k\neq 2$, and $k\neq n - 1$. 
+A 1-partition that's good means $\gcd\{a_2, \cdots, a_n\}=a_1$, so $a_2\nmid a_k$ for some $k > 2$. 
+But $\text{lcm}\{a_1, a_2\} = a_2 \neq \gcd\{a_3, \cdots, a_n\}$ in this case. 
+Similarly, an $n-1$-partition that's good means $\text{lcm}\{a_1, \cdots , a_{n-1}\} = a_n$, 
+so $a_i\nmid a_{n-1}$ for some $i < n - 1$. 
+But then $\text{lcm} \{a_1, \cdots , a_{n-2}\}\neq a_{n-1} = \gcd\{a_{n-1}, a_n\}$. 
 
 Finally, denote $1\le x_1, x_2,\cdots x_m\le n-1$ be all indices such that $x_i$-partition is not good. From above, $x_1\le 2$ and $x_m\ge n-2$, while $x_{i+1}-x_{i}\le 3$, $\forall i\in [1,m]$. Notice, also, that 2015=$n-1-m$. This means $n-2\le x_m\le x_1+3(m-1)\le 2+3(m-1)$, so $n\le 3m+1=3(n-1-2015)+1=3n-6047$. We have $2n\ge 6047$, or $n\ge 3024$ since $n\in\mathbb{N}$. This can be achieved by taking $a_{3i+1}=2^{i+1}\cdot 3^{i}$, $a_{3i+2}=2^{i}\cdot 3^{i+1}$, $a_{3i+3}=2^{i+1}\cdot 3^{i+1}$, $\forall i\in[0,1007]$. where a $3i+2$-partition will give both LCM and GCD of $2^{i+1}\cdot 3^{i+1}$ ($\forall i\in [0,1007]$) and a $3i+3$-partition will give both LCM and GCD of $2^{i+1}\cdot 3^{i+1}$.
 
-\item\textbf{C5/IMO 6.} The sequence $a_1,a_2,\dots$ of integers satisfies the conditions:
+\item[\textbf{C5}.] (IMO 6) The sequence $a_1,a_2,\dots$ of integers satisfies the conditions:
 
-(i) $1\le a_j\le2015$ for all $j\ge1$,
-(ii) $k+a_k\neq \ell+a_\ell$ for all $1\le k<\ell$.
+\begin{enumerate}
+	\item [(i)] $1\le a_j\le2015$ for all $j\ge1$,
+	\item [(ii)] $k+a_k\neq \ell+a_\ell$ for all $1\le k<\ell$.
+\end{enumerate}
 
 Prove that there exist two positive integers $b$ and $N$ for which\[\left\vert\sum_{j=m+1}^n(a_j-b)\right\vert\le1007^2\]for all integers $m$ and $n$ such that $n>m\ge N$.
 
@@ -97,23 +314,25 @@ Finally, $T_n-T_m$=$(m+k+1)+(m+k+2)+\cdots +(n+k)$=$k(n-m)+\sum_{j=m+1}^n j,$ so
 
 \end{enumerate}
 
-\section{Geometry}
+\section*{Geometry}
 \begin{enumerate}
-\item\textbf{G1.} Let $ABC$ be an acute triangle with orthocenter $H$. Let $G$ be the point such that the quadrilateral $ABGH$ is a parallelogram. Let $I$ be the point on the line $GH$ such that $AC$ bisects $HI$. Suppose that the line $AC$ intersects the circumcircle of the triangle $GCI$ at $C$ and $J$. Prove that $IJ = AH$.
+\item[\textbf{G1.}] Let $ABC$ be an acute triangle with orthocenter $H$. Let $G$ be the point such that the quadrilateral $ABGH$ is a parallelogram. Let $I$ be the point on the line $GH$ such that $AC$ bisects $HI$. Suppose that the line $AC$ intersects the circumcircle of the triangle $GCI$ at $C$ and $J$. Prove that $IJ = AH$.
 
 \textbf{Solution.} Denote $P$ as $AC\cap HG$. Now $IP=PH$, from $H$ beign the orthocentre $\angle ACH=\angle HBA$, from $HG\parallel AB$ we have $\angle HBA=\angle BHG$, from $CH\perp AB, HG$ and $BC\perp AH, BG$ we have $\angle CHG=\angle CBG=90^{\circ}$, so $CHBG$ is cyclic and $\angle BHG=\angle BCG$. Moreover $\triangle IPJ\sim\triangle CPG$. So $IJ=CG\cdot\frac{IP}{CP}$ = $CG\cdot\frac{PH}{CP}$ = $CG\cdot\sin\angle PHC=CG\cdot\sin\angle ACH$ = $CG\cdot\sin\angle HBA$ = $CG\cdot\sin\angle BHG$ = $CG\cdot\sin\angle BCG$ = $BG=AH$.
 
-\item\textbf{G2/IMO 4.} Triangle $ABC$ has circumcircle $\Omega$ and circumcenter $O$. A circle $\Gamma$ with center $A$ intersects the segment $BC$ at points $D$ and $E$, such that $B$, $D$, $E$, and $C$ are all different and lie on line $BC$ in this order. Let $F$ and $G$ be the points of intersection of $\Gamma$ and $\Omega$, such that $A$, $F$, $B$, $C$, and $G$ lie on $\Omega$ in this order. Let $K$ be the second point of intersection of the circumcircle of triangle $BDF$ and the segment $AB$. Let $L$ be the second point of intersection of the circumcircle of triangle $CGE$ and the segment $CA$.
+\item[\textbf{G2}.] (IMO 4) Triangle $ABC$ has circumcircle $\Omega$ and circumcenter $O$. A circle $\Gamma$ with center $A$ intersects the segment $BC$ at points $D$ and $E$, such that $B$, $D$, $E$, and $C$ are all different and lie on line $BC$ in this order. Let $F$ and $G$ be the points of intersection of $\Gamma$ and $\Omega$, such that $A$, $F$, $B$, $C$, and $G$ lie on $\Omega$ in this order. Let $K$ be the second point of intersection of the circumcircle of triangle $BDF$ and the segment $AB$. Let $L$ be the second point of intersection of the circumcircle of triangle $CGE$ and the segment $CA$.
 
 Suppose that the lines $FK$ and $GL$ are different and intersect at the point $X$. Prove that $X$ lies on the line $AO$.
 
 \textbf{Solution.} Since $AO$ is the perpendicular bisector of $FG$ (why? $OF=OG$ and $AF=AG$), we only need the fact $\angle AFK=\angle AGL$. First, we show that $\angle AFD-\angle AGE=\angle ABC-\angle ACB$. Indeed, let $FG$ intersect $BC$ at $R$, and for sake of simplicity assume that $R$ lies on ray $CB$ beyond $B$. Taking the triangle $RGB$ and the exterior angle at $B$ yields $\angle GBC=\angle FGB+\angle GRB$; taking the triangle $RGD$ and exterior angle at $D$ yields $\angle GDE=\angle FGD+\angle GRD$. Now $\angle ABC-\angle ACB$ = $(\angle ABG+\angle GBC)-(\angle ACF+\angle FCB)$ = $\angle GRB$ (bearing in mind that $\angle ABG=\angle ACF$ since $AG=AF$)= $\angle GRD=\angle GDE-\angle FGD$= $\frac{1}{2}\angle GAE-\frac 12\angle FAD$ = $(90^{\circ}-\angle AGE)-(90^{\circ}-\angle AFD)$ = $\angle AFD-\angle AGE$ (since $AF=AD$ and $AG=AE$). Now, $\angle AFK-\angle AGL$ = $(\angle AFD-\angle KFD)-(\angle AGE-\angle LGE)$ = $(\angle ABC-\angle ACB)$ - $(\angle ABC-\angle ACB)$=0, since $BFKD$ and $CGLE$ are both cyclic and $\angle KFD=\angle KBD=\angle ABC$, $\angle LGE=\angle LCE=\angle ACB$.
 
-\item\textbf{G3.} Let $ABC$ be a triangle with $\angle{C} = 90^{\circ}$, and let $H$ be the foot of the altitude from $C$. A point $D$ is chosen inside the triangle $CBH$ so that $CH$ bisects $AD$. Let $P$ be the intersection point of the lines $BD$ and $CH$. Let $\omega$ be the semicircle with diameter $BD$ that meets the segment $CB$ at an interior point. A line through $P$ is tangent to $\omega$ at $Q$. Prove that the lines $CQ$ and $AD$ meet on $\omega$.
+\item[\textbf{G3.}] Let $ABC$ be a triangle with $\angle{C} = 90^{\circ}$, and let $H$ be the foot of the altitude from $C$. A point $D$ is chosen inside the triangle $CBH$ so that $CH$ bisects $AD$. Let $P$ be the intersection point of the lines $BD$ and $CH$. Let $\omega$ be the semicircle with diameter $BD$ that meets the segment $CB$ at an interior point. A line through $P$ is tangent to $\omega$ at $Q$. Prove that the lines $CQ$ and $AD$ meet on $\omega$.
 
 \textbf{Solution.} By Menelaus' theorem applied on triangle $DHB$ and line $CH$ we have $\frac{AH}{HB}=\frac{PD}{PB}$. Now, let $AD$ intersect $\omega$ at $T$, and let $CT$ intersect $\omega$ again at $Q'$. We are then left to prove that $PQ'$ is tangent to $\omega$, so $Q'\equiv Q$. Since $\angle DTB=\angle ATB=\angle ACB=90^{\circ}$, $ACTB$ is cyclic and so $\angle CBA=\angle CTA=\angle Q'TD=\angle Q'BD$. With $\angle DQ'B=90^{\circ}$ we have $\triangle ABC\sim\triangle DBQ'$. Finally, if the tangent to $Q'$ intersects $BD$ at $P'$, then $\frac{P'D}{P'B}=(\frac{DQ'}{Q'B})^2=(\frac{AC}{AB})^2=\frac{AH}{HB}=\frac{PD}{PB}$, yielding $P\equiv P'$ and thus $PQ'$ is tangent to $\omega$.
 
-\item\textbf{G4.} Let $ABC$ be an acute triangle and let $M$ be the midpoint of $AC$. A circle $\omega$ passing through $B$ and $M$ meets the sides $AB$ and $BC$ at points $P$ and $Q$ respectively. Let $T$ be the point such that $BPTQ$ is a parallelogram. Suppose that $T$ lies on the circumcircle of $ABC$. Determine all possible values of $\frac{BT}{BM}$.
+\item[\textbf{G4.}] Let $ABC$ be an acute triangle and let $M$ be the midpoint of $AC$. A circle $\omega$ passing through $B$ and $M$ meets the sides $AB$ and $BC$ at points $P$ and $Q$ respectively. Let $T$ be the point such that $BPTQ$ is a parallelogram. Suppose that $T$ lies on the circumcircle of $ABC$. Determine all possible values of $\frac{BT}{BM}$.
+
+\textbf{Answer.} $\sqrt{2}$. 
 
 \textbf{Solution.} Let $S$ be the common midpoint of $BT$ and $PQ$. We claim that, if $BMQP$ is cyclic (regardless of whether $T, A, B, C$ are concyclic) then $S$ lies on a fixed line. Indeed, consider any $P, Q, P', Q'$ with $BMQP$ and $BMQ'P'$ cyclic, and $P, P'$ on $AB$, $Q, Q'$ on $BC$, then it is not hard to see that $\triangle MPP'\sim\triangle MQQ'$. Denoting $S'$ as midpoint of $P'Q'$ we know that there exists a spiral similarity centred at $M$ that brings $P$ to $P'$, $Q$ to $Q'$ and $S$ to $S'$. Moreover, $\angle (PP', SS')$ = $\angle (MP, MS)$, i.e. if there is another point $S''$ with this property then $S, S', S''$ are collinear. So $S$ lies on a fixed line. Denote $P_0, Q_0, S_0$ as $P, Q, S$ in the case when $PQ\parallel AC$. We know that $S_0$ is on $BM$, so $\angle PMS=\angle P_0M_0S_0$ $= \angle P_0Q_0B = \angle ACB.$ Similarly $\angle QMS=\angle BAC$. In degenerate case where $Q$ coincides with $B$, let $P_1$ be the midpoint of $BP$ and we have $\angle P_1MB=\angle QMS=\angle BAC$, meaning $BM^2=BP_1\cdot AB$. Similarly, $BM^2=BQ_1\cdot BC$, where $Q_1$ is defined as $S$ when $P\equiv B$. This means that if $O$ is the circumcentre of triangle $ABC$, then $BO\perp P_1Q_1$ since $P_1Q_1$ is antiparallel to $BC$.
 
@@ -121,7 +340,7 @@ Now $T, A, B, C$ concyclic iff $\angle BSO=90^{\circ}$. From $S\in P_1Q_1$ and $
 
 It is not hard to notice that $\frac{hR}{BA\cdot BC}$ = $\frac{2R|\triangle ABC|}{BA\cdot BC\cdot AC}$, where $|\triangle ABC|$ is the area of triangle $ABC$. Indeed, it is well-known that $|\triangle ABC|=\frac{BA\cdot BC\cdot AC}{4R}.$ Therefore $\frac{2R|\triangle ABC|}{BA\cdot BC\cdot AC}$ =  $\frac12$. Finally, $BT=2BS=2\left(\sqrt{\frac12}\right)BM=\sqrt2 BM.$
 
-\item\textbf{G5.} Let $ABC$ be a triangle with $CA \neq CB$. Let $D$, $F$, and $G$ be the midpoints of the sides $AB$, $AC$, and $BC$ respectively. A circle $\Gamma$ passing through $C$ and tangent to $AB$ at $D$ meets the segments $AF$ and $BG$ at $H$ and $I$, respectively. The points $H'$ and $I'$ are symmetric to $H$ and $I$ about $F$ and $G$, respectively. The line $H'I'$ meets $CD$ and $FG$ at $Q$ and $M$, respectively. The line $CM$ meets $\Gamma$ again at $P$. Prove that $CQ = QP$.
+\item[\textbf{G5.}] Let $ABC$ be a triangle with $CA \neq CB$. Let $D$, $F$, and $G$ be the midpoints of the sides $AB$, $AC$, and $BC$ respectively. A circle $\Gamma$ passing through $C$ and tangent to $AB$ at $D$ meets the segments $AF$ and $BG$ at $H$ and $I$, respectively. The points $H'$ and $I'$ are symmetric to $H$ and $I$ about $F$ and $G$, respectively. The line $H'I'$ meets $CD$ and $FG$ at $Q$ and $M$, respectively. The line $CM$ meets $\Gamma$ again at $P$. Prove that $CQ = QP$.
 
 \textbf{Solution.} Denote the centre of $\Gamma$ as $O$, and W.L.O.G. we have $CA<CB$. Denote also the angle $\alpha$ and $\angle CDA=\angle CID=\frac{1}{2}\angle COD$. We know that $AC^2= AD^2+DC^2-2\cdot AD\cdot CD\cdot\cos\alpha$ and $BC^2= BD^2+DC^2-2\cdot BD\cdot CD\cdot\cos(180^{\circ}-\alpha)$. With $\cos(180^{\circ}-\alpha)=-\cos\alpha$ and $AD=BD$, we have $\cos\alpha=\frac{BC^2-AC^2}{4\cdot AD\cdot CD}$ (1), and $AC^2+BC^2=2AD^2+2DC^2$. (2)
 
@@ -137,7 +356,7 @@ $=\frac{AD}{CD}\cdot \frac{BC^2+AC^2-4AD^2}{(BC^2-AC^2)}$
 This proves 
 $\frac {ME}{CE}=\frac {QE}{QD}\div \frac{OE}{OD}.$
 
-\item\textbf{G6/IMO 3.} Let $ABC$ be an acute triangle with $AB > AC$. Let $\Gamma $ be its cirumcircle, $H$ its orthocenter, and $F$ the foot of the altitude from $A$. Let $M$ be the midpoint of $BC$. Let $Q$ be the point on $\Gamma$ such that $\angle HQA = 90^{\circ}$ and let $K$ be the point on $\Gamma$ such that $\angle HKQ = 90^{\circ}$. Assume that the points $A$, $B$, $C$, $K$ and $Q$ are all different and lie on $\Gamma$ in this order.
+\item[\textbf{G6}.] (IMO 3) Let $ABC$ be an acute triangle with $AB > AC$. Let $\Gamma $ be its cirumcircle, $H$ its orthocenter, and $F$ the foot of the altitude from $A$. Let $M$ be the midpoint of $BC$. Let $Q$ be the point on $\Gamma$ such that $\angle HQA = 90^{\circ}$ and let $K$ be the point on $\Gamma$ such that $\angle HKQ = 90^{\circ}$. Assume that the points $A$, $B$, $C$, $K$ and $Q$ are all different and lie on $\Gamma$ in this order.
 
 Prove that the circumcircles of triangles $KQH$ and $FKM$ are tangent to each other.
 
@@ -148,32 +367,38 @@ Now denote by $X$ the midpoint of $QH$. First, the circumcircle of $MFH$ is tang
 
 Now, $OX^{2}=R^2-QX\cdot XU$ (power of point)=$R^2-XH\cdot (XH+2HM)$ = $R^2-XH^2-2XH\cdot HM$ ($HM=MU$ and $XH=XQ$), $XR^2=XH^2+HR^2$ and $OR^2=OM^2+MR^2=(R^2-QM\cdot MU)+HM^2+HR^2=(R^2-(2XH+HM)\cdot HM)+HM^2+HR^2$= $R^2-2XH\cdot HM+HR^2$. Combining the three yields $OX^2+XR^2=OR^2$, so $\angle OXR=90^{\circ}$. Finally, since $OX$ is the perpendicular bisector of $KQ$, we know that $XO$ is an angle bisector of lines $XH$ and $XK$, With $\angle OXR=90^{\circ}$, $XR$ is another angle bisector of these two lines. Therefore, $\angle HXR=\angle KXR$. With $XK=XH$, $\triangle XHR\cong\triangle XKR$, so $\angle XKR=\angle XHR=90^{\circ}$, and $KR$ is indeed tangent to circumcircle of $QKH$.
 
-\item\textbf{G7.} Let $ABCD$ be a convex quadrilateral, and let $P$, $Q$, $R$, and $S$ be points on the sides $AB$, $BC$, $CD$, and $DA$, respectively. Let the line segment $PR$ and $QS$ meet at $O$. Suppose that each of the quadrilaterals $APOS$, $BQOP$, $CROQ$, and $DSOR$ has an incircle. Prove that the lines $AC$, $PQ$, and $RS$ are either concurrent or parallel to each other.
+\item[\textbf{G7.}] Let $ABCD$ be a convex quadrilateral, and let $P$, $Q$, $R$, and $S$ be points on the sides $AB$, $BC$, $CD$, and $DA$, respectively. Let the line segment $PR$ and $QS$ meet at $O$. Suppose that each of the quadrilaterals $APOS$, $BQOP$, $CROQ$, and $DSOR$ has an incircle. Prove that the lines $AC$, $PQ$, and $RS$ are either concurrent or parallel to each other.
 
 \textbf{Solution.} 
-We first start with a lemma: let $\ell_0, \ell_1, \ell_2$ be lines that are either concurrent or parallel. 
-Let $A, C$ be on $\ell_0$, $A_1, C_1$ on $\ell_1$ and $A_2, C_2$ on $\ell_2$. 
-Let $C_2A_1$ intersect $AA_2$ and $CC_1$ at $S$ and $Q$, respectively. 
-Let $A_2C_1$ intersect $AA_1$ and $CC_2$ at $P$ and $R$, respectively. 
-Then $PQ, RS, AC$ will also be either concurrent and parallel. 
+We first start with the following lemma.
 
-Proof: the problem condition tells us that the triangles $AA_1A_2$ and $CC_1C_2$ are Desargues' perspective of each other. 
-This means, if we denote $AA_1\cap CC_1$ as $X_1$ and $AA_2\cap CC_2$ as $X_2$ then the intersection of $A_1A_2$ and $C_1C_2$ will lie on $X_1X_2$ too (or possibly, $X_1X_2, A_1A_2, C_1C_2$ are all parallel). 
+\begin{lemma}
+	Let $\ell_0, \ell_1, \ell_2$ be lines that are either concurrent or parallel. 
+	Let $A, C$ be on $\ell_0$, $A_1, C_1$ on $\ell_1$ and $A_2, C_2$ on $\ell_2$. 
+	Let $C_2A_1$ intersect $AA_2$ and $CC_1$ at $S$ and $Q$, respectively. 
+	Let $A_2C_1$ intersect $AA_1$ and $CC_2$ at $P$ and $R$, respectively. 
+	Then $PQ, RS, AC$ will also be either concurrent and parallel. 
+\end{lemma}
+ 
+\begin{proof}
+	The problem condition tells us that the triangles $AA_1A_2$ and $CC_1C_2$ are Desargues' perspective of each other. 
+	This means, if we denote $AA_1\cap CC_1$ as $X_1$ and $AA_2\cap CC_2$ as $X_2$ then the intersection of $A_1A_2$ and $C_1C_2$ will lie on $X_1X_2$ too (or possibly, $X_1X_2, A_1A_2, C_1C_2$ are all parallel). 
+	
+	By Menelaus' theorem we have $\frac{A_1A}{A_1X_1}\cdot\frac{A_2X_2}{A_2A}$
+	$=\frac{C_1C}{C_1X_1}\cdot\frac{C_2X_2}{C_2C}$. 
+	Denoting the intersection of $A_1C_2$ as $T$ (possibly point of infinity) and considering triangles $AX_1X_2$ and $CX_1X_2$ gives
+	$\frac{A_1A}{A_1X_1}\cdot\frac{SX_2}{SA}\cdot\frac{X_1T}{X_2T}=-1$
+	$=\frac{C_2X_2}{C_2C}\cdot\frac{QC}{QX_1}\cdot\frac{X_1T}{X_2T}$, 
+	which gives 
+	$\frac{A_1A}{A_1X_1}\cdot\frac{SX_2}{SA}=\frac{C_2X_2}{C_2C}\cdot\frac{QC}{QX_1}$. 
+	Similarly, $\frac{A_2X_2}{A_2A}\cdot\frac{PA}{PX_1}=\frac{C_1C}{C_1X_1}\cdot\frac{RX_2}{RC}$. 
+	Combining everything above gives 
+	$\frac{PA}{PX_1}\cdot\frac{SX_2}{SA}=\frac{RX_2}{RC}\cdot\frac{QC}{QX_1}$. 
+	By Menelaus' theorem again $PS$ and $QR$ either intersect on $X_1X_2$ or both parallel to $X_1X_2$, so $APS$ and $CQR$ are also perspective of each other. 
+	Thus $AC, PQ, RS$ are concurrent or parallel. 
+\end{proof}
 
-By Menelaus' theorem we have $\frac{A_1A}{A_1X_1}\cdot\frac{A_2X_2}{A_2A}$
-$=\frac{C_1C}{C_1X_1}\cdot\frac{C_2X_2}{C_2C}$. 
-Denoting the intersection of $A_1C_2$ as $T$ (possibly point of infinity) and considering triangles $AX_1X_2$ and $CX_1X_2$ gives
-$\frac{A_1A}{A_1X_1}\cdot\frac{SX_2}{SA}\cdot\frac{X_1T}{X_2T}=-1$
-$=\frac{C_2X_2}{C_2C}\cdot\frac{QC}{QX_1}\cdot\frac{X_1T}{X_2T}$, 
-which gives 
-$\frac{A_1A}{A_1X_1}\cdot\frac{SX_2}{SA}=\frac{C_2X_2}{C_2C}\cdot\frac{QC}{QX_1}$. 
-Similarly, $\frac{A_2X_2}{A_2A}\cdot\frac{PA}{PX_1}=\frac{C_1C}{C_1X_1}\cdot\frac{RX_2}{RC}$. 
-Combining everything above gives 
-$\frac{PA}{PX_1}\cdot\frac{SX_2}{SA}=\frac{RX_2}{RC}\cdot\frac{QC}{QX_1}$. 
-By Menelaus' theorem again $PS$ and $QR$ either intersect on $X_1X_2$ or both parallel to $X_1X_2$, so $APS$ and $CQR$ are also perspective of each other. 
-Thus $AC, PQ, RS$ are concurrent or parallel. $\blacksquare$
-
-Denote the incircles of  $APOS$, $BQOP$, $CROQ$, and $DSOR$ by $\omega_A$, $\omega_B$, $\omega_C$, $\omega_D$, respectively. Denote $T(W, XY)$ by the point of tangency of circle $\omega_W$ to line $XY$ too.
+Now denote the incircles of  $APOS$, $BQOP$, $CROQ$, and $DSOR$ by $\omega_A$, $\omega_B$, $\omega_C$, $\omega_D$, respectively. Denote $T(W, XY)$ by the point of tangency of circle $\omega_W$ to line $XY$ too.
 
 We first prove that $PR=QS$. take $E$, the exsimilicenter of $\omega_B$ and $\omega_C$ and consider the triangle formed by $e(BC), O, Q$. Now, $\omega_B$ and $\omega_C$ are incircle and excircle of this triangle, so $OT(C, OQ)=QT(B,OQ)$ (*). 
 In the case where $PR\parallel BC$, (*) follows by symmetry, We similarly have $PT(B,PR)=OT(A,PR)=OT(A,SQ)$, $OT(B.PR)=OT(B,SQ)$, $OT(C,PR)=OT(C,SQ)=QT(B,SQ)$ and $RT(C,PR)=OT(D,PR)=OT(D,QS)=ST(A,QS)$ Therefore, $PR=PO+OR=PT(B,PR)+OT(B.PR)+OT(C,PR)+RT(C,PR)=OT(A,SQ)+OT(B,SQ)+QT(B,SQ)+ST(A,QS)=SO+OQ=QS.$ It then follows that 0=$SQ-PR$ = $SO-OR+OQ-OP$ = $SD-DR+BQ-BP.$ Similarly $0=SO-OP+OQ-OR=SA-AP+QC-RC$. Adding the two equations we have $0=SD+SA+BQ+QC-DR-RC-BP-AP=AD+BC-DC-AB$, and this last relation yields $ABCD$ circumscribed.
@@ -194,27 +419,44 @@ we can use the lemma aforementioned to finish our proof. Q.E.D.
 
 \end{enumerate}
 
-\section{Number Theory}
+\section*{Number Theory}
 \begin{enumerate}
-\item\textbf{N1.} Determine all positive integers $M$ such that the sequence $a_0, a_1, a_2, \cdots$ defined by \[ a_0 = M + \frac{1}{2} \qquad \textrm{and} \qquad a_{k+1} = a_k\lfloor a_k \rfloor \quad \textrm{for} \, k = 0, 1, 2, \cdots \]contains at least one integer term.
+\item[\textbf{N1.}] Determine all positive integers $M$ such that the sequence $a_0, a_1, a_2, \cdots$ defined by \[ a_0 = M + \frac{1}{2} \qquad \textrm{and} \qquad a_{k+1} = a_k\lfloor a_k \rfloor \quad \textrm{for} \, k = 0, 1, 2, \cdots \]contains at least one integer term.
 
-\textbf{Solution.} It's not hard to notice that if $a_k=$ integer+0.5, then $a_{k+1}$ is either in the same form or is an integer. Notice also that, if $a_k$ is even integer+0.5, then $a_{k+1}$ is an integer. As such, all even $M$ are solutions, and from now on we assume $a_k$ as an odd integer+0.5. 
+\textbf{Answer.} All positive integers except 1. 
 
-We denote $v_{2}(x)$ as the highest power of 2 dividing $x$. If $v_2(a_k-1.5)=v_2(\lfloor a_k\rfloor -1)=c$ then $a_{k+1}=(a_k-0.5)^2+\frac{a_k-0.5}{2}$. Now $a_{k+1}-1.5=(a_k-0.5)^2+\frac{a_k-0.5}{2}-1.5\equiv 1+\frac{a_k-0.5}{2}-1.5=\frac{a_k-1.5}{2}\pmod {2^c}$, since $a_k-0.5\equiv 1\pmod{2^c}$. By assumption, $2^{c+1}\nmid a_k-1.5$ so $\frac{a_k-1.5}{2}\equiv 2^{c-1}\pmod {2^c}$, or $v_2(a_{k+1}-1.5)=v_2(a_k-1.5)-1.$ This means that $v_2{a_{k+c}-1.5}=0$, or $\lfloor a_{k+c} \rfloor$ is even (hence satisfying the problem condition). This is particularly true for $k=0$ and $M>1$. For $M=1$, the sequence yields $_k=1.5$ for all $k$, so the answer is every number except 1.
+\textbf{Solution.} 
+When $M = 1$, we have $a_n = 1.5$ for all $n\ge 0$. It suffices to show that all other $M$'s work. 
 
-\item\textbf{N2.} Let $a$ and $b$ be positive integers such that $a! + b!$ divides $a!b!$. Prove that $3a \ge 2b + 2$.
+Denote $\nu_2(x)$ as the highest power of 2 dividing a positive integer $x$. 
+We claim the following: if $x$ is such that $x - 1.5$ is an integer, then 
+\begin{itemize}
+	\item $x\lfloor x\rfloor$ is an integer if $\nu_2(x - 1.5) = 0$; 
+	
+	\item $\nu_2(x\lfloor x\rfloor - 1.5) = \nu_2(x - 1.5) - 1$ if $\nu_2(x - 1.5) > 0$ (i.e. if $\lfloor x\rfloor$ is odd). 
+\end{itemize}
+Indeed, for both of the cases, $x\lfloor x\rfloor = x(x - 0.5) = \frac{(2x - 1)x}{2}$. 
+If $\nu_2(x - 1.5) = 0$, then $2x - 1$ is divisible by 4 and therefore $(2x - 1)x$ is even (since $2x$ is an integer). 
+Otherwise, let $x - 1.5 = c\cdot 2^k$ for some $c$ odd and $k\ge 1$, then $(2x - 1)x = (c\cdot 2^k + \frac 32)(c\cdot 2^{k + 1} + 2)
+=(c\cdot 2^{k + 1} + 3)(c\cdot 2^{k } + 1)\equiv 3c\cdot 2^k + 3 \equiv 2^k+3\pmod{2^{k+1}}$, 
+and therefore $x\lfloor x\rfloor - \frac 32 \equiv 2^{k-1}\pmod{2^k}$, as desired. 
+
+Thus from the claim, for each $M\ge 2$, we have $a_0 - \frac 32 = M - 1 > 0$ so there is a nonnegative integer $c$ with $\nu_2(a_0 - \frac 32) = c$. 
+From our analysis above, for each $k=0, \cdots, c$ we have $\nu_2(a_k - \frac 32) = c - k$, and finally $a_{c+1}$ is an integer. 
+
+\item[\textbf{N2.}] Let $a$ and $b$ be positive integers such that $a! + b!$ divides $a!b!$. Prove that $3a \ge 2b + 2$.
 
 \textbf{Solution.} If $a=1$ then $b!+1\mid b!$, absurd. So we can assume that $a,b\ge 2$ and $3a< 2b+2$ implies $b>a$, which we can safely assume.
 
 Now change the problem to be $a!(1+(a+1)(a+2)\cdots b)\mid a!b!$, or $1+(a+1)(a+2)\cdots b\mid b!$. If $b>\frac{3a}{2}-1$, then $\b-a\ge\frac{a}{2}$ for $a$ even and $\ge\frac{a-1}{2}$ otherwise. Let $p\mid b!$ for some prime $p$ and $p\le\frac{a-1}{2}$. Since $(a+1)(a+2)\cdots b$ consists of $b-a\ge\frac{a-1}{2}$ consecutive integer, $p$ divides this number and therefore $p\nmid 1+(a+1)(a+2)\cdots b$. Consequently, if prime $p$ s.t. $p\mid\gcd(1+(a+1)(a+2)\cdots b, b!)$ then $\frac{a+1}{2}\le p\le a$ and $p\nmid a+1, a+2,\cdots b$. Therefore, since $2p>a$ we must have $2p>b$ as well, yielding $p\parallel b!$. Considering all those primes yield the gcd of the two numbers is at most $(\frac{a}{2}+1)(\frac{a}{2}+2)\cdots a$, for $a$ even, or $a(a-2)\cdot\cdots\cdot\frac{a+1}{2}$(or $\frac{a+3}{2}$) (notice that we eliminated all even factors since they cannot be prime). In both cases they are less than $1+(a+1)(a+2)\cdots b$, so the problem condition cannot hold.
 
-\item\textbf{N3.} Let $m$ and $n$ be positive integers such that $m>n$. Define $x_k=\frac{m+k}{n+k}$ for $k=1,2,\ldots,n+1$. Prove that if all the numbers $x_1,x_2,\ldots,x_{n+1}$ are integers, then $x_1x_2\ldots x_{n+1}-1$ is divisible by an odd prime.
+\item[\textbf{N3.}] Let $m$ and $n$ be positive integers such that $m>n$. Define $x_k=\frac{m+k}{n+k}$ for $k=1,2,\ldots,n+1$. Prove that if all the numbers $x_1,x_2,\ldots,x_{n+1}$ are integers, then $x_1x_2\ldots x_{n+1}-1$ is divisible by an odd prime.
 
 \textbf{Solution.} Let $a_k=x_k-1=\frac{m-n}{n+k}$, we know that $m-n$ is divisible by $n+1, n+2, \cdots 2n+1$ so it is divisible by $l=lcm(n+1, n+2, \cdots 2n+1)$. Let $g(k)=\frac{x}{n+k}$ and we show that eactly one of $g(k)$ among $g(1), g(2),\cdots g(n+1)$ is odd. Indeed, if $2^c\le n< 2^{c+1}$ then $2^{c+1}\le 2n<2^{c+2}$ and we know that exactly one power of 2, which is $2^{c+1}$, is in $n+1, n+2,\cdots 2n+1$. Conversely, only one number is divisible by $2^{c+1}$ and $g(2^{c+1}-n)$ is odd, but $g(k)$ is even for other $k$.
 
 Now, let $x=\frac{m-n}{l}$ and $a_k=g(k)\cdot x$. Now $P(x)=x_1x_2\cdots x_{n+1}-1$ = $(\prod_{k=1}^{n+1} (g(k)\cdot x+1))-1$= $x(\prod_{i=1}^{n+1} c_ix^{i-1})$, where $c_i$ is $x(\prod_{b_1<b_2<\cdots b_i} g(b_1)g(b_2)\cdots g(b_{i}))$. If $P(x)$ is a power of 2, then $x$ must be a power of 2, and from the fact that $c_1$ is odd but $c_2, c_3, \cdots c_{n+1}$ all even we conclude that $(\prod_{i=1}^{n+1} c_ix^{i-1})$ must be 1, which is impossible as $g(1), g(2),\cdots g(n+1)$ are all at least one and $(\prod_{i=1}^{n+1} c_ix^{i-1})>c_i$ $\ge n+1$. Contradiction is achieved and $P(x)$ is divisible by an odd prime.
 
-\item\textbf{N4.} Suppose that $a_0, a_1, \cdots $ and $b_0, b_1, \cdots$ are two sequences of positive integers such that $a_0, b_0 \ge 2$ and \[ a_{n+1} = \gcd{(a_n, b_n)} + 1, \qquad b_{n+1} = \operatorname{lcm}{(a_n, b_n)} - 1. \]Show that the sequence $a_n$ is eventually periodic; in other words, there exist integers $N \ge 0$ and $t > 0$ such that $a_{n+t} = a_n$ for all $n \ge N$.
+\item[\textbf{N4.}] Suppose that $a_0, a_1, \cdots $ and $b_0, b_1, \cdots$ are two sequences of positive integers such that $a_0, b_0 \ge 2$ and \[ a_{n+1} = \gcd{(a_n, b_n)} + 1, \qquad b_{n+1} = \operatorname{lcm}{(a_n, b_n)} - 1. \]Show that the sequence $a_n$ is eventually periodic; in other words, there exist integers $N \ge 0$ and $t > 0$ such that $a_{n+t} = a_n$ for all $n \ge N$.
 
 \textbf{Solution.} We partition the sequence $(a_n)$ into \emph{groups} of adjacent numbers such that $a_{i+1}$ and $a_i$ are in the same group if and only if $a_{i+1}>a_i$. Obviously, $a_{i+1}-1\mid a_i$, so $a_{i+1}>a_i\Leftrightarrow a_{i+1}=a_i +1\Leftrightarrow a_i\mid b_i\Leftrightarrow b_{i+1}=b_{i}-1$. The tail of a group is defined as the last (and therefore the largest) number in that group; we claim that the sequence of numbers containing all tails of groups must be non-increasing. 
 Indeed, let $a_n$ be a tail, then $a_{n+1}=\gcd (a_n, b_n)+1$, and for sake of simplicity denote this number by $g+1$. 
@@ -228,20 +470,192 @@ from above we know that if $a_n$ and $a_m$ are both tails then
 $\gcd(a_n, b_n)=\gcd(a_m, b_m)$. 
 It folows that the number succeeding each tail must be the same too, and that's the smallest number of the group thereafter. Summing up, the smallest and the biggest number (i.e. first and last number) in a period becomes constant, and $a_{i+1}=a_i +1$ for $a_i, a_{i+1}$ in the same group. We therefore conclude that the groups must be identical at one point, hence eventually periodic.
 
-\item\textbf{N6.} Let $\mathbb{Z}_{>0}$ denote the set of positive integers. Consider a function $f: \mathbb{Z}_{>0} \to \mathbb{Z}_{>0}$. For any $m, n \in \mathbb{Z}_{>0}$ we write $f^n(m) = \underbrace{f(f(\ldots f}_{n}(m)\ldots))$. Suppose that $f$ has the following two properties:
+\item[\textbf{N5.}] (IMO 2) Find all positive integers $(a,b,c)$ such that
+$$ab-c,\quad bc-a,\quad ca-b$$are all powers of $2$.
 
-(i) if $m, n \in \mathbb{Z}_{>0}$, then $\frac{f^n(m) - m}{n} \in \mathbb{Z}_{>0}$;
-(ii) The set $\mathbb{Z}_{>0} \setminus \{f(n) \mid n\in \mathbb{Z}_{>0}\}$ is finite.
+\textbf{Answer.} $(2, 2, 2), (2, 2, 3), (2, 6, 11), (3, 5, 7)$ and their permutations. 
+
+\textbf{Solution.} We first verify that these triples work. 
+The first one yields $ab-c=2$; the second one gives 1 and 2; the third one, 1, 16, 64; the last, 8, 16, 32. 
+
+We now show that there are no other triples satisfying the condition, 
+and it suffices to consider triples up to permutation. 
+Notice that all numbers are strictly greater than 1, otherwise if $a=1$ then $b-c$ and $c-b$ cannot be both positive. 
+Throughout the solution we denote $\nu_2(a)$ as the highest exponent of 2 dividing $a$. 
+Now we have these few cases. 
+
+\emph{Case 1:} two of the three numbers are the same (i.e. we have $(a, a, b)$ instead) then $a, b - 1, a^2-b$ are all powers of 2.
+In particular, $a$ is even, and $b$ is either odd or 2. 
+If $b$ is odd, then $a^2-b = 1$, i.e. $b-1, b+1$ both powers of 2 (since $a^2$ is also a power of 2). 
+The only possibility is $b-1=2, b+1=a^2=4$, giving the triple $(2, 2, 3)$. 
+If $b=2$, with $a^2$ divisible by 4, $a^2-2=a^2-b\equiv 2\pmod{4}$, so $a^2-2=2$. This gives $a=2$, giving the triple $(2, 2, 2)$. 
+
+\emph{Case 2:} all three numbers are distinct. 
+Notice that $(ab-c)-(bc-a) = (b + 1)(a - c)\neq 0$ so the three target numbers $ab-c, bc-a, ca-b$ are also pairwise distinct. 
+In particular, they cannot be all odd. This would have been the case if among $a, b, c$, exactly two of them are odd, 
+so this case can be eliminated. 
+We now claim that they $a, b, c$ cannot be all even, either. 
+W.l.o.g. suppose that $\nu_2(a)=x, \nu_2(b)=y$ and $\nu_2(c)=z$, 
+with $1\le x\le y\le z$. 
+Then since $\nu_2(ac) = x + z > y=\nu_2(b)$ and 
+$\nu_2(bc)=y+z > x =  \nu_2(a)$, 
+we have $\nu_2(ac- b) = y$ and $\nu_2(bc - a)=x$, 
+hence $ac-b=2^y$ and $bc-a=2^x$. 
+Adding them, we get $(c-1)(a+b)=2^x+2^y$. 
+With $2^x\mid a, 2^y\mid b$, however, we are now forced with $c=2, a=2^x, b=2^y$, 
+so $z=1$. With $x\le y\le z$ we get $x=y=z$. But now $a=b=c=2$, contradicting that they are pairwise distinct. 
+
+\emph{Subcase 2a:}  two of them (say, $a, b$) even, and $c$ odd. 
+W.l.o.g. set $a < b$, then $ac-b < bc - a$. 
+This means $ab-c=1$, so $c=ab-1$. 
+Note that $\nu_2(ac)=a$ and $\nu_2(bc)=b$, so if $\nu_2(a)\neq\nu_2(b)$ then 
+$\nu_2(ac-b)=\nu_2(bc-a)=\min(\nu_2(a), \nu_2(b))$, forcing $ac-b=bc-a$, which contradicts $a\neq b$. 
+Thus $\nu_2(a)=\nu_2(b)$, let this quantity be $\ell$. Expanding, 
+we get $ac-b=a^2b - (a + b)$ and $bc-a=ab^2- (a + b)$. 
+Notice also that $\nu_2(a^2b)=\nu_2(ab^2)=3\ell$ so by the same logic as above, we need $\nu_2(a + b)=3\nu_2(a)$ too 
+(otherwise $\nu_2(ac-b)=\nu_2(bc-a)=\min(\nu_2(a+b), \nu_2(a^2b))$). 
+We also have $ac-b+bc-a=(a+b)(c-1)=(a+b)(ab-2)$. 
+Since $a, b$ are both even, $\nu_2(ab-2)=1$ and therefore 
+$\nu_2(ac-b+bc-a)
+=1+\nu_2(a+b)=1+3\ell$, which yields the smaller of them $ac - b$ has 
+\[ac - b = a^2b - (a + b) = 2^{3\ell+1}\]
+Let $a'=\frac{a}{2^{\ell}}$ and $b'=\frac{b'}{2^{\ell}}$, which are both odd integers. 
+In addition, $a\neq b$ means $a'\ge 1, b'\ge 3$. 
+Thus the equation above can be further analyzed as 
+\[
+2
+=(a')^2b' - \frac{a'+b'}{2^{2\ell}}
+\ge a'b' - \frac{a'+b'}{2^{2\ell}}
+\ge (a' - \frac{1}{2^{2\ell}})(b' - \frac{1}{2^{2\ell}}) - \frac{1}{2^{4\ell}}
+\ge (1 - \frac{1}{2^{2\ell}})(3 - \frac{1}{2^{2\ell}}) - \frac{1}{2^{4\ell}}
+\]
+\[
+=3 - \frac{4}{2^{2\ell}}
+\ge 3 - \frac 4 4
+=2
+\]
+so all inequalities above are, in fact, equality. This means we have $a'=1, b'=3, \ell=1$, which gives the solution $a=2, b=6, c=11$. 
+
+\emph{Subcase 2b:}  $a, b, c$ are all odd, so all the three key terms are even, meaning at least two of them are divisible by 4. 
+W.l.o.g. we assume that $a < b < c$. 
+Then $ac - b$ and $bc - a$ have sum $(c - 1)(a + b)$ and difference $(c + 1)(b - a)$. 
+In addition, since $ac-b < bc - a$ and are distinct powers of 2, 
+we have $\nu_2(ac - b) = \nu_2(c - 1)+\nu_2(a + b) = \nu_2(c + 1) + \nu_2(b - a)$. 
+
+Notice that $4\nmid 2c$, so $c-1, c+1$ cannot both be divisible by 4, i.e. $\min\{\nu_2(c - 1), \nu_2(c + 1)\}=1$. In a same way, $a + b + b - a = 2b\equiv 2\pmod{4}$, so $\min\{\nu_2(a+b), \nu_2(b-a)\}=1$. 
+Along with $\nu_2(c - 1)+\nu_2(a + b) = \nu_2(c + 1) + \nu_2(b - a)$, 
+we have 
+\[
+\nu_2(c + 1) = \nu_2(a + b)\qquad \nu_2(c - 1) = \nu_2(b - a)
+\]
+Suppose that $\nu_2(c + 1) = 1 < \ell = \nu_2(c - 1)$ for some $\ell$, 
+writing $c = 2^{\ell}c'+1$, we have 
+\[2^{\ell + 1} = ac - b > ac - c = (a - 1)(2^{\ell}c'+1) \ge 2(2^{\ell}c'+1) > 2^{\ell + 1} 
+\]
+(given that $a > 1$ and $a$ is odd). 
+This is a contradiction. 
+
+Thus we need $\nu_2(c - 1) = 1 < \ell =\nu_2(c + 1)$. 
+Now we write $c = 2^{\ell}c'-1$. Similar to above, we get 
+\begin{equation}\label{eq:n5}
+	2^{\ell + 1} = ac - b > (a - 1)c = (a - 1)(2^{\ell}c'-1)
+\end{equation}
+If $a\ge 5$, then \prettyref{eq:n5} gives $2^{\ell + 1} > 4(2^{\ell}c'-1)\ge 4(2^{\ell}-1) = 2^{\ell + 2} - 4$, 
+or $4 > 2^{\ell + 1}$. 
+But we have $\ell\ge 2$, contradiction. 
+Hence $a = 3$. 
+Now dividing 2 on both sides of \prettyref{eq:n5} gives $2^{\ell} > 2^{\ell}c'-1$, 
+so $c'=1$, which also gives $b = 2^{\ell} - 3$. 
+
+Finally, we now have $ab - c = 3(2^{\ell} - 3) - (2^{\ell} - 1) = 2^{\ell + 1} - 8$. 
+The only possibility here is $\ell=3$ (to make it a power of 2). 
+This gives the solution $(3, 5, 7)$. 
+
+\item[\textbf{N6.}] Let $\mathbb{Z}_{>0}$ denote the set of positive integers. Consider a function $f: \mathbb{Z}_{>0} \to \mathbb{Z}_{>0}$. For any $m, n \in \mathbb{Z}_{>0}$ we write $f^n(m) = \underbrace{f(f(\ldots f}_{n}(m)\ldots))$. Suppose that $f$ has the following two properties:
+
+\begin{enumerate}
+	\item [(i)] if $m, n \in \mathbb{Z}_{>0}$, then $\frac{f^n(m) - m}{n} \in \mathbb{Z}_{>0}$;
+	
+	\item [(ii)] The set $\mathbb{Z}_{>0} \setminus \{f(n) \mid n\in \mathbb{Z}_{>0}\}$ is finite.
+\end{enumerate}
 
 Prove that the sequence $f(1) - 1, f(2) - 2, f(3) - 3, \ldots$ is periodic.
 
-\textbf{Solution.} If $f(m)=f(k)$, then $f^n(m)=f^n(k)$, $\forall n\in\mathbb{N}$. By (i), $n$ divides both $f^n(m)-m$ and $f^n(m)-k$, so $n$ divides $m-k$ for all positive integers $n$. This means $m-k=0$ and $f$ is injective. From (i) again we have $f(m)-m>0,\forall m\in\mathbb{N}$. This allows us to partition the set of positive integers into groups such that for one group $A=\{a_i\mid i\ge 0\}$, $a_{k+1}=f(a_k)$, $\forall k\ge 1$ and we name $a_0$ as the element such that there exists no integer $i$ such that $f(i)=a_0$. By (ii), the number of set $A$ is finite, so name them as $A_1, A_2, \cdots A_p$. We proceed with this lemma:\\
-\emph{For any set $A_k=\{a_i\mid i\ge 0\}$ such that there eists a positive integer $s$ with $a_{i+1}-a_i<s$ for infinitely many $i$, the number $a_0, a_1,\cdots $ necessarily form an arithmetic progression.}\\
-Proof: For every $i$ and every $M$, we can find infinitely many $j>i+M$ s.t. $j$ satisfies this property  $a_{j+1}-a_j<s$. Now, take $M>|a_{i+1}-a_{i}|+s$ and we have $j-i$ divides both $a_j-a_i$ and $a_{j+1}-a_{i+1}$. It therefore divides $(a_{j+1}-a_{i+1})-(a_j-a_i)$ = $(a_{j+1}-a_{j})-(a_{i+1}-a_i)$ and $|(a_{j+1}-a_{j})-(a_{i+1}-a_i)|$ $\le |(a_{j+1}-a_{j})|+|(a_{i+1}-a_i)|\le |(a_{j+1}-a_{j})|+s<j-i$, meaning that $(a_{j+1}-a_{j})-(a_{i+1}-a_i)=0$. Taking this for infinitely many $j$ yields $a_{j+1}-a_{j}=x,$ a constant for infinitely many $j$. This, in turn, allows us to take any $i$ and $j$ with $a_{j+1}-a_{j}=x$ and $j-i>|(a_{j+1}-a_{j})|+x$. Repeating the above yields the same thing, whereby $a_{i+1}-a_{i}=a_{j+1}-a_j=x$. Thus, $a_{i+1}-a_i$ is indeed a constant for all $i$, i.e. the elements form an arithmetic progression. 
+\textbf{Solution.} If $f(m)=f(k)$, then $f^n(m)=f^n(k)$, $\forall n\in\mathbb{N}$. By (i), $n$ divides both $f^n(m)-m$ and $f^n(m)-k$, so $n$ divides $m-k$ for all positive integers $n$. This means $m-k=0$ and $f$ is injective. From (i) again we have $f(m)-m>0,\forall m\in\mathbb{N}$. This allows us to partition the set of positive integers into groups such that for one group $A=\{a_i\mid i\ge 0\}$, $a_{k+1}=f(a_k)$, $\forall k\ge 1$ and we name $a_0$ as the element such that there exists no integer $i$ such that $f(i)=a_0$. By (ii), the number of set $A$ is finite, so name them as $A_1, A_2, \cdots A_p$. 
 
-We prove, inductively, that elements in all sets satisfy the lemma condition, hence form arithmetic progressions. First we prove that this is true for at least one set. Now, among any interval $[k(pm+1)+1, (k+1)(p+1)]$, there must exist two integers $i$ and $j$ in this interval such that $i,j\in A_c$ for some integer $c$. We record such $c$, and consider different $c\in[1,p]$ for all integers $k$. This means, there exist a number $c$ that is recorded infinitely many times. W.l.o.g. let $c=1$, so this is fulfilled for $A_1$ since we can substitute $p+1$ into $s$ in the lemma. Suppose that this is true for groups $A_1, A_2,\cdots A_i$, and let $D$= lcm $(d_1, d_2,\cdots , d_i)$. Also name $B=A_{i+1}\cup A_{i+1}\cup\cdots\cup A_{p}$ (the unselected). This means that, if $D\mid a-b$ for $a, b\in\mathbb{N}$, we have $a\in A_{k}\Leftrightarrow b\in A_{k}$, $\forall k\in [1,i]$. More importantly, this means $a\in B\Leftrightarrow b\in B$. With this, we conclude that $B$ contains at least an element in the interval $[a+1, a+D]$ for each $a$ (otherwise $A_1, A_2,\cdots A_i$ jointly contains all positive integers), and at least $p-i+1$ elements among $[a+1, a+(p-i+1)D]$. In other words, there are at least two elements in the interval belong to the same set, say $A_c$, and record this $c$. Repeat this for infinitely many disjoint intervals of length $(p-i+1)D$, and since the choice of $c$ is finite (in the set $[i+1, p]$), at least one such $c$ recorded infinitely many times, hence such $c$ (say, $i+1$) fulfills the condition in the lemma (this time we have $s=(p-i+1)D$).
+We proceed with this lemma. 
+\begin{lemma}
+	Let $A=\{a_i\mid i\ge 0\}$ be an increasing sequence such that $j - i\mid a_j - a_i$, and that there exists a positive integer $s$ with $a_{i+1}-a_i<s$ for infinitely many $i$. 
+	Then $a_0, a_1,\cdots $ necessarily forms an arithmetic progression.
+\end{lemma}
+\begin{proof}
+	For every $i$ and every $M$, we can find infinitely many $j>i+M$ s.t. $j$ satisfies this property  $a_{j+1}-a_j<s$. Now, take $M>|a_{i+1}-a_{i}|+s$ and we have $j-i$ divides both $a_j-a_i$ and $a_{j+1}-a_{i+1}$. It therefore divides $(a_{j+1}-a_{i+1})-(a_j-a_i)$ = $(a_{j+1}-a_{j})-(a_{i+1}-a_i)$ and $|(a_{j+1}-a_{j})-(a_{i+1}-a_i)|$ $\le |(a_{j+1}-a_{j})|+|(a_{i+1}-a_i)|\le |(a_{j+1}-a_{j})|+s<j-i$, meaning that $(a_{j+1}-a_{j})-(a_{i+1}-a_i)=0$. Taking this for infinitely many $j$ yields $a_{j+1}-a_{j}=x,$ a constant for infinitely many $j$. This, in turn, allows us to take any $i$ and $j$ with $a_{j+1}-a_{j}=x$ and $j-i>|(a_{j+1}-a_{j})|+x$. Repeating the above yields the same thing, whereby $a_{i+1}-a_{i}=a_{j+1}-a_j=x$. Thus, $a_{i+1}-a_i$ is indeed a constant for all $i$, i.e. the elements form an arithmetic progression. 
+\end{proof}
+
+
+We prove, inductively, that elements in all sets satisfy the lemma condition, hence form arithmetic progressions. First we prove that this is true for at least one set. Now, among any interval $[k(p+1)+1, (k+1)(p+1)]$, there must exist two integers $i$ and $j$ in this interval such that $i,j\in A_c$ for some integer $c$. We record such $c$, and consider different $c\in[1,p]$ for all integers $k$. This means, there exist a number $c$ that is recorded infinitely many times. W.l.o.g. let $c=1$, so this is fulfilled for $A_1$ since we can substitute $p+1$ into $s$ in the lemma. Suppose that this is true for groups $A_1, A_2,\cdots A_i$, and let $D$= lcm $(d_1, d_2,\cdots , d_i)$. Also name $B=A_{i+1}\cup A_{i+1}\cup\cdots\cup A_{p}$ (the unselected). This means that, if $D\mid a-b$ for $a, b\in\mathbb{N}$, we have $a\in A_{k}\Leftrightarrow b\in A_{k}$, $\forall k\in [1,i]$. More importantly, this means $a\in B\Leftrightarrow b\in B$. With this, we conclude that $B$ contains at least an element in the interval $[a+1, a+D]$ for each $a$ (otherwise $A_1, A_2,\cdots A_i$ jointly contains all positive integers), and at least $p-i+1$ elements among $[a+1, a+(p-i+1)D]$. In other words, there are at least two elements in the interval belong to the same set, say $A_c$, and record this $c$. Repeat this for infinitely many disjoint intervals of length $(p-i+1)D$, and since the choice of $c$ is finite (in the set $[i+1, p]$), at least one such $c$ recorded infinitely many times, hence such $c$ (say, $i+1$) fulfills the condition in the lemma (this time we have $s=(p-i+1)D$).
 
 Finally, since every element in each set form an arithmetic progression, we denote $D$=lcm $(d_1, d_2,\dots d_p)$ (whereby $d_i$ is the common difference of $A_i$) and prove that $f(i)-i$ has period $D$. Indeed, for every $i\in\mathbb{N}$. $i$ and $i+D$ are in the same group, say, $A_c$. Hence $f(i+D)-(i+D)=f(i)-i=d_c$. Q.E.D. 
+
+\item [\textbf{N7}.]
+Let $\mathbb{Z}_{>0}$ denote the set of positive integers. For any positive integer $k$, a function $f: \mathbb{Z}_{>0} \to \mathbb{Z}_{>0}$ is called $k$-good if $\gcd(f(m) + n, f(n) + m) \le k$ for all $m \neq n$. Find all $k$ such that there exists a $k$-good function.
+
+\textbf{Answer.} All $k\ge 2$. 
+
+\textbf{Solution.} 
+We first eliminate $k=1$. Indeed, suppose that $\gcd(f(m) + n, f(n) + m) = 1$ for all $m\neq n$. 
+Considering $m=1, n=3$ means one of $f(1), f(3)$ must be even. 
+Considering $m=2, n=4$ means one of $f(2), f(4)$ must be odd. 
+This means there is $m, n$ such that $m, f(n)$ are both odd and $n, f(m)$ are both even, 
+so both $f(m) + n$ and $f(n) + m$ are even, which is a contradiction. 
+
+We now construct a $2$-good function, which will then imply this it's also $k$-good for all $k\ge 2$. 
+Let $P$ be the set of all odd primes and 4. 
+A condition that we will be checking is that for all $p\in P$ $m\neq n$, $f(m) + n$ and $f(n) + m$ cannot be simultaneously divisible by $p$. 
+For each number $p\in P$, we also keep track of an auxillary (modular) function $g_p: \{1, 2,\cdots, p\}\to \{0, 1, \cdots, p - 1\}$, with the goal that $g_p(m) + n$ and $g_p(n) + m$ are not simulatenously divisible by $p$ for any pairs $(m, n)$. 
+Since this is the only goal for this $g_p$, we may also extend $g_p$ periodically modulo $p$, i.e. $g_p(n + p)=f_p(n)$. 
+
+Now we construct $f$ and $g_p$ iteratively. We set $f(1) = 1$, and $g_p(1)=1$ for all $p$ odd prime or 4. 
+Thereafter, for each $n\ge 2$ we construct $f(n)$ and $g_p(n)$ for each $p > n$ such that the following invariants are maintained: 
+\begin{itemize}
+	\item For each $p\in P$ such that either $p < n$ or $p\nmid n + f(n)$, we have $g_p(n)\equiv f(n)\pmod{p}$; 
+	
+	\item For each $m < n$ and $p\in P$, either $p\nmid n + g_p(m)$ or $p\nmid m + f(n)$; 
+	
+	\item For each $m\le n$ and $p\in P$, either $p\nmid n + g_p(m)$ or $p\nmid m + g_p(n)$ (in particular, $p\nmid n + g_p(n)$). 
+\end{itemize}
+We show that such a construction of $f(n)$ and $g_p(n)$ (for all $p > n$) is possible. 
+Notice that when constructing $f(1)=g_p(1)=1$, such an invariant is maintained since $1 + f(1)=2$ is divisible by no member in $P$. 
+Next, suppose for some $n\ge 2$ this invariant is maintained for $f(1), \cdots, f(n - 1)$ and all $g_p(k)$ for all $k\le \min(n - 1, p)$.
+We now do the construction in the following manner: 
+constructing $g_p(n)$ for just a subset of $p > n$, then $f(n)$ consistent with these $g_p(n)$'s, and finally $g_p(n)$ for the rest of $p$. 
+Notice for the final invariant we only need to care about those $p$ with $p\ge n$. 
+
+We claim that the set $\{p\in P: \exists m < n: p\mid n + g_p(m)\}$ is finite. 
+Indeed, suppose that $p\mid n + g_p(m)$ for some $m < n$. 
+Then by the invariant maintained, either $p\mid m + f(m)$ or $g_p(m)\equiv f(m)\pmod{p}$, i.e. the second case gives $p \mid n + f(m)\pmod{p}$. 
+Thus $p$ must divide one of $\{n + f(m): m < n\}\cup \{m + f(m): m < n\}$, and therefore finite. 
+
+Let $P_n\subseteq P\cap \{n, n + 1, \cdots\}$ be such numbers.
+We now show that for each $p\in P_n$, $g_p(n)$ can be constructed in such a way that for each $m \le n$, $p$ does not simultaneously divide $g_p(m) + n$ and $g_p(n) + m$. 
+If $n < p$, we can easily take, say, $g_p(n) \equiv -(n + 1)\pmod{p}$. 
+If $n = p$, from $g_p(1)=1$ we get $p\nmid g_p(1)+p$, and therefore we may then choose $g_p(n)\equiv -1\pmod{p}$.  
+
+Denote, now, $Q_n = P_n\cap (P\cup \{1, \cdots, n - 1\})$, which are precisely the primes $p$ where we have the values $g_p(n)$ for. 
+Now, since the elements in $P$ (and therefore $Q_n$) are pairwise coprime, 
+The equivalence $f(n)\equiv g_p(n\pmod{p})$ has a unique solution modulo $\prod_{p\in P: p < n} p$ by Chinese Remainder Theorem. 
+Choose one such solution $f(n)$, the second invariant is automatically maintained given that for all $m < n$ and $p\in P$,
+we have $p\nmid n + g_p(m)$. 
+ and now for any $p\not \in Q_n$, we may now define $g_p(n)$ such that $g_p(n) = f(n)\pmod{p}$ if $p\nmid n + f(n)$. 
+If $p\mid n + f(n)$, we may use the previous recipe (e.g. $g_p(n)\equiv -(n + 1)\pmod{p}$ if $n < p$, and $g_p(n)\equiv -1\pmod{p}$ if $n=p$). 
+
+We are now ready to show that our function $f$ is now 2-good. Let $p\in P$ be arbitrary and consider $m\neq n$. 
+If $f(n)\equiv g_p(n\pmod{p})$ and $f(m)\equiv g_p(m\pmod{p})$ both hold, then by our construction on $g_p$, 
+$p$ cannot simultaneously divide $n+f(m), m + f(n)$. 
+Otherwise, suppose $f(n)\not\equiv g_p(n)$, which then implies both 
+$p \ge n$ and $p\mid n + f(n)$. 
+If $p\mid m + f(n)$, then $p\mid m - n$ (so $m > p$), but then $f(m)\equiv g_p(m\pmod{p})\equiv g_p(n\pmod{p})\not\equiv f(n)\pmod{p}$, 
+so $p\nmid n + f(m)$. 
 
 \end{enumerate}
 
