@@ -62,6 +62,58 @@
 	\end{itemize}
 	We thus infer than $f(k+1)=f(1)(k+1)^2$, done. 
 	
+	\item[\textbf{A2}] 
+	Let $\mathbb{Z}$ and $\mathbb{Q}$ be the sets of integers and rationals respectively.
+	\begin{enumerate}
+		\item [(a)]
+		Does there exist a partition of $\mathbb{Z}$ into three non-empty subsets $A,B,C$ such that the sets $A+B, B+C, C+A$ are disjoint?
+		
+		\item [(b)] 
+		Does there exist a partition of $\mathbb{Q}$ into three non-empty subsets $A,B,C$ such that the sets $A+B, B+C, C+A$ are disjoint?
+	\end{enumerate}
+    
+    \textbf{Answer.} 
+    (a): yes; (b): no. 
+    
+    \textbf{Solution.}
+    The construction for (a) is 
+    \[
+    A=\{3k+1:k\in\mathbb{Z}\}
+    \qquad 
+    B=\{3k+2:k\in\mathbb{Z}\}
+    \qquad 
+    C=\{3k:k\in\mathbb{Z}\}
+    \]
+    
+    Now we show that (b) cannot work.
+    Let $d$ be any rational number.  
+    For a set $A$ we say that $A$ is $d$-existent if there exists $a, b\in A$ such that $a - b = d$. 
+    We say that $A$ is $d$-abundant if for any $a\in A$, $a + d\in A$. 
+    
+    We first show that if $A$ is $d$-existent, then all $A, B, C$ are $d$-abundant. 
+    Indeed, let $a_1, a_2\in A$ such that $a_2-a_1=d$. 
+    Since $B$ and $C$ are nonempty, choose $b\in B$ and $c\in C$. 
+    By the problem condition, since $a_1+b, a_2+b\in A+B$, 
+    they cannot be in $A+C$ or $B+C$, 
+    so both the numbers $a_1+b-c$ and $a_2+b-c$ are in $C$. 
+    Operating on these numbers again, 
+    we have $(a_2+b) - (a_1+b-c) = c + (a_2-a_1) = c+d\in C$. 
+    Repeating this argument on any $c\in C$, we have $C$ as $d$-abundant, 
+    and similarly so for $B$. 
+    Finally, since $B$ and $C$ are nonempty and $d$-abundant, 
+    they are also $d$-existent. 
+    Therefore we may repeat the logic above to deduce that $A$ is $d$-abundant, too. 
+    
+    Now choose $a\in A$ and $b\in B$, and suppose that $d=b-a$. 
+    Then since $b\not\in A$, $A$ cannot be $d$-abundant, 
+    and therefore by our lemma above, $A, B, C$ cannot be $d$-existent. 
+    On the other hand, consider the four numbers $0, \frac 16d, \frac 13d, \frac 12d$. 
+    By pigeonhole principle, two of the numbers must be in the same partition, meaning that this partition must be $\frac {d}{k}$-existent (where $k\in \{2, 3, 6\}$). 
+    Thus by our lemma, $A, B, C$ are all $\frac 1k$-abundant. 
+    Notice, however, a $d$-abundant set is also a $kd$-abundant set for all integers $k$ 
+    (we have $a\in A\to a+d, a+2d, a+3d, \cdots, a+kd\in A$), 
+    so all the three sets are $d$-abundant, contradiction. 
+	
 	\item[\textbf{A3}] (IMO 2) Let $n\ge 3$ be an integer, and let $a_2,a_3,\ldots ,a_n$ be positive real numbers such that $a_{2}a_{3}\cdots a_{n}=1$. Prove that
 	\[(1 + a_2)^2 (1 + a_3)^3 \dotsm (1 + a_n)^n > n^n.\]
 	
@@ -265,7 +317,6 @@
 		\end{enumerate}
 		
 		\textbf{Solution.} 
-		
 		The query-answer protocol is the same as $B$ partitioning $\{1, \cdots, N\}$ into two parts and $A$ says which set $x$ belongs to (which we call the correct set, as opposed to wrong set)
 		$B$ can guarantee a win iff for all but $n$ numbers $y$, $A$ says $y$ doesn't belong to the correct set for $k+1$ consecutive times. 
 		
@@ -281,7 +332,7 @@
 		The game ends when there are $\le n$ numbers on the board, where $B$ wins. 
 		We'll need to prove the winning conditions. 
 		
-		\textbf{Part 1, $n=2^k$} Let's first consider $N = n + 1$, so $B$'s goal is to remove one number from the board. 
+		\textbf{Part 1, $n=2^k$}. Let's first consider $N = n + 1$, so $B$'s goal is to remove one number from the board. 
 		We consider the following two phases (a bit lengthy compared to the official but easier to think of). 
 		
 		Phase 1: we show that $B$ can maintain the invariant that at step $\ell$ (starting with step 0), 
@@ -381,6 +432,7 @@
 	\[
 	\angle FDG = \angle FDE+\angle EDC + \angle CDG
 	= \angle FDE+\angle EDC + \angle ECD
+	\]\[
 	= \angle FDE+\angle AED
 	= \angle FAE
 	= \angle FBE
@@ -390,8 +442,8 @@
 	\begin{flalign*}
 		\frac{FD}{DG}
 		&=\frac{FD}{CE}
-		\\ & =\frac{FB\sin \angle FBD / \sin \angle FDB}{BE \sin\angle EBC / \sin\angle BCE} \text{ (sin rule on triangle} FBD)
-		\\ & =\frac{FB\sin \angle EBC / \sin \angle BCE}{BE \sin\angle EBC / \sin\angle BCE} (\angle BCE=\angle FDB)
+		\\ & =\frac{FB\sin \angle FBD / \sin \angle FDB}{BE \sin\angle EBC / \sin\angle BCE} \;\text{ (sin rule on triangle } FBD)
+		\\ & =\frac{FB\sin \angle EBC / \sin \angle BCE}{BE \sin\angle EBC / \sin\angle BCE}\; (\angle BCE=\angle FDB)
 		\\ &=\frac{FB}{BE}
 	\end{flalign*}
 	so together with $\angle FDG=\angle FBE$, we can conclude that triangles $FDG$ and $FBE$ are similar. 
@@ -493,7 +545,7 @@
 	\]
 	and 
 	\[
-	\angle PI_2D = 180^{\circ} - \angle I_2PD - \angle PDI_2= 180^{\circ} - \frac{\angle CPD}{2} - \angle \frac{PDC}{2} = 90^{\circ} + \\frac{PCD}{2}= 90^{\circ} + \frac{\angle PBA}{2}
+	\angle PI_2D = 180^{\circ} - \angle I_2PD - \angle PDI_2= 180^{\circ} - \frac{\angle CPD}{2} - \angle \frac{PDC}{2} = 90^{\circ} + \frac{\angle PCD}{2}= 90^{\circ} + \frac{\angle PBA}{2}
 	\]
 	so these two angles are essentially equal. Combined with $\angle BPI_1=\angle DPI_2$ we have triangles $PBI_1$ and $PI_2D$ similar. This gives: 
 	\[

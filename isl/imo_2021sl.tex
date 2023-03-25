@@ -1383,83 +1383,196 @@
         Since $T\mid \gcd(a_1+\cdots + a_n, n)$, it then follows that we can find such $k$ such that 
         $k(a_1+\cdots + a_n)+T\equiv 0\pmod{n}$. 
 	    
+	    
 	    \item [N8.]
 	    For a polynomial $P(x)$ with integer coefficients let $P^{1}(x) = P(x)$ and $P^{k+1}(x) = P(P^k(x))$ for $k \ge 1$. 
 	    Find all positive integers $n$ for which there exist a polynomial $P(x)$ with integer coefficients such that for every integer $m \ge 1$, 
-	    the numbers $P^m(1), \cdots, P^ m(n)$ leave exactly $\lceil n/2m\rceil$ distinct remainders when divided by $n$. 
+	    the numbers $P^m(1), \cdots, P^ m(n)$ leave exactly $\lceil \frac{n}{2^m}\rceil$ distinct remainders when divided by $n$. 
 	    
-	    \textbf{Conjectured answer.} All the powers of 2 and prime numbers. 
+	    \textbf{Answer.} All the powers of 2 and prime numbers. 
 	    
-	    \textbf{Partial Solution.} 
-	    Throughout we assume $P$ is a polynomial with integer coefficients. 
-	    The following identity will be used profusely: for any $m\ge 0$ and integers $x\neq y$ we have 
+	    \textbf{Solution.} 
+	    We first provide examples for the said answers above. 
+	    For $n=2^k$, considering $P(x)\equiv 2x$ means $\{P^{m}(x)\pmod{n}: x=1, \dots, n\}$ 
+	    are $\{u2^{\min\{m, k\}}\pmod{n}: u=0, 1, \cdots, 2^{\max\{0, k - m\}} - 1\}$. 
+	    For $n$ any odd prime $p$, 
+	    define 
+	    \[
+	    P(x) = \sum_{i=0}^{p-1} \lfloor \frac{i}{2}\rfloor (1 - (x-i)^{p-1})
+	    \]
+	    By Fermat's little theorem, $P(x)\equiv \lfloor \frac{x}{2}\rfloor\pmod{p}$, 
+	    and therefore the set $\{P^m(x)\pmod{p}\}$ for $x=0, \cdots, p-1$ is $0, \cdots, \lfloor \frac{p-1}{2^m}\rfloor$ for each $m$. 
+	    Since $p$ is odd, $\{P^m(x)\pmod{p}\}$ then has $\lceil \frac{p-1}{2^m}\rceil$ elements. 
+	    
+	    It now remains to show that these are the only answers. First, for any $m\ge 0$ and integers $x\neq y$ we have 
 	    \[
 	    x-y\mid P^m(x)-P^m(y)
 	    \]
 	    Thus we may (sometimes) consider $P^m(\cdot \pmod{n})$. 
+	    Define $S_n(P^m)=\{P^{m}(1), \cdots, P^{m}(n)\pmod{n}\}$, and $\sigma_n(P^m)=|S_n(P^m)|$.
+	    We see that $S_n(P^m)\subseteq S_n(P^{m+1})$, 
+	    with equality if and only if $S_n(P^m)=S_n(P^M)$ for all $M\ge m$. 
+	    It then follows that $\sigma_n(P^m)$ monotonically decreases with $m$ before being constant. 
 	    
-	    We define $\sigma(P, m, n)$ as the number of distinct reimainders of $P^m(1), \cdots, P^m(n)$ when devided by $n$. 
-	    A preliminary observation would be that for any polynomials $P$ and integers $m$ and $n$, 
-	    $\sigma(P, m + 1, n)\le \sigma(P, m, n)$, with equality if and only if $\sigma(P, M, n)=\sigma(P, m, n)$ for all $M\ge m$. 
-	    
-	    We break down our solution into the following. 
-	    
-	    \begin{lemma}
-	    	\label{lemma_n8a}
-	    	Let $p$ and $q$ be any integers such that $\gcd(p, q)=1$. 
-	    	Then for any polynomial $P$, $\sigma(P, m, pq)=\sigma(P, m, p)\cdot \sigma(P, m, q)$. 
-	    \end{lemma}
+	    We first consider the case $n=pq$ where $\gcd(p, q)=1$, $p > 1$ and $q > 1$. 
+	    Observe that by Chinese Remainder Theorem, there is a bijection from $\bbN_{n}\to\bbN_{p}\to\bbN_{q}$ by $(x\pmod{n})\to(x\pmod{p}, x\pmod{q})$. 
+	    This also implies that there is a bijection from $S_n(P^m)$ to $(S_p(P^m), S_q(P^m))$ and therefore 
+	    $\sigma_n(P^m) = \sigma_p(P^m)\cdot \sigma_q(P^m)$. 
+	    From the problem condition, for $m > \log_2(n)$ we have $\sigma_n(P^m) = 1 = \sigma_p(P^m)\cdot \sigma_q(P^m)$. 
+	    On the other hand, $\sigma_p(P^0) = p$ and $\sigma_q(P^0)=q$. 
+	    This means we can choose $m_p=\min\{m:\sigma_p(P^m)=1\}$ and 
+	    $m_q=\min\{m:\sigma_q(P^m)=1\}$. 
+	    W.l.o.g. let $m_p\le m_q$.
+	    This means we have 
+	    \[
+	    \sigma_n(P^{m_p - 1})
+	    =\sigma_p(P^{m_p - 1})\cdot \sigma_q(P^{m_p - 1})
+	    \ge 2\cdot (\sigma_q(P^{m_p}) + 1)
+	    > 2\cdot \sigma_q(P^{m_p})
+	    =2\sigma_n(P^{m_p})
+	    \]
+	    where the inequality is due to $\sigma_p(P^{m_p - 1}) > \sigma_p(P^{m_p}) = 1$, 
+	    and $\sigma_p(P^{m_q - 1}) > \sigma_p(P^{m_q})$ due to the monotone strict decrease (before stabilizing). 
+	    By the problem condition, 
+	    however, we must have $2\sigma_n(P^{m_p}) - \sigma_n(P^{m_p - 1})\in \{0, 1\}$, 
+	    contradiction. 
+        
+        It then remains to consider $n=p^k$ for some odd prime $p$ and $k\ge 2$. 
+        Consider, now, $A_u = \{u, p + u, \cdots, p(p^{k-1}-1) + u\pmod{p^k}\}$, $u=0, 1, \cdots, p -1$, 
+        we see that by $x-y\mid P(x) - P(y)$ there exists $v\in \{0, \cdots, p - 1\}$ such that $P(A_u)\subseteq A_v$. 
+        We now start with the following lemma. 
+        
+        \begin{lemma}
+        	For each $u$, consider $v$ such that $P(A_u)\subseteq A_v$. 
+        	Then we have either $P(A_u) = A_v$ (i.e. $|P(A_u)| = p^{k-1}$), or $1\le |P(A_u)|\le p^{k-2}$. 
+        \end{lemma}
         
         \begin{proof}
-        	Consider the mapping $r: \bbN_{pq}\to \bbN_{p}\times \bbN_{q}$ by the following: 
-        	for each $x$ with $0\le x\le pq-1$, if $x\equiv y\pmod{p}$ and $x\equiv z\pmod{q}$ 
-        	then $r(x)=(y, z)$. Since $\gcd(p, q)=1$, this mapping is bijective via Chinese Remainder Theorem. 
-        	
-        	Now if $r(x)=(y, z)$, then $r(P^m(x)\pmod{pq})=(P^m(y)\pmod{p}, P^m(z)\pmod{q})$, since 
-        	$p\mid x-y$ implies $p\mid P^m(x) - P^m(y)$ (and similarly for $q$ and $z$). It then follows that 
+        	Expand $P(x) = \sum_{i=0}^n a_ix^i$ (where $n$ is the degree of $P$), 
+        	and define $Q(x) = \sum_{i=1}^n ia_ix^{i-1}$. 
+        	A quick computation yields that for any $b, \ell$ with $\ell\ge 1$ we have 
         	\[
-        	|\{P^m(x)\pmod{pq}: x\in\bbN\}|
-        	=|\{(P^m(y)\pmod{p}, P^m(z)\pmod{q}): y, z\in\bbN\}|
+        	P(u + bp^{\ell}) - P(u)
+        	=\sum_{i=1}^n a_i\sum_{j=1}^i \binom{i}{j}u^{i - j}(bp^{\ell})^j
+        	\equiv \sum_{i=1}^n bia_ip^{\ell} 
+        	=bp^{\ell}Q(u)\pmod{p^{\ell + 1}}
         	\]
-        	\[
-        	=|\{P^m(y)\pmod{p}: y\in\bbN\}|\cdot |\{ P^m(z)\pmod{q}: z\in\bbN\}|
-        	\]
-        	as desired. 
+        	If $p\nmid Q(u)$, then $p^k\nmid P(u + bp^{\ell}) - P(u)$ whenever $p^k\nmid bp^{\ell}$. 
+        	Extending this logic to any $u', u'+bp^{\ell}\in A_u$ we see that $P(u')$ takes different values in $A_v$ for all $u'\in A_u$, hence $|P(A_u)|=|A_u|=|A_v|$ 
+        	and therefore $P(A_u) = A_v$. 
+        	Conversely, if $p\mid Q(u)$, 
+        	then $p^k\mid P(u' + bp^{k-1}) - P(u')$ for all $u'\in A_u$. 
+        	Thus $P(A_u) = \{P(u'): u'=u, \cdots, p^{k-1} - p + u\}$, 
+        	which has at most $p^{k-2}$ elements. 
         \end{proof}
-    
-        Now if $n$ is divisible by at least two primes, it can be written as $n=pq$ with $1<p, q<n$. 
-        The problem condition implies that $\sigma(P, m, n)=1$ for some (sufficiently large) $n$, 
-        so $\sigma(P, m, p)=1=\sigma(P, m, q)=1$ for sufficiently large $m$. 
-        Let $m_p$ (respectively $m_q$) be the minimum index such that $\sigma(P, m, p)$ (respectively $\sigma(P, m, q)$) is 1; 
-        we have $m_p, m_q\ge 1$. 
-        W.l.o.g, also, that $m_p\le m_q$. 
-        Then by the lemma \ref{lemma_n8a} we have 
-        \[
-        \sigma(P, m_p, q) = \sigma(P, m_p, p)\cdot \sigma(P, m_p, q)
-        =\sigma(P, m_p, n)
-        =\lceil\frac{\sigma(P, m_p - 1, n)}{2}\rceil
-        \]\[
-        =\lceil\frac{\sigma(P, m_p - 1, p) \sigma(P, m_p - 1, q)}{2}\rceil
-        \]
-        By the minimality of $m_p$, $\sigma(P, m_p - 1, p)\ge 2$, 
-        and $\sigma(P, m_p - 1, q) > \sigma(P, m_p, q)$, so 
-        \[
-        \lceil\frac{\sigma(P, m_p - 1, p) \sigma(P, m_p - 1, q)}{2}\rceil
-        \ge \lceil\frac{2( \sigma(P, m_p, q) + 1)}{2}\rceil
-        \ge \sigma(P, m_p, q) + 1
-        \]
-        i.e. a contradiction. 
-        This effectively reduces $n$ to the cases of prime powers. 
-        For $n=2^k$, the polynomial $P(x)=2x$ would do the job; 
-        for $n=p$ an odd prime number, 
-        consider 
-        \[
-        P(x) = \sum_{i=0}^{p-1} \lfloor \frac{i}{2}\rfloor (1 - (x-i)^{p-1})
-        \]
-        which by Fermat's little theorem satisfies $P(x) \equiv \lfloor \frac{x}{2}\rfloor$ for $x=0, \cdots, p-1$. 
-        It then follows that the set $\{P^m(x)\}$ for $x=0, \cdots, p-1$ is $0, \cdots, \lfloor \frac{p-1}{2^m}\rfloor$ for each $m$, which contains $1 + \lfloor\frac{p-1}{2^m}\rfloor = \lceil \frac{p}{2^m}\rfloor$ distinct entries. 
         
-        It then remains to consider $n=p^k$ for some odd prime $p$ and $k\ge 2$. (TODO: this is the harder part.)
+        Now we state a related corollary. Denote the following quantities (as usual all quantities in mod $p^k$)
+        \[
+        R_m = \{u\in \{0, 1, \cdots, p-1\}: u'\in\text{Range}(P^m), \forall u'\in u\}
+        \qquad 
+        \ell_m = |R_m|
+        \]\[
+        s_m = |\text{Range}(P^m)\pmod{p^k}\backslash \cup_{u\in R_m} A_u|
+        \]
+        One may deduce that $|\text{Range}(P^m)\pmod{p^k}|$ is $\ell_m p^{k-1} + s_m$. 
+        We now show that $t_m\triangleq \ell_m p^{k-2} + s_m$ cannot increase w.r.t. $m$. 
+        Indeed, let $a$ and $b$ be such that among the elements $A_u\in R_m$, 
+        $a$ of them have $P(A_u)=A_v$ for some $v$, 
+        and $b$ of them have $|P(A_u)|\le p^{k-2}$. 
+        Then we have $\ell_{m+1}\le a$ and $s_{m+1}\le bp^{k-2} + s_{m}$ and therefore 
+        \[
+        t_{m+1} \le ap^{k-2} + bp^{k-2} + s_m =t_m
+        \]
+        as desired. 
+        (We note that it's possible that some of the $bp^{k-2} + s_{m}$ elements might form a complete $A_v$, 
+        but that will mean a decrease of $s_{m+1}$ by $p^k$ and increase of $\ell_{m+1}$ by 1, which will not increase $t_{m+1}$). 
+        In particular, $t_0 = p(p^{k-2}) = p^{k-1}$, so $t_i\le p^{k-1}$. 
+        
+        Now, by the problem condition, 
+        $\lceil \frac{p^k}{2^m}\rceil = \ell_mp^{k-1} + s_m$. 
+        We see that for each number $t$ with $0\le t\le p^k$, with the exception of 
+        $t = p^{k-1}$ (with $(0, p^{k-1})$ or $(1, 0)$), 
+        the other $t$ has at most one representation of $t = ap^{k-1}+b$ with $(a, b)$ nonnegative integers,
+        such that $ap^{k-2}+b\le p^{k-1}$. 
+        
+        Suppose we're given such $P$; we see that by setting $m=1$, we have $\lceil \frac{p^k}{2}\rceil
+        =\frac{p-1}{2}p^{k-1} + \lceil \frac{p^{k-1}}{2}\rceil
+        $, i.e. $\ell_1 = \frac{p-1}{2}$, $s_1 = \lceil \frac{p^{k-1}}{2}\rceil$. 
+        We first see that under this condition, 
+        there must be at least $\frac{p-1}{2}$ numbers $u\in \{0, \cdots, p-1\}$ such that 
+        $|P(A_u)| = p^{k-1}$; let these $u$'s be $U_1$. 
+        Also, the $s_1$ residues must come from at least 
+        $\lceil \frac{s_1}{p^{k-2}}\rceil = \frac{p+1}{2}$ other $A_u$'s; 
+        let these $u$'s be $V_1$. 
+        Since $\frac{p-1}{2} + \frac{p+1}{2} = p$, the equality must then hold. 
+        It follows that: 
+        \begin{itemize}
+        	\item The $\frac{p-1}{2}$ numbers $u$ in $U_1$ must have $P(A_u)$ occupying different $A_v$'s 
+        	(in other words, $u\not\equiv u'\in U_1$ means $p\nmid u-u'$). 
+        	
+        	\item Consider the set $W=\cup_{u\in U_1} P(A_u)$. 
+        	If $P(A_u)\subseteq W$ for soe $u\in V_1$, 
+        	then $s_1\le p^{k-2}(|V_1|-1)=p^{k-2}(\frac{p-1}{2}) < \lceil \frac{p^{k-1}}{2}\rceil$, 
+        	which is impossible. 
+        	It then follows that 
+        	each of the $\frac{p-1}{2}$ sets $P(A_u): u\in U_1$, and also the single set $\cup_{u\in V_1} P(A_u)$, are disjoint. 
+        \end{itemize}
+        
+        Since $|\{P^m\pmod{p^k}\}|=1$ for all $m> k\log_2 p$, 
+        this also means $|\{P^m\pmod{p}\}|=1$ for all $m> k\log_2 p$. 
+        It then follows that there is a unique $u_0$ such that $P(u_0)\equiv u_0\pmod{p}$, 
+        which then also means that $|P(A_{u_0})|\le p^{k-2}$ 
+        (otherwise, $P(A_{u_0})=A_{u_0}$ and then $|\{P^m\pmod{p^k}\}|=p^{k-1}$ for all $m$, contradiction). 
+        In addition, there must exist another $u_0'\neq u_0\pmod{p}$ such that $P(u_0')\equiv u_0$ 
+        (otherwise, for all $m$ $P^m\pmod{p}$ takes at least two values). 
+        Since $u_0\equiv P(u_0)\not\equiv u\pmod{p}$ for all $u\in U_1$, 
+        it then follows that this $u_0'$ must be in $V_1$. 
+        This means that: 
+        \[
+        |A_{u_0}\cap \{P(x)\pmod{p^k}\}|
+        \ge \lceil \frac{p^{k-1}}{2}\rceil - \frac{p-3}{2}(p^{k-2}) = \lceil \frac{3p^{k-2}}{2}\rceil
+        \]
+        By the property of $u_0$, however, we see that these $|A_{u_0}\cap \{P(x)\pmod{p^k}\}|$, 
+        when applied $P$, will only produce at most $p^{k-2}$ distinct residues. 
+        It then follows that the $s_1$ $u$'s will produce at most $s_1 - (\lceil \frac{3p^{k-2}}{2}\rceil - p^{k-2})
+        =s_1 - \lceil \frac{p^{k-2}}{2}\rceil$ when applied $P$ once more. 
+        This gives 
+        \[
+        t_2 \le t_1 - \lceil \frac{p^{k-2}}{2}\rceil 
+        = p^{k-2}(\frac{p-1}{2}) + \lceil \frac{p^{k-1}}{2}\rceil - \lceil \frac{p^{k-2}}{2}\rceil 
+        =p^{k-1} - p^{k-2}
+        =p^{k-2}(p - 1)
+        \]
+        Consider, now, the following two cases, each of which we provide a contradiction. 
+        \begin{itemize}
+        	\item For some $m$ we have $\lceil \frac{p^k}{2^m}\rceil = ap^{k-1}+b$ with $a\ge 2$ even. 
+        	Then by the $\ell_{m}, s_m$ uniqueness, 
+        	$\ell_m = a$ and $s_m = b$. 
+        	Since $a$ is even, 
+        	we have $\ell_{m+1} = \frac{a}{2}$ and $s_{m+1}=\lceil \frac{b}{2}\rceil$, 
+        	meaning that 
+        	$t_{m+1} \le \lceil \frac{t_m}{2}\rceil \le \lceil \frac{p^{k-1}}{2}\rceil$. 
+        	Now consider the minimal $m_1$ with $\lceil \frac{p^k}{2^{m_1}} < p^{k-1}$. 
+        	Since $p$ is odd, 
+        	we have $\ell_{m_1}=0$ and 
+        	$\lceil\frac{p^{k-1}}{2}\rceil\le s_{m_1} < p^{k-1}$.  
+        	Since $t_{m+1} \le \lceil \frac{p^{k-1}}{2}\rceil$, 
+        	we have $s_{m_1}=\lceil\frac{p^{k-1}}{2}\rceil$. 
+        	Considering step $m_1 - 1$, however, 
+        	we get $(\ell, s)=(1, 0), (1, 1), (0, p^{k-1})$, with 
+        	$t_{m_1}$ being $p^{k-2}, p^{k-1}$, or $p^{k-2} + 1$, 
+        	none of which can be equal to $\lceil \frac{p^{k-1}}{2}\rceil$ and therefore violates the monotonicity. 
+        	
+        	\item We now have $\lceil \frac{p^k}{2^m}\rceil = ap^{k-1}+b$ where either $a$ is odd or $a=0$. 
+        	For this to happen, by considering $a = \lfloor \frac{p}{2^m}\rfloor$ we have $p=2^q-1$ for some $q$. 
+        	Now in this case we have 
+        	$\lceil \frac{p^k}{2^m}\rceil = (2^{q-2} - 1)p^{k-1}+\lceil\frac{3p^{k-2}}{4}\rceil $, 
+        	resulting in 
+        	\[t_2 = (2^{q-2} - 1)p^{k-2} + \lceil\frac{3p^{k-1}}{4}\rceil 
+        	= (\frac{p-3}{4})p^{k-2} + \lceil\frac{3p^{k-1}}{4}\rceil > p^{k-2}(p - 1),
+        	\]
+        	which contradicts $t_2\le p^{k-2}(p - 1)$ eariler on. 
+        \end{itemize}
          
 	\end{enumerate}
 \end{document}

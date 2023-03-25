@@ -1,6 +1,6 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
-\usepackage{mathrsfs}
+\usepackage{amsmath, amssymb, amsthm, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs, prettyref}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
 %\setlength{\topmargin}{0in}
@@ -13,7 +13,10 @@
 \newcommand{\lra}{\leftrightarrow}
 \newcommand{\bbR}{\mathbb{R}}
 \newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
 \newcommand{\ord}{\text{ord}}
+
+\newtheorem{lemma}{Lemma}
 
 \title{Solution to IMO 2017 shortlisted problems.}
 \author{Anzo Teh}
@@ -27,9 +30,6 @@
 \iffalse
 TODO: 
 
-
-A6: 
-Let $\mathbb{R}$ be the set of real numbers. Determine all functions $f: \mathbb{R} \rightarrow \mathbb{R}$ such that, for any real numbers $x$ and $y$,\[ f(f(x)f(y)) + f(x+y) = f(xy). \]
 
 C4: 
 An integer $N \ge 2$ is given. A collection of $N(N + 1)$ soccer players, no two of whom are of the same height, stand in a row. Sir Alex wants to remove $N(N - 1)$ players from this row leaving a new row of $2N$ players in which the following $N$ conditions hold:
@@ -167,6 +167,106 @@ $(1+\frac{x}{a_1})(1+\frac{x}{a_2})\cdots (1+\frac{x}{a_n}) \ge (x+1)^{\frac{1}{
 	\frac{n^2}{2n(n-1)}\cdot \frac{-1}{n-1}=-\frac{n}{2(n-1)^2} > -\frac{1}{n}
 	\]
 	as desired. 
+	
+	\item[\textbf{A6}] (IMO 2) 
+	Let $\mathbb{R}$ be the set of real numbers. Determine all functions $f: \mathbb{R} \rightarrow \mathbb{R}$ such that, for any real numbers $x$ and $y$,\[ f(f(x)f(y)) + f(x+y) = f(xy). \]
+	
+	\textbf{Answer.} 
+	$0, x - 1, 1 - x$. 
+	
+	\textbf{Solution.} 
+	We first see that these functions work: we get $0, xy - 1, 1 - xy$ on both sides for each of the cases. 
+	It then remains to show that these are the only functions that work. 
+	
+	First, we note that substituting $x=y=0$ means $f(f(0)^2)=0$, so 0 is a value of $f$. 
+	Now let $x_0$ be any number such that $f(x_0)=0$. 
+	Then substituting $x=0$ gives $f(0) + f(x_0 + y) = f(x_0y)$. 
+	Suppose, now, $x_0 \neq 1$. 
+	Then there exists a unique $y$ such that $x_0y = x_0 + y$ (i.e. $y = \frac{x_0}{x_0 - 1}$). 
+	This means $f(0) = 0$. 
+	Now, substituting $x=0$ gives $f(y) = 0$ for all $y$. 
+	
+	It then remains to exhibit the case where $x_0$ can only be 1. 
+	That is $f(x)=0$ if and only if $x = 1$. 
+	This means $f(0) + f(1 + y) = f(y)$ for all $y$. 
+	In particular, recall that $f(f(0)^2) = 0$, then $f(0)^2 = 1$, or $f(0)=\pm 1$. 
+	Given also that if $f$ is a solution then so is $-f$, 
+	it suffices to show the case $f(0) = -1$. 
+	In particular, $f(1 + y) = 1 + f(y)$ for all $y$, 
+	or simply, 
+	\begin{equation}\label{eq:a6_1}
+		f(y + n) = n + f(y), \forall n\in \mathbb{Z}
+	\end{equation}
+    In particular, we have $f(y) = n \lra y = n + 1$ whenever $n$ is an integer. 
+    We now have the following equation: for each integer $n$: 
+    \[
+    (x - 1)(y - 1) = n
+    \lra xy - (x + y) = n - 1
+    \lra f(xy) - f(x + y) = n - 1
+    \]\[
+    \lra f(f(x)f(y)) = n - 1
+    \lra f(x)f(y) = n
+    \]
+    In other words for all nonzero integer $n$ and $x_1, x_2\neq 1$, 
+    by substituting $x = x_2$ and $y = \frac{x_1}{x_1 - 1}$, 
+    \begin{equation}\label{eq:a6_2}
+    	\frac{x_2-1}{x_1-1} = n
+    	\lra \frac{f(x_2)}{f(x_1)} = n
+    \end{equation}
+    In particular, $f(2 - x) = -f(x)$ by considering $n = -1$, hence $f(-x) = -f(x)-2$. 
+    
+    Now in view of \prettyref{eq:a6_2}, we consider 
+    substituting $2-x, 2-y$ into the original equation, we get 
+    \begin{align}
+    	f(f(x)f(y))  + (2 - f(x + y))
+    	&=f(f(2 - x)f(2 - y)) + f(4 - (x + y))
+    	\nonumber\\
+    	&=f((2 - x)(2 - y))
+    	\nonumber\\
+    	&=f(xy - 2(x + y)) + 4
+    \end{align}
+    so comparing the original equation (subtracting one with the other) gives 
+    \begin{equation}\label{eq:a6_4}
+    2f(x + y) = f(xy) - f(xy - 2(x + y)) - 2
+    \end{equation}
+    We now show that for all $x, y\in\bbR$ we have 
+    \begin{equation}\label{eq:a6_5}
+    	f(x + y) - f(x) = f(y) + 1
+    \end{equation}
+    Indeed, fix $d = 2(x + y)$ into \prettyref{eq:a6_4} gives 
+    $2(f(d) + 1) = f(X) - f(X - 2d)$ for all $X\ge -\frac{d^2}{4}$. 
+    For $X$ under this range, take $d' = d + k$ for some integer $k$ such that 
+    $X \ge - \frac{(d')^2}{4}$, then we have 
+    \[
+    2(f(d) + 1)
+    =2(f(d') + 1 + (d - d'))
+    =f(X) - f(X - 2d') + 2(d - d')
+    =f(X) - f(X - 2d)
+    \]
+    using $f(X - 2d) = f(X - 2d') + 2(d - d')$ given that $d - d'$ is an integer. 
+    Finally, plugging $n = 2$ into \prettyref{eq:a6_2} we get $f(2d) = 2f(d) + 1$, 
+    and therefore 
+    $f(X) - f(X - 2d) = 2(f(d) + 1) = f(2d) + 1$, so substituting $x = X-2d$ and $y=2d$ gives 
+    $f(x + y) = f(x) + f(y) + 1$, as desired. 
+    
+    We are now in a position to show that $f$ is injective. 
+    Indeed, if $f(x_0) = f(x_1)$ then for all $y$ we have 
+    \[f(x_0 + y)=f(x_0) + f(y) + 1=f(x_1) + f(y) + 1=f(x_1 + y)
+    \]
+    Therefore, for all real $y$ we have 
+    \[
+    f(x_0y) = f(f(x_0)f(y)) + f(x_0y) = f(f(x_1)f(y)) + f(x_1y) = f(x_1y)
+    \]
+    If $x_0=0$ then $f(x_0)=f(0)=-1=f(x_1)$, and by \prettyref{eq:a6_1} this means $x_1=0$ too, so $x_1=0$. 
+    If neither is 0, pick $y=\frac{1}{x_0}$ we get $0 = f(1) = f(\frac{x_1}{x_0})$, forcing $x_1=x_0$. 
+    
+    Finally, for each $x, y\in\bbR$, notice that $xy - (x + y) = (x - 1)(y - 1) - 1$. Therefore 
+    by \prettyref{eq:a6_5}, 
+    \[
+    f(f(x)f(y)) = f(xy) - f(x + y) = f(xy - (x + y)) + 1 = f((x-1)(y-1))
+    \]
+    Thus by injectivity of $f$, $f(x)f(y) = (x - 1)(y - 1)$. 
+    Given also that $f(0)=-1$, we have $f(x)=x-1$, as desired. 
 	
 	\item[\textbf{A8}]
 	A function $f:\mathbb{R} \to \mathbb{R}$ has the following property:
@@ -390,11 +490,26 @@ Summarizing above, we will have $\sum_{i=1}^8\dbinom{n}{i}$ numbers represented 
 	
 	\item[\textbf{G7}] A convex quadrilateral $ABCD$ has an inscribed circle with center $I$. Let $I_a, I_b, I_c$ and $I_d$ be the incenters of the triangles $DAB, ABC, BCD$ and $CDA$, respectively. Suppose that the common external tangents of the circles $AI_bI_d$ and $CI_bI_d$ meet at $X$, and the common external tangents of the circles $BI_aI_c$ and $DI_aI_c$ meet at $Y$. Prove that $\angle{XIY}=90^{\circ}$.
 	
-	\textbf{Solution.} We first notice two lemmas: 
-	\begin{itemize}
-		\item $I_BI_D$ is perpendicular to $AC$. Indeed, the fact that $ABCD$ has an inscribed circle means that $AB+CD=AD+BC$ (readers can verify this by considering the point-of-tangency of the incircle with the four sides, and by considering the power of point from vertices $A, B, C, D$ to the incircle). Now, if $T_B$ and $T_D$ are the point of tangency of the incircles $ABC$ and $ACD$ then we have $AT_B-T_BC=AB-BC=AD-DC=AT_D-T_DC$. This means $T_B$ and $T_D$ coincides, and the lemma follows. Similarly $I_AI_C$ is perpendicular to $BD$. 
-		\item Let $O_A$ and $O_C$ to be the circumcenters of $AI_BI_D$ and $CI_BI_D$, respectively. Then they lie on the lines $AI, CI$, respectively. Indeed, since $AC$ is perpendicular to $I_BI_D$, $AO_A$ and $AC$ are symmetric about the internal angle bisector of $\angle I_BAI_D$. This means that $I_BAC=I_DAA_O$ and $I_DAC=I_BAA_O$. Also, $\angle BAI=\angle DAI$ by the property of inscribed circle, so $\angle I_BAI+\angle I_BAC=\angle I_BAI+\angle I_BAB=\angle BAI=\angle DAI=\angle I_DAI+\angle I_DAD=\angle I_DAI+\angle I_DAC$, where we also used the fact that $AI_B$ bisects $\angle BAC$ and $AI_D$ bisects $\angle CAD$. Since $\angle I_BAI_D=\angle I_BAI+\angle I_DAI=\angle I_BAC+\angle I_DAC$, the condition $\angle I_BAI=\angle I_DAC$ and $\angle I_DAI=\angle I_BAC$ must hold true, hence proving that $O_A$ lies on $AI$. Similarly, $O_C$ lies on $CI$. 
-	\end{itemize}
+	\textbf{Solution.} We first notice the following two lemmas. 
+	\begin{lemma}
+		$I_BI_D\perp AC$ and $I_AI_C\perp BD$. 
+	\end{lemma}
+    
+    \begin{proof}
+    	Indeed, the fact that $ABCD$ has an inscribed circle means that $AB+CD=AD+BC$ (readers can verify this by considering the point-of-tangency of the incircle with the four sides, and by considering the power of point from vertices $A, B, C, D$ to the incircle). Now, if $T_B$ and $T_D$ are the point of tangency of the incircles $ABC$ and $ACD$ then we have $AT_B-T_BC=AB-BC=AD-DC=AT_D-T_DC$. This means $T_B$ and $T_D$ coincides, and the lemma follows.
+    	
+    	The proof for $I_AI_C$ perpendicular to $BD$ follows similarly. 
+    \end{proof}
+    
+    \begin{lemma}
+    	Let $O_A, O_C$ be the circumcenters of $AI_BI_D$ and $CI_BI_D$, respectively. 
+    	Then $O_A$ lies on $AI$ and $O_C$ lies on $C_I$. 
+    \end{lemma}
+    
+    \begin{proof}
+    	Indeed, since $AC$ is perpendicular to $I_BI_D$, $AO_A$ and $AC$ are symmetric about the internal angle bisector of $\angle I_BAI_D$. This means that $I_BAC=I_DAA_O$ and $I_DAC=I_BAA_O$. Also, $\angle BAI=\angle DAI$ by the property of inscribed circle, so $\angle I_BAI+\angle I_BAC=\angle I_BAI+\angle I_BAB=\angle BAI=\angle DAI=\angle I_DAI+\angle I_DAD=\angle I_DAI+\angle I_DAC$, where we also used the fact that $AI_B$ bisects $\angle BAC$ and $AI_D$ bisects $\angle CAD$. Since $\angle I_BAI_D=\angle I_BAI+\angle I_DAI=\angle I_BAC+\angle I_DAC$, the condition $\angle I_BAI=\angle I_DAC$ and $\angle I_DAI=\angle I_BAC$ must hold true, hence proving that $O_A$ lies on $AI$. Similarly, $O_C$ lies on $CI$. 
+    \end{proof}
+	
     With these, we first notice that $I_BI_D$ is the radical axis of the circles $AI_BI_D$ and $CI_BI_D$, so $O_AO_C$ is perpendicular to $I_BI_C$ too. This gives $O_AO_C\parallel AC$, so $\frac{IO_A}{IO_C}=\frac{AO_A}{CO_C}$ (notice that the last ratio is the ratio of the radii of the circles $AI_BI_D$ and $CI_BI_D$). Since $X$ is the intersection of the common external tangents of the two circles, it lies on $O_AO_C$ and satisfies $\frac{XO_A}{XO_C}=\frac{AO_A}{CO_C}=\frac{IO_A}{IO_C}$. Thus by the angle bisector theorem, $XI$ is the external angle bisector of $\angle O_AIO_C$, also the external angle biector of $AIC$. Similarly, $YI$ is the external angle bisector of $BID$. 
     
     It then remains to prove that the external angle bisectors of $AIC$ and $BID$ are perpendicular to each other. Let the inscribed circle of $ABCD$ to be tangent to $AB, BC, CD, DA$ to points $U, V, W, Z$, respectively. Then $AI$ is perpendicular to $UZ$ and $CI$ is perpendicular to $VW$. Thus the external angle bisector of $AIC$ is also an angle bisector of $UZ$ and $VW$. Similarly the external angle bisector of $BID$ is an angle bisector of $UV$ and $ZW$. As $UVWZ$ is cyclic, these angle bisectors are perpendicular to each other, hence the result. 
@@ -500,15 +615,18 @@ Summarizing above, we will have $\sum_{i=1}^8\dbinom{n}{i}$ numbers represented 
     Here, if $p>3$, then $(p-q)^{2q} < (p-q)^{p+q} <= D$. If $(p+q)^{2q}>=D+1$ then we have $(p+q)^{2q}\ge (p+q)^{p-q}(p-q)^{p+q}$, a.k.a. $(p+q)^{3q-p}\ge (p-q)^{p+q}$ which means $3q\ge p$, hence $p\le 5$. For $p=5$ we have $7\ge 3^{7}$, which is absurd. Hence $(p+q)^{2q} <= D$ in the primes we are considering, and with $(p-q)^{2q}<D$ we will need $(p+q)^{2q}=(p-q)^{2q}$, contradiction since this implies $p+q=p-q$. 
     
     \emph{Case 2.} $q>2$. 
-    Consider this: 
-    
-    \emph{Lemma.} If $p$ and $q$ are odd primes and $r$ is an odd prime with $r\mid (p+q)^{2q}-(p-q)^{2q}$, then either $r=p, r=q$m or $r\equiv 1\pmod{q}$. 
-    
-    Proof: otherwise, $\gcd(r-1, 2q)=2$ so there's $k$ such that $2qk\equiv 2\pmod{r}$, i.e. 
-    \[
-    (p+q)^2\equiv (p+q)^{2qk}\equiv  (p-q)^{2qk}\equiv (p-q)^2
-    \]
-    so $r\mid 4pq$. So $r=p$ or $q$ here. $\square$ 
+    We consider this. 
+    \begin{lemma}
+    	If $p$ and $q$ are odd primes and $r$ is an odd prime with $r\mid (p+q)^{2q}-(p-q)^{2q}$, then either $r\in\{p, q\}$ or $r\equiv 1\pmod{q}$. 
+    \end{lemma}
+
+    \begin{proof}
+    	Otherwise, $\gcd(r-1, 2q)=2$ so there's $k$ such that $2qk\equiv 2\pmod{r}$, i.e. 
+    	\[
+    	(p+q)^2\equiv (p+q)^{2qk}\equiv  (p-q)^{2qk}\equiv (p-q)^2
+    	\]
+    	so $r\mid 4pq$. So $r=p$ or $q$ here. 
+    \end{proof}
     
     Now we see that our $D$ has only prime divisors that could be $p, q,$ or $r=qk+1$ for some $k$. 
     If $p\mid D$ then 
