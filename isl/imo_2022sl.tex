@@ -1,0 +1,750 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, float}
+\usepackage{mathrsfs,amsthm}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+	\newcommand{\la}{\leftarrow}
+	\newcommand{\lra}{\leftrightarrow}
+	\newcommand{\bbN}{{\mathbb N}}
+	\newcommand{\bbZ}{{\mathbb Z}}
+	\newcommand{\bbQ}{{\mathbb Q}}
+	\newcommand{\bbR}{{\mathbb R}}
+	\newcommand{\bbC}{{\mathbb C}}
+	\newcommand{\bbH}{{\mathbb H}}
+	\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+	\newcommand{\ra}{\rightarrow}
+	\newcommand{\Span}{\mathrm{span}}
+	\newcommand{\scrP}{\mathscr{P}}
+	\newcommand{\rank}{\mathrm{rank}}
+	\newcommand{\nullity}{\mathrm{nullity}}
+	\newcommand{\Col}{\mathrm{Col}}
+	\newcommand{\Row}{\mathrm{Row}}
+	\newcommand{\tr}{\mathrm{tr}}
+	\newcommand{\ol}{\overline}
+	\newcommand{\norm}[1]{||#1||}
+	\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+	\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+	\newcommand{\Ind}{\mathrm{Ind}}
+	\newcommand{\Res}{\mathrm{Res}}
+	\newcommand{\End}{\mathrm{End}}
+	\newcommand{\cl}{\mathrm{cl}}
+	\newcommand{\code}[1]{\texttt{#1}}
+	\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+	\newcommand{\<}{\langle}
+	\renewcommand{\>}{\rangle}
+	\newcommand{\qubits}[1]{|{#1}\rangle}
+	\newcommand{\powset}{\mathcal{P}}
+	\newcommand{\dsum}{\displaystyle\sum}
+	\newcommand{\dprod}{\displaystyle\prod}
+	
+	\newtheorem{lemma}{Lemma}
+	
+	\section*{Algebra}
+	\begin{enumerate}
+		\item [A1.] 
+		Let $(a_n)_{n\ge 1}$ be a sequence of positive real numbers with the property that 
+		\[(a_{n+1})^2 + a_na_{n+2} \le a_n + a_{n+2}\]
+		for all positive integers $n$. Show that $a_{2022}\le 1$.
+		
+		\textbf{Solution.} 
+		We show that if $a_n > 1$, then $n \le 1$. 
+		
+		Suppose that $a_n > 1$ for some $n > 0$. 
+		Then $(a_{n-1} - 1)(a_{n + 1} - 1) < 0$ so exactly one of the following scenarios happen: 
+		$a_{n - 1} > 1$ or $a_{n + 1} > 1$. In either case, this implies consecutive numbers $a_m, a_{m + 1}$ that are both greater than 1. 
+		On one hand we have 
+		\[
+		0 \ge (a_{m + 1}^2 - 1) + (a_m - 1)(a_{m + 2} - 1) \ge   (a_{m + 1}^2 - 1) + (a_m - 1)(-1) = a_{m + 1}^2 - a_m
+		\]
+		since $a_{m + 2}\ge 0$ and $a_m > 1$. This gives $a_{m + 1} < a_{m + 1}^2 \le a_m$. 
+		In a similar way if $m \ge 1$ then $a_m < a_{m + 1}$. 
+		But since $a_{m} < a_{m + 1}$ and $a_{m + 1} < a_m$ cannot happen simultaneously, 
+		we have $m=0$, which proves our claim. 
+		
+		\item[A2.]
+		Let $k \ge 2$ be an integer. 
+		Find the smallest integer $n \ge k + 1$ with the property that there exist a set of $n$ distinct real numbers such that each of its elements can be written as a sum of $k$ other distinct elements of the set.
+		
+		\textbf{Answer.} $n = k + 4$. 
+		
+		\textbf{Solution.} 
+		We sort the numbers $x_1 < \cdots < x_n$. 
+		To show that $n\le k + 3$ is not enough, by considering the sum of $k$ numbers excluding $x_1$ (and respectively, $x_n$), 
+		we have 
+		\[
+		x_1 \ge x_2 + \cdots + x_{k + 1}
+		\qquad 
+		x_n \le x_{n - k} + \cdots + x_{n - 1}
+		\]
+		i.e. $0 < x_n - x_1 \le (x_{n - k} + \cdots + x_{n - 1}) - (x_2 + \cdots + x_{k + 1})$. 
+		The last quantity is nonpositive if $n\le k + 2$, 
+		and if $n = k + 3$ then it becomes $x_{k + 2} - x_2 < x_n - x_1$, which is also impossible. 
+		
+		To give such a construction, we consider the following: 
+		for $k$ even, take $(\pm 1, \cdots, \pm \frac{k}{2} + 2)$, 
+		and for $k$ odd, take $(0, \pm 1, \cdots, \pm \frac{k - 1}{2} + 2)$. 
+		To see why these work, we note that the case where $k=2$ and $n=6$ is obvious; 
+		to go from $k$ to $k+2$ for $k$ even, 
+		for all numbers not in the form $\pm \frac{k}{2} + 3$ we just have to add $( \frac{k}{2} + 3, -( \frac{k}{2} + 3))$ to the summands on top of the existing ones; 
+		for those in the form $\frac{k}{2} + 3$, we can do 
+		$(1, \cdots, \frac{k}{2} + 2, -2, \cdots, -(\frac{k}{2} + 1))$, 
+		and proced similarly for $-(\frac{k}{2} + 3)$. 
+		Finally, to go from $k$ to $k+1$ to $k$ even, 
+		for all nonzero numbers simply add the newly added member 0 to the summand; 
+		for 0, take $1, 2, -3, (4, -4), \cdots, (\frac{k+3}{2}, \frac{-k-3}{2})$. 
+		
+		\item[A3.] (IMO 2)
+		Let $\mathbb{R}^+$ denote the set of positive real numbers. Find all functions $f: \mathbb{R}^+ \to \mathbb{R}^+$ such that for each $x \in \mathbb{R}^+$, there is exactly one $y \in \mathbb{R}^+$ satisfying$$xf(y)+yf(x) \leq 2$$
+		
+		\textbf{Answer.} The only such function is $f(x) = \frac 1x$, where the `matching' $y$ for each $x$ is $y = x$. 
+		
+		\textbf{Solution.} 
+		A quick note that the function works: when $x=y$ we get LHS=2 exactly; 
+		when $x\neq y$ we have $\frac{x}{y}+\frac{y}{x} = 2 + \frac{(x-y)^2}{xy} > 2$. 
+		
+		We now show that for each $x$, the $y$ that satisfies the desired inequality must have $y = x$. 
+		Indeed, if $x\neq y$ are such that $xf(y)+yf(x) \leq 2$, 
+		then $f(x) > \frac 1x$ and $f(y) > \frac 1y$. 
+		However, 
+		\[
+		xf(y)+yf(x) > \frac xy + \frac yx > 2
+		\]
+		whenever $x\neq y$, a contradiction. 
+		
+		Thus we have $xf(x)\le 1$ for all $x$, or $f(x)\le \frac 1x$. 
+		We show that equality has to hold here. 
+		Indeed, fix an $x$ and for each $y\neq x$ we have 
+		\[
+		2 < xf(y) + yf(x) \le \frac xy + yf(x)
+		\]
+		I.e. $f(x) > \frac{2y - x}{y^2}$ for each $y > x$. 
+		The threshold $\frac{2y - x}{y^2}$ is continuous in $y$ (in the neighbourhood of $x$) and we consider the limit 
+		$\lim_{y\to x^+} \frac{2y - x}{y^2} = \frac 1x$, 
+		showing that $f(x)\ge \frac 1x$ must hold. 
+		
+		\item[A4.]
+		Let $n \ge 3$ be an integer, and let $x_1, \cdots , x_n$ be real numbers in the interval $[0, 1]$. 
+		Let $s=x_1+ \cdots +x_n$, and assume that $s\ge 3$. 
+		Prove that there exist integers $i$ and $j$ with $1\ge i < j\le n$ such that
+		$2^{j - i}x_ix_j > 2^{s - 3}$.
+		
+		\item[A6.]
+		Let $\bbR$ be the set of all real numbers. 
+		Denote by $\mathcal{F}$ the set of all functions $f: \bbR\to\bbR$ such that 
+		\[
+		f(x+f(y)) = f(x) + f(y)
+		\]
+		for every $x, y\in\bbR$. 
+		Find all rational numbers $q$ such that for every function $f\in\mathcal{F}$, 
+		there exists some $z\in\bbR$ satisfying $f(z)=qz$. 
+		
+		\textbf{Answer.}
+		All $q$ in the form $\{\frac{k+1}{k}, \forall k\in\bbZ\backslash \{0\}\}$. 
+		
+		\textbf{Solution.}
+		Consider any fixed $f$. If $f(0)=0$, then any rational $q$ works for that $f$. 
+		Therefore we assume that $f(0)\triangleq m \neq 0$, 
+		and plugging $x=km$ and $y=0$ gives us $f((k + 1)m) = f(km) + m$, for any integer $k$. 
+		This relation gives us that $f(km) = f(0) + km = (k + 1)m$, 
+		which means $q = \frac{k + 1}{k}$ is fulfilled by this $f$ whenever $k\neq 0$. 
+		It then follows that $\{\frac{k+1}{k}, \forall k\in\bbZ\backslash \{0\}\}$ works. 
+		
+		To show that there is no other solution, 
+		it suffices to pick any $q$ that does not have the form $\frac{k+1}{k}$ 
+		and a function $f$ such that $f(z)\neq qz$ for any real $z$. 
+		Consider the following (rather pathologically constructed) function template $f$: 
+		\[
+		f(0) = 1;\qquad  f(x)\in \bbZ, \forall x\in (0, 1); \qquad 
+		f(x + 1) = f(x) + 1, \forall x\in\bbR
+		\]
+		Then since $f(y)$ takes only integer values and our construction implies $f(x + k)=f(x) + k$ for all integers $k$, 
+		the condition for $f$ is fulfilled. 
+		In other words, it then suffices to consider all $z$ and $f(z)$ such that $z$ is a rational. 
+		Notice also that $f(n) = n + 1$ for all integers $n$ and $\frac{n+1}{n}\neq q$ by our assumption. 
+		
+		To continue with the construction, we note that we are free to determine the values of $f(x)$ for all $x\in (0, 1)$, 
+		as long as it is an integer. Now let $q=\frac{r}{s}$ with $s > 0$ and $\gcd(r, s)=1$. 
+		Since $q$ is not in our claimed form, $|r - s|\neq 1$. 
+		Now we have $f(x + n) = f(x) + n$, so we need the ratio $\frac{f(x) + n}{x + n}\neq \frac{r}{s}$ 
+		for all integers $n$. 
+		In other words we are looking at $f(x)\neq \frac{r}{s}\cdot x + n(\frac{r}{s} - 1)$. 
+		It then suffices to show that $\mathcal{F}\triangleq \{\frac{r}{s}\cdot x + n(\frac{r}{s} - 1): n\in\bbZ\}$ cannot contain all integers. 
+		Indeed, by partitioning the numbers in $\bbR$ according to their fractional part 
+		(so that two numbers are in the same class if and only if their difference is an integer), 
+		the numbers $\frac{r}{s}\cdot x + n(\frac{r}{s} - 1)$ that are an integer must have 
+		$n(\frac{r}{s} - 1)$ in the same class. 
+		Since $\gcd(r, s) = 1$, it then follows that the corresponding $n$'s are congruent mod $s$, 
+		and the attainable integers in $\mathcal{F}$ has to be congruent modulo $|r - s|$. 
+		Thus such example of $f(x)$ can be constructed since $|r-s|\neq 1$. 
+		Since this works for all $x\in (0, 1)$, it follows that such $f$ can be constructed. 
+		
+	\end{enumerate}
+    
+    \section*{Combinatorics}
+    \begin{enumerate}
+    	\item [C1.]
+    	A $\pm 1$-sequence is a sequence of $2022$ numbers $a_1, \ldots, a_{2022},$ each equal to either $+1$ or $-1$. Determine the largest $C$ so that, for any $\pm 1$-sequence, there exists an integer $k$ and indices $1 \le t_1 < \ldots < t_k \le 2022$ so that $t_{i+1} - t_i \le 2$ for all $i$, and$$\left| \sum_{i=1}^{k} a_{t_i} \right| \ge C.$$
+    	
+    	\textbf{Answer.} 506. 
+    	
+    	\textbf{Solution.} 
+    	In general we show that a sequence with $4k+2$ numbers will yield the answer $k + 1$; here $k=505$. 
+    	
+    	We first partition the numbers into blocks of consecutive $+1$ and $-1$; 
+    	w.l.o.g. suppose there are at least as many $+1$'s as $-1$'s. Then we choose all the $+1$'s, 
+    	and for each block of $-1$'s we choose them in alternating order, skipping the first and last entry in the case of odd sized block 
+    	(which then means for a block of sized $m$ we would pick $\lfloor \frac{m}{2}\rfloor$ $-1$'s). 
+    	Then we will choose at least $2k+1$ of $+1$'s, and at most $k$ of $-1$'s, giving the answer $k + 1$. 
+    	
+    	To show that $k+1$ cannot be improved, consider the following example: 
+    	\[
+    	+1, +1, -1, -1, \cdots, +1, -1
+    	\]
+    	i.e. $(+1, +1, -1, -1)$ repeated for $k$ times, and finally $+1, -1$. Suppose $\ell\le k$ blocks of  $+1$ with length 2 are chosen, then if the last $+1$ was chosen, then there's at least $\ell$ blocks of $-1$ with length 2 in between; we're required to pick at least one $-1$'s from each block. 
+    	This gives the sum $\le 2\ell+1-\ell=\ell+1\le k+1$. 
+    	Conversely, if the last $+1$ was not chosen, then there's at least $\ell - 1$ blocks of $-1$ with length 2 in between; again we're required to pick at least one $-1$'s from each block. 
+    	This gives the sum $\le 2\ell-\ell + 1=\ell+1\le k+1$. 
+    	
+    	\item[C2.] (IMO 1)
+    	The Bank of Oslo issues two types of coin: aluminum (denoted A) and bronze (denoted B). Marianne has $n$ aluminum coins and $n$ bronze coins arranged in a row in some arbitrary initial order. A chain is any subsequence of consecutive coins of the same type. Given a fixed positive integer $k \leq 2n$, Gilberty repeatedly performs the following operation: he identifies the longest chain containing the $k^{th}$ coin from the left and moves all coins in that chain to the left end of the row. For example, if $n=4$ and $k=4$, the process starting from the ordering $AABBBABA$ would be $AABBBABA \to BBBAAABA \to AAABBBBA \to BBBBAAAA \to ...$
+    	
+    	Find all pairs $(n,k)$ with $1 \leq k \leq 2n$ such that for every initial ordering, at some moment during the process, the leftmost $n$ coins will all be of the same type.
+    	
+    	\textbf{Answer.} 
+    	$n\le k\le \lceil \frac {3n}{2}\rceil$. 
+    	
+    	\textbf{Solution.} 
+    	If $k < n$, a counter-configuration will be $\underbrace{A\cdots A}_{n - 1} \underbrace{B\cdots B}_{n} \underbrace{A\cdots A}_{1}$, 
+    	and no change will be made after each move (since the $k$-th coin from the left is always on the first block). 
+    	If $k > \lceil \frac {3n}{2}\rceil$, 
+    	consider $\underbrace{A\cdots A}_{\lceil \frac n2\rceil}
+    	\underbrace{B\cdots B}_{\lfloor \frac n2\rfloor}
+    	\underbrace{A\cdots A}_{\lfloor \frac n2\rfloor}
+    	\underbrace{B\cdots B}_{\lceil \frac n2\rceil}$. 
+    	Then the $k$-th coin will always be in the last block 
+    	and the configuration will alternative between $ABAB$ and $BABA$ (each letter here indicates a block). 
+    	
+    	We now concentrate on the cases $n\le k\le \lceil \frac {3n}{2}\rceil$. 
+    	To do this, we consider the number of blocks of consecutive equal coin; 
+    	the minimum possible number is 2 which gives us the desired configuration. 
+    	We now have several observations: 
+    	\begin{itemize}
+    		\item Since $n\ge k$, as long as there are at least 3 blocks the $k$-th coin cannot be in the first block; 
+    		
+    		\item If the $k$-th coin is in the middle (i.e. neither first nor last) then the number of blocks decreases by at least one; 
+    		
+    		\item If the $k$-th coin is in the last block, then number of blocks decreases by 1 if we have odd number of blocks to start with, 
+    		and stays the same otherwise. 
+    	\end{itemize}
+        
+        We now consider the moment where the number of blocks stabilizes, i.e. the number of blocks is even and the $k$-th coin is in the last (rightmost) block. 
+        If there are $\ge 4$ blocks, 
+        then the operations are basically just rotating each block of consecutive coins. 
+        The shortest of these blocks has at most $\lfloor \frac n2\rfloor$ coins so this will force $k > \lceil \frac {3n}{2}\rceil$, 
+        a contradiction. 
+    	
+    	\item[C3.]
+    	In each square of a garden shaped like a 2022 $\times$ 2022 board, 
+    	there is initially a tree of height 0. 
+    	A gardener and a lumberjack alternate turns playing the following game, 
+    	with the gardener taking the first turn:
+    	\begin{itemize}
+    		\item The gardener chooses a square in the garden. Each tree on that square and all the surrounding squares (of which there are at most eight) then becomes one unit taller. 
+    		
+    		\item The lumberjack then chooses four different squares on the board. Each tree of positive height on those squares then becomes one unit shorter.
+    	\end{itemize}
+    	We say that a tree is majestic if its height is at least $10^6$. 
+    	Determine the largest number $K$ such that the gardener can ensure there are eventually $K$ majestic trees on the board, 
+    	no matter how the lumberjack plays.
+    	
+    	\textbf{Answer.} $K=2022^2\times \frac 59$. 
+    	
+    	\textbf{Solution.} Name the positions of the grid in terms as coordinates $(x, y)$ with $1\le x, y\le 2022$. 
+        Colour a square $(x, y)$ black if both $x$ and $y$ are congruent to 1 or 2 modulo 3, 
+        and the rest white. 
+        Then there are exactly $2022^2\times \frac 59$ white squares. 
+        For any square and its surrounding squares (i.e. a $3\times 3$ subgrid), 
+        there are at most 4 black squares (based on our construction). 
+        It then follows that after gardener makes their move of increasing the heights of some trees, 
+        the lumberjack can choose the black squares that the gardener picks in the previous round
+        (if there is fewer than 4 such black squares, choose other such squares arbitrarily). 
+        It then follows that the Lumberjack can force a height of 0 for all the black squares after however many steps, 
+        establishing an upper bound on $K$. 
+        
+        To show a matching lower bound, gardener can partition the garden into $674^2$ subgrid of $3\times 3$ squares each, 
+        and keep on choosing each subgrid to increase the height (each subgrid being chosen exactly once until all are chosen, then repeat). 
+        Consider doing this for $M = (4\cdot 674^2 + 1)\cdot 10^{20}$ rounds, 
+        Suppose that there are $L = 2022^2 - K - 1 = 4\cdot 674^2 + 1$ grids where lumberjack can prevent the tree in each grid from growing over a height of $10^6$. 
+        This means the lumberjack must have chosen each of the $L$ squares for $M - 10^6$ times. 
+        Given that each player does $M\cdot 674^2$ moves (each allowing the lumberjack to choose 4 victim grids), this gives 
+        \[
+        4M\cdot 674^2 \ge (M - 10^6)L = (4\cdot 674^2 + 1)M
+        \]
+        This only holds when $M \le (4\cdot 674^2 + 1)\cdot 10^6$, a contradiction. 
+    	
+    \end{enumerate}
+    
+    \section*{Geometry}
+    \begin{enumerate}
+    	\item [G1.] (IMO 4)
+    	Let $ABCDE$ be a convex pentagon such that $BC=DE$. Assume that there is a point $T$ inside $ABCDE$ with $TB=TD,TC=TE$ and $\angle ABT = \angle TEA$. Let line $AB$ intersect lines $CD$ and $CT$ at points $P$ and $Q$, respectively. Assume that the points $P,B,A,Q$ occur on their line in that order. Let line $AE$ intersect $CD$ and $DT$ at points $R$ and $S$, respectively. Assume that the points $R,E,A,S$ occur on their line in that order. Prove that the points $P,S,Q,R$ lie on a circle.
+    	
+    	\textbf{Solution.} 
+    	Here, $\angle STE = \angle QTD$, and together with $\angle ABT = \angle AET$ we have 
+    	$\angle AST = \angle AQV$. 
+    	Therefore if $TD$ intersects $AB$ at $U$ and $CT$ intersects $AE$ at $V$ we have $SQVU$ cyclic, 
+    	and $AS\cdot AV = AU\cdot AQ$. 
+    	Notice that the problem is equivalent to showing that $AS\cdot AR = AP\cdot AQ$, 
+    	so it suffices to show that $UV\parallel PR$, or equivalently $UV\parallel CD$. 
+    	
+    	Now, note that triangles $TBC$ and $TDE$ are congruent, 
+    	so in particular $\angle BTC = \angle DTE$. 
+    	This yields $\angle BTU = \angle ETV$ and so triangles $BTU$ and $ETV$ are in fact similar, 
+    	with similitude $\frac{TU}{TV}=\frac{TB}{TE} = \frac{TD}{TC}$. 
+    	Together with that $U, T, D$ collinear and $V, T, C$ collinear, we indeed have $UV\parallel CD$, 
+    	as desired. 
+    	
+    	\item [G2.]
+    	In the acute-angled triangle $ABC$, 
+    	the point $F$ is the foot of the altitude from $A$, 
+    	and $P$ is a point on the segment $AF$. 
+    	The lines through $P$ parallel to $AC$ and $AB$ meet $BC$ at $D$ and $E$ respectively. 
+    	Points $X \neq A$ and $Y \neq A$ lie on circles $ABD$ and $ACE$ respectively, 
+    	such that $DA = DX$ and $EA = EY$. 
+    	
+    	Prove that $B, C, X$ and $Y$ are concyclic.
+    	
+    	\textbf{Solution.} 
+    	We have $FB\cdot FD = FE\cdot FC = FB\cdot FC\cdot \frac{FP}{FA}$, 
+    	and therefore $F$ has equal power of point on circles $ABD$ and $ACE$. 
+    	It therefore follows that $AF$ is the radical axis of circles $ABD$ and $ACE$. 
+    	
+    	Next, by angle chasing and the identity $DA=DX$, 
+    	we have $BC$ the external angle bisector of $\angle XBA$, 
+    	and also the external angle bisector of $\angle YCA$. 
+    	This means that $BX$ and $CA$ will intersect at $A'$, the reflection of $A$ in $BC$, 
+    	which lies on $AF$. 
+    	
+    	Thus $BX, CA$ and the radical axis of circles $ABD$ and $ACE$ are concurrent, 
+    	so $B, C, X, Y$ are concyclic. 
+    	
+    	\item [G3.]
+    	Let $ABCD$ be a cyclic quadrilateral. 
+    	Assume that the points $Q, A, B, P$ are collinear in this order, 
+    	in such a way that the line $AC$ is tangent to the circle $ADQ$, and the line $BD$ is tangent to the circle $BCP$. 
+    	Let $M$ and $N$ be the midpoints of $BC$ and $AD$, respectively. 
+    	Prove that the following three lines are concurrent: line $CD$, 
+    	the tangent of circle $ANQ$ at point $A$, and the tangent to circle $BMP$ at point $B$.
+    	
+    	
+    	\item [G4.]
+    	Let $ABC$ be an acute-angled triangle with $AC > AB$, let $O$ be its circumcentre, and let $D$ be a point on the segment $BC$. The line through $D$ perpendicular to $BC$ intersects the lines $AO, AC,$ and $AB$ at $W, X,$ and $Y,$ respectively. The circumcircles of triangles $AXY$ and $ABC$ intersect again at $Z \ne A$.
+    	Prove that if $W \ne D$ and $OW = OD,$ then $DZ$ is tangent to the circle $AXY.$
+    	
+    	\textbf{Solution.} We first show that $AZ\parallel BC$, and that $D, Z, O$ is collinear. 
+    	Let ray $DO$ intersect the circle $ABC$ again at $Z'$ (which we will show that $Z=Z'$ later). 
+    	By angle chasing, using $OW=OD$ and $DW\perp BC$, 
+    	we get $\angle BOD = 180^{\circ} - 2\angle ABC$ and consequently $\angle Z'BO=\angle BZO=90^{\circ}-\angle ABC$. 
+    	Thus $\angle Z'BC = \angle ACB$ and similarly $\angle Z'CB = \angle ABC$, 
+    	and $ZACB$ is indeed an isoceles trapezoid. 
+    	To show that $Z'=Z$, the identity of spiral similarity suggests that 
+    	\[
+    	\frac{ZB}{ZC} = \frac{BY}{CX} = \frac{BD/\cos\angle ABC}{CD/\cos\angle ACB}
+    	\]
+    	and given that $\frac{BD}{CD} = \frac{OB\cdot\sin\angle BOD}{OC\cdot\sin\angle COD}
+    	=\frac{\sin 2\angle ABC}{\sin 2\angle ACB}$, we have $\frac{ZB}{ZC}  = \frac{\sin\angle ABC}{\sin\angle ACB} = \frac{AC}{AB} = \frac{Z'B}{Z'C}$, so $Z'=Z$.  
+    	
+    	To finish off the solution, we note that $\angle BAO = 90^{\circ} - \angle ACB = \angle CXD = \angle AXY$, 
+    	so $OA$ is tangent to circle $AXY$. Since $OA=OZ$, $OZ$ is also tangent to this circle $AXY$. 
+    	Thus the conclusion follows by $D, Z, O$ collinear. 
+    	
+    	\item [G5.]
+    	Let $ABC$ be a triangle, and let $\ell_1$ and $\ell_2$ be two parallel lines. 
+    	For $i = 1,2$, let $\ell_i$ meet the lines $BC, CA, AB$ at $X_i, Y_i$ and $Z_i$ respectively. 
+    	Suppose that the line through $X_i$ perpendicular to $BC$, 
+    	the line through $Y_i$ perpendicular to $CA$, the line through $Z_i$ perpendicular to $AB$, 
+    	determine a non-degenerate triangle $\triangle_i$. 
+    	
+    	Show that the circumcircles of $\triangle_1$ and $\triangle_2$ are tangent to each other.
+    	
+    	\textbf{Solution.} Let $A_1$ be the point such that $A_1Y_1\perp CA$ and $A_1Z_1\perp AB$, 
+    	and define $B_1, C_1$ similarly (and similarly define $A_2B_2C_2$). 
+    	Then we have $A_1B_1\perp AB$ and $A_2B_2\perp AB$ so $A_1B_1\parallel A_2B_2$ and similarly for the other two sides too. 
+    	This gives triangles $A_1B_1C_1$ (i.e. $\triangle_1$) and $A_2B_2C_2$ (i.e. $\triangle_2$) homothetic, 
+    	so it suffices to show that the center of homothety, namely $Z$, lie on both circumcircles to establish their tangency. 
+    	
+    	We first show that $C, C_1, C_2$ are collinear. 
+    	Indeed, $\angle CX_2C_2 = \angle CY_2C_2 = 90^{\circ}$, 
+    	so they the four points $C, X_2, C_2, Y_2$ lie on a circle. 
+    	Using angle modulo $180^{\circ}$, we can use directed angle to get 
+    	\[
+    	\angle(CC_2, AC) = \angle(CC_2, CY_2) = \angle(X_2C_2, X_2Y_2) = \angle(CX_2, \ell_2) + 90^{\circ}
+    	=\angle(BC, \ell_2) + 90^{\circ}
+    	\]
+    	and similarly, 
+    	$\angle(CC_1, AC) = \angle(BC, \ell_1) + 90^{\circ}$. The claim then follows as $\ell_1\parallel \ell_2$. 
+    	This means $C, C_1, C_2, Z$ are collinear, and similarly so for $A, A_1, A_2, Z$ and $B, B_1, B_2, Z$. 
+    	
+    	Thus now we have 
+    	\[
+    	\angle(A_2Z, B_2Z)
+    	=\angle(A_2A, B_2B)
+    	=\angle(A_2A, AB) + \angle(AB, B_2B)
+    	=\angle(A_2A, AZ_2) + \angle(BZ_2, B_2B)
+    	\]\[
+    	=\angle(A_2Y_2, Y_2Z_2) + \angle(X_2Z_2, B_2X_2)
+    	=\angle(A_2C_2, \ell_2) + \angle(\ell_2, B_2C_2)
+    	=\angle(A_2C_2, B_2C_2)
+    	\]
+    	showing that $A_2, B_2, C_2, Z$ are indeed concyclic. In a similar manner we can show that $Z$ lies on the circumcircle of triangle $A_1B_1C_1$ too. 
+    	
+    	\item [G6.]
+    	In an acute-angled triangle $ABC$, 
+    	point $H$ is the foot of altitude from $A$. 
+    	Let $P$ be a moving point such that the bisectors $k$ and $\ell$ of angles $PBC$ and $PCB$, respectively, 
+    	intersect each other on the line segment $AH$. Let $k$ and $AC$ meet at $E$, let $\ell$ and $AB$ meet at $F$, 
+    	and let $EF$ and $AH$ meet at $Q$.
+    	
+    	Prove that as $P$ varies, the line $PQ$ passes through a fixed point.
+    	
+    	\textbf{Solution.} 
+    	Let $O$ be the circumcenter of $ABC$, 
+    	$K$ the reflection of $H$ in the midpoint of $BC$, 
+    	and $J$ the reflection of $H$ in $A$. 
+    	We will show that $PQ, AO$ and $KJ$ are concurrent. 
+    	
+    	\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+    	\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+    	\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+    	\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm, scale=0.5]
+    		\clip(-18.34832110193102,-9.606052304842978) rectangle (15.903337388959855,12.371473182187397);
+    		\draw [line width=2pt] (-1.5692965301365722,1.1599583545330783) circle (5.021804530224832cm);
+    		\draw [line width=2pt] (-1.707983777112049,-3.037642320591351) circle (4.987245102603137cm);
+    		\draw [line width=2pt] (-4.620431348934434,5.14857930133988)-- (-6.18,-0.83);
+    		\draw [line width=2pt] (-6.18,-0.83)-- (2.9,-1.13);
+    		\draw [line width=2pt] (2.9,-1.13)-- (-4.620431348934434,5.14857930133988);
+    		\draw [line width=2pt] (-4.421415990917295,11.172110803991934)-- (-4.819446706951573,-0.8749522013121727);
+    		\draw [line width=2pt] (-5.664417635925985,1.1464760261644888)-- (-2.642430810787526,3.497206838694108);
+    		\draw [line width=2pt] (-2.642430810787526,3.497206838694108)-- (-6.18,-0.83);
+    		\draw [line width=2pt] (-5.664417635925985,1.1464760261644888)-- (2.9,-1.13);
+    		\draw [line width=2pt] (-4.421415990917295,11.172110803991934)-- (3.96786975558755,-6.078547560421324);
+    		\draw [line width=2pt] (-4.620431348934434,5.14857930133988)-- (3.96786975558755,-6.078547560421324);
+    		\draw [line width=2pt,dash pattern=on 1pt off 1pt] (-7.4030750508543814,4.320230802138943)-- (3.96786975558755,-6.078547560421324);
+    		\draw [line width=2pt] (-7.4030750508543814,4.320230802138943)-- (1.3446293619591614,-6.981519440458144);
+    		\draw [line width=2pt] (1.3446293619591614,-6.981519440458144)-- (1.5394467069515727,-1.0850477986878273);
+    		\begin{scriptsize}
+    			\draw [fill=ududff] (-4.620431348934434,5.14857930133988) circle (2.5pt);
+    			\draw[color=ududff] (-5.062090584112141,6.011363154749128) node {$A$};
+    			\draw [fill=ududff] (-6.18,-0.83) circle (2.5pt);
+    			\draw[color=ududff] (-6.82952491905135,-0.7536441272595498) node {$B$};
+    			\draw [fill=ududff] (2.9,-1.13) circle (2.5pt);
+    			\draw[color=ududff] (3.3789320155113223,-0.8145901388091774) node {$C$};
+    			\draw [fill=uuuuuu] (-4.819446706951573,-0.8749522013121727) circle (2pt);
+    			\draw[color=uuuuuu] (-4.940198561012886,-1.119320196557316) node {$H$};
+    			\draw [fill=uuuuuu] (-4.421415990917295,11.172110803991934) circle (2pt);
+    			\draw[color=uuuuuu] (-4.544049485940304,12.045018298162274) node {$J$};
+    			\draw [fill=uuuuuu] (-1.5692965301365722,1.1599583545330783) circle (2pt);
+    			\draw[color=uuuuuu] (-1.3139108738100258,1.7451423462751874) node {$O$};
+    			\draw [fill=uuuuuu] (1.4818382886612897,-2.828662592273724) circle (2pt);
+    			\draw[color=uuuuuu] (1.8248087209958108,-2.521078462198754) node {$X$};
+    			\draw [fill=uuuuuu] (1.5394467069515727,-1.0850477986878273) circle (2pt);
+    			\draw[color=uuuuuu] (1.0934565824002762,-0.6012790983854803) node {$K$};
+    			\draw [fill=xdxdff] (-4.7605969161832595,0.9062347992754418) circle (2.5pt);
+    			\draw[color=xdxdff] (-4.51357648016549,1.5623043116263042) node {$I$};
+    			\draw [fill=uuuuuu] (-5.664417635925985,1.1464760261644888) circle (2pt);
+    			\draw[color=uuuuuu] (-6.402902838203954,1.5013583000766764) node {$E$};
+    			\draw [fill=uuuuuu] (-2.642430810787526,3.497206838694108) circle (2pt);
+    			\draw[color=uuuuuu] (-2.4109390817033276,4.091563790935855) node {$F$};
+    			\draw [fill=uuuuuu] (-4.7286084355980895,1.8744194783199084) circle (2pt);
+    			\draw[color=uuuuuu] (-4.483103474390676,2.6593325195196034) node {$Q$};
+    			\draw [fill=uuuuuu] (-7.4030750508543814,4.320230802138943) circle (2pt);
+    			\draw[color=uuuuuu] (-7.713242086520954,5.097172981504713) node {$P$};
+    			\draw [fill=uuuuuu] (1.3446293619591614,-6.981519440458144) circle (2pt);
+    			\draw[color=uuuuuu] (1.3067676228239737,-7.305340368844531) node {$Y$};
+    			\draw [fill=uuuuuu] (1.4505245703631906,-3.7764244660961968) circle (2pt);
+    			\draw[color=uuuuuu] (0.9410915535262063,-3.5876336643172397) node {$Z$};
+    			\draw [fill=uuuuuu] (-1.707983777112049,-3.037642320591351) circle (2pt);
+    			\draw[color=uuuuuu] (-1.4662759026840955,-2.4296594448743125) node {$M$};
+    			\draw [fill=uuuuuu] (-3.344208119958603,-0.9236935643185484) circle (2pt);
+    			\draw[color=uuuuuu] (-3.4470212780470018,-0.2051300233129001) node {$S$};
+    		\end{scriptsize}
+    	\end{tikzpicture}
+    	
+    	We introduce the additional points and lengths as follows: 
+    	let $AO$ intersect the line through $K$ perpendicular to $BC$ at $X$, 
+    	the circumcircle of $IBC$ intersect ray $KX$ at $Y$. 
+    	Let $Z$ be the intersection of $PQ$ and $KX$; 
+    	we're interested in the length $ZX$. 
+    	
+    	Set $AD = 1$, 
+    	$BH\cdot HC = R^2$, 
+    	and also $HI = x < 1$. 
+    	Then we have the following relation: 
+    	\begin{itemize}
+    		\item $(Q, H; A, I)$ are harmonic, 
+    		so $\frac{QI}{IH} = \frac{AQ}{AH}$. 
+    		Consequently, 
+    		we can compute 
+    		\[
+    		\frac{QI}{x} = \frac{1 - x - QI}{1}
+    		\to QI = \frac{x(1 - x)}{1 + x}
+    		\]
+    		and also 
+    		\[
+    		QH = \frac{2x}{1 + x}
+    		\qquad 
+    		AQ = \frac{1 - x}{1 + x}
+    		\]
+    		
+    		\item Notice that $A, B, C, X$ are concyclic, 
+    		and since $H$ and $K$ are symmetric w.r.t. midpoint of $BC$, 
+    		we may compute $BH\cdot HC = AH\cdot KX$, 
+    		giving $KX = R^2$. 
+    		The same goes to $I, B, C, Y$, 
+    		yielding $KY = \frac{R^2}{x}$. 
+    	\end{itemize}
+    	
+    	We now determine the length $YZ$. 
+    	Observe that $\frac{YZ}{QI} = \frac{YP}{PI}$. 
+    	Let $M$ be the circumcenter of $IBCY$, and $S$ be the intersection of $PY$ and line $BC$. 
+    	We have $M$ on the line $YI$ itself 
+    	(note that $\angle IBY = \angle ICY = 90^{\circ}$). 
+    	This entails $IM=MY$ and therefore 
+    	\[
+    	\frac{YP}{YI}
+    	=\frac{YM + MP}{2YM}
+    	=\frac{YM + \frac{YM^2}{MS}}{2YM}
+    	=\frac 12 \left(1 + \frac{YM}{MS}\right)
+    	\]
+    	Finally, notice that $M$ is equidistant from the two parallel lines $IH$ and $KY$ (the two lines are symmetric w.r.t. the perpendicular bisector of $BC$ which $M$ is on). 
+    	This means we may now compute 
+    	\[
+    	\frac{YM}{MS}
+    	=\frac{YS - MS}{MS}
+    	=\frac{R^2/x}{(R^2/x - x) / 2} - 1
+    	\]
+    	which then means 
+    	\[
+    	\frac{YP}{YI} = \frac{R^2/x}{R^2/x - x}
+    	=\frac{R^2}{R^2 - x^2}
+    	\]
+    	i.e. $\frac{YP}{PI} = \frac{YP}{YP - YI} = \frac{R^2}{x^2}$. 
+    	This means 
+    	\[
+    	YZ = QI \cdot \frac{YP}{PI}
+    	=\frac{x(1 - x)}{1 + x}\cdot  \frac{R^2}{x^2}
+    	= \frac{R^2(1 - x)}{x(1+x)}
+    	\]
+    	and 
+    	\[
+    	XZ
+    	= KY - KX - YZ
+    	= \frac{R^2}{x} - R^2 - \frac{R^2(1 - x)}{x(1+x)}
+    	=\frac{R^2(1 - x)}{1 + x}
+    	\]
+    	To finish off, we have $AJ = AH = 1$, so 
+    	\[
+    	\frac{AQ}{AJ} = \frac{1 - x}{ 1 + x}\div 1
+    	=\frac{R^2(1 - x)}{1 + x}\div R^2
+    	=\frac{XZ}{KX}
+    	\]
+    	and $J, A, Q$ in that order, 
+    	and $K, X, Z$ in that order. 
+    	It then follows that $JK, AX, QZ$ are concurrent, as advertised. 
+    	
+    	\item [G8.]
+    	Let $AA'BCC'B'$ be a convex cyclic hexagon such that $AC$ is tangent to the incircle of triangle $A'B'C'$, 
+    	and $A'C'$ is tangent to the incircle of triangle $ABC$. 
+    	Let the lines $AB$ and $A'B'$ meet at $X$ and let the lines $BC$ and $B'C'$ meet at $Y$.
+    	
+    	Prove that if $XBYB'$ is a convex quadrilateral, then it has an incircle.
+    	
+    	\textbf{Solution.} 
+    	Let $I$ and $I'$ be the incenters of $ABC$ and $A'B'C'$, respectively. 
+    	Denote the intersection of $B'I'$ and $BI$ as $W$. 
+    	Denote, also, $d(X, \ell)$ as the distance from $X$ to $\ell$. 
+    	We now have $d(W, A'B')=d(W, B'C')$ and $d(W, AB)=d(W, BC)$, 
+    	so it suffices to show that these four quantities are indeed equal. 
+    	
+    	Now, let $AC$ and $A'C'$ intersect at $Z$. 
+    	By the problem condition, $Z$ lies inside the circumcircle, and $I, Z, I'$ are collinear and this line bisects the angle formed by lines $AC$ and $A'C'$. 
+    	Let $BI$ and $B'I'$ intersect the circumcircle at $D$ and $D'$, respectively. 
+    	The tangents at $D$ and $D'$ to the circumcircle are parallel to $AD$ and $A'D'$, respectively, 
+    	so it $T$ is such that $TD$ and $TD'$ are tangent to the circumcircle, 
+    	then $TD=TD'$ and therefore $DD'\parallel II'$. 
+    	Thus we have 
+    	\[
+    	\frac{d(W, A'B')}{d(W, AB)}
+    	=\frac{WB'\cdot\sin\angle A'B'D'}{WB\cdot\sin\angle ABD}
+    	=\frac{WB'\cdot A'D'}{WB\cdot AD}
+    	=\frac{WB'\cdot D'I'}{WB\cdot DI}
+    	\]
+    	where we used $AD=CD=DI$, and the chord length is proportional to the sine of angle subtended on circumference. 
+    	
+    	To continue, from $DD'\parallel II'$ we have $\frac{D'I'}{DI} = \frac{WD'}{WD}$ so 
+    	$\frac{WB'\cdot D'I'}{WB\cdot DI}=\frac{WB'\cdot WD'}{WB\cdot WD}=1$, 
+    	the last equality from the negative power of point of $W$ to the circumcircle, as claimed. 
+    	
+    \end{enumerate}
+    
+    \section*{Number Theory}
+    \begin{enumerate}
+    	\item [N1.]
+    	Determine the smallest number that has three distinct positive divisors whose sum is 2022. (Note: The total number of positive divisors is allowed to be larger than 3.)
+    	
+    	\textbf{Answer.} $1344$, realized by its divisors $1344, 672, 6$. 
+    	
+    	\textbf{Solution}. Let our target number be $n$, then we have $n(\frac 1a, \frac 1b, \frac 1c)=2022$ for distinct positive integers $a < b < c$ dividing $n$. 
+    	Observe that in our example above $a=1, b=2, c=224$, and we want to maximize $\frac 1a + \frac 1b + \frac 1c$. 
+    	
+    	In our example, $\frac 1a + \frac 1b + \frac 1c > 1 + \frac 12 = \frac 32$, which means we can consider only the case where $a = 1$. 
+    	Since $\frac 1b + \frac 1c > \frac 12$, 
+    	we may consider the case where $b\le 3$. 
+    	If $b=3$, we are left with $c=4$ and $c=5$, 
+    	giving us $\frac 1a + \frac 1b + \frac 1c = \frac{19}{12}, \frac{23}{15}$, repectively. 
+    	Both are impossible given that $19\nmid 2022$ and $23\nmid 2022$. 
+    	
+    	Hence we restrict ourselves to $a=1, b=2$, meaning 
+    	$\frac 1a + \frac 1b + \frac 1c = \frac{3c+2}{2c}$, and $c\ge 3$. 
+    	Note that the prime factorization of $2022$ is $2\times 3\times 337$, 
+    	and $\gcd(2c, 3c + 2)=\gcd(2c, c + 2) = \gcd(c + 2, 4)$, so $3c + 2\mid 2022 \times 4 = 8\times 3\times 337$. 
+    	With $3\nmid 3c+2$, we have a stronger identity $3c+2\mid 8\times 337$. 
+    	Since $c\ge 3$, $3c+2 > 8$ and so $3c+2\mid 337$ and by considering modulo 3, 
+    	$3c+2\ge 2\times 337$ which means $c\ge 224$, as claimed. 
+    	
+    	\item [N2.]
+    	Find all positive integers $n > 1$ such that
+    	\[
+    	n!\mid \prod_{p < q\le n: p, q\text{ primes}}
+    	(p + q)
+    	\]
+    	
+    	\textbf{Answer.} 
+    	
+    	\item [N3.]
+    	Let $a > 1$ be a positive integer and $d > 1$ be a positive integer coprime to $a$. Let $x_1=1$, and for $k\geq 1$, define
+    	$$x_{k+1} = \begin{cases}
+    		x_k + d &\text{if } a \text{ does not divide } x_k \\
+    		x_k/a & \text{if } a \text{ divides } x_k
+    	\end{cases}$$Find, in terms of $a$ and $d$, the greatest positive integer $n$ for which there exists an index $k$ such that $x_k$ is divisible by $a^n$.
+    
+        \textbf{Answer.} Such $n$ is the minimum positive integer $n$ such that $a^n > d$. 
+        
+        \textbf{Solution.} 
+        We construct a new sequence $y_k$ based on $x_k$ by the following rule: 
+        $y_1=x_1=1$, and for each $k\ge 1$, if $y_k=x_j$ for some integer $j$, 
+        then $y_{k+1}=x_{j'}$ where $j'$ is the smallest integer such that $j'>j$, 
+        and $x_{j'} = x_{j'-1} / a$. 
+        An example is where $a=2, d=5$ with 
+        \[
+        x_k = 1, 6, 3, 8, 4, 2, 1\cdots
+        \quad 
+        y_k = 1, 3, 4, 2, 1
+        \]
+        Since $\gcd(a, d)=1$, the multiplicative inverse $a^{-1}\pmod{d}$ is well-defined. 
+        
+        We show that $y_k$ has the form 
+        \[
+        1, a_1, a_2, \cdots, a_{\ell}=1
+        \]
+        and repeat, 
+        where $\ell=\text{ord}_d(a)$ the order of $a$ mod $d$, 
+        and $a_i$ is such that $a_i\equiv a^{-i}\pmod{d}$ and $1\le a_i < d$. 
+        Indeed, given a fixed $a_i$, we wish to show $a_{i+1}$ is in the sequence. 
+        Note that by our definition, in the sequence $\{x_k\}$, the number preceeding $a_{i + 1}$ is $aa_{i+1}$, 
+        and also $aa_{i+1} \equiv a_i\pmod{d}$. 
+        Since $a_i, a_{i+1} < d$, this means $a_i \le aa_{i+1} < ad$. 
+        This means there is no number strictly in between $a_i$ and $aa_{i+1}$ in the form $a_i + kd$ that satisfies $a\mid a_i + kd$ 
+        (exactly one $k\in \{0, 1, 2, \cdots, a - 1\}$ satisfies $a\mid a_i + kd$). 
+        This shows $a_{i+1}$ is indeed in the sequence $\{y_k\}$. 
+        
+        Now, since all the numbers in $y_k$ are less than $d$, 
+        $\{x_k\}$ cannot contain any number that is at least $ad$, 
+        so the desired $n$ is at most $1 + \log_a d$. 
+        On the other hand, the last few elements in $y_k$, in reversed order, 
+        are $1, a, \cdots, a^{n-1}$ where $n$ is $1 + \lfloor \log_a d\rfloor$. 
+        Thus in $\{x_k\}$, the term preceeding $a^{n-1}$ is $a^n$, 
+        as we desire. 
+    	
+    	\item [N4.]
+    	(IMO 5)
+    	Find all triples $(a,b,p)$ of positive integers with $p$ prime and$$a^p=b!+p$$
+    	
+    	\textbf{Answer.} $(2, 2, 2)$ and $(3, 4, 3)$. 
+    	
+    	\textbf{Solution.} The pairs above work (giving the answers $2+2=2$ and $24+3=27$, respectively). 
+    	It remains to show that these are the only answers. 
+    	
+    	We first show that $a=p$ is necessary, which we consider the following two cases. 
+    	If $p\nmid a$, then $b < p$. This means $\gcd(b!, p)=1$ and so the smallest prime divisor of $a$ is greater than $b$, 
+    	and in particular, $a > b$ 
+    	(the fact that RHS $\ge p$ means $a > 1$). 
+    	But since $b < p$, $b! + p < b^b + p < b^p + p< (b + 1)^p \le a^p$, contradiction 
+    	(we use the identity that $(b+1)^p - b^p\ge 2^p - 1\ge p$ for all $p\ge 2$). 
+    	
+    	Now suppose that $p\mid a$, then RHS is divisible by $p^p$. 
+    	This means $b!$ cannot be divisible by $p^2$, 
+        and hence $p\le b < 2p$. 
+        Again, $\gcd(p, b!) = p$, so the smallest prime divisor of $a$ is $p$, and therefore 
+        either $a=p$ or $a\ge p^2$. 
+        In the second case we have 
+        \[
+        p^{2p} \le  a^p = b! + p \le (2p - 1)! + p
+        \]
+        On the other hand, by AM-GM inequality we have 
+        \[
+        (2p - 1)! = (1\cdot (2p - 1))\cdot (2\cdots (2p-2))\cdots  p\le p^{2p-1}
+        \]
+        so $(2p - 1)! + p \le p^{2p-1} + p < p^{2p}$, contradiction. 
+        
+        Thus our task now reduces to finding $(b, p)$ such that $b! = p^p - p$. 
+        The case $p=2, 3$ has been done, so we will focus on all primes $p\ge 5$. 
+        Denote $\nu_2(n)$ as the highest power of 2 dividing a positive integer $n$. 
+        On one hand, with $b\ge p$ we have 
+        \[
+        \nu_2(b!)\ge \nu_2(p!) = \sum_{i=k}^{\infty}\left\lfloor\frac{p}{2^k}\right\rfloor \ge \frac{p + 1}{2}
+        \]
+        where the last inequality holds for all $p\ge 5$. 
+        On the other hand, let $p - 1 = c\cdot 2^k$ where $c$ is odd. Then given that $p$ is odd, 
+        \[
+        \nu_2(p^p-p)
+        =\nu_2(p^{p-1} - 1)
+        =\nu_2(p^{2^k} - 1)
+        =\nu_2(p - 1) + \sum_{i=0}^{k - 1}\nu_2(p^{2^i} + 1)
+        =k + \sum_{i=0}^{k - 1}\nu_2(p^{2^i} + 1)
+        \]
+        Where we note that $p^{p-1} - 1=(p^{2^k} - 1)(p^{(c-1)2^k} + \cdots + p^{2^k}+1)$ and the second factor of RHS is odd. 
+        If $p \equiv 3\pmod{4}$, then the expression above reduces to $1 + \nu_2(p + 1)$; 
+        if $p\equiv 1\pmod{4}$, then $p^{2^i} + 1\equiv 2\pmod{4}$ for all $i\ge 0$, 
+        so $k + \sum_{i=0}^{k - 1}\nu_2(p^{2^i} + 1) = k + k = 2k = 2\nu_2(p - 1)$. 
+        Using also that $\nu_2(n)\le \log_2(n)$, we have 
+        \[
+        \frac{p + 1}{2} \le \nu_2(b!) = 1 + \nu_2(p + 1) \le 1 + \log_2(p + 1)
+        \]
+        for the first case; 
+        equality holds for $p=7$ but $\log_2(n)$ grows at a rate smaller than $\frac 12$ for all $n\ge \frac{2}{\log 2}$, 
+        so we have $p\le 7$ in this case. 
+        For the second case we similarly have 
+        \[
+        \frac{p+1}{2}\le 2\log_2(p - 1)
+        \]
+        We may check that the largest prime $p=4k+1$ that this identity holds is $p=13$ 
+        (again, the RHS grows at rate smaller than $\frac 12$ whenever $p - 1\ge \frac{4}{\log 2}$). 
+        
+        Thus we only need to manually check $p=5, 7, 13$ (11 is eliminated under the $4k+3$ case). 
+        We have $5^5-5=3120$ lies strictly between $6!$ and $7!$, 
+        and $7^7-7=7(7-1)(7+1)(7^4+7^2+1)$ but with $b<2p=14$ here the largest prime divisor of $7^4+7^2+1$ will have to be $\le 13$, 
+        which is impossible because it has a divisor 817 which has no prime divisor $\le 13$. 
+        Finally, for $p=13$, a closer look on $\nu_2$ gives 
+        $\nu_2(b!)\ge \nu_2(13!)\ge \lfloor 13/2\rfloor+\lfloor 13/4\rfloor+\lfloor 13/8\rfloor = 6 + 3 + 1 = 10$, 
+        while $2\nu_2(13-1)=2\cdot 2 = 4$, again showing it's impossible here. 
+        Thus our solution is complete. 
+        
+    \end{enumerate}
+\end{document}
