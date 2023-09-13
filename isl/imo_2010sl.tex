@@ -5,7 +5,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{multirow}
-\usepackage{caption}
+\usepackage{caption, prettyref}
 \usepackage[utf8]{inputenc}
 %\setlength{\textheight}{9in}
 \setlength{\textheight}{10in}
@@ -602,6 +602,159 @@
 
     \item [\textbf{C5}]
     	$n \geq 4$ players participated in a tennis tournament. Any two players have played exactly one game, and there was no tie game. We call a company of four players $bad$ if one player was defeated by the other three players, and each of these three players won a game and lost another game among themselves. Suppose that there is no bad company in this tournament. Let $w_i$ and $l_i$ be respectively the number of wins and losses of the $i$-th player. Prove that\[\sum^n_{i=1} \left(w_i - l_i\right)^3 \geq 0.\]
+    	
+    	\textbf{Solution.} 
+    	Consider a directed graph $G$ where for each pair of nodes $u$ and $v$, 
+    	either $u\to v$ or $v\to u$ holds but not both. 
+    	We consider $u\to v$ as symbolizing $u$ beats $v$, 
+    	then $w_u, l_u$ are the outdegrees and indegrees of node $u$, respectively. 
+    	For a disjoint subset $A, B$ of $G$, denote $A\to B$ if for all $a\in A, b\in B$ we have $a\to b$. 
+    	
+    	Denote $d_u$ as $w_u-l_u$, then we need to show that $\sum_{u} d_u^3\ge 0$. 
+    	In this directed graph the notion of bad company can be defined similarly. 
+    	For convenience (probably not needed in this problem) we may define a good company of four nodes as the opposite: 
+    	where a node has outgoing edge to all three other nodes, and the remaining three nodes form a directed cycle of length 3 on its own. 
+    	
+    	We first show the following auxilliary observations. 
+    	\begin{lemma}\label{lmm:sq_deg}
+    		A graph with $n$ vertices has $\sum d_u^2\le \frac{n^3 - n}{3}$. 
+    	\end{lemma}
+        
+        \begin{proof}
+        	A quick calculation yields that this is the count in the case we have a directed acyclic graph (henceforth called DAG), 
+        	where we may order the vertices in $1, 2, \cdots, n$ and $u\to v$ if $u < v$ (topological sort), 
+        	giving the count $d_u$ as $n - 1, n - 3, \cdots, -(n - 3), -(n - 1)$. 
+        	We show that if a graph attains its maximum for $\sum d_i$ then it has to be acyclic. 
+        	
+        	Suppose we have a directed cycle of length $\ge 3$, then considering the cycle itself there exist vertices $u\to v$ in the cycle and we have $d_u\le d_v$. 
+        	By changing the direction from $u\to v$ to $v\to u$, the count $\sum d_u^2$ has nett change $[(d_u - 2)^2 - d_u^2] + [(d_v - 2)^2 - d_v^2] = 8 - 4d_u + 4d_v > 0$, 
+        	i.e. $\sum d_i^2$ is not maximized. 
+        \end{proof}
+    	
+    	\begin{lemma}
+    		Let $G$ be such a directed graph, partitioned into $A$ and $B$. 
+    		Suppose that: 
+    		\begin{itemize}
+    			\item $A$ has no directed cycle of size 3; 
+    			
+    			\item There do not exist $a\in A$, and $b_1\neq b_2\in B$, such that $b_1\to a, a\to b_2, b_1\to b_2$. 
+    		\end{itemize}
+    	     Then $A$ is a DAG, and $B$ is a block DAG in the following sense: 
+    	     consider the relation $u\sim v$ for $u, v\in B$ if for all $a\in A$, either we have both $u\to a$ and $v\to a$, 
+    	     or both $a\to u$ and $a\to v$. 
+    	     Then the blocks (not the individual nodes) also form a DAG in the following sense: 
+    	     $U\to V$ means that for each $u\in U$ and $v\in V$, we have $u\to v$. 
+    	\end{lemma}
+    	
+        \begin{proof}
+        	We first show that the nodes in $A$ is DAG. Otherwise,  
+        	consider the smallest one $u_1\to u_2\to\cdots \to u_k\to u_1$ for some $k\ge 3$. 
+        	If $k > 3$, then we either have $u_2\to u_k$ or $u_k\to u_1$. 
+        	In the first case we have a smaller cycle $u_1\to u_2\to u_k\to u_1$; 
+        	in the second case $u_2\to u_3\to \cdots \to u_k\to u_2$, again another smaller cycle. 
+        	These contradict the minimality, so the fact that there is no directed cycle of size 3 means that there is no directed cycle at all, 
+        	and therefore we may use topological sort on $A$. 
+        	
+        	Next, we show that $B$ is a block DAG. We first see that each direct cycle must all be in the same block: 
+        	otherwise, choose $a\in A$ and a cycle $u_1\to u_2\cdots \to u_k\to u_1$ such that $a\to u_i$ and $u_j\to a$, 
+        	then somewhere in the cycle we have $u_i\to a, a\to u_{i+1}$ (indices taken modulo $k$), 
+        	which is a contradiction. 
+        	To see why for two different blocks $U$ and $V$ we must have either $u\to v$ for all $u\in U$ and $v\in V$, 
+        	or $v\to u$ for all $u\in U, v\in V$, 
+        	w.l.o.g. there is an $a\in A$ such that $a\to U$, $V\to a$ ($\to$ is well-defined here due to equivalence relation). 
+        	Then we automatically have $u\to v$ for all $u\in U$ and $v\in V$. 
+        	These two observations together establish our claim. 
+        	
+        \end{proof}
+        
+        \begin{lemma}\label{lmm:sq_diff}
+        	Consider $A$ and $B$ as per the previous lemma, 
+        	and in addition suppose that $G$ has no bad company; 
+        	Denote $D = |A| - |B|$. 
+        	Then $\sum_{i\in A} d_i^2 - \sum_{j\in B} d_j^2\ge \frac{D^3 - D}{3}$. 
+        \end{lemma}
+        
+        \begin{proof}
+        	Notice that $A$ is a DAG, so when $|B|=0$, $\sum_{i\in A} d_i^2$ is maximized as per \prettyref{lmm:sq_deg}. 
+        	For the case where $|B| > 0$, perform induction on the number of blocks of $B$. 
+        	We use the previous case where there's 0 block as base case. 
+        	
+        	\iffalse 
+        	For one block, we have either $A\to B$ or $B\to A$.
+        	We now consider the following decomposition of $d_a = e_a\pm |B|$, $e_a$ being the nett degree within $A$ only 
+        	(notice that $\sum e_a = 0$). 
+        	Also $d_b = e_b \mp |A|$, $e_b$ the nett degree within $B$ only. Then we have 
+        	\[
+        	\sum_{a\in A} d_a^2 - \sum_{b\in B} d_b^2
+        	=\sum_{a\in A} (e_a\pm |B|)^2 - \sum_{b\in B} (e_b \mp |A|)^2
+        	=\sum_{a\in A} e_a^2 - \sum_{b\in B} e_b^2 + |A|\cdot |B|^2 - |B|\cdot |A|^2
+        	\pm 2 |B|\sum e_a \pm 2 |A|\sum e_b
+        	\]
+        	\[
+        	\ge  \frac{|A|^3 - |A|}{3} -  \frac{|B|^3 - |B|}{3} + |A|\cdot |B|^2 - |B|\cdot |A|^2
+        	=\frac{(|A| - |B|)^3 - (|A| - |B|)}{3}
+        	\]
+        	where the inequality is due to that $\sum e_a^2$ attains the maximal (equality) case of an earlier lemma and $\sum e_b^2$ is bounded also by \prettyref{lmm:sq_deg}. 
+        	\fi 
+        	
+        	Now for induction hypothesis, we consider what happens as we add a block $W$ of size $w$ to $B$, and suppose that for all blocks $U\in B$ we have $U\to W$. 
+        	We further subdivide $A$ into $A_1$ and $A_2$, such that $A_1\to W$ and $W\to A_2$. 
+        	By the problem condition, for all $U$ that's part of block $B$, with $U\to W$ we have $A_1\to U$, too (which essentially means $A_1\to B$). 
+        	This gives a quick inequality on $\sum_{a_1\in A_1} d_{a_1}\ge |A_1|(|B| - |A_2|)$ (i.e. the minimum / worst case being $A_2\to A_1$). 
+        	Since $D = |A_1|+ |A_2| - |B|$ we consider the following notation on $e_u$: 
+        	\begin{itemize}
+        		\item If $u\in A$ or $u\in B\backslash W$, $e_u$ is the degree not considering $W$; 
+        		
+        		\item If $u\in W$, $e_u$ denotes the degree considering the vertices only in $W$ 
+        		(so $d_u = e_u + |A_2| - |A| - |B|$). 
+        	\end{itemize}
+            
+            Denote $B' = |B\backslash W|$, 
+            and let $D' = |A| - |B'|$, so $D = D'-w$. 
+            Note that $\sum_{w\in W} e_w = 0$ and $\sum_{u\in A\cup B'} e_u = 0$. 
+            We'll also see later that $|A_2|- |A_1| - |B| = D'-2|A_1|$ 
+            and $|B| - |A_2| = |A_1| - D'$. 
+            This gives 
+            \begin{flalign*}
+            	\sum_{a\in A} d_a^2 - \sum_{b\in B} d_b^2
+            	&=\sum_{a_1\in A_1} (e_{a_1} + w)^2 + \sum_{a_1\in A_1} (e_{a_2} - w)^2 - \sum_{b\in B\backslash W} (e_{b} + w)^2 - \sum_{w\in W} (e_w + |A_2|  - |A_1| - |B|)^2
+            	\\&=\sum_{a\in A} (e_a^2 + w^2)
+            	-\sum_{b\in B'} (e_b^2 + w^2)
+            	-\sum_{w\in W} e_w^2 + (|A_2|  - |A_1| - |B|)^2
+            	\\&+2w(\sum_{a_1\in A_1}e_{a_1} - \sum_{a_2\in A_2}e_{a_2} - \sum_{b\in B'}e_{b})
+            	\\&=w^2(|A|-|B'|) - w(|A_2| - |A_1| - |B|)^2 
+            	+ 4w\sum_{a_1\in A_1}e_{a_1}
+            	+\sum_{a\in A} e_a^2
+            	-\sum_{b\in B'} e_b^2
+            	- \sum_{w\in W} e_w^2
+            	\\&\ge D'w^2 - w(D' - 2|A_1|)^2
+            	+ 4w|A_1|(|A_1| - D') + \frac{D'^3-D'}{3} - \frac{w^3 - w}{3}
+            	\\&=\frac{D'^3 + 3D'w^2 - 3D'^2w - w^3 - (D'-w)}{3}
+            	\\&=\frac{D^3-D}{3}
+            \end{flalign*}
+            as desired. 
+        	
+        \end{proof}
+        
+        Now we can complete the solution by doing induction on $n$. 
+        For the graph with 4 nodes, the score function $\sum_{u} d_u^3$ is $-24$ if the company is bad, 
+        $+24$ is the company is good, 
+        and 0 for all other cases. 
+        (We can check manually that this count is always 0 with $\le 3$ nodes). 
+        Suppose that our main problem statement holds for a graph $G$ with $n$ vertices, which we now consider adding the $n+1$-th node $v_{n+1}$ to form $G'$. 
+        Denote $A, B$ the partition of $G$ such that $A\to v_{n+1}$ and $v_{n+1}\to B$, 
+        then $d_{v_{n+1}} = |B| - |A|$, and if $e_i$ denotes the nett degree considering $v_{n+1}$ then we have 
+        \[
+        \sum d_u^3
+        =\sum_{a\in A} (e_a + 1)^3 + \sum_{b\in B} (e_b - 1)^3 + (|B| - |A|)^3
+        =\sum_{a\in A} (e_a^3 + 3e_a^2 + 3e_a  + 1) + \sum_{b\in B} (e_b^3 - 3e_b^2 + 3e_b - 1) +  (|B| - |A|)^3
+        \]
+        \[
+        \ge 3\sum_{a\in A}e_a^2 - 3\sum_{b\in B} 3_b^2 + |A| - |B| + (|B| - |A|)^3
+        \ge 0
+        \]
+        where we used $\sum_{a\in A} e_a^3 + \sum_{b\in B} e_b^3\ge 0$ (by induction hypothesis), 
+        $\sum_{a\in A} e_a + \sum_{b\in B} e_b= 0$, and \prettyref{lmm:sq_diff}. 
 
 	\item [\textbf{C6}] 
 	Given a positive integer $k$ and other two integers $b > w > 1.$ There are two strings of pearls, a string of $b$ black pearls and a string of $w$ white pearls. The length of a string is the number of pearls on it. One cuts these strings in some steps by the following rules. In each step:
@@ -954,6 +1107,36 @@
 	
 	\textbf{Solution.} The example $n = 5$ is realized by taking $f_i$ as $x, 2, 1, 1, 1$
 	for $i=1, \cdots, 5$. 
+	
+	To show $n\le 4$ doesn't work, if $f_1, f_2, f_3, f_4$ (some of them possibly 0) work, 
+	then there exist integers $a_i, b_i$ ($i=1,2,3,4$) and $k$ such that 
+	\begin{align}
+		a_1^2+a_2^2+a_3^2+a_4^2 &= k^2\nonumber\\
+		b_1^2+b_2^2+b_3^2+b_4^2 &= 7k^2\nonumber\\
+		a_1b_1+a_2b_2+a_3b_3+a_4b_4 & = 0
+	\end{align}
+    This also gives $(a_1\pm b_1)^2+\cdots (a_4\pm b_4)^2=8k^2$. 
+    In addition, we can choose $k$ such that $k$ is minimal; 
+    in particular, one of $k, a_i, b_i$ (for some $i=1,2,3,4$) is odd. 
+    
+    Since $x^2$ is $\equiv 1\pmod{8}$ if $x$ is odd and divisible by 4 if $x$ is even, 
+    we have must have all four numbers 
+    $a_1+b_1, \cdots a_4+b_4$ to be even for their sum of squares to be divisible by 8. 
+    If $k$ is odd, then $k^2\equiv 1\pmod{8}$ and $7k^2\equiv 7\pmod{8}$, 
+    which means only exactly one of $a_i$'s is odd (by considering $a_i$ mod 4), 
+    while exactly three of $b_i$'s is odd. 
+    This is a contradiction. 
+    
+    Hence $k$ is even and both $\sum a_i^2, \sum b_i^2$ are divisible by 4. 
+    Since $a_i\equiv b_i\pmod{2}$, and one of $\bigcup_{i=1}^4 \{a_i, b_i\}$'s is odd, 
+    by considering $a_i^2$ mod 4 we have all $a_i, b_i$ odd. 
+    Again, we reuse the previous logic that for $x$ even, $x^2$ is either divisible by 32, 
+    or $\equiv 4\pmod{32}$ 
+    (depending on whether $x$ is divisible by 4). 
+    Since $k$ is even, $\sum (a_i+b_i)^2=8k^2$ is divisible by 32, 
+    and so is $\sum (a_i - b_i)^2$. 
+    Hence each of $a_i + b_i$ and $a_i - b_i$ must be divisible by 4, implying that $a_i, b_i$ are all even. 
+    This is again a contradiction. 
 	
 	\item [\textbf{N4}]Let $a, b$ be integers, and let $P(x) = ax^3+bx.$ For any positive integer $n$ we say that the pair $(a,b)$ is $n$-good if $n | P(m)-P(k)$ implies $n | m - k$ for all integers $m, k.$ We say that $(a,b)$ is $very \ good$ if $(a,b)$ is $n$-good for infinitely many positive integers $n.$
 	\begin{enumerate}
