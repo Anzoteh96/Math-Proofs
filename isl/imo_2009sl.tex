@@ -1,0 +1,358 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, float}
+\usepackage{mathrsfs,amsthm}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+	\newcommand{\la}{\leftarrow}
+	\newcommand{\lra}{\leftrightarrow}
+	\newcommand{\bbN}{{\mathbb N}}
+	\newcommand{\bbZ}{{\mathbb Z}}
+	\newcommand{\bbQ}{{\mathbb Q}}
+	\newcommand{\bbR}{{\mathbb R}}
+	\newcommand{\bbC}{{\mathbb C}}
+	\newcommand{\bbH}{{\mathbb H}}
+	\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+	\newcommand{\ra}{\rightarrow}
+	\newcommand{\Span}{\mathrm{span}}
+	\newcommand{\scrP}{\mathscr{P}}
+	\newcommand{\rank}{\mathrm{rank}}
+	\newcommand{\nullity}{\mathrm{nullity}}
+	\newcommand{\Col}{\mathrm{Col}}
+	\newcommand{\Row}{\mathrm{Row}}
+	\newcommand{\tr}{\mathrm{tr}}
+	\newcommand{\ol}{\overline}
+	\newcommand{\norm}[1]{||#1||}
+	\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+	\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+	\newcommand{\Ind}{\mathrm{Ind}}
+	\newcommand{\Res}{\mathrm{Res}}
+	\newcommand{\End}{\mathrm{End}}
+	\newcommand{\cl}{\mathrm{cl}}
+	\newcommand{\code}[1]{\texttt{#1}}
+	\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+	\newcommand{\<}{\langle}
+	\renewcommand{\>}{\rangle}
+	\newcommand{\qubits}[1]{|{#1}\rangle}
+	\newcommand{\powset}{\mathcal{P}}
+	\newcommand{\dsum}{\displaystyle\sum}
+	\newcommand{\dprod}{\displaystyle\prod}
+	
+	\newtheorem{lemma}{Lemma}
+	
+	\section*{Algebra}
+	\begin{enumerate}
+		\item [A3.] (IMO 5)
+		Determine all functions $ f$ from the set of positive integers to the set of positive integers such that, for all positive integers $ a$ and $ b$, there exists a non-degenerate triangle with sides of lengths
+		\[ a, f(b) \text{ and } f(b + f(a) - 1).\]
+		
+		\textbf{Answer.} $f(x) = x$. 
+		
+		\textbf{Solution.} 
+		This $f$ works given that we have $(a, b, a+b-1)$, with $a+b-1\ge \max\{a, b\}$ as $a, b\ge 1$, 
+		and yet $a+b-1 < a + b$. 
+		We shall now show there is no other such function. 
+		
+		First, setting $a = 1$ gives $f(b) = f(b + f(1) - 1)$. 
+		Thus if $f(1) > 1$, $f$ is periodic with period $f(1) - 1$, and therefore bounded by some number, say $M$. 
+		However, for any $a \ge 2M, (a, f(b), f(b+f(a)-1))$ cannot be sides of triangle. 
+		This means $f(1)=1$ is necessary. 
+		
+		Next, setting $b = 1$, we have $a = f(f(a))$, meaning that $f$ is a bijection. 
+		We now consider setting $a=2$, which means for all $b\ge 1$, 
+		$|f(b + f(2) - 1) - f(b)|\le 1$. 
+		Since $f$ is injective, $f(2)>1$ and so $b + f(2)-1 > b$. 
+		It then follows that $|f(b + f(2) - 1) - f(b)| = 1$. 
+		Now let $N = f(2) - 1\ge 1$. We consider the sequence $a_n = f(2) + n\cdot N$ for each $n\ge 0$. 
+		Notice that 
+		\[
+		f(a_0) = f(f(2)) = 2
+		\qquad 
+		|f(a_n) - f(a_{n-1})| = 1
+		\]
+		If $f(a_n) - f(a_{n-1})$ and $f(a_{n+1}) - f(a_{n})$ have different signs, 
+		$f(a_{n-1}) = f(a_{n+1})$ but $a_{n+1}-a_{n-1}=2N>0$, 
+		violating injectivity of $f$. 
+		Given also that $\{a_n\}$ is increasing(since $N\ge 1$), 
+		these would imply $f(a_n) - f(a_{n-1}) = 1$, and theefore $f(a_n) = f(a_0) + n = 2 + n$. 
+		
+		Finally, notice that $\{f(a_n)\}=\{2, 3, \cdots\}$, which encompasses all integers $\ge 2$. 
+		Considering the bijectivity of $f$, this would imply that $\{a_0, a_1, \cdots\}$ must also be $\{2, 3, \cdots\}$. 
+		With $a_0 < a_1 < \cdots$, we have $a_n = n + 2$, i.e. $f(2) + n(f(2)-1)=n+2$. 
+		Thus $f(2)=2$ and since we already have $f(a_n) = n + 2$, this gives $f(n) = n$ for all integers $n$. 
+		
+		\item [A6.]
+		(IMO 3). 
+		Suppose that $ s_1,s_2,s_3, \ldots$ is a strictly increasing sequence of positive integers such that the sub-sequences\[s_{s_1},\, s_{s_2},\, s_{s_3},\, \ldots\qquad\text{and}\qquad s_{s_1+1},\, s_{s_2+1},\, s_{s_3+1},\, \ldots\]are both arithmetic progressions. Prove that the sequence $ s_1, s_2, s_3, \ldots$ is itself an arithmetic progression.
+		
+		\textbf{Solution.} 
+		Let $D_1$ and $D_2$ be the common differences between the two sequences above. 
+		From $s_{s_n} < s_{s_n+1}\le s_{s_{n+1}}$ for each $n$, and that 
+		\[
+		 s_{s_n+1} - s_{s_n} = (s_{s_1+1} - s_{s_1}) + (D_2 - D_1)(n - 1)
+		 \qquad 
+		 s_{s_{n+1}} -  s_{s_n+1} = (s_{s_{2}} -  s_{s_1+1}) + (n - 1)(D_1 - D_2)
+		\]
+		i.e. both quantities have to be nonnegative. It then follows that $D_1=D_2$, which we might name it $D$. 
+		Thus there is an integer $c$ such that $s_{s_n+1} - s_{s_n} = c$ for all $n\ge 1$. 
+		
+		Now if $D = c$, then $s_{n+1}-s_n = 1$ for all $n$ (since $s_1, s_2, \cdots$ is strictly increasing) and $s_n$ is an artihmetic progression. 
+		Thus we may assume $D > c$, which then follows that $s_{n + 1} - s_n > 1$ for all $n\ge 1$. 
+		Let $m=\min\{s_{n+1}-s_n\}$ and $M = \max\{s_{n+1}-s_n\}$, which we have $2\le m\le M$. 
+		Note also that $s_{s_{n+1}} - s_{s_n + 1} = D - c$, 
+		so the ``average gap'' among $s_{s_n+1}, s_{s_n+2}, \cdots, s_{s_{n+1}}$ is then 
+		$\frac{D-c}{s_{n + 1} - s_n - 1}$, 
+		meaning by pigeonhold principle some of those is at least $\frac{D-c}{s_{n + 1} - s_n - 1}$ and some at most $\frac{D-c}{s_{n + 1} - s_n - 1}$. 
+		In particular this gives the following by the minimality and maximality of $m$ and $M$, respectively: 
+		\[
+		m\le \min_n \frac{D-c}{s_{n + 1} - s_n - 1} = \frac{D - c}{M - 1}
+		\qquad 
+		M\ge \max_n \frac{D-c}{s_{n + 1} - s_n - 1} = \frac{D - c}{m - 1}
+		\]
+		which then gives $Mm - m\le D - c \le mM - M$, or $M\le m$. 
+		Thus we must have $m = M$, as desired. 
+		
+	\end{enumerate}
+    
+    \section*{Combinatorics}
+    \begin{enumerate}
+    	\item [C5.]
+    	Five identical empty buckets of $2$-liter capacity stand at the vertices of a regular pentagon. Cinderella and her wicked Stepmother go through a sequence of rounds: At the beginning of every round, the Stepmother takes one liter of water from the nearby river and distributes it arbitrarily over the five buckets. Then Cinderella chooses a pair of neighbouring buckets, empties them to the river and puts them back. Then the next round begins. The Stepmother goal's is to make one of these buckets overflow. Cinderella's goal is to prevent this. Can the wicked Stepmother enforce a bucket overflow?
+    	
+    	\textbf{Answer.} No. 
+    	
+    	\textbf{Solution.} We show that Cinderella can always maintain the following invariants after her move: 
+    	if $A, B, C$ are the three consecutive non-empty buckets after the move, then $B$ has content at most 1 and $A$ and $C$ have total content at most 1 liter. 
+    	This way the stepmother cannot force an overflow on her immediate next move. 
+    	
+    	To see why this invariant can be maintained, we see that initially all the buckets are empty, hence fulfilling the invariant. 
+    	Now suppose after some Cinderella move we do have the buckets $A, B, C, D, E$ in that order such that $D$ and $E$ empty, while $A, B, C$ maintaining that invariant. 
+    	Let stepmother do her move, and since the contents of $A, D, C, E$ has sum $\le 1$ liter before, it will have content $\le 2$ liters after. 
+    	It then follows that one of the pairs $(A, D)$ and $(C, E)$ will have total content $\le 1$ after. 
+    	In the first case where $A$ and $D$ have total content $\le 1$ and $E$ has total content $\le 1$, Cinderella empties $B$ and $C$; 
+    	in the second case where $C$ and $E$ have total content $\le 1$ and $D$ has total content $\le 1$, Cinderella empties $A$ and $B$. 
+    	In either case we have the invariant maintained. 
+    	
+    	\item[C8.]
+    	For any integer $n\geq 2$, we compute the integer $h(n)$ by applying the following procedure to its decimal representation. Let $r$ be the rightmost digit of $n$.
+    	\begin{itemize}
+    		\item If $r=0$, then the decimal representation of $h(n)$ results from the decimal representation of $n$ by removing this rightmost digit $0$.
+    		
+    		\item If $1\leq r \leq 9$ we split the decimal representation of $n$ into a maximal right part $R$ that solely consists of digits not less than $r$ and into a left part $L$ that either is empty or ends with a digit strictly smaller than $r$. Then the decimal representation of $h(n)$ consists of the decimal representation of $L$, followed by two copies of the decimal representation of $R-1$. For instance, for the number $17,151,345,543$, we will have $L=17,151$, $R=345,543$ and $h(n)=17,151,345,542,345,542$.
+    	\end{itemize}
+        
+        Prove that, starting with an arbitrary integer $n\geq 2$, iterated application of $h$ produces the integer $1$ after finitely many steps.
+        
+        \textbf{Solution.} 
+        We allow $h$ to take in any nonempty string with characters $0, \cdots, 9$, allowing leading zeros. We show that for all starting string, operations involving $h$ will lead to a empty string $\emptyset$. 
+        
+        We first see why this solves the problem: i.e. if $n$ is the starting string, then given that it will reach $\emptyset$ eventually it must pass through 0 at one point. 
+        To this end, we see that the only string that can reach $\emptyset$ is the string 0, 
+        and the only string that can reach $\underbrace{00\cdots 0}_{n\text{ zeros}}$ is either $\underbrace{00\cdots 0}_{n + 1\text{ zeros}}$
+        or $\underbrace{00\cdots 0}_{n\text{ zeros}}1$. 
+        In addition, according to the rules of the iterations, the strings produced will not have leading zeros if we start with a string without leading zero, 
+        hence the only possibility at the end of the iterations is $1\to 0\to\emptyset$. 
+        
+        To proceed, we do induction on the structure of $n$: 
+        for each $d=0, \cdots, 9$ we define $D_d$ consisting of strings $n$ where each digit (character) does not exceed $d$. 
+        For base case we note that on $D_0$, we have 
+        \[
+        \underbrace{00\cdots 0}_{n\text{ zeros}}\to \underbrace{00\cdots 0}_{n - 1\text{ zeros}}\to\cdots \to 0\to\emptyset
+        \]
+        
+        Now suppose that for some $d\ge 0$, all strings in $D_d$ will reach $\emptyset$ after finite applications of $h$. 
+        Here, for each string $n$, denote the ``successor'' of $n$ as the string $m$ by increasing each digit of $n$ by 1, 
+        e.g. $s(2003)=3114$ and $s(4567)=5678$. 
+        
+        We first consider those $n$ without 0; write $n = s(m)$, with $m\in D_d$. 
+        Let $c(m)$ be the number of steps requires by $h$ to bring $m$ to $\emptyset$; we do induction on such $c(m)$. 
+        The case where $c(m)=1$ (as base case) is where $m = 0$, in which case $n=1$ and we have seen $1\to 0\to \emptyset$. 
+        Now let $\ell\ge 0$ be such that for all $m\in D_d$ with $c(m)\le \ell$, 
+        $s(m)$ can be eventually reduced to $\emptyset$. 
+        We note the following: 
+        \[
+        h(n) = h(s(m)) = 
+        \begin{cases}
+        	s(h(m)) & \text{$m$ does not end with 0}\\
+        	s(h(m))0s(h(m))0 & \text{$m$ ends with 0}\\
+        \end{cases}
+        \]
+        If $c(m)=\ell+1$, then $c(h(m))=\ell$, which by induction hypothesis we have $s(h(m))$ reducible to $\emptyset$, 
+        and thus in the second case above we get 
+        \[
+        s(h(m))0s(h(m))0 \to s(h(m))0 s(h(m))\to s(h(m))0 \to s(h(m))\to\emptyset
+        \]
+        For the general case where $n$ contains zeros, write $n$ as 
+        \[
+        0^*\sigma(s_1)0^+\sigma(s_2)0^+\cdots 0^+\sigma(s_m) 0^*
+        \]
+        where $0^*$ means zero or more occurences of 0, and $0^+$ means one or more occurences of 0.
+        Then we will iteratively delete $\sigma(s_m), \sigma_{s_{m-1}}, \cdots, \sigma(s_1)$, along with the 0's in between. 
+        This completes the case for $D_{d+1}$. 
+    \end{enumerate}
+    
+    \section*{Geometry}
+    \begin{enumerate}
+    	\item [G2.] (IMO 2)
+    	Let $ ABC$ be a triangle with circumcentre $ O$. The points $ P$ and $ Q$ are interior points of the sides $ CA$ and $ AB$ respectively. Let $ K,L$ and $ M$ be the midpoints of the segments $ BP,CQ$ and $ PQ$. respectively, and let $ \Gamma$ be the circle passing through $ K,L$ and $ M$. Suppose that the line $ PQ$ is tangent to the circle $ \Gamma$. Prove that $ OP = OQ.$
+    	
+    	\textbf{Solution.} 
+    	We note that $OP=OQ$ if and only if the power of pointof $P$ and $Q$ w.r.t. the circumcircle of $ABC$ is equal (or in other words, $AQ\cdot QB = AP\cdot PC$). 
+    	Notice that $K$ being midpoint of $BP$ and $M$ being midpoint of $PQ$ implies $MK\parallel BQ$. 
+    	Given also that $PQ$ is tangent to the circle $KLM$, we have 
+    	\[
+    	\angle AQP = \angle QMK = \angle MLK
+    	\]
+    	and similarly, $\angle APC=\angle MKL$. 
+    	Thus triangles $AQP$ and $MLK$ are similar, so 
+    	$AQ\cdot MK = AP\cdot ML$. 
+    	But since $MK = \frac 12 = QB$ and $ML = \frac 12 PC$, we have 
+    	$AQ\cdot QB = AP\cdot PC$, as desired. 
+    	
+    	\item [G6.]
+    	Let the sides $AD$ and $BC$ of the quadrilateral $ABCD$ (such that $AB$ is not parallel to $CD$) intersect at point $P$. Points $O_1$ and $O_2$ are circumcenters and points $H_1$ and $H_2$ are orthocenters of triangles $ABP$ and $CDP$, respectively. Denote the midpoints of segments $O_1H_1$ and $O_2H_2$ by $E_1$ and $E_2$, respectively. Prove that the perpendicular from $E_1$ on $CD$, the perpendicular from $E_2$ on $AB$ and the lines $H_1H_2$ are concurrent.
+    	
+    	\textbf{Solution.} 
+    	We first show that triangles $PH_1H_2$ and $PO_1O_2$ are similar. 
+    	First, denote $\ell$ the internal angle bisector of $\angle APB$ (and also $\angle DPC$). 
+    	Note that $PO_1$ and $PH_1$ are reflection of each other in $\ell$, 
+    	and so are $PO_2$ and $PO_2$. 
+    	This gives $\angle H_1PH_2 = \angle O_1PO_2$. 
+    	Let $\alpha$ be the angle $\angle APB$, then we have $PO_1 = \frac{AB}{2\sin \alpha}$ and $PO_2 = \frac{CD}{2\sin\alpha}$. 
+    	In addition $PH_1 = 2AB\cot\alpha$ and $PH_2 = 2CD\cot\alpha$, giving 
+    	\[
+    	\frac{AB}{CD} = \frac{PH_1}{PH_2} = \frac{PO_1}{PO_2}
+    	\]
+    	and therefore establishing the similarity of the triangles (and moreover, they are given by homothety and then reflection with the line $\ell$). 
+    	
+    	Now consider the following three pairs of lines: $(m_0, n_0), (m_1, n_1), (m_2, n_2)$, 
+    	where $m_0, m_1, m_2$ are perpendiculars from $H_1, E_1, O_1$ to $CD$, 
+    	(hence parallel to $PH_2$), 
+    	and $n_0, n_1, n_2$ are perpendiculars from $H_2, E_2, O_2$ to $AB$ (hence parallel to $PH_1$). 
+    	Let $Q_0, Q_1, Q_2$ to be the meeting points of $(m_0, n_0), (m_1, n_1), (m_2, n_2)$, respectively. 
+    	Recall that we are to show that $Q_1$ lies on $H_1H_2$, 
+    	
+    	We claim that $PQ_2\parallel H_1H_2$. First, note that $PO_1Q_2O_2$ is cyclic because 
+    	\[
+    	\angle (PO_1, O_1Q_2) = \angle (PO_1, PH_2)
+    	=\angle (PO_2, PH_1) = \angle(PO_2 O_2Q_2)
+    	\]
+    	where the first and third equality are because of parallel lines and second because of the reflection of $\ell$ between $(PO_1, PH_1)$ and $(PO_2, PH_2)$. 
+    	This means we may compute 
+    	\[
+    	\angle (H_1H_2, PQ_2)
+    	=\angle (H_1H_2, PO_2) + \angle (PO_2, PQ_2)
+    	=\angle (H_1H_2, PO_2) + \angle (O_1O_2, O_1Q_2)
+    	\]\[
+    	=\angle (H_1H_2, PO_2) + \angle (O_1O_2, PH_2)
+    	=\angle (H_1H_2, PH_2) + \angle (O_1O_2, PO_2)
+    	=0
+    	\]
+    	as claimed. 
+    	
+    	Finally, $PQ_2\parallel H_1H_2$, 
+    	and that $PH_1Q_0H_2$ is a parallogram,
+    	means that $Q_2$ and $Q_0$ are equidistant from $H_1H_2$ but different sides. 
+    	Note that $Q_1$ is the midpoint of $Q_0Q_2$, 
+    	so $Q_1$ is on $H_1H_2$, as claimed. 
+    	
+    	\item [G8.]
+    	Let $ABCD$ be a circumscribed quadrilateral. Let $g$ be a line through $A$ which meets the segment $BC$ in $M$ and the line $CD$ in $N$. Denote by $I_1$, $I_2$ and $I_3$ the incenters of $\triangle ABM$, $\triangle MNC$ and $\triangle NDA$, respectively. Prove that the orthocenter of $\triangle I_1I_2I_3$ lies on $g$.
+    	
+    	\textbf{Solution.} 
+    	Let $I$ be the incenter of $ABCD$, and let the perpendicular from $I_1$ to $I_2I_3$ meet $g$ at $H_1$, 
+    	and perpendicular from $I_3$ to $I_1I_2$ meet $g$ at $H_2$. 
+    	We will show that $H_1=H_2$. 
+    	
+    	We first claim that triangles $AI_3I $ and $AI_1H_1$ are similar. 
+    	By some angle chasing we see that 
+    	\[
+    	\angle BAI_1 + \angle I_1AI = \angle ABI = \angle ADI = \angle DAI_3 + \angle I_2AI
+    	\]
+    	and also $\angle BAI_1 = \angle I_1AM$ and $\angle I_3AI = \angle I_3AN$, 
+    	which gives $\angle I_3AI =\angle I_AM = \angle I_AH_1$. 
+    	
+    	Next, consider the angle $\angle AI_3I$. 
+    	We see that $D, I_2, I$ are all on the internal angle bisector of $\angle ADN$, 
+    	and thus we may compute $\angle AI_2I + \angle I_2NA=90^{\circ}$. 
+    	Since $I_1H_1\perp I_2I_3$, 
+    	this gives $\angle I_1H_1A = \angle AI_3I$, 
+    	showing that triangles $AI_3I$ and $AI_1H_1$ are indeed similar. 
+    	
+    	In a similar way we may also establish that triangles $AI_1I$ and $\angle AI_3H_2$ are similar. 
+    	Therefore we now have 
+    	\[
+    	\frac{AH_1}{AH_2}
+    	=\frac{AH_1}{AI_1}\cdot \frac{AI_1}{AI_2}\cdot \frac{AI_2}{AH_2}
+    	=\frac{AI_2}{AI}\cdot \frac{AI_1}{AI_2}\cdot \frac{AI_1}{AI}
+    	=1
+    	\]
+    	and since $H_1, H_2$ are both on the same side of $A$, we have $H_1=H_2$, as desired. 
+    	
+    \end{enumerate}
+    
+    \section*{Number Theory}
+    \begin{enumerate}
+    	\item [N1.] (IMO 1)
+    	Let $ n$ be a positive integer and let $ a_1,a_2,a_3,\ldots,a_k$ $ ( k\ge 2)$ be distinct integers in the set $ { 1,2,\ldots,n}$ such that $ n$ divides $ a_i(a_{i + 1} - 1)$ for $ i = 1,2,\ldots,k - 1$. Prove that $ n$ does not divide $ a_k(a_1 - 1).$
+    	
+    	\textbf{Solution.} 
+    	Suppose otherwise, that even as indices are taken modulo $k$ we have $n\mid a_i(a_{i + 1} - 1)$. 
+    	Let $p$ be any prime dividing $n$ such that $\alpha$ is the highest power dividing $n$. 
+    	We show that one of the following is true: 
+    	either $p^{\alpha}\mid a_i$ for all $i\ge 1$, or $p^{\alpha}\mid a_i - 1$ for all $i\ge 1$. 
+    	To see why, we see that one of $a_1$ and $a_2 - 1$ is divisible by $p$. 
+    	In the former case we have 
+    	\[
+    	p\mid a_1\to p\nmid a_1-1 \to p^{\alpha}\mid a_k\to p\nmid a_{k-1}\to\cdots\to p^{\alpha}\mid a_2 \to p\nmid a_2 - 1\to p^{\alpha}\mid a_1
+    	\]
+    	and in the latter case, 
+    	\[
+    	p\mid a_2 - 1\to p\nmid a_2\to p^{\alpha}\mid a_3 - 1\to p\nmid a_3\to \cdots\to p\nmid a_k\to p^{\alpha}\mid a_1 - 1\to p\nmid a_1\to p^{\alpha}\mid a_2-1
+    	\]
+    	establishing the claim. 
+    	
+    	Thus let the prime factorization of $n$ be $\prod_{i=1}^{\ell} p_i^{\alpha_i}$, 
+    	then we can partition the primes into sets $A$ and $B$ (one of them possibly empty) such that 
+    	$\forall p_i\in A: p_i^{\alpha_i}\mid a_j,\forall j=1, \cdots, k$, and 
+    	$\forall p_i\in B: p_i^{\alpha_i}\mid a_j - 1,\forall j=1, \cdots, k$. 
+    	In any case for each $j_1, j_2$ we have $a_{j_1}\equiv a_{j_2}\pmod{p_i^{\alpha_i}}$, 
+    	and therefore $a_{j_1}\equiv a_{j_2}\pmod{n}$. 
+    	This contradicts that $k\ge 2$ and $a_1, \cdots, a_k$ are distinct within $\{1, 2, \cdots, n\}$. 
+    	
+    	\item [N5.]
+    	Let $P(x)$ be a non-constant polynomial with integer coefficients. Prove that there is no function $T$ from the set of integers into the set of integers such that the number of integers $x$ with $T^n(x)=x$ is equal to $P(n)$ for every $n\geq 1$, where $T^n$ denotes the $n$-fold application of $T$.
+    	
+    	\textbf{Solution.} 
+    	Consider any such $T$, 
+    	and for each positive integer $n$, let $f(n)$ be the number of $x$ where $n$ is the minimal fixed point period, 
+    	i.e. $T^n(x)=x$ but $T^m(x)\neq x$ for all $m$ with $1\le m \le n - 1$. 
+    	Notice that $\{x, T(x), \cdots, T^{n-1}(x)\}$ are all distinct, and each $y$ in the set also satisfies $T^n(y)=y$. 
+    	It then follows that all such $x$'s can be partitioned into disjoint cycles of size $n$ each, so $n\mid f(n)$. 
+    	
+    	Now, the number of $n$-th fold fixed point of $T$ is given by $\sum_{m: m\mid n} f(m)$. In particular we have, for each prime numbers $p\neq q$, 
+    	\[
+    	P(p) = \sum_{m: m\mid p} f(m) = f(1)+f(p)
+    	\qquad 
+    	P(pq) = \sum_{m: m\mid pq} f(m) = f(1)+f(p) + f(q) + f(pq)
+    	\]
+    	Using $x-y\mid P(x)-P(y)$ for $x\neq y$ (for integer polynomials $P$) we have 
+    	\[
+    	p(q - 1) \mid P(pq) - P(p) = f(q) + f(pq)
+    	\]
+    	and since $p\mid f(pq)$, we have $p\mid f(q)$ too. 
+    	Considering all such $p\neq q$, $f(q)$ is divisible by infinitely many primes $p$, so $f(q)=0$. 
+    	Considering all such $q$ we have $f(q)=0$ for all primes $q$, which then means 
+    	\[
+    	P(p)=f(1)+f(p)=f(1)=P(1)
+    	\]
+    	i.e. $P - P(1)$ has infinitely roots (at the primes, and at 1). 
+    	This contradicts that $P$ is non-constant. 
+    	
+    \end{enumerate}
+\end{document}
