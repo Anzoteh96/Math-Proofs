@@ -248,7 +248,7 @@
 	We claim the following: 
 	
 	\emph{Lemma.} 
-	There exists polynomial $P$ and $Q$ of degree $n$, and values $a_1, \cdots, a_{2n}$, not all equal, such that (indices taken modulo $2n$)
+	There exist polynomials $P$ and $Q$ of degree $n$, and values $a_1, \cdots, a_{2n}$, not all equal, such that (indices taken modulo $2n$)
 	\[
 	P(x_i)=Q(x_{i+1})=a_i, \forall i=1,\cdots, 2n
 	\]
@@ -292,7 +292,63 @@
 	(TODO: ensure that the coeffs at $n$ is nonzero...check $b_{1, n}, ..., b_{2n, n}$ is not a linear combination of these??)
 	
 	Thus from our examples, $P$ and $Q$ are two possible polynomials to return, and $a_i$ not all the same means $P$ and $Q$ are not equal. 
-
+	
+	\item[\textbf{A8}] 
+	Let $\bbR^+$ be the set of positive real numbers. Determine all functions $f:\bbR^+$ $\rightarrow$ $\bbR^+$ such that for all positive real numbers $x$ and $y:$
+	$$f(x+f(xy))+y=f(x)f(y)+1$$
+	
+	\textbf{Answer.} $f(x) = x + 1$. 
+	
+	\textbf{Solution.} It's straightforward to verify that this function works (with both sides being $xy + x + y + 2$), 
+	so we will show that this is the only such function. 
+	
+	Setting $x=1$, we get $f(1 + f(y)) + y = f(1)f(y) + 1$, so $f(y_1)=f(y_2)$ implies $y_1=y_2$, i.e. $f$ is injective. 
+	We now show that $f$ is monotone increasing. 
+	Indeed, for any $x_1, x_2, y  > 0$ we have the following relations: 
+	\[
+	x_1 + f(x_1y) = x_2 + f(x_2y)
+	\to f(x_1 + f(x_1y)) + y = f(x_2 + f(x_2y)) + y
+	\]\[
+	\to f(x_1)f(y)=f(x_2)f(y)
+	\to x_1=x_2
+	\]
+	the last equality follows from the injectivy of $f$ and that $f(y) > 0$. 
+	Suppose there exist positive numbers $z_1 < z_2$ such that $f(z_1) > f(z_2)$. 
+	Choose $y = \frac{z_2-z_1}{f(z_1)-f(z_2)}> 0$, 
+	$x_1 = \frac{z_1}{y}, x_2 = \frac{z_2}{y}$, 
+	then 
+	\[
+	x_1 + f(x_1y)
+	=x_1 + f(z_1)
+	=x_2 + f(z_2)
+	=x_2 + f(x_2y)
+	\]
+	(the middle inequality is by our choice of $y$). 
+	so $x_1=x_2$, and therefore $z_1=z_2$, contradiction. 
+	This establishes the monotonicity of $f$. 
+	
+	Now we use the identity of monotone function that any discontinuity, if exists, must be jump continuity. 
+	In particular, for each $x_0\ge 0$, the function $\lim_{x\to x_0^+}f(x)$ exists. 
+	Denote $C = \lim_{x\to 0^+} f(x)$, 
+	or equivalently, $\inf_{x > 0} \{f(x)\}$. 
+	Denote, also, $D = \lim_{x\to C^+} f(C) =  \inf_{x > C} \{f(x)\}$. 
+	We now show that for all $y$ we have 
+	\[
+	\lim_{x\to 0^+} f(x + f(xy)) = D
+	\]
+	To see why, for all $x, y > 0$, by the monotonicity of $f$ we have $x + f(xy) > x + C > C$, 
+	and therefore $f(x + f(xy)) \ge D$. 
+	For the other side, we may take $x > 0$ small enough such that $x, xy$ are both arbitrarily close to 0, 
+	and so $x + f(xy)$ arbitrarily close to $C$. 
+	This means $f(x + f(xy))$ can be arbitrarily close to $D$, as desired. 
+	(A more rigorous argument will follow from the typical $\epsilon-\delta$ arguments, which we omit here). 
+	
+	Thus fixing $y$, taking limit of $x\to 0^+$ on both sides we have $D + y = Cf(y) + 1$, 
+	so $f$ is a linear function. 
+	Take $m, c$ such that $f(x) = mx + c$, 
+	we get $m(x + mxy + c) + y + c = (mx+c)(my+c)+1$ holds identically for all $(x, y)$. 
+	Since $f$ takes positive values only, we have both $m, c$ nonnegative, 
+	and hence $m=1, c=1$ is the only solution. 
 \end{enumerate}
 
 \section*{Combinatorics}

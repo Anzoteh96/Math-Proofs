@@ -287,6 +287,48 @@
         4M\cdot 674^2 \ge (M - 10^6)L = (4\cdot 674^2 + 1)M
         \]
         This only holds when $M \le (4\cdot 674^2 + 1)\cdot 10^6$, a contradiction. 
+        
+        \item [C6.]
+        Let $n$ be a positive integer. We start with $n$ piles of pebbles, each initially containing a single pebble. One can perform moves of the following form: choose two piles, take an equal number of pebbles from each pile and form a new pile out of these pebbles. Find (in terms of $n$) the smallest number of nonempty piles that one can obtain by performing a finite sequence of moves of this form.
+        
+        \textbf{Answer.} 1 if $n$ is power of 2; 2 otherwise. 
+        
+        \textbf{Answer.} If $n=2^k$, we can transform the piles into $2^{k-1}$ piles of 2, 
+        $2^{k-2}$ piles of 4, etc, until a single pile is left. 
+        
+        Now consider the case where $n$ is not a power of two. Notice that there is a unique integer sequence 
+        $0\le a_1 < a_2 < \cdots < a_{\ell}$ such that $n = \sum_{i=1}^{\ell} 2^{a_{i}}$. 
+        This means we may partition the initial piles of pebbles into groups of $2^{a_i}$ piles, 
+        merge each group until a single pile of $2^{a_i}$ pebbles is left. 
+        Notice that $n < 2^{a_{\ell} + 1}$. We now do the following operations: 
+        \begin{itemize}
+        	\item If there are two piles of the same size, merge them into one; 
+        	
+        	\item otherwise, choose the smallest one (say, size $a$), remove $a$ pebbles from the biggest and smallest piles, 
+        	and form a pile of size $2a$. 
+        \end{itemize}
+        We stop when there are only two piles left. 
+        
+        Here is an example when $n = 23$: 
+        \[
+        (16, 4, 2, 1) \to (15, 4, 2, 2) \to (15, 4, 4)\to (15, 8)\to (7, 16)
+        \]
+        
+        To show that this would reduce the number of piles to two, the invariant we will always maintain (up until the step before two piles left) is that the $a$ in the second case is always power of 2, 
+        and the biggest pile is always the same and has strictly more than $\frac{n}{2}$ pebbles. 
+        This way, at each step the total number of pebbles of the piles excluding the biggest one is always in the form of $x\to x+2^k$ where $k$ is the biggest exponent of 2 dividing $x$, 
+        so eventually this $x$ will reach $2^{a_{\ell}}$ as a single pile. 
+        
+        Finally, we show that for such $n$, we cannot have a single pile left. 
+        The fact that $n$ is not a power of 2 means that there is an odd $d > 1$ such that $d\mid n$; 
+        we show that at any time not all piles have size divisble by $d$. 
+        Indeed, since $d > 1$, this is true in the beginning. 
+        Now suppose that this holds at some stage, 
+        and consider a move with $q$ pebbles taken from each source pile into a new pile of $2q$ pebbles. 
+        If $d\nmid q$ then $d\nmid 2q$ since $d$ is odd; 
+        if $d\mid q$ then the number of pebbles modulo $d$ of the source piles does not change, 
+        so the invariant remains. 
+        Thus we conclude that one pile is impossible. 
     	
     \end{enumerate}
     
