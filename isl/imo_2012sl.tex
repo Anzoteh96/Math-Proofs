@@ -150,6 +150,73 @@
 	
 	Thus $p_n\mid v_n$ for all but finitely many $v_n$. Again by extracting the appropriate subsequence we may assume $p\mid v_n$ for all $n$. Let $v_n=p_nw_n$, then from $v_n\mid pa_k$ we have $w_n\mid a_k$. Again by the logic above, there are infinitely $w_n$ that are the same, say, $w_0$. Since $u_n\mid p_na_0+b_0$, we can write $u_n= \frac{p_na_0+b_0}{d_n}$, and therefore we have $r_n=\frac{u_n}{v_n}=\frac{p_na_0+b_0}{d_np_nw_n}$, with infinitely many of the $w_n$ equal to $w_0$. In other words we have yet another subsequence $r_n=\frac{p_na_0+b_0}{d_np_nw_0}$ converging to $r_0$, i.e. $\frac{p_na_0+b_0}{d_np_n}=\frac{a_0}{d_n}+\frac{b_0}{d_np_n}$ converging to $r_0w_0$. 
 	If $d_n$ is unbounded, this gives a subsequence of $\frac{p_na_0+b_0}{d_np_n}$ converging to 0, so $r_0=0$. Otherwise, there exists infinitely many $d_n$ that's the same, say $d_0$, so we have $\frac{p_na_0+b_0}{d_np_n}=\frac{p_na_0+b_0}{d_0p_n}$ which converges to $\frac{a_0}{d_0}$ and therefore $r_0=\frac{a_0}{d_0w_0}$, establishing the claim. 
+	
+	\item [\textbf{A5}]
+	Find all functions $f:\mathbb{R} \rightarrow \mathbb{R}$ that satisfy the conditions
+	\[f(1+xy)-f(x+y)=f(x)f(y) \quad \text{for all } x,y \in \mathbb{R},\]
+	and $f(-1) \neq 0$.
+	
+	\textbf{Answer.} There's a unique function, $f(x) = x - 1$. 
+	
+	\textbf{Solution.} We first verify that this function works since LHS is $xy - x - y + 1 = (x-1)(y-1)$ which is RHS, 
+	so now it suffices to show that no other function works. 
+	
+	By substituting $x = 1$ into the original equation, we have $f(1)f(y)=0$, so $f(1)=0$. 
+	Substituting $0$ gives $-f(y)=f(1)-f(y)=f(0)f(y)$, and given that $f(-1)\neq 0$, taking $y=-1$ gives $f(0)=-1$. 
+	
+	Now, consider $x=-1$, giving us $f(1 - y) - f(y - 1) = f(-1)f(y)$;  keeping $x=-1$ while changing $y$ to $2-y$ gives us $f(y-1)-f(1-y)=f(-1)f(2-y)$. 
+	Since $f(-1)\neq 0$, it then follows that $f(y) + f(2 - y) = 0$ for all $y$ (so in particular we have $f(2) = 1$). 
+	Next, we also have $f(1 - y) = -f(2 - (1 - y)) = -f(1 + y)$, 
+	giving us $f(1 + y) + f(y - 1) = (-f(-1))f(y)$. 
+	
+	We first note that for all $x\neq 0$ this implies $f(x + y)  +  f(y - x) = (-f(-1))f(y)$. 
+	Let $z = \frac{y - 1}{x}$, then $y = 1 + zx, y - x = 1 + x(z - 1), y + x = 1 + x(z + 1)$. 
+	Consider the following equations: 
+	\[
+	f(1 + x(z - 1)) = f(x)f(z - 1) + f(x + z - 1)
+	\]
+	\[
+	f(1 + x(z + 1)) = f(x)f(z + 1) + f(x + z + 1)
+	\]
+	\[ 
+	f(1 + xz) = f(x)f(z) + f(x + z)
+	\]
+	Since $f(1 + z) + f(z - 1) = (-f(-1))f(z)$ and $f(1 + x + z) + f(x + z - 1) = (-f(-1))f(x + z)$, 
+	the claim follows. 
+	
+	We now show that $f(-1)=-2$. 
+	Denote the variable $c = -f(-1)$. 
+	Note that $x=y=2$ means $f(5)-f(4)=f(2)^2=1$. 
+	On the other hand, by doing $f(1 + y) = cf(y)-f(y-1)$ on integers gives 
+	$f(3) = c, f(4) = c^2 - 1, f(5) = c^3-2c$, 
+	giving the equation $c^3 - c^2-2c = c(c-2)(c+1)=0$. 
+	Since $c\neq 0$, we have $c=2$ or $c=-1$. 
+	Suppose $c=-1$. 
+	Consider $f(x + \frac 13) + f(x - \frac 13) = cf(x)=-f(x)$ for all $x$. 
+	Then taking $x = \frac{4}{3}$ gives $f(\frac 53) = -f(\frac 43)$ (since $f(1)=0$) 
+	and $f(2) = -f(\frac 53) - f(\frac 43) = 0$, 
+	contradicting $f(2)=1$. 
+	It then follows that $c=-f(-1)=2$, as claimed. 
+	
+	In particular, this means we practically have $f(1 + kx) = kf(1 + x)$ for all rational $k$. 
+	We can now show that $f$ is linear, which together with $f(1)=0$ and $f(2)=1$ means $f(x)=x-1$. 
+	Now, notice that substituting $x, y$ with $x+y=2$ gives $f(x)=-f(y)$, 
+	so $f(x)f(y)\le 0$. 
+	This means $f(1+xy)\le f(x+y)=f(2)=1$. 
+	Considering all such choices of $x, y$ we have $1+xy$ taking all values $\le 2$, 
+	so $f(z)\le 1$ for all $z\le 2$. 
+	Similarly, $f(z)\ge -1$ for all $z\ge 0$. 
+	Now, fix any $x > 0$, and consider $f(1 + kx) = kf(1 + x)$. 
+	Since $\mathbb{Q}$ is dense in $\mathbb{R}$, 
+	we can pick $k$ however close to $\frac{1}{x}$ and still $\le \frac{1}{x}$, 
+	so $1\ge f(1 + kx) = kf(1 + x)$, i.e. $f(1+x)\le \frac{1}{k}$, giving $f(1+x)\le x$. 
+	For the bound in other direction, suppose for some $x > 0$ we have $f(1 + x) < x$. 
+	Note that $f(1+k)=k$ for $k$ rational, and we can choose such $k$ with $f(1+x) < k<x$. 
+	Consider the sequence $\{a_n\}_{n\ge 0}$ defined by $a_n = 1 + k + n(x - k)$, 
+	which then gives $f(a_n) = f(a_0) + n(f(a_1) - f(a_0)) = k + n(f(1+x) - k)$. 
+	We note that $a_n\to\infty$ as $n\to\infty$ but $f(a_n)\to -\infty$ as $n\to\infty$ since $f(1 + x) < k < x$. 
+	This contradicts $f(z)\ge -1$ for all $z\ge 0$. 
+	Thus $f(1+x)=x$ for all $x > 0$, and $f(1-x)+f(1+x)=0$ so $f(1-x)=-x$. 
 	\end{enumerate}
 	
 	\section*{Combinatorics}

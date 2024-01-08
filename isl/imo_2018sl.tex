@@ -215,6 +215,58 @@
     Given also $a_0=0$ we have $\frac{a_1+\cdots + a_{m-1} - (m-1)a_0}{m^2}=\frac{m-1}{m^2}$, 
     as desired. 
     
+    \item[\textbf{A5}] Determine all functions $f: (0, \infty)\to\bbR$ satisfying 
+    \[
+    \left(x + \frac 1x\right) f(y) = f(xy) + f(\frac{y}{x})
+    \]
+    for all $x, y > 0$. 
+    
+    \textbf{Answer.} $f(x) = Ax + \frac{B}{x}$ for some real constants $A, B$. 
+    
+    \textbf{Solution.} We first see that this function works since in our equation we have LHS = RHS = 
+    $A(xy + \frac{y}{x}) + B(\frac{x}{y} + \frac{1}{xy})$. 
+    We will now focus on showing that these are the only working ones. 
+    
+    Fixing $x > 1$ and an integer $n$, we substitute $y = x^n$ into the original equation, 
+    letting $a_n = f(x^n)$ we get the recurrence relation 
+    \[
+    a_{n+1} - (x + \frac{1}{x})a_n + a_{n - 1} = 0
+    \]
+    so this has characteristic polynomial (in $z$) 
+    $z^2 - (x + \frac{1}{x})z + 1 = 0$, 
+    which has roots $x$ and $\frac{1}{x}$. 
+    Thus we have $f(x^n) = a(x) x^n + \frac{b(x)}{x^n}$ for all integers $n$, 
+    with $a(x)$ and $b(x)$ are real constants. 
+    Note that $f(1) = a(x)+b(x)$ so we may write $b(x)=C-a(x)$ for all $x$, with $C = f(1)$. 
+    In addition $a(x) = a(y)$ for all $y=x^n$ where $n$ integer. 
+    
+    We now show that $a(x)=a(y)$ for all $x, y\neq 1$. 
+    By before, we may assume that $x\neq y$ and $x\neq \frac{1}{y}$. 
+    Consider substituting $x^n$ into $x$ and $y^n$ into $y$ in the original equation, we get 
+    \[
+    \left(x^n + \frac {1}{x^n}\right) f(y^n) = f(x^ny^n) + f(\frac{y^n}{x^n})
+    \]
+    \[
+    \left(x^n + \frac {1}{x^n}\right) \left(a(y) y^n + \frac{C - a(y)}{y^n}\right) = a(xy) x^ny^n + \frac{C - a(xy)}{x^ny^n} 
+    + a(y/x) (y/x)^n + \frac{C - a(y/x)}{(y/x)^n}
+    \]
+    Rearranging, we get 
+    \[
+    (a(xy) - a(y))(x^ny^n - \frac{1}{x^ny^n})
+    +(a(\frac{y}{x}) - a(y))((\frac{y}{x})^n - (\frac{x}{y})^n) = 0
+    \]
+    
+    In addition, by comparing $n=1$ and $n=2$ we get 
+    \[
+    (a(xy) - a(y))(xy - \frac{1}{xy})(xy + \frac{1}{xy})
+    +(a(\frac{y}{x}) - a(y))(\frac{y}{x} - \frac{x}{y})(\frac{y}{x} + \frac{x}{y}) = 0
+    \]
+    Note that $xy - \frac{1}{xy}$ and $\frac{y}{x} - \frac{x}{y}$ are nonzero since $x\neq y$ and $xy\neq 1$. 
+    This subsequently implies that $xy + \frac{1}{xy}\neq \frac{y}{x} + \frac{x}{y}$ since both $x, y$ are not equal to 1. 
+    Consequently, we must have $a(xy)=a(y/x)=a(y)$. 
+    By considering all possible $x$ and $y$'s we have $a(x)$ constant for all $x\neq 1$, 
+    which will then show that $f$ is indeed in the form $Ax+\frac{B}{x}$. 
+    
 \end{enumerate}
 
 

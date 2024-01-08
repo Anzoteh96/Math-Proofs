@@ -47,6 +47,49 @@
 	
 	\section*{Algebra}
 	\begin{enumerate}
+		\item [A2.] 
+		Let $a$, $b$, $c$ be positive real numbers such that $\dfrac{1}{a} + \dfrac{1}{b} + \dfrac{1}{c} = a+b+c$. Prove that:
+		\[\frac{1}{(2a+b+c)^2}+\frac{1}{(a+2b+c)^2}+\frac{1}{(a+b+2c)^2}\leq \frac{3}{16}.\]
+		
+		\textbf{Solution.} 
+		Let $x = 2a+b+c, y = a+2b+c, z = a+b+2c$. 
+		We show that 
+		\[
+		(x^{-2} + y^{-2} + z^{-2})(x+y+z)^2
+		\le 3(x^{-2} + y^{-2} + z^{-2})(x^2+y^2+z^2)
+		\le 3(a + b + c)(a^{-1} + b^{-1}+c^{-1})
+		=3(a + b + c)^2
+		\]
+		Given also that $x + y + z = 4(a + b + c)$, this does give $x^{-2} + y^{-2} + z^{-2}\le \frac{3}{16}$ as we want. 
+		
+		The first inequality, $(x+y+z)^2\le 3(x^2+y^2+z^2)$, 
+		follows from $QM-AM$ inequality, so the central part is to show the second inequality. 
+		We note also that 
+		\[
+		(a + b + c)(a^{-1} + b^{-1}+c^{-1})
+		= 9 +\frac{(a - b)^2}{ab} + \frac{(b - c)^2}{bc} + \frac{(c - a)^2}{ca}
+		\]
+		and similarly 
+		\[
+		(x^{-2} + y^{-2} + z^{-2})(x+y+z)^2
+		= 9 + \frac{(x^2 - y^2)^2}{x^2y^2} + \frac{(y^2 - z^2)^2}{y^2z^2} + \frac{(z^2 -x^2)^2}{z^2x^2}
+		\]
+		We now show that $\frac{(x^2 - y^2)^2}{x^2y^2}\le \frac{(a - b)^2}{ab}$. 
+		Observe that $(x^2 - y^2)^2 = (x - y)^2(x + y)^2 = (a - b)^2(3a + 3b + 2c)^2$, 
+		and therefore it's equivalent to showing that 
+		\[
+		ab(3a + 3b + 2c)^2\le (2a + b + c)^2(a + 2b + c)^2
+		\]
+		First, note that $\frac{(2a + b + c)(a + 2b + c)}{3a + 3b + 2c}\ge \frac{(2a + b)(a + 2b)}{3a + 3b}$: 
+		in fact, 
+		in general we have $\frac{(u + w)(v + w)}{u + v + 2w}\ge \frac{uv}{u + v}$ for $u, v, w\ge 0$
+		(cross multiplying denominator we get the difference as $(u-v)^2w + w^2\ge 0$). 
+		Thus it suffices to show instead that 
+		\[
+		ab(3a + 3b)^2\le (2a + b)^2(a + 2b)^2
+		\]
+		(TODO LOL)
+		
 		\item [A3.] (IMO 5)
 		Determine all functions $ f$ from the set of positive integers to the set of positive integers such that, for all positive integers $ a$ and $ b$, there exists a non-degenerate triangle with sides of lengths
 		\[ a, f(b) \text{ and } f(b + f(a) - 1).\]
@@ -86,6 +129,33 @@
 		With $a_0 < a_1 < \cdots$, we have $a_n = n + 2$, i.e. $f(2) + n(f(2)-1)=n+2$. 
 		Thus $f(2)=2$ and since we already have $f(a_n) = n + 2$, this gives $f(n) = n$ for all integers $n$. 
 		
+		\item [A4.]
+		Let $a$, $b$, $c$ be positive real numbers such that $ab+bc+ca\leq 3abc$. Prove that
+		\[\sqrt{\frac{a^2+b^2}{a+b}}+\sqrt{\frac{b^2+c^2}{b+c}}+\sqrt{\frac{c^2+a^2}{c+a}}+3\leq \sqrt{2}\left(\sqrt{a+b}+\sqrt{b+c}+\sqrt{c+a}\right)\]
+		
+		\textbf{Solution.} 
+		We will prove this based on the following procedure: 
+		\begin{flalign*}
+			&\sqrt{\frac{a^2+b^2}{a+b}}+\sqrt{\frac{b^2+c^2}{b+c}}+\sqrt{\frac{c^2+a^2}{c+a}}+3
+			\\\le & \sqrt{\frac{a^2+b^2}{a+b}}+\sqrt{\frac{b^2+c^2}{b+c}}+\sqrt{\frac{c^2+a^2}{c+a}}+\sqrt{\frac{2ab}{a + b}}
+			+ \sqrt{\frac{2bc}{b + c}} + \sqrt{\frac{2ac}{a + c}}
+			\\\le &  \sqrt{2}\left(\sqrt{a+b}+\sqrt{b+c}+\sqrt{c+a}\right)
+		\end{flalign*}
+	    For the first inequality, denote $\frac 12(\frac{1}{a} + \frac{1}{b}) = x, 
+	    \frac 12(\frac{1}{b}+\frac{1}{c}) = y$, 
+	    and $\frac 12 (\frac{1}{c} + \frac{1}{a}) = z$; 
+	    our given inequality implies that $x + y + z\le 3$. 
+	    In addition, $\frac{2ab}{a + b} = (\frac{1}{2a}+\frac{1}{2b})^{-1} = \frac 1x$, and therefore we are to show that $\sqrt{\frac 1x} + \sqrt{\frac 1y} + \sqrt{\frac 1z}\ge 3$. 
+	    Indeed, by the power-mean inequality we have 
+	    \[
+	    (\frac{x^{-1/2} + y ^{-1/2} + z^{-1/2}}{3})^{-2}\le \frac{x + y + z}{3}\le 1
+	    \]
+	    which then establishes the claim. 
+	    
+	    For the second inequality, all we need is the identity that $\sqrt{x}+\sqrt{y}\le \sqrt{2(x+y)}$ whenever $x, y\ge 0$. 
+	    This would then give us 
+	    $\sqrt{\frac{a^2+b^2}{a+b}} + \sqrt{\frac{2ab}{a+b}}\le \sqrt{2(a+b)}$ and similarly for the other two. 
+		
 		\item [A6.]
 		(IMO 3). 
 		Suppose that $ s_1,s_2,s_3, \ldots$ is a strictly increasing sequence of positive integers such that the sub-sequences\[s_{s_1},\, s_{s_2},\, s_{s_3},\, \ldots\qquad\text{and}\qquad s_{s_1+1},\, s_{s_2+1},\, s_{s_3+1},\, \ldots\]are both arithmetic progressions. Prove that the sequence $ s_1, s_2, s_3, \ldots$ is itself an arithmetic progression.
@@ -121,6 +191,48 @@
     
     \section*{Combinatorics}
     \begin{enumerate}
+    	\item [C2.]
+    	For any integer $n\geq 2$, let $N(n)$ be the maxima number of triples $(a_i, b_i, c_i)$, $i=1, \ldots, N(n)$, consisting of nonnegative integers $a_i$, $b_i$ and $c_i$ such that the following two conditions are satisfied:
+    	\begin{itemize}
+    		\item $a_i+b_i+c_i=n$ for all $i=1, \ldots, N(n)$,
+    		
+    		\item If $i\neq j$ then $a_i\neq a_j$, $b_i\neq b_j$ and $c_i\neq c_j$
+    	\end{itemize}
+    	
+    	Determine $N(n)$ for all $n\geq 2$.
+    	
+    	\textbf{Answer.} $\lfloor \frac{2n}{3}\rfloor + 1$. 
+    	
+    	\textbf{Solution.} To show the upper bound, 
+    	notice that the sum of all $a_i, b_i, c_i$ is $n\cdot N(n)$; 
+    	the fact that each $a_i$'s, each $b_i$'s, each $c_i$'s are pairwise different means 
+    	the sum of all $a_i$'s (resp. $b_i$'s, $c_i$'s, too), 
+    	is at least $\frac{N(n)(N(n) - 1)}{2}$. 
+    	Thus we have $n\cdot N(n)\ge 3\frac{N(n)(N(n) - 1)}{2}$, 
+    	giving $N(n)\le \frac {2n}{3} + 1$. 
+    	
+    	We now proceed with construction, where we focus on the `tight' case where $n = 3k$ for some $k$ 
+    	(thus the proposed $N(n) = 2k + 1$), and proceed with showing for $3k+1$ and $3k+2$. 
+    	Note that we need to single out $n=2$ separately, 
+    	in which $N(2) = 2$ and a construction would be 
+    	$a_1=1, a_2=0, b_1=1, b_2=0, c_1=0, c_2=2$. 
+    	Next for $n=3k$ may do 
+    	\begin{flalign*}
+    		(a_1, \cdots, a_{2k + 1}) &= (0, 1, \cdots, 2k)\\
+    		(b_1, \cdots, b_{2k + 1}) &= (2k, 2k-2, \cdots, 0, 2k-1, 2k-3, \cdots, 1)\\
+    		(c_1, \cdots, c_{2k + 1}) &= (k, k + 1, \cdots, 2k, 0, 1,\cdots, k - 1)\\
+    	\end{flalign*}
+    	The motivation comes as that we want $a_i, b_i, a_i + b_i$ to be all distinct modulo $2k + 1$, 
+    	which means we may do cycles where the adjacent difference of $a_i, b_i, c_i$ 
+    	are $+1, -2, +1$, respectively. 
+    	All it remains is to arrange it such that $a_i+b_i$ always lie between $k$ and $3k$, inclusive. 
+    	
+        Finally, given the construction for $3k$, 
+        for $n=3k+1$, since $N(3k)=N(3k+1)$, we may simply increment $c_i$ by 1 each. 
+        For $n=3k+2$, since $N(3k + 2) = N(3k) + 1 = 2k+2$, 
+        we may increment $a_i$ and $b_i$ by 1 each (for $i=1, \cdots, 2k+1$, so $a_i, b_i\ge 1$ now) and take $a_{2k+2}=b_{2k+2}=0$ (which will be distinct from other $a_i, b_i$'s since they are all $\ge 1$), and then $c_{2k+2}=3k+2$ 
+        (which will be distinct from other $c_i$'s too since they are in the range $[0, 2k]$). 
+    	
     	\item [C5.]
     	Five identical empty buckets of $2$-liter capacity stand at the vertices of a regular pentagon. Cinderella and her wicked Stepmother go through a sequence of rounds: At the beginning of every round, the Stepmother takes one liter of water from the nearby river and distributes it arbitrarily over the five buckets. Then Cinderella chooses a pair of neighbouring buckets, empties them to the river and puts them back. Then the next round begins. The Stepmother goal's is to make one of these buckets overflow. Cinderella's goal is to prevent this. Can the wicked Stepmother enforce a bucket overflow?
     	
@@ -198,6 +310,9 @@
     
     \section*{Geometry}
     \begin{enumerate}
+    	\item [G1.] (IMO 4)
+    	Let $ ABC$ be a triangle with $ AB = AC$ . The angle bisectors of $ \angle C AB$ and $ \angle AB C$ meet the sides $ B C$ and $ C A$ at $ D$ and $ E$ , respectively. Let $ K$ be the incentre of triangle $ ADC$. Suppose that $ \angle B E K = 45^\circ$ . Find all possible values of $ \angle C AB$ .
+    	
     	\item [G2.] (IMO 2)
     	Let $ ABC$ be a triangle with circumcentre $ O$. The points $ P$ and $ Q$ are interior points of the sides $ CA$ and $ AB$ respectively. Let $ K,L$ and $ M$ be the midpoints of the segments $ BP,CQ$ and $ PQ$. respectively, and let $ \Gamma$ be the circle passing through $ K,L$ and $ M$. Suppose that the line $ PQ$ is tangent to the circle $ \Gamma$. Prove that $ OP = OQ.$
     	
@@ -213,6 +328,13 @@
     	$AQ\cdot MK = AP\cdot ML$. 
     	But since $MK = \frac 12 = QB$ and $ML = \frac 12 PC$, we have 
     	$AQ\cdot QB = AP\cdot PC$, as desired. 
+    	
+    	\item [G3.]
+    	Let $ABC$ be a triangle. The incircle of $ABC$ touches the sides $AB$ and $AC$ at the points $Z$ and $Y$, respectively. Let $G$ be the point where the lines $BY$ and $CZ$ meet, and let $R$ and $S$ be points such that the two quadrilaterals $BCYR$ and $BCSZ$ are parallelogram.
+    	Prove that $GR=GS$.
+    	
+    	\item [G4.]
+    	Given a cyclic quadrilateral $ABCD$, let the diagonals $AC$ and $BD$ meet at $E$ and the lines $AD$ and $BC$ meet at $F$. The midpoints of $AB$ and $CD$ are $G$ and $H$, respectively. Show that $EF$ is tangent at $E$ to the circle through the points $E$, $G$ and $H$.
     	
     	\item [G6.]
     	Let the sides $AD$ and $BC$ of the quadrilateral $ABCD$ (such that $AB$ is not parallel to $CD$) intersect at point $P$. Points $O_1$ and $O_2$ are circumcenters and points $H_1$ and $H_2$ are orthocenters of triangles $ABP$ and $CDP$, respectively. Denote the midpoints of segments $O_1H_1$ and $O_2H_2$ by $E_1$ and $E_2$, respectively. Prove that the perpendicular from $E_1$ on $CD$, the perpendicular from $E_2$ on $AB$ and the lines $H_1H_2$ are concurrent.
@@ -260,6 +382,10 @@
     	means that $Q_2$ and $Q_0$ are equidistant from $H_1H_2$ but different sides. 
     	Note that $Q_1$ is the midpoint of $Q_0Q_2$, 
     	so $Q_1$ is on $H_1H_2$, as claimed. 
+    	
+    	\item [G7.]
+    	Let $ABC$ be a triangle with incenter $I$ and let $X$, $Y$ and $Z$ be the incenters of the triangles $BIC$, $CIA$ and $AIB$, respectively. Let the triangle $XYZ$ be equilateral. Prove that $ABC$ is equilateral too.
+    	
     	
     	\item [G8.]
     	Let $ABCD$ be a circumscribed quadrilateral. Let $g$ be a line through $A$ which meets the segment $BC$ in $M$ and the line $CD$ in $N$. Denote by $I_1$, $I_2$ and $I_3$ the incenters of $\triangle ABM$, $\triangle MNC$ and $\triangle NDA$, respectively. Prove that the orthocenter of $\triangle I_1I_2I_3$ lies on $g$.
