@@ -165,7 +165,7 @@
 	
 	\item [\textbf{B1}] Denote by $\mathbb Z^2$ the set of all points $(x,y)$ in the plane with integer coordinates.  For each integer $n\geq 0$, let $P_n$ be the subset of $\mathbb Z^2$ consisting of the point $(0,0)$ together with all points $(x,y)$ such that $x^2+y^2=2^k$ for some integer $k\leq n$.  Determine, as a function of $n$, the number of four-point subsets of $P_n$ whose elements are the vertices of a square.
 	
-	\textbf{Answer.} 
+	\textbf{Answer.} $5n + 1$. 
 	
 	\textbf{Solution.} We first claim that all pairs $(x, y)$ with $x^2+y^2=2^k$ are of the following: 
 	\[
@@ -223,6 +223,79 @@
 	\[
 	\frac{a_n}{n^3}\to \frac{2}{\pi}((\frac{2}{\pi})^2-\frac{1}{n^2})=\frac{8}{\pi^3}
 	\]
+	
+	\item[\textbf{B4}] 
+	Let $\mathcal{F}$ be the set of functions $f(x, y)$ that are twice continuously differentiable for $x\ge 1, y\ge 1$  and that satisfy
+	the following two equations (where subscripts denote partial derivatives):
+	
+	\[
+	xf_x + yf_y = xy\ln (xy)
+	\qquad 
+	x^2f_{xx}+y^2f_{yy} = xy
+	\]
+	For each $f\in\mathcal{F}$, let 
+	\[
+	m(f) = \min_{s\ge 1} (f(s+1, s+1) - f(s+1, s) - f(s, s+1) + f(s, s))
+	\]
+	Determine $m(f)$, and show that it is independent of the choice of $f$. 
+	
+	\textbf{Answer.} $2\ln 2 - \frac 12$. 
+	
+	\textbf{Solution.} 
+	We first note that 
+	\[
+	xf_{xy} + f_y + yf_{yy} = \frac{\partial}{\partial y}(xf_x + yf_y + xy\ln (xy))
+	=\frac{\partial}{\partial y}(xy\ln (xy))
+	=x(\ln xy + 1)
+	\]
+	Multiplying this by $y$ gives $xyf_{xy} + yf_y + y^2f_{yy} = xy(\ln xy + 1)$. 
+	Similarly, taking this original first derivative condition, 
+	taking $\frac{\partial}{\partial x}$ and multipled by $x$ again gives 
+	$xyf_{xy} + xf_x + x^2f_{xx} = xy(\ln xy + 1)$. 
+	Thus adding them up we have 
+	\[
+	2xy(\ln xy + 1) = 2xyf_{xy} + xf_x + yf_y + x^2f_{xx} + y^2f_{yy} 
+	=2xyf_{xy} + xy\ln xy + xy
+	\]
+	Therefore, $f_{xy} = \frac{1 + \ln (xy)}{2}$. 
+	This gives us functions $C_1(x)$ and $C_2(y)$ such that 
+	\[
+	f_x = \int f_{xy} dy = \int \frac{1 + \ln x + \ln y}{2}dy = \frac{y\ln(xy)}{2} + C_1(x)
+	\]\[
+	f_y =  \int f_{xy} dx = \int \frac{1 + \ln x + \ln y}{2}dy = \frac{x\ln(xy)}{2} + C_2(y)
+	\]
+	By the first order derivative condition, this gives $xy\ln (xy)=xf_x + yf_y  = xy\ln(xy) + xC_1(x) + yC_2(y)$, 
+	so there is a constant $C$ such that $C_1(x)=\frac{C}{x}$ and $C_2(y)=-\frac{C}{y}$. 
+	
+	We now compute $m(f, s)\triangleq f(s+1, s+1) - f(s+1, s) - f(s, s+1) + f(s, s)$. 
+	Observe that: 
+	\[
+	f(s+1, s) - f(s, s) = \int_s^{s+1} f_x(x, s)dx
+	=\int_s^{s+1}\frac{y\ln(xs)}{2} + \frac{C}{x}dx
+	=\frac{xs\ln(xs) - xs}{2} + C(\ln x)|_s^{s+1}
+	\]\[
+	=\frac{s(s+1)\ln(s+1) - s(s-1)\ln s - s}{2} + C\ln(\frac{s + 1}{s})
+	\]
+	Similarly, we get $f(s, s + 1) - f(s, s) = \frac{s(s+1)\ln(s+1) - s(s-1)\ln s - s}{2} - C\ln(\frac{s + 1}{s})$. 
+	Finally, we get 
+	\[
+	f(s + 1, s + 1) - f(s, s) 
+	= \int_s^{s + 1} f_x(x, x) + f_y(x, x) dx
+	= \int_s^{s+1} x\ln(x^2) dx 
+	\]\[
+	= x^2\ln x - \frac{x^2}{2}|_s^{s+1}
+	=(s+1)^2\ln(s+1) - s^2\ln s - \frac{2s + 1}{2}
+	\]
+	Thus 
+	\[
+	m(f, s) = (s+1)^2\ln(s+1) - s^2\ln s - \frac{2s + 1}{2} - s(s+1)\ln(s+1) + s(s-1)\ln s + 2
+	\]\[
+	= (s+1)\ln (s+1) - s\ln s - \frac 12
+	\]
+	and therefore, $m(f) = \min_{s\ge 1} m(f, s)$. 
+	Finally, differentiating w.r.t. $s$ on $m(f, s)$ gives $\ln\frac{s+1}{s} > 0$, 
+	showing $m(f, s)$ is increasing in $s$. 
+	Thus $m(f) = m(f, 1) = 2\ln 2 - \frac 12$. 
 	
 	\item [\textbf{B5}] Let $F_m$ be the $m$'th Fibonacci number, defined by $F_1=F_2=1$ and $F_m = F_{m-1}+F_{m-2}$ for all $m \geq 3$. Let $p(x)$ be the polynomial of degree 1008 such that $p(2n+1)=F_{2n+1}$ for $n=0,1,2,\ldots,1008$. Find integers $j$ and $k$ such that $p(2019) = F_j - F_k$.
 	
