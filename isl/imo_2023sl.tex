@@ -1,0 +1,1139 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, float}
+\usepackage{mathrsfs,amsthm}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+	\newcommand{\la}{\leftarrow}
+	\newcommand{\lra}{\leftrightarrow}
+	\newcommand{\bbN}{{\mathbb N}}
+	\newcommand{\bbZ}{{\mathbb Z}}
+	\newcommand{\bbQ}{{\mathbb Q}}
+	\newcommand{\bbR}{{\mathbb R}}
+	\newcommand{\bbC}{{\mathbb C}}
+	\newcommand{\bbH}{{\mathbb H}}
+	\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+	\newcommand{\ra}{\rightarrow}
+	\newcommand{\Span}{\mathrm{span}}
+	\newcommand{\scrP}{\mathscr{P}}
+	\newcommand{\rank}{\mathrm{rank}}
+	\newcommand{\nullity}{\mathrm{nullity}}
+	\newcommand{\Col}{\mathrm{Col}}
+	\newcommand{\Row}{\mathrm{Row}}
+	\newcommand{\tr}{\mathrm{tr}}
+	\newcommand{\ol}{\overline}
+	\newcommand{\norm}[1]{||#1||}
+	\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+	\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+	\newcommand{\Ind}{\mathrm{Ind}}
+	\newcommand{\Res}{\mathrm{Res}}
+	\newcommand{\End}{\mathrm{End}}
+	\newcommand{\cl}{\mathrm{cl}}
+	\newcommand{\code}[1]{\texttt{#1}}
+	\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+	\newcommand{\<}{\langle}
+	\renewcommand{\>}{\rangle}
+	\newcommand{\qubits}[1]{|{#1}\rangle}
+	\newcommand{\powset}{\mathcal{P}}
+	\newcommand{\dsum}{\displaystyle\sum}
+	\newcommand{\dprod}{\displaystyle\prod}
+	
+	\newtheorem{lemma}{Lemma}
+	
+	\title{Solution to IMO 2023 Shortlist}
+	\date{}
+	\maketitle
+	\section*{Algebra}
+	\begin{enumerate}
+		\item [A1.] 
+		Professor Oak is feeding his $100$ Pokémon. Each Pokémon has a bowl whose capacity is a positive real number of kilograms. These capacities are known to Professor Oak. The total capacity of all the bowls is $100$ kilograms. Professor Oak distributes $100$ kilograms of food in such a way that each Pokémon receives a non-negative integer number of kilograms of food (which may be larger than the capacity of the bowl). The dissatisfaction level of a Pokémon who received $N$ kilograms of food and whose bowl has a capacity of $C$ kilograms is equal to $\lvert N-C\rvert$.
+		
+		Find the smallest real number $D$ such that, regardless of the capacities of the bowls, Professor Oak can distribute food in a way that the sum of the dissatisfaction levels over all the $100$ Pokémon is at most $D$.
+		
+		\textbf{Answer.} 50. 
+		
+		\textbf{Solution.} 
+		We consider in general that there are $n$ pokemons, and the total capacity of bowls (and amount of food distributed) is also $n$. 
+		That way we show that the answer is $\frac{n}{2}$ if $n$ is even. 
+		
+		To show that we cannot improve from $\frac n2$, consider the scenario where the first $\frac n2$ bowls have capacity $\frac{1}{2}$ and the remaining $\frac n2$ bowls having capacity $\frac 32$. 
+		It then follows that the dissatisfaction score for each bowl must be at least $\frac 12$ (since the food given must be an integer). 
+		
+		Now to show that $\frac n2$ is attainable, let $x_1, \cdots, x_n$ be the bowl capacity 
+		(so $\sum x_i = n$), 
+		and sort them according to their fractional part, 
+		i.e. 
+		$\{x_1\}\le \cdots \{x_n\}$. 
+		Let $m < n$ be such that 
+		$\sum \{x_i\} = m$, 
+		which is itself an integer. 
+		(Note that if $m = 0$ then $x_i$ are all integer, in which case a distribution of food with quantity $x_i$ is valid and giving 0 dissatisfaction score). 
+		Distribute the food in quantities $y_1, \cdots, y_n$ such that 
+		\[
+		y_i = 
+		\begin{cases}
+			\lfloor x_i\rfloor & i\le n - m\\
+			\lceil x_i\rceil & i\ge n - m\\
+		\end{cases}
+		\]
+		We note that $\{x_{n - m + 1}\} > 0$. 
+		Note that the average of 
+		$\{x_i\}$ for $i\le n - m$ is at most $\frac{m}{n}$, 
+		and for $i > n - m$ is at least $\frac{m}{n}$. 
+		Therefore, we have the dissatisfaction score here as 
+		\[
+		\sum_{i\le n - m} \{x_i\}
+		+\sum_{i > n - m} 1 - \{x_i\}
+		\le \sum_{i\le n - m} \frac{m}{n}
+		+\sum_{i > n - m} \frac{n-m}{n}
+		=\frac{2m(n - m)}{n}
+		\le\frac{(m + n - m)^2}{2n}
+		=\frac{n}{2}
+		\]
+		as desired. 
+		
+		\item [A2.] 
+		Let $\mathbb{R}$ be the set of real numbers. Let $f:\mathbb{R}\rightarrow\mathbb{R}$ be a function such that\[f(x+y)f(x-y)\geqslant f(x)^2-f(y)^2\]for every $x,y\in\mathbb{R}$. Assume that the inequality is strict for some $x_0,y_0\in\mathbb{R}$.
+		
+		Prove that either $f(x)\geqslant 0$ for every $x\in\mathbb{R}$ or $f(x)\leqslant 0$ for every $x\in\mathbb{R}$.
+		
+		\textbf{Solution.}
+		Suppose $x_0, y_0$ are such that 
+		$f(x_0 + y_0)f(x_0 - y_0) > f(x_0)^2 - f(y_0)^2$. 
+		Reversing their role, we have 
+		$f(x_0 + y_0)f(y_0 - x_0) \ge f(y_0)^2 - f(x_0)^2$. 
+		Thus adding them up, we have 
+		\[
+		f(x_0 + y_0)(f(x_0 - y_0) + f(y_0 - x_0)) > 0
+		\]
+		In particular, setting $b_0 = x_0 - y_0$ we have 
+		$f(b_0) + f(-b_0)\neq 0$. 
+		
+		Now for any $a$,
+		let $x = \frac{a + b_0}{2}$ and $y = \frac{a - b_0}{2}$. 
+		Then $x + y = a$ and $x - y = b_0$. 
+		Plugging this back into the original equation we have 
+		$f(a)f(b_0)\ge f(x)^2 - f(y)^2$ and 
+		$f(a)f(-b_0)\ge f(y)^2 - f(x)^2$, and therefore 
+		\[
+		f(a)(f(b_0) + f(-b_0))\ge 0
+		\]
+		Given also that $f(b_0) + f(-b_0)\neq 0$, 
+		we have $f(a)$ and $f(b_0) + f(-b_0)$ have the same sign 
+		for all a$a$, as desired. 
+		
+		\item [A3.] (IMO 4)
+		Let $x_1,x_2,\dots,x_{2023}$ be pairwise different positive real numbers such that
+		\[a_n=\sqrt{(x_1+x_2+\dots+x_n)\left(\frac{1}{x_1}+\frac{1}{x_2}+\dots+\frac{1}{x_n}\right)}\]is an integer for every $n=1,2,\dots,2023.$ Prove that $a_{2023} \geqslant 3034.$
+		
+		\textbf{Solution.} 
+		We show that $a_{n+2} - a_n\ge 3$ for all $n\ge 1$. 
+		This way, $a_{2023}\ge a_1 + 3\cdot 1011 = 3034$, 
+		since $a_1 = 1$. 
+		
+		To see why, we see that $\{a_n\}$ is strictly increasing, 
+		so it suffices to show that for any $n$, we cannot have $a_{n+1} - a_n = a_{n+2}-a_{n+1}=1$. 
+		Denote, now, $S_n = x_1 + \cdots + x_n$ and $T_n = \frac{1}{x_1} + \cdots + \frac{1}{x_n}$. 
+		Now we have 
+		\[
+		a_{n+1}^2 = (S_n + x_{n+1})(T_n + \frac{1}{x_{n+1}})
+		=a_n^2 + x_{n+1}T_n + \frac{S_n}{x_{n+1}} + 1
+		\]
+		using $S_nT_n = a_n$. 
+		By AM-GM inequality, $x_{n+1}T_n + \frac{S_n}{x_{n+1}} \ge 2\sqrt{T_nS_n} = 2a_n$, 
+		so $a_{n+1}^2 \ge a_n^2 + 2a_n + 1 = (a_n+1)^2$, 
+		with equality if and only if $\frac{S_n}{x_{n+1}} = x_{n+1}T_n$.
+		
+		Therefore, if 
+		$a_{n+1} - a_n = a_{n+2}-a_{n+1}=1$ for some $n$, 
+		then 
+		\[x_{n+1} = \sqrt{\frac{S_n}{T_n}}
+		\qquad 
+		x_{n+2} = \sqrt{\frac{S_{n+1}}{T_{n+1}}}
+		= \sqrt{\frac{S_n + x_{n+1}}{T_n + \frac{1}{x_{n+1}}}}
+		=\sqrt{\frac{S_n + \sqrt{S_n/T_n}}{T_n + \sqrt{T_n/S_n}}}
+		=\sqrt{\frac{S_n}{T_n}}\]
+		I.e. $x_{n+1}=x_{n+2}$. 
+		This contradicts that $x_n$'s are pairwise distinct. 
+		
+		\item [A4.]
+		Let $\mathbb R_{>0}$ be the set of positive real numbers. Determine all functions $f \colon \mathbb R_{>0} \to \mathbb R_{>0}$ such that\[x \cdot \left(f(x) + f(y)\right) \geq \left(f(f(x)) + y\right) \cdot f(y)\]for every $x, y \in \mathbb R_{>0}$.
+		
+		\textbf{Answer.} 
+		The family of functions satisfying the condition is $f(x) = \frac{c}{x}$ for some constant $c > 0$. 
+		
+		\textbf{Solution}. 
+		The given function works since both sides give 
+		$c + \frac{cx}{y}$. 
+		
+		By plugging $x=y$, we obtain $f(f(x))\le x$. 
+		Plugging $x = f(y)$ and using that $f$ takes positive values, 
+		we get $f(f(y)) + f(y)\ge f(f(f(y))) + y$, 
+		or $f(y) - f(f(f(y))) \ge y - f(f(y))$. 
+		
+		We show that the inequalities above are equality, i.e. 
+		$f(f(x)) = x$ for all $x > 0$. 
+		Suppose otherwise, and consider the sequence $\{x_n\}$ such that $x_{n+1} = f(x_n)$, 
+		and $x_0$ any number satisfying $f(f(x_0)) < x_0$. 
+		Then the inequality $f(y) - f(f(f(y))) \ge y - f(f(y))$ directly implies that 
+		$x_{n+1} - x_{n+3} \ge x_n - x_{n+2}$ for all $n$, and therefore 
+		\[
+		x_0 - x_2 \le x_2 - x_4\le\cdots
+		\]
+		In other words, if $d\triangleq x_0-x_2 > 0$, 
+		then $x_{2n}\le x_0 - 2nd$ which will eventually become negative as $n > \frac{x_0}{2d}$, and hence impossible. 
+		
+		Having established $f(f(x))$, 
+		the given inequality now becomes $xf(x) \ge yf(y)$ for all pairs $(x, y)$. 
+		By taking symmetry, we in fact have $xf(x) = yf(y)$, 
+		meaning that the function $xf(x)$ is a constant and therefore in the form $\frac{c}{x}$. 
+		
+		\item [A6.] (IMO 3)
+		For each integer $k\geq 2$, determine all infinite sequences of positive integers $a_1$, $a_2$, $\ldots$ for which there exists a polynomial $P$ of the form\[ P(x)=x^k+c_{k-1}x^{k-1}+\dots + c_1 x+c_0, \]where $c_0$, $c_1$, \dots, $c_{k-1}$ are non-negative integers, such that\[ P(a_n)=a_{n+1}a_{n+2}\cdots a_{n+k} \]for every integer $n\geq 1$.
+	\end{enumerate}
+    
+    \section*{Combinatorics}
+    \begin{enumerate}
+    	\item [C1.] 
+    	Let $m$ and $n$ be positive integers greater than $1$. In each unit square of an $m\times n$ grid lies a coin with its tail side up. A move consists of the following steps.
+    	\begin{itemize}
+    		\item select a $2\times 2$ square in the grid;
+    		\item flip the coins in the top-left and bottom-right unit squares;
+    		\item flip the coin in either the top-right or bottom-left unit square.
+    	\end{itemize}
+    	
+    	
+    	\textbf{Answer.} 
+    	All $m, n$ such that $3\mid mn$. 
+    	
+    	\textbf{Solution.}
+    	For necessity, we label the coordinates of the grids as $(i, j)$, 
+    	where $i=1,2, \cdots, m$ from left to right and $j=1, \cdots, n$ from top to down. 
+    	We categorize the grids into $C_0, C_1, C_2$ according to the remainder of $i + j$ of the coordinates $(i, j)$. 
+    	Consider $N(i)$ as the number of coins in $C_i$ heads up; 
+    	we have $N(i)=0$ for all $i$ to start with. 
+    	Now, the grids in top-right and bottom-left squares have the same $i + j$ 
+    	(hence in the same $C_k$); 
+    	the top-left and bottom-right squares each occupy the remaining two different $C_k$s. 
+    	It then follows that $N(i)$ changes (in either direction) by exactly 1, 
+    	and hence changes in parity. 
+    	This means that $N(0), N(1), N(2)$ have the same parity at all times. 
+    	For all coins to be heads-up, 
+    	the number of coins in $C_0, C_1$ and $C_2$ must have the same parity. 
+    	Let $m'$ and $n'$ be the biggest integers such that 
+    	$m'\le m, n'\le n$ and $3\mid m', 3\le n'$. 
+    	Among the grids $(i, j)$ with either $i\le m'$ or $j\le n'$ (or both), 
+    	there are equal number of squares in each $C_0, C_1, C_2$. 
+    	If $3\nmid mn$, 
+    	then the leftover $(m'-m)(n'-n)$ squares are nonempty, 
+    	giving us the cases 
+    	$1\times 1, 1\times 2, 2\times 1, 2\times 2$. 
+    	In the first case, 
+    	there's an extra $C_2$; 
+    	in the second and third case, 
+    	there's an extra $C_2$ and $C_3$; 
+    	in the fourth case there's an extra $C_1$ and $C_2$, but two extra $C_3$'s. 
+    	Hence the conditions cannot be fulfilled. 
+    	
+    	Next, for the case that $3\mid m$ or $3\mid n$, 
+    	we show that we may flip three consecutive coins in the following manner: 
+    	by relying solely on the three consecutive coins on the right, 
+    	we have: 
+    	\[
+    	\begin{pmatrix}
+    		0 & 0\\
+    		0 & 0\\
+    		0 & 0\\
+    	\end{pmatrix}
+    	\to 
+    	\begin{pmatrix}
+    		0 & 0\\
+    		1 & 0\\
+    		1 & 1\\
+    	\end{pmatrix}
+    	\to 
+    	\begin{pmatrix}
+    		1 & 0\\
+    		0 & 1\\
+    		1 & 1\\
+    	\end{pmatrix}
+    	\to 
+    	\begin{pmatrix}
+    		1 & 0\\
+    		1 & 0\\
+    		1 & 0\\
+    	\end{pmatrix}
+    	\]
+    	and by relying solely on the coins on the left, we have: 
+    	\[
+    	\begin{pmatrix}
+    		0 & 0\\
+    		0 & 0\\
+    		0 & 0\\
+    	\end{pmatrix}
+    	\to 
+    	\begin{pmatrix}
+    		1 & 1\\
+    		0 & 1\\
+    		0 & 0\\
+    	\end{pmatrix}
+    	\to 
+    	\begin{pmatrix}
+    		1 & 1\\
+    		1 & 0\\
+    		0 & 1\\
+    	\end{pmatrix}
+    	\to 
+    	\begin{pmatrix}
+    		0 & 1\\
+    		0 & 1\\
+    		0 & 1\\
+    	\end{pmatrix}
+    	\]
+    	The algorithm is similar if we were to flip three coins in a row instead of in a column. 
+    	
+    	Thus if $3\mid m$, we may split the grid into $3\times 1$ subgrids and do each of those operations iteratively, 
+    	depending whether each subgrids have neighbours on the left or on the right. 
+    	The case where $3\mid n$ is similar. 
+    	
+    	\item [C2.]
+    	Determine the maximal length $L$ of a sequence $a_1,\dots,a_L$ of positive integers satisfying both the following properties:
+    	\begin{itemize}
+    		\item every term in the sequence is less than or equal to $2^{2023}$, and
+    		\item there does not exist a consecutive subsequence $a_i,a_{i+1},\dots,a_j$ (where $1\le i\le j\le L$) with a choice of signs $s_i,s_{i+1},\dots,s_j\in\{1,-1\}$ for which\[s_ia_i+s_{i+1}a_{i+1}+\dots+s_ja_j=0.\]
+    	\end{itemize}
+    	\textbf{Answer.} $2^{2024} - 1$. 
+    	
+    	\textbf{Solution. }
+    	We first determine such a construction. 
+    	Consider, now, the sequence $A_n$ defined in the following manner: 
+    	$A_0=(1)$, and $A_{n+1}$ is concatenating $2 \times A_n$, 1, $2\times A_n$ 
+    	where $\times$ means element-wise multiplication. 
+    	For example, we have 
+    	\[
+    	A_1 = (2, 1, 2)\qquad A_2 = (4, 2, 4, 1, 4, 2, 4)
+    	\qquad A_3 = (8, 4, 8, 2, 8, 4, 8, 1,8, 4, 8, 2, 8, 4, 8)
+    	\]
+    	It's not hard to see that $A_n$ has length $2^{n + 1} - 1$ by induction. 
+    	To show that the second bullet point also apply, we induct on $n$, where base case $n = 0$ is clear. 
+    	Thereafter, in $A_{n + 1}$, 
+    	suppose $i\le j$ are such that 
+    	$s_ia_i + \cdots+ s_ja_j = 0$, 
+    	then $a_i + \cdots + a_j$ is even since $s_i, \cdots, s_j$ are $\{-1, 1\}$. 
+    	Since $A_{n + 1}$ contains only a single odd number 1, 
+    	it then follows that $(a_i, \cdots, a_j)$ must be in the left part of 
+    	$2 \times A_n$ or right part of $2\times A_n$. 
+    	In either case the second bullet point applies to $A_n$, 
+    	so $s_ia_i + \cdots+ s_ja_j = 0$ can't hold in this case either. 
+    	
+    	To show that $2^{n + 1} - 1$ is the best possible, 
+    	consider any sequence $(a_1, \cdots, a_k)$. 
+    	We first assign $s_1, \cdots, s_k$ according to the following iterative protocol, 
+    	keeping track of the partial sum: 
+    	set $t_0 = 0$, $s_1 = 1$ and so $t_1 = a_1$; 
+    	for all $i\le k$, 
+    	\[
+    	s_i = 
+    	\begin{cases}
+    		-1 & t_{i-1} > 0\\
+    		1 & t_{i-1}\le 0
+    	\end{cases}
+    	\]
+    	and we let $t_i = t_{i-1} + s_ia_i$. 
+    	This way, we have $|t_i|\le a_i\le 2^n$. 
+    	
+    	We note that if for some $i > 0$, $t_i = 0$, then 
+    	$s_1a_1 + \cdots + s_ia_i = 0$; 
+    	if $t_i = t_j$ for some $i < j$, 
+    	then $s_{i+1}a_{i+1} + \cdots + s_ja_j = 0$. 
+    	Finally, if $|t_m| = 2^n$ for some $k=m\ge 2$, 
+    	then with $a_m\le 2^n$ we have $t_{m-1}$ and $t_m$ the same sign. 
+    	However, if $t_{m-1}\neq 0$, then $s_m$ has different sign than $t_m$, 
+    	so $|t_m| = |t_{m-1} + s_ma_m| = ||t_{m - 1}| - a_m| < 2^n$, contradiction. 
+    	Thus $t_{m -1} = 0$, 
+    	i.e. we have $s_1a_1 + \cdots + s_ma_m = 0$. 
+    	It then follows that $t_1, \cdots, t_k$ must all be distinct, 
+    	taking values $\{-2^n, \cdots, -1, 1, \cdots, 2^n\}$, 
+    	and cannot take both $-2^n$ and $2^n$ (since only $|t_1|$ is allowed to be $2^n$). 
+    	It then follows that $k\le 2\cdot 2^n - 1 = 2^{n + 1} - 1$. 
+    	
+    	\item [C3.] 
+    	Let $n$ be a positive integer. A Japanese triangle consists of $1 + 2 + \dots + n$ circles arranged in an equilateral triangular shape such that for each $i = 1$, $2$, $\dots$, $n$, the $i^{th}$ row contains exactly $i$ circles, exactly one of which is coloured red. A ninja path in a Japanese triangle is a sequence of $n$ circles obtained by starting in the top row, then repeatedly going from a circle to one of the two circles immediately below it and finishing in the bottom row. 
+    	
+    	In terms of $n$, find the greatest $k$ such that in each Japanese triangle there is a ninja path containing at least $k$ red circles.	
+    	
+    	
+    	\textbf{Answer.} $1 + \lfloor \log_2 n\rfloor$. 
+    	
+    	\textbf{Solution.} Denote $f(n)$ as the answer when there are $n$ such rows. 
+    	We note that $f$ is monotone in $n$, 
+    	so it suffices to show that $f(2^k) \ge k + 1$ and $f(2^{k - 1}) \le k$.
+    	
+    	We first show that $f(2^{k} - 1) \le k$ by giving a Japanese triangle such that for each $m=0, \cdots, k - 1$, any ninja path cannot contain more than one red circle among rows $2^m, 2^m + 1, \cdots, 2^{m + 1} - 1$. 
+    	Indeed, for each $\ell=0, \cdots, 2^m - 1$, 
+    	on row $2^m + \ell$, we colour the $2\ell + 1$-th circle from the left red. 
+    	Note that this is valid since $2^m + \ell\ge 2\ell + 1$ for all $\ell\le 2^m - 1$. 
+    	Notice also that for each ninja path, as we traverse from row $j$ to row $j + 1$, 
+    	the number of circles on the same row to the left of the path cannot decrease, 
+    	and similarly so for the circles on the right (in fact one of the counts stay the same, 
+    	the other one increases by 1). 
+    	Now on our example, the number of circles on the right of red circle at row is $2^m + \ell$ is 
+    	$2^m - \ell - 1$, which decreases with $\ell$. 
+    	It then follows that no ninja path can pass through two of the red circles. 
+    	
+    	Now to show that $f(2^k)\ge k + 1$, we consider any Japanese triangle. 
+    	For each $k, \ell$ with $1\le \ell \le k$, 
+    	denote $a_{k, \ell}$ as the maximum number of red circles a ninja path can pass through, 
+    	and also passing through the $\ell$-th circle of $k$-th row. 
+    	We note that $a_{1, 1} = 1$, and for all $k\ge 2$ we have 
+    	\[
+    	a_{k, \ell}
+    	=\begin{cases}
+    		\max \{a_{k - 1, \ell}, a_{k - 1, \ell - 1}\} + 1 & \text{circle $(k, \ell)$ is red}\\
+    		\max \{a_{k - 1, \ell}, a_{k - 1, \ell - 1}\} & \text{circle $(k, \ell)$ is not red}\\
+    	\end{cases}
+    	\]
+    	where by convention $a_{k, 0} = a_{k, k + 1} = 0$. 
+    	Denote $S_n = \sum_{m=1}^n a_{n, m}$. We show that for each $k$ and $\ell = 0, \cdots, 2^k - 1$, 
+    	$S_{2^k + \ell}\ge k\cdot (2^k + \ell) + 2\ell + 1$. 
+    	To this end, we show by induction that 
+    	$\max_{m\le 2^k + \ell} \{a_{2^k + \ell, m}\}\ge k + 1$, 
+    	and also $S_{2^k + \ell + 1} - S_{2^k + \ell}\ge k + 2$. 
+    	
+    	We first note that in a sequence 
+    	$a_1, a_2, \cdots, a_n$, $M = \max \{a_1, \cdots, a_n\}$, 
+    	and $b_1, \cdots, b_{n + 1}$ are such that $b_1 = 1, b_{n + 1} = a_n$, 
+    	and $b_k = \max\{a_k, a_{k - 1}\}$, 
+    	we have $\sum_{i=1}^{n + 1} b_i\ge M + \sum_{i=1}^n a_i$. 
+    	To this end, let $b_m = M$, 
+    	and we have $b_i\ge a_i$ and $b_{i + 1}\ge a_i$, 
+    	giving 
+    	\[\sum_{i=1}^{n + 1} b_i\ge \sum_{i=1}^{m} a_i + \sum_{j=m}^n a_i = a_m + \sum_{i=1}^n a_i = M + \sum_{i=1}^n a_i
+    	\]
+    	as desired. 
+    	
+    	It then follows that $S_{n + 1} - S_n\ge 1 + \max_{m\le n} a_{n, m}$, 
+    	the extra $+1$ for the circle coloured red. 
+    	We now show that $f(2^k)\ge k + 1$ and $S_{2^k + \ell}\ge k\cdot (2^k + \ell)+2\ell + 1$ by induction on $k$. 
+    	Base case with $k=0$ is clear with $f(1)=S_1 = 1$. 
+    	Now suppose that this is true for some $k$, where $f(2^k)\ge k + 1$, 
+    	then for each $n\ge 2^k$ we have 
+    	$\max_{m\le n} a_{n, m}\ge k + 1$ for $n\ge 2^k$ and so $S_{n + 1} - S_n\ge k + 2$, 
+    	so $S_{2^k + \ell}\ge k2^k + 1 + \ell(k + 2) = k(2^k+\ell) + 2\ell + 1$ for each such $\ell$, 
+    	and in particular, 
+    	$S_{2^{k+1}}\ge k2^{k+1}+2^{k+1}+1=(k + 1)2^{k+1} + 1$. 
+    	By pigeonhole principle, then, 
+    	we have $\max_m \{a_{2^{k+1}, m}\}\ge \frac{(k + 1)2^{k+1} + 1}{2^{k+1}} > k + 1$, 
+    	giving $f(2^{k + 1})\ge k + 2$, as desired. 
+    	
+    	\item [C4.] 
+    	Let $n\geqslant 2$ be a positive integer. Paul has a $1\times n^2$ rectangular strip consisting of $n^2$ unit squares, where the $i^{\text{th}}$ square is labelled with $i$ for all $1\leqslant i\leqslant n^2$. He wishes to cut the strip into several pieces, where each piece consists of a number of consecutive unit squares, and then translate (without rotating or flipping) the pieces to obtain an $n\times n$ square satisfying the following property: if the unit square in the $i^{\text{th}}$ row and $j^{\text{th}}$ column is labelled with $a_{ij}$, then $a_{ij}-(i+j-1)$ is divisible by $n$.
+    	
+    	Determine the smallest number of pieces Paul needs to make in order to accomplish this.
+    	
+    	\textbf{Answer.} $2n - 1$. 
+    	
+    	\textbf{Solution.} To construct such a partition, 
+    	we first split the $1\times n^2$ strip into $n$ equal pieces (of length $n$ each). 
+    	For the $k$-th strip 
+    	($k=1, \cdots, n - 1$),
+    	we further divide into $(1, \cdots, k)$, 
+    	and then $(k+1, \cdots, n)$, 
+    	where the $k+1$-th row of the square can be filled with 
+    	$(k+1, \cdots, n), (1, \cdots, k)$. 
+    	The last $(1, \cdots, n)$ can itself be filled for the first row, $(1, \cdots, n)$, 
+    	giving a total of $2n-1$ strips. 
+    	
+    	Now to show this is necessary, 
+    	consider a set $S \subseteq \{0, 1, \cdots, n - 1\}$. 
+    	Let $S = s_1, \cdots, s_k$ (all distinct). 
+    	Let $k = |S|$, 
+    	and consider the task of tiling an $1\times kn$ numbered $1, \cdots, kn$ onto 
+    	a $k\times n$ square such that on the numbers on the $j$-th row 
+    	are congruent to $s_j + 1, \cdots, s_j + n$ in that order. 
+    	In this partition, denote a cut at $x$ if $x$ and $x + 1$ belong to different strips. 
+    	We first consider the following claim. 
+    	\begin{lemma}
+    		Given an optimal partition of the strip fulfilling the congruence of set $S$. 
+    		Then each cut at $x$ must have $x\equiv y\pmod{n}$ for some $ y\in\{0\}\cup S$. 
+    	\end{lemma}
+    	
+    	\begin{proof}
+    		Suppose $x\equiv y\pmod{n}$ with $1\le y\le n - 1$ and $y\not\in S$. 
+    		Consider all cuts at $jn + y$ for some $j\in \{0, 1, \cdots, k - 1\}$. 
+    		Note that since $y\not\in S$, 
+    		$y$ and $y + 1$ must be adjacent squares of each of the $k$ rows. 
+    		
+    		Let $C = \{j: jn + y\text{ has a cut}\}$. 
+    		If for some $j\in C$ the strip ending at $jn + y$ and the strip starting at $jn + y + 1$ are in the same row, 
+    		then they must be adjacent within the row, 
+    		and therefore can be merged. 
+    		Otherwise, for each $j\in S$ we denote $s(j)$ be such that the strip starting at $jn + y + 1$ ends at $jn + y + s(j)$; 
+    		denote $s_0$ as $\min_{j\in S} \{s(j)\}$. 
+    		Then we can redo the partition such that 
+    		for each $j\in C$, 
+    		the strip ending at $jn + y$ would end at $jn + y + s_0$ instead, 
+    		and the the strip starting at $jn + y + 1$ would start at $jn + y + s_0 + 1$ instead. 
+    		Notice that the tiling onto the $k\times n$ board would still be valid, 
+    		but we eliminated the strip starting at $jn + y + 1$ for those $j$'s with $s(j) = s_0$. 
+    		Thus in either of the cases we can obtain a tiling with one fewer strips. 
+    	\end{proof}
+    	
+    	Now we go back to the problem. We show that given this $S$, 
+    	we need at least the following number of strips: 
+    	\[
+    	\begin{cases}
+    		2k - 1 & 0\in S\\
+    		2k & 0\not\in S\\
+    	\end{cases}
+    	\]
+    	The original problem asks for $S = \{0, 1, \cdots, n - 1\}$, hence solving the problem. 
+    	To show this claim, we use induction on $k$. 
+    	For $k = 1$ we note that we need at least 1 strip and this equality holds only when we tile $1, 2, \cdots, n$ in that order. 
+    	Now given a target set $S\subseteq \{0, \cdots, n - 1\}$ of size $\ge 2$ and suppose that our claim holds for all all proper subset of $S$. 
+    	Consider any such partition / tiling. 
+    	If each of the $k$ rows consists of at least 2 strips, 
+    	then $\ge 2k$ strips are required, as claimed. 
+    	Otherwise, one row has a single strip of length $n$; 
+    	let the strip $s_a$ correspond to $a + 1, \cdots, a + n\pmod{n}$ in that order. 
+    	Consider $S' = S\backslash \{a\}$, 
+    	and consider our original $1 \times kn$ strip with this strip $s_a$ removed. 
+    	Now the remaining $1\times (k - 1)n$ strip with the original cuts is a valid tiling of $S'$. 
+    	If $a = 0$, we see that going from $S'$ to $S$ requires this extra strip 
+    	(i.e. at $(a+1, \cdots, a+n)$). 
+    	Otherwise, we see that $a\not\in S'$ but the resulting tiling with $s_a$ removed has a cut at $a$. 
+    	By our lemma, such partition cannot be optimal. 
+    	It then follows that going from $S'$ to $S$ requires at least 2 additional strips 
+    	(to account for $s_a$ and the resulting suboptimality). 
+    	This finishes the induction. 
+    \end{enumerate}
+    
+    \section*{Geometry}
+    \begin{enumerate}
+    	\item [G1.]
+    	Let $ABCDE$ be a convex pentagon such that $\angle ABC = \angle AED = 90^\circ$. Suppose that the midpoint of $CD$ is the circumcenter of triangle $ABE$. Let $O$ be the circumcenter of triangle $ACD$.
+    	
+    	Prove that line $AO$ passes through the midpoint of segment $BE$.
+    	
+    	\textbf{Solution.}
+    	Let $M$ be the midpoint of $CD$, 
+    	and $F, G$ the midpoints of $AC$ and $AD$, respectively. 
+    	We have $MF\parallel AD$ and is the perpendicular bisector of $AB$ (since $MA=MB=ME$, and also $AF=CF=AB$), 
+    	so in particular $AB\perp MF$ and so $BC\parallel AD$. 
+    	Similarly, $DE\perp AC$. 
+    	
+    	Now let $BC$ and $DE$ intersect again at $N$, 
+    	and $K$ the midpoint of $BE$. 
+    	Then $A, B, E, N$ are concyclic with center $M$, 
+    	and in addition $ACND$ is a parallelogram. 
+    	Note that 
+    	\[
+    	\angle ABE = \angle AND
+    	\qquad 
+    	\angle AEB = \angle ANC = \angle NAD
+    	\]
+    	so triangles $ABE$ and $DNA$ are similar. 
+    	Since $M$ is the midpoint of $AN$, we also have 
+    	$ABK$ and $DNM$ similar. 
+    	In particular, $\angle BAK = \angle NDM=\angle ACD$. 
+    	Finally, given that $AD\perp AB$, 
+    	$\angle BAO = 90^{\circ} - \angle DAO = \angle ACD = \angle BAK$, 
+    	$A, O, K$ are collinear, as desired. 
+    	
+    	\item [G2.] 
+    	Let $ABC$ be a triangle with $AC > BC,$ let $\omega$ be the circumcircle of $\triangle ABC,$ and let $r$ be its radius. Point $P$ is chosen on $\overline{AC}$ such taht $BC=CP,$ and point $S$ is the foot of the perpendicular from $P$ to $\overline{AB}$. Ray $BP$ mets $\omega$ again at $D$. Point $Q$ is chosen on line $SP$ such that $PQ = r$ and $S,P,Q$ lie on a line in that order. Finally, let $E$ be a point satisfying $\overline{AE} \perp \overline{CQ}$ and $\overline{BE} \perp \overline{DQ}$. Prove that $E$ lies on $\omega$.
+    	
+    	\textbf{Solution.}
+    	Let us now show that $P$ is the incenter of triangle $EAB$. 
+    	
+    	Denote $O$ the circumcenter of triangle $ABC$. 
+    	We first show that $QP=QC$. 
+    	Indeed, notices that 
+    	$\angle QPC = \angle APC = 90^{\circ} - \angle CAB 
+    	= \angle OCB$, so with $CB = CP$ and $CO = QP$ we have triangles $CBO$ and $CPQ$ congruent.
+    	Since $AE\perp CQ$, we have 
+    	$\angle EAC = 90^{\circ} - \angle QCP = 90^{\circ} - \angle OCB = \angle CAB$. 
+    	
+    	Next we show also that $QD = QP$. 
+    	By the properties of cyclic quadrilateral $DABC$, 
+    	$CP=CB$ implies $DA=DP$. 
+    	In addition, $\angle QPD = \angle SPB = 90^{\circ} - \angle DBA
+    	= \angle ODA$, 
+    	and therefore triangles $DOA$ and $DQP$ are congruent too 
+    	(since $QP = DO$). 
+    	This gives 
+    	$\angle EBP = 90^{\circ} - \angle QDP = 90^{\circ} - \angle SPB = \angle DBA$. 
+    	
+    	Finally, we compute 
+    	\[
+    	\angle AEB
+    	=180^{\circ} - \angle EAB  -\angle EBA
+    	=2(90^{\circ} - \angle PAB - \angle PBA)
+    	\]\[
+    	=2(90^{\circ} - \angle CPB)
+    	=180^{\circ} - \angle CPB - \angle CBP
+    	=\angle ACB
+    	\]
+    	so $ECAB$ is indeed cyclic. 
+    	
+    	\item [G3. ] 
+    	Let $ABCD$ be a cyclic quadrilateral with $\angle BAD < \angle ADC$. Let $M$ be the midpoint of the arc $CD$ not containing $A$. Suppose there is a point $P$ inside $ABCD$ such that $\angle ADB = \angle CPD$ and $\angle ADP = \angle PCB$.
+    	
+    	Prove that lines $AD, PM$, and $BC$ are concurrent.
+    	
+    	\textbf{Solution.}
+    	Let $CP$ intersect $AD$ again at $A'$, 
+    	and $DP$ intersect $BC$ again at $B'$. 
+    	Note that $\angle A'DP = \angle ADP = \angle PCB = \angle PCB'$, 
+    	so $A'DCB'$ is cyclic. 
+    	
+    	We now claim that $MC$ and $MD$ are both tangent to the circle $A'B'CD$ at $C$ and $D$, 
+    	respectively. 
+    	Observe that $\angle PA'D + \angle A'DP = \angle CPD = \angle ADB$. 
+    	Denote $N$ as the intersection between $AD$ and $BC$. 
+    	Then $\angle ADC - \angle BAD = \angle DNC$. 
+    	Similarly we also get 
+    	$\angle PDA' - \angle PA'D = \angle DNC$, 
+    	and also $\angle BDA - \angle DAC = \angle DNC$ 
+    	(since both $ABCD$ and $A'B'CD$ are cyclic). 
+    	giving 
+    	\[\angle PA'D = \frac{\angle ADB - \angle DNC}{2} = \frac{\angle DAC}{2}
+    	=\frac{180^{\circ} - \angle DMC}{2}
+    	=\angle MDC
+    	\]
+    	and similarly $\angle PA'D = \angle MCD$, 
+    	so $MC$ and $MD$ are indeed tangent to this new circle. 
+    	
+    	To finish the solution, 
+    	notice that by Brokard's theorem, $P, N$ and the point of intersection between $A'B'$ and $CD$ are self-polar. 
+    	This means $PN$ passes through the pole of $CD$, 
+    	which is just the point $M$. 
+    	
+    	\item [G4.] (IMO 2)
+    	Let $ABC$ be an acute-angled triangle with $AB < AC$. Let $\Omega$ be the circumcircle of $ABC$. Let $S$ be the midpoint of the arc $CB$ of $\Omega$ containing $A$. The perpendicular from $A$ to $BC$ meets $BS$ at $D$ and meets $\Omega$ again at $E \neq A$. The line through $D$ parallel to $BC$ meets line $BE$ at $L$. Denote the circumcircle of triangle $BDL$ by $\omega$. Let $\omega$ meet $\Omega$ again at $P \neq B$. 
+    	
+    	Prove that the line tangent to $\omega$ at $P$ meets line $BS$ on the internal angle bisector of $\angle BAC$.
+    	
+    	\textbf{Solution.} 
+    	Let $F$ be such that $AF$ is the diameter of $\Omega$, $Q$ on $BS$ with $PQ$ tangent to $\omega$ at $P$, and $T$ such that $PQ$ intersects $\Omega$ again at $T$.
+    	By angle chasing, $P, D, F$ are collinear, and $ST\parallel PF$.
+    	This immediately gives
+    	$$
+    	\frac{DP}{ST} = \frac{DQ}{QS}
+    	$$Now, $\frac{DQ}{QS} = \frac{AD\sin\angle DAQ}{AS\sin\angle SAQ}$.
+    	Since $SE=SF$, we also have $SPE$ and $FTS$ congruent, so $ST = PE$.
+    	In addition, $\frac{DP}{PE} = \frac{DA}{AF}$, giving the identity
+    	$$
+    	\frac{AS}{AF}=\frac{\sin\angle DAQ}{\sin\angle SAQ}
+    	$$Now if $Q'$ on $AS$ (i.e. $DS$) is such that $AQ'$ is internal angle bisector of $\angle BAC$,
+    	then $\angle DAQ'=\frac{\angle B - \angle C}{2}$ while $\angle SAQ'=90^{\circ}$.
+    	Meanwhile, $AF$ is the diameter and $AS$ subtends on the circumference at angle $\frac{\angle B - \angle C}{2}$
+    	(both referring to $\Omega$),
+    	so $\frac{AS}{AF}=\frac{\sin\angle DAQ}{\sin\angle SAQ}=\frac{\sin\angle DAQ'}{\sin\angle SAQ'}$.
+    	This would imply $Q=Q'$, as desired.
+    	
+    	\item [G5.] 
+    	Let $ABC$ be an acute-angled triangle with circumcircle $\omega$ and circumcentre $O$. Points $D\neq B$ and $E\neq C$ lie on $\omega$ such that $BD\perp AC$ and $CE\perp AB$. Let $CO$ meet $AB$ at $X$, and $BO$ meet $AC$ at $Y$.
+    	
+    	Prove that the circumcircles of triangles $BXD$ and $CYE$ have an intersection lie on line $AO$.
+    	
+    	\item [G6.] 
+    	Let $ABC$ be an acute-angled triangle with circumcircle $\omega$. A circle $\Gamma$ is internally tangent to $\omega$ at $A$ and also tangent to $BC$ at $D$. Let $AB$ and $AC$ intersect $\Gamma$ at $P$ and $Q$ respectively. Let $M$ and $N$ be points on line $BC$ such that $B$ is the midpoint of $DM$ and $C$ is the midpoint of $DN$. Lines $MP$ and $NQ$ meet at $K$ and intersect $\Gamma$ again at $I$ and $J$ respectively. The ray $KA$ meets the circumcircle of triangle $IJK$ again at $X\neq K$.
+    	
+    	Prove that $\angle BXP = \angle CXQ$.
+    	
+    	
+    	\item [G7.] 
+    	Let $ABC$ be an acute, scalene triangle with orthocentre $H$. Let $\ell_a$ be the line through the reflection of $B$ with respect to $CH$ and the reflection of $C$ with respect to $BH$. Lines $\ell_b$ and $\ell_c$ are defined similarly. Suppose lines $\ell_a$, $\ell_b$, and $\ell_c$ determine a triangle $\mathcal T$.
+    	
+    	Prove that the orthocentre of $\mathcal T$, the circumcentre of $\mathcal T$, and $H$ are collinear.
+    	
+    	\textbf{Solution.} 
+    	We introduce the following points, starting with $B_C$ as the reflection of $B$ in $CH$ 
+    	and $C_B$ the reflection of $C$ in $BH$ 
+    	(Hence $\ell_a$ is essentially $B_CC_B$). 
+    	Note that $A_C, C_A$ and $B_A, A_B$ can be defined similarly. 
+    	Let $\ell_a$ and $\ell_b$ intersect at $C'$; define $A'$ and $B'$ similarly. 
+    	Also for convenience let $AH, BH, CH$ intersect $BC, CA, AB$ at $D, E, F$, respectively. 
+    	
+    	We first show that $ABC$ and $A'B'C'$ (i.e. $\mathcal T$) are similar, 
+    	and that $AH=A'H, BH=B'H, CH=C'H$. 
+    	Indeed, by te definition of $C_A$, $AH$ is the perpendicular bisector of $CC_A$, 
+    	and also perpendicular bisector of $BB_A$. 
+    	Therefore we have $\angle C_AAB_A = \angle BAC$. 
+    	Next, we see that $AA_C=2AF$ and $AA_B = 2AE$ so $EF\parallel A_BA_C$. 
+    	This gives the following sequence of similarity: 
+    	\[
+    	\triangle AA_BA_C\sim \triangle AEF\sim \triangle ABC\sim \triangle AB_AC_A
+    	\]
+    	which gives $\frac{AA_B}{AA_C}=\frac{AB_A}{AC_A}$, 
+    	which also means triangles $AA_BB_A$ and $AA_CC_A$ are similar. 
+    	Thus there's a spiral similarity bring these two triangles, giving, 
+    	in directed angle, 
+    	\[
+    	\angle(AA_C, AA_B)=\angle (AB, AC) = \angle (C_AA_C, A_BB_A)
+    	=\angle(A'A_C, A'A_B)
+    	=\angle(\ell_b, \ell_c)
+    	\]
+    	thus giving $A, A', A_C, A_B$ concyclic. 
+    	Since $AH=AA_C=AA_B$ due to the definition of $A_C$ and $A_B$, 
+    	$H$ is the center of the circle and therefore $AH=A'H$. 
+    	The equality $BH=B'H$ and $CH=C'H$ can be shown similarly, 
+    	and also $\angle(\ell_a, \ell_c) = \angle(BA, BC)$, 
+    	$\angle(\ell_a, \ell_b)=\angle(AC, BC)$, 
+    	which finishes the claim 
+    	(in fact, $A'B'C'$ is rotation of $ABC$, enlarged by some scale, then reflected). 
+    	
+    	Now let $H', O'$ be the orthocenter and circumcenter of $A'B'C'$, respectively,  
+    	we have $A'H':B'H':C'H'=A'H:B'H:C'H$, 
+    	so $H$ and $H'$ are both on the appolonius circles of $A'B'H', B'C'H', C'A'H'$ all through $H'$. 
+    	Assume $H\neq H'$, otherwise we're done. 
+    	This will mean that the three circles are coaxial (they can't all be the same circle since the centers are on $A'B', B'C', C'A'$ which are not concurrent). 
+    	Thus the goal now becomes showing that $O'$ lies on the radical axis $HH'$. 
+    	
+    	Indeed, we note that the reflection $H'_A$ of $H'$ in $B'C'$ also lies on the appolonius circle of 
+    	$B'C'H'$ through $H'$. 
+    	Let $P_A$ be the center of this appolonius circle, 
+    	we have $P_AH'_A$ tangent to circumcircle of $B'C'H'_A$. 
+    	Given also that $H'_A$ also lies on circle $A'B'C'$, 
+    	this means that the appolonius circle and the circle $A'B'C'$ are orthogonal to each other. 
+    	We thus get that the power of point of $O'$ w.r.t. this appolonius circle is $r^2$, the square of the circumradius of $A'B'C'$. 
+    	In the same way we also deduce that the power of point of $O'$ w.r.t. the other two appolonius circles are also $r^2$, 
+    	showing that $O'$ indeed lies on the given radical axis. 
+    \end{enumerate}
+    
+    \section*{Number Theory}
+    \begin{enumerate}
+    	\item [N1.] (IMO 1) Determine all composite integers $n>1$ that satisfy the following property: if $d_1$, $d_2$, $\ldots$, $d_k$ are all the positive divisors of $n$ with $1 = d_1 < d_2 < \cdots < d_k = n$, then $d_i$ divides $d_{i+1} + d_{i+2}$ for every $1 \leq i \leq k - 2$.
+    	
+    	\textbf{Answer.} All prime powers $n = p^m$ for $m\ge 2$. 
+    	
+    	\textbf{Solution.} 
+    	To show prime powers work, 
+    	notice that the divisors are $1, p, \cdots, p^m$, 
+    	and we naturally have $p^u\mid p^{u+1} + p^{u+2}$ for all $u\ge 0$. 
+    	
+    	To show such $n$ must be prime powers, 
+    	consider $d_{k-2} \mid d_{k-1} + d_k = d_{k-1} + n$, 
+    	so $d_{k-2} \mid d_{k-1}$. 
+    	By the way the divisors are ordered, we have $d_ud_{k - u + 1} = n$, 
+    	so this means $d_2\mid d_3$. 
+    	Notice also that $d_2$ must also be the smallest prime divisor of $n$. 
+    	If $n$ is not a prime power, then there exists another prime divisor $q$ of $n$. 
+    	Choose such $q > d_2$ that is the smallest possible 
+    	(among the prime divisors of $n$ that's not $d_2$), 
+    	and let $q=d_u$, where $u\ge 4$ (since $d_2\mid d_3$).  
+    	Then $d_2, \cdots, d_{u-1}$ are divisible by $d_2$ but $d_u$ is not, 
+    	so $d_{u-2}\nmid d_{u-1}+d_u$. 
+    	
+    	\item [N2.] 
+    	Determine all ordered pairs $(a,p)$ of positive integers, with $p$ prime, such that $p^a+a^4$ is a perfect square.
+    	
+    	\textbf{Answer}. $(a, p) = (1, 3), (2, 3), (6, 3), (9, 3)$. The corresponding numbers $p^a+a^4$ are $2^2, 5^2, 45^2$ and $162^2$. 
+    	
+    	\textbf{Solution.} Let $p^a + a^4 = b^2$, 
+    	then $p^a = (b - a^2)(b + a^2)$. 
+    	Since $a > 0$, 
+    	this means there are integers $x < y$ such that $x + y = a$, 
+    	$b - a^2 = p^x$ and $b + a^2 = p^y$. 
+    	It then follows that $2(x + y)^2 = 2a^2 = p^y - p^x$. 
+    	
+    	We separate this into $p = 2$ and $p\ge 3$ odd. 
+    	If $p = 2$, then $2(x + y)^2 = 2^x(2^{y - x} - 1)$. 
+    	Notice that $2^{y - x} - 1$ is odd, $2^x$ is even, 
+    	and the power of each odd prime dividing $2a^2$ is even. 
+    	It then follows that $2^{y - x} - 1$ is a perfect square. 
+    	Since $2^{y - x} - 1\equiv 3\pmod{4}$ for $y - x\ge 2$ and 
+    	cannot be a perfect square, 
+    	we have $y - x = 1$ so $a = 2x + 1$ and $2^y - 2^x = 2^x$. 
+    	Now $2x + 1$ is a power of 2, 
+    	so $x = 0$ is necessary. On the other hand this forces RHS to be $2^x = 1$ which is not $2\times$ a perfect square. 
+    	
+    	Hence $p$ is now odd, 
+    	and we have $2(x + y)^2 = p^y - p^x\ge 3^y - 3^x$. 
+    	The highest power of $p$ dividing $p^y - p^x$ is $x$ and the highest power of $p$ dividing $2(x+y)^2$ is even, 
+    	so $x$ must be even. 
+    	
+    	We first show that $x\le 4$. 
+    	To start with, we first note that $\frac{3^{y + 1} - 3^x}{3^y - 3^x} > \frac{3^{y + 1} - 3^{x + 1}}{3^y - 3^x} = 3$, 
+    	while for $a \ge 2$ we have $2(a + 1)^2 \le 2a^2\frac{9}{4} < 2a^2\cdot 3$. 
+    	Thus, for $x\ge 2$ (and therefore $x + y\ge 2x+1\ge 5$), 
+    	the fact that $2(x + y)^2\ge 3^y - 3^x$ means 
+    	$2(2x + 1)^2 \ge 3^{x + 1} - 3^x = 2\cdot 3^x$, 
+    	i.e. $(2x + 1)^2\ge 3^x$. 
+    	We see that equality holds as $x = 4$, 
+    	and for $x\ge 4$, $\frac{(2(x+1)+1)^2}{(2x + 1)^2}\le \frac{11^2}{9^2} < 3 = 3^x$, 
+    	and therefore $x\le 4$ must hold. 
+    	From our example, since $(2x + 1)^2= 3^x$ at $x=4$, 
+    	for $x=4$ we have $2(x + y)^2 = p^y - p^x$ implies $p=3$, $y=5$, 
+    	giving the $a=4 + 5 = 9$. 
+    	
+    	Thus we may now focus on $x = 0$ and $x = 2$. 
+    	When $x = 0$, we have $2y^2 = p^y - 1$, 
+    	which $y = 1, p = 3$ and $y=2, p = 3$ both work. 
+    	for $y \ge 2$, we similarly have $\frac{p^{y + 1} - 1}{p^y - 1} > p$ and also 
+    	$\frac{(y + 1)^2}{y^2}\le \frac{9}{4} < 3$, 
+    	and therefore we have $y = 1, 2$ (i.e. $a=1, 2$) here. 
+    	
+    	Finally, we consider $x = 2$. Now if for some $y\ge 3$, 
+    	$2(2 + (y + 1))^2 \ge 3^{y + 1} - 3^2$ holds then 
+    	we also have $2(2 + y)^2 \ge 3^{y} - 3^2$. 
+    	However, when $y = 5$, 
+    	$2(2 + 5)^2 = 98$ while $3^5 - 3^2 = 234$, 
+    	forcing $y\le 4$. 
+    	When $y = 3$, we have $2(2 + 3)^2 = 50$, 
+    	and $p^3 - p^2 = p^2(p - 1)$, 
+    	where $p=3$ gives 18 while $p\ge 5$ gives $\ge 100$. 
+    	When $y = 4$, $2(2 + 4)^2 = 72$, 
+    	$p^4 - p^2 = p^2(p^2 - 1)$. 
+    	Here, $p = 3$ works, giving the solution as $a = 2 + 4 = 6$. 
+    	This gives us all the solutions. 
+    	
+    	\item [N3.] For positive integers $n$ and $k \geq 2$, define $E_k(n)$ as the greatest exponent $r$ such that $k^r$ divides $n!$. Prove that there are infinitely many $n$ such that $E_{10}(n) > E_9(n)$ and infinitely many $m$ such that $E_{10}(m) < E_9(m)$.
+    	
+    	\textbf{Solution.} 
+    	Note that $E_{10}(m) = \min\{E_2(m), E_5(m)\}$. 
+    	Also, for each prime $p$, 
+    	we have $E_p(m) = \sum_{i = 1}^{\infty}\lfloor \frac{m}{p^i}\rfloor$. 
+    	In other words, $E_5(m)\le E_2(m)$, and therefore 
+    	$E_{10}(m)  = E_5(m)$. 
+    	Also, $E_9(m) = \lfloor \frac{E_3(m)}{2}\rfloor$. 
+    	
+    	We first show that for $k \equiv 3\pmod{6}$, we have 
+    	$E_{10}(5^k) > E_9(5^k)$. 
+    	Now, 
+    	\[
+    	E_{10}(5^k) = E_{5}(5^k) = 
+    	\sum_{i = 1}^{k}\frac{5^k}{5^i}
+    	=\frac{5^k - 1}{4}
+    	\]
+    	Given that $k\equiv 3\pmod{6}$, we have $5^k\equiv 8\pmod{9}$, 
+    	so $\lfloor \frac{5^k}{3}\rfloor = \frac{5^k}{3} - \frac{2}{3}$ and 
+    	$\lfloor \frac{5^k}{9}\rfloor = \frac{5^k}{9} - \frac{8}{9}$
+    	\[
+    	E_{3}(5^k) = 
+    	\sum_{i = 1}^{\infty}\lfloor \frac{5^k}{3^i}\rfloor
+    	\le (\sum_{i = 1}^{\infty}\frac{5^k}{3^i}) - \frac{2}{3} - \frac{8}{9}
+    	=\frac{5^k}{2} - \frac{14}{9}
+    	< 2\left(\frac{5^k - 1}{4}\right) - 1
+    	\]
+    	which shows $E_{10}(5^k) > E_9(5^k)$. 
+    	
+    	Next, we show that for $k\equiv 10\pmod{20}$ we have 
+    	$E_{10}(3^k) < E_9(3^k)$. 
+    	Indeed, 
+    	\[
+    	E_{3}(3^k) = 
+    	\sum_{i = 1}^{k}\frac{3^k}{3^i}
+    	=\frac{3^k - 1}{2}
+    	\]
+    	while by our condition we have $3^k\equiv 24\pmod{25}$, 
+    	so $\lfloor \frac{3^k}{5}\rfloor = \frac{3^k}{5} - \frac{4}{5}$ and 
+    	$\lfloor \frac{3^k}{25}\rfloor = \frac{3^k}{5} - \frac{24}{25}$. 
+    	Therefore, 
+    	\[
+    	E_{5}(3^k) = 
+    	\sum_{i = 1}^{\infty}\lfloor \frac{3^k}{5^i}\rfloor
+    	\le (\sum_{i = 1}^{\infty}\frac{3^k}{5^i}) - \frac{4}{5} - \frac{24}{25}
+    	=\frac{3^k }{4} - \frac{44}{25}
+    	\]
+    	It then follows that 
+    	$E_{9}(3^k)=\lfloor \frac{3^k - 1}{4}\rfloor
+    	\ge  \frac{3^k - 3}{4} > \frac{3^k }{4} - \frac{44}{25} \ge E_{5}(3^k)$, 
+    	as claimed. 
+    	
+    	\item [N4.]
+    	Let $a_1, \dots, a_n, b_1, \dots, b_n$ be $2n$ positive integers such that the $n+1$ products
+    	\[a_1 a_2 a_3 \cdots a_n, b_1 a_2 a_3 \cdots a_n, b_1 b_2 a_3 \cdots a_n, \dots, b_1 b_2 b_3 \cdots, b_n\]form a strictly increasing arithmetic progression in that order. Determine the smallest possible integer that could be the common difference of such an arithmetic progression.
+    	
+    	\textbf{Answer.} $n!$
+    	
+    	\textbf{Solution.} 
+    	To show that $n!$ is attainable, let $a_k = k$ and $b_k = k + 1$, 
+    	then the $k$-th sequence is $b_1\cdots b_{k-1}a_k\cdots a_n = 2\cdot 3\cdots \cdot k \cdot k \cdots \cdot n = k\cdot n!$. 
+    	
+    	To show $n!$ is the smallest possible, 
+    	let the $n + 1$ numbers, in that order, be 
+    	$C + kd$ for $k = 0, 1, \cdots, d$. 
+    	Let $g = \gcd(C, d)$. 
+    	Then $\gcd(C + kd, C + (k + 1)d) = \gcd(d, C + kd) = \gcd(d, C) = g$. 
+    	Notice, also, that for $k=1, 2, \cdots, d$ we have 
+    	\[
+    	\frac{b_k}{a_k} = \frac{C + kd}{C + (k - 1)d}
+    	\]
+    	suggesting that $a_k$ must be divisible by $\frac{C + (k - 1)d}{g}$. 
+    	Considering that $d = (b_1 - a_1)a_2\cdots a_n$ we have 
+    	\[
+    	d\ge a_2\cdots a_n \ge \prod_{i=1}^{n - 1} \left(\frac{C + kd}{g}\right)
+    	\]
+    	Note that $\frac{C + kd}{g}$ with $k=0, \cdots, n - 1$ forms an arithmetic progression of integers, 
+    	so $\prod_{i=1}^{n - 1} \left(\frac{C + kd}{g}\right) \ge 2\cdot 3\cdot \cdots \cdot n = n!$. 
+    	
+    	\item [N5.]
+    	Let $a_1<a_2<a_3<\dots$ be positive integers such that $a_{k+1}$ divides $2(a_1+a_2+\dots+a_k)$ for every $k\geqslant 1$. Suppose that for infinitely many primes $p$, there exists $k$ such that $p$ divides $a_k$. Prove that for every positive integer $n$, there exists $k$ such that $n$ divides $a_k$.
+    	
+    	\textbf{Solution.} 
+    	Let $S_k = 2\sum_{i=1}^k a_i$ and $T_k = \frac{S_k}{a_{k + 1}}$. 
+    	
+    	We first show that $\{T_k\}_{k\ge 1}$ is unbounded. 
+    	To this end, we note that $T_k$ is an integer, 
+    	and also for each $k$ we have 
+    	\[
+    	\frac{a_{k+2}}{a_{k+1}}
+    	=\frac{S_{k + 1}}{S_k}\cdot \frac{T_k}{T_{k+1}}
+    	=\frac{S_{k} + 2a_{k+1}}{S_k}\cdot \frac{T_k}{T_{k+1}}
+    	=(1 + \frac{2}{T_k})\cdot \frac{T_k}{T_{k+1}}
+    	=\frac{T_k + 2}{T_{k+1}}
+    	\]
+    	Now consider all $p$ such that $p\nmid a_1a_2$, 
+    	but $p\mid a_k$ for some $k$; 
+    	note that there are infinitely many such $p$. 
+    	For this $p$, choose the minimum such $k$, 
+    	then $p\mid a_k =
+    	\frac{a_{k-1}(T_{k-2} + 2)}{T_{k-1}}$. 
+    	By the minimality of this $k$, 
+    	we do have $p\mid T_{k-2}+2$. 
+    	Given that there are infinitely many such $p$, 
+    	we deduce that $\{T_k\}$ must be unbounded. 
+    	
+    	Note also that 
+    	$\frac{T_k+2}{T_{k+1}} = \frac{a_{k+2}}{a_{k+1}} > 1$, 
+    	so $T_{k + 1}\le T_k + 1$. 
+    	Given also that $\{T_k\}$ is also unbounded, 
+    	for each $n$ we can identify the minimal $k$ such that $T_k\ge n$. 
+    	For all such $n$ such that $n > T_1$, 
+    	$k\ge 2$, and $n\le T_k\le T_{k - 1} + 1\le (n - 1) + 1$, 
+    	we must have $T_{k-1} = n - 1$ and $T_k = n$. 
+    	But this now means that 
+    	\[
+    	\frac{a_{k+2}}{a_{k+1}}
+    	=\frac{n+2}{n + 1}
+    	\]
+    	and so $n + 2\mid a_{k+2}$ (given that $\gcd(n + 2, n + 1) = 1$). 
+    	Thus we get that given all $n > T_1$, 
+    	there exists $k$ for which $n + 2\mid a_{k + 2}$. 
+    	This completes the solution. 
+    	
+    	\item [N6.]
+    	A sequence of integers $a_0, a_1 …$ is called kawaii if $a_0 =0, a_1=1,$ and$$(a_{n+2}-3a_{n+1}+2a_n)(a_{n+2}-4a_{n+1}+3a_n)=0$$for all integers $n \geq 0$. An integer is called kawaii if it belongs to some kawaii sequence.
+    	Suppose that two consecutive integers $m$ and $m+1$ are both kawaii (not necessarily belonging to the same kawaii sequence). Prove that $m$ is divisible by $3,$ and that $m/3$ is also kawaii.
+    	
+    	\textbf{Solution}. 
+    	We show that any kawaii number $m$ cannot have $3\mid m - 2$. 
+    	To see why, if $a_n, a_{n-1}\in \{0, 1\}\pmod{3}$ then $a_{n+1}$ will also have this property. 
+    	Thus the claim follows from $a_0=0$ and $a_1=1$. 
+    	This means that if $m$ and $m+1$ are both kawaii then 
+    	$m$ is divisible by 3. 
+    	
+    	It now remains to show the second part. 
+    	Observe that $a_N\equiv a_{N+1}\pmod C$ for some $C$ would mean 
+    	$a_{n+1}\equiv a_n\pmod{C}$ for all $n\ge N$. 
+    	Given that $a_1=1$ and $a_2\in \{3, 4\}$, 
+    	we either have $a_n$ odd for all $n\ge 2$ (if $a_2=3$), 
+    	or $a_n\equiv 1\pmod{3}$ for all $n\ge 2$ (if $a_2=4$). 
+    	In particular, the only kawaii number divisible by 6 is 0. 
+    	
+    	Now suppose that $m$ and $m + 1$ are both kawaii, 
+    	and $m > 0$. 
+    	Notice that $3\pmod m$, and by our analysis above, $m$ is odd 
+    	(hence $m + 1$ even). 
+    	Thus $m + 1$ must come from a sequence where $a_2 = 4$. 
+    	Let $m + 1 = a_k$ for some $k\ge 2$, with $a_0, a_1, \cdots$ a kawaii sequence. 
+    	Denote $\{b_n\}$ as another sequence with $b_0 = 0$, $b_1 = 1$, 
+    	and 
+    	\[
+    	b_{n+1} = 
+    	\begin{cases}
+    		3b_{n} - 2b_{n - 1} & a_{n+2} = 3a_{n + 1} - 2a_{n}\\
+    		4b_{n} - 3b_{n - 1} & a_{n+2} = 4a_{n + 1} - 3a_{n}\\
+    	\end{cases}
+    	\]
+    	Note also that $\{b_n\}$ is kawaii. 
+    	We now show that $a_{n+1} = 3b_n + 1$ for all $n$, 
+    	thereby showing that $m / 3 = b_{k - 1}$ and therefore kawaii. 
+    	Indeed, this holds for $n = 0, 1$ since $a_2 = 4$. 
+    	Then all we need is the following:
+    	\[
+    	a_{n+2} = 3a_{n + 1} - 2a_{n}
+    	\to a_{n + 2} = 3(3b_n + 1) - 2(3b_{n-1}+ 1) = 3(3b_n - 2b_{n-1}) + 1
+    	= 3b_{n+1} + 1
+    	\]
+    	\[
+    	a_{n+2} = 4a_{n + 1} - 3a_{n}
+    	\to a_{n + 2} = 4(3b_n + 1) - 3(3b_{n-1}+ 1) = 3(4b_n - 3b_{n-1}) + 1
+    	= 3b_{n+1} + 1
+    	\]
+    	completing the indution step. 
+    	
+    	\item [N7.]
+    	Let $a,b,c,d$ be positive integers satisfying\[\frac{ab}{a+b}+\frac{cd}{c+d}=\frac{(a+b)(c+d)}{a+b+c+d}.\]Determine all possible values of $a+b+c+d$.
+    	
+    	\textbf{Answer.} All integers $n$ such that there exists an integer $m\ge 2$ and $m^2\mid n$. 
+    	
+    	\textbf{Solution.}
+    	We first notice that the following assignment works: 
+    	\[
+    	a = kx^2\qquad b = c = kxy \qquad d = ky^2
+    	\]
+    	for some positive $k, x, y$. 
+    	This gives both sides as $kxy$ and $a+b+c+d=k(x+y)^2$. 
+    	Thus if $n = m^2k$, where $m\ge 1$, 
+    	then we may pick $x=1, y=m - 1$. 
+    	
+    	Conversely, to show that this condition is necessary, 
+    	note that any $n$ without this property is square free 
+    	(i.e. it is a product of different primes, $p_1p_2\cdots p_u$). 
+    	Notice that $n$ is also the smallest integer that is simultaneously divisible by all the primes $p_1, p_2, \cdots, p_u$. 
+    	It then follows that there is a prime $p_{\ell}$ such that 
+    	neither $a+b$ nor $c+d$ is divisible by $p_{\ell}$. 
+    	Consequently, when the fractions are written in lowest terms (i.e. gcd of numerator and denominator is 1), 
+    	the LHS has denominator not divisible by $p_{\ell}$, 
+    	while RHS has denominator divisible by $p_{\ell}$. 
+    	It follows that they cannot be equal. 
+    	
+    	\item [N8.]
+    	Determine all functions $f\colon\mathbb{Z}_{>0}\to\mathbb{Z}_{>0}$ such that, for all positive integers $a$ and $b$,
+    	\[
+    	f^{bf(a)}(a+1)=(a+1)f(b).
+    	\]
+    	
+    	\textbf{Answer.} 
+    	$f(n) = n + 1$ (where LHS = RHS = $(a + 1)(b + 1)$. 
+    	
+    	\textbf{Solution. }
+    	We break the solution into the following. 
+    	\begin{lemma}
+    		$f$ is injective. 
+    	\end{lemma}
+    	\begin{proof}
+    		Denote $N = \{f(n): n = 1, 2, \cdots, \}$. 
+    		Note that for all $a, b$, 
+    		$(a + 1)f(b)\in N$, 
+    		so $N$ is unbounded since $f(b) > 0$. 
+    		Next, consider the sequence 
+    		$\{a_n\}$ given by $a_n = f^{nf(1)}(2) = 2f(n)$. 
+    		Note that $a_{m_1}=a_{m_2}$ for some $m_1<m_2$ implies that $a_{k} = a_{k + (m_2-m_1)}$ for all $k\ge m_1$, 
+    		i.e. $a_k$ is eventually periodic (hence bounded). 
+    		This would then mean that $\{2f(n)\}$ is also bounded, 
+    		which contradicts $N$ is unbounded. 
+    	\end{proof}
+    	
+    	\begin{lemma}
+    		$N = \{2, 3, 4, \cdots\}$, 
+    		and that for all $k\ge 1$ we have $k = f^m(1)$ for some $m\ge 0$. 
+    	\end{lemma}
+    	
+    	\begin{proof}
+    		Next, we show that $1\not\in N$. 
+    		If $f(n)=1$ for some $n$ then $f^{nf(1)}(2)=2$, 
+    		i.e. $f^{knf(1)}(2)=2$, and $\{a_n\}$ is periodic, contradiction. 
+    		
+    		To show the other part, 
+    		Consider the relation $\sim$ given by $a\sim b$ if and only if there exists a $k\ge 0$ such that either $f^k(a)=b$ or $f^k(b) = a$; 
+    		it's clear that this $\sim$ is reflective and symmetric, 
+    		i.e. $a\sim a$, and also $a\sim b\to b\sim a$. 
+    		We now claim that $\sim$ is also transitive. 
+    		If there is $k, m\ge 0$ such that $f^k(a)=b, f^m(b)=c$, 
+    		then $f^{k+m}(a)=c$; 
+    		if $f^k(a)=f^m(c)=b$, 
+    		w.l.o.g. suppose $k\le m$. 
+    		Then by transitivity, $b = f^m(c)=f^{k}(f^{m-k}(c))$, 
+    		so by injectivity, $f^{m-k}(c) = a$. 
+    		Thus $\sim$ does partition things into equivalene relations. 
+    		
+    		With this, we note that $k\in N\to \exists b: k=f(b) 
+    		\to \forall a: (a+1)f(b)=(a+1)k\in N$. 
+    		Let $a_1, a_2\ge 1$ be arbitrary, and let $c_1, c_2$ be such that 
+    		$f(c_1)=(a_1+1)f(1)$ and $f(c_2)=(a_2+1)f(1)$. 
+    		Then: 
+    		\[
+    		f^{c_2f(a_1)}(a_1+1) = (a_1+1)f(c_2)=(a_1+1)(a_2+1)f(1)
+    		=(a_2+1)f(c_1)=f^{c_1f(a_2)}(a_2+1)
+    		\]
+    		showing that either there exists $k := k(a_1, a_2)$ such that either $f^k(a_1+1)=a_2+1$ or $f^k(a_2+1)=a_1+1$. 
+    		Thus $2, 3, 4, \cdots$ are all in the same group w.r.t. $\sim$. 
+    		Now $1, f(1), f(f(1)), \cdots$ are also in the same group w.r.t. $\sim$, 
+    		but with $f(1) > 1$, 
+    		we see that there is only one equivalence class under $\sim$ here. 
+    		Since 1 is not a value of $f$, 
+    		it follows that each $k > 1$ can be written as $k = f^m(1)$ for some $m$. 
+    	\end{proof}
+    	
+    	\begin{lemma}
+    		$f(1) = 2$. 
+    	\end{lemma}
+    	
+    	\begin{proof}
+    		We claim that there exists a function $g(k)$ such that for all $a\ge 2$ we have $f(ak - 1) = g(k)f(a - 1)$. 
+    		Now consider any $a\ge 2, c\ge 1$, we have 
+    		\[
+    		f^{bf(af(c) - 1)}(af(c))
+    		=af(c)f(b)
+    		\]
+    		Since $f(b)f(c)\ge 4$, 
+    		there exists $d$ with $f(d)=f(b)f(c)$, 
+    		and satisfies 
+    		$f^{df(a - 1)}(a) = af(d)=af(b)f(c)$. 
+    		Comparing this with $f^{cf(a-1)}(a)=af(c)$, 
+    		and the injectivity of $f$, we have 
+    		\[
+    		df(a - 1) = cf(a - 1) + bf(af(c) - 1)
+    		\]
+    		i.e. $f(af(c) - 1) = \frac{(d - c)f(a - 1)}{b}$. 
+    		If $k=1$ there's nothing to prove (and $g(1)=1$), 
+    		otherwise if $k > 1$, 
+    		choose $c$ with $f(c)=k$, 
+    		Choose $b = 1$ and $d$ such that $f(d) = f(1)k$, 
+    		get $f(ak - 1) = (d - c)f(a - 1)$, 
+    		so this $g(k) = d - c$ (which is also valid since $d, c$ depends only on $k$ in this case since $f(c)=k$ and $f(d) = f(1)k$).
+    		
+    		On the other side, we show that $f(1) = 2$. 
+    		Given that each number $n\ge 2$ can be written as $f^k(1)=n$, let $c(n)$ be the number such that $f^{c(n)}(1)=n$, 
+    		then $c(f(1))=1$, and by the equation given, $c((a+1)f(b)) - c(a + 1) = bf(a) > 0$ for all $a, b\ge 1$. 
+    		Thus $f(1)$ cannot be written in the form $(a+1)f(b)$. 
+    		Since $f(b)$ and $a + 1$ each takes all integer values of $\ge 2$, 
+    		$(a+1)f(b)$ takes all composite values, $f(1)$ will then have to be a prime.
+    		If $f(1) = p$ is odd, 
+    		then we from $f(2k-1) = g(k)f(1)$ we have $f(p)=f^2(1)$ divisible by $p$. 
+    		Now take $a = p - 1$, and $b$ such that $p f(b) = f(p)$ (such $p$ exists since $f(p) \neq p$), 
+    		and we have $(a + 1)f(b) = f(p) = f^{bf(p - 1)}(p)$, 
+    		so $bf(p-1)=1$. This means $b=f(p-1)=1$, 
+    		contradicting that $1\not\in N$. 
+    		It then follows that $f(1)$ is even and prime, so $f(1) = 2$. 
+    	\end{proof}
+    	
+    	
+    	With this, setting $a=b=1$ gives $f^2(2)=2f(1)=4$. 
+    	Let $p = f(2)$ with $f(p) = 4$. 
+    	Note that $p$ is odd; 
+    	otherwise, given that $p\neq 2$ we can find $b$ with $f(b) = \frac{p}{2}$ and setting $a=1$, get $f^{2b}(2)=2f(b) = p$, 
+    	which contradicts that $f^n(2)$ is different for each $n\ge 0$ 
+    	(we note that $2b\neq 1$). 
+    	We also have $4 = f(p) = g(2)f(\frac{p - 1}{2})$, 
+    	and since $\frac{p-1}{2} < p$ and $f(\frac{p - 1}{2}) > 1$, 
+    	we must have $f(\frac{p - 1}{2}) = 2$. 
+    	Thus by injectivity of $f$, 
+    	$\frac{p - 1}{2} = 1$, giving $p=3$. 
+    	Thus in summary we have shown $f(n) = n + 1$ for $n = 1, 2, 3$. 
+    	
+    	We can now finish off the solution. 
+    	Recall that $f(ak-1)=g(k)f(a-1)$; setting $a=k=2$ gives $4=f(3)=g(2)f(1)=2g(2)$, 
+    	so $g(2)=2$ and $f(2a-1) = 2f(a - 1)$. 
+    	Thus, if, for some $k\ge 2$, we have 
+    	$f(n) = n + 1$ for $n=1, \cdots, 2k-1$, then: 
+    	\[
+    	f(2k + 1) = 2f(k) = 2(k + 1)\qquad 
+    	a = 1; b = k: f^{2k}(2) = f^{kf(1)}(2) = 2f(k) = 2(k + 1)
+    	\]
+    	and given our premise, $f^{2k - 2}(2) = 2 + 2k - 2 = 2k$, 
+    	so $f^2(2k) = f(2k + 1) = 2(k + 1)$. 
+    	It then follows by injectivity of $f$ that $f(2k) = 2k + 1$ and $f(2k + 1) = 2(k + 1)$. 
+    	Thus by doing this induction on $k$, we do have $f(n) = n + 1$ for all $n \ge 1$. 
+    \end{enumerate}
+    
+\end{document}
