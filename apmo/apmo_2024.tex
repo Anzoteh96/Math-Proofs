@@ -1,0 +1,336 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{mathrsfs, float}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\title{Solutions to APMO 2024}
+\date{}
+
+\begin{document}
+	\newcommand{\la}{\leftarrow}
+	\newcommand{\lra}{\leftrightarrow}
+	\newcommand{\bbN}{\mathbb{N}}
+	\newcommand{\bbZ}{\mathbb{Z}}
+	\newcommand{\dsum}{\displaystyle\sum}
+	\newcommand{\dprod}{\displaystyle\prod}
+	\maketitle
+	
+	\textbf{Problem 1.}
+	Let $ABC$ be an acute triangle. Let $D$ be a point on side $AB$ and $E$ be a point on side $AC$ such that lines $BC$ and $DE$ are parallel. Let $X$ be an interior point of $BCED$. Suppose rays $DX$ and $EX$ meet side $BC$ at points $P$ and $Q$, respectively, such that both $P$ and $Q$ lie between $B$ and $C$. Suppose that the circumcircles of triangles $BQX$ and $CPX$ intersect at a point $Y \neq X$. Prove that the points $A, X$, and $Y$ are collinear.
+	
+	\textbf{Solution.}
+	The task is equivalent to showing that $A$ lies on the radical axis of circles $BQX$ and $CPX$. 
+	Let circle $BQX$ intersect $AB$ at $B$ and $T$, and $CQX$ intersect $CPX$ intersect $AC$ at $C$ and $U$. 
+	Note that our goal is to show that $AB\cdot AT = AC\cdot AU$. 
+	However, since $\frac{AD}{AB} = \frac{AE}{AC}$ (given $DE$ is parallel to $BC$), 
+	it suffices to show that $AD\cdot AT = AE\cdot AU$. 
+	We may now angle chase to obtain 
+	\[
+	\angle EDX = \angle XPQ = \angle XUC = \angle EUX
+	\]
+	So $U$ lies on circle $EDX$ and similarly $T$ lies on circle $EDX$. 
+	We thus conclude that $D, T, U, E, X$ are concyclic, 
+	and therefore $AD\cdot AT = AE\cdot AU$. 
+	
+	\textbf{Problem 2.} 
+	Consider a $100 \times 100$ table, and identify the cell in row $a$ and column $b$, $1 \leq a, b \leq 100$, with the ordered pair $(a, b)$. Let $k$ be an integer such that $51 \leq k \leq 99$. A $k$-knight is a piece that moves one cell vertically or horizontally and $k$ cells to the other direction; that is, it moves from $(a, b)$ to $(c, d)$ such that $(|a-c|, |b - d|)$ is either $(1, k)$ or $(k, 1)$. The $k$-knight starts at cell $(1, 1)$, and performs several moves. A sequence of moves is a sequence of cells $(x_0, y_0)= (1, 1)$, $(x_1, y_1), (x_2, y_2)$, $\ldots, (x_n, y_n)$ such that, for all $i = 1, 2, \ldots, n$, $1 \leq x_i , y_i \leq 100$ and the $k$-knight can move from $(x_{i-1}, y_{i-1})$ to $(x_i, y_i)$. In this case, each cell $(x_i, y_i)$ is said to be reachable. For each $k$, find $L(k)$, the number of reachable cells.
+	
+	\textbf{Answer.} 
+	\[
+	L(k) = \begin{cases}
+		100^2 - (2k-100)^2   & \text{$k$ even}\\
+		\frac{100^2 - (2k-100)^2}{2}   & \text{$k$ odd}
+	\end{cases}
+	\]
+	
+	\textbf{Solution. }
+	We first note the following: if $k$ is odd, then each move flips both the parity of the coordinates 
+	(and therefore all reachable cells have coordinates that are of the same parity). 
+	In addition, since $k > \frac{100}{2}$, each reachable cell must have one coordinate that is either $\ge k + 1$, 
+	or $\le 100 - k$. 
+	
+	It now remains to show that these are all the conditions we need. 
+	Thus, $L(k)$ can be counted in the following way: the fact that the coordinates cannot be both in the range 
+	$\{101 - k, \cdots, k\}$ (thus excluding the middle $(2k - 100^)2$ cells). 
+	Of those, exactly half has coordinates of matching parity and half do not, 
+	further reducing $L(k)$ into half when $k$ is odd. 
+	
+	By symmetry, if $(m, n)$ is reachable, so is $(n, m)$. 
+	Thus we may consider just one side of these. 
+	We isolate each of the cases, one by one: 
+	
+	$m$ odd, $n$ odd, $m\not in [101 - k, k]$. 
+	We first do $(1, 1) \to (2, k + 1)\to (3, 1)\to (4, k + 1)\to (5, 1)\to \cdots\to (m, 1)$, 
+	and one of the following two: 
+	\[
+	(m + k, 2)\to (m, 3)\to (m + k, 4)\to (m, 5)\to \cdots\to (m, n)
+	\]\[
+	(m - k, 2)\to (m, 3)\to (m - k, 4)\to (m, 5)\to \cdots\to (m, n)
+	\]
+	depending on whether $m\le 100 - k$ or $m\ge k + 1$.  
+	
+	$m$ even, $n$ even, $m\not \in [101 - k, k]$. 
+	We first show that $(100, 100)$ is always reachable, and then we can use symmetry to act as if we started at $(1, 1)$. 
+	Indeed, for $k$ odd we may do 
+	\[
+	(1, 1) \to (2, k + 1)\to (3, 1)\to (4, k + 1)\to \cdots \to (100, k + 1)
+	\]
+	and then 
+	\[
+	(100, k + 1)\to (100 - k, k + 2) \to (100, k + 3), \cdots, (100, 100)
+	\]
+	while for $k$ even, we may first do $(1, 1) \to (2, k + 1)\to (k + 2, k + 2)$ and then 
+	\[
+	(k + 2, k + 2)\to (k + 3, 2) \to (k + 4, k + 2) \to \cdots \to (100, k + 2)
+	\]
+	and finally 
+	\[
+	(100, k + 2)\to (100 - k, k + 3) \to (100, k + 4) \to \cdots \to (100, 100)
+	\]
+	
+	$m, n$ different parity, $k$ even. 
+	Suppose $m$ is even, $n$ is odd. 
+	We first shift our piece to $(2, 1)$ via the following steps: 
+	\[
+	(1, 1)\to (2, k + 1) \to (k + 2, k) \to (2, k - 1)\to \cdots \to (2, 1)
+	\]
+	If $m\not\in [101 - k, k]$, we continue with 
+	\[
+	(2, 1)\to (3, k + 1) \to (4, 1) \to \cdots \to (m, 1)
+	\to (m\pm k, 2) \to (m, 3) \cdots \to (m, n)
+	\]
+	Again, $m\pm k$ is $m + k$ if $m\le 100 - k$ and $m - k$ if $m\ge k + 1$. 
+	Otherwise if $n\not\in [101 - k, k]$, we continue with 
+	\[
+	(2, 1)\to (k + 2, 2)\to (2, 3)\to \cdots \to (2, n)
+	\to (3, n\pm k)\to (4, n)\to \cdots \to (m, n)
+	\]
+	The sign of $n\pm k$ also depends whether $n\le 100-k$ or $n\ge k+1$. 
+	
+	\textbf{Problem 3.}
+Let $n$ be a positive integer and let $a_1, a_2, \ldots, a_n$ be positive reals. Show that$$\sum_{i=1}^{n} \frac{1}{2^i}(\frac{2}{1+a_i})^{2^i} \geq \frac{2}{1+a_1a_2\ldots a_n}-\frac{1}{2^n}.$$
+
+    \textbf{Solution.} 
+    We first show that $(\frac{2}{1 + x})^{2^k} + (\frac{2}{1 + y})^{2^k} \ge 2(\frac{2}{1 + xy})^{2^{k - 1}}$ for all $k\ge 1$ and $x, y > 0$. 
+    To start with, consider $k = 1$, then we're supposed to show that 
+    $\frac{1}{(1 + x)^2} + \frac{1}{(1 + y)^2}\ge \frac{1}{1 + xy}$. 
+    Indeed, by cross-multiplying, the inequality becomes 
+    \[
+    (1 + xy)((1+x)^2 + (1 + y)^2)\ge (1 + x)^2(1 + y)^2
+    \]
+    Subtracting the left with right, we're left with the following term: 
+    \[
+    (1 + xy)^2 + (x-y)^2(1+xy) - (x + y)^2
+    \ge (1 + xy)^2 + (x-y)^2 - (x + y)^2
+    =(1 - xy)^2\ge 0
+    \]
+    which establishes the claim for $k = 1$. 
+    Thus for $k\ge 2$ we may use induction hypothesis (together with $a^2 + b^2 \ge \frac{(a + b)^2}{2}$) to get 
+    \[
+    (\frac{2}{1 + x})^{2^k} + (\frac{2}{1 + y})^{2^k}
+    \ge \frac 12 \left((\frac{2}{1 + x})^{2^{k - 1}} + (\frac{2}{1 + x})^{2^{k - 1}}\right)^2
+    \ge 2(\frac{2}{1 + xy})^{2^{k - 2}\cdot 2}
+    =2(\frac{2}{1 + xy})^{2^{k - 1}}
+    \]
+    as claimed. 
+    
+    Therefore, to solve the original problem, we use the lemma above, together with $x^2\ge 2x - 1$ to do the following conversion: 
+    \[
+    \frac{1}{2^i}\left(\frac{2}{1 + a_i}\right)^{2^i}\ge 
+    \frac{1}{2^{i - 1}}\left(\frac{2}{1 + a_i\cdot \cdots \cdot a_n}\right)^{2^{i - 1}} - 
+    \frac{1}{2^i}\left(\frac{2}{1 + a_{i + 1}\cdot \cdots \cdot a_n}\right)^{2^i}, 
+    \forall i=1, \cdots, n - 1
+    \]
+    \[
+    \frac{1}{2^n}\left(\frac{2}{1 + a_n}\right)^{2^n} \ge 
+    \frac{1}{2^{n - 1}}\left(\frac{2}{1 + a_n}\right)^{2^n} - \frac{1}{2^n}
+    \]
+    to yield the following: 
+    we may just do telescoping sum, together with $x^2\ge 2x - 1$ to yield 
+    \begin{flalign*}
+    	\sum_{i = 1}^n \frac{1}{2^i}\left(\frac{2}{1 + a_i}\right)^{2^i}
+    	&\ge 
+    	\sum_{i=1}^{n - 1}
+    	\left(\frac{1}{2^{i - 1}}\left(\frac{2}{1 + a_i\cdot \cdots \cdot a_n}\right)^{2^{i - 1}} - 
+    	\frac{1}{2^i}\left(\frac{2}{1 + a_{i + 1}\cdot \cdots \cdot a_n}\right)^{2^i}\right)
+    	\\&+\frac{1}{2^{n - 1}}\left(\frac{2}{1 + a_n}\right)^{2^n} - \frac{1}{2^n}
+    	\\& = \frac{2}{1 + a_1\cdot \cdots \cdot a_n} - \frac{1}{2^n}
+    \end{flalign*}
+    as desired. 
+	
+	\textbf{Problem 4.}
+	Prove that for every positive integer $t$ there is a unique permutation $a_0, a_1, \ldots , a_{t-1}$ of $0, 1, \ldots , t-1$ such that, for every $0 \leq i \leq t-1$, the binomial coefficient $\binom{t+i}{2a_i}$ is odd and $2a_i \neq t+i$.
+	
+	\textbf{Solution.} 
+	We consider strong induction in $t$: 
+	for $t = 1$ the only permutation $a_0 = 0$ satisfies the property. 
+	
+	Now fix $t > 1$ and suppose that the assertion works for all smaller $t$'s. 
+	Denote the remainder of $m$ when divided by $n$ as $\text{rem}(m, n)$ that saitsfies 
+	$m\equiv \text{rem}(m, n)\pmod{n}$ and $0\le \text{rem}(m, n) < n$. 
+	We note the following consequence of Lukas' theorem (modulo 2) : for each $m, n$, 
+	\[
+	\binom{m}{n} \text{ is odd if and only if for all $N\ge 1$, } \text{rem}(m, 2^N)\ge \text{rem}(n, 2^N)
+	\]
+	Indeed, $\binom{m}{n}$ is odd if and only if $\lfloor \frac{m}{2^N}\rfloor = 
+	\lfloor \frac{n}{2^N}\rfloor  + \lfloor \frac{m - n}{2^N}\rfloor $ for all $N$, 
+	which will require the fractional part to also satisfy 
+	$\{ \frac{m}{2^N}\}= 
+	\{\frac{n}{2^N}\} + \{ \frac{m - n}{2^N}\}$. 
+	One other key observation is also the following: 
+	if $m = n + 2^N$ for some $N\ge 0$ and the the digit coresponding to $2^N$ of $n$ is 0, 
+	then $\binom{m}{n}$ is odd (the only place where the digits differ is at $2^N$, which is 1 for $m$ and 0 for $n$). 
+	
+	The task can now be viewed as a bijection $f$ from 
+	$S_t = \{t, t + 1, \cdots, 2t - 1\}$ to $T_t = \{0, 1, \cdots, t - 1\}$ such that for each 
+	$k \in S_t$, $\binom{k}{2f(k)}$ is odd, and also $k\neq 2f(k)$. 
+	We now proceed via the following three steps. 
+	
+	\textbf{Step 1.} 
+	Pick $N$ and $t'$ such that $t = 2^N + t'$ and $0\le t' < 2^N$. 
+	Note that $S_t$ are integers in the range $[2^{N} + t', 2^{N + 1} + 2t' - 1]$ inclusive. 
+	We first show that there is a unique way to assign $f$ to 
+	$2^{N + 1}, 2^{N + 1} + 1, \cdots, 2^{N + 1} + 2t' + 1$ (if $t'=0$ this is vacuously true). 
+	When considered modulo $2^{N + 1}$, we have 
+	\[
+	2^{N + 1}, 2^{N + 1} + 1, \cdots, 2^{N + 1} + 2t' - 1\equiv  0, 1, \cdots, 2t' + 1
+	\]
+	On the other hand, we have 
+	\[
+	0, 2, \cdots, 2(t - 1)
+	= 0, 2, \cdots, 2^{N + 1} + 2t' - 2
+	\equiv 0, 2, \cdots, 2^{N + 1} - 2, 0, 2, \cdots, 2t' - 2
+	\]
+	i.e. each of $0, 2, \cdots, 2(t' - 1)$ appears exactly two times. 
+	Thus for each $m = 1, 2, \cdots, t'$, we have exactly 
+	$2m$ numbers among $\{2^{N + 1}, 2^{N + 1} + 1, \cdots, 2^{N + 1} + 2t' - 1\}$ 
+	and also $\{0, 2, \cdots, 2(t - 1)\}$ with remainder at most $2m - 1\pmod{2^{N + 1}}$, 
+	which follows that 
+	\[
+	\{f(2^{N + 1}), \cdots, f(2^{N + 1} + 2m - 1)\} = 
+	\{0, 1, m - 1, 2^{N}, \cdots, 2^{N} + m - 1\}
+	\]
+	Since $f$ is a bijection, considering this for each $m$ separately we have 
+	\[
+	\{f(2^{N + 1} + 2m - 2), f(2^{N + 1} + 2m - 1)\}
+	=\{m - 1, 2^N + m - 1\}
+	\]
+	Finally, given that $2f(k)\neq k$, this forces 
+	\[
+	f(2^{N + 1} + 2m - 2) = m - 1\qquad f(2^{N + 1} + 2m - 1) = 2^N + m - 1
+	\]
+	as the only possible mapping. 
+	To show that this works, we have 
+	$2^{N + 1} + 2m - 2 - 2f(2^{N + 1} + 2m - 2)=2^{N + 1}$ and 
+	$2^{N + 1} + 2m - 1 - 2(2^{N + 1} + 2m - 1)=1$, 
+	and the $2^{N + 1}$-digit of $2(m - 1)$ is 0 ($m\le t' < 2^N$) and 
+	$2(2^N + m - 1)$ is odd. 
+	
+	\textbf{Step 2.} 
+	Now, we need to create $f$ for the following domain / range: 
+	\[
+	f : \{t, t + 1, \cdots, 2^{N + 1} - 1\}\to \{t', t' + 1, \cdots, 2^N - 1\}
+	\]
+	Recall also that $t' < 2^N$, and note that we have $2^N - t'$ numbers on each side. 
+	If $t' = 2^N - 1$, then $f$ can only be $(2^{N + 1} - 1) = 2^{N} - 1$, and note that 
+	and $\binom{2^{N + 1} - 1}{2(2^N) - 1} = 2^{N + 1} - 1$ is odd, so this works. 
+	Otherwise, 
+	let $M\ge 1$ such that $2^N - 2^M\le t' < 2^N - 2^{M - 1}$,  
+	and for convenience denote also $t'' = t' - (2^N - 2^M)$; 
+	Note that $0\le t'' < 2^{M - 1}$. 
+	When considered modulo $2^{M}$, we have 
+	\[
+	t, t + 1, \cdots, 2^{N + 1} - 1\equiv 
+	t'', t'' + 1, \cdots, 2^M - 1
+	\]
+	(because the size of each set is $\le 2^M$ but $> 2^{M - 1}$), and 
+	\[
+	2t', 2t' + 1, \cdots, 2(2^N - 1)\equiv 2t'', \cdots, 2(2^{M - 1} - 1), 0, \cdots, 2(2^{M - 1} - 1)
+	\]
+	Therefore, for each $m = t'', \cdots, 2^{M - 1} - 1$, 
+	the number of elements among each of $\{t, t + 1, \cdots, 2^{N + 1} - 1\}$ and $\{2t', 2t' + 1, \cdots, 2(2^N - 1)\}$ 
+	with remainder at least $2m$ modulo $2^M$ is exactly 
+	$2(2^{M - 1} - m)$. 
+	Therefore we have 
+	\[
+	\{f(2m + 2^{N+1} - 2^{M}), \cdots, f(2^{N + 1} - 1)\}
+	=\{(2^N - 2^M) + m, \cdots, 2^N - 2^{M - 1} - 1, (2^N - 2^{M - 1}) + m, \cdots, 2^N - 1\}
+	\]
+	By considering each such $m$ individually, we have 
+	\[
+	\{f(2m + 2^{N+1} - 2^M), f(2m + 1 + 2^{N+1} - 2^M)\}
+	=\{(2^N - 2^M) + m, (2^N - 2^{M - 1}) + m\}
+	\]
+	and again, since $k\neq 2f(k)$, this forces $f(2m + 2^{N+1} - 2^M) = (2^N - 2^M) + m$ and 
+	$f(2m + 1 + 2^{N+1} - 2^M) = (2^N - 2^{M - 1}) + m$. 
+	Now $\binom{2m + 1 + 2^{N+1} - 2^M}{2(2^N - 2^{M - 1})} = 2m + 1 + 2^{N+1} - 2^M$ is odd, 
+	and between $2m + 2^{N+1} - 2^M$ and $2((2^N - 2^M) + m)$, 
+	the difference is $2^M$. 
+	Given that $m\le t'' < 2^{M - 1}$, the remainder of each number modulo $2^{M + 1}$) 
+	is $2m$ and $2m + 2^M$, respectively, 
+	so the binomial coefficient is also odd. 
+	
+	\textbf{Step 3.} 
+	We are now left with defining $f$ for the following: 
+	\[
+	\{2^{N + 1} - 2^M + t'', \cdots, 2^{N + 1} - 2^M + 2t'' - 1\}\to 
+	\{2^N - 2^{M - 1}, \cdots, (2^N - 2^{M - 1}) + t'' - 1\}
+	\]
+	Notice that all the elements in the LHS set has binary digit 1 at positons $M, \cdots, N$ and 
+	RHS has binary digit 1 at positions $M - 1, \cdots, N - 1$, 
+	so this is the same as defining $f$ for: 
+	\[
+	\{ t'', \cdots, 2t'' - 1\}\to 
+	\{0, \cdots, t'' - 1\}
+	\]
+	i.e. solving this problem for $t''$. 
+	Therefore, this part of arrangement for $t$ is valid if and only if it's also valid for $t''$, 
+	which by induction hypothesis there's exactly one such construction. 
+	Thus this completes the induction step. 
+	
+	\textbf{Problem 5.}
+	Line $\ell$ intersects sides $BC$ and $AD$ of cyclic quadrilateral $ABCD$ in its interior points $R$ and $S$, respectively, and intersects ray $DC$ beyond point $C$ at $Q$, and ray $BA$ beyond point $A$ at $P$. Circumcircles of the triangles $QCR$ and $QDS$ intersect at $N \neq Q$, while circumcircles of the triangles $PAS$ and $PBR$ intersect at $M\neq P$. Let lines $MP$ and $NQ$ meet at point $X$, lines $AB$ and $CD$ meet at point $K$ and lines $BC$ and $AD$ meet at point $L$. Prove that point $X$ lies on line $KL$.
+	
+	\textbf{Solution.} 
+	Denote $G$ as the intersection of $BD$ and $AC$; we know that $(KB, KC; KL; KG)$ are harmonic pencil.
+	By Ceva's theorem (trigo version) on triangle $KBC$ we have
+	\[
+	\frac{\sin\angle ABD}{\sin\angle DBC}\cdot \frac{\sin\angle BCA}{\sin\angle ACD}\cdot \frac{\sin\angle CKG}{\sin\angle GKA} = 1
+	\]
+	Since $ABCD$ is cyclic, we may change some of the sines above to chord subtended on the circumcircle, giving (together with harmonics)
+	\[
+	\frac{\sin\angle LKA}{\sin\angle CKL} 
+	= \frac{\sin\angle GKA}{\sin\angle CKG} 
+	= \frac{\sin\angle ABD}{\sin\angle DBC}\cdot \frac{\sin\angle BCA}{\sin\angle ACD}
+	=\frac{AD}{CD}\cdot \frac{AB}{AD}
+	=\frac{AB}{CD}
+	\]
+	Next, we consider the same for tiangle $KPQ$ via lines $PM, NQ$ and $KX$ which are concurrent. By spiral similarity, we have triangles $MAS\sim MBR$, and $MSR\sim MAB$, and therefore,
+	\[
+	\frac{\sin\angle MPQ}{\sin\angle MPK} = 
+	\frac{\sin\angle MPS}{\sin\angle MPA}
+	=\frac{MS}{MA}
+	=\frac{RS}{AB}
+	\]where the middle equality is by considering the length of arcs subtended on circle $MPAS$ while the last is due to the triangle similarity.
+	In a similar spirit we have
+	\[
+	\frac{\sin\angle NQK}{\sin\angle NQP} = 
+	\frac{\sin\angle NQC}{\sin\angle NQR}
+	=\frac{NC}{NR}
+	=\frac{CD}{RS}
+	\]Therefore, by Ceva's theorem, we have
+	\[
+	\frac{\sin\angle XKP}{\sin\angle QKX}
+	= \frac{\sin\angle MPK}{\sin\angle MPQ}\cdot \frac{\sin\angle NQP}{\sin\angle NQK}
+	=\frac{AB}{RS}\cdot \frac{RS}{CD}
+	=\frac{AB}{CD}
+	\]so $\frac{\sin\angle LKA}{\sin\angle CKL} = \frac{\sin\angle XKP}{\sin\angle QKX}$.
+	
+	Finally, though our computation of the ratio of sines are unsigned, we see that both the lines $KL$ and $KX$ are outside the angle domain of $\angle KPQ$: the former is because both $K$ and $L$ are outside the quadrilateral $ABCD$; the latter is because either $PM$ is in angle domain $\angle KPQ$ or $NQ$ is in angle domain $QPK$ but not both. Thus $KL$ and $KX$ are the same line, as desired.
+	
+\end{document}
