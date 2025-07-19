@@ -1,0 +1,1902 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, float}
+\usepackage{mathrsfs,amsthm}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+	\newcommand{\la}{\leftarrow}
+	\newcommand{\lra}{\leftrightarrow}
+	\newcommand{\bbN}{{\mathbb N}}
+	\newcommand{\bbZ}{{\mathbb Z}}
+	\newcommand{\bbQ}{{\mathbb Q}}
+	\newcommand{\bbR}{{\mathbb R}}
+	\newcommand{\bbC}{{\mathbb C}}
+	\newcommand{\bbH}{{\mathbb H}}
+	\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+	\newcommand{\ra}{\rightarrow}
+	\newcommand{\Span}{\mathrm{span}}
+	\newcommand{\scrP}{\mathscr{P}}
+	\newcommand{\rank}{\mathrm{rank}}
+	\newcommand{\nullity}{\mathrm{nullity}}
+	\newcommand{\Col}{\mathrm{Col}}
+	\newcommand{\Row}{\mathrm{Row}}
+	\newcommand{\tr}{\mathrm{tr}}
+	\newcommand{\ol}{\overline}
+	\newcommand{\norm}[1]{||#1||}
+	\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+	\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+	\newcommand{\Ind}{\mathrm{Ind}}
+	\newcommand{\Res}{\mathrm{Res}}
+	\newcommand{\End}{\mathrm{End}}
+	\newcommand{\cl}{\mathrm{cl}}
+	\newcommand{\code}[1]{\texttt{#1}}
+	\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+	\newcommand{\<}{\langle}
+	\renewcommand{\>}{\rangle}
+	\newcommand{\qubits}[1]{|{#1}\rangle}
+	\newcommand{\powset}{\mathcal{P}}
+	\newcommand{\dsum}{\displaystyle\sum}
+	\newcommand{\dprod}{\displaystyle\prod}
+	
+	\newtheorem{lemma}{Lemma}
+	
+	\title{Solution to IMO 2024 Shortlist}
+	\date{}
+	\author{Anzo Teh}
+	\maketitle
+	\section*{Algebra}
+	\begin{enumerate}
+		\item [A1.] (IMO 1)
+		Determine all real numbers $\alpha$ such that, for every positive integer $n,$ the integer
+		$$\lfloor\alpha\rfloor +\lfloor 2\alpha\rfloor +\cdots +\lfloor n\alpha\rfloor$$is a multiple of $n.$
+		
+		\textbf{Answer}: all even integers (only). 
+		
+		\textbf{Solution.}
+		Note that for all integers $m$, 
+		\[\sum_{k=1}^n \lfloor k(\alpha + 2m)\rfloor 
+		=mn(n + 1) + \sum_{k=1}^n \lfloor k\alpha\rfloor 
+		\]
+		This implies that if $\alpha$ is an answer, so is $\alpha + 2$. 
+		In particular, when $\alpha = 0$ the summation 
+		$\sum_{k=1}^n \lfloor k\alpha\rfloor$ is always 0 
+		(hence valid), 
+		and if $\alpha = 1$ $\lfloor \alpha\rfloor + \lfloor 2\alpha\rfloor = 3$ is not divisible by 2. 
+		Hence when $\alpha$ is an integer, the answers are precisely the even integers. 
+		
+		Now suppose $\alpha$ is not an integer, 
+		where it suffices to consider only those $\alpha\in (-1, 1)$. 
+		If $\alpha > 0$, 
+		consider $n\ge 2$ such that $\frac{1}{n} \le \alpha < \frac{1}{n - 1}$. 
+		Then $0 < \alpha, \cdots, (n - 1)\alpha < 1$ and 
+		$1\le n\alpha < \frac{n}{n - 1}\le 2$, 
+		so 
+		\[
+		\sum_{k=1}^n \lfloor k\alpha\rfloor = 1
+		\]
+		is not divisible by $n$. 
+		
+		Similarly, if $\alpha < 0$, 
+		consider $n\ge 2$ such that $\frac{1}{n} < -\alpha \le \frac{1}{n - 1}$. 
+		Then $-1 \le \alpha, \cdots, (n - 1)\alpha < 0$ and 
+		$1 < -n\alpha \le \frac{n}{n - 1}\le 2$, 
+		so 
+		\[
+		\sum_{k=1}^n \lfloor k\alpha\rfloor = -(n - 1) - 2 = -(n + 1)
+		\]
+		is not divisible by $n$. 
+		
+		\item [A2.]
+		Let $n$ be a positive integer. Find the minimum possible value of
+		\[
+		S = 2^0 x_0^2 + 2^1 x_1^2 + \dots + 2^n x_n^2,
+		\]where $x_0, x_1, \dots, x_n$ are nonnegative integers such that $x_0 + x_1 + \dots + x_n = n$.
+		
+		\textbf{Answer}: $\frac{n(n+1)}{2}$. 
+		
+		\textbf{Solution}. 
+		Let $f(n)$ be the given minimum. 
+		We first note the following recurrence sequence: 
+		\[
+		f(n) = \min_{k\ge 1} k^2 + 2f(n - k)
+		\]
+		Indeed, if $(x_0', x_1', x_2', \cdots, x_{n - k}')$ is the minimizer for $n - k$, 
+		then we may take $x_0 = k$ and $(x_1, \cdots, x_{n - k + 1} = (x_0', x_1', x_2', \cdots, x_{n - k}')$ and fill the rest with 0's. 
+		Conversely, all minimizers must have the form above: 
+		we clearly have $x_0\ge x_1\ge\cdots x_n$, so $x_0\ge 1$, 
+		and if $x_0 = k$ then at most $n - k$ other $x_i$'s can be positive, 
+		forcing $x_i = 0$ for $i > n - k$. 
+		
+		Now $f(0) = 0$ and $f(1)=1$ by setting $(x_0, x_1)=(1, 0)$. 
+		To show that $f(n) = \frac{n(n+1)}{2}$, we assume this is the case for $k=0, \cdots, n - 1$, 
+		and note that 
+		\[
+		f(n) = \min_{k\ge 1} k^2 + 2f(n - k) 
+		= \min_{k\ge 1} k^2 + (n - k)(n - k + 1) = 2k^2 -(2n + 1)k + n
+		\]
+		which takes minimum at $k_0 = \frac{2n + 1}{4}$. 
+		Since $k$ is an integer, the minimum is achieved when $|k - k_0|$ is minimized, 
+		this is $\frac{n}{2}$ when $n$ even and $\frac{n + 1}{2}$ when $n$ odd. 
+		both cases give $k^2 + 2f(n - k) = \frac{n(n+1)}{2}$. 
+		
+		\item [A3.]
+		Decide whether for every sequence $(a_n)$ of positive real numbers,
+		
+		\[\frac{3^{a_1}+3^{a_2}+\cdots+3^{a_n}}{(2^{a_1}+2^{a_2}+\cdots+2^{a_n})^2} < \frac{1}{2024}\]
+		
+		is true for at least one positive integer $n$.
+		
+		
+		\textbf{Answer}: yes. 
+		
+		\textbf{Solution.} The key observation is that for any positive $a < 1$, 
+		we always have $x^a + y^a\ge (x + y)^a$. 
+		To see why, the function $f(t) = at^{a - 1}$ is decreasing in $t > 0$, and therefore 
+		\[
+		x^a = \int_0^x at^{a - 1}dt \ge \int_y^{x + y} at^{a - 1}dt
+		=(x+y)^a - y^a
+		\]
+		Consequently, by considering $a = \frac{\log 2}{\log 3} < 1$ we have 
+		\[
+		2^{a_1}+\cdots 2^{a_n}
+		=(3^{a_1})^a + \cdots + (3^{a_n})^a
+		\ge (3^{a_1} + \cdots 3^{a_n})^a
+		\]
+		and consequently, 
+		\[
+		\frac{3^{a_1} + \cdots 3^{a_n}}{(2^{a_1} + \cdots 2^{a_n})^2}
+		\le \frac{3^{a_1} + \cdots 3^{a_n}}{(3^{a_1} + \cdots 3^{a_n})^{2a}}
+		\]
+		Now note that $3 < 2^2$ so $a > \frac 12$, and 
+		$3^{a_1} + \cdots 3^{a_n} > n$ since $a_1, \cdots, a_n$. 
+		Therefore, 
+		\[
+		\frac{3^{a_1} + \cdots 3^{a_n}}{(3^{a_1} + \cdots 3^{a_n})^{2a}}
+		\le (3^{a_1} + \cdots 3^{a_n})^{1-2a}
+		< n^{1-2a}
+		\]
+		and it suffices to take any $n$ such that $n^{2a - 1} > 2024$. 
+		
+		\item [A4.]
+		Let \(\mathbb{Z}_{>0}\) be the set of all positive integers. Determine all subsets \(\mathcal{S}\) of \(\{2^{0},2^{1},2^{2},\ldots\}\) for which there exists a function \(f\colon\mathbb{Z}_{>0}\to\mathbb{Z}_{>0}\) such that
+		\[\mathcal{S}=\{f(a+b)-f(a)-f(b)\mid a,b\in\mathbb{Z}_{>0}\}.\]
+		
+		\textbf{Answer.} 
+		All $\mathcal{S}$ with at most two elements. 
+		
+		To show that such $\mathcal{S}$ can be obtained, 
+		note that for any positive integer $u$, 
+		the set $\mathcal{S}=\{u\}$ can be obtained by taking 
+		$f(n) = an - u$ for any $a > u$, 
+		then $f(a+b)-f(a)-f(b)=u$ for all $a, b\in\mathbb{N}$. 
+		The set $\mathcal{S}=\{u, v\}$ for any $u\neq v$ can be taken via the following construction for all $n\ge 1$: 
+		\[
+		f(2n) = kn - u\qquad 
+		f(2n - 1) = k(n-1)-u+w
+		\]
+		where $k, w$ satisfy $k > u, w > u$, 
+		and also $k+u-2w=v$
+		Then $f(a+b)-f(a)-f(b)=u$ whenever $a, b$ even, 
+		or exactly one of $a, b$ is odd 
+		(given that $f(2n+1)-f(2n)=w$ is the same for all $n$). 
+		If $a, b$ are both odd then we have 
+		\[
+		f(a+b)-f(a)-f(b)
+		= (\frac{a+b}{2})k - u
+		-\frac{a-1+b-1}{2}k+2u-2w
+		=k+u-2w=v
+		\]
+		as desired. 
+		
+		To show that all such $\mathcal{S}$ cannot have more than two elements, 
+		we first note that if $f(n+1)-f(n)$ is constant across all $n$, 
+		then so is $f(a+b)-f(a)-f(b)$ (given that this $f$ is linear). 
+		Hence we may assume this is not the case, 
+		where we will show that $f(n+1)-f(n)$ also takes only two elements. 
+		
+		We first note the following three facts about powers of two: 
+		\begin{itemize}
+			\item [(i)] 
+			If $c > 0$ can be written as $c = 2^a+2^b$ for integers $a, b$, 
+			then $a$ and $b$ is uniquely determined (up to flips). 
+			
+			\item [(ii)] 
+			If $c\neq 0$ can be written as $c = 2^a-2^b$, for integers $a, b$, then $a$ and $b$ is uniquely determined. 
+			
+			\item [(iii)] 
+			There is no nonnegative integers $a, b, c$ such that $2^a, 2^b, 2^c$ form a nonconstant arithmetic progression. 
+		\end{itemize}
+		
+		The first can be seen by noting that all such $c$ has at most two one's in its binary expansion, 
+		in which the positions $a$ and $b$ can be obtained immediately 
+		(in the case where $c$ is power of two then $c=2^{a+1}$ and $b=a$). 
+		The second one can be established by noting that if $c>0$, 
+		then $b\le a - 1$ and so $2^{a-1}\le 2^{a}-2^b = c<2^a$, 
+		i.e. 
+		$a$ can be uniquely determined based on the magnitude of $c$, 
+		and so $b$ is also uniquely determined. 
+		The case $c<0$ is symmetric (by swapping the roles of $a$ and $b$). 
+		Finally, 
+		if $2^a, 2^b, 2^c$ form a nonconstant arithmetic progression, 
+		then $2^c-2^b=2^b-2^a$. 
+		But as the previous point shown, $2^d-2^c=2^b-2^a$ means $d=b$ and $c=a$, hence contradiction. 
+		
+		Now let $m\ge 2$ be the minimum number such that 
+		$v:=f(m+1)-f(m)\neq f(m)-f(m-1):=u$.
+		We now show by induction on $n$ that $f(n)-f(a)-f(n-a)$ can take only two values, as well as $f(n+1)-f(n)$. 
+		By (ii), the equation $v-u=2^b-2^a$ has at most one solution $(a, b)$, which we will use throughout the solution. 
+		We now split the cases into the following by considering $f(x+y)-f(x)-f(y): x+y=n$ according to the cases for $n$'s as follows: 
+		
+		$n\le m+1$: 
+		Note that for any $k\ge 1$, $\{f(1), \cdots, f(m)\}$ is linear in $\{1,2,\cdots, m\}$, 
+		i.e. $f(x+y)-f(x)-f(y)$ is the same whenever $x+y\le m$. 
+		\[
+		f(m+1)-f(m+1-k)-f(k)=f(m+1)-f(m)-f(1)
+		=(f(m)-f(m-1)-f(1)) + (v-u)
+		\]
+		so $f(m+1)-f(m+1-k)-f(k)=2^b$ and 
+		$f(x+y)-f(x)-f(y)=2^a$ whenever $x+y\le m$. 
+		In particular, we can deduce that $f(2)-2f(1)=2^a$, 
+		and $f(2)-f(1)=u$, which allows us to deduce $f(1)=u-2^a$. 
+		This means that if 
+		$f(n)-f(n-1)-f(1)\in \{2^a,2^b\}$ then 
+		$f(n)-f(n-1)\in \{2^a+(u-2^a), 2^b+(u-2^a)\}=\{u, v\}$ since $v-u=2^b-2^a$, 
+		and it thus suffices to show that $f(n)-f(n-1)-f(1)\in \{2^a,2^b\}$. 
+		
+		$n > m + 1$: now suppose 
+		$f(\ell)-f(\ell-1)$ takes only $u$ and $v$ for $\ell=2, \cdots, n - 1$. 
+		We first consider the case where the set 
+		$\{f(k)+f(n-k): k=1, 2, \cdots, n-1\}$ are not all equal. 
+		Note that by (ii), 
+		$f(n)$ is uniquely determined. 
+		Let $g(k)=f(k)+f(n-k)$; 
+		we have $g(k+1)-g(k)=(f(k+1)-f(k)) - (f(n-k)-f(n-k-1))$, 
+		i.e. 
+		$g(k+1)-g(k)\in \{u - v, 0, v - u\}$. 
+		If $g(k)$ takes more than two values, 
+		then three of the terms will form an arithmetic progression of common difference $|v-u|$, which is a contradiction. 
+		Thus $g(k)$ can only take two different values of difference $|u-v|$. 
+		Note that this will force 
+		$f(n) - (f(k)+f(n-k))$ to be either $2^a$ or $2^b$ for each $k=1, 2, \cdots, n - 1$. 
+		
+		Now suppose instead that $\{f(k)+f(n-k): k=1, 2, \cdots, n-1\}$ is all equal, 
+		which means technically $f(n)$ can take multiple values. 
+		Let $f(k)+f(n-k)=C$ for $k=1, \cdots, n-1$. 
+		Consider $f(k+1)+f(n-k)=f(k)+f(n-k)+(f(k+1)-f(k))\in \{C+u, C+v\}$ for $k=1, \cdots, n-1$. 
+		Note that $f(k+1)-f(k)$ takes both the values $C+u$ and $C+v$, 
+		so it follows that $f(n+1)$ is uniquely determined here 
+		and 
+		$f(n+1)-(f(k+1)+f(n-k))\in \{2^a, 2^b\}$. 
+		In particular, note that $f(n-1)+f(2)=C+(f(2)-f(1))=C+u$, so 
+		$f(n+1)-f(n-1)-f(2)=2^b$. 
+		Consider, now, the two quantities: 
+		\[
+		f(n+1)-f(n)-f(1)
+		\qquad 
+		f(n)-f(n-1)-f(1)
+		\]
+		which are both powers of two, 
+		and the sum is $f(n+1)-f(n-1)-2f(1)=(f(n+1)-f(n-1)-f(2))+(f(2)-2(f(1))=2^a+2^b$. 
+		Thus by (i) of the power-of-two properties we have 
+		\[
+		\{f(n+1)-f(n)-f(1), f(n)-f(n-1)-f(1)\}\in \{2^a, 2^b\}
+		\]
+		so $f(n)-f(n-k)-f(k)\in \{2^a, 2^b\}$ (which is the same for all $k$ since $f(n-k)+f(k)=C$). 
+		
+		\item [A5.] 
+		Find all periodic sequence $a_1,a_2,\dots$ of real numbers such that the following conditions hold for all $n\geqslant 1$:$$a_{n+2}+a_{n}^2=a_n+a_{n+1}^2\quad\text{and}\quad |a_{n+1}-a_n|\leqslant 1.$$
+		
+		\textbf{Answer.} All constant sequences, 
+		and $(-c, c, -c, c, \cdots)$ for all $c$ with $|c|\le \frac 12$. 
+		
+		Let $s_n = a_n+a_{n+1}$ and $d_n = a_{n+1}-a_n$; 
+		both the sequences $\{s_n\}$ and $\{d_n\}$ are periodic. 
+		Note the following identity:
+		\[
+		s_nd_n = a_{n+1}^2-a_n^2=a_{n+2}-a_n
+		\]
+		and note that 
+		$a_{n+2}-a_n=d_n+d_{n+1}=s_{n+1}-s_n$. 
+		This gives us the following recurrence: 
+		\[
+		d_{n+1} = d_n(s_n-1)
+		\qquad 
+		s_{n+1}=s_n(d_n+1)
+		\]
+		Now if $d_n=0$ for some $n$, then $d_{n+1}=0$ and so $\{a_n\}$ is constant. 
+		If $s_n=0$ for some $n$, then $s_{n+1}=0$ and so 
+		$\{a_n\}$ takes the second form $(-c, c, -c, c, \cdots)$. 
+		Henceforth we assume none of $\{s_n\}$ and $\{d_n\}$ contains a zero term. 
+		
+		We first note that $|d_n|\le 1$ implies that 
+		$d_n+1\ge 0$ (in fact $>0$ since $s_{n+1}\neq 0$), 
+		so $\{s_n\}$ are all of the same sign. 
+		If $s_n<0$ for all $n$, 
+		then $d_{n+1} = d_n(s_n-1)$ has 
+		$|s_n-1| > 1$, so 
+		$|d_{n+1}| > |d_n|$ and so $\{d_n\}$ cannot be periodic. 
+		
+		Therefore $s_n>0$ for all $n$. 
+		We note the following observation: 
+		if $d_n > 0$, then $s_n < 1$. 
+		Otherwise (if $s_n>1$), $d_{n+1}>0$ and $s_{n+1}>s_n\ge 1$,
+		so $d_n > 0$ and the sequence $\{a_n\}$ is strictly increasing (and cannot be periodic). 
+		(Note again we eliminated the case $s_n=1$ because this forces $d_{n+1}=0$). 
+		In particular, let $M$ be the maximum number of the sequence 
+		(which is bounded since periodic); 
+		let $a_{n_0}=M$. 
+		Then $a_{n_0-1}<M$ and $d_{n_0-1}>0$, 
+		forcing $s_{n_0-1}< 1$. 
+		Given also that $d_{n_0-1}\le 1$, 
+		$a_{n_0}=(s_{n_0-1}+d_{n_0-1})/2< 1$, 
+		thus $s_n\le 2M < 2$ for all $n$. 
+		
+		Finally, with $0< s_n< 2$, 
+		$|s_n-1|<1$. 
+		This means $\{d_{n}\}$ is strictly decreasing, 
+		which also means it cannot be periodic. 
+		
+		\item [A6.]
+		Let $a_0, a_1, a_2, \ldots$ be an infinite strictly increasing sequence of positive integers such that for each $n \ge 1$ we have
+		
+		$$
+		a_n \in \left\{ \frac{a_{n-1} + a_{n+1}}{2},\ \sqrt{a_{n-1} \cdot a_{n+1}} \right\}.
+		$$Let $b_1, b_2, \ldots$ be an infinite sequence of letters defined as
+		
+		$$
+		b_n = 
+		\begin{cases}
+			A & \text{if } a_n = \frac{1}{2}(a_{n-1} + a_{n+1}) \\
+			G & \text{otherwise}.
+		\end{cases}
+		$$Prove that there exist positive integers $n_0$ and $d$ such that for all $n \ge n_0$ we have $b_{n+d} = b_n$.
+		
+		\textbf{Solution.} 
+		If there are finitely many $A$'s or $G$'s then the sequence is eventually periodic, 
+		so we assume there are infinitely many symbols of both. 
+		Now let numbers $n_1, n_2, \cdots$ be nonnegative such that $n_1$ is the number of $G$'s before the first $A$ in $b_n$'s, and 
+		$n_k$ is the number of $G$'s between $k-1$-th and $k$-th $A$; 
+		we will show that the sequence $\{n_k\}$ is eventually constant. 
+		
+		Now let $\{c_n\}$ be an arithmetic progression such that $c_0=a_0$ and $c_1=a_1$. 
+		Note that $\gcd(c_n, c_{n+1})$ is the same for all $n$; 
+		let this gcd be $d$ and denote $e_n=\frac{c_n}{d}$. 
+		We now claim the following. 
+		\begin{lemma}
+			For each $k$, let $m_k = n_1+\cdots + n_k$. 
+			Then 
+			$a_{k+n_1+\cdots + n_k}$ is equal to 
+			\[
+			a_{i+m_k} = 
+			c_{i}\cdot \prod_{i=1}^k \left(\frac{c_i}{c_{i-1}}\right)^{n_i}, 
+			\qquad 
+			\forall i = k - 1, k, k + 1
+			\]
+		\end{lemma}
+		\begin{proof}
+			We proceed by induction on $k$. 
+			For $k = 1$, 
+			we have $a_{1 + n_1} = c_1 r^{n_1}$ where $r$ is indeed $\frac{c_1}{c_0}$, 
+			and also $a_{n_1} = c_0 r^{n_1}$. 
+			By the definition of $n_1$ we have 
+			$a_{n_1}, a_{1+n_1}, a_{2+n_1}$ arithmetic progression, 
+			hence 
+			$a_{2+n_1}=c_2r^{n_1}$. 
+			
+			Now suppose our claim holds for some $k\ge 1$. 
+			Let $s = \prod_{i=1}^k \left(\frac{c_i}{c_{i-1}}\right)^{n_i}$; 
+			we'll focus on our induction hypothesis that 
+			$a_{k+m_k} = c_ks$ and $a_{k+1+m_k}=c_{k+1}s$. 
+			If $m_{k+1}=0$ then we just have 
+			$a_{k+2+m_k}=c_{k+2}s$ and the conclusion still holds. 
+			Otherwise, 
+			set $r = \frac{c_{k+1}}{c_k}$, 
+			then 
+			\[a_{k+m_{k+1}} = a_{k+1+m_k+(n_{k+1}-1)} 
+			= c_{k+1}sr^{m_k-1}
+			=c_{k}sr^{m_k}
+			\]
+			\[a_{k+1+m_{k+1}} = a_{k+1+m_k+(n_{k+1})} 
+			= c_{k+1}sr^{m_k}
+			\]
+			and finally by our definition on $m_{k+1}$ again, 
+			we have $a_{k+m_{k+1}}, a_{k+1+m_{k+1}}, a_{k+2+m_{k+1}}$ form an arithmetic progression, 
+			i.e. $a_{k+2+m_{k+1}} = c_{k+2}sr^{m_k}$, as claimed. 
+		\end{proof}
+		
+		Now using the same notation as the lemma, 
+		we note the following: 
+		\[
+		\frac{a_{k+1+m_{k+1}}}{a_{k+m_k}} = (\frac{c_{k+1}}{c_k})^{n_{k+1}+1}
+		\]
+		which then follows that 
+		$a_{k+m_k}$ is divisible by $e_k^{n_{k+1}+1}$, 
+		where we recall $e_k = \frac{c_k}{d}$. 
+		This means for all $k\ge 1$, the following quantity is an integer: 
+		\[
+		c_k(\frac{1}{e_k})^{n_{k+1}+1}\cdot \prod_{i=1}^k(\frac{e_i}{e_{i-1}})^{n_i}
+		=d(\frac{1}{e_k})^{n_{k+1}}\cdot \prod_{i=1}^k(\frac{e_i}{e_{i-1}})^{n_i}
+		\]
+		For convenience, we denote the quantity 
+		\[
+		r_k = (\frac{1}{e_k})^{n_{k+1}}\cdot \prod_{i=1}^k(\frac{e_i}{e_{i-1}})^{n_i}
+		\]
+		Note that $dr_k$ is an integer. 
+		We now note the following observation. 
+		\begin{lemma}
+			Suppose $k<\ell$ is such that 
+			$n_{k+1} \le n_{\ell+1}$ but $n_{i+1}<n_{k+1}$ for all $i$ with $k < i<\ell$. 
+			Then $r_{\ell}\le r_k$ with equality if and only if 
+			$\ell = k + 1$ and also $n_{k+1} = n_{\ell+1}$. 
+		\end{lemma}
+		\begin{proof}
+			We note that the ratio $\frac{r_{\ell}}{r_k}$ can be computed as 
+			\[
+			\frac{r_{\ell}}{r_k}
+			=\frac{e_k^{n_{k+1}}}{e_{\ell}^{n_{\ell+1}}}
+			\cdot \prod_{i=k+1}^{\ell}(\frac{e_i}{e_{i-1}})^{n_i}
+			\le (\frac{e_k}{e_{\ell}})^{n_{k+1}}
+			\cdot \prod_{i=k+1}^{\ell}(\frac{e_i}{e_{i-1}})^{n_{k+1}}
+			=1
+			\]
+			given that $n_i\le n_{k+1}$ for all $i$ and $e_i>e_{i-1}$ since $c_i>c_{i-1}$. 
+			Equality holds iff $n_i=n_{k+1}$ for all $i$, 
+			but by our assumption we have $n_i<n_{k+1}$ for 
+			$i=k+2, \cdots, \ell$, 
+			so equality can only hold when $\ell=k+1$ and also $n_{\ell+1}=n_{k+1}$. 
+		\end{proof}
+		Now we can complete the solution. 
+		Consider a subsequence $\{n_{k_i}\}$ such that $k_1=1$ 
+		and $k_{i+1}>k_i$ is the smallest number such that 
+		$n_{k_{i+1}+1}\ge n_{k_{i}+1}$. 
+		Then $r_{k_i}$ is nonincreasing. 
+		Since $dr_{k_i}$ is an integer, 
+		the sequence $\{dr_{k_i}\}$ is eventually constant. 
+		It then follows that the equality condition of the lemma must hold, 
+		i.e. $n_{i}$ must also be eventually constant. 
+		
+		\item [A7.] (IMO 6) 
+		Let $\mathbb{Q}$ be the set of rational numbers. A function $f: \mathbb{Q} \to \mathbb{Q}$ is called aquaesulian if the following property holds: for every $x,y \in \mathbb{Q}$,
+		\[ f(x+f(y)) = f(x) + y \quad \text{or} \quad f(f(x)+y) = x + f(y). \]Show that there exists an integer $c$ such that for any aquaesulian function $f$ there are at most $c$ different rational numbers of the form $f(r) + f(-r)$ for some rational number $r$, and find the smallest possible value of $c$.
+		
+		\textbf{Answer. } $c=2$. 
+		
+		\textbf{Step 1.} 
+		We first show that $f(0)=0$ and $f(-f(x))=-x$, in particular $f$ is injective. The first part has two steps: show that $0$ is a value of $f$ and $f(v)=0$ implies $v=0$.
+		
+		Substituting $x=y=0$ gives $f(f(0))=f(0)$, i.e. if $f(0)=u$ then $f(u)=u$. Substituting $x=u, y=-f(u)$ 
+		gives $x + f(y) = u+f(-u)$ and $f(x) + y = f(u) - f(u) = 0$, so either $f(u + f(-u)) = 0$ or $u = f(0) = u + f(-u)$, i.e. $f(-u) = 0$. In either case, 0 is indeed a value of $f$, attained either by $f(u + -f(u))$ or $f(-u)$.
+		
+		Now if $f(v)=0$, substituting $x=y=v$ into (*) gives $f(v)+v=0+v=v$, so $0=f(v)=v$, as claimed. This thus gives $f$ maps nonzero number to nonzero number and 0 to 0 (call this "condition A"). Finally, substituting $y = -f(x)$ gives $f(x)+y = 0$ and $f(y)+x = f(-f(x))+x$. By "condition A" and we have $f(-f(x))+x=0$, so $f(-f(x))=-x$, as claimed.
+		
+		\textbf{Step 2.} 
+		Denote, now, $L = \{x: f(x)=x\}$ (i.e. the set of fixed points). We now show/note the following properties of $L$. 
+		
+		\begin{itemize}
+			\item $0\in L$, as previously shown. 
+			
+			\item $L$ is closed under addition: indeed if $x, y\in L$ then the given condition implies $f(x+y)=x+y$.
+			
+			\item $L$ is closed under negation: given $f(-f(x))=-x$, if $x\in L$ then $f(-x)=-x$.
+			
+			\item $L$ contains the set $M = \{x + f(x): x\in\mathbb{Q}\}$.
+			
+			\item If $x + f(y)$ is in $L$ then $f(x) - f(y) = x - y$. Indeed, by injectivity of $f$, if $f(z) = x + f(y)$ then $z = f(x) + y$. Now (*) readily implies that $f(x) + y = f(y) + x$, so rearranging yields the conclusion.
+			
+			\item If $x - y\in L$ then $x + f(y)\in L$. Indeed this follows from (4) that $y + f(y)$ and $x - y$ are both in $L$.
+			
+			\item If $x\in L$, then $f(x + y) = x + f(y)$. Indeed, due to (4) and (2) we have $f(x + y + f(y)) = x + y + f(y)$ and (5) implies that (by substituting $x + y$ into $x$ $f(x + y) - f(y) = x$, as claimed.
+		\end{itemize}
+		
+		\textbf{Step 3.} We now prove the bound $c\le 2$. To this end, note that $r = 0$ means $f(r) + f(-r)= 0$, so it suffices to show that for each pair of rationals $r_1, r_2$, either $f(r_1) + f(-r_1) = f(r_2) + f(-r_2)$, or one of them is zero.
+		
+		Consider the given condition again, but write $x + f(y) = y + f(y) + x - y$. The first condition (if true) and (7) means $f(x)+y = f(x+f(y)) = f(y+f(y)+x-y) = y + f(y) + f(x - y)$, i.e. $f(x) = f(y) + f(x - y)$. Similarly the second condition means $f(y) = f(x) + f(y - x)$. Thus we now have either $f(x) = f(y) + f(x - y)$ or $f(y) = f(x) + f(y - x)$ must hold (denote this as condition B1). Note also that, given this, $f(x-y)+f(y-x)=0$ if and only if we have both $f(x) = f(y) + f(x - y)$ and $f(y) = f(x) + f(y - x)$ (denote this as condition B2).
+		
+		Now back to the rationals $r_1, r_2$ that we set. We consider the following cases:
+		\begin{itemize}
+			\item 
+			Case C0: $f(r_1-r_2)+f(r_2-r_1)=0$. Then by condition B, $f(r_1) = f(r_2) + f(r_1 - r_2)$ and $f(r_2) = f(r_1) + f(r_2 - r_1)$ both hold, and also $f(-r_1) = f(-r_2) + f(r_2 - r_1)$ and $f(-r_2) = f(-r_1) + f(r_1 - r_2)$ both hold. Thus $f(r_1)-f(r_2) = f(-r_2)-f(-r_1)$, i.e. $f(r_1)+f(-r_1)=f(r_2)+f(-r_2)$.
+			
+			\item 
+			Case C1: $f(r_1-r_2)+f(r_2-r_1)\neq 0$. By condition B again, exactly one of $f(r_1) = f(r_2) + f(r_1 - r_2)$ and $f(r_2) = f(r_1) + f(r_2 - r_1)$ holds.
+			
+			W.l.o.g. suppose now that $f(r_1) = f(r_2) + f(r_1 - r_2)$ but $f(r_2) \neq f(r_1) + f(r_2 - r_1)$. By condition B1 applied on $x = r_2-r_1$ and $y = r_2$,
+			we have $f(r_2-r_1) = f(r_2) + (-r_1)$. By condition B2 on $x = r_2-r_1$ and then $y = -r_1$, we have one the following:
+			\[f(r_2)+f(-r_2)=0\qquad \text{or}\qquad f(-r_1) \neq f(r_2-r_1)+f(-r_2) \]In the first subcase we are done. In the second subcase we apply condition B1 on $x=-r_1, y=-r_2$ to get
+			$f(-r_2)=f(r_1-r_2) + f(-r_1)$.
+			Thus together with $f(r_1) = f(r_2) + f(r_1 - r_2)$ we have $f(r_1)+f(-r_1)=f(r_2)+f(-r_2)$, as claimed.
+		\end{itemize}
+		
+		\textbf{Step 4}. We now construct an example, 
+		i.e. $f(x) = \lfloor x\rfloor - \{x\}$ 
+		where $\{x\} = x - \lfloor x\rfloor$ is the fractional part of a real number $x$. 
+		Given any pair $x, y$, 
+		if $\{x\}\ge \{y\}$ then $\{x\} - \{y\}=\{x-y\}$ and therefore 
+		\[
+		f(x + f(y))
+		=f(x + \lfloor y\rfloor - \{y\})
+		=f(\lfloor x\rfloor + \lfloor y\rfloor
+		+ \{x-y\})
+		=\lfloor x\rfloor + \lfloor y\rfloor-\{x-y\}
+		=f(x)+y
+		\]
+		fulfilling the condition. 
+		Note that $f(0)=0$ and $f(r)+f(-r)=-2$ whenever $r$ is not an integer. 
+		
+		\textbf{Remark}. 
+		A motivation of constructing such an $f$ is the following: 
+		The set of fixed points $L$ really behaves like a set of lattice points. One way is to make $L$ an integer, so $x + f(x)$ should be an integer and $f(x)=x$ for all integers $x$. Now we consider 
+		\[f(x) = \lfloor x\rfloor - \{x\} + 2\cdot\boldsymbol{1}_{\{x\} > w}\] for some $w$ ($\boldsymbol{1}_{K}$ is 1 if $K$ is true and 0 if $K$ is false).
+		By trying $0 < x < y < 1$, we see the condition fails precisely when all the following happens: 
+		\[
+		\{x\} \le w < \{y\}\qquad \{y\} - \{x\}\le w\qquad 
+		\{x\} -\{y\} + 1 > w
+		\]
+		which can be avoided by setting $w = 0$ or 1. 
+		
+		
+		\item [A8.] 
+		Let $p \ne q$ be coprime positive integers. Determine all infinite sequences $a_1$, $a_2$, $\dots$ of positive integers such that the following conditions hold for all $n \ge 1$:
+		\begin{align*}
+			\max(a_n, a_{n+1}, \dots, a_{n+p}) - \min(a_n, a_{n+1}, \dots, a_{n+p}) &= p \\
+			\max(a_n, a_{n+1}, \dots, a_{n+q}) - \min(a_n, a_{n+1}, \dots, a_{n+q}) &= q   
+		\end{align*}
+		
+		\textbf{Answer. } $a_n = n+c$ for some nonnegative integer $c$, 
+		which is obvious that this works. 
+		
+		Given a sequence $\{a_n\}_{n\ge 1}$, 
+		we denote $a_n^{n+p}=\{a_n, \cdots, a_{n+p}\}$ and the norm 
+		$||a_n^{n+p}|| = \max\{a_n, \cdots, a_{n+p}\} - \min \{a_n, \cdots, a_{n+p}\}$. 
+		
+		W.l.o.g. suppose $p < q$, 
+		and that $q = bp+r$ where $0 < r < p$, $\gcd(r, p) = 1$, 
+		and $b \ge 1$. 
+		%(Assume $p > 1$; the case $p=1$ can be handled separately).
+		
+		We first show the following claims. 
+		\begin{lemma}[Triangle inequality]
+			\[
+			||a_n^{n+x+y}||\le ||a_n^{n+x}|| + ||a_{n+x}^{n+x+y}||
+			\]
+		\end{lemma}
+		
+		\begin{proof}
+			Given that the norm $||\cdot||$ is nonnegative, 
+			we may consider only the case where $ ||a_n^{n+x}||, ||a_{n+x}^{n+x+y}||$ strictly less than $||a_n^{n+x+y}||$, 
+			then the max and min of 
+			$a_n,\cdots, a_{n+x+y}$ are in different sections of 
+			$a_n^{n+x}$ and $a_{n+x}^{n+x+y}$. 
+			W.l.o.g. suppose that 
+			\[
+			\min\{a_n^{n+x+y}\} = \min\{a_n^{n+x}\}
+			\qquad 
+			\max\{a_n^{n+x+y}\} = \max\{a_{n+x}^{n+x+y}\}
+			\]
+			Then 
+			\[
+			\min\{a_{n+x}^{n+x+y}\}\le 
+			a_{n+x}
+			\le \max\{a_n^{n+x}\}
+			\]
+			so 
+			\[
+			||a_n^{n+x+y}||
+			=\max\{a_{n+x}^{n+x+y}\} - a_{n+x}
+			+a_{n+x} - \min\{a_n^{n+x+y}\}
+			\]\[
+			\le \max\{a_{n+x}^{n+x+y}\} - \min\{a_{n+x}^{n+x+y}\}
+			+\max\{a_n^{n+x}\}- \min\{a_n^{n+x+y}\}
+			=||a_n^{n+x}|| + ||a_{n+x}^{n+x+y}||
+			\]
+			as desired. 
+		\end{proof}
+		
+		Now we show another major claim: 
+		$|a_{n+q}-a_n|=q$ for each $n$. 
+		By shifting all indices and also the sequences themselves by a constant (while temporarily disregarding the constraint that these numbers have to be positive), we may assume the following: 
+		\[
+		\max\{a_0^q\}=q, \min\{a_0^q\} = 0
+		\]
+		and in addition, by the previous observation we have $||a_n^{n+bp}||\le bp < q$, 
+		so the maximum and and the minimum elements within $a_0^q$ must have indices at least $bp+1$ apart. 
+		That is, denote $m_0$ and $M_0$, respectively, 
+		such that $a_{m_0}=0$ and $a_{M_0}=q$, 
+		then $|M_0-m_0|>bp$. 
+		W.l.o.g. too we assume that the minimum element comes before the maximum element among $a_0^q$. 
+		Thus $m_0<r$ and $M_0 > bp$. 
+		We now claim the following observation: 
+		\begin{lemma}
+			$\max\{a_{q+1}^{q+r}\}\ge q + r$
+		\end{lemma}
+		\begin{proof}
+			We have $||a_{M_0-bp}^{M_0}||\le bp$, 
+			so $\min\{a_{M_0-bp}^{M_0}\}\ge q - bp = r$. 
+			Note, now, that 
+			$||a_{M_0-bp}^{M_0+r}||=q$ since $q-bp=r$. 
+			
+			We first note that $\min\{a_{M_0}^{M_0+p}\}\ge q - p\ge bp+r-p\ge r$, 
+			so none of $a_{M_0}, \cdots, a_{M_0+r}$ can contain element that is $< r$. 
+			This means $\min\{a_{M_0-bp}^{M_0+r}\}\ge r$
+			and so 
+			$\max \{a_{M_0-bp}^{M_0+r}\}\ge r + q$. 
+			But since $\max\{a_0^q\}=q$, 
+			the number that's at least $q + r$ must be among 
+			$a_{q+1}^{M_0+r}$ and since $M_0\le q$, 
+			the conclusion follows. 
+		\end{proof}
+		Given that $r < p$, we note the following corollary: 
+		$\min\{a_{q+1}, \cdots, a_{q+p}\}\ge q$. 
+		This leads to the following claim: 
+		\begin{lemma}
+			For $r'$ is such that $0 < r' < r$, then 
+			\[
+			\min\{a_{r'}^{q}\}\le r'
+			\]
+		\end{lemma}
+		\begin{proof}
+			The case for $r' = 0$ is established as per our assumption. 
+			We now extend this by induction, in the following form: 
+			\[
+			\begin{cases}
+				r'\to r'+(p-r) & r' < r\\
+				r'\to r' - r & r'\ge r\\
+			\end{cases}
+			\]
+			We now work on each case separately. 
+			
+			\textbf{Case 1: $r' < r$}. 
+			Now, note that $r' + bp < q$, so 
+			$r' + (b+1)p < q + p$. 
+			Note also that $\min\{a_{r}^q\}\ge r$ since $||a_r^q||\le bp$, 
+			so $\min\{a_{r'}^{r-1}\}\le r'$. 
+			Since our triangle inequality yields 
+			$||a_{r'}^{r'+(b+1)p}||\le (b+1)p$, 
+			it follows that 
+			\[
+			\max\{a_{r'}^{r'+(b+1)p}\}\le r' + (b+1)p
+			\]
+			and since $r'+(b+1)p - q = r'+(b+1)p-bp-r = r'-r+p > r'$, 
+			$\{a_{r'-r+p}^{r'+(b+1)p}\}\subseteq \{a_{r'}^{r'+(b+1)p}\}$, so 
+			$\max\{a_{r'-r+p}^{r'+(b+1)p}\}\le r' + (b+1)p$. 
+			This gives 
+			$\min\{a_{r'-r+p}^{r'+(b+1)p}\}\le r' + (b+1)p - q = r'-r+p$, 
+			which becomes $\min\{a_{r'-r+p}^{q}\}\le r'-r+p$ since $a_{q+1}, \cdots, a_{q+p}\ge q$. 
+			
+			\textbf{Case 2: $r' \ge r$}. 
+			By the similar logic as previous case, we have 
+			$\max\{a_{r'}^{r'+bp}\}\le r'+bp$, 
+			and since $r'+bp\ge q$ while 
+			$a_0, \cdots, a_q\le q$, 
+			$\max\{a_{r'-r}^{r'+bp}\}\le r'+bp$
+			(note, again, that $bp+r=q$), 
+			i.e. 
+			$\min\{a_{r'-r}^{r'+bp}\}\le r'-r$. 
+			But since $a_{q+1}, \cdots, a_{q+p}\ge q$, 
+			we have 
+			$\min\{a_{r'-r}^{q}\}\le r'-r$. 
+		\end{proof}
+		In any case we are going from $r'$ to $r'-r\pmod{p}$. 
+		Since $\gcd\{r, p\} = 1$, 
+		we can keep iterating until $r'=r-1$, 
+		in which case $\min\{a_{r'}^q\}\le r - 1$ but we also have $\max\{a_r^q\}\ge q - bp = r$, 
+		so $a_{r - 1}\le r - 1$. 
+		This forces $\max\{a_{r-1}^{q-1}\}\le q-1$, 
+		and also $\max\{a_0^{r-1}\}\le p < q$, 
+		i.e. $\max\{a_0^{q-1}\}\le q-1$, 
+		which forces $q - 1$. 
+		In a similar way we can show $\min\{a_1^q\}\ge 1$, 
+		which forces $a_0=0$. 
+		This proves our major claim. 
+		
+		We now establish `monotonicity' in the following form: 
+		$a_{n+2q}-a_{n+q}=a_{n+q}-a_n$ for all $n$. 
+		Otherwise, the only possibility is $a_{n+2q}-a_{n+q}=-(a_{n+q}-a_n)$. 
+		W.l.o.g. let $a_n=a_{n+2q}=a_{n+q}-q$. 
+		By the proof of our previous claims (with some adaption) we have $a_{n+1}, \cdots, a_{n+q}, \cdots, a_{n+2q-1}\ge a_n+1$, 
+		so 
+		$||a_{n+q-1}^{n+2q-1}||\le a_{n+q} - (a_n+1)\le q-1< q$, 
+		(note that $a_{n+q}=\max\{a_n, \cdots, a_{n+2q}\}$), 
+		which is a contradiction. 
+		Given also that the sequence contains only positive integers, 
+		this means $a_{n+q}-a_n=q$ for all $n$.
+		Note also that $a_{n+p}-a_n\le p$, i.e. we have the following inequality: 
+		\[
+		a_{n+pq}-a_n = pq
+		\ge \sum_{k=1}^q a_{n+kp} - a_{n+(k-1)p}
+		=a_{n+pq}-a_n
+		\]
+		i.e. the equality holds, and so $a_{n+p}-a_n=p$ for all $n$. 
+		This means that for any $m$, write $m = ap+bq$ ($a, b$ not necessarily positive), then 
+		\[
+		a_{n+m}-a_n
+		=a_{n+ap+bq} - a_{n+ap} + a_{n+ap}-a_n
+		=bq+ap=m
+		\]
+		which then forces $a_{n+1}-a_n=1$, as desired. 
+	\end{enumerate}
+    
+    \section*{Combinatorics}
+    \begin{enumerate}
+    	\item [C1.] 
+    	Let $n$ be a positive integer. A class of $n$ students run $n$ races, in each of which they are ranked with no draws. A student is eligible for a rating $(a,\,b)$ for positive integers $a$ and $b$ if they come in the top $b$ places in at least $a$ of the races. Their final score is the maximum possible value of $a-b$ across all ratings for which they are eligible.
+    	
+    	Find the maximum possible sum of all the scores of the $n$ students.
+    	
+    	\textbf{Answer. }$\frac{n(n-1)}{2}$. 
+    	
+    	Construction: suppose for each $i=1, \cdots, n$, 
+    	student $i$ gets ranked $i$ for all the races, 
+    	then this student $i$ attains $(n, i)$-rating and score $n - i$, making the sum of score 
+    	$n^2 - \sum_{i=1}^n i = \frac{n(n-1)}{2}$. 
+    	
+    	Bound: denote $(a_i, b_i)$ as the ratings of students. 
+    	Note that exactly $b$ students will get top $b$ ratings in each race, giving the following inequality for each $b=1, 2, \cdots, n:$
+    	\[
+    	\sum_{i: b_i\le b} a_i\le bn
+    	\]
+    	Using this constraint, let $b_*\in \{1, 2, \cdots, n\}$ be such that 
+    	\[
+    	(b_* - 1) n < \sum_{i=1}^n a_i \le b_*n
+    	\]
+    	W.l.o.g. let $(a_i, b_i)$ be arranged such that 
+    	$b_1\le b_2\le \cdots \le b_n$. 
+    	Then given that each $0\le a_i\le n$, 
+    	there exist $i_1<i_2<\cdots < i_{b_*}$ such that 
+    	\[
+    	\sum_{i=1}^{i_c} \in \{(c-1)n + 1, \cdots, cn\}
+    	\]
+    	for each $c=1, 2, \cdots, b_*$. 
+    	This means $b_c\ge c$ for each such $c$, 
+    	and therefore the total score is bounded by 
+    	\[
+    	\sum_{i=1}^n a_i - \sum_{i=1}^n b_i
+    	\le b_*n - (1 + \cdots + b_*)
+    	\]
+    	Finally, the function $bn - (1 + \cdots + b)$ is nondecreasing in $b$ for $b=\{0, 1, \cdots, n\}$, 
+    	showing that the maximum such value must be 
+    	$n^2 - (1 + \cdots + n)$. 
+    	
+    	\item [C2.]
+    	Let $n$ be a positive integer. The integers $1,\,2,\,3,\,\ldots,\,n^2$ are to be written in the cells of an $n\times n$ board such that each integer is written in exactly one cell and each cell contains exactly one integer. For every integer $d$ with $d\mid n$, the $d$-division of the board is the division of the board into $(n/d)^2$ nonoverlapping sub-boards, each of size $d\times d$, such that each cell is contained in exactly one $d\times d$ sub-board.
+    	
+    	We say that $n$ is a cool number if the integers can be written on the $n\times n$ board such that, for each integer $d$ with $d\mid n$ and $1<d<n$, in the $d$-division of the board, the sum of the integers written in each $d\times d$ sub-board is not a multiple of $d$.
+    	
+    	Determine all even cool numbers.
+    	
+    	
+    	\textbf{Answer: }all powers of 2. 
+    	
+    	\textbf{Solution.} 
+    	For $n = 2$ there is nothing to prove (i.e. the identity holds vacuously). 
+    	We show that $n = 2^k$ is good by showing that if $n = 2^k$ is good, 
+    	then so is $n = 2^{k + 1}$. 
+    	Let a board $M$ be $n-$cool if $M$ is $n\times n$ satisfying the problem condition, 
+    	and choose any $2^k$-cool board $M$. 
+    	We construct a $2^{k+1}$-cool board $M'$ by first constructing the following $2^{k+1}\times 2^{k+1}$ board: 
+    	\[
+    	M''\begin{pmatrix}
+    		M & M + (2^k)^2\\
+    		M + 2\cdot (2^k)^2 & M + 3\cdot (2^k)^2\\
+    	\end{pmatrix}
+    	\]
+    	where $M + a$ means elementwise addition if $a$ is a number. 
+    	By problem condition, for each $2^{\ell}$-division of the board ($\ell=1, \cdots, k - 1$), 
+    	the sum of the integers in each $2^{\ell}\times 2^{\ell}$ subboard is not a multiple of $d$, 
+    	so this "good" condition is only violated for $d = 2^k$ 
+    	(given that the sum of $M$ is $1 + \cdots + 2^{2k} = 2^{2k-1}(2^{2k}+1)$ is divisible by $2^k$ for all $k\ge 1$). 
+    	Thus from $M''$ we obtain $M'$ by randomly swapping a pair of elements in the $M$ and $M+(2^k)^2$ block that differ by $2^{k-1}\pmod{2^k}$, 
+    	and also elements in $M + 2\cdot (2^k)^2$ and $M + 3\cdot (2^k)^2$, also differ by $2^{k-1}\pmod{2^k}$. 
+    	Then conditions for $2^{\ell}\times 2^{\ell}$ sub-board good condition still holds for $\ell=1, \cdots, k - 1$, 
+    	but now our condition also holds for $2^k\times 2^k$ sub-board. 
+    	
+    	To show that $n$ must be a power of 2, 
+    	we note that for all $\ell\ge 1$ with $2^{\ell}\mid n$, each $2^{\ell}\times 2^{\ell}$-board must have sum of integers inside each board to have remainder $2^{\ell-1}\pmod{2^{\ell}}$. 
+    	This can be shown via induction on $\ell$: 
+    	base case, we have 
+    	$\ell = 1$ where $2\times 2$ board is odd; 
+    	inductive step: an $2^{\ell+1}\times 2^{\ell+1}$ sub-board is a concatenation of $2\times 2$-sized $2^{\ell}\times 2^{\ell}$ sub-board, 
+    	giving the remainder of the sum of numbers in this $2^{\ell+1}\times 2^{\ell+1}$ sub-board as $4\cdot 2^{\ell-1}\equiv 0\pmod{2^{\ell}}$. 
+    	Since the number divisible by $2^{\ell+1}$, the remainder modulo $2^{\ell+1}$ must be $2^{\ell}$. 
+    	
+    	In particular, let $n = m\cdot 2^k$ where $k\ge 1$, $m$ odd. 
+    	Then given there are $m^2$ $(2^{k}\times 2^{k})$ sub-board, 
+    	each such subboard has remainder $2^{k-1}$ modulo $2^k$. 
+    	This means $1+2+\cdots + n^2\equiv m\cdot 2^{k-1}\equiv 2^{k-1}\pmod{2^k}$ since $m$ is odd. 
+    	On the other hand $1+2+\cdots + n^2=n^2(n^2+1)/2$ is divisible by $2^{2k-1}$ and $k$ $k\ge 1$ so $2k-1\ge k$, 
+    	contradiction. 
+    	
+    	\item [C3.] 
+    	Let $n$ be a positive integer. There are $2n$ knights sitting at a round table. They consist of $n$ pairs of partners, each pair of which wishes to shake hands. A pair can shake hands only when next to each other. Every minute, one pair of adjacent knights swaps places. Find the minimum number of exchanges of adjacent knights such that, regardless of the initial arrangement, every knight can meet her partner and shake hands at some time.
+    	
+    	\textbf{Answer.} $\binom{n}{2}=\frac{n(n-1)}{2}$. 
+    	
+    	\textbf{Solution (sketch).} 
+    	Lower bound: if all pairs of knights are sitting diametrically opposite each other, then each pair needs to move at least $n - 1$ steps to be adjacent to each other, but at each minute, only two knights move.
+    	
+    	Upper bound: we assign each knight has a `preferred' direction of moving: 
+    	the one that will move them closer to their partner. 
+    	In particular, each pair of knights (who are partners) have opposite preferred directions. 
+    	In the case of partners being diameter we choose the direction arbitrarily, so long as the two partners has different preferred direction. 
+    	
+    	Call the "score" $S$ of the configuration by $X+Y$ where 
+    	\[2X = \sum \text{distance of each pair of knights} - n\]
+    	and $Y$ is the number of pair of partners $(A, B)$ and $(C, D)$ with $A, C, D, B$ in that order on the circle, and $A, C$ has the same preferred direction (and $B, D$ has the same preferred direction, different than $A, C$. Let $Y$ also be named the overlapping pair quantity. 
+    	
+    	Claim: until all pairs of partners are seated next to each other, the score of the configuration can be decreased by 1 after each move. To do so we note that the $n$ of the knights have preferred direction clockwise and the other $n$ anticlockwise. Disregarding all the adjacent partners for now, there are places where two knights $A_1, B_1$ with preferred directions facing each other, and either adjacent or separated purely by adjacent pairs of partners. If $A_1, B_1$ adjacent, then let $A_2, B_2$ be partners of $A_1, B_1$, respectively, segments $A_1A_2$ and $B_1B_2$ intersect inside the circle. Swapping $A_1, B_1$ will then reduce the length $A_1A_2$ and $B_1B_2$ each by one, while leaving the quantity $Y$ unchanged, thus reducing the score by 1. Otherwise, $A_1, B_1$ is separated by adjacent pairs, so $A_1$ might take two steps to cross over one adjacent pair, reducing the length $A_1A_2$ by 2 while also reducing the overlapping pair quantiy by 1, therefore decreasing the score by 2 in 2 steps. 
+    	
+    	Now we show that the maximum score of a configuration is $\binom{n}{2}$, as attained by the situation when all pairs are diametrically opposite each other. To do so we consider again the preferred direction, but disregard instead those partner pairs that are diameters. We will prove our claim by showing that we can do a series of operations that increases the total arc lengths of partners without decreasing the score. 
+    	Consider, now, any pair $A_1, B_1$ with "preferred direction" away from each other, and separated by $k\ge 0$ (but $< n$) points whose partners are diameterically opposite (and no other points). These $A_1, B_1$ cannot be partners (else their direction will not be away from each other). Let $A_2, B_2$ be the partners of $A_1, B_1; A_1A_2$ are on the same side of the region separated by the $k$ points and the $k$ points diametrically opposite them (same goes to $B_1, B_2$). Swapping $A_1, B_1$ will see the length $A_1B_1$ and $A_2B_2$ increasing by $k+1$ each, while the $k$ diametrically opposite lines can only reduce the "overlapping pair quantity" by $k$, hence increasing the score. 
+    	
+    	\item [C4.] (IMO 5) 
+    	Turbo the snail plays a game on a board with $2024$ rows and $2023$ columns. There are hidden monsters in $2022$ of the cells. Initially, Turbo does not know where any of the monsters are, but he knows that there is exactly one monster in each row except the first row and the last row, and that each column contains at most one monster.
+    	
+    	Turbo makes a series of attempts to go from the first row to the last row. On each attempt, he chooses to start on any cell in the first row, then repeatedly moves to an adjacent cell sharing a common side. (He is allowed to return to a previously visited cell.) If he reaches a cell with a monster, his attempt ends and he is transported back to the first row to start a new attempt. The monsters do not move, and Turbo remembers whether or not each cell he has visited contains a monster. If he reaches any cell in the last row, his attempt ends and the game is over.
+    	
+    	Determine the minimum value of $n$ for which Turbo has a strategy that guarantees reaching the last row on the $n$-th attempt or earlier, regardless of the locations of the monsters.
+    	
+    	\textbf{Answer.} $n=3$ attempts. 
+    	
+    	\textbf{Solution.} We generalize this to an $(m+1)\times m$ board ($m\ge 3$), with $m - 1$ monsters.  
+    	Name the rows 0, 1, $\cdots, m + 1$ and columns $1, 2, \cdots, m$. 
+    	
+    	To show that 3 steps is unavoidable, we could imagine an adversary `planting' monster on the fly onto squares Turbo has not stepped before, subject to the given condition 
+    	(i.e. no two in the same column, and they can only appear once in rows $1, \cdots, m-1$). 
+    	We note that the first step Turbo steps past row 0 must be row 1. 
+    	Given this initial step onto row 1, the adversary can plant this monster into the said square, 
+    	resulting in a failure. 
+    	Denote the column number as $c_1$. 
+    	In his next try, Turbo must pass through row 2. 
+    	Suppose his first landing is $(2, c_2)$, 
+    	which follows that he must have come from $(1, c_2)$ and $c_2\neq c_1$. 
+    	This means adversary can plant a monster in $(2, c_2)$, 
+    	resulting in a second failure. 
+    	
+    	We now design an algorithm to let Turbo succeed in 3 tries. 
+    	The first try is for him to determine the location of the monster in row 1 (by staying in row 1 until he hits a monster). Denote the monster's location as $(1, c_1)$. 
+    	Now we have two cases for his second try (and onwards): 
+    	
+    	\textbf{Case 1.} $c_1\neq 1, m$. 
+    	At most one of $(2, c_1-1)$ and $(2, c_1+1)$ has a monster, i.e. Turbo can walk on 
+    	$(1, c_1-1), (2, c_1-1)$, 
+    	and $(1, c_1+1), (2, c_1+1)$, and at most one will result in failure. 
+    	Suppose w.l.o.g. that the former succeeds, 
+    	then he can just do 
+    	\[
+    	(1, c_1-1), (2, c_1-1), (2, c_1), (3, c_1), \cdots, (m-1, c_1), (m, c_1)
+    	\]
+    	Note that this works because all monsters must be in different columns. 
+    	
+    	\textbf{Case 2.} $c_1\in \{1, m\}$. 
+    	W.l.o.g. let $c_1 = 1$. 
+    	Let $c_k$ be the location of monster at row $k=1, 2, \cdots, n-1$; 
+    	we now show that Turbo within the second try Turbo can determine the smallest $m$ such that $c_\ell > \ell$ 
+    	(or if this $\ell$ does not exist we set $\ell=m$). 
+    	That is, we let Turbo follow the following algorithm until he first gets hit by a monster (or until he reaches row $m - 1$): 
+    	at row $k$ (starting from $k = 1$), start at $(k, k + 1)$, 
+    	go all the way to $(k, n)$, 
+    	and return to $(k, k + 2)$, 
+    	then advance to row $k+1$ via $(k+1, k+2)$. 
+    	Observe that either Turbo successfully reaches $(m -1, m)$ (and still not caught by a monster) in which case he can go to row $m$ (and be successful on his second try), 
+    	or gets hit by a monster at coordinate $(\ell, k)$. 
+    	Note that $k > \ell$, 
+    	and by this algorithm Turbo determines that for each $(\ell', k')$ with $\ell'<\ell$ and $k'>\ell$ there is no monster at coordinates $(\ell', k')$. 
+    	In particular there is no monster at rows $(1, \ell), (2, \ell), \cdots, (\ell-1, \ell), (\ell, \ell)$. 
+    	On the other hand, with $c_{\ell'}\le \ell'$ for $\ell'<\ell$ and $c_1, \cdots, c_{\ell-1}$ all different and $\ge 1$, 
+    	it follows that $c_{\ell'}=\ell'$ for all $\ell'<\ell$. 
+    	Therefore, Turbo can go in the following path on his third try:  
+    	\[
+    	(0, \ell), (1, \ell), \cdots, (\ell-1, \ell), (\ell, \ell), (\ell, \ell-1), (\ell+1, \ell-1), \cdots, (m, \ell-1)
+    	\]
+    	given that no row other than $\ell-1$ can have monster on column $\ell-1$, 
+    	and the monster location on row $\ell$ is at column $k>\ell$. 
+    	
+    	
+    	\item [C5.]
+    	Let $N$ be a positive integer. Geoff and Ceri play a game in which they start by writing the numbers $1, 2, \dots, N$ on a board. They then take turns to make a move, starting with Geoff. Each move consists of choosing a pair of integers $(k, n)$, where $k \geq 0$ and $n$ is one of the integers on the board, and then erasing every integer $s$ on the board such that $2^k \mid n - s$. The game continues until the board is empty. The player who erases the last integer on the board loses.
+    	
+    	Determine all values of $N$ for which Geoff can ensure that he wins, no matter how Ceri plays.
+    	
+    	\textbf{Answer.} All $2^c$ for $c\ge 1$ odd, 
+    	and $b\cdot 2^{c'}$ with $b > 1$ odd and $c'$ even. 
+    	
+    	\textbf{Solution.} Call a finite set $S$ of integers to be type 1 if Geoff has a winning strategy, and type 2 otherwise. 
+    	Observe that if $|S|=1$ then it's type 2. 
+    	Denote, also, $f(S)$ as 
+    	\[
+    	\{f(s): s\in S\}
+    	\]
+    	for a given injective function $f$. 
+    	E.g. if $S=\{1,2,3,4,5\}$ then $2S=\{2,4,6,8,10\}$ and $S+1=\{2,3,4,5,6\}$. 
+    	Then for a constant $a$, $S+a$ and $S$ are of the same type 
+    	(i.e. both type 1 or both type 2), and also $S$ and $2S$ are of the same type too. 
+    	Our sets of interest is $S_N := \{1, 2, \cdots, n\}$. 
+    	
+    	We first show that for each nonempty set $S$, 
+    	$S$ and $(2S - 1)\cup(2S)$ are of opposite types. 
+    	If $S$ is of type 2, then Geoff can choose $n = 1$ and $k = 1$ to erase all odd numbers, leave $2S$ (with the same type as $S$). 
+    	Since Ceri starts with a type 2 set, it follows that Geoff has a winning strategy. 
+    	Conversely, if $S$ is of type 1, we may assume that Geoff only deletes odd integer (or even integer) at every move 
+    	(otherwise he will delete all integers on the board and therefore loses), i.e. Geoff only chooses to erase numbers in the subset of $2S - 1$ or $2S$. 
+    	Suppose also by strong induction that for all $S'$ that is a strict subset of $S$, 
+    	$S'$ and $(2S' - 1)\cup(2S')$ are of opposite types. 
+    	Now w.l.o.g. assume that Geoff chooses $2S - 1$ (i.e. deleting only the subset of odd numbers). 
+    	Let $(n, s)$ be the pair chosen by Geoff (i.e. $n$ odd), 
+    	and let $S'\subseteq S$ be such that $2S'-1$ is the remaining subset of $2S-1$. 
+    	\begin{itemize}
+    		\item If the resulting subset $S'$ remains a type 1 set, then Ceri may delete the corresponding subset in $2S_N$ (i.e. $(n + 1, s)$). 
+    		Then the resulting subset in $2S_N$ is a type 1 set, 
+    		and therefore the resulting subset $(2S' - 1)\cup(2S')$ is type 2 by induction hypothesis. 
+    		
+    		\item Otherwise if the resulting subset $S'$ becomes a type 2 set, then Ceri may delete the entire even number, with only $2S'-1$ left and therefore a type 2. 
+    	\end{itemize}
+    	
+    	Now $S_1$ is of type 2, and so it remains to show that all $S_N$ with $N > 1$ odd is of type 1. 
+    	Precisely, if $S_{N-1}$ is of type 2, Geoff may choose $(N, N)$ and delete only $N$. 
+    	Otherwise, $S_{N-1}$ is of type 1, 
+    	so by the previous claim, $S_{(N-1)/2}$ is of type 2. 
+    	This means Geoff may open the move by deleting all odd integers. 
+    	
+    	\item [C6.] 
+    	Let $n$ and $T$ be positive integers. James has $4n$ marbles with weights $1$, $2$, \dots, $4n$. He places them on a balance scale, so that both sides have equal weight. Andrew may move a marble from one side of the scale to the other, so that the absolute difference in weights of the two sides remains at most $T$.
+    	
+    	Find, in terms of $n$, the minimum positive integer $T$ such that Andrew may make a sequence of moves such that each marble ends up on the opposite side of the scale, regardless of how James initially placed the marbles.
+    	
+    	\textbf{Answer.} $T = 4n$. 
+    	
+    	\textbf{Solution.} To show we cannot do better than $T = 4n$, 
+    	consider the moment when one moves the weight $4n$ to another from one balance to the other. 
+    	Let $(a, b)$ be the weight of the two balances before this move; 
+    	this weight becomes $(a - 4n, b + 4n)$ after the move. 
+    	Now $\max \{|a-b|, |(a-4n) - (b + 4n)|\}\ge \frac{8n}{2} = 4n$, as desired. 
+    	
+    	Now we describe an algorithm for this move. 
+    	Indeed, let $M_n = \frac 12 (1 + 2 + \cdots 4n) = n(4n + 1)$. 
+    	We consider the set $\mathcal{P}([4n])$ of all subsets of $\{1, 2, \cdots, 4n\}$, 
+    	and let $P_n\subseteq \mathcal{P}([4n])$ defined as 
+    	\[
+    	P_n = \{S: |\sum_{i\in S}i - M_n|\le 2n\}
+    	\]
+    	e.g. $P_1$ corresponds to all subsets of $\{1, 2, 3, 4\}$ with sum of elements 3, 4, 5, 6, 7, 
+    	and $P_2$ all subsets of $\{1, 2, \cdots, 8\}$ with sum of elements $14, 15, \cdots, 21, 22$. 
+    	Then we claim that the following graph $G = (V, E)$ is connected, where 
+    	\[
+    	V = P_n\qquad 
+    	(S_1, S_2)\in E \leftrightarrow 
+    	|(S_1\backslash S_2)\cup (S_2\backslash S_1)| = 1
+    	\]
+    	(Thus each set $S$ in $P_n$ can be seen as the set of weights on the left balance, while the complement $S^C$ the weights on right balance). Note that the problem asks for the special case where there exists a path from $S$ to $S^C$ within $G$ such that $s$ has sum exactly $M_n$. 
+    	
+    	To prove this claim, for each set $S\neq T$ in $P_n$, 
+    	define the mapping $f: P_n\times P_n \to \{1, \cdots, 4n\}\times \{1, -1\}$ such that 
+    	\[
+    	f(S, T) = (u, v); 
+    	u = \max \{(S\backslash T)\cup (T\backslash S)\}\qquad 
+    	v = \begin{cases}
+    		1 & u\in t, u\not\in s\\
+    		-1 & u\in s, u\not\in t\\
+    	\end{cases}
+    	\]
+    	i.e. $u$ is the maximum number in exactly one of $S, T$, 
+    	and $v$ is +1 if $u\in T$ and $-1$ otherwise. 
+    	Our algorithm is to find a path from $S$ to $S'$ such that either $S'=T$ (in which case we're done), 
+    	or $f(S', T)=(u', v')$ with $u' < u$. 
+    	W.l.o.g. assume $v = 1$, i.e. we need to add $\{u\}$ (and modify other elements in $\{1, \cdots, u - 1\}$) to obtain $S'$ 
+    	(the other case is similar in that we just operate on $S^c$ and $T^c$, respectively). 
+    	
+    	Now it would be easy if we can add $\{u\}$ to $s$ directly to get $S'$. 
+    	Assume that this doesn't work. 
+    	i.e. $S \cup \{u\}\not\in P_n$. 
+    	This means that the $s\cup \{u\}$ has sum of element exceeding $M_n + 2n$. 
+    	Given that $S\cup\{u\}$ matches $T$ for all elements except $\{1, \cdots, u - 1\}$. 
+    	We start with the following series of operation: let $m = \min \{1, 2, \cdots, u - 1\}\cap S$, 
+    	remove $m$ if the resulting set is still in $P_n$ 
+    	(note that we will need to do this iteratively). 
+    	Here's what happens when we can no longer do this step: 
+    	\begin{itemize}
+    		\item Case 1: $\min \{1, 2, \cdots, u - 1\}\cap S = \emptyset$; 
+    		now $S\cup \{u\}\subseteq T$ (since $S\cap \{u, \cdots, 4n\}$ and $T\cap \{u, \cdots, 4n\}$). 
+    		Thus $S\cup \{u\}\in P_n$ given that $S, T\in P_n$ (and sum of $S\cup \{u\}$ lies between that of $S$ and $T$). 
+    		
+    		\item Case 2: $m = \min \{1, 2, \cdots, u - 1\}\cap S$ and removing $\{m\}$ will let $S$ fall out of $P_n$; 
+    		this means $s := \sum_{i\in S} i \in [P_n - 2n, P_n - 2n + m - 1]$. 
+    		Again, if we can directly add $u$ while ensuring $S\in P_n$ then we're done (i.e. we can use this as $S'$; 
+    		this would be the case if $s = P_n - 2n$. 
+    		Otherwise, there exists $w\in \{1, \cdots, m - 1\}$ such that $s + w = P_n - 2n + m$, 
+    		so simply add $w$ and remove $m$, 
+    		we get the resulting set $S$ has sum $P_n - 2n$ (and then we just have to add $u$ to get the desired $S
+    		'$). 
+    		
+    	\end{itemize}
+    	Thus this path from $S$ to $S'$ exists, with strictly smaller largest mismatched element with respect to $T$. 
+    	Repeating this argument we get a path eventually to $T$.
+    \end{enumerate}
+    
+    \section*{Geometry}
+    \begin{enumerate}
+    	\item [G1.] 
+    	Let $ABCD$ be a cyclic quadrilateral such that $AC<BD<AD$ and $\angle DBA<90^\circ$. Point $E$ lies on the line through $D$ parallel to $AB$ such that $E$ and $C$ lie on opposite sides of line $AD$, and $AC=DE$. Point $F$ lies on the line through $A$ parallel to $CD$ such that $F$ and $C$ lie on opposite sides of line $AD$, and $BD=AF$.
+    	
+    	Prove that the perpendicular bisectors of segments $BC$ and $EF$ intersect on the circumcircle of $ABCD$.
+    	
+    	\textbf{Solution.} 
+    	Let $M$ be the midpoint of $D$, 
+    	and consider the mapping $f$ as reflection in $M$. 
+    	Let $G=f(C)$ and $H=f(B)$. Then $ACDG, ABDH$ are parallelograms, 
+    	$AC=DG=DE$ and $BD=AH=AF$, 
+    	and also $A, F, G$, and $D, E, H$ are collinear. 
+    	By some angle chasing, we have the following: 
+    	\[
+    	\angle DEG = 90^{\circ} - \frac12 \angle GDE
+    	= 90^{\circ} - \frac12 \angle GAH 
+    	= \angle AFH
+    	\]
+    	so $G, E, F, H$ are concyclic, 
+    	and that $GH$ subtends on an angle of 
+    	$90^{\circ} - \frac12 \angle GAH$ w.r.t. the circumference of this circle, 
+    	or $180^{\circ} - \angle GAH$ w.r.t. the center $I$ of this circle. 
+    	It then follows that $I$ is concyclic with $A, D, G, H$ and is the midpoint of arc $GH$ not containing $A$ or $D$. 
+    	Moreover this would then make $AD\parallel EF$, 
+    	so the perpendicular bisector of $EF$ is the perpendicular from $I$ to $AD$. 
+    	
+    	Now given the landscape of our diagram, the circle $ABCD$ and $ADHF$ are mirror images of each other w.r.t. $AD$. 
+    	Let $J$ be the midpoint of arc $BC$ of circle $ABCD$ and $K$ be such that $JK$ is a diameter of circle $ABCD$. 
+    	Then $f(I)=J$, and $JK$ is the perpendicular bisector of $BC$. In addition, 
+    	$\angle JAK=90^{\circ}$ and $ID\parallel JA$ so $ID\perp AK$, 
+    	and similarly $IA\perp DK$. 
+    	It then follows that $IK\parallel AK$ so the perpendicular bisectors of $BC$ and $EF$ concur at $K$. 
+    	
+    	\item [G2.]
+    	Let $ABC$ be a triangle with $AB < AC < BC$. Let the incenter and incircle of triangle $ABC$ be $I$ and $\omega$, respectively. Let $X$ be the point on line $BC$ different from $C$ such that the line through $X$ parallel to $AC$ is tangent to $\omega$. Similarly, let $Y$ be the point on line $BC$ different from $B$ such that the line through $Y$ parallel to $AB$ is tangent to $\omega$. Let $AI$ intersect the circumcircle of triangle $ABC$ at $P \ne A$. Let $K$ and $L$ be the midpoints of $AC$ and $AB$, respectively.
+    	Prove that $\angle KIL + \angle YPX = 180^{\circ}$. 
+    	
+    	\textbf{Solution.}
+    	Let the line parallel to $AC$ through $X$, and the line parallel to $AB$ through $Y$ intersect at $Q$. 
+    	Then these two lines and the lines $AB, AC$ form a parallelogram with $\omega$ as encircle. 
+    	Thus this parallelogram is, in fact, a rhombus, 
+    	and so $I$ is the midpoint of $AQ$. 
+    	It then follows that $KI\parallel BQ$ and $LI\parallel CQ$, 
+    	so $\angle KIL = \angle BQC$. 
+    	
+    	Next, note that 
+    	\[
+    	\angle (BP, BQ) = \angle (BP, PA)
+    	=\angle (BC, CA) = \angle (BX, XQ)
+    	\]
+    	so $B, P, X, Q$ concylic. Similarly $C, P, Y, Q$ concyclic. 
+    	Therefore we have 
+    	\[
+    	\angle BQC + \angle YPX
+    	=\angle BQC + \angle YPA+\angle XPA
+    	=\angle BQC + \angle YCQ+\angle XBQ
+    	=180^{\circ}
+    	\]
+    	the middle equality following from $B, P, X, Q$ and $C, P, Y, Q$ concyclic, 
+    	and the last equality is just the sum of angles in the triangle $BCQ$. 
+    	
+    	\item [G3.] 
+    	Let $ABCDE$ be a convex pentagon and let $M$ be the midpoint of $AB$. Suppose that segment $AB$ is tangent to the circumcircle of triangle $CME$ at $M$ and that $D$ lies on the circumircles of $AME$ and $BMC$. Lines $AD$ and $ME$ interesect at $K$, and lines $BD$ and $MC$ intersect at $L$. Points $P$ and $Q$ lie on line $EC$ so that $\angle PDC = \angle EDQ = \angle ADB$.
+    	
+    	Prove that lines $KP, LQ,$ and $MD$ are concurrent.
+    	
+    	\textbf{Solution.} 
+    	We can obtain by angle chasing that 
+    	\[
+    	\angle KDP
+    	=\angle KDC - \angle PDC
+    	=(\angle ADB + \angle BDC) - \angle ADB
+    	=\angle BDC = \angle CMB = \angle CEM = \angle KEP
+    	\]
+    	so $K, E, P, D$ are concyclic. 
+    	It then follows that $\angle EPK = \angle EDK = \angle EMA = \angle ECM$ so $PK\parallel CM$. 
+    	Similarly, 
+    	$LQ\parallel EM$. 
+    	Thus $LQ, KP, MD$ concur if and only if $DM$ bisects $KL$, 
+    	and given that $M$ is midpoint of $AB$, 
+    	this is equivalent to showing $KL\parallel AB$, 
+    	which is what we need to prove. 
+    	
+    	Next, we claim that $DM$ is the $M$-symmedian of $MEC$. 
+    	To see why, consider the triangle $XYZ$ determined by line $AB$, and the lines tangent to circle $CEM$ at points $E$ and $C$, respectively. 
+    	Let $Y, Z$ on $AB$, with $E$ on $XY$ and $C$ on $XZ$. 
+    	In particular, $YE=YM$, $ZM=ZC$. 
+    	Now let the circle $EAMD$ intersect $XY$ at $E$ and $E'$, 
+    	and let the circle $CBMD$ intersect $XZ$ at $C$ and $C'$, then $EE'=AM$, $CC'=MB$. But since $AM=MB$ we have $EE'=CC'$, 
+    	and moreover $X, E, E'$ in that order, and $X, C, C'$ in that order. 
+    	Given also $XE=XC$ (tangency points), we have $XE'=XC'$, 
+    	and $X$ has equal power w.r.t. the circles $EAMD$ and $CBMD$. 
+    	Therefore, $X$ lies on the radical axis $MD$ of the two circles. 
+    	Finally, since $XE$ and $XC$ are tangent to the circle $CEM$, 
+    	$MX$ is the symmedian (and so $MD$ is the symmedian). 
+    	
+    	Let line $DM$ intersect circle $CEM$ at $M$ and $D'$, 
+    	then $\angle EDA = \angle EMA=\angle ECM = \angle ED'M$, 
+    	and $\angle EAD=\angle EMD=\angle EMD'$, 
+    	so triangles $EDA$ and $ED'M$ are similar, 
+    	Similarly, $CD'M$ and $CDB$ are similar. 
+    	Given also that $MD$ is the symmedian, 
+    	quadrilateral $EMCD'$ is harmonic, 
+    	so $\frac{EM}{MC}=\frac{ED'}{D'C}$. Therefore: 
+    	\[
+    	\frac{ED}{EA}=\frac{ED'}{EM}=\frac{CD'}{CM}
+    	=\frac{CD}{BC}
+    	\]
+    	and note that the ratio $\frac{DK}{KA}$ is the ratio of area of triangles $EDM$ to $EAM$, we have 
+    	\[
+    	\frac{DK}{KA}=\frac{ED\cdot DM\cdot \angle EDM}{EA\cdot AM\cdot \angle EAM}=\frac{ED\cdot DM}{EA\cdot AM}
+    	\]
+    	(the sines cancel because they add up to $180^{\circ}$) 
+    	and similarly $\frac{DL}{LB}=\frac{DC\cdot DM}{CB\cdot BM}$. 
+    	But given also that $\frac{ED}{EA}=\frac{CD}{BC}$ and $AM=MB$, 
+    	$\frac{ED\cdot DM}{EA\cdot AM}=\frac{DC\cdot DM}{CB\cdot BM}$, 
+    	so $\frac{DK}{KA}=\frac{DL}{LB}$. 
+    	Thus $KL\parallel AB$, as desired. 
+    	
+    	\item [G4.] 
+    	Given a quadrilateral $ABCD$ with $\overline{AB}\parallel\overline{CD}$. Let $P$ be an intersection of $\overleftrightarrow{AD}$ and $\overleftrightarrow{BC}$. Let $X$ lies on the circumcircle of $ABC$ such that $PC=PX$ and $Y$ lies on the circumcircle of $ABD$ such that $PD=PY$. Suppose that the lines $\overleftrightarrow{AX}$ and $\overleftrightarrow{BY}$ meets at $Q$. Prove that $\overleftrightarrow{PQ}\parallel\overleftrightarrow{AB}$
+    	
+    	\textbf{Solution.} Let $R$ be the intersection of diagonals $AC$ and $BD$. 
+    	We show that $Q$ is such that $PQ\parallel AB$ and $PR\perp AB$. 
+    	
+    	Let $O_1, O_2$ be the cicumcenters of triangles $ABC$ and $ABD$, 
+    	and let $M_1, M_2$ be the midpoints of $BC$ and $AD$. 
+    	Now, $\angle QAB=PCX=90^{\circ} - \angle O_1PC=\angle M_1O_1P$, and moreover 
+    	\[
+    	\frac{\tan\angle QAB}{\tan\angle CAB}
+    	=\frac{\tan\angle M_1O_1P}{\tan\angle M_1O_1B}
+    	=\frac{M_1P}{M_1B}
+    	\]
+    	and similarly, 
+    	$\frac{\tan\angle QBA}{\tan\angle DBA}=\frac{M_2P}{M_2A}$. 
+    	Note that $M_1M_2\parallel AB$ so these two ratios are also equal. 
+    	
+    	Next, let $M$ be the intersection of $AB$ and $PR$; 
+    	we show that $\frac{M_1P}{M_1B}=\frac{M_2P}{M_2A}=\frac{PM}{MR}$. 
+    	Let $N$ be the intersection of $PR$ and $CD$, 
+    	then $(P, R; M, N)$ are harmonic, 
+    	i.e. $\frac{MR}{RN}=\frac{PM}{PN}=\frac{AB}{CD}$. 
+    	Denote $\frac{AB}{CD}=d$, we may calculate the following: 
+    	\[
+    	d=\frac{PM}{PM+MN}\to PM=MN\cdot \frac{d}{1-d}; 
+    	d=\frac{MR}{MN-MR}\to MR = MN\cdot \frac{d}{1+d}
+    	\]
+    	and therefore $\frac{PM}{MR}=\frac{1+d}{1-d}$. 
+    	Meanwhile, we may compute 
+    	\[
+    	\frac{M_1P}{M_1B}
+    	=\frac{MN/2+MP}{MN/2}
+    	=1+2\frac{MP}{MN}
+    	=1+\frac{2d}{1-d}
+    	=\frac{1+d}{1-d}
+    	\]
+    	Therefore, 
+    	$\frac{PM}{MR}=\frac{\tan\angle QAB}{\tan\angle CAB}=\frac{\tan\angle QBA}{\tan\angle DBA}$, 
+    	showing that $Q$ indeed lies on the perpendicular to $AB$ through $R$, 
+    	and parallel line to $AB$ through $P$. 
+    	
+    	\item [G5.] 
+    	Let $ABC$ be a triangle with incentre $I$, and let $\Omega$ be the circumcircle of triangle $BIC$. Let $K$ be a point in the interior of segment $BC$ such that $\angle BAK < \angle KAC$. Suppose that the angle bisector of $\angle BKA$ intersects $\Omega$ at points $W$ and $X$ such that $A$ and $W$ lie on the same side of $BC$, and that the angle bisector of $\angle CKA$ intersects $\Omega$ at points $Y$ and $Z$ such that $A$ and $Y$ lie on the same side of $BC$.
+    	
+    	Prove that $\angle WAY = \angle ZAX$.
+    	
+    	\textbf{Solution.} Let $I_1, I_2$ be incenters of triangles $ABK$ and $ACK$, 
+    	and $J_1, J_2$ the excenters opposite $A$ of triangles $ABK$ and $ACK$, 
+    	respectively. 
+    	Let $J$ to be the excenter of $ABC$ opposite $A$. 
+    	Then we see that segments $WK$ and $BI$ intersect at $I_1$, 
+    	segments $IC$ and $YK$ intersect at $I_2$, 
+    	segments $ZK$ and $BJ$ intersect at $J_1$, 
+    	and segments $XK$ and $CJ$ intersect at $J_2$. 
+    	
+    	We first show that 
+    	$\frac{BI_1\cdot I_1I}{CJ_2\cdot J_2J} = (\frac{AI_1}{AJ_2})^2$ (these encode the power of points of $I_1, J_2$ w.r.t. $\Omega$. 
+    	Indeed, triangle $ABI$ and $AJC$ are similar (easily verifiable via angle chasing), 
+    	and $\angle BAI_1 = \frac 12 \angle BAK = \frac 12 (\angle BAC - \angle CAK) = \angle JAC - \angle CAI_2 = \angle JAI_2$. 
+    	Thus triangles $ABI_1$ and $AJJ_2$ are also similar, and 
+    	$\frac{BI_1}{I_1I} = \frac{JJ_2}{CJ_2} = \frac{AI_1}{AJ_2}$, 
+    	and rearranging the lengths give the desired claim. 
+    	
+    	Next, note that $W, I_1, K, J_2, X$ are on the same line, so we consider the following identity on trigonometry: 
+    	\[
+    	\frac{WI_1}{WJ_2} = \frac{I_1A}{J_2A}\cdot \frac{\sin\angle WAI_1}{\sin\angle WAJ_2}
+    	\qquad 
+    	\frac{XI_1}{XJ_2} = \frac{I_1A}{J_2A}\cdot \frac{\sin\angle XAI_1}{\sin\angle XAJ_2}
+    	\]
+    	Note also that 
+    	\[
+    	\frac{WI_1}{WJ_2}\cdot \frac{XI_1}{XJ_2}
+    	=\frac{WI_1 \cdot XI_1}{WJ_2 \cdot XJ_2}
+    	=(\frac{AI_1}{AJ_2})^2
+    	\]
+    	by the power of point equality above. 
+    	This means we essentially have 
+    	\[
+    	\frac{\sin\angle WAI_1}{\sin\angle WAJ_2}\cdot 
+    	\frac{\sin\angle XAI_1}{\sin\angle XAJ_2} = 1
+    	\]
+    	or equivalently, 
+    	$\frac{\sin\angle WAI_1}{\sin\angle WAJ_2} = \frac{\sin\angle XAJ_2}{\sin\angle XAI_1}$. 
+    	Considering that 
+    	$\angle WAJ_2-\angle WAI_1 = \angle XAI_1 - \angle XAJ_2=\angle I_1AJ_2$, 
+    	we then have 
+    	$\angle WAI_1=\angle XAJ_2$. 
+    	In a similar way, we can also show that 
+    	$\angle YAI_2 = \angle ZAJ_1$. 
+    	
+    	Now we may finish the proof with the following: 
+    	\[
+    	\angle WAY
+    	=\angle WAI_1+\angle I_1AI_2 + \angle I_2AY
+    	=\angle XAJ_2+\angle J_1AJ_2 + \angle J_1AZ
+    	=\angle ZAX
+    	\]
+    	where we note that $\angle I_1AI_2=\angle J_1AJ_2=\frac 12\angle BAC$, as desired. 
+    	
+    	\item [G6.] 
+    	Let $ABC$ be an acute triangle with $AB < AC$, and let $\Gamma$ be the circumcircle of $ABC$. Points $X$ and $Y$ lie on $\Gamma$ so that $XY$ and $BC$ meet on the external angle bisector of $\angle BAC$. Suppose that the tangents to $\Gamma$ at $x$ and $Y$ intersect at a point $T$ on the same side of $BC$ as $A$, and that $TX$ and $TY$ intersect $BC$ at $U$ and $V$, respectively. Let $J$ be the centre of the excircle of triangle $TUV$ opposite the vertex $T$.
+    	
+    	Prove that $AJ$ bisects $\angle BAC$.
+    	
+    	\textbf{Solution.} We will convert this into a pole-and-polar operation w.r.t. $\Gamma$, 
+    	and show that the polar of $J$ contains the pole of the internal angle bisector of $BAC$. 
+    	
+    	Let $XY$ intersect $BC$ on $P$ and let the internal angle bisector of $\angle BAC$ intersect $BC$ on $Q$. 
+    	Note that by the problem condition, $(P, Q; B, C)$ is harmonic. 
+    	
+    	We first note that the polar of $P$ contains $Q$ (and vice versa). 
+    	Indeed, if the tangent of $P$ intersects $\Gamma$ at $P_1$ and $P_2$, then $P_1, B, P_2, C$ form a harmonic quadrilateral and $\frac{PB}{PC} = (\frac{P_1B}{P_1C})^2$. 
+    	But $(\frac{P_1B}{P_1C})^2$ is also the ratio the line $P_1P_2$ divides $BC$, hence passing through $Q$. 
+    	
+    	Let $N$ be such that $NB$ and $NC$ are tangent to $\Gamma$, 
+    	and $M$ the midpoint of arc $BAC$ not containing $A$. 
+    	Note that $QM$ is our angle bisector. 
+    	Now, polar of $M$ is the tangent line to $\Gamma$ at $M$; 
+    	the polar of $Q$ is $PN$ (we showed that it contains $P$, and $N$ is the pole of $BC$). 
+    	It follows that if $K$ is the polar of $QM$, 
+    	then $K$ lies on $PN$, and $KM$ is tangent to $\Gamma$. 
+    	
+    	We now attempt to identify the polar of $J$, 
+    	which will need us to identify the pole of external angle bisectors of $\angle TUV$ and $\angle TVU$, 
+    	which we name as $R$ and $S$, respectively. 
+    	Let $O$ be the center of $\Gamma$; 
+    	we claim that they are the intersection of internal angle bisectors of $\angle XON$ (respectively $\angle YON$) and line $XN$ (respectively $YN$). 
+    	Now note that $U$ lies on $TU$ and $BC$, 
+    	with poles $X$ and $N$, 
+    	hence $R$ lies on $XN$. 
+    	Moreover $OX\perp TX$ and $ON\perp BC$, 
+    	so $OR\perp$ the external angle bisector of $\angle TUV$, 
+    	and so $OR$ bisects $\angle XON$. 
+    	The claim that $S\in YN$ and $OS$ bisects $\angle YON$ follows similarly. 
+    	In particular, we have $RS\parallel XY\perp TO$ (note also that $T, O, J$ collinear), 
+    	and $\frac{XR}{RN} = \frac{XO}{ON}$. 
+    	
+    	To finish the proof, we note also that $BC\parallel KM$. 
+    	W.l.o.g. let $\Gamma$ be unit radius and $ON=d>1$, 
+    	so $XO=1$. 
+    	We need to show that $K$ lies on $RS$; 
+    	this is the same as showing that $\frac{PK}{KN}=\frac{XR}{RN}$. 
+    	The latter is shown to be $\frac{XO}{ON}=\frac{1}{d}$. 
+    	Let $D$ be the midpoint of $BC$; 
+    	$D, M, N$ collinear and so $\frac{PK}{KN}=\frac{DM}{MN}$. 
+    	We have $OD=\frac{1}{d}$ since $1=OX^2=OD\cdot ON$, 
+    	so $\frac{DM}{MN}=\frac{1-1/d}{d-1}=\frac{1}{d}$. 
+    	Thus $\frac{XO}{ON}=\frac{DM}{MN}$, as desired. 
+    	
+    	\item [G7.]
+    	Let \(ABC\) be a triangle with incenter \(I\) such that \(AB<AC<BC\). The second intersections of \(AI\), \(BI\), and \(CI\) with the circumcircle of triangle \(ABC\) are \(M_{A}\), \(M_{B}\), and \(M_{C}\), respectively. Lines \(AI\) and \(BC\) intersect at \(D\) and lines \(BM_{C}\) and \(CM_{B}\) intersect at \(X\). Suppose the circumcircle of triangles \(XM_{B}M_{C}\) and \(XBC\) intersect again at \(S\neq X\). Lines \(BX\) and \(CX\) intersect the circumcircle of triangle \(SXM_{A}\) again at \(P\neq X\) and \(Q\neq X\), respectively.
+    	
+    	Prove that the circumcenter of triangle \(SID\) lies on \(PQ\).
+    	
+    	\textbf{Solution.} We will establish the following fact:
+    	\[
+    	\frac{SP}{SQ} = \frac{IP}{IQ} = \frac{DP}{DQ}
+    	\]
+    	This would mean that the appolonius circles of triangles 
+    	$SPQ, IPQ, DPQ$ w.r.t. line $PQ$ all coincide and will be the circumcircle of $SID$, and have the same center of $PQ$. 
+    	
+    	We first start with some observations: 
+    	by angle chasing on cyclic quadrilateral $SXM_BM_C$, $SXCB$, and $SXQP$, triangles $SM_CM_B$, $SBC$, and 
+    	$SPQ$ are similar. 
+    	Putting this in another perspective, we have $SM_CB$ and $SM_BC$ similar, 
+    	and also $SBP$ and $SCQ$ similar. 
+    	Since $BCM_BM_C$ cyclic, we also have $IBM_C$ and $ICM_B$ similar. 
+    	Therefore we have 
+    	\[
+    	\frac{IB}{IC} = \frac{BM_C}{M_BC}
+    	=\frac{BP}{CQ} = \frac{SB}{SC}=\frac{SP}{SQ}
+    	\]
+    	In addition, $\angle IBP = \angle ICQ$, so triangles $IBP$ and $ICQ$ are also similar. 
+    	Thus $\frac{IB}{IC}=\frac{IP}{IQ}$. 
+    	
+    	It now remains to show that $\frac{IB}{IC} = \frac{DP}{DQ}$. 
+    	Let $J$ be the $A$-excenter of triangle $ABC$, 
+    	and $K$ on $BC$ such that $BPM_AK$ is cyclic. 
+    	Then $M_A$ is the Miquel point of circumcircles of $BPK, PXQ$ and $KCQ$ (w.r.t. triangle $XBC$). 
+    	Note also that $BM_A=M_AC$ and $\angle BPM_A+\angle CQM_A=180^{\circ}$, 
+    	so considering this as the angles subtended by $BM_A$ and $M_AC$ on circles $BPM_A$ and $CQM_A$, 
+    	these two circles are of equal radius. 
+    	Therefore we also have 
+    	\[
+    	\frac{\sin\angle BM_AP}{\sin\angle CM_AQ}
+    	=\frac{BP}{CQ}=\frac{IB}{IC}=\frac{\angle C/2}{\angle B/2}
+    	\]
+    	Note also that $\angle BM_AP+\angle CM_AQ=\angle BAC - \angle BXC = \frac{\angle B+\angle C}{2}$. 
+    	So $\angle BM_AP = \angle C/2$, 
+    	$\angle CM_AQ = \angle B/2$. 
+    	
+    	Meanwhile we have $\angle AJB = \frac{\angle C}{2}$ and $\angle AJC = \frac{\angle B}{2}$. 
+    	Now let $R$ be on $AM_A$ such that $PR\parallel BM_A$, 
+    	then $\angle BPR=180^{\circ}-\frac{\angle A}{2}$ and $\angle BRP = \frac{\angle C}{2}$, so 
+    	\[
+    	\frac{JR}{BP}=\frac{\sin\frac{\angle A}{2}}{\sin\frac{\angle C}{2}}
+    	\]
+    	and if $R'$ be on $AM_A$ such that $QR'\parallel CM_A$ then $\frac{JR'}{CQ}=\frac{\sin\frac{\angle A}{2}}{\sin\frac{\angle B}{2}}$. 
+    	Given that $\frac{BP}{CQ}=\frac{\sin\frac{\angle C}{2}}{\sin\frac{\angle B}{2}}$, 
+    	we have $JR=JR'$, so $R=R'$. 
+    	Consequently, 
+    	\[
+    	\angle PRD = \frac{\angle C}{2}
+    	= \angle BM_AP=\angle BKP=\angle DKP
+    	\]
+    	so $P, R, D, K$ are concyclic. 
+    	Similarly, $Q, R, D, K$ are concyclic. 
+    	Thus $\angle DPQ = \angle CKQ=\angle B/2$ and $\angle DQP = \angle C/2$, 
+    	so $\frac{DP}{DQ} = \frac{\sin\angle C/2}{\sin\angle B/2} = \frac{IB}{IC}$, 
+    	as desired. 
+    	
+    	\item [G8.] 
+    	Let $ABC$ be a triangle with $AB<AC<BC$, and let $D$ be a point in the interior of segment $BC$. Let $E$ be a point on the circumcircle of triangle $ABC$ such that $A$ and $E$ lie on opposite sides of line $BC$ and $\angle BAD=\angle EAC$. Let $I$, $I_B$, $I_C$, $J_B$, and $J_C$ be the incentres of triangles $ABC$, $ABD$, $ADC$, $ABE$, and $AEC$, respectively.
+    	
+    	Prove that $I_B$, $I_C$, $J_B$, and $J_C$ are concyclic if and only if $AI$, $I_BJ_C$, and $J_BI_C$ concur.
+    	
+    	\textbf{Solution.} (God bless Geogebra for all those subtle observations, students don't get to use this in an exam). 
+    	We show that the two circles, $II_BJ_C$ and $IJ_BI_C$, 
+    	are either identical or tangent at $I$. 
+    	To do so we first consider the following. 
+    	\begin{lemma}
+    		Let $B_1$ be on ray $CB$ such that $AC=B_1C$, 
+    		and $C_1$ be on ray $BC$ such that $AB=BC_1$. 
+    		Then $I_C, J_B, B_1$ are collinear, 
+    		and $I_B, J_C, C_1$ are collinear. 
+    	\end{lemma}
+    	\begin{proof}
+    		By angle chasing we have $\angle IB_1C=\angle IAC= \frac{\angle A}{2}=\angle IAB$, 
+    		so $I, A, B, B_1$ are concyclic, 
+    		and similarly $I, C, C_1, A$ are concyclic. 
+    		Moreover we know that $I_B$ lies on $IB$ and $I_C$ lies on $IC$, 
+    		and $A, B_1$ are symmetric around $IC$. 
+    		Therefore we have 
+    		$\angle I_CB_1C=I_CAC=\frac{\angle DAC}{2}$. 
+    		Meanwhile, we can also deduce (by angle chasing) that 
+    		$I, B, J_B, A$ are concyclic (together with $B_1$), 
+    		giving 
+    		\[
+    		\angle J_BB_1C=\angle BIJ_B=\angle BAJ_B=\frac{\angle BAE}{2}=\frac{\angle DAC}{2}=\angle I_CB_1C
+    		\]
+    		so $B_1$ indeed lies on $I_CJ_B$. 
+    		Similarly $C_1$ lies on $I_BJ_C$. 
+    	\end{proof}
+    	
+    	Now with this set up, we consider the circle $II_CJ_B$. 
+    	By angle chasing, we see that $\angle IJ_BI_C=\angle IBB_1=\frac{\angle B}{2}$, 
+    	given that $I, J_B, B_1, B$ are concyclic. 
+    	In the meantime, we see that $\angle AIC=90^{\circ}+\frac{\angle B}{2}=90^{\circ}+\angle IJ_BI_C$. 
+    	Since $I_C$ lies on line $IC$, 
+    	the circumcenter of triangle $IJ_BI_C$ lies on the line $AI$, 
+    	and similarly the circumcenter of triangle $IJ_CI_B$ also lies on the line $AI$. 
+    	Thus if the two circles are not equal, 
+    	they will be tangent at $I$, with the tangent line $\ell$ (a.k.a. radical axis) the line through $I$ perpendicular to $AI$. 
+    	
+    	Now, the points $I_B, J_C, J_B, I_C$ are concyclic if and only if either the two aforementioned circles are equal, 
+    	or $I_BJ_C$ and $J_BI_C$ intersect on the radical axis. 
+    	We show that the latter cannot happen. 
+    	Indeed, denote $M$ as the intersection of $I_BJ_C$ and $J_BI_C$. 
+    	Then using $I_C, J_B, B_1$  collinear, and $I_B, J_C, C_1$ collinear, we may compute $\angle MB_1C+\angle MB_1B=\angle J_BIB+\angle J_CIC=\angle J_BAB+\angle J_CAC=\frac{\angle A}{2}=\angle IB_1C_1=\angle IC_1B_1$, 
+    	so the lines $IB_1, IC_1$ are both tangent to circle $MB_1C_1$. 
+    	Meanwhile the desired radical axis $\ell$ will always be outside the angle domain $\angle B_1IC_1$, 
+    	hence showing M cannot lie on $\ell$. 
+    	
+    	We have thus reduced to showing that the two circles $II_BJ_C$ and $IJ_BI_C$ are equal if and only if $M$ lies on $AI$. 
+    	From $\angle IJ_BI_C=\frac{\angle B}{2}$, we know that this is also the angle subtended by $II_C$ onto the circumference of this circle, 
+    	and similarly $II_B$ subtends an angle of $\frac{\angle C}{2}$ onto circle $II_BJ_C$. 
+    	Thus the two circles are equal if and only if 
+    	\[
+    	\frac{II_B}{II_C}=\frac{\sin \frac{\angle C}{2}}{\sin \frac{\angle B}{2}}=\frac{IB}{IC}
+    	\]
+    	i.e. $I_BI_C\parallel BC$. 
+    	Now note that 
+    	\[
+    	\frac{I_BB}{II_B}
+    	=\frac{AB}{AI}\cdot \frac{\sin\angle BAI_B}{\sin\angle IAI_B}
+    	=\frac{AB}{AI}\cdot \frac{\sin\frac{\angle BAD}{2}}{\sin\frac{\angle CAD}{2}}
+    	\]
+    	and similarly 
+    	\[
+    	\frac{I_CC}{II_C}
+    	=\frac{AC}{AI}\cdot \frac{\sin\frac{\angle CAD}{2}}{\sin\frac{\angle BAD}{2}}
+    	\]
+    	so 
+    	\[
+    	I_BI_C\parallel BC
+    	\Leftrightarrow 
+    	\frac{AB}{AI}\cdot \frac{\sin\frac{\angle BAD}{2}}{\sin\frac{\angle CAD}{2}}
+    	=\frac{AC}{AI}\cdot \frac{\sin\frac{\angle CAD}{2}}{\sin\frac{\angle BAD}{2}}
+    	\Leftrightarrow \frac{\sin\angle  C}{\sin \angle B}=\frac{AB}{AC}=\left(\frac{\sin\frac{\angle CAD}{2}}{\sin\frac{\angle BAD}{2}}\right)^2
+    	\]
+    	Meanwhile, we have $\angle MB_1C_1 = \angle BIJ_B=\angle BAJ_B=\frac{\angle CAD}{2}$, 
+    	which we may then deduce 
+    	$\angle IB_1M=\angle MC_1B_1=\frac{\angle BAD}{2}$ 
+    	and $\angle IC_1M=\frac{\angle CAD}{2}$. 
+    	Therefore by Ceva's theorem we have 
+    	$\frac{\sin\angle B_1IM}{\sin\angle C_1IM}=\left(\frac{\sin\frac{\angle BAD}{2}}{\sin\frac{\angle CAD}{2}}\right)^2$. 
+    	Finally, by angle chasing, $M$ lies on $AI$ if and only if 
+    	$\angle BIM=\angle B$ and $\angle CIM=\angle C$, 
+    	i.e. $\frac{\sin\angle B_1IM}{\sin\angle C_1IM}=\frac{\sin\angle  C}{\sin \angle B}$. 
+    	This means 
+    	\[
+    	M\in AI\Leftrightarrow 
+    	\left(\frac{\sin\frac{\angle CAD}{2}}{\sin\frac{\angle BAD}{2}}\right)^2=\frac{\sin\angle  C}{\sin \angle B}
+    	\]
+    	so the two key conditions are indeed equivalent, as desired. 
+    \end{enumerate}
+    
+    \section*{Number theory}
+    \begin{enumerate}
+    	\item [N1.]
+    	Find all positive integers $n$ with the following property: for all positive divisors $d$ of $n$, we have $d+1\mid n$ or $d+1$ is prime.
+    	
+    	\textbf{Answer}: 1, 2, 4, 12. 
+    	
+    	\textbf{Solution.} A quick verification yields that these work. 
+    	We now show that there is no other solution. 
+    	
+    	Let $p$ be the least positive integer that is not a divisor of $n$, 
+    	then $p$ is a prime. 
+    	Note that $1, 2, \cdots, p - 1$ divide $n$, 
+    	and so do $\frac{n}{1}, \cdots, \frac{n}{p - 1}$. 
+    	Given that $p\nmid n$, these $p - 1$ numbers leave $p - 1$ different nonzero remainders modulo $p$, 
+    	so there is $k\le p - 1$ such that $\frac{n}{k}\equiv -1\pmod{p}$. 
+    	Now we have $p\mid \frac{n}{k} + 1$ and $\frac{n}{k} + 1$ cannot be divisor of $n$, 
+    	so $\frac{n}{k} + 1 = p$ must hold. 
+    	In other words, $n = k(p - 1)\le (p - 1)^2$ must hold. 
+    	
+    	In particular, this immediately implies $p\le 5$. 
+    	Let $n(p)$ be the number of primes less than $p$ for all $p$. 
+    	Note that $\text{lcm}(1, 2, \cdots, p - 1)\mid n$, so $n$ is divisible by $q^{\nu(q, p - 1)}$ for 
+    	all primes $q < p$ and $\nu(q, p - 1)$ is the largest power such that $q^{\nu(q, p - 1)} < p$. 
+    	Now that $q^{2\nu(q, p - 1)} \ge q^{\nu(q, p - 1) + 1} \ge p$, 
+    	$q^{\nu(q, p - 1)}\ge \sqrt{p}$, 
+    	and so $n\ge \prod_{q}q^{\nu(q, p - 1)}\ge p^{n(p)/2}$, 
+    	and for $p > 7$, $n(p)\ge 4$, so $n \ge p^2 > (p - 1)^2$ here. 
+    	For $p = 7$, we have 4 and 5 dividing $n$, so $20\mid n$ but $21\nmid n$ and 21 is not prime, so this case is also impossible. 
+    	
+    	We are now left with $p = 2, 3, 5$. 
+    	For $p = 5$ we have $\text{lcm}(1, 2, 3, 4) = 12$, so $12\mid n$. 
+    	Given that $n\le (p - 1)^2 = 16$, 12 is the only choice. 
+    	For $p = 3$, $n\le (p - 1)^2 = 4$, and both 2 and 4 work. 
+    	Finally, for $p = 2$, $n\le 1$, giving the only odd answer 1. 
+    	
+    	\item [N2.]
+    	Determine all finite, nonempty sets $\mathcal{S}$ of positive integers such that for every $a,b\in\mathcal{S}$ there exists $c\in\mathcal{S}$ with $a\mid b+2c$.
+    	
+    	\textbf{Answer}: two families of such sets exist: either 
+    	$S = \{a\}$ or $S = \{a, 3a\}$. 
+    	
+    	\textbf{Solution.} We first note that these sets work: 
+    	notice that $a | a + 2(a)$, $a | 3a + 2(a)$ and $3a | a + 2a$. 
+    	
+    	To show that no other sets work, we note that $S$ cannot have elements $a, b$ of distinct parity: 
+    	if $a$ is even and $b$ odd, no $c$ can possibly satisfy $a | b + 2c$. 
+    	If $S$ only has even elements we may replace all elements $a$ in $S$ by $\frac{a}{2}$ and the condition still holds, 
+    	so we may assume that $S$ only has odd elements. 
+    	
+    	Let $a$ be the maximum element in $S$. 
+    	Consider, if exists, any $b < a$. 
+    	If $a | b + 2c$, from $b$ odd we have $b + 2c\neq 2a$, and $b + 2c < a + 2a = 3a$, 
+    	so we must have $a = b + 2c$. 
+    	In other words, if $a$ is maximum element, 
+    	then $b\in S\to \frac{a - b}{2}$. 
+    	This gives rise to the following sequence of elements in $S$: 
+    	\[
+    	x_0 = b\qquad x_n = \frac{a - x_{n - 1}}{2}
+    	\]
+    	It can be shown that this sequence follows the closed form formula 
+    	$x_n = \frac{(2^{n}-(-1)^n)a/3 + (-1)^n b}{2^n}$, 
+    	so $2^n$ divides $(2^{n}-(-1)^n)a/3 + (-1)^n b = 2^nb + \frac{2^{n}-(-1)^n}{3}(a - 3b)$. 
+    	Since $\frac{2^{n}-(-1)^n}{3}$ is always an odd integer for $n\ge 1$, 
+    	$2^n$ divides $a - 3b$ for all $n\ge 1$, 
+    	and therefore $a = 3b$ must hold. 
+    	This means if $a$ is the largest element in $S$, the other element must be $\frac{a}{3}$ (which also subtly implies 
+    	$3\mid a$). 
+    	
+    	\item [N3.]
+    	Determine all sequences $a_1, a_2, \dots$ of positive integers such that for any pair of positive integers $m\leqslant n$, the arithmetic and geometric means
+    	\[ \frac{a_m + a_{m+1} + \cdots + a_n}{n-m+1}\quad\text{and}\quad (a_ma_{m+1}\cdots a_n)^{\frac{1}{n-m+1}}\]are both integers.
+    	
+    	\textbf{Answer.} 
+    	All the constant sequences $(a_n)=c$ for some constant positive integer $c$, in which case all the arithmetic and geometric means said are equal to $c$. 
+    	
+    	\textbf{Solution.} 
+    	To show that this is the only working sequence, 
+    	for each $m$ and $n$, 
+    	by comparing the arithmetic mean of $(a_m, \cdots, a_{m+n - 1})$ and $(a_{m + 1}, \cdots, a_{m+n})$, 
+    	the difference $a_{m+n} - a_m$ is divisible by $n - m$. 
+    	Similarly, by comparing the geometric mean of the two sequences, 
+    	the ratio $\frac{a_{m+n}}{a_m}$ is a perfect $(n-m)$-th power of a positive rational number. 
+    	
+    	This implies that for each prime $p$ and for each numbers $m$, the power of each prime $q$ dividing $a_m, a_{m + (p - 1)}, \cdots, a_{m + (p-1)^2}$ are all congruent mod $p - 1$, 
+    	i.e. there exists integers $z_m$, and 
+    	$b_m, b_{m + (p - 1)}, \cdots, b_{m + (p-1)^2}$ such that 
+    	$a_{m + i(p-1)} = z_m b_{m + i(p-1)}^{p-1}$ for $i=0, \cdots, p-1$. 
+    	Note however that $b_{m + i(p-1)}^{p-1}$ is congruent to 0 or 1 modulo $p$ by Fermat's little theorem, 
+    	therefore $a_m, a_{m + (p - 1)}, \cdots, a_{m + (p-1)^2}\pmod{p}$ can take at most one nonzero remainder. 
+    	But given also that $a_m\equiv a_{m+p}\pmod{p}$ the whole sequence $(a_n)\pmod{p}$ can take at most one nonzero remainder. 
+    	
+    	Consequently, for any $m, n$, take $p > \max\{a_m, a_n\}$, 
+    	so $a_m, a_n$ are both nonzero modulo $p$. 
+    	It then follows that $a_m = a_n$. 
+    	
+    	\item [N4.]
+    	Determine all pairs $(a,b)$ of positive integers for which there exist positive integers $g$ and $N$ such that
+    	$$\gcd (a^n+b,b^n+a)=g$$holds for all integers $n\geqslant N.$
+    	
+    	\textbf{Answer.} (1, 1). 
+    	
+    	\textbf{Solution.} We note that the given example $a=b=1$ works since we may take $g=2$. 
+    	To show that this is the only pair, 
+    	note that $\gcd(ab+1, a)=\gcd(ab+1, b)=1$. 
+    	Let $m=\phi(ab+1)$, the Euler totient function of $ab+1$. 
+    	Then for $n=km-1$ for $k\ge 1$, 
+    	$a^n+b\equiv a^{-1}+b\equiv \frac{ab+1}{a}=0$ 
+    	(note that multiplicative inverse is well-defined here since $\gcd(ab+1, a)=1$). 
+    	Similarly, 
+    	$ab+1 \mid b^n+a$ for $n=km-1$. 
+    	Hence if this $g$ exists, then $ab+1 \mid g$. 
+    	Now on the other hand, for all $n=km$ we have 
+    	$a^n+b\equiv 1 + b\pmod{ab+1}$ 
+    	and $b^n+a\equiv 1 + a\pmod{ab+1}$
+    	so $ab+1\mid 1+b$ and $ab+1\mid 1 + a$. 
+    	This could only happen when $a=b=1$. 
+    	
+    	\item [N5.] 
+    	Let $\mathcal{S}$ be a finite nonempty set of prime numbers. Let $1 = b_1 < b_2 < \dots$ be the sequence of all positive integers whose prime divisors all belong to $\mathcal{S}$. Prove that, for all but finitely many positive integers $n$, there exist positive integers $a_1, a_2, \dots, a_n$ such that
+    	\[
+    	\frac{a_1}{b_1} + \frac{a_2}{b_2} + \dots + \frac{a_n}{b_n} = \left\lceil \frac{1}{b_1} + \frac{1}{b_2} + \dots + \frac{1}{b_n} \right\rceil
+    	\]
+    	
+    	\textbf{Solution.} We first isolate two of the cases. 
+    	For the case $S=\{p\}$ we have $b_k = p^{k-1}$, 
+    	so we may take $(a_1, \cdots, a_n) = (1, p - 1, \cdots, p - 1, p)$, 
+    	which gives the sum of both sides to be 2 for $n\ge 2$. 
+    	For the case $S=\{2, 3\}$, 
+    	note that there is integer $k$ and numbers $n_0, n_1, \cdots, n_k$ such that $b_1, b_2, \cdots, b_n$ can be rearranged into 
+    	$\{3^a2^b: a=0, 1, \cdots, k; b=0, 1, \cdots, n_a\}$
+    	(note that $k=\lfloor \log_3 b_n\rfloor$ and 
+    	$n_a = \lfloor \log_2 \frac{b_n}{3^a}\rfloor$). 
+    	Note that the first 4 $b_n$'s is $1, 2, 3, 4$ and $1+\frac 12 + \frac 13 + \frac 14 > 2$, 
+    	so the desired quantity is at least 3. 
+    	On the other hand we may assign $a_i$'s as follows: 
+    	\[
+    	a_i=
+    	\begin{cases}
+    		2 & b_i = 3^a2^{n_a}\\
+    		1 & \text{otherwise}\\
+    	\end{cases}
+    	\]
+    	Note that this won't give us the sum we want, since now we have 
+    	\[
+    	\sum_{i=1}^n \frac{a_i}{b_i}
+    	=\sum_{j=0}^k \left(\frac{1}{3^j}+\frac{1}{2\cdot 3^j} + \cdots + \frac{2}{2^{n_j}3^j}\right)
+    	=\sum_{j=0}^k \frac{1}{3^j}\left(1+\frac{1}{2} + \cdots + \frac{1}{2^{n_j-1}}+\frac{2}{2^{n_j}}\right)
+    	\]
+    	\[
+    	=\sum_{j=0}^k \frac{1}{3^j}
+    	=2\left(\frac{1 - 1/3^{k + 1}}{1 - 1/3}\right)
+    	=3 - \frac{1}{3^k}
+    	\]
+    	hence we may increase the value of $a_i$ corresponding to $b_i=3^k$ by 1 to get both sides equal to 3 
+    	(note that $\sum_{i=1}^n \frac{a_i}{b_i}\ge \sum_{i=1}^n \frac{1}{b_i}$ since $a_i\ge 1$). 
+    	
+    	We now prove the result for other $S=\{p_1, p_2, \cdots, p_k\}$, where $p_1 < \cdots < p_k$ are primes. 
+    	First, note that $\lim_{n\to\infty}\sum_{m=1}^n \frac{1}{b_m}$ converges, given that this sum can be rearranged into 
+    	\[
+    	\lim_{n\to\infty}\sum_{m=1}^n \frac{1}{b_m}
+    	=\prod_{m=1}^k \left(\sum_{i=0}^{\infty}p_m^{-i}\right)
+    	=\prod_{m=1}^k \frac{p_m}{p_m - 1}
+    	\]
+    	(since all the terms are positive, 
+    	the issue of conditional convergence does not exist). 
+    	In addition we note the desired limit sum 
+    	$M = \prod_{m=1}^k \frac{p_m}{p_m - 1} := \frac{r}{s}$ 
+    	has $p_k\mid r$ 
+    	since $p_k\mid p_1\cdots p_m$ but $p_k\nmid (p_1-1)\cdots (p_m-1)$. 
+    	At the same time we have 
+    	$M \le \frac{2}{1}\cdot \frac{3}{2}\cdot \cdots \cdot \frac{p_k}{p_k-1}=p_k$ 
+    	with equality if and only if 
+    	$p_1, \cdots, p_k = 2, 3, \cdots, p_k$, 
+    	which is impossible when $k\ge 2$ and $S\neq\{2, 3\}$ 
+    	(given that 4 is not a prime). 
+    	It then follows that $M$ is not an integer. 
+    	For convenience we now note $N = \lceil M\rceil$, 
+    	and note that $N-M>0$. 
+    	
+    	Having said that, choose $n$ such that 
+    	$\lceil\sum_{i=1}^n \frac{1}{b_i}\rceil = N$, 
+    	and 
+    	\[
+    	\sum_{m=1}^{k-1} (p_m-1)p_m\frac{\log_{p_m} b_n}{b_n} < N - M
+    	\]
+    	Note that $N-M$ is independent of $n$ and $\frac{\log_{p_m} b_n}{b_n}\to 0$ as $n\to\infty$, 
+    	so this will be satisfied by all sufficiently large $n$. 
+    	For this $n$, let $n_1, n_2, \cdots, n_k$ be chosen such that $p_i^{n_i}$ is the biggest power of $p_i$ appearing in $\{b_1, \cdots, b_n\}$ 
+    	(i.e. $n_i = \lfloor \log_{p_i} b_n\rfloor$).
+    	We now proceed in an algorithmic manner: 
+    	start by assigning $a_i=1$ for all $i$. 
+    	Note that the denominator of the sum 
+    	$\sum_{i=1}^n \frac{a_i}{b_i}$ is always divisible by $\prod_{i=1}^k p_i^{n_i}$. 
+    	Thereafter: 
+    	\begin{itemize}
+    		\item We perform $k - 1$ rounds of operations. 
+    		The goal is after round $m$, the sum 
+    		$\sum_{i=1}^n \frac{a_i}{b_i}$ has denominator with prime divisors a subset of 
+    		$\{p_{m+1}, \cdots, p_k\}$, and 
+    		$\sum_{i=1}^n \frac{a_i}{b_i} < N$. 
+    		
+    		\item In each round $m$, we perform 
+    		$n_m$ subrounds of operations; 
+    		in the $j$-th subround, we pick 
+    		$b_i = p_m^{n_m-j+1}c$ such that $c$ has prime divisors in the subset of $\{p_{m+1}, \cdots, p_k\}$, 
+    		and $b_m$ is the largest possible such number 
+    		(note that this $b_m$ exists since $p_m^{n_m-j+1}$ is part of $\{b_1, \cdots, b_n\}$). 
+    		The goal is after this $j$-th subround, 
+    		$\sum_{i=1}^n \frac{a_i}{b_i}$ has denominator with prime divisors a subset of 
+    		$\{p_m, p_{m+1}, \cdots, p_k\}$, 
+    		and the power of $p_m$ dividing the denominator is at most $p_m^{n_m-j}$, 
+    		hence this $p_m$ factor will vanish from the denominator after $n_m$ steps. 
+    		
+    		\item Note that each subround $j$ of round $m$ can be done via the following: 
+    		let $\sum_{i=1}^n \frac{a_i}{b_i}=\frac{r}{s}$, 
+    		with $s \mid p_m^{n_m-j+1}p_{m+1}^{n_{m+1}}\cdots p_k^{n_k}$. 
+    		Then there exists some $x \in \{0, 1, \cdots, p_m\}$ such that $\frac{r}{s} + \frac{x}{b_i}=\frac{r'}{s'}$ for some $r', s'$, with 
+    		$s' \mid p_m^{n_m-j}p_{m+1}^{n_{m+1}}$, 
+    		where this $b_i=p_m^{n_m-j+1}c$ as described before. 
+    		We then add this $x$ to $a_i$. 
+    	\end{itemize}
+    	To verify that $\sum_{i=1}^n \frac{a_i}{b_i} < N$, 
+    	recall that we initialized $a_i=1$ for all $i$, 
+    	and at each subround $j$ of round $m$, 
+    	we added at most $p_m - 1$ to $a_i$, 
+    	while the corresponding $b_i$ is at least $\frac{b_n}{p_{m+1}}$ 
+    	(recall that $b_i = p_m^{n_m-j+1}c$ and $c$ is the largest possible with prime divisors only from $p_{m+1}, \cdots, p_k$. 
+    	Then $p_{m+1}b_i$ is not part of the sequence, so $p_{m+1}b_i > b_n$), 
+    	meaning that we added at most $\frac{(p_m-1)p_{m+1}}{b_n}$ at each round. 
+    	Thus across the $k-1$ rounds of $n_1, \cdots, n_{k-1}$ surrounds, our final $\sum \frac{a_i}{b_i}$ is at most 
+    	\[
+    	M + \sum_{m=1}^{k-1} \frac{n_m(p_m-1)p_{m+1}}{b_n}
+    	\le M + \sum_{m=1}^{k-1} \frac{(\log_{p_m} b_n)(p_m-1)p_{m+1}}{b_n} < N
+    	\]
+    	Finally, now that 
+    	$\sum_{i=1}^n \frac{a_i}{b_i}=\frac rs$ with $s\mid p_m^{n_m}$ after these operations, 
+    	we can just identify $i$ with $b_i=p_k^{n_k}$ and add a suitable number to $a_i$ such that now $\sum_{i=1}^n \frac{a_i}{b_i}=N$, as desired. 
+    	
+    	\item [N6.]
+    	Let $n$ be a positive integer. We say a polynomial $P$ with integer coefficients is $\emph{n-good}$ if there exists a polynomial $Q$ of degree $2$ with integer coefficients such that $Q(k)(P(k) + Q(k))$ is never divisible by $n$ for any integer $k$.
+    	
+    	Determine all integers $n$ such that every polynomial with integer coefficients is an $n$-good polynomial. 
+    	
+    	\textbf{Answer.} All integers $n\ge 3$. 
+    	
+    	\textbf{Solution.} 
+    	We first note that if $n = ab$ is such that $P$ is $a$-good, then it is also $n$ good. 
+    	Indeed, the same pair of polynomials $(P, Q)$ where $a\nmid Q(P+Q)$ for any integer implies 
+    	$n\nmid Q(P+Q)$ too. 
+    	Therefore, it suffices to show that $n = 2$ does not work, while $n = 4$ and all odd primes work. 
+    	Moreover when $n=2$ the counterexample is easy: just take $P(k)\equiv 1$ and one of $1+Q(0)$ and $Q(0)$ is forced to be even. 
+    	
+    	To show the statement for $n = 4$, the general strategy is to find $Q$ such that, if $P(k)$ is even, make $Q(k)$ odd; if $P(k)$ is odd, make $Q(k)\equiv 2\pmod{4}$. 
+    	Note that the case of $P$ taking only even or only odd values is easy (we can take $Q\equiv 2x^2+1$ or $4x^2+2$, respectively). 
+    	Otherwise, we use $2\mid P(x+2)-P(x)$ to note that we only need to consider $P(0)$ and $P(1)$, 
+    	and see that we can choose either $Q(x)=x^2+1$ or $Q(x)=(x-1)^2+1$ depending on whether $P(0)$ is odd or not. 
+    	
+    	Now suppose $n = 3$. 
+    	We first show that $(Q(0), Q(1), Q(2))$ can take any value in $\mathbb{Z}_3^3$. 
+    	This way, we can set $Q(k)\equiv 1\pmod{3}$ if $P(k)\equiv 0, 1\pmod{3}$, and $Q(k)\equiv 2\pmod{3}$ otherwise. 
+    	Indeed, for modulo 3 we can consider the following basis functions: 
+    	\[
+    	Q_0(x) = 1 - x^2
+    	\qquad 
+    	Q_1(x) = 1 - (x-1)^2
+    	\qquad 
+    	Q_2(x) = 1 - (x+1)^2
+    	\]
+    	and note that for $i=0, 1, 2$, $Q_i(x)\equiv 1$ if $x\equiv 1\pmod{3}$ and 0 otherwise. 
+    	Thus setting $Q = aQ_0 + bQ_1 + cQ_2$ gives us $Q(k)\equiv a, b, c$ when $k\equiv 0, 1, 2$ which we can set arbitrarily. 
+    	
+    	Finally, we consider $n\ge 5$ an odd prime. 
+    	Consider $P(0), \cdots, P(n-1)$. 
+    	If they do not take all the nonzero values $1, 2, \cdots, n-1\pmod{n}$, then we may just choose $k$ such that 
+    	$P(0), \cdots, P(n-1)\not\equiv k\pmod{n}$ and choose $Q(x)=nx^2-k$. 
+    	Thus $\{P(0), \cdots, P(n-1)\}$ is either 
+    	$\{0, 1, \cdots, n-1\}$ or $\{1, 2, \cdots, n-1\}\pmod{n}$. 
+    	In other words this means that for all except (at most) one value $k\in \{1, 2, \cdots, n-1\}$, 
+    	there is exactly one $m\in\{0, 1, \cdots, n-1\}$ such that $P(m)\equiv k$. 
+    	Let $k_0$ be one possible such exception (if this does not exist, choose $k_0$ arbitrarily among $1, \cdots, n-1$). 
+    	
+    	We first construct $Q$ such that $Q$ does not take value 0 and $-k_0$. 
+    	Now, $x^2\pmod{n}$ takes 0 and exactly $\frac{n-1}{2}$ other nonzero residues. 
+    	Since $n\ge 5$ there are two values 
+    	$j_1\not\equiv j_2$ such that $x^2$ does not take $j_1$ or $j_2$. 
+    	Therefore, choose $a, b$ such that 
+    	$aj_1+b\equiv 0, aj_2+b\equiv -k_0\pmod{n}$, 
+    	then $Q(x)=ax^2+b$ would not take value $0$ or $-k_0$. 
+    	It then follows that for each $m = 0, 1, \cdots, n - 1$, 
+    	there is a unique $a_m=0, 1, \cdots, n - 1$ such that 
+    	$n\mid Q(m)+P(a_m)$. 
+    	Note that since $a\neq 0$, 
+    	$Q(0), \cdots, Q(n-1)$ takes $\frac{n+1}{2} \ge 3$ different values. 
+    	
+    	We now consider the following claim: 
+    	\begin{lemma}
+    		Let $a_0, a_1, \cdots, a_{n-1}\in \{0, 1, \cdots, n-1\}$ be arbitrary, such that they are not all equal. 
+    		Then there exist integers $a, b$ such that 
+    		$a_{a_m+b}\not\equiv m$ for all $m=0, 1, \cdots, n-1$. 
+    	\end{lemma}
+    	\begin{proof}
+    		Let $m_1\neq m_2\pmod{n}$ be two of the different values taken by $a_m$'s; 
+    		in particular let $a_{u_1}=m_1$ and $a_{u_2}=m_2$. 
+    		Now choose $a$ such that there exists $b'$ with 
+    		$am_1+b'=u_1, am_2+b'=u_2$. 
+    		Observe that this would mean 
+    		$a_{am+b'}= m$ for $m=m_1, m_2$, i.e. at least two hits. Now denote 
+    		\[
+    		f(k) = |\{m: a_{am+b'}\equiv m-k\}|
+    		\]
+    		Then $\sum_{k=0}^{n-1} f(k) = n$, 
+    		since for each $m$ there exists exactly one $k$ with 
+    		$a_{am+b'}\equiv m-k$. 
+    		We have $f(0)\ge 2$, 
+    		so $f(k)=0$ for some $k$, 
+    		i.e. for this $k$ we have 
+    		$a_{am+b'}\not\equiv m-k$. 
+    		In other words we simply have 
+    		$a_{a(m-k)+ak+b'}\not\equiv m-k$, 
+    		so we may just pick $b=ak+b'$. 
+    	\end{proof}
+    	Thus to complete the solution, notice that for any integers $a, b$, $Q(am+b)$ is still quadratic in $b$, 
+    	and never divisible by $n$. 
+    	Choose $a, b$ such that $a_{am+b}\not\equiv m$ for each $m$ 
+    	(as per the lemma), 
+    	and noting that $n\mid Q(am+b)+P(a_{a_m+b})$ by the definition of $a_m$'s. 
+    	By our choice of $a, b$ we have 
+    	$n\mid Q(am+b)+P(m)$, 
+    	hence the polynomial $Q(am+b)$ in $m$ works, 
+    	as desired. 
+    	
+    	\item [N7.] 
+    	Let $\mathbb{Z}_{>0}$ denote the set of positive integers. Let $f : \mathbb{Z}_{>0} \rightarrow \mathbb{Z}_{>0}$ be a function satisfying the following property: for $m,n \in \mathbb{Z}_{>0}$, the equation
+    	\[
+    	f(mn)^2 = f(m^2)f(f(n))f(mf(n))
+    	\]holds if and only if $m$ and $n$ are coprime.
+    	
+    	For each positive integer $n$, determine all the possible values of $f(n)$.
+    	
+    	\textbf{Answer}: $f(n)$ can take any value that has the same set of prime divisors as $n$. 
+    	
+    	\textbf{Solution.} 
+    	\textbf{Construction:} denote $\mathcal{P}$ as the set of primes, 
+    	and denote $\ell:\mathcal{P}\to \mathbb{N}$. 
+    	Define $f(n) = \prod_{p\in\mathcal{P}, p\mid n} p^{\ell(p)}$. 
+    	As usual, denote $\nu_p(m)$ the highest power of a prime $p$ dividing $m$. Then for each $p$: 
+    	\[
+    	\nu_p(f(mn)^2)=2\ell(p)\cdot \boldsymbol{1}_{p\mid mn}
+    	\qquad 
+    	\nu_p( f(m^2)f(f(n))f(mf(n)))
+    	=\begin{cases}
+    		0 & p\nmid mn\\
+    		2\ell(p) & p\text{ divides exactly one of  }m, n\\
+    		3\ell(p) & p\text{ divides both }m, n\\
+    	\end{cases}
+    	\]
+    	Thus this power agrees on both sides if and only if $p\nmid \gcd(m, n)$, 
+    	and therefore such construction is valid. 
+    	Therefore by considering all the possible choices of $\ell$, 
+    	all $f(n)$ with the same set of prime divisors as $n$ are possible. 
+    	
+    	\textbf{Necessity}: 
+    	Denote $\mathcal{R} = \{f(n): n\ge 1\}$, i.e. the range. 
+    	We use the following groundwork. 
+    	
+    	\begin{lemma}
+    		$f(n) = 1$ if and only $n = 1$. 
+    	\end{lemma}
+        \begin{proof}
+        	Setting $m = 1$ yields $f(n)^2 = f(1)f(f(n))^2$, or $f(n) = f(1)^{1/2}f(f(n))$. 
+        	Iteratively, we have $f(n) = f(1)^{k/2}f^{k+1}(n)\ge f(1)^{k/2}$ for all $k\ge 1$ (here $f^{k+1}(n)$ is $f(f(\cdots f(n)))$, with $f$ applies $k$ times to $n$). 
+        	Hence $f(1) = 1$. 
+        	This means $f(n) = f(f(n))$ (i.e. $f(n) = n$ for all $n\in\mathcal{R}$). 
+        	
+        	Now setting $n = 1$ gives 
+        	$f(m)^2 = f(m^2)f(f(1))f(mf(1)) = f(m^2)f(m)$, so $f(m^2)=f(m)$. 
+        	Thus the RHS can be converted into $f(m)f(n)f(mf(n))$.
+        	For any $n$ with $f(n)=1$, setting $m=n$ gives 
+        	LHS is $f(n^2)^2=f(n)^2=1$ and RHS is $f(n)^2f(nf(n))=1\cdot f(n)=1$. 
+        	So both sides agree and hence $n=\gcd(n, n) = 1$. 
+        \end{proof}
+    	
+    	\begin{lemma}
+    		Given $\gcd(m, n) = 1$. Then $\gcd(m, f(n)) = 1$ if and only if $\gcd(n, f(m)) = 1$. 
+    		By interchanging $m$ and $n$, we have 
+    		\[
+    		f(m^2)f(f(n))f(mf(n))=f(mn)^2 = f(n^2)f(f(m))f(nf(m))
+    		\]
+    		Given also that $f(n)=f(f(n))=f(n^2)$, this becomes $f(mf(n))=f(nf(m))$. 
+    		Now, substituting $f(m)$ into $m$ we have 
+    		$f(nf(m))^2 = f(f(m)^2)f(n)f(f(m)f(n))$ if and only if $\gcd(f(m), n) = 1$. 
+    		Note that $f(f(m)^2) = f(f(m)) = f(m)$.
+    		In a similar way, we have $f(mf(n))^2 = f(f(m)^2)f(n)f(f(m)f(n))$ if and only if $\gcd(n, f(m)) = 1$. 
+    		Given that $f(mf(n)) = f(nf(m))$, either none or both of the two equalities must hold, 
+    		which proves the claim. 
+    	\end{lemma}
+    	
+    	Now there are some corollories that follow. 
+    	\begin{lemma}
+    		The following two identities can be deduced: 
+    		\begin{itemize}
+    			\item If a prime $p$ divides $n$, then $p$ divides $f(n)$. 
+    			
+    			\item If $n_1, n_2$ have the same set of prime dividoes, then so do $f(n_1), f(n_2)$. 
+    		\end{itemize}
+    	\end{lemma}
+    
+        \begin{proof}
+        	For the first part, note that for any $k\ge 1$, 
+        	if $p\nmid f(p^k)=q$, then $q = \gcd(f(q), q) = \gcd(f(p^k), q) = \gcd(p^k, f(q)) = \gcd(p^k, q) = 1$ 
+        	(recall that $f(q)=f(f(p^k))=f(p^k)=q$), 
+        	which is a contradiction since $f(p^k) > 1$. 
+        	Thus if $p\mid n$, write $n = p^km$ where $p\nmid m$, 
+        	then $f(n)^2=f(p^km)^2=f(p^k)f(m)f(p^kf(m))$ which is divisible by $p$, as claimed. 
+        	
+        	For the second part, by the first claim within this lemma it suffices to consider any prime $p$ that divides neither $n_1$ nor $n_2$. 
+        	We have 
+        	\[
+        	\gcd(p, f(n_1)) = 1 \leftrightarrow \gcd(f(p), n_1) = 1 \leftrightarrow \gcd(f(p), n_2) = 1
+        	\leftrightarrow \gcd(p, f(n_2)) = 1
+        	\]
+        	by the previous lemma. 
+        \end{proof}
+    	
+    	We can now finish the solution by first noting that for each prime $p$, $f(p)$ must be a power of $p$. 
+    	Denote $\mathcal{P}_p$ as the set of prime numbers dividing $f(p)$: 
+    	we call all numbers $m$ with set of prime divisors exactly $\mathcal{P}_p$ as $\mathcal{P}_p$-type. 
+    	Let $n = p^km\in\mathcal{R}$, that is $\mathcal{P}_p$-type, 
+    	and such that $p\nmid m$ and $k$ minimized. 
+    	It follows that for any $m'$ such that $f(m')$ is $\mathcal{P}_p$-type, 
+    	$p^k\mid f(m')$. 
+    	Then we have 
+    	\[
+    	n^2 = f(n)^2 = f(p^km) = f(m)f(p^k)f(mf(p^k))
+    	\]
+    	Observe that $f(p^k)$ is $\mathcal{P}_p$-type (due to second corollary above), 
+    	and so is $mf(p^k)$. 
+    	Hence, each of $f(p^k)$ and $f(m(p^k))$ are divisible by $p^k$, 
+    	so $p\nmid f(m)$. 
+    	But notice that $\gcd(p, m)=1$ so $1 = \gcd(p, f(m)) = \gcd(f(p), m)$. 
+    	Note that $m$'s prime divisors is $\mathcal{P}_p\backslash\{p\}$, 
+    	each of which divides $f(p)$. 
+    	It then follows that $f(m) = 1$ and so $m = 1$. 
+    	
+    	Finally, for any prime $p$ and integer $m$ with $\gcd(p, m) = 1$, 
+    	choose $k$ such that $p^k\in \mathcal{R}$
+    	It follows that 
+    	\[
+    	f(p^km)^2= f(m)p^kf(mp^k)
+    	\]
+    	so $f(p^km)= p^kf(m)$. Iteratively, this shows that $f(n)$ cannot have prime divisor not dividing $n$. 
+    \end{enumerate}
+    
+\end{document}
