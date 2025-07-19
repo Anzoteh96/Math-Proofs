@@ -341,6 +341,98 @@
 	\]
 	The last expression obtains its maximum when $n=101/2$; for $n$ integer the maximum is when $n=50$ or $51$, in which case $n(100-n+1)=50\times 51 = 2550$. Thus $|S_4|\le 2550$ as desired. 
 	
+	\item [C7.] (IMO 6) 
+	Let $n \ge 3$ be an integer, and consider a circle with $n + 1$ equally spaced points marked on it. Consider all labellings of these points with the numbers $0, 1, ... , n$ such that each label is used exactly once; two such labellings are considered to be the same if one can be obtained from the other by a rotation of the circle. A labelling is called beautiful if, for any four labels $a < b < c < d$ with $a + d = b + c$, the chord joining the points labelled $a$ and $d$ does not intersect the chord joining the points labelled $b$ and $c$.
+	
+	Let $M$ be the number of beautiful labelings, and let N be the number of ordered pairs $(x, y)$ of positive integers such that $x + y \le n$ and $\gcd(x, y) = 1$. Prove that$$M = N + 1.$$
+	
+	\textbf{Solution.} 
+	We denote $M_n, N_n$ as the $M$, $N$ corresponding to the beautiful labellings of points $0, \cdots, n$. 
+	Accordingly, we call this arrangement $n$-beautiful. 
+	
+	We first note that $M_2 = 2$ and $N_2 = 1$; 
+	indeed the only two arrangements $(0,1,2)$ and $(0, 2, 1)$ are 2-beautiful, 
+	and the only pair $x+y\le 2$ and $\gcd(x, y) = 1$ is $(x, y) = (1, 1)$. 
+	Thus, it suffices to show that for all $n\ge 3$, $M_n - M_{n - 1} = N_n - N_{n - 1}$; 
+	notice that the right hand side $N_n - N_{n - 1}$ is $\varphi(n)$, 
+	i.e. the number of integers in $\{1, \cdots, n\}$ coprime to $n$. 
+	
+	For a $n$-beautiful labelling (namely $A$), consider the $n - 1$-labelling (using numbers $0, 1, \cdots, n - 1$) $B$ obtained from $A$ with number $n$ removed; 
+	note that $B$ is also beautiful, and denote $A$ as the parent of $B$, and $B$ a children of $A$. 
+	
+	Denote a $n$ labelling as $n$-\emph{gorgeous}, if for any four labels $a + d\equiv b + c\pmod{n + 1}$, 
+	the chord joining $(a, d)$ and chord joining $(b, c)$ do not intersect. 
+	Note that this is also beautiful (however the converse is false). 
+	
+	We first show that each gorgeous labelling has exactly two children, 
+	and non-gorgeous beautiful labelling cannot have more than one beautiful child. 
+	Indeed, note that from an existing $n-1$-labelling, a child is produced by inserting $n$ between any of the $n$-pairs of adjacent numbers. 
+	Consider an $n$-labelling child that has $n$ inserted between $a, b$ (neighbouring) and the other child that has $n$ inserted between $c, d$ (neighbouring). 
+	Let $(a, b, c, d)$ be on the arc in that order; we allow the possibility $b = c$ (but $a\neq d$ always). 
+	Now, consider the arc $(bc)$ from $b$ to $c$ (inclusive) excluding $a, d$, and $(da)$ from $d$ to $a$ (inclusive) excluding $b, c$. 
+	One of the arc contains $n - 1$. 
+	If the other arc contains a positive number $c$, then we may have the chord $(n - 1, c)$ going from $(bc)$ arc to $(da)$ arc, and splits the arc of neighbours $(a, b)$ and arc of neighbours $(c, d)$ into two regions. 
+	Since the chord $(c - 1, n)$ cannot intersect that chord $(n - 1, c)$, 
+	$n$ must be on the same side as $c - 1$, i.e. cannot be in both $(a, b)$ and $(c, d)$. 
+	It then follows that for this to happen we need one of $(bc)$-arc and $(da)$-arc to contain only the number 0, 
+	which is only possible for $b = c = 0$. 
+	It then follows that the two beautiful children is produced by placing $n$ as either neighbour of 0. 
+	Finally, to see why does this imply the initial $n - 1$-labelling is georgeous, 
+	if $n + a = b + c$ and $(n, a)$, $(b, c)$ do not intersect, neither will $(0, a)$, $(b, c)$ since 0 and $n$ are adjacent to each other. 
+	Conversely, if the initial $n - 1$-labelling is already georgeous, the resulting $n$-labelling (by placing $n$ adjacent to 0) is beautiful for this reason, 
+	i.e. if $0 + a \equiv b + c$ and $(0, a), (b, c)$ do not intersect, 
+	then $(n, a), (b, c)$ do not intersect either. 
+	This completes the proof. 
+	
+	Now in a $n - 1$-labelling, for $(m, n)$ with $\gcd(m, n) = 1$, 
+	denote $(m, n)$ complete cyclic labelling as the labelling where the remainders of $0, m, 2m, \cdots, (n - 1)m$ modulo $n$ are in that order, clockwise. 
+	Note that this is $n - 1$-georgeous: if $am + dm\equiv cm + dm\pmod{n}$ then $a + d\equiv b + c$, 
+	so it suffices to check that $0, 1, \cdots, n - 1$ is georgeous. 
+	Here it's not hard to check that since the points are equally spaced, the chord $(a, d)$ is parallel to $(b, c)$, proving the claim. 
+	It then follows that such labellings all have exactly two children (and no more, by the previous lemma). 
+	
+	Next, also let $\gcd(m, n) = 1$ and $k < n$, a $(k, m, n)$ partial cyclic labelling is a labelling of $0, 1, \cdots, k - 1$ such that it can be obtained from an $(m, n)$ complete cyclic labelling by removing numbers $k, \cdots, n - 1$ while preserving the order of $0, 1, \cdots, k - 1$. 
+	Since a complete cyclic labelling is georgeous (hence beautiful), a partial cyclic labelling is also beautiful. 
+	
+	We now claim that all beautiful $n - 1$-labelling that is not complete cyclic labelling must be a $(n, m, n_1)$ partial cyclic labelling with $n_1 < 2(n - 1)$. 
+	We first note that from a complete $(m, n)$ cyclic labelling, the two children have $0$ and $n$ adjacent. 
+	We note that either $(0, n, m)$ or $(0, n, n - m)$ are in that order (and neighbouring); 
+	w.l.o.g. we assume it's the first case. 
+	
+	We first note that this is a $(n + 1, n, 2n - m)$-partial cyclic labelling for $m < n - 1$, 
+	and $(1, n + 1)$ (or $(n, n + 1)$) if $m = n - 1$. 
+	Note that this is valid since $\gcd(n, 2n - m) = \gcd(n, n - m) = \gcd(m, n) = 1$
+	The second case is not hard to establish; 
+	we look at the first case instead. 
+	Now for any neighbour $a\to b$ in clockwise order, we have $b - a\equiv m\pmod{n}$, 
+	so either $b = a + m$ or $b = a +m - n$. 
+	In the first case we have the $(n + 1, n, 2n - m)$-partial cyclic labelling with 
+	$a, a + n, a + m$; 
+	we note that $a + m < n$ so $a + n < 2n - m$; 
+	and also $(a + m) - (a + n) = m - n\equiv n\equiv \pmod{2n - m}$. 
+	Otherwise, we have $a + m\ge n$, so $a + m - n \ge 0$. 
+	In addition $(a + m - n) - a = m - n\equiv n\pmod{2n - m}$, 
+	showing that $(a, a + m - n)$ are also neighbouring. 
+	This completes the claim that this is indeed a $(n + 1, n, 2n - m)$-partial cyclic labelling for $m < n - 1$. 
+	
+	Now, note that from any $(k, m, n)$-partial cyclic labelling with $k < n$, 
+	a $(k + 1, m, n)$-partial cyclic labelling can be created (as a child) by inserting $k$ at the correct place 
+	(or if $k = n - 1$ it will become a $(m, n)$ complete cyclic labelling). 
+	Thus $(k, m, n)$-partial cyclic labelling always has a beautiful child. 
+	On the other hand, since in the original $(n + 1, n, 2n - m)$-partial cyclic labelling already has $(n - m, 0, n)$ in that order, 
+	the $(n, 2n - m)$-complete cyclic labelling also has $(n - m, 0, n)$ in that order. 
+	This means from $(n + 1, n, 2n - m)$-partial cyclic labelling to 
+	$(n, 2n - m)$-partial cyclic labelling, no number inserted can be adjacent to $0$. 
+	It follows that the these partial cyclic labellings cannot have more than a child, 
+	hence exactly one. 
+	
+	To summarize, each $n$-beautiful labelling is either $(m, n + 1)$-complete cyclic, 
+	of $(n + 1, m, n_1)$ partial cyclic, 
+	In the former case it has two children; in the latter case it has one child. 
+	We note also that among the $n - 1$-beautiful labellings, there are $\varphi(n)$ complete cyclic labelling, 
+	which then gives $M_n - M_{n - 1} = \varphi(n) = N_n - N_{n - 1}$, 
+	as desired. 
+		
 \end{enumerate}
 
 \section*{Geometry}

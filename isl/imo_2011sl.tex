@@ -127,6 +127,41 @@
 	\]
 	The only combination that works for all $x$ and $y$ is $m=c=0$. 
 	
+	\item[\textbf{A4}] 
+	Determine all pairs $(f,g)$ of functions from the set of positive integers to itself that satisfy\[f^{g(n)+1}(n) + g^{f(n)}(n) = f(n+1) - g(n+1) + 1\]for every positive integer $n$. Here, $f^k(n)$ means $\underbrace{f(f(\ldots f)}_{k}(n) \ldots ))$.
+	
+	\textbf{Answer.} $f(n) = n$ and $g(n) = 1$ is the only answer. 
+	
+	\textbf{Solution.} We first verify the function above, where both sides are $n + 1$. 
+	It now remains to show that this is the only pair. 
+	
+	Let $P_k$ be the assertion that $f(n) = n$ for $n = 1, 2, \cdots, n$, 
+	and $f(m)\ge k + 1$ for all $m\ge k + 1$. 
+	We show that $P_k$ holds for all $k$ by using induction, 
+	where base case is given by $k = 0$ since $f(n)\ge 1$ for all $n\ge 1$. 
+	
+	Now assume $P_k$ for some $k\ge 0$. 
+	Consider $m=\arg\min_{n\ge k + 1} f(n + 1)$, 
+	i.e. the $m\ge k + 1$ that satisfies $f(m + 1)\le f(n + 1)$ for all $n\ge k + 1$. 
+	Then we have 
+	\[
+	f^{g(m)+1}(m) + 1
+	\le 
+	f^{g(m)+1}(m) + g^{f(m)}(m) = f(m+1) - g(m+1) + 1
+	\le f(m + 1)
+	\]
+	and therefore for this $m$, $f^{g(m)+1}(m) + 1 < f(m + 1)\le f(n + 1)$ for all $n\ge k + 1$. 
+	We note that from $P_k$ and $m\ge k + 1$, $f^{a}(k + 1)\ge k + 1$ for any $a\ge 1$, 
+	and so $f(n)\ge k + 2$ for all $k\ge n + 2$. 
+	Since $f^{g(m)+1}(m) = f^{g(m)}(f(m)) < f(n)$ for all $n\ge k + 2$ and $f(n)\ge k + 2$ for all $n\ge k + 2$, 
+	it follows that $m = k + 1$ and $f(m) = k + 1$, thus establishing $P_{k + 1}$. 
+	
+	Now with $f(n) = n$, substituting to the original equation gives 
+	$g^{n}(n) + g(n + 1) = 2$ for each $n$. 
+	As $g$ takes value $\ge 1$, we have $g(n + 1) = 1$ for all $n\ge 1$. 
+	Finally, considering $n = 1$ gives $g(1) + g(2) = 2$, so $g(1) = 1$ too. 
+	Thus $g$ must be identically 1. 
+	
 	\item[\textbf{A5}] Prove that for every positive integer $n,$ the set $\{2,3,4,\ldots,3n+1\}$ can be partitioned into $n$ triples in such a way that the numbers from each triple are the lengths of the sides of some obtuse triangle.
 	
 	\textbf{Solution.} 
@@ -281,6 +316,49 @@
 	By considering $\dsum_{\ell+101}^{\ell+200+p}x_i$ and $\dsum_{\ell-p+1}^{\ell+100}x_i$ we can either conclude that either these two are the contagious pair of $100+p$ elements, or $x_{\ell+200+p}=0$. Now if none of the $100+p$-pairs works, we have $x_{\ell-p}=x_{\ell+200+p}=0$, which contradicts the maximality of $p$. 
 	
 	Now suppose that $p>200$ instead, which means there are a consecutive row of $201$ 0's. Simply consider 200 of them, split them into contagious pairs of 100 0's each, and we are done. 
+	
+	\item[\textbf{C4}] 
+	Determine the greatest positive integer $k$ that satisfies the following property: The set of positive integers can be partitioned into $k$ subsets $A_1, A_2, \ldots, A_k$ such that for all integers $n \geq 15$ and all $i \in \{1, 2, \ldots, k\}$ there exist two distinct elements of $A_i$ whose sum is $n.$
+	
+	\textbf{Answer.} $k = 3$. 
+	
+	\textbf{Solution.} The construction $k = 3$ is given as follows: (TODO)
+	
+	To show that $k = 4$ is impossible, suppose $A_1, A_2, A_3, A_4$ are such a partition. 
+	Then one of them, say, $A_4$, must have at most three numbers in $\{1, 2, \cdots, 15\}$. 
+	We show that $A_4$ must necessarily contain $1, 2, 14$ in this sequel. 
+	
+	Now given $A_4$ contains two distinct elements in $A_i$ summing to 15 as well as 16, 
+	these elements must all be $\le 15$. 
+	In particular, it cannot have only two elements in $[1, 15]$ range, hence by our assumption we can write the three integer in $[1, 15]$ as $a, b, c$, with one pair summing to 15 and the other summing to 16. 
+	These two pairs must also share a common element, say, $a$, 
+	so we may write these as $a, 15 - a, 16 - a$. 
+	
+	If $a = 7$, then these 3 numbers are 7, 8, 9 with pairwise sums 15, 16, 17. 
+	Since the next smallest number in $A_4$ is $\ge 16$, it is impossible for $A_4$ to produce 18, 
+	invalidating this. 
+	Similarly, if $a\neq 7$, then $(15 - a), (16 - a)$ do not sum to 17, so one of the numbers summing to 17 must come outside the $[1, 15]$ range, 
+	meaning that the two numbers must be 1 and 16. 
+	We therefore infer that one of $a$ and $15 - a$ must be 1. 
+	In the former case, $(a, b, c) = (1, 14, 15)$. 
+	But without containing the elements $2, 3, \cdots, 13$, we see that in order to produce sum of 17, 18, $\cdots$, 28, 
+	$A_4$ must contain $16, 17, \cdots, 27$. 
+	Now one of $A_1, A_2, A_3$ contains no more than 4 elements in $[1, 15]$, 
+	and cannot contain $16, \cdots, 27$. 
+	This means it can produce only at most $\binom{4}{2}=6$ pairwise sums (using numbers in $[1, 15]$) among $15, 16, \cdots, 28$, thereby cannot contain all of those pairwise sums. 
+	It therefore follows that the $a = 14$ and $\{a, b, c\} = \{1, 2, 14\}$. 
+	
+	The fact that $A_4$ must be $\{1, 2, 14\}$ means $A_1, A_2, A_3$ cannot have $\le 3$ elements in $[1, 15]$, 
+	i.e. each having exactly 4 elements. 
+	Having established this case, since $14 + 16 = 30$, it follows that for each $a = 17, \cdots, 29$, $A_4$ must contain either $a - 1$ or $a - 2$ (or possibly both). 
+	In particular, it must contain 16, 
+	and among 17, 18, 19, 20 it must contain two of these. 
+	This means at most 2 of $\{16, 17, 18, 19, 20\}$ is available for $A_1, A_2, A_3$, 
+	meaning one of them, say $A_3$, has none of the numbers in this set. 
+	Since $1, 2\in A_4$, 
+	$A_3$ contains 4 elements in range $[3, 15]$, and the remaining are $\ge 21$. 
+	This means all the 9 pairwise sums adding to 15 to 23 (inclusive) must come from the 4 elements in $[3, 15]$ itself. 
+	This is impossible as 4 elements can only produce $\binom{4}{2}=6$ pairwise sums. 
 	
 	\item[\textbf{C6}] Let $n$ be a positive integer, and let $W = \ldots x_{-1}x_0x_1x_2 \ldots$ be an infinite periodic word, consisting of just letters $a$ and/or $b$. Suppose that the minimal period $N$ of $W$ is greater than $2^n$.
 	
