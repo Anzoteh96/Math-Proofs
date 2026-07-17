@@ -1,0 +1,186 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, fullpage}
+\usepackage{mathrsfs, float}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\title{Solutions to APMO 2026}
+\date{}
+
+\begin{document}
+	\newcommand{\la}{\leftarrow}
+	\newcommand{\lra}{\leftrightarrow}
+	\newcommand{\bbN}{\mathbb{N}}
+	\newcommand{\bbZ}{\mathbb{Z}}
+	\newcommand{\dsum}{\displaystyle\sum}
+	\newcommand{\dprod}{\displaystyle\prod}
+	\maketitle
+	
+	\textbf{Problem 1.} 
+	Find all quadruples of positive integers $(a, p, m, o)$ with $o\geq 2$ such that
+	\[
+	a!+p!=m^o+26.
+	\]
+	
+	\textbf{Answer.} $\{4,3,2,2\}, \{3, 4, 2, 2\}, \{5, 3, 10, 2\}, \{3, 5, 10, 2\}$. 
+	
+	\textbf{Solution.}
+	Note that $\min \{a, p\}\le 3$, otherwise $m^o\equiv 2\pmod{4}$ and cannot be perfect power. 
+	Now w.l.o.g. set $a\ge p$. 
+	
+	If $p = 3$, we have $a = 4, 5$ works (where $(m, o)$ are $(2, 2)$ and $(10, 2)$, respectively). 
+	$a \le p$ would mean $m^o < 0$. 
+	For $a\ge 5$ we have $5\mid m^o = a!-20$; 
+	need $25\mid a! - 20$ (forces $a!\le 9$; manually check only 5, 6, 8 fulfills this but then $m^o=100, 700, 40300$ and only 
+	the first one is a perfect power). 
+	
+	If $p = 2$, $m^o=a!-24$; 
+	forces $a\ge 5$. Now for $a\ge 6$ we have $a!-24\equiv 3\pmod{9}$ which is impossible, 
+	and $5!-24=96$ is not perfect power either. 
+	
+	If $p = 1$, $m^o=a!-25$. 
+	Need $a\ge 5$; $a!$ needs to be divisible by 25 so $a\ge 10$. 
+	$a!-25\equiv 2\pmod{3}$ so $o$ cannot be even, i.e. $o\ge 3$ and need $a!\equiv 25\pmod{125}$
+	(so $a\le 14$ because $5^3\mid 15!$). 
+	Now the remainder of $10!=5^2\cdot (4! \cdot 6\cdot 7\cdot 8 \cdot 9\cdot 2)\equiv 2\cdot 25\pmod{125}$, 
+	and continue with $11!, 12!, 13!, 14!$ to get 
+	$50, 100, 50, 75\pmod{125}$, hence all impossible. 
+	
+	\textbf{Problem 2.}
+	Let $n\geq 2$ be an integer. Let $A_1$, $A_2$, $\dots$, $A_{2^n}$ be the $2^n$ subsets of an $n$-element set in some order. Prove that
+	\[
+	|A_1\cap A_2|+|A_2\cap A_3|+\dots+|A_{2^n-1}\cap A_{2^n}|+|A_{2^n}\cap A_1|\geq 2^{n-2}.
+	\]
+	
+	\textbf{Solution.}
+	Let $a_i = |A_i^c \cap A_{i+1}^c|$ and $b_i=|A_i\cap A_{i+1}|$ ($A^c$ denotes the component of $A$ relative to he $n$-element set). 
+	Then $|A_i|+|A_{i+1}| = n + b_i - a_i$. 
+	In addition, each element appears in exactly half (i.e. $2^{n-1}$) subsets among $A_1, \cdots, A_{2^n}$. 
+	Therefore 
+	\[
+	\sum_{i=1}^{2^n} (n + b_i - a_i)
+	= \sum_{i=1}^{2^n} |A_i|+|A_{i+1}|
+	= 2\sum_{i=1}^{2^n} |A_i|
+	= n\cdot 2^n
+	\]
+	Therefore $\sum_{i=1}^{2^n}b_i = \sum_{i=1}^{2^n} a_i$. 
+	Note however that $a_i=b_i=0$ if and only if $A_i=A_{i+1}^c$; $A_{i-1}$ and $A_{i+1}$ cannot be both equal to $A_i^c$ simultaneously. 
+	Therefore, $|a_i|+|b_i|+|a_{i+1}|+|b_{i+1}|\ge 1$ for all $i$. 
+	Therefore 
+	\[
+	\sum_{i=1}^{2^{n-1}} |a_{2i-1}|+|b_{2i-1}|+|a_{2i}|+|b_{2i}| \ge 2^{n-1}
+	\]
+	so $\sum_{i=1}^{2^n}b_i = \sum_{i=1}^{2^n}a_i\ge \frac 12\cdot 2^{n-1} = 2^{n-2}$. 
+	
+	\textbf{Remark.} 
+	Equality case can be constructed by first constructing $B_1, \cdots, B_{2^{n-1}}$ as the subsets of $n - 1$ of the elements (w.l.o.g. let that be $\{1, \cdots, n - 1\}$), 
+	and set $A_{2i-1}, A_{2i} = (B_i, B_{i}^c)$ (complement taken w.r.t. $\{1, \cdots, n\}$). 
+	Such $B_i$'s are constructed such that $B_i$ and $B_{i+1}$ differ by exactly one element. 
+	One way is to do so inductively such that if $B_1, \cdots, B_{2^{n-1}}$ are such an arrangements with $B_1 = \emptyset$, 
+	then $B_{2^{n-1}+i} = \{n\}\cup B_{2^{n-1} - i + 1}$. 
+	
+	\textbf{Problem 3.}
+	Let $\mathbb{R}^+$ denote the set of positive real numbers. Determine all the functions $f\colon\mathbb{R}^+\to\mathbb{R}$ such that for all $x,y,z\in\mathbb{R}^+$,
+	\[
+	|x-y|<|y-z|~\text{if and only if}~|f(x)-f(y)|<|f(y)-f(z)|.
+	\]
+	
+	\textbf{Answer.} $f(x)=ax+b$ where $a > 0$. 
+	
+	\textbf{Solution.}
+	The condition already means that if $x<y<z$ then we cannot have $f(y)$ to be $\ge f(x)$ and $\ge f(z)$ simultaneously. 
+	In addition, $f(x) = f(z)$ necessarily means $x = z$ (otherwise just find any $y$ in $(x, z)$). 
+	Also, $y = \frac{x+z}{2}$ we necessarily have $|f(x)-f(y)|=|f(y)-f(z)|$ so $f(y)=\frac{f(x)+f(z)}{2}$ (by injectivity). 
+	Therefore if $f(2)=f(1)+a$, get $f(n+1)=f(1)+na$ for integers $n$ and by induction, $f(\frac{n}{2}+1)=f(1)+\frac{na}{2}$ 
+	(or even $f(\frac{n}{2^k}+1)=f(1)+\frac{na}{2^k}$). 
+	But by monotonicity this would mean $f$ linear. 
+	
+	\textbf{Problem 4.}
+	Let $ABCD$ be a quadrilateral with an incircle $\omega$ of centre $I$. The diagonals $AC$ and $BD$ intersect at $E$. Let $J$ be the incentre of triangle $ABD$. The extension of the ray $EJ$ intersects $\omega$ at $P$. Prove that $PI\perp BD$.
+	
+	\textbf{Solution.} 
+	Let $T, U, V, W$ be the tangency points of $AB, BC, CD, DA$ with $\omega$. 
+	Denote $L$ as inteersection of $TU$ and $WV$, and $M$ as intersection of $TW$ and $UV$. 
+	We use the following properties of quadrilaterals with incircles: 
+	\begin{itemize}
+		\item $E$ is also on diagonals $TV$ and $UW$. 
+		
+		\item $L,M, E$ are self-polar w.r.t. $\omega$ (Brokard's theorem). 
+		
+		\item $L$ is the pole of $BD$ by La Hire's theorem, so $LI\perp BD$
+	\end{itemize}
+	Thus it suffices to show that $P$ lies on $LI$. 
+	Denote, now, the intersection of $LI$ and $\omega$ as $P'$ such that $A$ and $P'$ are on the same side w.r.t. $BD$. 
+	We now claim that $P', J, E$ are collinear.
+	By Menelaus' theorem on triangle $LAI$ and points $P', J, E$ on lines $LI, AI, AL$, this reduces to showing 
+	\[
+	\frac{IP'}{IL}\cdot \frac{EL}{EA}\cdot \frac{AJ}{JI} = -1
+	\]
+	We first note that $E$ is on extension of $LA$ beyond $A$ while $J$ is on segment $AI$ and $E$ and $E$ on segment $AL$, 
+	which then takes care of the sign. 
+	Denote $Q$ as the point diametrically opposite $P'$ w.r.t. $\omega$, the intersection of $LI$ and $BD$ as $R$, 
+	and $F$ as the intersection of tangent at $Q$ to $\omega$ and line $AE$. 
+	We claim that $\frac{AJ}{JI} = \frac{AE}{EF}$. 
+	Indeed, $d:=\frac{AJ}{AI}$ is the ratio of radius of incircle of $ABD$ to $\omega$; 
+	note that $\omega$ is also the incircle of the triangle $\Delta$ determined by lines $AB, AD$ and $FQ$. 
+	Thus $d$ is also the similarity ratio of $ABD$ to $\Delta$, 
+	which proves the claim. 
+	Now we just need to show that $\frac{IP'}{IL}\cdot \frac{EL}{EF}=1$. 
+	We have $\frac{EL}{EF}=\frac{RL}{QR}$. 
+	If the radius of $\omega$ is 1 and the distance $RI=r<1$, 
+	then $IL=\frac{1}{r}$ since $L$ is pole of $BD$. 
+	Thus 
+	\[
+	\frac{RL}{QR} = \frac{\frac 1r - r}{1+r}\qquad \frac{IP'}{P'L}=\frac{1}{\frac 1r-1}
+	\]
+	so $\frac{RL}{QR}\cdot \frac{IP'}{P'L}=1$ as desired. 
+	
+	\textbf{Problem 5.}
+	Let $n$ be a positive integer. There exist $n(n+1)$ rooms arranged in a $(n+1)\times n$ grid. For each two adjacent rooms, there is a door between them. Find the number of ways to choose a subset of doors and lock them such that there are two rooms $S$ and $G$ satisfying the following properties:
+	
+	\begin{itemize}
+		\item $S$ is in the first row and $G$ is in the $(n+1)$-th row.
+		
+		\item One can reach $G$ from $S$ only through unlocked doors.
+	\end{itemize}
+	
+	\textbf{Answer.} $2^{2n^2-2}$. 
+	
+	\textbf{Solution.} The answer given is half of the total configurations of $2^{2n^2-1}$ (there are a total of $2n^2-1$ doors). 
+	We now generate a bijection where each pair has exactly one working configurations. 
+	
+	To start with, observe that the $n - $ doors of each of first and and last row don't matter, as we only need to go from any one room in first row to any one room on the last row. 
+	Other than that, we have: 
+	\begin{enumerate}
+		\item $n^2$ horizontal doors laid out in $n\times n$ manner connecting room $(i, j)$ to room $(i + 1, j)$ where $i=1, \cdots, n$ and $j = 1, \cdots, n$; denote this door as $H_{i, j}$ (we denote 1 as open and 0 as closed / locked). 
+		
+		\item $(n-1)^2$ vertical doors laid out in $(n-1)\times (n-1)$ manner connecting room $(i, j)$ to room $(i, j + 1)$ where $i=2, \cdots, n$ and $j=1, \cdots, n - 1$; denote this door as $V_{i, j}$. 
+	\end{enumerate}
+    
+    Now for each configuration $S$, define its bijection partner $S'$ by doing `transpose then negate' for each type of doors: 
+    that is, $H_{i, j}$ of $S$ and $H_{j, i}$ of $S'$ are different (and similar to $V_{i, j}$ of $S$ and $V_{j, i}$ of $S'$). 
+    We now show that exactly one of them works. In what follows next, when considering a sequence of $\{H_{i, j}, V_{i', j'}\}$ in $S$, the corresponding set in $S'$ are $\{H_{j, i}, V_{j', i'}\}$. 
+    
+    Suppose that $S$ gives a valid path, i.e. there exists a sequence of open doors that brings one from row 1 to $n + 1$. 
+    We now exploit the following crucial fact about the sequence of open doors: consider any two doors that corresponds to three adjacent rooms in a path; such two doors must either be perpendicular and adjacent, 
+    or parallel and sequential. 
+    In both cases, they are mapped to adjacent doors under the transpose mapping. 
+    Consequently, under the transpose and negation mapping, the corresponding closed doors in $S'$ forms a continuous path between the wall to the left of column 1 and to wall to the right of column $n$. 
+    We now consider the following axiom: 
+    given a quadrilateral $ABCD$, any continuous path from a point on $AB$ to a point on  $CD$ must intersect a continuous path from a point on  $AD$ to a point on $BC$. 
+    Thus any path from row 1 to $n+1$ in $S'$ must intersect the stated sequence of closed doors (and therefore cannot be valid). 
+    
+    Conversely, suppose that $S$ does not give a valid path. Then partition the grids to disjoint connected components based on reachability: row 1 and row $n+1$ are in different components. 
+    Now take the component where row 1 belongs to and consider the boundary that is not the wall before row 1, 
+    the wall before column 1, and the wall after column $n$. 
+    This boundary denotes a sequence of closed doors. 
+    By the similar logic, one can show that under transpose, two adjacent doors show up as either adjacent (if perpendicular) or sequential (if parallel). 
+    Therefore, on $S'$, 
+    the corresponding open doors give rise to a valid path from row 1 to $n + 1$. 
+    
+	
+\end{document}
