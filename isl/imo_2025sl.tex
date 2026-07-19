@@ -1,0 +1,626 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, fullpage, amsthm}
+\usepackage{mathrsfs, float}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+
+\begin{document}
+		\newcommand{\la}{\leftarrow}
+	\newcommand{\lra}{\leftrightarrow}
+	\newcommand{\bbN}{{\mathbb N}}
+	\newcommand{\bbZ}{{\mathbb Z}}
+	\newcommand{\bbQ}{{\mathbb Q}}
+	\newcommand{\bbR}{{\mathbb R}}
+	\newcommand{\bbC}{{\mathbb C}}
+	\newcommand{\bbH}{{\mathbb H}}
+	\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+	\newcommand{\ra}{\rightarrow}
+	\newcommand{\Span}{\mathrm{span}}
+	\newcommand{\scrP}{\mathscr{P}}
+	\newcommand{\rank}{\mathrm{rank}}
+	\newcommand{\nullity}{\mathrm{nullity}}
+	\newcommand{\Col}{\mathrm{Col}}
+	\newcommand{\Row}{\mathrm{Row}}
+	\newcommand{\tr}{\mathrm{tr}}
+	\newcommand{\ol}{\overline}
+	\newcommand{\norm}[1]{||#1||}
+	\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+	\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+	\newcommand{\Ind}{\mathrm{Ind}}
+	\newcommand{\Res}{\mathrm{Res}}
+	\newcommand{\End}{\mathrm{End}}
+	\newcommand{\cl}{\mathrm{cl}}
+	\newcommand{\code}[1]{\texttt{#1}}
+	\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+	\newcommand{\<}{\langle}
+	\renewcommand{\>}{\rangle}
+	\newcommand{\qubits}[1]{|{#1}\rangle}
+	\newcommand{\powset}{\mathcal{P}}
+	\newcommand{\dsum}{\displaystyle\sum}
+	\newcommand{\dprod}{\displaystyle\prod}
+	
+	\newtheorem{lemma}{Lemma}
+	
+	\title{Solution (sketch) to IMO 2025 Shortlist}
+	\date{}
+	\author{Anzo Teh}
+	\maketitle
+	
+	\section*{Algebra}
+	\begin{enumerate}
+		\item [A1.] 
+		Quadratic solitaire is a single-player game. To start the game, the player chooses two distinct nonzero integers $a$ and $b$ and writes the equation $x^2+ax+b=0$ on a blackboard. On each turn, if the equation currently written on the blackboard has two distinct nonzero integer solutions $x=u$ and $x=v$, then the player erases the equation and replaces it by one of the equations $x^2+ux+v=0$ and $x^2+vx+u=0$ of their choosing. Otherwise, the game ends. Determine all initial choices of $a$ and $b$ such that quadratic solitaire can be played forever.
+		
+		\textbf{Answer.}$(1, -2)$ where $x^2+x-2=(x-1)(x+2)$ gives the same polynomial. 
+		
+		\textbf{Solution.}
+		Now note that $uv = b$ so $|b|\ge \max\{|u|, |v|\}$ (as each $|u|, |v|\ge 1$)
+		so $|b|$ is nonincreasing, hence needs to stabilize. 
+		Note that $|v|=|b|$ means $|u|=1$, hence eventually we end up with $x^2\pm x + v$ with one of $\{1, -1\}$ as root. 
+		Since $v\neq 0$, $x^2\pm x\in\{-2, 0, 2\}$ when $x=\pm 1$, 
+		so $|v|=2$. $x^2\pm x+2$ has no real root as discriminant is $-7$, hence $v=-2$. 
+		Now $x^2-x-2=(x+1)(x-2)$ has root $\{-1, 2\}$, 
+		but arrangement into $x^2-x+2$ has no real root. 
+		Thus the only `terminal' polynomial is $x^2+x-2$. 
+		
+		\item [A2.]
+		The sunshine cost of a sequence $a_1$, $a_2$, $\ldots$, $a_{100}$ of integers is the largest possible value of
+		\[|(a_1+a_2+\cdots+a_i)-a_j|\]as $i$ and $j$ vary over all integers $1$, $2$, $\ldots$ , $100$.
+		
+		
+		Determine the smallest possible sunshine cost over all sequences $a_1$, $a_2$, $\ldots$, $a_{100}$ of pairwise distinct integers.
+		
+		\textbf{Answer.} 75, or $\lceil \frac{3(n-1)}{4}\rceil$ by replacing 100 with general $n$ that's multiple of 4. 
+		
+		\textbf{Solution.}
+		\textit{Lower bound}: we can't choose $a_1$ as the maximizer of $|a_i|$; otherwise either $a_1$ is the max or min and $|a_1-a_i|\ge n - 1$ for some $i$. 
+		
+		Let $\max a_j-a_i=M$ satisfied by $(j_0, i_0)$ and $\max |a_i|=C$; w.l.o.g. let $a_k = C$, $k\ge 2$. 
+		clearly can't have $|a_1|=C$. 
+		Let the sum $(a_1+\cdots + a_i)-a_j=C_{i, j}$. 
+		Now 
+		\[
+		C_{k, i} - C_{k - 1, j} = a_k + a_j - a_i = C + M
+		\]
+		so the answer is at least $\frac{C+M}{2}$. 
+		Moreover $M\ge n - 1, C\ge \lceil \frac{n - 1}{2}\rceil$, giving the LB. 
+		
+		Upper bound: we'll only show the case $n=4k$ as requested in the problem, and the desired bound is $3k$. We'll make sure all $|a_i|\le 2k$; all $|a_1+\cdots + a_i|\le k$. We arrange as 
+		\[
+		-k, 2k, -2k, 0, 1, 2k-1, -1, -(2k-1), \cdots, k-1, k+1, -(k-1), -(k+1)
+		\]
+		
+		\item [A3.] (IMO 5)
+		Alice and Bazza are playing the inekoalaty game, a two‑player game whose rules depend on a positive real number $\lambda$ which is known to both players. On the $n$th turn of the game (starting with $n=1$) the following happens:
+		If $n$ is odd, Alice chooses a nonnegative real number $x_n$ such that
+		\[
+		x_1 + x_2 + \cdots + x_n \le \lambda n.
+		\]
+		If $n$ is even, Bazza chooses a nonnegative real number $x_n$ such that
+		\[
+		x_1^2 + x_2^2 + \cdots + x_n^2 \le n.
+		\]
+		If a player cannot choose a suitable $x_n$, the game ends and the other player wins. If the game goes on forever, neither player wins. All chosen numbers are known to both players.
+		
+		Determine all values of $\lambda$ for which Alice has a winning strategy and all those for which Bazza has a winning strategy.
+		
+		\textbf{Answer.} $A$ wins when $\lambda > \frac{\sqrt{2}}{2}$; 
+		$B$ wins when $\lambda < \frac{\sqrt{2}}{2}$. 
+		
+		\textbf{Solution.}
+		Let $C = \frac{\sqrt{2}}{2}$. 
+		
+		$\lambda > C$: 
+		Coral outputs 0 at all times; 
+		Joey's outputs will make sure $\sum x_{n}\le Cn$. 
+		Wait till $n$ big enough (and even) then pick $x_{n+1}=(\lambda - C)n$ (then $\sum x_{n}^2 \ge (\lambda - C)n^2 > n$), Joey loses. 
+		
+		$\lambda < C$: 
+		Joey always tries to `max out', 
+		i.e. $x_{2k+1}^2+x_{2k+2}^2 = 2$. 
+		Note that $x_{2k+1}+x_{2k+2}\ge \sqrt{2}$ so Coral loses at one point. 
+		
+		$\lambda = C$: 
+		Coral sustains by outputting 0; 
+		Joey sustains by making sure $x_{2k+1}^2+x_{2k+2}^2 = 2$. 
+		
+		\item [A4.]
+		Let $\mathbb{Z}_{\ge0}$ be the set of all nonnegative integers. Let $f:\mathbb{Z}_{\ge0}\rightarrow\mathbb{Z}_{\ge0}$ be an unbounded function such that, if $m$ and $n$ are nonnegative integers satisfying
+		\[ f(m+n)=\max\{f(0),f(1),\dots,f(m+n)\}, \]then
+		\[ f(m+n)=f(m)+f(n). \]Prove that there exist positive integers $A, B, C$ and $D$ such that for all nonnegative integers $n$,
+		\[ f(An+B)=Cn+D. \]
+		
+		\textbf{Solution.} 
+		Denote peak as $k\ge 1$ satisfying $f(k)\ge f(\ell)$ for all $\ell\le k$. Let $C = \min \{f(m): m\ge 1\}$. There are infinitely many peaks since $f$ is unbouned. We show the following: 
+		
+		\textit{$C > 0$.} Indeed, if $f(m) = 0$ for $m\ge 1$ then for any peak $n\ge m$ we have $f(n)=f(n-m)$ and so $f$ is bounded. 
+		
+		\textit{Exactly one $m$ has $f(m)=c$.} Let $m_1 < m_2$ be such that $f(m_1)=f(m_2)=C$. 
+		For any peak $n > m_2$, we have $f(n)=f(n-m_1)+C=f(n-m_2)+C$ and note that both $f(n-m_1), f(n-m_2)$ are $\max \{f(0), \cdots, f(n-1)\}$. 
+		Since $m_1<m_2$ we have $f(n-m_1)=f(n-m_2)+f(m_1-m_2)$ and $f(m_1-m_2)=0 < C$, which is contradiction.
+		
+		\textit{If $n$ is a peak, $f(A)=C$, and $n>A$,  then $n - A$ is a peak.}
+		For any $m < n$ we have $f(n-A)=f(n)-f(A)\ge f(n)-f(m)=f(n-m)$ so $f(n - A) = \max \{f(0), \cdots,  f(n - 1)\}$. 
+		
+		The last point says the number of peaks among $\{kA+1, \cdots, (k+1)A\}$ is at most that of $\{(k-1)A+1, \cdots, kA\}$; choose such $k$ such that this number stabilizes and let $B\in \{kA+1, \cdots, (k+1)A\}$ be a peak. 
+		Then $B, A+B, 2A+B, \cdots$ are all peaks. Therefore $f(nA+B)=nf(A)+f(B)=Cn+D$, as claimed. 
+		
+		\item [A6.]
+		Let $S$ be a set of positive integers, possibly infinite, such that no positive integer greater than $1$ divides all elements of $S$. Determine all non-periodic infinite sequences $a_1,a_2,a_3,\dots$ of positive integers such that, for all positive integers $n$,
+		\begin{itemize}
+			\item $a_n\leqslant |a_{n+\ell}-\ell|$ for all $\ell$ in $S$, and
+			\item $a_n=|a_{n+\ell}-\ell|$ for at least one $\ell$ in $S$.
+		\end{itemize}
+		
+		\textbf{Answer.} $a_n = n + c$ for $c\ge 0$, 
+		which obviously fulfills. 
+		
+		\textbf{Solution.} We rewrite the condition in the following form: \[
+		a_n = \min \{|a_{n+\ell} - \ell|: \ell\in S\} \cdots (*)
+		\]
+		
+		\begin{lemma}
+			 All bounded sequences in (*) are periodic. 
+		\end{lemma}
+	
+	    \begin{proof}
+	    	Let $M$ be $\max \{a_n\}$, then $M < |a_{n+\ell} - \ell|$ whenever $\ell > 2M$. 
+	    	Denote $s_{n, k} = (a_{n+1}, \cdots, a_{n+k})$; 
+	    	$a_n$ is a function of $s_{n, 2M}$. 
+	    	Let $h_n$ be the minimum positive integer such that $s_{n, 2M} = s_{n - h_n, 2M}$ (or $\infty$ if this number doesn't exist), 
+	    	then $s_{n, 2M} = s_{n - h_n, 2M} \to a_n = a{n - 2M} \to s_{n - 1, 2M} = s_{n - h_n - 1, 2M}$ so 
+	    	$h_{n-1}\le h_n$ and given that there are at most $M^{2M}$ distinct possibilities of $s_n$, $h_n\le M^{2M}$ for infinitely many $n$'s, 
+	    	and therefore $h_n\le M^{2M}$ for all $n$. 
+	    	Choose $h = \max \{h_n\}$, we have $a_n$ periodic with period $h$. 
+	    \end{proof}
+		
+		Now among unbounded sequences, it suffices to show that $a_n = n + c$ for $n$ sufficiently large by (*). 
+		Denote $b_n = a_n - n$ and $m = \lim_{n\to\infty}\inf\{b_n\}$. 
+		; the second bullet point $a_n = |a_{n+\ell} - \ell|$ means either $b_{n+\ell} = b_n$ or $b_{n+\ell} = -a_n - n < b_n$; 
+		so either way $b_{n+\ell} \le b_n$ and iteratively, we get $m\le b_n$ for all $n$. 
+		On the other hand, choose a finite set $S_1$ such that $\gcd S_1=1$, 
+		$n_0$ such that $a_{n_0} > \max S_1$. Then $a_{n_0+\ell}\ge a_{n_0}+\ell$ for all $\ell\in S_1$ (i.e. $b_{n_0+\ell}\ge b_{n_0})$. 
+		Let $p_0$ be such that for all integers $p\ge p_0$, $p$ can be written as nonnegative integer combinations of $S_1$ (which is valid as $\gcd S_1=1$, 
+		can similarly deduce $b_{n_0+p}\ge b_{n_0}$ for all $p\ge p_0$, 
+		and since $a_{n_0+p} > \max S_1$, 
+		this also gives $b_{n_1+p}\ge b_{n_1}$ for all $n_1 > n_0+p$ 
+		(i.e. $m\ge b_{n}$ for all such $n$'s). 
+		Thus combining the arguments we have $m = b_n$ for all $n > n_1$, i.e. $a_n = n + m$ for all $n > n_1$, and so the argument follows.
+		
+		\item [A7.]
+		Let $k\geqslant 3$ be a positive integer. Prove that there exists a unique $k$-tuplet$(x_1,x_2,\dots,x_k)$ of positive real numbers such that $x_1\geqslant x_2\geqslant\cdots \geqslant x_k$, and$$\left\lfloor nx_1+\frac{1}{2}\right\rfloor+\left\lfloor nx_2+\frac{1}{2}\right\rfloor+\cdots+\left\lfloor nx_k+\frac{1}{2}\right\rfloor=n$$for every integer $n$.
+		
+	    \textbf{Answer}. $x_m = \frac{2^{k - m}}{2^k - 1}$. 
+		
+		\textbf{Solution.} 
+		Call all $k$-tuples working if it satisfies the problem condition. We start with the following set up: 
+		
+		\begin{itemize}
+			\item Picking $n$ large and using $x - 1 <\lfloor x\rfloor \le x$, we have $\sum x_i = 1$; 
+			
+			\item $\lfloor y + \frac 12 \rfloor + \lfloor -y + \frac 12 \rfloor$ is 1 if $y + \frac 12$ is integer and 0 otherwise. 
+			Considering $n$ and $-n$ simultaneously for each $n > 0$, $nx_m$ cannot be half-integer. 
+			
+			\item Let $S_x$ be integers $n$ where $\lfloor nx + \frac 12\rfloor - \lfloor (n-1)x + \frac 12\rfloor = 1$; 
+			$S_{x_1}, \cdots, S_{x_k}$ are pairwise disjoint but union is $\mathbb{N}$. 
+			
+			\item Any $x_1, x_2\ge 0$ with sum 1 and $nx_1$ not a half-integer is a working pair. 
+			
+			\item Denote $T_{x}=\min S_x\cap \mathbb{N}$; then $T_{x_1}=1$. 
+			In addition, given that $x_1$ is such that $nx_1$ is not a half-integer, 
+			$S_{1 - x_1} = \bigcup_{m=2}^k S_{x_m}$
+			and in particular, $T_{x_2} = T_{1-x_1}\ge 2$. 
+			
+			\item Denote $G_x$ the set of possible gaps between consecutive elements in $S_x$. 
+			We have $G_x = \mathbb{N}\cap [\lfloor \frac 1x\rfloor, \lceil \frac 1x\rceil]$. 
+			In addition, when $x < \frac 12$, 
+			we have $\frac{1}{2(t-1)} \le x \le \frac{1}{2t}$ where $t=T_x$, so $G_x\in \{2t-2, 2t-1, 2t\}$
+		\end{itemize}
+	    
+	    We now consider the following steps. 
+	    
+	    \begin{lemma}
+	    	$T_{x_2}=T_{1-x_1}=2$, $G_{x_2}= \{3, 4\}$ and $G_{x_1}=\{2, 3\}$. 
+	    \end{lemma}
+        
+        \begin{proof}
+        	Denote $T = T_{x_2}$ for simplicity. 
+        	By inspecting any $t\in S_{x_3} > T_{x_2}$, and $t_0, t_1$ be consecutive elements in $S_{x_2}$ such that $t_0 < t < t_1$, we have $2T\ge \max G_{x_2}\ge t_1 - t_0 \ge 2\min G_{1-x_1}\ge 2(2T-2)$, so $T\ge 2T-2$ and $T=2$. 
+        	In addition, these inequalities must all hold so $\max G_{x_2}=4, \min G_{1-x_1}=2$. 
+        	Finally, both of them must include 3, otherwise either $x_2=\frac 14$ or $1-x_1=\frac 12$. 
+        	These cases mean $2x_2$ and $x_1$ are half-integer, which is a contradiction.
+        \end{proof}
+        
+        Next, we note that each $S_x$ partitions the real number line into intervals. We now consider the `blocks' of intervals as follows: 
+        $m$ blocks are defined by $m+1$ points including both endpoints. 
+        
+        \begin{lemma}
+        	All consecutive blocks of interval length 2 in $S_{1-x_1}$ must contain even and equal number of intervals. 
+        \end{lemma}
+        
+        \begin{proof}
+        	If $t\in S_{1-x_1}$ is an endpoint to an interval of length 3, and $t\not\in S_{x_2}$, then $S_{x_2}$ will have a gap of a least $2+3\ge 5$ which contradicts $G_{x_2}=\{3, 4\}$. 
+        	Conversely, for each of the intervals of size 2 in $S_{1-x_1}$, one of them cannot belong to $x_2$. 
+        	This leaves each consecutive blocks to have even number of 2's, with the alternating ones (including both endpoints) belong to $S_{x_2}$ and the other alternating ones $\cup_{i=3}^k S_{x_i}$. 
+        	
+        	Now, if $a\ge 2$ is the number of consecutive intervals of size 2 in $S_x$, i.e. for some $t$, 
+        	$t, t+2, \cdots, t+2a\in S_{x}$, but $t-a, t+2a+2\not\in S_x$. 
+        	Then 
+        	\[
+        	\lfloor (t+2a)x+\frac 12)\rfloor - \lfloor (t-1)x+\frac 12)\rfloor\ge a + 1
+        	\qquad 
+        	\lfloor (t+2a+2)x+\frac 12)\rfloor - \lfloor (t-3)x+\frac 12)\rfloor\ge a + 1
+        	\]
+        	The first implies $(2a+1)x > a$ and $x > \frac{a}{2a+1}$; 
+        	the second implies $(2a+5)x < a+2$ so $x < \frac{a+2}{2a+5}$. 
+        	Thus there cannot be intervals of $a$ blocks and $b$ blocks simultaneously if $b \ge a + 2$, proving the claim. 
+        \end{proof}
+		
+		Consequently, if $2a$ is the consecutive block size (of interval 2) then we in fact have $1 - x_1 = \frac{2a + 1}{4a + 3}$, with 
+		\[
+		S_{1-x_1} = \{m(4a + 3) + 2p, p = 1, 2, \cdots, (2a+1)\}
+		\qquad 
+		S_{x_2} = \{m(4a + 3) + 4p+2, p = 0, 1, \cdots, a\}
+		\]
+		For convenience, denote $M = 4a + 3$. 
+		Our goal is to show that $M = 2^m-1$. 
+		We now iteratively establish the following about $S_{x_m}$ for $m=3, \cdots, k$. 
+		
+		\begin{lemma}
+			For all $m$ with $m\le k$, $U_{m} := \cup_{m'=m}^k S_{x_{m'}} = \{Mu + 2^{m-1}c, c = 1, 2, \cdots, \lfloor \frac{M}{2^{m-1}}\rfloor\}$, 
+			and in addition $U_m\cap \{1, 2, \cdots, M\}$ has odd number of elements (so $2^m \mid M + 1$). 
+		\end{lemma}
+	    
+	    \begin{proof}
+	    	We proceed by induction on $m$. 
+	    	For $m = 3$ the previous discussion already gave us $U_3 = \{4, 8, \cdots, M - 3\}\pmod{M}$, 
+	    	and $4 \mid M + 1$. 
+	    	Our discussion will first assume this form of $U_m$ and that $2^{m-1}\mid M + 1$, show that $U_m$ has odd number of elements, $2^m\mid M + 1$, 
+	    	and if $m < k$ the next set $U_{m+1}$ will fulfill the first condition. 
+	    	
+	    	Now assume $U_m \cap \{1, 2, \cdots, M\} = \{2^{m-1}c, c = 1, 2, \cdots, \lfloor \frac{M}{2^{m-1}}\rfloor\}$, 
+	    	in particular $T_{x_m} = 2^{m-1}$. 
+	    	Since $G_{x_m}\in \{2^m - 2, 2^m - 1, 2^m\}$, this would give 
+	    	$S_{x_m} \cap \{1, 2, \cdots, M\} = \{2^{m-1} + 2^{m}c, c = 0, 2, \cdots, \lfloor \frac{M - 2^{m-1}}{2^{m}}\rfloor\}$. 
+	    	But the next element of $U_m$ after $M$ is $M + 2^{m-1}$, showing that 
+	    	\[
+	    	M + 2^{m-1} - 2^m \lfloor \frac{M - 2^{m-1}}{2^{m}}\rfloor\le \max G_{x_m}\le 2^m
+	    	\]
+	    	So the remainder of $M - 2^{m-1}$ when divided by $2^m$ must be less than $2^{m-1}$, 
+	    	which, combined with previous evidence, gives $M\equiv 2^m-1\pmod{2^m}$. 
+	    	This establishes that $U_m\cap \{1, 2, \cdots, M\}$ has odd number of elements (so $2^m \mid M + 1$) 
+	    	and using $G_{x_m}\in \{2^m - 2, 2^m - 1, 2^m\}$, we iteratively have 
+	    	$U_{m+1} = \{Mu + 2^{m}c, c = 1, 2, \cdots, \lfloor \frac{M}{2^{m}}\rfloor\}$ whenever $m < k$. 
+	    \end{proof}
+        Now to finish, we note that when $M = k$ we have $U_k = S_k$ so by the previous lemma, $U_k\cap \{1, 2, \cdots, M\}$ must have one element. 
+        Since $2^k\mid M+1$ this is only possible when $2^k = M + 1$. 
+        With this, all the $S_{x_i}$'s are uniquely determined and we may show that they map exactly to the number $x_m = \frac{2^{k-m}}{2^k-1}$. 
+		
+	\end{enumerate}
+    
+    \section*{Combinatorics}
+    \begin{enumerate}
+    	\item [C1.]
+    	A line in the plane is called $sunny$ if it is not parallel to any of the $x$–axis, the $y$–axis, or the line $x+y=0$.
+    	
+    	Let $n\ge3$ be a given integer. Determine all nonnegative integers $k$ such that there exist $n$ distinct lines in the plane satisfying both of the following:
+    	\begin{itemize}
+    		\item for all positive integers $a$ and $b$ with $a+b\le n+1$, the point $(a,b)$ lies on at least one of the lines; and
+    		\item exactly $k$ of the $n$ lines are sunny.
+    	\end{itemize}
+    	
+    	\textbf{Answer.} $k=0, 1, 3$. 
+    	
+    	\textbf{Solution.} Let $T_n$ be the set of allowed $k$'s. The main claim is the following. 
+    	
+    	\textit{$T_n$ is independent of $n$ for all $n\ge 3$. }
+    	To see why, we easily have $T_n\subseteq T_{n+1}$: just add a line (non-sunny) on the line $x+y=n$. 
+    	To show $T_{n+1}\subseteq T_n$: consider the outermost triangle: union of points $x+y=n, x=0$ and $y=0$. 
+    	We claim that one of the lines must coincide with one the three sides, which reduces to the case of $n$ lines. 
+    	Suppose otherwise, then: 
+    	\begin{itemize}
+    		\item Each line not under this category has at most two intersects with the three sides in total (e.g. Menelaus') theorem.
+    		covers at most 2 lines in the outer triangle. Jointly, this gives at most $2(n+1)$ intersections. 
+    		
+    		\item On the other hand, there are exactly $3n$ points on the outer triangle, and $3n > 2(n+1)$. 
+    	\end{itemize}
+    	
+    	Thus it suffices to consider $n = 3$. We do three cases here. 
+    	
+    	\textit{$k=0$ or 1 construction.} $x=0, x=1$, and any line through $(2, 0)$, which we could choose to be sunny or not.
+    	
+    	\textit{$k=3$ construction.} $\{(0, 2), (1, 0)\}, \{(2, 0), (0, 1)\}, \{(0, 0), (1, 1)\}$. 
+    	
+    	\textit{Why $k=2$ fails.} We split by cases: if one of the three lines are $x=0, y=0$ or $x+y=2$ then one of other two lines (covering the smaller triangle) must be non-sunny (to cover 2 of out the 3 points). 
+    	Otherwise, no line can cover more than 2 points (hence each line covers exactly two points). 
+    	Can verify that the three lines of the $k=3$ case are the only sunny lines through exactly two points, 
+    	hence choosing 2 of them means we also need the third. 
+    	
+    	
+    	\item [C2.]
+    	There is a row of $n$ paddocks, labelled from left to right with the integers $1$ to $n$, where $n\geq 3$. Skippy the Kangaroo grazes in the paddock according to the following rule:
+    	
+    	If Skippy is grazing in paddock $k$, then she makes a sequence of $k$ hops from a paddock to an adjacent paddock. The first of the $k$ hops is always to the right, unless Skippy is in paddock $n$, in which case it is to the left. Each of the following $k-1$ hops is in the same direction as the previous hop, unless Skippy is in paddock $1$ or $n$. Skippy grazes in the paddock that she is in after the $k^{\text{th}}$ hop.
+    	
+    	For example, if $n=8$ and Skippy is grazing in paddock $3$, the next $4$ paddocks she will graze in are $6$, $4$, $8$, $2$, in this order. Skippy continues grazing in this way indefinitely. A paddock is overgrazed if Skippy eventually grazes in it, regardless of which paddock she starts in. Determine all $n\geq 3$ for which there exists exactly one overgrazed paddock.
+    	
+    	\textbf{Answer.} $n=3\cdot 2^k$. 
+    	
+    	\textbf{Solution.} Denote $f(k)$ as the next grazing grid of Skippy when she is grazing on $k$. If $k$ is overgrazed, so is $f(k), f(f(k)), \cdots$. Therefore if $k$ is unique overgrazer, $k=f(k)$. 
+    	We now note the following rule:
+    	\[
+    	f(k) = 
+    	\begin{cases}
+    		2k & k \le \frac{n}{2}\\
+    		2(n-k) & \frac{n}{2} < k \le n - 1\\
+    		2 & k = 2\\
+    	\end{cases}
+    	\]
+    	We start with these observations: 
+    	\begin{itemize}
+    		\item If $k = f(k)$, then $k = \frac{2n}{3}$, or $3\mid n$. 
+    		
+    		\item If $k\neq n$, and $\nu_2(k)\le \nu_2(n)$, then $\nu_2(f(k)) > \nu_2(k)$. 
+    		
+    		\item If $k\neq n$, $p > 1$ odd, $p\mid n$, then $p\mid k$ if and only if $p\mid f(k)$. 
+    	\end{itemize}
+        In particular, the first bullet point allows us to disregard powers of 2. 
+        The next we will eliminate is where $n$ is divisible by $pq$ where $p, q > 1$ are odd. 
+        The last bullet point suggests that Skippy will only cycle among grids not divisible by $p$ when she starts at 1. 
+        However, if she starts at $p$, the subsequent grids she stays at cannot be divisible by $pq$, 
+        and therefore cannot land at $n$ at all. 
+        On the other hand, this also means all the grids it stays are divisible by $p$. 
+        Thus the two paths has two terminal cycles that are disjoint, showing that there is no overgrazed pollock for tis $n$. 
+        
+        We are left with the case $n=p\cdot 2^k$, where $p$ is prime. 
+        Given the requirement $3\mid n$, we have $n = 3\cdot 2^k$ for $k\ge 0$. 
+        We now claim $2^{k+1}$ is the only overgrazed pollock: 
+        in fact, all paths would terminate here.
+        When $m=2^{k+1}, f(m)=m$. 
+        When $m=n$, $f(m)=2$ and eventually leads to $2^{k+1}$. 
+        In all other cases $\nu_2(f(m))\ge \nu_2(m) + 1$, so $\nu_2$ increases as Skippy goes 
+        (possibly hitting $m=n$ but then goes back to the cycle to $2^{k+1}$. )
+    	
+    	\item [C3.]
+    	There are $2025$ white balls and $2025$ black balls arranged in a row. A balanced segment is a contiguous nonempty segment of balls that contains the same number of white balls as black balls. A balanced removal is the operation of selecting a balanced segment $S$, removing all the balls in $S$, and shifting left the balls that were to the right of $S$ so that the remaining balls form a contiguous row.
+    	
+    	Determine the smallest positive integer $N$ satisfying the following property: for every configuration of balls and for every integer $k$ satisfying $0\le k\le2025$, there exists a sequence of at most $N$ balanced removals after which there are exactly $2k$ remaining balls.
+    	
+    	\textbf{Answer.} $N = 2$. 
+    	
+    	\textbf{Solution.} We generalize to $n$ white and $n$ black balls, $n\ge 4$. 
+    	To see why $N = 1$ fails, 
+    	consider any configuration when first 2 and last 2 balls are all white; then $k = 1$ fails here. 
+    	
+    	To see why $N = 2$ always works, we consider the notion of `prefix' as the subset of first $m$ balls for any $m$; call this prefix strict if $m < 2k$; denote suffix similarly (as consecutive $m$ balls). 
+    	We start with the following observation:
+    	
+    	\textit{N = 1 works when any strict prefix has more white than black balls (or vice versa).} W.l.o.g. we only consider the first case, and the task of removing $2(n-k)$ consecutive balls. 
+    	Let $m_g$ be the difference between white and black balls among balls $g+1, \cdots, g+ 2(n-k)$ for $g=1, 2, \cdots, 2k$. 
+    	Then $m_{2k} < 0 < m_0$, $m_i$'s are all even, and morever $|m_g-m_{g+1}|\in \{0, 2\}$. 
+    	Hence the conclusion follows by discrete continuous value theorem. 
+    	
+    	To finish, consider the smallest prefix $P$ of at least $2k$ balls and is balanced; the first move would be remove the suffix of the whole sequence, with $P$ left. 
+    	Let $Q$ be the smallest suffix of $P$ that is balanced, and let $m=|P|-2k > |Q|$ be the number of balls we need to remove. By minimality, the condition of our previous claim applies, 
+    	hence we may remove $m$ balls from this suffix $Q$ in one step. 
+    	
+    	\item [C4.]
+    	Bluey is placing lollies on a $1000\times1000$ grid. Initially, every cell of the grid is empty. At each step, Bluey chooses a row or column in which the total number of lollies is a multiple of $3$, chooses an empty cell in this row or column, and places a lolly in it. If there is no such row or column, Bluey stops.
+    	
+    	Determine the maximum number of lollies that Bluey can place.
+    	
+    	\textbf{Answer.} 3995 (or $4n-5$ for all $n\ge 5$). 
+    	
+    	\textbf{Solution.}
+    	\textit{Bound:} let the `score' of each row and column be 0, 1, 2 when the number of lollies is congruent to 0, 2, 1, respectively. 
+    	Denote total score as total row score and total column score across all $n$ rows and columns 
+    	(i.e. range 0 to $4n$). Consider each of the lolly operation (modulo 3) : 
+    	\[
+    	(0, 0)\to (1, 1), (0, 1) \to (1, 2), (0, 2) \to (1, 0)
+    	\]
+    	Call this type 0, 1, 2. 
+    	Corresponding score update is $+4, +1, +1$, respectively, 
+    	and the first update must be type 0 (hence +4 points). 
+    	Now the last update: 
+    	\begin{itemize}
+    		\item If it's type 0, max total number of steps is $4n-8+2=4n-6$; 
+    		
+    		\item If type 1 or 2, then there is row (and column) where the score is $\le 2$. 
+    		The total row score and total column score must align modulo 3 (hence $\le 2n-1$ each); total score $\le 4n-2$ so including the first 4-point update total number of steps is $\le 4n-5$. 
+    	\end{itemize}
+    	
+    	\textit{Construction:} first do 
+    	\[
+    	(1, 1), (i, i+1), (i+1, i), i=1, 2, \cdots, n-2
+    	\]
+    	Now consider permutation $\pi$ such that $\pi(1)=n$, $\pi(n)=n-1$
+    	and $|\pi(i)-\pi(i+1)|\neq 1$ for all $i\ge 1$. 
+    	E.g. for $n$ even we may do 
+    	\[
+    	1, 3, \cdots, n - 3, n, n - 2, \cdots, 2, n - 1
+    	\]
+    	for $n$ odd: 
+    	\[
+    	1, 3, \cdots, n, 2, 4, \cdots, n-1
+    	\]
+    	Then row/column $\pi(1)$ has 0 lolly, $\pi(n)$ has 1, and $\pi(i)$ has 2 for $i=2, \cdots, n-1$. 
+    	Then do 
+    	\[
+    	(\pi(i), \pi(i+1)), (\pi(i+1), \pi(i)), i=1, 2, \cdots, n-1
+    	\]
+    	which gives total of $4n-5$ operations. 
+    	
+    	\item [C5.]
+    	Let $a_1,a_2,\dots,a_n$ be a permutation of $1,2,\dots,n$. A pair $(i,j)$ with $i<j$ is called an inversion if $a_i>a_j$. An inversion is called odd if $i-j$ is odd.
+    	
+    	\begin{enumerate}
+    		\item[(a)] Prove that the total number of inversions is at most $5$ times the number of odd inversions.
+    		
+    		\item [(b)]There is a permutation such that the total number of inversions is more than $4.99$ times the number of odd inversions.
+    	\end{enumerate}
+        
+        \textbf{Solution.} 
+        
+        (a)
+        Define `even inversion' similarly. 
+        Note that for any inversion $(i, j)$ with $i < j$, 
+        any $k$ with $i < k < j$, one (or both) of $(i, k)$ and $(k, j)$ must also be an inversion. 
+        
+        We construct a bipartite graph with one side even inversion, 
+        and the other side odd inversion, in the following manner:
+        for every even inversion $(i, j)$ with $j - i = 2d > 0$, 
+        if $d$ is odd, 
+        we connect an edge of weight 1 to either $(i, i + d)$ or $(i + d, j)$, whichever is an inversion; 
+        if $d$ is even, 
+        we consider one of $(i, i + d - 1), (i + d - 1, j)$ that is an inversion,
+        and also one of $(i, i + d + 1), (i + d + 1, j)$ that is an inversion, 
+        and connect $(i, j)$ to each of the chosen inversions with weight $\frac 12$. 
+        Now note that each even inversion is incident edges of total weight 1, thus the total weight of edges is $A - B$. 
+        Meanwhile for each odd inversion $(i, j)$ with $j = i + d$, the possible neighbours are: 
+        \[
+        (i, j + d), (i - d, j), (i, j + d + 1), (i - d - 1, j), 
+        (i, j + d - 1), (i - d + 1, j)
+        \]
+        The first two (if chosen) have weights 1 each and the remaining four have weight $\frac 12$ each, 
+        so each of odd inversions are incident to edges of total weight at most $2 + 4\cdot 12 = 4$. 
+        It follows that we have $A - B \le 4B$ or $A\le 5B$. 
+        
+        (b) Let $k, m > 1$ and $n = 2km$. 
+        We consider $m$ blocks, each $2k$ elements. 
+        Then organize the $n$ numbers as follows: 
+        \begin{itemize}
+        	\item We consider $2m$ classes of $k$ numbers each, 
+        	if $i < j$ then elements in class $i$ is strictly smaller than elements in class $j$ 
+        	(w.l.o.g. can treat the $k$ elements of class $j$ as $jk, jk + 1, \cdots, (j+1)k-1$). 
+        	
+        	\item Each block gets two classes; the only inversion at block level is that for two adjacent blocks $i$ and $i + 1$, 
+        	bigger class at block $i$ is bigger than smaller class at block $i + 1$. 
+        	
+        	\item Within each block $i$ of classes $a, b$ ($a < b$), 
+        	the numbers are presented in alternating and decreasing order; 
+        	if $i$ is odd then odd indices within this block take class $a$ and even indices take class $b$. 
+        	Else the opposite. 
+        \end{itemize}
+        E.g. when $k = m = 4$, the classes will take the form 
+        \[
+        (0, 2), (1, 4), (3, 6), (5, 7)
+        \]
+        The first block will have number (denoted in (class, number) for brevity so $(a, b)$ means $ak + b$)
+        \[
+        (0, 3), (2, 3), (0, 2), (2, 2), (0, 1), (2, 1), (0, 0), (2, 0)
+        \]
+        and the second block 
+        \[
+        (4, 3), (1, 3), (4, 2), (1, 2), (4, 1), (1, 1), (4, 0), (1, 0)
+        \]
+        
+        We now claim that when $m$ is even, $B = \frac{k^2m}{2}$, 
+        and $A - B = k(k-1)m + k^2(m-1)$. 
+        
+        Now, inversion involving pair of different blocks could only happen for adjacent blocks: bigger class at block $i$ vs smaller class at block $i + 1$ ($i=1, 2, \cdots, m - 1$); 
+        by construction, such inversions must be even and contributes to $k^2$ each, thus contributing $k^2(m-1)$ to $A-B$. 
+        
+        Within the same block, the two sets of $k$ numbers of the same class are of even inversion, thereby contributing to $2\binom{k}{2}=k(k-1)$ inversions. 
+        Taken together, this contributes another $k(k-1)m$ to $A-B$. 
+        Finally, for the same block $i$ but different classes, 
+        around half are odd inversions: 
+        $\binom{k}{2}$ for $i$ odd but $\binom{k+1}{2}$ for $i$ even. 
+        This gives a total of $\frac{k^2m}{2}$ odd inversions. 
+        Therefore we have 
+        \[
+        \frac{A}{B}
+        = 1 + \frac{k(k-1)m + k^2(m-1)}{k^2m/2}
+        = 1 + \frac{2(k-1)}{k} + \frac{2(m-1)}{m}
+        = 5 - \frac{2}{k} - \frac{2}{m}
+        \]
+        Taking $k = m = 1000$ solves the problem. 
+    	
+    	\item [C7.]
+    	Let $P$ be a regular $100-$gon. An Aussie triangulation is formed by dividing $P$ into a set $T$ of non-overlapping triangles such that:
+    	\begin{itemize}
+    	\item there are exactly $2025$ different points, including the $100$ vertices of $P$ that are a vertex of at least one triangle in $T$, and
+    	
+    	\item no three of these $2025$ points are collinear.
+    	\end{itemize}
+    	A quokkalateral is a convex quadrilateral that consists of two triangles in $T$ sharing a common side. Two quokkalaterals may share a triangle in $T$. Determine the minimum number of quokkalateral among all Aussie triangulation.
+    	
+    \end{enumerate}
+    
+    \section*{Geometry}
+    \begin{enumerate}
+    	\item [G1.]
+    	
+    	\item [G4.] (IMO 2) 
+    	Let $\Omega$ and $\Gamma$ be circles with centres $M$ and $N$, respectively, such that the radius of $\Omega$ is less than the radius of $\Gamma$. Suppose $\Omega$ and $\Gamma$ intersect at two distinct points $A$ and $B$. Line $MN$ intersects $\Omega$ at $C$ and $\Gamma$ at $D$, so that $C, M, N, D$ lie on $MN$ in that order. Let $P$ be the circumcentre of triangle $ACD$. Line $AP$ meets $\Omega$ again at $E\neq A$ and meets $\Gamma$ again at $F\neq A$. Let $H$ be the orthocentre of triangle $PMN$.
+    	
+    	Prove that the line through $H$ parallel to $AP$ is tangent to the circumcircle of triangle $BEF$.
+    	
+    	
+    \end{enumerate}
+    
+    \section*{Number Theory}
+    \begin{enumerate}
+    	\item [N1.]
+    	Let $n$ and $k$ be positive integers such that $n < k < 2n$. Suppose $a_1, a_2, \ldots, a_k$ are positive integers such that $2^{a_1} + 2^{a_2} + \cdots + 2^{a_k}$ is divisible by $2^n - 1$.
+    	
+    	Show that at least three of $a_1, a_2, \ldots, a_k$ have the same remainder when divided by $n$.
+    	
+    	\item[N2.]
+    	In an $n \times n$ board, for each $1 \leq i \leq n$ and $1 \leq j \leq n$, the cell in the $i$th row from
+    	the bottom and $j$th column from the left contains $\gcd(i,j)$ leaves. A koala travels from the bottom left
+    	corner to the top right corner. At each step, the koala moves up or to the right by a single cell. The
+    	koala eats the leaves in each cell it visits, including the bottom left and top right cells.
+    	
+    	Determine the maximum number of leaves that the koala can eat.
+    	
+    	\item [N3.] A proper divisor of a positive integer $N$ is a positive divisor of $N$ other than $N$ itself.
+    	
+    	The infinite sequence $a_1, a_2, \cdots$ consists of positive integers, each of which has at least three proper divisors. For each $n\geq 1$, the integer $a_{n+1}$ is the sum of the three largest proper divisors of $a_n$.
+    	
+    	Determine all possible values of $a_1$.
+    	
+    	
+    	\item [N4.]
+    	Find all functions $f:\mathbb{N}\to \mathbb{Z}$ such that for every positive integers $n$ and $d$ such that $d\mid n$, there exits a positive integer $e\mid n$ such that $n\mid d+f(e)$.
+    	
+    	\item [N5.]
+    	The sequence of triples of positive integers $(a_0,b_0,c_0),(a_1,b_1,c_1),\ldots,(a_{2025},b_{2025},c_{2025})$ satisfies
+    	$$(a_{i+1},b_{i+1},c_{i+1})=\big(a_{i}+ \gcd\left(b_{i},c_{i}\right),b_{i}+ \gcd\left(c_{i},a_{i}\right),c_{i}+ \gcd\left(a_{i},b_{i}\right)\big)$$for $0 \leqslant i \leqslant 2024.$ Determine the smallest possible value of $a_{2025}.$
+    	
+    	
+    	\item [N6.]
+    	For positive integers $n$ and $k$, let $f_{k}(n)$ denote the remainder when $n$ is divided by $2^{k}-1.$ A positive integer $n$ is grouseif
+    	\[ f_{1}(n)\le f_{2}(n)\le f_{3}(n)\le f_{4}(n)\le\dots \]
+    	
+    	(a)Prove that there are infinitely many grouse numbers.
+    	
+    	(b) Prove that there exists a positive integer $M$ such that there are at most $M^{1/2025}$ grouse numbers less than $M$.
+    	
+    	\item [N7.]
+    	Let $\mathbb{N}$ denote the set of positive integers. A function $f\colon\mathbb{N}\to\mathbb{N}$ is said to be bonza if
+    	\[
+    	f(a)~~\text{divides}~~b^a-f(b)^{f(a)}
+    	\]for all positive integers $a$ and $b$.
+    	
+    	Determine the smallest real constant $c$ such that $f(n)\leqslant cn$ for all bonza functions $f$ and all positive integers $n$.
+    	
+    	\item [N8.]
+    	Prove that there are finitely many prime numbers $p$ such that
+    	
+    	\begin{itemize}
+    		\item $p-8$ is a perfect square, and
+    		
+    		\item for all odd positive integers $k<\sqrt{p}$, the number $p-k^2$ has at most two distinct prime factors.
+    	\end{itemize}
+    	
+    	
+    	
+    	
+    	
+    \end{enumerate}
+\end{document}
