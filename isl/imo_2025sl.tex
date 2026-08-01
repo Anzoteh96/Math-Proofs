@@ -549,18 +549,215 @@
     	\end{itemize}
     	A quokkalateral is a convex quadrilateral that consists of two triangles in $T$ sharing a common side. Two quokkalaterals may share a triangle in $T$. Determine the minimum number of quokkalateral among all Aussie triangulation.
     	
+    	\textbf{Answer.}  1011. 
+    	
+    	\textbf{Solution.} 
+    	
+    	Replacing 2025 and 100 with $n$ and $m$ respectively, with $n > 2(m - 1)$ and $n$ odd, we show that in the configuration with $n$ points where the convex hull has exactly $m$ points has a minimum of ? quokkalaterals. 
+    	Call the $n - m$ points inside the convex hull the 	internal' points, and `internal' lines as all lines forming the triangle other than the $m$ sides of the convex hull. 
+    	Denote the \textit{candidate quadrilaterals} as quadrilaterals that has two triangles sharing a common side; 
+    	a quokkalateral is a candidate quadrilateral. 
+    	
+    	To begin, consider following setup: 
+    	
+    	\begin{itemize}
+    		\item 
+    		\textit{Number of triangles}. 
+    		Each internal point contributes total angle of $2\pi$ to the triangles. Together with the $(m-2)\pi$ contributed by the convex hull, the number of triangles is $(m - 2) + 2(n - m) = 2n - m - 2$. 
+    		
+    		\item \textit{Number of internal lines.} Each convex hull side and internal line corresponds to 1 and 2 triangles, 
+    		respectively. Consequently, the number of internal lines are 
+    		$\frac{3(2n-m-2) - m}{2} = 3n - 2m - 3$. 
+    		
+    		\item \textit{Line-to-quadrilateral bijection.} 
+    		Each candidate quadrilateral corresponds to exactly one internal line (i.e. there is a bijection between the two). 
+    		
+    		\item \textit{Counting and minimizing quokkalateral.} 
+    		Consider any candidate quadrilateral; we need to check the internal lines in $T$ correspond to convex angles to determine if it is quokkalateral. 
+    		In other words, minimizing quokkalaterals (among all the allowable configurations) is equivalent to maximizing internal lines in $T$ that has exactly one endpoint where the triangles adjacent to it forms a reflex angle. 
+    	\end{itemize}
+        In essence, we can also count now many reflex angles are contributed by each point in $T$; such points have to be internal (not the $m$ points on the convex hull). 
+        
+        Before proceeding, we define a \textit{supertraingle} as a collection of 3 triangles $OAB, OAC, OBC$ such that $O$ is inside triangle $ABC$; call $O$ its center for this purpose. The main claim is the following. 
+        
+        \begin{lemma}
+        	An internal point contributes to exactly 3 reflex angles if and only if it is the center of a supertriangle. 
+        	Moreover, an internal point contributing to exactly two reflex angles must correspond to a vertex of a triangle in $T$ that cannot be part of a supertriangle; 
+        	each such internal point must correspond to different triangle in $T$. 
+        \end{lemma}
+        
+        \begin{proof}
+        	For the first part, the `if' part is clear. To solve for `only if' part, if a point $O$ corresponds to at least two reflex angles, 
+        	these two reflex angles must overlap, 
+        	hence share a triangle in $T$. The only possibility when each of the 3 pairs of reflex angles overlap is when this point $O$ is incident to exactly three internal lines, which then forms a supertriangle. 
+        	
+        	For the second part, consider the angle shared between two reflex angles incident to $O$. This angle corresponds to  triangle in $T$ where $O$ is a vertex. 
+        	Now, $O$ cannot be the center of a supertriangle. 
+        	Each the two regions in $O$ adjacent to this angle add up to a reflex angle with this region, hence $O$ cannot be part of a supertriangle either. 
+        	Finally, suppose this triangle also corresponds to anther point $R$ with two reflex angles. 
+        	This point $R$ must also be a vertex of this triangle and the line $OR$ has both endpoints ($O$ and $R$) corresponding to a reflex angle. 
+        	This is impossible as no quadrilaterals can have two reflex angles. 
+        \end{proof}
+        
+        
+        
+        Now, let $k_3$ be the number of supertriangles, 
+        $k_2$ number of points contributing to two reflex angles, 
+        and $k_1$ the number of remaining points. Then $k_1+k_2+k_3=n - m$ and: 
+        \[
+        k_3\le \min \{\frac{2n-m-2}{3}, n - m\}
+        \qquad 
+        k_2\le \min \{2n - m - 2 - 3k_3, n - m - k_3\}
+        \]
+        where $2n-m-2$ denotes the total number of triangles, 
+        and $2n - m - 2 - 3k_3$ denotes the non super triangles. 
+        Then the number of nonconvexity is upper bounded by 
+        \[
+        3k_3+2k_2+k_1 = 2k_3 + k_2 + (n - m)
+        \]
+        We note that the function $2x + \min \{2n - m - 2 - 3x, n - m - x\}$ is piecewise linear in $x$ that attains maximum value when $2n - m - 2 - 3x = n - m - x$, i.e. when $x = \frac{n - 2}{2}$. 
+        Since $n \ge 2m - 2$, $\frac{n-2}{2}\le \min \{\frac{2n-m-2}{3}, n - m\}$. 
+        However, our $n$ is odd, hence we need to consider the adjacent values $\frac{n-3}{2}$ and $\frac{n-1}{2}$; 
+        both give the value $\frac{3(n-1)}{2}-m$. 
+        Thus the number of quokkalateral is at least 
+        \[
+        3n - 2m - 3 - (\frac{3(n-1)}{2} - m) - (n - m)
+        =\frac{n - 3}{2}
+        \]
+        
+        Construction: (another time, lol)
+    	
     \end{enumerate}
     
     \section*{Geometry}
     \begin{enumerate}
     	\item [G1.]
+    	Let $ABC$ be a triangle such that $\angle A$ is obtuse. Let $D$ and $E$ be points on sides $AB$ and $AC$, respectively, such that $BDEC$ is cyclic. Suppose the circumcircle of triangle $ADE$ intersects side $BC$ at two points $X$ and $Y$, where $B$, $X$, $Y$ and $C$ lie in that order. Let the circumcircles of triangles $BDX$ and $CEY$ be $\Omega$ and $\Gamma$, respectively. Let $P$ be a point such that $PD$ is tangent to $\Omega$ and $PE$ is tangent to $\Gamma$. Let $Q$ be a point such that $QB$ is tangent to $\Omega$ and $QC$ is tangent to $\Gamma$. Prove that points $A$, $P$ and $Q$ are collinear.
+    	
+    	\textbf{Solution.} We show that $A, P, Q$ all lie on radical axis of $\Omega$ and $\Gamma$. 
+    	
+    	$A$: power to $\Omega$ and $\Gamma$ are $AD\cdot AB$ and $AE\cdot AC$, respectively. 
+    	The two quantities are equal because $B, D, C, E$ cyclic. 
+    	
+    	$Q$: we claim that $BQ=QC$. Note that if $O$ is circumcenter of $ADE$ 
+    	then $\angle DAO = 90^{\circ} - \angle AED = 90^{\circ} - \angle ABC$ so $AO\perp BC$. 
+    	Thus $AX=AY$ and 
+    	$\angle CBQ = \angle BDX=\angle CEY=\angle QCB$. 
+    	
+    	$P$: similarly, we show $PD=PE$. 
+    	One sees that $\angle AED=\angle ABC=\angle XDP$ and $\angle ADE=\angle ACB=\angle PEY$, 
+    	and $\angle BDX=\angle CEY$ as previously claimed. 
+    	
+    	\item[G2.] Let $ABC$ be an acute-angled triangle. Let $I_B$ and $I_C$ be the excenters of triangle $ABC$ opposite $B$ and $C$, respectively. Let $E$ be a point on line $BA$ such that $\angle EI_BB=90^\circ$. Let $F$ be a point on line $CA$ such that $\angle CI_CF=90^\circ$. Let the circle with center $I_B$ and radius $I_BE$ intersect the segment $I_BB$ at $X$. Let the circle with center $I_C$ and radius $I_CF$ intersect the segment $I_CC$ at $Y$. Prove that $BY$ is perpendicular to $CX$.
+    	
+    	\textbf{Solution.} 
+    	The main claim is that triangles $I_CBY$ and $I_BXC$ are similar, 
+    	and that both angles $\angle BI_CY=\angle CI_BX=\frac{\angle BAC}{2}$. 
+    	Assuming the claim, 
+    	we then have 
+    	\[
+    	\angle YBC +\angle XCB
+    	=\angle I_CBC+\angle I_BCB-\angle I_CBY-\angle I_BCX
+    	\]\[
+    	= (90^{\circ}+\frac{\angle ABC}{2}) + (90^{\circ}+\frac{\angle ACB}{2}) - (180^{\circ}-\frac{\angle BAC}{2})
+    	=90^{\circ}
+    	\]
+    	where the last equality follows from that the sum of 3 angles in a triangle is $180^{\circ}$. 
+    	
+    	To prove the claim, the angle claim $\angle BI_CY=\angle CI_BX=\frac{\angle BAC}{2}$ follows directly from angle chasing. 
+    	In particular, $\angle BI_CY=180^{\circ} - \frac{\angle ACB}{2} - (90^{\circ} + \frac{\angle ABC}{2})
+    	=\frac{\angle BAC}{2}$. 
+    	Thus, proving similarity of the triangle now reduces to proving that $\frac{I_CB}{I_CY}=\frac{I_BX}{I_BC}$. 
+    	Now $I_CY = I_CF = I_CC\tan \frac{\angle ACB}{2}$; 
+    	by sine rule we have $I_CB=I_CC\frac{\sin\frac{\angle BCA}{2}}{\cos \angle \frac{ABC}{2}}$. 
+    	Therefore $\frac{I_CB}{I_CY}=\frac{\cos \angle \frac{ACB}{2}}{\cos \angle \frac{ABC}{2}}$. 
+    	The other equality $\frac{I_BX}{I_BC}=\frac{\cos \angle \frac{ACB}{2}}{\cos \angle \frac{ABC}{2}}$ can be established similarly. 
+    	
+    	\item [G3.] Let $ABC$ be an acute triangle with $AB < AC$. Let $\Gamma$ be the circumcircle of $ABC$. The perpendicular from $B$ to $AC$ intersects $\Gamma$ again at $D\neq B$. Let $Q$ be the point on $\Gamma$, different from $B$, such that $AB=AQ$. Lines $BQ$ and $AC$ intersect at $R$. Line $DR$ intersects $\Gamma$ again at $S\neq D$. Segment $BC$ intersects the circumcircle of triangle $QRS$ at $T$. Lines $TQ$ and $RS$ intersect at $X$. Prove that $CX$ is perpendicular to $AB$.
+    	
+    	\textbf{Solution.} 
+    	We first show that $QT\perp AC$. 
+    	Let $T'$ on $BC$ such that $QT'\perp AC$. 
+    	Since $AB=AQ$, $\angle ACB=\angle ACQ$, so $QT'$ is perpendicular bisector of $AC$. 
+    	This then gives the following sequence of equalities: 
+    	\[
+    	\angle RT'Q=\angle RQT'=\angle DBQ=\angle DSQ
+    	\]
+    	The second equality due to $BD\parallel QT'$ and last equality due to $D, B, S, Q$ concylic on $\Gamma$. 
+    	Therefore, $T'$ is on the circle $QRS$ and on segment $BC$. 
+    	Given that the other intersection of circle $QRS$ and line $BC$ will be on its extension beyond $C$, 
+    	we have $T=T'$. 
+    	
+    	Next, let $AC$ intersect $BD$ at $U$, and $QT$ intersect $AC$ at $V$. 
+    	Then given $BD\parallel QT$ and $D, R, X$ collinear, $\frac{BU}{UD}=\frac{VQ}{VX}$. 
+    	This then gives $\frac{\tan\angle CAB}{\tan\angle CAD}=\frac{\tan\angle ACQ}{\tan\angle ACX}$, 
+    	and given that $\angle CAD=90^{\circ}-\angle ACB=90^{\circ}-\angle ACQ$, 
+    	the other two angles $\angle CAB$ ad $\angle ACX$ also add up to $90^{\circ}$. 
+    	This give $CX\perp AB$, as required.  
     	
     	\item [G4.] (IMO 2) 
     	Let $\Omega$ and $\Gamma$ be circles with centres $M$ and $N$, respectively, such that the radius of $\Omega$ is less than the radius of $\Gamma$. Suppose $\Omega$ and $\Gamma$ intersect at two distinct points $A$ and $B$. Line $MN$ intersects $\Omega$ at $C$ and $\Gamma$ at $D$, so that $C, M, N, D$ lie on $MN$ in that order. Let $P$ be the circumcentre of triangle $ACD$. Line $AP$ meets $\Omega$ again at $E\neq A$ and meets $\Gamma$ again at $F\neq A$. Let $H$ be the orthocentre of triangle $PMN$.
     	
     	Prove that the line through $H$ parallel to $AP$ is tangent to the circumcircle of triangle $BEF$.
     	
+    	\textbf{Solution.} 
+    	Claim: $P$ is $A$-excenter of triangle $AMN$. 
     	
+    	Proof: $CM=MA$ and $PC=PA$ so $MP$ is perpendicular bisector of $AC$ (so $MP$ bisects $\angle CMA$), 
+    	same for $NP$ and $\angle DNA$. 
+    	
+    	Introduce $E_1$ midpoint of $AE$, $F_1$ midpoint of $AF$, and $H$ midpoint of $AB$. Let circle $HE_1F_1$ intersect $CD$ again at $G$, 
+    	and $I$ incneter of triangle $AMN$. 
+    	Then: 
+    	\begin{itemize}
+    		\item $H$ is foot of perpendicular from $A$ to $CD$; 
+    		\item $CE_1\perp AP$ and $DF_1\perp AP$; 
+    		\item $HE_1AC$ and $HF_1AD$ cyclic; 
+    		\item $\angle E_1HG=\angle CAP=\angle DAP=\angle F_1HG$, so $E_1G=F_1G$ 
+    		\item $\frac{E_1G}{CG} = \frac{\sin\angle E_1CD}{\sin\angle CE_1G}$ and 
+    		$\frac{F_1G}{DG} = \frac{\sin\angle F_1DC}{\sin\angle DF_1G}$. 
+    		Note $\angle CE_1G+\angle DF_1G=180^{\circ}$ and $\angle E_1CD = \angle F_1DC$, and $E_1G=F_1G$ so $G$ is midpoint of $CD$. 
+    		\item Finally, $IMNH$ is parallelogram. 
+    	\end{itemize}
+    	Thus to finish: 
+    	\begin{itemize}
+    		\item Tangent at $G$ to circle $HE_1F_1$ is parallel to $AP$, call this line $\ell_0$. 
+    		
+    		\item Since $G$ is also midpoint of $IH$, line $\ell_1$ through $H$ parallel to $AP$ is $2\times$ distance to $AP$ as compared to line $\ell_0$. 
+    		
+    		\item $BEF$ is $2\times$ homothety compared to $HE_1F_1$ with center $A$, so $\ell_1$ is tangent to circle $BEF$. 
+    	\end{itemize}
+        
+        \item [G5.] Let $ABCD$ be a convex quadrilateral with $\angle ADC > 90^{\circ}$. Suppose that points $X$ and $Y$ lie on diagonal $AC$ such that
+        $$\angle ADX = \angle YDC = 90^{\circ}, \quad \angle CAD = \angle CBX, \quad \text{and} \quad \angle DCA = \angle YBA.$$Let $O$ be the circumcentre of triangle $BXY$. Suppose point $R \neq O$ lies on the perpendicular bisector of $AC$ such that lines $OR$ and $AC$ are parallel.
+        
+        Prove that line $RO$ bisects angle $\angle DRB$.
+        
+        \textbf{Solution.} 
+        Let the circumcircle of $DAC$ intersect $DY$ and $DX$ again at $P, Q$, respectively. 
+        Then $APQC$ is a rectangle, 
+        and in addition $\angle YBA=\angle DCA=\angle DPA$, 
+        so $AYBP$ is cyclic and similarly $CXBQ$ is cyclic. 
+        Consequently, $\angle YBP=\angle YAP=90^{\circ}$ and similarly $\angle XBQ=\angle XCQ=90^{\circ}$. 
+        
+        We now claim that $D, O, B$ are collinear. 
+        In fact, let $E$ be such that $\angle EYB=\angle EXB=90^{\circ}$, 
+        then $O$ is the midpoint of $EB$. 
+        Meanwhile, $EY\parallel BP$ and $EX\parallel BQ$, so 
+        $D, E, B$ are also collinear, and thus both $D$ and $O$ are on the line $EB$. 
+        
+        Denote $S$ as the point on line $DB$ such that $PS=SQ$; 
+        this is obtained by sending $SP\parallel YO$ and $SQ\parallel OX$. 
+        Observe that $S$ and $R$ are both on the perpendicular bisector of $AC$. 
+        We now claim that $(D, B; O, S)$ is a harmonic bundle, 
+        i.e. $\frac{OB}{OD}=\frac{SB}{SD}$. 
+        Now, the homothety map $\Gamma$ centered at $D$ that brings $Y$ to $P$ has $\Gamma(X)=Q$, $\Gamma(E)=B$ and $\Gamma(O)=S$. 
+        Therefore, $\frac{SB}{SD}=\frac{OE}{OD}$. 
+        Given that $OE=OB$ as $O$ is midpoint of $EB$,  this establishes our claim. 
+        
+        Finally, since $OR\perp RS$ and $(D, B; O, S)$ harmonic, 
+        it follows that $OR$ and $RS$ are internal and external bisectors of $\angle DRB$, respectively. 
+        
     \end{enumerate}
     
     \section*{Number Theory}
@@ -570,6 +767,19 @@
     	
     	Show that at least three of $a_1, a_2, \ldots, a_k$ have the same remainder when divided by $n$.
     	
+    	\textbf{Solution.} Take all exponents modulo $n$. 
+    	Let $a = \sum 2^{b_j}$ and $b = \sum 2^{c_j}$, 
+    	$b_j$ are different indices occuring exactly twice and $c_j$ exactly once. 
+    	Then $2^n-1 \mid 2a + b$, 
+    	and $a, b$ have disjoint positions of 1s (binary form). 
+    	$a, b$ cannot be 0 given $n < k < 2n$. 
+    	
+    	Case $b$ odd: $2a+b=2^n-1$ and $2a, b$ have complementary digits at each place: 
+    	rightmost 0 of $b$ = 1 for $2a$, its right is 1 for both $a$ and $b$, contradiction. 
+    	
+    	Case $b$ even: $2a+b=2(2^n-1)$. $a$ and $\frac{b}{2}$ have complementary digits at each place: 
+    	leftmost 1 of $\frac{b}{2}$: to the left is 0 for $\frac{b}{2}$ but 1 for both $a$ and $b$, contradiction. 
+    	
     	\item[N2.]
     	In an $n \times n$ board, for each $1 \leq i \leq n$ and $1 \leq j \leq n$, the cell in the $i$th row from
     	the bottom and $j$th column from the left contains $\gcd(i,j)$ leaves. A koala travels from the bottom left
@@ -578,28 +788,174 @@
     	
     	Determine the maximum number of leaves that the koala can eat.
     	
+    	\textbf{Answer.} $\frac{n(n+1)}{2} + (n - 1)$. 
+    	
+    	\textbf{Solution.} 
+    	\textit{Construction.} 
+    	This path is in zigzag manner (i.e. $(k-1, k)$ on odd-numbered step and $(k, k)$ on even-numbered step). 
+    	
+    	\textit{Bound.} 
+    	Let the initial step index be 2 and ending step inded be $2n$. 
+    	start at step 2 (w.l.o.g.) and end at step $2n$; 
+    	the sum of coordinates at step indexed $i$ is $i$. 
+    	We show that the total number of leaves at steps $2k-1$ and $2k$ cannot exceed $k + 1$. 
+    	To proceed, one of the grids must have strictly more than $\frac{k}{2}$ leaves. 
+    	This means we are down to one of the following 3 cases. 
+    	
+    	\textit{Step $2k$ contains $k$ leaves}. Then the coordinate at step $2k$ is $(k, k)$, 
+    	at step $2k-1$ is either $(k-1, k)$ or $(k, k-1)$ and can only contain 1 leaf. 
+    	
+    	\textit{Step $2k$ contains $\frac{2k}{3}$ leaves}.By symmetry, we may assume that the coordinate is $(a, b)=(\frac{2k}{3}, \frac{4k}{3})$. 
+    	Crucially, $b=2a$. Then the coordinate at step $2k-1$ is either $(a-1, 2a)$ or $(a, 2a+1)$, 
+    	which has $\gcd\le 2$. 
+    	Hence the total number of leaves is at most $2 + \frac{2k}{3}\le k + 1$, since $k\ge 3$. 
+    	
+    	\textit{Step $2k - 1$ contains $\frac{2k - 1}{3}$ leaves}. We can similarly deduce that the coordinates must be 
+    	$(a', b')$ with $b'=2a'$, 
+    	and that the coordinates at step $2k$ is either $(a', 2a'+1)$ or $(a'+1, 2a')$. 
+        Either way, the gcd is at most 2 and total number of leaves is $\le 2 + \frac{2k-1}{3}\le k + 1$ for $k\ge 2$. 
+    	
     	\item [N3.] A proper divisor of a positive integer $N$ is a positive divisor of $N$ other than $N$ itself.
     	
     	The infinite sequence $a_1, a_2, \cdots$ consists of positive integers, each of which has at least three proper divisors. For each $n\geq 1$, the integer $a_{n+1}$ is the sum of the three largest proper divisors of $a_n$.
     	
     	Determine all possible values of $a_1$.
     	
+    	\textbf{Answer.} $a_1 = 12^{k}\cdot 6c$, $c$ relatively prime to 2 and 5. 
+    	
+    	\textbf{Solution.} The main insight is that at no point can $a_n$ be monotonically strictly decreasing. 
+    	This gives the following two claims. 
+    	
+    	\textit{$a_n$ must be even}. Otherwise, $a_{n+1}\le a_n(\frac{1}{3}+\frac{1}{5}+\frac{1}{7}) < a_n$ and $a_{n+1}$ is odd, so $a_m$ is monotonically decreasing for all $m\ge n$. 
+    	
+    	\textit{$a_{n}$ must be divisible by 3.} Suppose otherwise. 
+    	Then $a_{n+1}=a_n(\frac{1}{a}+\frac{1}{b}+\frac{1}{c})$ where $a<b<c$ are the smallest divisors less than $n$, 
+    	and greater than 1. 
+    	Note that $a\ge 2, b\ge 4, c\ge 5$, so $a_{n+1}\le \frac{19}{20}a_n < a_n$. 
+    	Moreover, we assumed $a_n$ is even, so $a=2$. 
+    	If $b = 4$, $3\mid a_n(\frac{1}{a}+\frac{1}{b})$ so $3\nmid a_{n+1}$. 
+    	If $b > 4$, $4\nmid a_n$, $b$ the smallest odd divisor of $a_n$ (i.e. odd prime). 
+    	Then $c = 2b$. Now can show $a_{n+1}=a_n\cdot \frac{b+3}{2b}$ which is not divisible by 3 (as $3\nmid b$), so this cycle continues and $a_m$ is monotonically decreasing for all $m\ge n$. 
+    	
+    	Now with these set up, we now have the three smallest divisors greater than 1 as $2, 3, c$ where $c\in \{4, 5, 6\}$. 
+    	Note, however, the case $c=5$ can't occur as this means $a_n$ is divisible by 2 but not 4, and so $a_{n+1}=\frac{31}{30}a_n$ is odd, which has been shown to be impossible. 
+    	Call a number in this form type-$c$; $a_n$ of type 4, 6 gives $a_{n+1}=\frac{13}{12}a_n, a_n$ respetively. 
+    	Since 13 and 31 are relatively prime to 4, 5, 6, so $a_{n+1}$ can never become a smaller type than $a_n$. 
+    	It follows that $a_1$ has form $12^{k}A$ where $6\mid A$ but $4, 5\nmid A$. 
+    	The terminating number in the sequence is then $13^kA$. 
+    	
     	
     	\item [N4.]
     	Find all functions $f:\mathbb{N}\to \mathbb{Z}$ such that for every positive integers $n$ and $d$ such that $d\mid n$, there exits a positive integer $e\mid n$ such that $n\mid d+f(e)$.
     	
+    	\textbf{Answer.} $f(x)=-x$. This fulfills the condition by taking $e = d$. 
+    	
+    	\textbf{Solution.} The equivalent statement of the problem condition is 
+    	for each $n$, $\{f(d): d\mid n\} = \{-d: d\mid n\}\pmod{n}$. Denote this condition as (*). 
+    	In particularly, (*) implies injectivity since $f(d_1)=f(d_2)$ implies $d_1=d_2$ when taking $n = kd_1d_2$ for $k=(|f(d_1)|+|f(d_2)|+1)$. 
+    	The main claim is the following. 
+    	
+    	\begin{lemma}
+    		For each $d > 0$, $f(d) < 0$ and $f(d)\mid m$. 
+    	\end{lemma}
+        
+        \begin{proof}
+    	For each $d, k\ge 1$ we choose $e_k$ as the number where $dk\mid f(d) + e_k$ and $e_k\mid dk$. 
+    	Now choose $k$ where $dk > 2|f(d)|$. Note that either $\frac{1}{dk/e}=1$ or $\le \frac 12$, 
+    	the first case implies $f(d)=0$; the second case implies $\frac{f(d)}{dk} = -\frac{1}{k'}<0$ for some $k'$ depending on $k$. 
+    	Thus $f(d)\mid dk$ for all $k$  sufficiently large, 
+    	so $f(d)\mid d$, 
+    	
+    	We're now left with showing $f(d)$ cannot be 0. 
+    	By injectivity, there is at most one such $d_0$ with $f(d_0)=0$. 
+    	If this $d_0$ exists, then this sequence of logic holds: 
+    	\begin{itemize}
+    		\item By injectivity, and $f(d)\mid n$ for $d\mid n$ but $d_0\nmid n$, we have $f(n)=-n$ for $n$ with $d_0\nmid n$. 
+    		
+    		\item By injectivity again we have $d_0\mid f(n)$ whenever $d_0\mid n$. 
+    		
+    		\item 
+    		Consider $n = 2d_0, 3d_0$ simultaneously, however, $f(n)=-kd_0$. Given also that $f(d_0)=0$, we have $f(2d_0)=f(3d_0)=-d_0$, contradicting injectivity. 
+    	\end{itemize}
+    	\end{proof}
+        To see why this claim uniquely determines $f$, we construct each $f(1), f(2), \cdots$ as follows: 
+        for each $n$, assume that $f(d)=-d$ for all $d=1, 2, \cdots, n - 1$, 
+        the injectivity claim implies that the only number smaller than $-(n-1)$ and is a divior of $n$ is $-n$. 
+    	
     	\item [N5.]
     	The sequence of triples of positive integers $(a_0,b_0,c_0),(a_1,b_1,c_1),\ldots,(a_{2025},b_{2025},c_{2025})$ satisfies
     	$$(a_{i+1},b_{i+1},c_{i+1})=\big(a_{i}+ \gcd\left(b_{i},c_{i}\right),b_{i}+ \gcd\left(c_{i},a_{i}\right),c_{i}+ \gcd\left(a_{i},b_{i}\right)\big)$$for $0 \leqslant i \leqslant 2024.$ Determine the smallest possible value of $a_{2025}.$
+    	
+    	\textbf{Answer.} $3\cdot 2^{675}$. 
+    	
+    	\textbf{Solution.}
+    	\textit{Construction}: take $(a_0, b_0, c_0)=(3, 5, 6)$, then 
+    	\[
+    	(3, 5, 6) \to (4, 8, 7) \to (5, 9, 11) \to (6, 10, 12)
+    	\]
+    	i.e. doubling every 3 sequences. 
+    	
+    	\textit{Bound}: note the map $(a_n, b_n, c_n) \to (a_{n+1}, b_{n+1}, c_{n+1})$ is permutation equivariant and scale preserving 
+    	(i.e. if $(ka_n, kb_n, kc_n)\to (ka_{n+1}, kb_{n+1}, kc_{n+1})$. 
+    	In modulo 2, we have the following iterations: 
+    	\[
+    	(0, 1, 1) \to (1, 0, 0) \to (1, 1, 1) \to (0, 0, 0)
+    	\]
+    	Each triple with $(a, b, c)$ not all even falls into one of the first three (up to permutations), i.e. $g(a, b, c) :=\min \{\nu_2(a), \nu_2(b), \nu_2(c)\}$ (the highest power of 2 dividing all entries) increases in at most 3 iterations. 
+    	Thus for $i=0, 1, 2$ we have $a_{3k+(i+1)}-a_{3k+i}\ge 2^k$ as $g(a_{3k+i}, b_{3k+i}, c_{3k+i})\ge k$. 
+    	Thus we have 
+    	\[
+    	a_{2025}-a_0\ge \sum_{i=0}^{674} (2^i+2^i+2^i)
+    	=3(2^{675}-1)
+    	\]
+    	and given also $2^{675}\mid a_{2025}$ we have $a_{2025}\ge 2^{675}$. 
     	
     	
     	\item [N6.]
     	For positive integers $n$ and $k$, let $f_{k}(n)$ denote the remainder when $n$ is divided by $2^{k}-1.$ A positive integer $n$ is grouseif
     	\[ f_{1}(n)\le f_{2}(n)\le f_{3}(n)\le f_{4}(n)\le\dots \]
     	
-    	(a)Prove that there are infinitely many grouse numbers.
+    	\begin{enumerate}
+    		\item [(a)]  Prove that there are infinitely many grouse numbers.
+    		
+    		\item [(b)] Prove that there exists a positive integer $M$ such that there are at most $\frac{M}{2025^{2025}}$ grouse numbers less than $M$.
+    	\end{enumerate}
     	
-    	(b) Prove that there exists a positive integer $M$ such that there are at most $M^{1/2025}$ grouse numbers less than $M$.
+    	\textbf{Solution.} 
+    	(a) 
+    	For each $k\ge 2$, consider the following number obtained by the following protocol: 
+    	\[
+    	s_0 = 2^{k}-1
+    	\qquad 
+    	s_j = \lceil\frac{s_{j-1}}{2^{k - j} - 1} \rceil \cdot (2^{k - j} - 1), 
+    	\forall j = 1, 2, \cdots, k - 1
+    	\]
+    	We claim that $s_{k-1}$ is grouse, 
+    	and that $2^k - 1\le s_{k-1} < 2^{k+1}-1$. 
+    	Indeed, we have $0\le s_j - s_{j-1}\le 2^{k - j} - 2$. 
+    	This means that $0\le s_{k - 1} - s_j = \sum_{i=1}^{k - j - 1} (2^{i} - 2) = 2^{k - j} - 2(k - j) < 2^{k - j} - 1$. 
+    	Given also that $s_j$ is divisible by $2^{k - j} - 1$, 
+    	we have $f_{k - j}(s_{k-1}) = s_{k - 1} - s_j$. 
+    	Consequently, given that $s_0\le s_1\le \cdots \le s_{k - 2}\le s_{k-1}$, 
+    	we have $f_1(s_{k-1})\le f_2(s_{k-1})\le \cdots \le f_{k-1}(s_{k-1})\le f_k(s_{k-1})$. 
+    	Finally, given that $s_{k-1}\le s_0 + 2^k - 2k \le 2^{k+1} - 2k < 2^{k+1}-1$, 
+    	we have $f_m(s_{k-1}) = s_{k-1}$ for $m\ge k + 1$. 
+    	Thus this $s_{k-1}$ is grouse and there is at least one grouse number between the range $2^k - 1\le n < 2^{k+1}-1$ for all $k\ge 2$. 
+    	
+    	 (b) We show that if $n\ge 2^k - 1$ is grouse, then $n\ge (2^{m_1} - 1)(2^{k + 1 - m_1}-1)$ for all integers $m_1=1, 2, \cdots, k$. 
+    	 A quick observation is the following. 
+    	 
+    	 \textit{If a number $s$ is grouse and $s\ge c\cdot (2^m-1)$ then $s\ge t$ with $t=(2^{m-1}-1)\cdot \lceil c\frac{2^m-1}{2^{m-1}-1}\rceil$}. 
+    	 Indeed, if $s = c\cdot (2^m-1) + u$ where $u\ge 0$ then $f_m(s)\le u$ but if $s < t$, 
+    	 then $f_{m-1}(c\cdot (2^m-1)) > 0$ and 
+    	 then $f_{m-1}(s) = f_{m-1}(c\cdot (2^m-1)) + u > u$ so this $s$ is not grouse. 
+    	 
+    	 Plugging this back, we may do induction with $m_1$ (starting from $m_1=1$) and the conclusion follows from that 
+    	 $\lceil (2^{m_1}-1)\frac{2^{k+1-m_1}-1}{2^{k-m_1}-1}\rceil\ge 1 + 2(2^{m_1}-1)=2^{m_1+1}-1$. 
+    	 
+    	 To finish, this means for any $m_1$ there are at most $2^{m_1} + 2^{k+1-m_1}$ grouse numbers in the range $\{2^k-1, \cdots, 2^{k+1}-2\}$. 
+    	 Choosing $m_1=\lceil \frac{k+1}{2}\rceil$, we deduce that there is a constant $c > 0$ such that for any $M > 0$ there are at most $c\sqrt{M}$ grouse numbers that is at most $M$. 
+    	 This solves the problem. 
     	
     	\item [N7.]
     	Let $\mathbb{N}$ denote the set of positive integers. A function $f\colon\mathbb{N}\to\mathbb{N}$ is said to be bonza if
@@ -608,6 +964,59 @@
     	\]for all positive integers $a$ and $b$.
     	
     	Determine the smallest real constant $c$ such that $f(n)\leqslant cn$ for all bonza functions $f$ and all positive integers $n$.
+    	
+    	\textbf{Answer.} $c = 4$. 
+    	
+    	\textbf{Solution.}
+    	\textit{Bound.} Set $a = b$, then $f(a)\mid a^a$. Suppose for some prime $p$ we have $p\mid f(a)$ (which then means $p\mid a$). 
+    	Then take any $b$ divisible by $p$, $p\mid f(a)\mid b^a - f(b)^{f(a)}$ so $p\mid f(b)$. 
+    	This means given a prime $p$, if $p\mid f(a)$ for some $a$ then $p\mid f(a)$ for all $a$ with $p\mid a$. 
+    	Let $S$ be the set of primes dividing at least one value $f(a)$. 
+    	Crucially, we note that for $p\in S$, $p\mid f(p)\mid p^p$ for any $p\in S$ so $f(p)$ is a (positive) power of $p$. 
+    	Note that $p^k\equiv 1 \pmod{p}$, so $b^{p^k}\equiv b\pmod{p}$ by Fermat's little theorem, giving the following: 
+    	\[
+    	p\mid f(p) \mid b^p - f(b)^{f(p)}\equiv b - f(b)\pmod{p}
+    	\]
+    	for any $b$, so $p\mid b - f(b)$. 
+    	
+    	Assume $S$ is infinite. 
+    	Then for each $b$, and consider $p\in S$ that's greater than both $b$ and $f(b)$. 
+    	The fact $p\mid b - f(b)$ forces $f(b)=b$, hence $f$ is an identity function and so $c = 1$ in this case. 
+    	
+    	In another case, let $S$ be finite. Note that $S=\emptyset$ implies $c = 1$ too since $f\equiv 1$, 
+    	so assume $S$ is nonempty. Let $p_0$ be the largest element of $S$. 
+    	Then for all primes $q > p_0$ we have $f(q)=1$ so $p_0\mid q - 1$ for all such primes $q$. 
+    	However, by Dirichlet's theorem, for any $r$ with $\gcd(r, p_0)=1$ there are infinitely many primes $q$ such that $p_0\mid q - r$, 
+    	so $\gcd(r, p_0)=1\to p_0 \mid r - 1$. This forces $p_0 = 2$. 
+    	In other words, $f(a)$ is a power of two for all $a$, with $f(a)=1$ for all odd numbers $a$. 
+    	Now set $b = 3$ and let $a = c\cdot 2^k$ be even, with $c = 1$. Then 
+    	\[
+    	f(a) \mid 3^a - 1 = (3^c - 1)(3^c+1)\cdots (3^{2^{k-1}c}+1)
+    	\]
+    	and note that $3^c-1, 3^{2c}+1, \cdots, 3^{2^{k-1}c}+1$ are all divisible by 2 but not by 4, and $3^c+1$ divisible by 4 but not by 8. 
+    	Thus $\nu_2(3^a-1)=k+2$, i.e. $f(a)\le 2^{k+2}\le 4a$. 
+    	Given also $f(a)=1$ for all odd $a$ we have $c\le 4$. 
+    	
+    	\textit{Construction.} The example above motivates the following construction: 
+    	\[
+    	f(a)=
+    	\begin{cases}
+    		1 & a\text{ odd}\\
+    		4 & a=4k+2\\
+    		16 & 4\mid a\\
+    	\end{cases}
+    	\]
+    	Here $f(4)=16$ suggests $c = 4$ cannot be improved. To verify that this function works, we need to show that 
+    	\[
+    	4\mid b^a-f(b)^{4}, a = 4k+2
+    	\qquad 
+    	16\mid b^a - f(b)^{16}, a = 4k
+    	\
+    	\]
+    	In the first case we automatically have $4\mid b^a, f(b)^4$ when $a, b$ both even, 
+    	and when $b$ is odd we have $b^a\equiv 1\pmod{4}$ (since $b^a$ is a square). 
+    	In the second case we have $16\mid b^a, f(b)^4$ when $b$ even and $a\ge 4$, 
+    	and when $b$ is odd we note that $b^4-1=(b-1)(b+1)(b^2+1)$ is divisible by 16. 
     	
     	\item [N8.]
     	Prove that there are finitely many prime numbers $p$ such that
@@ -618,8 +1027,47 @@
     		\item for all odd positive integers $k<\sqrt{p}$, the number $p-k^2$ has at most two distinct prime factors.
     	\end{itemize}
     	
+    	\textbf{Solution.}
+    	We consider the following claim. 
     	
+    	Claim: all such $p$'s must be in the form of $4\cdot 2^k\cdot (2^k\pm 1) + 9$ where the last factor $2^k\pm 1$ is odd prime. 
     	
+    	Proof: note that $p$ is odd and $p - 9 = a^2 - 1$ for some $a$ (hence even), 
+    	so can have at most one odd factor. 
+    	Given $\gcd(a-1, a+1)=2$, one of them is power of 2 and the other one is $2\cdot$ odd prime power. 
+    	But the only two consecutive perfect powers are 8 and 9, 
+    	hence this `prime power' must be itself a prime. 
+    	
+    	Now we may split into the following cases. 
+    	
+    	Case $2^k + 1$: for this to be prime, $k$ must be power of 2, i.e. $k = 2^m$. 
+    	Then $p = 4\cdot 2^k (2^k + 1) + 9 = (2^{k + 1} + 1)^2 + 8$. 
+    	When considering modulo 17, 
+    	for $k = 2^m$ with $m\ge 3$ we have 
+    	\[
+    	(2^{2^m+1} + 1)^2 + 8\equiv (2 + 1)^2+8\equiv 0\pmod{17}
+    	\]
+    	as $2^8\equiv 1\pmod{17}$, thus this $p$ is not prime for all such $p$'s. 
+    	
+    	Case $2^k - 1$: for this to be prime, $k$ must be itself a prime (in particular, $k$ is odd). 
+    	We have a similar expansion $p = (2^{k+1}-1)^2+8$. 
+    	
+    	Claim: when $k\ge 7$, there exists a prime number $q\le 2p^{1/4}$ such that $p$ is a quadratic residue modulo $p$. 
+    	
+    	Proof: we will find those $q$ where $q\mid 2^{k+1}-1$, and 2 (and therefore 8) is a quadratic residue. 
+    	When $k + 1$ is not a power of 2, let $m > 1$ be any odd divisor of $k + 1$, then $2^m-1 \mid 2^{k+1}-1$. 
+    	Take any prime $q\mid 2^m - 1$, since $m$ is odd, we have order modulo $\text{ord}_q(2)$ odd as $\text{ord}_q(2)\mid m$. 
+    	But $\phi(q)=q-1$ is even, so 2 is indeed a quadratic residue. 
+    	
+    	When $k+1$ is a power of 2, 
+    	we have the expansion $2^{k+1}-1 = (2^{\frac{k+1}{2}} - 1)(2^{\frac{k+1}{2}} + 1)$ and $2^{\frac{k+1}{2}} + 1$. 
+    	We now use the identity that a) 2 is a quadratic residue for prime $q$ if and only if $q\equiv 1, 7\pmod{8}$, 
+    	and b) all prime divisors of $x^{2^m}+1$ are of the form $\ell \cdot 2^{m+1} + 1$, 
+    	as $\text{ord}_q (x)=2^{m+1}$. 
+    	Thus when $k+1\ge 8$ (i.e. $m\ge 2$), 2 is a quadratic residue of any such prime $q$. 
+    	
+    	Taken together, all such $q$'s are at most $2^{\frac{k+1}{2}} + 1\le 2(2^{\frac{k+1}{2}} - 1)\le 2\sqrt{2^{k + 1} - 1}\le 2p^{1/4}$, 
+    	proving our claim. 
     	
     	
     \end{enumerate}
