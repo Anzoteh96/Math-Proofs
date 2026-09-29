@@ -232,6 +232,29 @@
         For $n=3k+2$, since $N(3k + 2) = N(3k) + 1 = 2k+2$, 
         we may increment $a_i$ and $b_i$ by 1 each (for $i=1, \cdots, 2k+1$, so $a_i, b_i\ge 1$ now) and take $a_{2k+2}=b_{2k+2}=0$ (which will be distinct from other $a_i, b_i$'s since they are all $\ge 1$), and then $c_{2k+2}=3k+2$ 
         (which will be distinct from other $c_i$'s too since they are in the range $[0, 2k]$). 
+        
+        \item[C3.] 
+        Let $n$ be a positive integer. Given a sequence $\varepsilon_1$, $\dots$, $\varepsilon_{n - 1}$ with $\varepsilon_i = 0$ or $\varepsilon_i = 1$ for each $i = 1$, $\dots$, $n - 1$, the sequences $a_0$, $\dots$, $a_n$ and $b_0$, $\dots$, $b_n$ are constructed by the following rules:\[a_0 = b_0 = 1, \quad a_1 = b_1 = 7,\]\[\begin{array}{lll}
+        	a_{i+1} = 
+        	\begin{cases}
+        		2a_{i-1} + 3a_i, \\
+        		3a_{i-1} + a_i, 
+        	\end{cases} & 
+        	\begin{array}{l} 
+        		\text{if } \varepsilon_i = 0, \\  
+        		\text{if } \varepsilon_i = 1, \end{array} 
+        	& \text{for each } i = 1, \dots, n - 1, \\[15pt]
+        	b_{i+1}= 
+        	\begin{cases}
+        		2b_{i-1} + 3b_i, \\
+        		3b_{i-1} + b_i, 
+        	\end{cases} & 
+        	\begin{array}{l} 
+        		\text{if } \varepsilon_{n-i} = 0, \\  
+        		\text{if } \varepsilon_{n-i} = 1, \end{array} 
+        	& \text{for each } i = 1, \dots, n - 1.
+        \end{array}\]Prove that $a_n = b_n$.
+        
     	
     	\item [C5.]
     	Five identical empty buckets of $2$-liter capacity stand at the vertices of a regular pentagon. Cinderella and her wicked Stepmother go through a sequence of rounds: At the beginning of every round, the Stepmother takes one liter of water from the nearby river and distributes it arbitrarily over the five buckets. Then Cinderella chooses a pair of neighbouring buckets, empties them to the river and puts them back. Then the next round begins. The Stepmother goal's is to make one of these buckets overflow. Cinderella's goal is to prevent this. Can the wicked Stepmother enforce a bucket overflow?

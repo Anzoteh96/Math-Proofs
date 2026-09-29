@@ -1041,20 +1041,64 @@
 	For every real number $x$, let $||x||$ denote the distance between $x$ and the nearest integer.
 	Prove that for every pair $(a, b)$ of positive integers there exist an odd prime $p$ and a positive integer $k$ satisfying\[\displaystyle\left|\left|\frac{a}{p^k}\right|\right|+\left|\left|\frac{b}{p^k}\right|\right|+\left|\left|\frac{a+b}{p^k}\right|\right|=1.\]
 	
-	\textbf{Progress.}
-	W.l.o.g. let $a\le b$. 
-	We'll show that this is the case for which 
-	for any $b\ge a$, there exists an odd prime power $p^k$ and a positive integer $x\le a$ such that 
-	$p^k$ divides $2b + 2x - 1$, and $p^k\ge 2a+1$. 
-	This way, we have $\left|\left|\frac{a}{p^k}\right|\right| = \frac{a}{p^k}$, 
-	$\left|\left|\frac{b}{p^k}\right|\right| = \frac{p^k+1}{2p^k}-x$ 
-	(because $b\equiv \frac{p^k+1}{2}-x\pmod{p^k}$ and $x\ge 1$). 
-	Also $a+b\equiv \frac{p^k+1}{2}-x+a\pmod{p^k}$ 
-	and $\frac{p^k+1}{2}-x+a\in [\frac{p^k+1}{2}, \frac{p^k-1}{2}+a]$, 
-	so $\left|\left|\frac{a+b}{p^k}\right|\right| = \frac{p^k-1}{2p^k}+x-a$. 
-	Thus this $p^k$ is a working one. 
+	\textbf{Solution.}
+	Let $\{x\} = x - \lfloor x\rfloor$ be the fractional part of $x$. 
+	We will show the existence of such prime power $p^k$ such that 
+	\[
+	0 < \left\{\frac{a}{p^k}\right\}, \left\{\frac{b}{p^k}\right\} < \frac 12 
+	\qquad 
+	\frac 12 < \left\{\frac{a + b}{p^k}\right\}
+	\]
+	For a positive integer $q$ and set $S$ of positive integers, we denote $f(S, q)$ as the number of elements in $S$ divisible by $q$. 
+	Denote, now, $S = \{1, 3, \cdots, 2a - 1\}$ and $T = \{2b + 1, 2b + 3, \cdots, 2(a + b) - 1\}$. 
+	We now show the following: 
+	Let $q$ be an positive odd integer. Then $f(S, q) < f(T, q)$ implies the following: 
+	\[
+	0 < \left\{\frac{a}{q}\right\}, \left\{\frac{b}{q}\right\} < \frac 12 
+	\qquad 
+	\frac 12 < \left\{\frac{a + b}{q}\right\}
+	\]
+	Indeed, since $q$ is odd, if $R(n) = \{1, 3, \cdots, 2n - 1\}$, then 
+	\[
+	f(R(n), q) =
+	\begin{cases}
+		\left\lfloor \frac{n}{q}\right\rfloor & \text{ if }\left\{\frac{n}{q}\right\} < \frac 12\\
+		\left\lceil \frac{n}{q}\right\rceil & \text{ if }\left\{\frac{n}{q}\right\} > \frac 12\\
+	\end{cases}
+	\]
+	i.e. this can be summarized by 
+	$\lfloor \frac{n}{q} + \frac 12\rfloor$. 
+	Note that $S=R(a)$ and $T = R(a + b)\backslash R(b)$, and so 
+	\[
+	\lfloor \frac{a}{q} + \frac 12\rfloor = f(S, q) < f(T, q) = \lfloor \frac{a + b}{q} + \frac 12\rfloor  - \lfloor \frac{b}{q} + \frac 12\rfloor 
+	\]
+	Note also that 
+	$\lfloor \frac{a + b}{q} + \frac 12\rfloor  - \lfloor \frac{b}{q} + \frac 12\rfloor  < 
+	(\frac{a + b}{q} + \frac 12) - (\frac{b}{q} + \frac 12 - 1)
+	=\frac{a}{q}+ 1$, 
+	so this implies 
+	\[
+	\lfloor \frac{a}{q} + \frac 12\rfloor  = \lfloor \frac{a}{q} \rfloor < \lceil \frac{a}{q}\rceil = \lfloor \frac{a + b}{q} + \frac 12\rfloor  - \lfloor \frac{b}{q} + \frac 12\rfloor 
+	\]
+	The left equality means $\left\{\frac{a}{q}\right\} < \frac 12$; 
+	the right equality means $\lfloor \frac{a + b}{q} + \frac 12\rfloor=\lceil\frac{a + b}{q} \rceil$ (i.e. $\left\{\frac{a + b}{q}\right\} > \frac 12$)
+	and $\left\{\frac{b}{q}\right\} < \frac 12$. 
+	Thus this proves our claim. 
 	
-	(Does this condition hold for all $(a, b)$? It seems true for some small samples...)
+	It now remains to show that there exists prime power $p^k$ such that 
+	$f(S, p^k) < f(T, p^k)$. 
+	For any set $S'$, we define $g(S')=\prod_{s\in S'} s$ as the product of all elements in set $S'$. 
+	Denote also $\nu_p(n)$ as the power of a prime $p$ dividing $n$. 
+	Then for each set $S$ and each prime $p$, 
+	\[
+	\nu_p(g(S)) = \sum_{s\in S}\nu_p(s) = \sum_{s\in S}\sum_{k = 1}^{\infty} \boldsymbol{1}_{\nu_p(s)\ge k}
+	=\sum_{k=1}^{\infty} f(S, p^k)
+	\]
+	where $\boldsymbol{1}_{b}$ is 1 if condition $b$ is true and 0 otherwise. 
+	Since $g(T) > g(S)$, 
+	$g(T)$ does not divide $g(S)$, and therefore there exists a prime $p$ where 
+	$\sum_{k=1}^{\infty} f(S, p^k)=\nu_p(g(S)) < \nu_p(g(T)) =\sum_{k=1}^{\infty} f(T, p^k)$. 
+	This means that for some $k$, $f(S, p^k) < f(T, p^k)$, as desired. 
 \end{enumerate}
 
 

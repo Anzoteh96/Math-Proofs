@@ -77,12 +77,6 @@
 	
 	\item [\textbf{C9.}] For any two different real numbers $x$ and $y$, we define $D(x,y)$ to be the unique integer $d$ satisfying $2^d\le |x-y| < 2^{d+1}$. Given a set of reals $\mathcal F$, and an element $x\in \mathcal F$, we say that the scales of $x$ in $\mathcal F$ are the values of $D(x,y)$ for $y\in\mathcal F$ with $x\neq y$. Let $k$ be a given positive integer.
 	
-	%\item [\textbf{G8.}] Let $\mathcal L$ be the set of all lines in the plane and let $f$ be a function that assigns to each line $\ell\in\mathcal L$ a point $f(\ell)$ on $f(\ell)$. Suppose that for any point $X$, and for any three lines $\ell_1,\ell_2,\ell_3$ passing through $X$, the points $f(\ell_1),f(\ell_2),f(\ell_3)$, and $X$ lie on a circle.
-	%Prove that there is a unique point $P$ such that $f(\ell)=P$ for any line $\ell$ passing through $P$.
-
-	
-	\item[\textbf{N8.}] Let $a$ and $b$ be two positive integers. Prove that the integer
-	\[a^2+\left\lceil\frac{4a^2}b\right\rceil\]is not a square. (Here $\lceil z\rceil$ denotes the least integer greater than or equal to $z$.)
 	
 \end{enumerate}
 
@@ -465,23 +459,54 @@
 	
 	\item [\textbf{C5}.] (IMO 3) A social network has $2019$ users, some pairs of whom are friends. Whenever user $A$ is friends with user $B$, user $B$ is also friends with user $A$. Events of the following kind may happen repeatedly, one at a time:
 	Three users $A$, $B$, and $C$ such that $A$ is friends with both $B$ and $C$, but $B$ and $C$ are not friends, change their friendship statuses such that $B$ and $C$ are now friends, but $A$ is no longer friends with $B$, and no longer friends with $C$. All other friendship statuses are unchanged.
+	
 	Initially, $1010$ users have $1009$ friends each, and $1009$ users have $1010$ friends each. Prove that there exists a sequence of such events after which each user is friends with at most one other user.
 	
-	\textbf{Solution.} (Reproduced from AoPS) For a connected component $C$ of a graph, call it good if either $|C|\le 2$, or $|C|$ is not a clique and not all vertices have even degree. One can easily prove that the initial graph has a single connected component (otherwise, take the smaller component which has at most $1009$ vertices and therefore having degree at most $1008$), and obviously not a clique. For each good connected component of size at least 3, we show that we can make a move as described in the problem statement such that either the connected component is preserved, or the move splits it into two good components (in the latter case, the resulting component will still be good because as Swistak mentioned, the each move preserves the degree of each vertex, and the total number of edges decreases by 1, hence cannot be a clique).
+	\textbf{Solution.} (Modified from my post on AoPS) For a connected component $C$ of a graph, call it good if either $|C|\le 2$, or $|C|$ is not a clique and not all vertices have even degree. 
+	Note that the given graph is connected: 
+	indeed, if the graph has at least 2 connected components, then the smaller component with at most $1009$ vertices can have degree at most 1008.
+	It is also not a clique.
+	We now show that every graph that is good can be transformed by the allowed operations such that we end up in a graph where each component has size at most 2. 
+	This can be done by showing that at each step, we may perform one operation such that the component remains connected, 
+	or gets split into two good components. 
+	Note that in the first case our component remains good because the parity of the vertex degree remains the same, 
+	and removal of two edges (while adding a different one) means the component cannot be a clique. 
+	One other quick observation is that any component with a vertex of degree 1 is also good (this vertex cannot be part of a clique unless the clique has only 2 elements). 
+	Denote $op(A;B,C)$ by removal of edges $(A, B), (A, C)$ and addition of $(B, C)$, as defined in the example in problem statement. 
 	
-	Consider any good component $C$ of size at least 3. For each two vertices $(u, v)$, denote the distance $d(u, v)$ as the length of the shortest path from $u$ and $v$. Choose two of them, $A_0, A_n$ such that $d(u, v)=n$ and is the maximal possible within that component. Moreover, let $A_0, A_1, \cdots , A_n$ to be a path of length $n$. By the definition of distance, $A_i$ and $A_j$ is not connected by an edge if $|i-j|>1$. In addition, $n\ge 2$ since $C$ is not a clique.
+	Consider any good component $C$ of size at least 3. For each two vertices $(u, v)$, denote the distance $d(u, v)$ as the length of the shortest path from $u$ and $v$. 
+	Choose two of them, $A_0, A_n$ such that $d(u, v)=n$ and is the maximal possible within that component. Moreover, let $A_0, A_1, \cdots , A_n$ to be a path of length $n$. By the definition of distance, $A_i$ and $A_j$ is not connected by an edge if $|i-j|>1$. In addition, $n\ge 2$ since $C$ is not a clique.
+	We analyze this scenario from the following possible move $op(A_1; A_0, A_2)$: 
+	if the component remains connected, we are done. Henceforth assume that the component will be split such that $A_1$ and $(A_0, A_2)$ are no longer connected; 
+	let the vertices defined by the components be $V_1$ and $V_2$. 
 	
-	Now, one possible candidate (call this "candidate move") is to consider edges $A_0A_1$ and $A_1A_2$, and remove them, resulting in a new edge $A_0A_2$. If $A_1$ is still connected to $A_0$, or $A_1$ has no other vertices connected to itself, then we are good. Otherwise, $A_1$ will have another neighbour, $B$.
+	We claim the following: $A_1$ is a neighbour of all vertices in $V_1$ (except itself). 
+	Indeed, by our assumption, for any vertex $B\neq A_1$ in $V_1$, $d(B, A_n) \le n$. 
+	By our assumpton that our component is no longer connected after $op(A_1; A_0, A_2)$, 
+	the path from $B$ to $A_n$ must pass through $A_1$, so $d(B, A_n)=d(B, A_1)+d(A_1, A_n)=n - 1 + d(B, A_1)$. 
+	Thus $d(B, A_1)\le 1$ and the conclusion follows. 
 	
-	We first claim that in this "supposedly new" component, $A_1$ has distance 1 with all other vertices, Otherwise, choose $B$ and $C$ such that there are edges $A_1B$ and $BC$ but not $A_1C$. Now these $B$ and $C$ are isolated from $A_0, A_2, \cdots , A_n$. In the original graph, any path from $A_n$ to $C$ must pass through $A_1$ (length $n-1$), and from $A_1$ it takes exactly two steps to reach $C$. Thus $d(A_n, C)$ in the pre-move configuration is $n+1$, contradicting the maximality of $n$.
+	We now consider the following cases and observations: 
+	\begin{itemize}
+		\item Suppose there exist $B_1, B_2\neq A_1$ in $V_1$ that are neighbours (so now $A_1, B_1, B_2$ are neighbours of one another). 
+		Then we may do $op(A_1; B_1, A_0)$ and as a result we have the new path $A_0\to B_1 \to B_2 \to A_1$, i.e. our component remains connected. 
+		
+		\item Now suppose the previous scenario did not happen, but there is $B_1\neq A_1\in V_1$. 
+		
+		\item Now that in $V_1$ itself we assume all edges are of the form $(A_1, B)$. Note that if we do $op(A_1; A_0, A_2)$, $V_1$ is star-shaped and hence is good (i.e. we can repeatedly do $op(A_1; B_1, B_2)$ for $B_1, B_2\in V_1$). 
+		In light of the following we only need to consider the case where after $op(A_1; A_0, A_2)$, $V_2$ is not good. 
+		
+		\item In the aforementioned scenario, suppose $V_2$ is a clique minus edge $(A_0, A_2)$. 
+		If $V_2$ has only vertices $A_0, A_2$ we're done; otherwise consider another vertex $C$ in $V_2$, 
+		then do $op(A_0; A_1, C)$. 
+		Note that $A_0, A_2, C$ all have the same degree before $V_2$
+	\end{itemize}
 	
 	Back to the original configuration; we know that originally, the neighbours of $A_1$ are $A_0, A_2$, and a bunch of $B_1, \cdots, B_k$ ($k\ge 1$) which will be isolated from $A_0, A_2, \cdots , A_n$ should we use the candidate move. In addition, by the immediate previous claim, $B_i$ has no other neighbours other than $B_j$ ($j\neq i$) and $A_1$. There are three cases:
 	
 	Case 1. $k=1$. This means the degree of $A_1$ is 3. We now disconnect $A_1B_1$ and $A_1A_0$, resulting in new edge $B_1A_0$. If this were to split things up into two components, then $B_1, A_0$ are in the same component, while $A_1, A_2, \cdots , A_n$ are in the other. Both $B_1$ and $A_1$ now have degree 1, so both components are guaranteed to be good.
 	
 	Case 2. $k\ge 2$ and each $B_i$ has degree 1. The previous algorithm will still work: disconnect $A_1B_1$ and $A_1A_0$ with new edge $B_1A_0$. Again if this were to split things up into two components then $B_1$ and $A_1$ are in different components. Now $B_1$ has degree 1; $B_2$ has degree 1 too and is in $A_1$'s component, so both components are good too.
-	
-	Case 3. Some $B_i$ has degree more than 1. WLOG let $B_1$ to have degree more than 1, and by before's observation, $B_1$ has no other neighbour other than some other $B_j$'s and $A_1$. Therefore there's another $B_j$ that's $B_1$'s neighbour, say, $B_2$. Same algorithm, cut $A_1B_1$, $A_1A_0$, add $B_1A_0$. Now $A_0B_1B_2A_1$ is a path, so the original component remains connected.
 	
 	Finally, notice that we always perform such a move above until we run out of connected components of size $\ge 3$. This will eventually happen since each move decreases the number of edges in the graph by 1, thus cannot happen forever. At this stage, each vertex will have degree at most 1, as desired.
 	
@@ -1354,6 +1379,57 @@
 	Since this argument works for all sufficiently large primes $p$, 
 	the set of $n$ for which the our argument works is also unbounded. 
 	Hence the conclusion, with $c = \frac {1}{4\log 6}$. 
+	
+	\item[\textbf{N8.}] Let $a$ and $b$ be two positive integers. Prove that the integer
+	\[a^2+\left\lceil\frac{4a^2}b\right\rceil\]is not a square. (Here $\lceil z\rceil$ denotes the least integer greater than or equal to $z$.)
+	
+	\textbf{Solution.} 
+	We first proceed with the following: 
+	call nonnegative integer pair $(u, k)$ with $k\ge 1$ a special pair, if there exist a nonnegative positive integer $b$ such that 
+	\[
+	0\le bk(u+k) - u^2 < b
+	\]
+	We claim that there is no special pair. 
+	Indeed, this $b$ needs to be positive, and 
+	we note the following about the integer $b$: 
+	\[
+	b\ge \frac{u^2}{k(u + k)} > \frac{u^2-k^2}{k(u + k)} = \frac{u}{k} - 1
+	\]
+	On the other hand, the quantity $bk(u+k) - u^2 - b$ is nondecreasing in $b$, and for $b\ge \frac{u}{k}$ we have 
+	\[
+	bk(u+k) - u^2 - b \ge u(u + k) - u^2 - \frac{u}{k} = uk - \frac{u}{k}\ge 0
+	\]
+	given that $k\ge 1$. 
+	Thus combining the two, it follows that $\frac{u}{k}-1 < b < \frac{u}{k}$, i.e. such integer $b$, if exists, must be unique. 
+	
+	Now let $(u, k)$ be a special pair, and let $s$ be the remainder of $u$ when divided by $k$, i.e. $0\le s\le k - 1$. 
+	From the previous analysis, $s > 0$. 
+	If then follows that $b = \frac{u - s}{k}$. 
+	Now we may rewrite the inequality as: 
+	\[
+	0\le (u - s)(u + k) - u^2 < \frac{u - s}{k}
+	\]
+	Rearranging terms, and writing $u = kb + s$, gives 
+	\[
+	0\le bk(k - s) - s^2 < b
+	\]
+	It follows that $(s, k - s)$ is also a special pair (and moreover this $k - s > 0$). 
+	Finally, to reach a contradiction, simply consider a special pair $(u, k)$ such that $u + k$ is minimized. 
+	Then $u$ cannot be divisible by $k$ hence $u + k \ge k + 1$. 
+	But then this also implies that $(s, k - s)$ is also a special pair for some $s > 0$ and $s < k$, 
+	contradicting the minimality of $u + k$. 
+	
+	To see why this implies the problem, if the given integer can be written as $(a + k)^2$ for some $k\ge 1$, 
+	then $\left\lceil\frac{4a^2}b\right\rceil = k^2 + 2ak$. Thus we have 
+	\[
+	\frac{4a^2}{k^2+2ak} \le b < \frac{4a^2}{k^2+2ak - 1}
+	\]
+	The left inequality means that $4a^2\le bk(2a + k)$; the right inequality means 
+	$bk(2a+k)< 4a^2 + b$. Thus combining the two yields 
+	\[
+	0\le bk(2a + k) - 4a^2 < b
+	\]
+	i.e. $(2a, k)$ is a special pair, which is impossible. 
 	
 \end{enumerate}
 

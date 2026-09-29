@@ -134,6 +134,76 @@
 		Prove that there exist integers $i$ and $j$ with $1\ge i < j\le n$ such that
 		$2^{j - i}x_ix_j > 2^{s - 3}$.
 		
+		\textbf{Solution.} 
+		Let $i_0 < j_0$ be a maximizer of $2^{j-i}x_ix_j$. 
+		Note that this means: 
+		\[
+		\forall k < {j_0}: x_k\le 2^{k -i_0}x_{i_0}
+		\qquad 
+		\forall k > {i_0}: x_k \le 2^{j_0 - k}x_j
+		\]
+		We first show that there cannot be $k$ such that $i_0 < k < j_0$ and both $2^{k -i_0}x_{i_0}$ and $2^{j_0 - k}x_j$ are at most 1. 
+		Indeed if this is the case, then 
+		\[
+		s < \sum_{i\in\mathbb{Z}} x_{k + i}
+		= x_k + \sum_{i=1}^{\infty} 2^{k - i -i_0}x_{i_0} + \sum_{i=1}^{\infty} 2^{j_0 - k - i}x_j
+		= x_k + 2^{k -i_0}x_{i_0} + 2^{j_0 - k}x_j \le 3
+		\]
+		i.e. contradiction. 
+		
+		Now let $k_1$ be the maximum index such that 
+		$k_1 < j_0$ and $2^{k_1 -i_0}x_{i_0}\le 1$, 
+		and $k_2$ the minimum index such that $k_2 > i_0$ and 
+		$2^{j_0 - k_2 - i}x_{j_0} \le 1$. 
+		By the previous claim we have $k_1 < k_2$. 
+		$x_{i_0}, x_{j_0}\le 1$, so $k_1=i_0$ and $k_2=j_0$ is a valid choice, 
+		giving $k_1\ge i_0$ and $k_2\le j_0$. 
+		Write $2^{k_1 -i_0}x_{i_0} = u$ and $2^{j_0 - k_2}x_{j_0} = v$. 
+		If $k_2-k_1=1$, then 
+		\[
+		s = \sum x_i < \sum_{i=0}^{\infty} 2^{k_1 - i -i_0}x_{i_0}
+		+ \sum_{i=0}^{\infty} 2^{j_0 - k_2 - i}x_{j_0}
+		=2(2^{k_1 -i_0}x_{i_0} + 2^{j_0 - k_2 }x_{j_0})
+		=2(u + v)
+		\]
+		i.e. $u + v\ge \frac 32$, hence $\frac 12\le u, v\le 1$. 
+		Writing $2^{k_1 -i_0}x_{i_0} = u$ and $2^{j_0 - k_2}x_{j_0} = v$, this gives $u, v \in [\frac 12, 1]$, and 
+		\[
+		2^{j_0-i_0}x_{i_0}x_{j_0}
+		=2^{k_1 -i_0 + j_0 - k_2 + 1}x_{i_0}x_{j_0}
+		=2uv
+		\]
+		and our desired $2^{j_0-i_0}x_{i_0}x_{j_0} > 2^{s-3}$ becomes $2uv \ge 2^{2(u + v) - 3}$ (or $uv \ge 4^{u + v - 2}$). 
+		Otherwise, if $k_2-k_1 > 1$, then 
+		$2u = 2^{k_1 + 1 -i_0}x_{i_0} > 1$ by the maximality of $k_1$, 
+		and similarly $2v > 1$ by the minimality of $k_2$.
+		Now $x_i\le 1$ for all $i$ with $k_2<i<k_1$, so 
+		\[
+		s =  \sum x_i < \sum_{i=0}^{\infty} 2^{k_1 - i -i_0}x_{i_0}
+		+ \sum_{i=0}^{\infty} 2^{j_0 - k_2 - i}x_{j_0} + \sum_{k_1<i<k_2} i
+		\]\[
+		=2(2^{k_1 -i_0}x_{i_0} + 2^{j_0 - k_2 }x_{j_0}) + (k_2-k_1-1)
+		=2(u + v) + (k_2-k_1-1)
+		\]
+		while
+		\[
+		2^{j_0-i_0}x_{i_0}x_{j_0}
+		=uv \cdot 2^{k_2-k_1}
+		\]
+		and our desired $2^{j_0-i_0}x_{i_0}x_{j_0} > 2^{s-3}$ becomes 
+		$uv \cdot 2^{k_2-k_1}\ge 2^{2(u + v) + (k_2-k_1-1) - 3}$, 
+		or $uv\ge 2^{2(u + v) -1 - 3}=4^{u+v-2}$. 
+		Thus in both cases our desired inequality is 
+		\[
+		uv\ge 4^{u+v-2}
+		\]
+		whenever $\frac 12\le u, v\le 4^{u+v-2}$. 
+		
+		Now it suffices to show that for all $x\in [\frac 12, 1]$, 
+		$x\ge 4^{x - 1}$. Note the inequality holds for $x=\frac 12$ and $x=1$; 
+		for other $x$, note that $x$ is linear but $4^{x-1}$ is convex in $x$, thus will lie below the line joining $x=\frac 12$ and $x=1$ in which the equality holds, 
+		thus establising the inequality. 
+		
 		\item[A6.]
 		Let $\bbR$ be the set of all real numbers. 
 		Denote by $\mathcal{F}$ the set of all functions $f: \bbR\to\bbR$ such that 
@@ -599,6 +669,36 @@
     	and $J, A, Q$ in that order, 
     	and $K, X, Z$ in that order. 
     	It then follows that $JK, AX, QZ$ are concurrent, as advertised. 
+    	
+    	\item [G7.]
+    	Two triangles $ABC, A’B’C’$ have the same orthocenter $H$ and the same circumcircle with center $O$. 
+    	Letting $PQR$ be the triangle formed by $AA’, BB’, CC’$, prove that the circumcenter of $PQR$ lies on $OH$.
+    	
+    	\textbf{Solution.} 
+    	The fact that $ABC$ and $A'B'C'$ share the same circumcenter and orthocenter means they also share the same centroid $G$. One key observation is that the vectors $\vec{AA'}, \vec{BB'}, \vec{CC'}$ have sum 0, i.e. forms a triangle. In other words, if $P=BB'\cap CC'$, $Q=AA'\cap CC'$, and $R=AA'\cap BB'$, then $|AA'|:|BB'|: |CC'|=\sin\angle P:\sin\angle Q: \sin\angle R=QR:PR:PQ$.
+    	
+    	Denote $D, E, F$ as the midpoint of $AA', BB', CC'$, respectively, $DEF$ also has centroid $G$, and $OD\perp QR, OE\perp PR, OF\perp PQ$. The problem now reduces to the following:
+    	
+    	Let $PQR$ be a non-degenerate triangle with circumcenter $X$. Let $O$ be any point (doesn't have to be in the interior) in the plane, and $D, E, F$ denotes the projection of $O$ to $QR, PR, PQ$. Suppose there exists a number $\epsilon$ such that $OD^2+\epsilon QR^2 = OE^2 + \epsilon PR^2 + OF^2+\epsilon PQ^2$. Let $G$ be the centroid of $DEF$. Then $G, O, X$ are collinear.
+    	
+    	To prove this, we denote the vector $\vec{v}(A)\in\mathbb{R}^3$ of a point $A$ as the signed distance of $A$ from $QR, PR, PQ$; this distance is counted as positive if $A$ is of the same sign as $P$ (respectively $Q, R$) w.r.t. $QR$ (respectively $PR, PQ$). Our conclusion now is equivalent to showing $\vec{v}(G), \vec{v}(O), \vec{v}(X)$ are on the same line. We note that $\vec{v}(X)$ is proportional to $\vec{C}:=(\cos P, \cos Q, \cos R)$, and also $\vec{v}(G)$ and $\vec{v}(O)$ can be obtained via $\vec{v}(G) - \vec{v}(O) = \frac{1}{3}M\vec{v}(O)$, where:
+    	$$
+    	M = \begin{pmatrix}
+    		-1 & \cos R & \cos Q\\
+    		\cos R & -1 & \cos P\\
+    		\cos Q & \cos P & -1\\
+    	\end{pmatrix}
+    	$$Now, we will show that the line $\lambda\vec{C}$ and the line connecting $\vec{v}(G)$ and $\vec{v}(O)$ intersect; this is already sufficient considering that all three vectors $\vec{v}(G), \vec{v}(O), \vec{v}(X)$ must lie on the plane $x\sin P + y\sin Q + z\sin R = 0$. Showing that the lines intersect is equivalent to showing that $\vec{O}\in \text{Span}(\vec{v}(O)-\vec{v}(G), \vec{C})$, or equivalently:
+    	$$
+    	\vec{v}(O)\cdot (M\vec{v}(O)\times \vec{v}(C)) = 0
+    	$$The LHS is the same as $\vec{v}(O)^\top N \vec{v}(O)$ where:
+    	$$
+    	N = \begin{pmatrix}
+    		\cos^2 R - \cos^2 Q & -\cos R - \cos P\cos Q & \cos P \cos R + \cos Q\\
+    		\cos P \cos Q + \cos R & \cos^2 P - \cos^2 R & -\cos P - \cos Q \cos R\\
+    		-\cos Q - \cos P \cos R & \cos Q \cos R +\cos P & \cos ^2 Q -\cos^2 P\\
+    	\end{pmatrix}
+    	$$Consequently, $\vec{v}(O)^\top N \vec{v}(O) = OD^2 (\cos^2 R - \cos^2 Q) + OE^2(\cos^2 P - \cos^2 R ) + OF^2(\cos ^2 Q -\cos^2 P)$. By the equality condition $OD^2+\epsilon QR^2 = OE^2 + \epsilon PR^2 + OF^2+\epsilon PQ^2$, the vector $(OD^2, OE^2, OF^2)$ is a linear condition of $(1, 1, 1)$ and $(QR^2, PR^2, PQ^2) = r(\sin^2 P, \sin^2 Q, \sin^2 R)$. Both $(1, 1, 1)$ and $(\cos^2 P, \cos^2 Q, \cos^2 R)$ are the solutions to $OD^2 (\cos^2 R - \cos^2 Q) + OE^2(\cos^2 P - \cos^2 R ) + OF^2(\cos ^2 Q -\cos^2 P)=0$, so the claim is complete by noting the identity $\sin^2 = 1-\cos^2$.
     	
     	\item [G8.]
     	Let $AA'BCC'B'$ be a convex cyclic hexagon such that $AC$ is tangent to the incircle of triangle $A'B'C'$, 

@@ -758,6 +758,85 @@
         Finally, since $OR\perp RS$ and $(D, B; O, S)$ harmonic, 
         it follows that $OR$ and $RS$ are internal and external bisectors of $\angle DRB$, respectively. 
         
+        \item [G7.]
+        Let $ABCD$ be a cyclic quadrilateral with circumcircle $\Omega$ such that $CD > BD > BC$. The tangents to $\Omega$ at $B$ and $C$ meet at a point $S$. A line $\ell$ is called coastal if:
+        
+        \begin{itemize}
+          \item $\ell$ does not pass through $A$,
+          \item $\ell$ intersects ray $SD$ at a point $X_\ell$ beyond $D$, and
+          \item there is a circle tangent to line $\ell$, line $X_\ell A$, segment $SB$ and segment $SC$.
+        \end{itemize}
+        Prove that there is a circle that is tangent to $\Omega$ and all coastal lines.
+        
+        \textbf{Solution.} 
+        Let $E\neq A$ be on the $\Omega$ such that the tangents to $\Omega$ to $E$, to $A$, and the line $SD$ are concurrent. Denote the meeting point as $F$. 
+        Call the two tangent lines through $E$ and $A$ $\ell_E$ and $\ell_A$, respectively. 
+        We first claim the following about all coastal lines. 
+        
+        \begin{lemma}
+        	Let $\ell$ be a coastal line that intersects $SD$ at $X_{\ell}$. Then there is a circle tangent to $\ell, X_{\ell}A$, 
+        	$\ell_E, \ell_A$. 
+        \end{lemma}
+        
+        \begin{proof}
+        	Let the circle tangent to $\ell, X_{\ell}A, SB,SC$ be $\omega$. 
+        	Then $\Omega$ and $\omega$ has exsimilicenter $S$. 
+        	Let the circle tangent to the three lines $\ell_A, \ell_E$, $\ell$ as $\gamma$; 
+        	we choose $\gamma$ such that it's in the angle domain $\angle AFE$, and also an excenter (not incenter) of the triangle formed by the three lines. 
+        	Then $F$ is an exsimilicenter between $\Omega$ and $\gamma$. 
+        	By Monge d'Alembert's theorem, the exsimilicenter of $\omega$ and $\gamma$ must lie on $SD$. 
+        	Since both circles have $\ell$ as an external common tangent, 
+        	this point must be $X_{\ell}$. 
+        	Since $X_{\ell}A$ is tangent to $\omega$, it must be tangent to $\gamma$ too. 
+        	Thus $\gamma$ is tangent to $\ell_A, \ell_E, \ell, X_{\ell}A$, as desired. 
+        \end{proof}
+        
+        Now we claim that there is one such circle that passes through $E$, and tangent to $\Omega$ and all coastal lines. 
+        To do so, consider the circle $\gamma$ tangent to $\ell_A, \ell_E, \ell, X_{\ell}A$, 
+        and suppose the tangency points to $\ell_A, \ell_E$ are $A', E'$, respectively. 
+        Denote also the intersection of $\ell_E$ and $\ell$ as $G$. 
+        We proceed with the next claim. 
+        \begin{lemma}
+        	The lines $SD, AE', GA'$ are concurrent.
+        \end{lemma}
+        \begin{proof}
+        	This is a well-known identity surrounding quadrilateral so we shall just provide a sketch here. 
+        	Let the tangency points of $\ell$ and $X_{\ell}A$ to $\omega$ as $E''$ and $A''$, respectively. 
+        	We have $E'A'E''A''$ a cyclic quadrilateral. 
+        	Now, let $Q$ be $E'E''$ intersect $A'A''$ and $R$ the diagonal of the quadrilateral, 
+        	and $P$ be $E'A'$ intersect $E''A''$. 
+        	As a consequence of Brokard's theorem ($P, Q, R$ self-polar), we have line $AG$ passes through $P$ 
+        	(or equivalently both $Q$ and $R$ lie on $SD$). 
+        	Thus, any point $Z$ on line $SD$ satisfies $(ZP, ZD; ZA, ZE)$ harmonic; 
+        	in particular, this holds true for $F$ too. Since both lines $AG$ and $A'E'$ pass through $P$, 
+        	the claim then follows. 
+        \end{proof}
+        Now denote the ratio $\frac{\sin\angle E'FD}{\sin\angle A'FD}=\alpha$, which depends only on $A, B, C, D$ and not the choice of $\ell$. 
+        By the lemma above, we have, by Ceva's theorem, 
+        \[
+        \alpha = \frac{E'G}{GF}: \frac{AA'}{AF}
+        \]
+        We note that $\alpha < 1$ under the assumption $BD < CD$. 
+        Now assume that $A'F < AF$; we also have $E'F < GF$. 
+        Note also that $A'F = E'F$. Then we have $E'G = GF - E'F = GF - A'F$, 
+        and $AA' = AF - A'F$, so we get $1 - \frac{A'F}{GF} = \alpha(1 - \frac{A'F}{AF})$. 
+        Thus with some algebra, one may obtain 
+        \[
+        EG=EF-GF=AF-GF = \frac{(1-\alpha)(AF - A'F)}{1 - \alpha (1- \frac{FA'}{AF})}= \frac{(1-\alpha)AA'}{A'F/GF}
+        \]
+        Consider another circle $\delta$ tangent to $\ell$ and $\ell_E$, on the same side or opposite side as $\omega$, 
+        with tangency point at $E$. Since $\Omega$ is also tangent to $\ell_E$ at $E$, 
+        circles $\delta$ and $\Omega$ are indeed tangent to each other. 
+        Moreover, we have $r(\delta) = r(\omega)\frac{EG}{E'G}$ and as $\omega$ is tangent to lines $\ell_E$ and $\ell$ at $E'$, 
+        and $r(\omega) = r(\Omega) \frac{A'F}{AF}$ as both $\omega$ and $\Omega$ are tangent to lines $EF$ and $AF$, and to the latter at $A'$ and $A$ respectiely. 
+        Therefore we have 
+        \[
+        \frac{r(\delta)}{r(\Omega)}= \frac{A'F}{AF}\frac{EG}{E'G}
+        =\frac{A'F}{AF}\frac{(1-\alpha)AA'\cdot GF}{E'G\cdot A'F}=(1-\alpha)\frac{GF}{E'G}\cdot \frac{AF}{AA'}
+        =\frac{1-\alpha}{\alpha}
+        \]
+        i.e. fixed, and in addition this circle will always be on the opposite side (as $E', G, E$ are on the same line in that order), as desired. 
+        A similar conclusion can be obtained if we assume $A'F>AF$. 
     \end{enumerate}
     
     \section*{Number Theory}
@@ -1028,15 +1107,35 @@
     	\end{itemize}
     	
     	\textbf{Solution.}
-    	We consider the following claim. 
+    	Consider any $p$ fulfilling the problem condition, and we first bound the smallest odd primes for which $p$ is a quadratic residue. 
     	
-    	Claim: all such $p$'s must be in the form of $4\cdot 2^k\cdot (2^k\pm 1) + 9$ where the last factor $2^k\pm 1$ is odd prime. 
-    	
-    	Proof: note that $p$ is odd and $p - 9 = a^2 - 1$ for some $a$ (hence even), 
-    	so can have at most one odd factor. 
-    	Given $\gcd(a-1, a+1)=2$, one of them is power of 2 and the other one is $2\cdot$ odd prime power. 
-    	But the only two consecutive perfect powers are 8 and 9, 
-    	hence this `prime power' must be itself a prime. 
+    	\begin{lemma}
+    		There exists a real constant $c > 0$ such that any odd prime $q$ for which $p$ is a quadratic residue modulo $q$ satisfies $q \ge c \frac{\sqrt{p}}{\log p}$. 
+    	\end{lemma}
+        
+        \begin{proof}
+        	For any such $q$, let $g$ be such that $q\mid p-g^2$; $g$ can be chosen to be odd by replacing $g$ with $p-g$ as necessary. 
+        	Now, $q$ divides all $p - (g + 2kq)^2$ and $p - (2kq - g)^2$. 
+        	In addition, since $q$ is odd, $\{g + 2kq\pmod 8: k=0, 1, 2, 3\}=\{1, 3, 5, 7\pmod{8}\}$, 
+        	hence two of $\{p - (g+2kq)^2: k=0, 1, 2, 3\}$ satisfies $8\mid p - (g+2kq)^2$ but $16\nmid p - (g+2kq)^2$. 
+        	It then follows that $p - (g+2kq)^2 = 8q^m$ for such $k$'s. 
+        	Considering all such $k$ up to $g+2kq < \sqrt{p}$ this gives (roughly) $\frac{\sqrt{p}}{2q}$ distinct numbers in the form of $8q^m$, all of which are smaller than $p$. 
+        	It then follows that $\frac{\sqrt{p}}{2q} < \log_2 p$ and therefore $q < c \frac{\sqrt{p}}{\log p}$ for some $c$. 
+        \end{proof}
+        
+        Next, we establish a certain form of $p$. 
+        
+        \begin{lemma}
+        	All such $p$'s must be in the form of $4\cdot 2^k\cdot (2^k\pm 1) + 9$ where the last factor $2^k\pm 1$ is odd prime. 
+        \end{lemma}
+    
+        \begin{proof}
+        	Note that $p$ is odd and $p - 9 = a^2 - 1$ for some $a$ (hence even), 
+        	so can have at most one odd factor. 
+        	Given $\gcd(a-1, a+1)=2$, one of them is power of 2 and the other one is $2\cdot$ odd prime power. 
+        	But the only two consecutive perfect powers are 8 and 9, 
+        	hence this `prime power' must be itself a prime. 
+        \end{proof}
     	
     	Now we may split into the following cases. 
     	

@@ -195,7 +195,65 @@
 		
 		\item [A6.] (IMO 3)
 		For each integer $k\geq 2$, determine all infinite sequences of positive integers $a_1$, $a_2$, $\ldots$ for which there exists a polynomial $P$ of the form\[ P(x)=x^k+c_{k-1}x^{k-1}+\dots + c_1 x+c_0, \]where $c_0$, $c_1$, \dots, $c_{k-1}$ are non-negative integers, such that\[ P(a_n)=a_{n+1}a_{n+2}\cdots a_{n+k} \]for every integer $n\geq 1$.
-	\end{enumerate}
+		
+		\textbf{Answer.} All arithmetic progressions. If integer $d$ is the common difference the polynomial that works is $P(x)=\prod_{i=j}^d (x+dj)$. 
+		
+		\textbf{Solution.} 
+		It turns out that the most important property of this problem is $P(x)\ge x^k$, 
+		and that $P(x)$ is strictly increasing in $x\ge 0$. 
+		We now proceed to our main claim. 
+		
+		\begin{lemma}
+			$\{a_n\}$ is either strictly increasing, or constant. 
+		\end{lemma}
+	    
+	    \begin{proof}
+	    	From $P(x)\ge x^k$, we get for every $n$, $\max\{a_{n+1}, a_{n+2}, \cdots , a_{n+k}\}\ge a_n$. 
+	    	For equality case, we must have $P(x)=x^k$ and that our sequence must be a constant. 
+	    	It then follows that there's a monotonically increasing subsequence $a_{s_1}, a_{s_2}, \cdots $ 
+	    	with $s_{i+1}-s_i\le k$. 
+	    	Given also that $P(a_n)=a_{n+1}\cdots a_{n+k}$ must contain $a_{s_i}$ as one of the factors for $s_i$, 
+	    	it also follows that for every $M$ there exists an $n_0$ such that $a_n\ge M$ for all $n\ge n_0$, 
+	    	i.e. $\lim\inf a_n = +\infty$, since $a_n$'s are integers. 
+	    	
+	    	Suppose, now, that $a_{n_0+1}\le a_{n_0}$ for some $n$. 
+	    	Then the monotonicity of $P$ implies 
+	    	\[
+	    	1\ge \frac{P(a_{n_0}+1)}{P(a_{n_0})}=\frac{a_{n_0+k+1}}{a_{n_0+1}}
+	    	\]
+	    	Now consider the sequence $b_1 = n_0+1$, and for each $n$, $b_{n+1}$ is the index such that 
+	    	$a_{b_{n+1}}=\min \{a_{b_n+1}, \cdots, a_{b_n+k}\}$. 
+	    	By induction hypothesis, 
+	    	suppose that $a_{b_{n}}\le a_{b_n - 1}$, then $a_{b_{n+1}}\le a_{b_n+k}\le a_{b_n}$, 
+	    	so we regardless will have $a_{b_{n+1}}\le a_{b_{n+1}-1}$. 
+	    	Since this holds true for $b_1$, it holds true for all $n$, 
+	    	i.e. $\{a_{b_n}\}$ is nonincreasing in $n$ but $\{b_n\}$ is strictly increasing in $n$. 
+	    	But this contradicts $\lim\inf a_n = +\infty$. Our claim is then proven. 
+	    \end{proof}
+		
+		Now we use another inequality that there exists an integer $M>0$ such that for all $x\ge 1$, 
+		$P(x)\le x^{k-1}(x+M)$. 
+		Consequently, with the strictly increasing nature of $a_n$ we have $a_n < \max \{a_{n+1}, \cdots, a_{n+k}\}\le a_n+M$. 
+		This means we have the following $k$-tuple having this key property: 
+		\[
+		(b_{n, 1}, \cdots, b_{n, k}) := (a_{n+1} - a_n, \cdots, a_{n+k}-a_n)\in \{1, 2, \cdots, M\}^k
+		\]
+		So there's at least one particular configuration $(b_1, \cdots, b_k)$ such that for infinitely many $n$, 
+		$a_{n+i}=a_n+b_i$ for all $i$. 
+		It follows that we have $P(x)=\prod_{i=1}^k (x+b_i)$. On the other hand, 
+		for all such $n$'s, we have 
+		\[
+		\prod_{i=1}^k (a_n + b_1 +b_i) = P(a_{n+1}) = a_{n+k+1}\prod_{i=2}^k (a_n + b_i)
+		\]
+		In other words, the following rational function
+		\[
+		\frac{\prod_{i=1}^k (x + b_1 +b_i)}{\prod_{i=2}^k (x + b_i)}
+		\]
+		is an integer for infinitely many integers $x$. Taking the quotient of $\prod_{i=1}^k (x + b_1 +b_i)$ when divided by $\prod_{i=2}^k (x + b_i)$ (which has degree at most $k-2$), such quotient has to be 0, 
+		i.e. $\prod_{i=2}^k (x + b_i)$ divides $\prod_{i=1}^k (x + b_1 +b_i)$ identically. 
+		This forces $b_{i+1}-b_i=b_1$ for all $i$, and so we may extrapolate in both directions to yield that $a_i$ is arithmetic progression with common difference $b_1$. 
+		
+	 \end{enumerate}
     
     \section*{Combinatorics}
     \begin{enumerate}

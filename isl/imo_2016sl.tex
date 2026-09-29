@@ -15,7 +15,7 @@
 
 \title{Solution to IMO 2016 shortlisted problems.}
 \author{Anzo Teh}
-\date{\today}
+\date{}
 \maketitle
 
 Preface: 
@@ -2142,6 +2142,54 @@ $p\nmid f(m)$, and hence $p\nmid f(m)+p^2-mp$, hence $p$ and $f(m)+p^2-mp$ are r
 Therefore $\dfrac{m^2-f(m)}{f(m)+p^2-mp}$ is itself an integer. 
 Fixing $m$ and choosing $p$ sufficiently large (remembering that there are infinitely many primes) and we have $p^2-mp+f(m)>|m^2-f(m)|$, so $f(m)-m^2$ must be zero. 
 
+\newpage 
+
+\item[\textbf{N8.}] Find all polynomials $P(x)$ of odd degree $d$ and with integer coefficients satisfying the following property: for each positive integer $n$, there exists $n$ positive integers $x_1, x_2, \ldots, x_n$ such that $\frac12 < \frac{P(x_i)}{P(x_j)} < 2$ and $\frac{P(x_i)}{P(x_j)}$ is the $d$-th power of a rational number for every pair of indices $i$ and $j$ with $1 \leq i, j \leq n$.
+
+\textbf{Thought process.} 
+(TODO)
+
+\textbf{Answer.} $a(px+q)^d$ where $p, q, a$ are integers and $p\neq 0$. 
+
+\textbf{Solution.} It's not hard to see that this class of polynomials work; 
+all we need is to take $x_1$ sufficiently large such that $x_{i+1}=x_1+i$ for $i=1, \cdots, n - 1$, 
+and $\frac{x_1+n}{x_1} < 2^{1/d}$. 
+
+To show that this is the only class of polynomials that work, let $P(x)=a_dx^d+a_{d-1}x^{d-1}+\cdots + a_0$; 
+it's not hard to see that the coefficient of $x^{d-1}$ in $P(x - \frac{a_{d-1}}{da_d})$ is zero and this is a polynomial with rational coefficients. 
+Multiplying by a suitable constant, we can then assume that $P(x)$ is of the form $a_dx^d+a_{d-1}x^{d-1}+\cdots + a_0$ with $a_i$'s integers and $a_{d-1}=0$. 
+Now denote $\epsilon(x) = \frac{P(x)}{a_dx^d}-1$. Roughly speaking, $\epsilon(x)=O(x^{-2})$ as $x\to\infty$. 
+
+Note that for some integer $N$, $P(x)$ is monotone for $x\ge N$ sufficiently large. In addition, 
+$P(x)$ is unbounded, and for $n\ge 2N$, $\min P(x_i) \le \frac{1}{2}P(n)$. 
+Thus it suffices to consider the behaviour of $P$ as $x\to\infty$. 
+Assume now that $\epsilon(x)$ is not identically 0; it's not hard to see that $|\epsilon(x)|$ is strictly decreasing for $x$ sufficiently large. 
+The main claim is that there exists $c > 1$ such that for all $x$ sufficiently large, 
+if $y > x$ such that $\frac{P(y)}{P(x)}$ is a perfect $d$-power (of rationals), 
+then $\frac{P(y)}{P(x)} > c$. 
+To this end, let $x_0$ be such that $P(x) < a_d(x+1)^d$ for all $x > x_0$. 
+Denote, now, $\frac{P(y)}{P(x)} = (\frac{y'}{x'})^d = (\frac{y}{x})^d (1+\epsilon(y))(1+\epsilon(x))^{-1}$; this choice of $x$ guarantees $x'\le \sqrt[d]{a_d}(x+1)$.
+In addition, $|\epsilon(y)| < |\epsilon(x)|$, 
+so $\frac{y'}{x'} \neq \frac{y}{x}$ and $|\frac{y'}{x'}-\frac{y}{x}|\ge \frac{1}{x'x}\ge\frac{1}{(x+1)^2\sqrt[d]{a_d}}$ 
+where the main inequality is obtained by looking at the denominator of $\frac{y'}{x'}-\frac{y}{x}$ (and that the numerator is at least 1 since it's an integer). 
+On the other hand, 
+\[
+(1+\epsilon(y))^{1/d}(1+\epsilon(x))^{-1/d}
+=1 + \frac{1}{d}\epsilon(y) - \frac{1}{d}\epsilon(x) + \epsilon_0
+\]
+where $\epsilon_0$ is a term that is insignificant compared to $\epsilon(x), \epsilon(y)$ 
+(i.e. the ratio to either $\epsilon(x), \epsilon(y)$ is $\to 0$ as $x, y\to\infty$). 
+If $\frac{y}{x}\le 2$ we're done; 
+otherwise we have 
+\[
+2|\frac{1}{d}\epsilon(y) - \frac{1}{d}\epsilon(x) + \epsilon_0|\ge \frac{1}{(x+1)^2 \sqrt[d]{a_d}}
+\]
+With $\epsilon_0$ small (compared to $\epsilon(y), \epsilon(x)$), 
+and $|\epsilon(x)|, |\epsilon(y)|\le cx^{-2}$ for some constant $c$, 
+this means $|\frac{\epsilon(y)}{\epsilon(x)}-1|$ must be bounded away from 0. 
+But since $|\epsilon(x)|$ also converges to $|a_{d-k}|x^{-k}$ (for $k$ that is the smallest positive number such that $a_{d-k}\neq 0$), 
+$ |\frac{y}{x}-1|$ must be bounded away from 0. 
+This proves the claim and shows that the desired numbers $x_1, \cdots, x_n$ just cannot be obtained since $\frac{P(x_n)}{P(x_1)} > c^{n-1}$ which diverges as $n\to\infty$. 
 \end{itemize}
 
 

@@ -295,6 +295,55 @@ But then $\text{lcm} \{a_1, \cdots , a_{n-2}\}\neq a_{n-1} = \gcd\{a_{n-1}, a_n\
 
 Finally, denote $1\le x_1, x_2,\cdots x_m\le n-1$ be all indices such that $x_i$-partition is not good. From above, $x_1\le 2$ and $x_m\ge n-2$, while $x_{i+1}-x_{i}\le 3$, $\forall i\in [1,m]$. Notice, also, that 2015=$n-1-m$. This means $n-2\le x_m\le x_1+3(m-1)\le 2+3(m-1)$, so $n\le 3m+1=3(n-1-2015)+1=3n-6047$. We have $2n\ge 6047$, or $n\ge 3024$ since $n\in\mathbb{N}$. This can be achieved by taking $a_{3i+1}=2^{i+1}\cdot 3^{i}$, $a_{3i+2}=2^{i}\cdot 3^{i+1}$, $a_{3i+3}=2^{i+1}\cdot 3^{i+1}$, $\forall i\in[0,1007]$. where a $3i+2$-partition will give both LCM and GCD of $2^{i+1}\cdot 3^{i+1}$ ($\forall i\in [0,1007]$) and a $3i+3$-partition will give both LCM and GCD of $2^{i+1}\cdot 3^{i+1}$.
 
+\item[\textbf{C4.}] Let $n$ be a positive integer. Two players $A$ and $B$ play a game in which they take turns choosing positive integers $k \le n$. The rules of the game are:
+
+\begin{enumerate}
+	\item [(i)] A player cannot choose a number that has been chosen by either player on any previous turn.
+	\item [(ii)] A player cannot choose a number consecutive to any of those the player has already chosen on any previous turn.
+	\item [(iii)] The game is a draw if all numbers have been chosen; otherwise the player who cannot choose a number anymore loses the game.
+\end{enumerate}
+
+
+The player $A$ takes the first turn. Determine the outcome of the game, assuming that both players use optimal strategies.
+
+\textbf{Answer.} The game draws when $n = 1, 2, 4, 6$, and $B$ wins otherwise. 
+
+\textbf{Solution.} 
+We first observe the following sufficient condition of survival: 
+consider the state string $\{A, B\}^{m}$ denoting the claimed numbers (with letter denoting the player that chosen the number) in that order where $m\le n$ denotes the chosen numbers 
+(e.g. if $A$ chooses 1, $B$ chooses 3, $A$ then chooses 5, then our string is $ABA$). 
+If before $B$'s turn, there is a string of two consecutive $A$'s, then there is an unchosen number in between that $B$ can just choose (and vice versa for $A$). 
+We further proceed with the following special cases: 
+\begin{itemize}
+	\item Suppose before $B$'s turn, one or both of the end of the strings is a $B$. 
+	Given that there is exactly one more $A$'s compared to $B$'s in the state string, there must be two $A$'s placed consecutive to each other in the state string, hence guaranteeing $B$'s survival. 
+	
+	\item Suppose before $A$'s turn, both the end of the strings is an $A$. 
+	Given that there's equal number of $A$'s and $B$'s in the state string, there must be two $B$'s placed consecutive to each other in the state string, hence guaranteeing $A$'s survival. 
+\end{itemize}
+
+We also consider the following draw condition: 
+\begin{itemize}
+	\item $n$ odd: $A$ must choose all odd numbers (and $B$ all even); 
+	\item $n$ odd: $A$ must choose all odd and $B$ all even, or vice versa. 
+\end{itemize}
+
+We proceed with the following: 
+\begin{itemize}
+	\item $B$'s always survival: by choosing either 1 or $n$ in their first turn when $n\ge 2$ (i.e. second move of the game), one end of the state string must be $B$, hence $B$ cannot lose regardless of the further development of the game. 
+	
+	\item In addition this means when $n\ge 3$ is odd, the game cannot draw, hence $B$ wins for all odd $n\ge 3$. 
+	
+	\item $n\ge 8$ even: W.l.o.g. let $B$ choose 1 on their first turn. By their second turn, at least one of $\{4, 6, 8, \cdots, 2n\}$ is available for $B$ to pick. This prevents a draw and therefore $B$ can claim victory. 
+\end{itemize}
+It remains to show that the game must draw when $n=1, 2, 4, 6$ under optimal playing by both parties. 
+Having shown the strategy for $B$, it remains to show the strategy for $A$. For $n=1, 2$ there's nothing to prove. 
+For $n=4, 6$, $A$ chooses 1 to start. If $B$ doesn't choose $n$ in the next round, $A$ chooses $n$ in their next turn, 
+thus forcing the state string to always start and end with $A$ and $A$ cannot lose. 
+Otherwise, $B$ chooses $n$, and $A$ chooses 3. 
+For $n = 4$ this already implies a draw; 
+for $n = 6$ we know that $B$ cannot choose 5 while $A$ can, so $A$ just have to choose 5 in their 3rd (and last) move and not lose the game. 
+
 \item[\textbf{C5}.] (IMO 6) The sequence $a_1,a_2,\dots$ of integers satisfies the conditions:
 
 \begin{enumerate}
