@@ -163,6 +163,44 @@
 	
 	When $n=\frac{p-1}{2}$, we have the leading term, $b_{(p-1)/2}$ as 1, so in this case $q^{(n)}(1)\equiv 1\pmod{p}$. We thus conclude that the highest power of $n$ with $q^{(n)}(x)$ divisible by $(x-1)$ is $\frac{p-3}{2}$, and therefore the highest power we're looking for is $\frac{p-1}{2}$. 
 	
+	\item [\textbf{A6}] 
+	Let $g$ be a real-valued function that is continuous on the closed interval $[0,1]$ and twice differentiable on the open interval $(0,1)$.  Suppose that for some real number $r>1$,
+	\[
+	\lim_{x\to 0^+}\frac{g(x)}{x^r} = 0.
+	\]Prove that either
+	\[
+	\lim_{x\to 0^+}g'(x) = 0\qquad\text{or}\qquad \limsup_{x\to 0^+}x^r|g''(x)|= \infty.
+	\]
+	
+	\textbf{Solution.} 
+	Suppose the first condition does not hold, i.e. there exists $a > 0$ such that there exists $x>0$ arbitrarily small and $|g'(x)| \ge a$. 
+	
+	Fix $\epsilon > 0$, and by the problem condition there exists $\delta > 0$ such that $|g(x)|\le \epsilon x^r$ for all $x<\delta$. 
+	Choose any $x_0$ that satisfies $x_0 < \delta$ but $|g'(x_0)|\ge a$; w.l.o.g. assume $g'(x_0)\ge a$. 
+	Then for any $x_1$ with $0<x_1<x_0$ we have 
+	\[
+	|g(x_0)-g(x_1)|\le \epsilon(x_0^r+x_1^r)\le 2\epsilon x_0^r
+	\]
+	and therefore $\min_{x\in [x_1, x_0]}g'(x)\le \frac{2\epsilon x_0^r}{s}$ with $s=x_0-x_1$. 
+	Now choosing $x_2\in [x_1, x_0]$ s.t. $g'(x_2)\le  \frac{2\epsilon x_0^r}{s}$, we have 
+	\[\max_{x\in [x2_, x_0]}g''(x)\ge \frac{g'(x_0)-g'(x_2)}{x_0-x_2}\ge 
+	\frac{a - \frac{2\epsilon x_0^r}{s}}{x_0-x_2}
+	\ge \frac{a - \frac{2\epsilon x_0^r}{s}}{s}
+	\]
+	and therefore $\max_{x\in [x_1, x_0]} g''(x)\ge \frac{a}{s} - \frac{2\epsilon x_0^r}{s^2}$. 
+	Now, let $s = \frac{4\epsilon x_0^r}{a}$; 
+	the fact that $r > 1$ means $x_1 = x_0 - s = x_0 - \frac{4\epsilon x_0^r}{a} > \frac{1}{2}x_0$ for all $x_0$ sufficiently small, 
+	so we may pick such $(x_0, s)$-pair and obtain 
+	$
+	\sup_{x\in [x_1, x_0]} g''(x)\ge \frac{a^2}{8\epsilon x_0^r}
+	$
+	and therefore 
+	\[
+	\sup_{x\in [x_1, x_0]} x^rg''(x) \ge \frac{a^2x_1^r}{8\epsilon x_0^r}\ge 2^{-r}\frac{a^2}{8\epsilon}
+	\]
+	Finally, since $\epsilon > 0$ can be taken arbitrarily small, this implies the second inequality 
+	$\limsup_{x\to 0^+}x^r|g''(x)|= \infty$.
+	
 	\item [\textbf{B1}] Denote by $\mathbb Z^2$ the set of all points $(x,y)$ in the plane with integer coordinates.  For each integer $n\geq 0$, let $P_n$ be the subset of $\mathbb Z^2$ consisting of the point $(0,0)$ together with all points $(x,y)$ such that $x^2+y^2=2^k$ for some integer $k\leq n$.  Determine, as a function of $n$, the number of four-point subsets of $P_n$ whose elements are the vertices of a square.
 	
 	\textbf{Answer.} $5n + 1$. 

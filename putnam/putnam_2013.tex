@@ -263,6 +263,39 @@
 	If $\{a_1, \cdots , a_q\}=S_{k-a_q}$ then the condition $f(S)=\dsum_{f_i\in S}f_i$ holds for this $S=\{a_1, \cdots, a_q\}$. 
 	Otherwise, $S_{k-a_q}\cap \{a_1, \cdots , a_{q}\}$ will have less than $q$ elements. By the induction hypothesis, $f(S_{k-a_q}\cap \{a_1, \cdots , a_{q}\}) - f(S_{k-a_q}\cap \{a_1, \cdots , a_{q-1}\})=f_{a_q}$, and therefore $f(\{a_1, \cdots , a_{q}\}) = f(\{a_1, \cdots , a_{q-1}\}) + f_{a_q}$. But by induction hypothesis again $f(\{a_1, \cdots , a_{q-1}\}) = f_{a_1} + \cdots + f_{a_{q-1}}$, and from here the conclusion follows. 
 	
+	\item[\textbf{B4}] 
+	For any continuous real-valued function $f$ defined on the interval $[0,1],$ let\[\mu(f)=\int_0^1f(x)\,dx,\text{Var}(f)=\int_0^1(f(x)-\mu(f))^2\,dx, M(f)=\max_{0\le x\le 1}|f(x)|.\]Show that if $f$ and $g$ are continuous real-valued functions defined on the interval $[0,1],$ then\[\text{Var}(fg)\le 2\text{Var}(f)M(g)^2+2\text{Var}(g)M(f)^2.\]
+	
+	\textbf{Solution.} 
+	We first note the following equivalent formulation of $\text{Var}$: 
+	\[
+	\int_0^1 \int_0^1 (f(x) - f(y))^2 dx dy
+	=\int_0^1 \int_0^1 (f(x)^2 + f(y)^2 - 2f(x)f(y)) dx dy
+	=2(\int_0^1 f(x)^2 dx - \mu(f)^2)
+	\]\[
+	=2(\int_0^1 f(x)^2 dx + \mu(f)^2 - \mu(f)(\int_0^1 f(x) dx))
+	=2\text{Var}(f)
+	\]
+	and therefore $\text{Var}(f) = \frac 12 \int_0^1 \int_0^1 (f(x) - f(y))^2 dx dy$. 
+	
+	Next, given any functions $f, g$ and any $x, y\in [0, 1]$, and using $(a+b)^2\le 2(a^2+b^2)$, we have 
+	\[
+	(f(x)g(x) - f(y)g(y))^2 \le 2(f(x)g(x)-f(x)g(y))^2 + 2(f(x)g(y) - f(y)g(y))^2
+	\]\[
+	= 2f(x)^2(g(x)-g(y))^2 + 2g(y)^2(f(x)-f(y))^2
+	\le 2M(f)^2(g(x)-g(y))^2 + 2M(g)^2(f(x)-f(y))^2
+	\]
+	Therefore 
+	\[
+	\text{Var}(fg)
+	=\frac 12 \int_0^1 \int_0^1 (f(x)g(x) - f(y)g(y))^2 dx dy
+	\]\[
+	\le M(f)^2 \int_0^1 \int_0^1 (g(x) - g(y))^2 dx dy
+	+M(g)^2 \int_0^1 \int_0^1 (f(x) - f(y))^2 dx dy
+	=2\text{Var}(f)M(g)^2+2\text{Var}(g)M(f)^2
+	\]
+	as desired. 
+	
 	\item[\textbf{B5}] Let $X=\{1,2,\dots,n\},$ and let $k\in X.$ Show that there are exactly $k\cdot n^{n-1}$ functions $f:X\to X$ such that for every $x\in X$ there is a $j\ge 0$ such that $f^{(j)}(x)\le k.$
 	
 	[Here $f^{(j)}$ denotes the $j$th iterate of $f,$ so that $f^{(0)}(x)=x$ and $f^{(j+1)}(x)=f\left(f^{(j)}(x)\right).$]

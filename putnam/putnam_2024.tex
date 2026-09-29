@@ -1,0 +1,351 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, bbm}
+\usepackage{mathrsfs,amsthm}
+\usetikzlibrary{arrows}
+\setlength{\textheight}{10in}
+%\setlength{\topmargin}{0in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\parskip}{0.1in}
+\setlength{\parindent}{0in}
+
+\begin{document}
+	\newcommand{\la}{\leftarrow}
+	\newcommand{\lra}{\leftrightarrow}
+	\newcommand{\bbN}{{\mathbb N}}
+	\newcommand{\bbZ}{{\mathbb Z}}
+	\newcommand{\bbQ}{{\mathbb Q}}
+	\newcommand{\bbR}{{\mathbb R}}
+	\newcommand{\bbC}{{\mathbb C}}
+	\newcommand{\bbH}{{\mathbb H}}
+	\newcommand{\bbE}{{\mathbb E}}
+	\newcommand{\bbP}{{\mathbb P}}
+	\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}}
+	\newcommand{\ra}{\rightarrow}
+	\newcommand{\Span}{\mathrm{span}}
+	\newcommand{\scrP}{\mathscr{P}}
+	\newcommand{\rank}{\mathrm{rank}}
+	\newcommand{\nullity}{\mathrm{nullity}}
+	\newcommand{\Col}{\mathrm{Col}}
+	\newcommand{\Row}{\mathrm{Row}}
+	\newcommand{\tr}{\mathrm{tr}}
+	\newcommand{\ol}{\overline}
+	\newcommand{\norm}[1]{||#1||}
+	\newcommand{\doubleline}[1]{\underline{\underline{#1}}}
+	\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
+	\newcommand{\Ind}{\mathrm{Ind}}
+	\newcommand{\Res}{\mathrm{Res}}
+	\newcommand{\End}{\mathrm{End}}
+	\newcommand{\cl}{\mathrm{cl}}
+	\newcommand{\code}[1]{\texttt{#1}}
+	\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+	\newcommand{\<}{\langle}
+	\renewcommand{\>}{\rangle}
+	\newcommand{\qubits}[1]{|{#1}\rangle}
+	\newcommand{\powset}{\mathcal{P}}
+	\newcommand{\dsum}{\displaystyle\sum}
+	\newcommand{\dprod}{\displaystyle\prod}
+	
+	\newtheorem{lemma}{Lemma}
+	
+	\section*{Putnam 2024 Solutions}
+	
+	\section*{Session A}
+	
+	\begin{enumerate}
+		\item [A1.] 
+		Determine all positive integers $n$ for which there exists positive integers $a$, $b$, and $c$ satisfying
+		\[
+		2a^n+3b^n=4c^n.
+		\]
+		
+		\textbf{Answer.} $n = 1$. 
+		
+		\textbf{Solution.} When $n = 1$, we may have $(a, b, c)=(1, 2, 2)$. 
+		To show that this is the only answer, denote $\nu_p(n)$ as the largest power of prime $p$ dividing $n$. 
+		We note that if $\nu_p(a)\neq \nu_p(b)$ then $\nu_p(a + b) = \min\{\nu_p(a), \nu_p(b)\}$. 
+		Let $n\ge 2$, 
+		and $\nu_2(2a^n) = n\nu_2(a)+1; \nu_2(3b^n)=n\nu_2(b), \nu_2(4c^n)=2+n\nu_2(c)$, 
+		therefore $\nu_2(2a^n)\neq \nu_2(3b^n)$ at all times, 
+		and so $\min\{n\nu_2(a)+1, n\nu_2(b)\}=2+n\nu_2(c)$. 
+		Considering congruence modulo $n$, the only possibility is $n = 2$. 
+		
+		When $n = 2$, w.l.o.g. assume that $(a, b, c)$ not all divisible by 3, 
+		otherwise we can just change $(a, b, c)\to (\frac{a}{3}, \frac{b}{3}, \frac{c}{3})$. 
+		If $3\nmid a$, then $2a^2\equiv 2\pmod{3}$, 
+		but $4c^2\in \{0, 1\}\pmod{3}$. 
+		Therefore $3\nmid b$ and $3\mid a, c$. 
+		But this means $9\nmid 2a^2+3b^2$ but $9\mid 4c^2$, 
+		which is still a constradiction. 
+		
+		\item [A2.] For which real polynomials $p$ is there a real polynomial $q$ such that
+		\[
+		p(p(x))-x=(p(x)-x)^2q(x)
+		\]for all real $x$?
+		
+		\textbf{Answer.} 
+		
+		\textbf{Solution.} 
+		To show that each of these answers work, we note that 
+		if $p(x)=x+c$ for some $c$ then 
+		$p(p(x)) = x+2c$ so we may take $q(x) = \frac{2}{c}$ if $c\neq 0$, 
+		and 0 if $c = 0$. 
+		If $p(x)=-x+c$ then $p(p(x)) = p(-x+c) = -(-x+c)+c = x$, 
+		i.e. we may take $q(x)=0$. 
+		
+		Now to show that these are the only answers, 
+		we first identify a number $x_0$ such that $p(x_0) = x_0$; 
+		such a number exists if $p(x)\neq x + c$ for some $c\neq 0$. 
+		Suppose that $k$ is the highest power of $x-x_0$ dividing $p(x) - x$. 
+		Consider, now, a polynomial $r$ such that $p(x_0 + \epsilon) - (x_0 + \epsilon) = \epsilon^kr(\epsilon)$ 
+		where $r(0) \neq 0$. 
+		For the problem statement to hold, we require $(x-x_0)^{2k}$ to divide $p(p(x)) - x$, 
+		or equivalently, $p(p(x_0+\epsilon)) - (x_0 + \epsilon)\in O(\epsilon^{2k})$. 
+		Now, 
+		\[
+		p(p(x_0 + \epsilon)) = p(x_0 + (\epsilon + \epsilon^kr(\epsilon))
+		= x_0 + (\epsilon + \epsilon^kr(\epsilon) + (\epsilon + \epsilon^kr(\epsilon))^kr(\epsilon + \epsilon^k(r(\epsilon)))
+		\]
+		so $p(p(x_0 + \epsilon))  - (x_0+\epsilon)$ is the following: 
+		\[\epsilon^k[r(\epsilon) + (1 + \epsilon^{k - 1}r(\epsilon))^kr(\epsilon + \epsilon^k(r(\epsilon)))]
+		\]
+		If $k > 1$, 
+		as $\epsilon\to 0$ we have the product term as 
+		$2r(0)\neq 0$, so $p(p(x_0 + \epsilon))  - (x_0+\epsilon)$ cannot be divisible by $\epsilon^{2k}$; 
+		(and the problem statement cannot hold). 
+		If $k = 1$, 
+		then the product term is 
+		$r(0) + (1 + r(0))r(0) = r(0)(2 + r(0))$. 
+		Given that $r(0)\neq 0$, we require $r(0)=-2$. 
+		Thus for all $x_0$ such that $p(x_0) - x_0 = 0$ wehave $p(x)-x = (x-x_0)r(x)$ with $r(x_0)=-2$. 
+		This only holds when $p(x)$ is linear, i.e. in the form of $p(x)=-x-c$. 
+		
+		\item [A4.]
+			Find all primes $p>5$ for which there exists an integer $a$ and an integer $r$ satisfying $1\leq r\leq p-1$ with the following property: the sequence $1,\,a,\,a^2,\,\ldots,\,a^{p-5}$ can be rearranged to form a sequence $b_0,\,b_1,\,b_2,\,\ldots,\,b_{p-5}$ such that $b_n-b_{n-1}-r$ is divisible by $p$ for $1\leq n\leq p-5$.
+			
+			\textbf{Answer.} $p = 7$. 
+			
+			\textbf{Solution.} 
+			When $p = 7$, we may take $a = 3$ and rearrange $1, 3, 3^2$ into $1, 9, 3$ and take $r = 1$. 
+			
+			To show $p = 7$ is the only solution, we first see that $b_0, \cdots, b_{p - 5}$ are pairwise distinct modulo $p$, 
+			and therefore same goes to the sequences $1, a, \cdots, a^{p - 5}$. 
+			Therefore numbers $a^k\not\equiv 1$ for $1\le k\le p - 5$. If $p\ge 11$, this means $a$ is a primitive root of $p$ 
+			(otherwise $a^k\equiv 1$ for some $k\le \frac{p-1}{2}\le p - 5$). 
+			This means that $\{1, a, \cdots, a^{p - 2}\} = \{1, 2, \cdots, p - 1\}$ modulo $p$, 
+			i.e. if $a^{p - 4}, a^{p - 3}, a^{p - 2} = x, y, z$ in that order then 
+			$\{b_0, \cdots, b_{p - 5}\}\sqcup \{x, y, z\} = \{1, 2, \cdots, p - 1\}$. 
+			
+			Now we may continue the sequence $b_{p - 4}, b_{p - 3}, b_{p - 2}, b_{p - 1}$, 
+			that together with $b_0, \cdots, b_{p - 5}$ form a complete residue modulo $p$. 
+			It follows that $\{b_{p - 4}, b_{p - 3}, b_{p - 2}, b_{p - 1}\} = \{x, y, z, 0\}$. 
+			Note from before that $y^2=xz$, and depending on the order of $x, y, z$ relative to 0, 
+			we have $\{x, y, z\}$ either equals to $\{s, 2s, 3s\}$ or $\{-s, s, 2s\}$ for some nonzero $s$. 
+			In the first case we either have $2^2=1\cdot 3, 3^2=1\cdot 2, 1^2=2\cdot 3$, 
+			i.e. $p=1, 7, 5$, respectively. 
+			In the second case we have $1^2=1\cdot 2, 1^2=-1\cdot 2, 2^2=-1\cdot 1$, giving $p\le 5$. 
+			
+		\item [A5.]
+		Consider the circle $\Omega$ with radius $9$ and center at the origin $(0,\,0)$, and a disk $\Delta$ with radius $1$ and center at $(r,\,0)$, where $0\leq r\leq 8$. Two points $P$ and $Q$ are chosen independently and uniformly at random on $\Omega$. Which value(s) of $r$ minimize the probability that the chord $\overline{PQ}$ intersects $\Delta$?
+		
+		\textbf{Answer.} $r = 0$. 
+		
+		\textbf{Solution.} 
+		Let $\Omega, \Delta$ to have diameters $D, d$, respectively. 
+		(Hence $d = 2$ and $D = 18$ in our setting). 
+		We consider the following sampling of $P$ and $Q$: 
+		sample a line $\vec{\lambda}$ through the origin $O$, 
+		set $\vec{PQ}\parallel \vec{\lambda}$, 
+		and then sample $\theta = \angle POQ$ from $OP$ to $OQ$ (in $P\to Q$ fashion, 
+		hence modulo $2\pi$). 
+		Then we're sampling $\lambda$ uniformly, 
+		and conditioned on $\lambda$, we are also choosing $\theta \in [0, 2\pi)$ uniformly. 
+		
+		Next, fix $\lambda$ and we calculate the probability $p_{\lambda}$ that conditioned on $PQ\parallel \lambda$, 
+		what is the probability $PQ$ intersecting $\Delta$. 
+		To this end we set $P_1Q_1, P_2Q_2$ as the two chords satisfying the criterion $PQ\parallel \lambda$, 
+		and $P_1Q_1Q_2P_2$ in that order. 
+		Moreover $P_1Q_1, P_2Q_2$ are distinct and tangent to $\Delta$. 
+		Then the $p_{\lambda} = \frac{\angle (P_1P_2)}{\pi}$ (i.e. proportional to the angle subtended by $P_1P_2$). 
+		Now that $P_1Q_1$ and $P_2Q_2$ always have distance $d$, 
+		we have $\angle (P_1P_2) = \arcsin\frac{d}{P_1Q_2}\ge \arcsin\frac{d}{D}$. 
+		Hence the desired probability (conditioned on $p_{\lambda}$, and overall) is always bounded below by 
+		$\frac{1}{\pi}\cdot \arcsin\frac{d}{D}$. 
+		
+		Equality holds if and only if $P_1Q_2$ is a diameter for all $\vec{\lambda}$. 
+		This happens if and only if the two circles are concentric; for other cases, conditioned on $\vec{\lambda}$, 
+		it holds if and only if $\lambda\parallel $ the two centers of the circles. 
+		This gives $r = 0$ as the only answer. 
+	\end{enumerate}
+
+    \section*{Session B}
+    
+    \begin{enumerate}
+    	\item [B1.] 
+    	Let $n$ and $k$ be positive integers. The square in the $i$th row and $j$th column of an $n$-by-$n$ grid contains the number $i+j-k$. For which $n$ and $k$ is it possible to select $n$ squares from the grid, no two in the same row or column, such that the numbers contained in the selected squares are exactly $1,\,2,\,\ldots,\,n$?
+    	
+    	\textbf{Answer.} 
+    	All $n$ odd and $k = \frac{n + 1}{2}$. 
+    	
+    	\textbf{Solution.} 
+    	Suppose that the condition can be fulfilled, 
+    	and suppose that for each $i = 1, \cdots, n$ we choose $c(i)$-th element from row $i$. 
+    	Then 
+    	\[\frac{n(n+1)}{2} = \sum_{i=1}^n i = \sum_{i=1}^n (i + c(i) - k) = \frac{n(n+1)}{2}  + \frac{n(n+1)}{2}  - kn.
+    	\]
+    	Thus $kn = \frac{n(n+1)}{2}$ and $k = \frac{n + 1}{2}$ is necessarily, 
+    	so $n$ is odd. 
+    	
+    	For construction, consider the following entries: 
+    	\[
+    	(1, k), (2, k + 1), \cdots, (k, 2k - 1), (k + 1, 1), \cdots, (2k - 1, k - 1)
+    	\]
+    	noting that $2k - 1 = n$. 
+    	Then the sum above is now $1, 3, \cdots, n, 2, 4, \cdots, n - 1$, as desired. 
+    	
+    	\item [B2.] 
+    	Two convex quadrilaterals are called partners if they have three vertices in common and they can be labeled $ABCD$ and $ABCE$ so that $E$ is the reflection of $D$ across the perpendicular bisector of the diagonal $\overline{AC}$. Is there an infinite sequence of convex quadrilaterals such that each quadrilateral is a partner of its successor and no two elements of the sequence are congruent?
+    	
+    	\textbf{Answer.} No. 
+    	
+    	\textbf{Solution.} 
+    	We note that after each operation, the area of the convex quadrilateral remains the same, 
+    	and the 4 side lengths also remain the same (except in possibly different orders). 
+    	Given that there are at most $4!=24$ ordering of the sides, 
+    	it suffices to show that there are only finitely many quadritaterals of given side lengths and area. 
+    	
+    	(TODO)
+    	
+    	\item [B3.] 
+    	Let $r_n$ be the $n$th smallest positive solution to $\tan x=x$, where the argument of tangent is in radians. Prove that
+    	\[
+    	0<r_{n+1}-r_n-\pi<\frac{1}{(n^2+n)\pi}
+    	\]for $n\geq 1$.
+    	
+    	\textbf{Solution.} 
+    	We note that $\tan x$ is positive only when there exists an integer $k$ with 
+    	$x\in (k\pi, (k + \frac 12)\pi)$. 
+    	In addition, differentiating $\tan x - x$ gives us $\tan^2 x\ge 0$ so there is exactly one intersection of 
+    	$\tan x$ and $x$ for each interval $(k\pi, (k + \frac 12)\pi)$. 
+    	Thus in other words $r_n \in (n\pi, (n + \frac 12)\pi)$. 
+    	Now note also that $\tan r_{n+1} > \tan r_n$. 
+    	Let $s_n = r_n - \pi$, we have $\tan s_{n+1}= r_{n+1} > r_n = \tan s_n$ 
+    	with $s_n, s_{n+1}\in (0, \frac{\pi}{2})$. 
+    	Given that $\tan$ is increasing in this interval, 
+    	$s_{n+1} > s_n$ and so $r_{n+1}-r_n > \pi$. 
+    	
+    	To prove the other side of the inequality, we now show that $\tan s_n = \tan r_n > \pi\sqrt{n^2+n}$. 
+    	Now $\tan s_n = s_n + n\pi$; 
+    	on the other hand we have $\tan s_n = \frac{1}{\tan (\frac{\pi}{2} - s_n)} < \frac{1}{\frac{\pi}{2} - s_n}$, 
+    	using the fact that $\tan x > x$ for $x\in (0, \frac{\pi}{2})$. 
+    	Therefore we are now solving 
+    	$x + n\pi < \frac{1}{\frac{\pi}{2} - x}$, or $(x + n\pi)(\frac{\pi}{2} - x) < 1$. 
+    	Given also that $(x + n\pi)(\frac{\pi}{2} - x)$ is decreasing in $(0, \frac{\pi}{2})$, 
+    	it suffices to show that $(x + n\pi)(\frac{\pi}{2} - x) > 1$ if $x = \pi\sqrt{n(n+1)} - n\pi$. 
+    	Indeed, for this $x$ we have 
+    	\[
+    	\frac{\pi}{2} - x
+    	=\pi (n + \frac 12 - \sqrt{n(n+1)})
+    	=\pi (\sqrt{n^2+n + \frac 14} - \sqrt{n^2+n})
+    	=\frac{\pi}{4\left(\sqrt{n^2+n + \frac 14} + \sqrt{n^2+n}\right)}
+    	\]
+    	where the last equality follows from $\sqrt{a+b}-\sqrt{a}=\frac{b}{\sqrt{a+b}+\sqrt{a}}$. 
+    	Thus putting them together we have 
+    	\[
+    	(x + n\pi)(\frac{\pi}{2} - x) 
+    	=\pi^2\frac{\sqrt{n^2+n}}{4\left(\sqrt{n^2+n + \frac 14} + \sqrt{n^2+n}\right)}
+    	=\pi^2\frac{1}{4(1 + \sqrt{\frac{n^2+n + \frac 14}{n^2+n}})}
+    	\ge \pi^2\frac{1}{4(1 + \sqrt{\frac{9}{8}})}
+    	> 1
+    	\]
+    	where the last part following $n\ge 1$ and using $\pi^2 > 9$ and $\sqrt{\frac{9}{8}} < \frac 54$. 
+    	Thus the claim is proven. 
+    	With this, all it remains is the fact that 
+    	\[
+    	\pi = (\tan s_{n+1} - s_{n+1}) - (\tan s_n - s_n)
+    	=\int_{s_n}^{s_{n+1}} \tan^2 xdx
+    	\]
+    	and since $\tan x > \pi\sqrt{n^2+n}$ for all $x\in (s_n, s_{n+1})$ we have 
+    	$s_{n+1}-s_n < \frac{\pi}{\pi^2(n^2+n)}$, as desired. 
+    	
+    	\item [B4.] 
+    	Let $n$ be a positive integer. Set $a_{n,0}=1$. For $k\geq 0$, choose an integer $m_{n,k}$ uniformly at random from the set $\{1,\,\ldots,\,n\}$, and let
+    	\[
+    	a_{n,k+1}=
+    	\begin{cases}
+    		a_{n,k}+1, & \text{if $m_{n,k}>a_{n,k}$;}\\
+    		a_{n,k}, & \text{if $m_{n,k}=a_{n,k}$;}\\
+    		a_{n,k}-1, & \text{if $m_{n,k}<a_{n,k}$.}
+    	\end{cases}
+    	\]Let $E(n)$ be the expected value of $a_{n,n}$. Determine $\lim_{n\to\infty}E(n)/n$.
+    	
+    	\textbf{Answer.} $\frac 12(1 - e^{-2})$. 
+    	
+    	\textbf{Solution.} 
+    	Let $b_{n, k} = a_{n, k} - \frac{n + 1}{2}$; 
+    	we show that $\bbE[b_{n, k + 1}] = (1 - \frac{2}{n})\bbE[b_{n,k}]$. 
+    	Indeed, the probability of $b_{n, k + 1} = (b_{n, k} - 1, b_{n, k}, b_{n, k} + 1)$ is 
+    	$(\frac{a_{n, k} - 1}{n}, \frac 1n, 1 - \frac{a_{n, k}}{n})$, 
+    	i.e. $(\frac{b_{n, k} - 1/2}{n} + \frac{1}{2}, \frac 1n, \frac 12 - \frac{b_{n, k} + 1/2}{n})$, 
+    	giving 
+    	\[\bbE[b_{n, k + 1}  | b_{n, k} = b]
+    	= (b - 1)(\frac 12 + \frac{b - 1/2}{n}) + \frac{b}{n}
+    	+ (b + 1)(\frac 12 - \frac{b +1/2}{n})
+    	= b(1 - \frac{2}{n})
+    	\]
+    	Thus the claim follows from linearity of expectation. 
+    	Given that $b_{n, 0} = 1 - \frac{n + 1}{2} = -\frac{n - 1}{2}$, we have 
+    	\[
+    	\bbE[b_{n, n}] = -\frac{n - 1}{2}(1 - \frac{2}{n})^n
+    	\]
+    	and therefore 
+    	\[
+    	\frac{E(n)}{n} = \frac{n+1}{2n} + \frac{\bbE[b_{n, n}]}{n}
+    	= \frac{n+1}{2n} - \frac{n-1}{2n}(1 - \frac{2}{n})^n
+    	\to \frac 12 - \frac 12(e^{-2})
+    	\]
+    	
+    	\item [B5.] 
+    	Let $k$ and $m$ be positive integers. For a positive integer $n$, let $f(n)$ be the number of integer sequences $x_1,\,\ldots,\,x_k,\,y_1,\,\ldots,\,y_m,\,z$ satisfying $1\leq x_1\leq\cdots\leq x_k\leq z\leq n$ and $1\leq y_1\leq\cdots\leq y_m\leq z\leq n$. Show that $f(n)$ can be expressed as a polynomial in $n$ with nonnegative coefficients.
+    	
+    	\item [B6.] 
+    	For a real number $a$, let $F_a(x)=\sum_{n\geq 1}n^ae^{2n}x^{n^2}$ for $0\leq x<1$. Find a real number $c$ such that
+    	\begin{align*}
+    		\lim_{x\to 1^-}F_a(x)e^{-1/(1-x)}&=0 \ \ \  \text{for all $a<c$, and}\\
+    		\lim_{x\to 1^-}F_a(x)e^{-1/(1-x)}&=\infty \ \ \  \text{for all $a>c$.}
+    	\end{align*}
+    
+        \textbf{Answer.} $c = -\frac 12$. 
+        
+        \textbf{Solution.} 
+        Let $M = \frac{1}{\log \frac 1x}$; note that $x\to 1^-$ means $M \to +\infty$. 
+        Then for each $n$ we have 
+        \[
+        e^{2n}x^{n^2} = e^{2n - \frac{n^2}{M}} = e^{M - \frac{(n - M)^2}{M}}
+        \]
+        In addition, we have 
+        \[
+        e^{1/(1 - x)} = e^{1/(1 - e^{-1/M})} = e^{M/(1 - O(1/M))} = e^{M+O(1)}
+        \]
+        as $M\to\infty$. 
+        Thus it suffices to consider the quantity 
+        \[
+        \sum_{n\ge 1} n^ae^{-\frac{(n - M)^2}{M}}
+        \]
+        
+        Thus it follows that 
+        \[
+        F_a(x) > \sum_{n\in  (M - \sqrt{M}, M + \sqrt{M})} n^a e^{M - \frac{(n - M)^2}{M}}
+        > e^{M - 1} 2\lfloor \sqrt{M}\rfloor  \min\{(M - \sqrt{M})^a, (M +\sqrt{M})^a\}
+        \]
+        For $M$ sufficiently large, we have $\min\{(M - \sqrt{M})^a, (M +\sqrt{M})^a\} > \frac 12 M^a$, 
+        giving the inequality as $> \frac 12 e^{M-1}\sqrt{M} \cdot M^a = e^{M - 1}M^{a + \frac 12}$. 
+        Note also that $e^{-1/(1 - x)} = e^{-1/(1 - e^{-\frac 1M})} = e^{-(M + O(1))}$, 
+        so $F_a(x)e^{-1/(1 - x)} > e^{-1 +O(1)} M^{ a + \frac 12}$, which is $\to\infty$ as $M\to\infty$, 
+        if $a > -\frac 12$. 
+        
+        Conversely, suppose now that $a < -\frac 12$. Denote $S_k = \sum_{n: (k - 1)\sqrt{M}\le|n - M|\le k\sqrt{M}} n^ae^{2n}x^{n^2}$, 
+        we have $F_a(x) \le \sum_{k\ge 1} S_k$. 
+        Notice that 
+        
+    \end{enumerate}
+\end{document}

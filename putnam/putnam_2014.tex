@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{amsmath, amssymb, amsthm, fullpage, mathrsfs, bm, pgf, tikz}
 \usepackage{mathrsfs}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
@@ -48,6 +48,8 @@
 \newcommand{\lcm}{\mathrm{lcm}}
 \newcommand{\dsum}{\displaystyle\sum}
 \newcommand{\dprod}{\displaystyle\prod}
+
+\newtheorem{lemma}{Lemma}
 
 \begin{document}
 
@@ -244,35 +246,55 @@
 	since $b_1, b_2, b_3\ge 0$. 
 	
 	
-	%%%Old solution, cited from Kiran Kedlaya
-	\iffalse
-	(by Kiran Kedlaya, modified) We let $a_i=P(X=i)$ for each $i\ge 0$ (which means $a_i\ge 0$ for each $i$). Consider the power series $f(x)=\displaystyle\sum_{n=0}^{\infty}a_nx^n$, and we have $f(1)=1$. 
-	By the problem condition, we also have 
-	\begin{itemize}
-		\item $f'(x)=\displaystyle\sum_{n=0}^{\infty}na_nx^{n-1}$, so $f'(1)=\displaystyle\sum_{n=0}^{\infty}na_n=E(X)=1$
-		
-		\item $f''(x)=\displaystyle\sum_{n=0}^{\infty}n(n-1)a_nx^{n-2}$, so
-		$f''(1)=\displaystyle\sum_{n=0}^{\infty}n(n-1)a_n
-		=\displaystyle\sum_{n=0}^{\infty}n^2a_n-\displaystyle\sum_{n=0}^{\infty}na_n
-		=E(X^2)-E(X)
-		=2-1=1
-		$
-		
-		\item $f'''(x)=\displaystyle\sum_{n=0}^{\infty}n(n-1)(n-2)a_nx^{n-3}$ so 
-		$f'''(1)=\displaystyle\sum_{n=0}^{\infty}(n^3-3n^2+2n)a_n
-		=E(X^3)-3E(X^2)+2E(X)
-		=5-3(2)+2(1)=1
-		$
-	\end{itemize}  
-	Now we can rearrange $f(x)$ into $f(x)=\displaystyle\sum_{n=0}^{\infty} f^{(n)}(1)\dfrac{(x-1)^n}{n!}$, i.e. the Taylor's series. We also have, by Taylor's series, $f(x)=f(1)+f'(1)(x-1)+f''(1)\dfrac{(x-1)^2}{2!}+f'''(1)\dfrac{(x-1)^3}{3!}+f^{(4)}(c)\dfrac{(x-1)^4}{4!}$, with $c$ some value in $(1, x)$ or $(x, 1)$ depending whether $x<1$ or $1<x$. Thus in particular $a_0=f(0)=f(1)-f'(1)+\dfrac{f''(1)}{2}-\dfrac{f'''(1)}{6}+\dfrac{f^{(4)}(c)}{24}
-	=1-1+\dfrac{1}{2}-\dfrac{1}{6}+\dfrac{f^{(4)}(c)}{24}
-	=\dfrac{1}{3}+\dfrac{f^{(4)}(c)}{24}
-	$
-	for some $c\in (0, 1)$. 
-	We also note that $f^{(4)}(x)=\displaystyle\sum_{n=0}^{\infty}n(n-1)(n-2)(n-3)a_nx^{n-4}$ and for $x\ge 0$ and $n\ge 0$, the quantities $n(n-1)(n-2)(n-3)$, $a_n$, and $x^{n-4}$ are all nonnegative. Thus $f^{(4)}(x)\ge 0$ for all $x\ge 0$, and in particular $\dfrac{f^{(4)}(c)}{24}\ge 0$. Thus we have $f(0)=\dfrac{1}{3}+\dfrac{f^{(4)}(c)}{24}\ge \dfrac 13$, with equality holding when $a_0=\frac 13, a_1=\frac 12$ and $a_3=\frac 16$ and $a_n=0$ for other $n$'s. 
+	\textbf{Remark.} Here's a more elegant solution that I found after. Now notice that $\mathbb{E}[(X-1)^k] = 0, 1, 1$ for $k=1, 2, 3$. Denote $p_m = \mathbb{P}[X = m]$. We leverage the fact that $(X-1)^3 - (X-1)=0$ for $X=0, 1, 2$, 
+	and also $(X-1)^2 - (X-1)=0$ for $X=0, 1, 2$,
+	 to get 
+	\[
+	1 = \sum_{m\ge 3} p_m[(X-1)^3 - (X-1)] = 2p_0 + \sum_{m\ge 3} p_m[(X-1)^2 - (X-1)] 
+	\]
+	On the other hand we have 
+	\[
+	\sum_{m\ge 3} p_m[(X-1)^2 - (X-1)] \le \max_{m\ge 3} \frac{(X-1)^2 - (X-1)}{(X-1)^3 - (X-1)}
+	= \max_{m\ge 3}\frac{1}{X} = \frac 13
+	\]
+	which forces $p_0\ge \frac{1}{3}$. Equality can be found as per the first solution. 
 	
-	\fi 
-	%%%End
+	\item[\textbf{A6}] Let $n$ be a positive integer. What is the largest $k$ for which there exist $n\times n$ matrices $M_1,\dots,M_k$ and $N_1,\dots,N_k$ with real entries such that for all $i$ and $j,$ the matrix product $M_iN_j$ has a zero entry somewhere on its diagonal if and only if $i\ne j?$
+	
+	\textbf{Answer.} $n^n$. 
+	
+	\textbf{Solution.} We consider a more general setting where $M_i$'s are $n\times m$ and $N_j$'s are $m\times n$, in which we show the answer is $m^n$. Equality can be taken via $N_i = M_i^T$, 
+	and also the $n$ rows of $M_i$ are $e_{i_1}, e_{i_2}, \cdots, e_{i_n}$
+	where $(i_1i_2\cdots i_n)$ are the base-$m$ expansion of $i - 1$, $i=1, \cdots, k = m^n$. 
+	
+	To show the converse, we first note the following: 
+	\begin{lemma}
+		Let $A$ and $B$ be two $n\times n$ matrices, and denote $\circ$ the Hadamard product (i.e. elementwise multiplication). 
+		Then the $\rank (A\circ B)\le \rank(A)\cdot \rank(B)$. 
+	\end{lemma}
+    
+    \begin{proof}
+    	If one of $A$ and $B$ is zero matrix then the product is a zero matrix (hence rank 0). 
+    	Otherwise, if $\rank(A)=m_1$ and $\rank(B)=m_2$, 
+    	then columns of $A$ are in $\Span\{u_1, \cdots, u_{m_1}\}$ and columns of $B$ are in $\Span\{v_1, \cdots, v_{m_2}\}$. 
+    	Therefore $A\circ B$ has columns in span of $\{u_i\cdot v_j: i=1, \cdots, m_1, j=1, \cdots, m_2\}$, so its rank is upper-bounded by $m_1\cdot m_2$, as desired. 
+    \end{proof}
+    
+    Now, for each $p=1, \cdots, n$, let $A_p$ be the $k\times m$ matrix determined by stacking the $p$-th row of $(M_1, \cdots, M_k)$, 
+    and $B_p$ be the $m\times k$ matrix 
+    determined by stacking the $p$-th column of $(M_1, \cdots, M_k)$. Denote $C_p=A_pB_p$. 
+    Note that $\rank(C_p)\le m$. 
+    Now, each $C_p$ has nonzero diagonal entries, but for each $(i, j)$ with $i\neq j$, one of $C_p$'s ($p\in \{1, \cdots, n\}$) has zero entry at $(i, j)$. 
+    Therefore, the following matrix 
+    \[
+    C=C_1\circ C_2 \circ \cdots \circ C_n
+    \]
+    is a $k\times k$ diagonal matrix with nonzero diagonal entries, and is of full rank $k$. 
+    We now finish with the lemma via the following: 
+    \[
+    k=\rank(C) \le \prod_{p=1}^n \rank(C_p)\le \prod_{p=1}^n m = m^n
+    \]
+    as desired. 
 	
 	\item[\textbf{B1}] 
 	A base 10 over-expansion of a positive integer $N$ is an expression of the form $N=d_k10^k+d_{k-1}10^{k-1}+\cdots+d_0 10^0$ with $d_k\ne 0$ and $d_i\in\{0,1,2,\dots,10\}$ for all $i.$ For instance, the integer $N=10$ has two base 10 over-expansions: $10=10\cdot 10^0$ and the usual base 10 expansion $10=1\cdot 10^1+0\cdot 10^0.$ Which positive integers have a unique base 10 over-expansion?

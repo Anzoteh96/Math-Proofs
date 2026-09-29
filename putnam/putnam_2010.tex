@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, amsthm}
 \usepackage{mathrsfs}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
@@ -48,6 +48,7 @@
 \newcommand{\lcm}{\mathrm{lcm}}
 \newcommand{\dsum}{\displaystyle\sum}
 \newcommand{\dprod}{\displaystyle\prod}
+\newtheorem{lemma}{Lemma}
 
 \begin{document}
 
@@ -134,6 +135,47 @@
 	Since $\mathbf{a}$ and $\mathbf{c}$ are also perpendicular to each other, we get $\mathbf{a}\times \mathbf{c}=\mathbf{a} * \mathbf{c}=\mathbf{a} * \mathbf{a} * \mathbf{b}=\mathbf{0} * \mathbf{b}=\mathbf{b}$. Similarly, $\mathbf{c}\times \mathbf{b}=\mathbf{a}$. Denote $\mathbf{i}$, $\mathbf{j}$ and $\mathbf{k}$ as the vectors parallel to $x, y, z$ axes, respectively. By rotating $\mathbf{a}$ and $\mathbf{b}$, we can assume that $\mathbf{a}=x\mathbf{i}$ and $\mathbf{b}=y\mathbf{j}$, making $\mathbf{c}=xy(\mathbf{i}\times \mathbf{j})=(xy)\mathbf{k}$. 
 	But then $y\mathbf{j}=\mathbf{b}=\mathbf{a}\times\mathbf{c}=x^2y\mathbf{i}\times\mathbf{k}=- x^2y\mathbf{j}$, so $y=-x^2y$, or $x^2=-1$ because $y\neq 0$. This is impossible since this forces $x=\sqrt{-1}$, which is imaginary. This contradiction shows that there cannot be $\mathbf{a}$ and $\mathbf{b}$ with nonzero cross products. 
 	
+	\item [\textbf{A6}] 
+	Let $f:[0,\infty)\to\mathbb{R}$ be a strictly decreasing continuous function such that $\lim_{x\to\infty}f(x)=0.$ Prove that $\displaystyle\int_0^{\infty}\frac{f(x)-f(x+1)}{f(x)}\,dx$ diverges.
+	
+	\textbf{Solution.} 
+	The key to the solution is the following claim: 
+	let $c$ be a real number, and $a_1, \cdots, a_k\ge 0$ such that $(1-a_1)(1-a_2)\cdots (1-a_k)=c$. 
+	Then $\sum_{i=1}^k a_i \ge 1 - c$. 
+	The easiest proof is to notice that the function $-\frac{1}{1-t}$ is decreasing in $t\in (0, 1)$, and denote $s_i = \sum_{j=1}^i a_j$. 
+	If $\sum_{i=1}^k a_i\ge 1$ then we are done; otherwise: 
+	\begin{flalign*}
+		\sum_{i=1}^k \log (1-a_i)
+		&= -\sum_{i=1}^k \int_0^{a_i} \frac{1}{1-t}dt
+		\\&\ge -\sum_{i=1}^k \int_{s_{i-1}}^{s_i} \frac{1}{1-t}dt
+		\\&=-\int_0^{s_k} \frac{1}{1-t}dt
+		\\&=\log(1 - s_k)
+	\end{flalign*}
+   i.e. $c\ge 1 - s_k$. 
+   
+   To use this inequality, for each integer $k$ denote $b_k$ as the smallest integer greater than $k$ such that 
+   $f(b_k)\le \frac 12 f(k + 1)$. 
+   Then consider the sequence $\{c_k\}$ such that $c_{k+1} = b_{c_k}$. 
+   Then we have 
+   \[
+   \int_{c_k}^{c_{k+1}} \frac{f(x) - f(x+1)}{f(x)}dx
+   =\int_0^1 \sum_{t = c_k}^{c_{k+1} - 2} \frac{f(y + t) - f(y + t + 1)}{f(y + t)} dy
+   \ge \frac 12
+   \]
+   where the first equality follows from that the integral either converges absolutely or diverges (all integrands are positive), 
+   and the middle inequality is due to the main claim and using the fact that for all $y\in [0, 1]$, 
+   \[
+   \frac{f(c_{k+1}-1+y)}{f(c_k+y)}\le \frac{f(c_{k+1})}{f(c_k+1)}\le \frac 12
+   \]
+   Therefore the target integral diverges by consider summing up all $k$. 
+   
+   \textbf{Remark.} If $\lim_{x\to\infty} f(x) = c > 0$ (assuming $f$ decreases), then the integral converges given that 
+   \[
+   \int_0^{\infty}\frac{f(x)-f(x+1)}{f(x)}dx
+   \le \int_0^{\infty}\frac{f(x)-f(x+1)}{c}dx
+   =\int_0^1 \frac{f(x)-c}{c}dx
+   \]
+	
 	\item [\textbf{B1}]
 	Is there an infinite sequence of real numbers $a_1,a_2,a_3,\dots$ such that
 	\[a_1^m+a_2^m+a_3^m+\cdots=m\]
@@ -210,5 +252,132 @@
 		\item Repeat all of the above until $B_1$ has all the balls. 
 	\end{itemize}
     Once this is done, we can now distribute the balls one-at-a-time from $B_1$ to the other boxes, such that each has $n$ balls. 
+    
+    \item [\textbf{B5}] 
+    Is there a strictly increasing function $f:\mathbb{R}\to\mathbb{R}$ such that $f'(x)=f(f(x))$ for all $x?$
+    
+    \textbf{Answer.} No. 
+    Note that $f$ is strictly increasing means so is $f(f(x))$ and $f'(x)$. In particular, for all $x > 0$, 
+    $f(x)\ge f(0)+xf'(0)$ so $\lim_{x\to\infty} f(x)=\infty$. This in turn means $\lim_{x\to\infty} f'(x)=\lim_{x\to\infty} f(f(x))=\infty$. 
+    Choosing $x_0$ such that $f'(x_0)\ge 2$, we may pick $x_1$ such that: 
+    \begin{itemize}
+    	\item $x_1 > 0$; 
+    	
+    	\item $f(x_1) > x_1 + 1$ (because $f'(x_0)\ge 2$, any $x_1$ fulfilling $x_1 + f(x_0)-2x_0\ge 1$ fulfills this property). 
+    \end{itemize}
+    This ensures $f(f(x_1)) > f(x_1)+1$ too, since $f'$ is strictly increasing (and so is the gap $f(x)-x$ for $x$ such that $f(x) > x$). 
+    Now by mean value theorem, there exists $x_2\in [x_1, f(x_1)]$ such that 
+    \[
+    \frac{f(f(x_1))-f(x_1)}{f(x_1)-x_1}
+    =f'(x_2)\ge f'(x_1)=f(f(x_1))
+    \]
+    On the other hand, $f(x_1) > x_1+1 > 0$ and $f(x_1)-x_1 > 1$, therefore 
+    $\frac{f(f(x_1))-f(x_1)}{f(x_1)-x_1} < f(f(x_1))-f(x_1) < f(f(x_1))$, a contradiction. 
+    
+    \item [\textbf{B6}]
+    Let $A$ be an $n\times n$ matrix of real numbers for some $n\ge 1.$ For each positive integer $k,$ let $A^{[k]}$ be the matrix obtained by raising each entry to the $k$th power. Show that if $A^k=A^{[k]}$ for $k=1,2,\cdots,n+1,$ then $A^k=A^{[k]}$ for all $k\ge 1.$
+    
+    \textbf{Solution.} 
+    Denote the vector $v_{\lambda, k}=(\lambda, \lambda^2, \cdots, \lambda^k)^T\in\mathbb{R}^{k\times 1}$, 
+    and $v'_{\lambda, k} = \frac{\partial v_{\lambda, k}}{\partial \lambda} = (1, 2\lambda, \cdots, k\lambda^{k-1})$ 
+    (i.e. elementwise derivative). 
+    We start by the following key claim: 
+    \begin{lemma}
+    	Let $a_1, \cdots, a_n$ be real numbers. For (multi)-set $T$, we denote $S_{T; k}$ as the space spanned by $\{v_{x, k}: x\in T\}$ . 
+    	Then: 
+    	\begin{enumerate}
+    		\item $v_{\lambda, n + 1}\in S_{a_1, \cdots, a_n; n + 1}$ if and only if either $\lambda=a_i$ for some $i$, or $\lambda=0$. 
+    		
+    		\item $v_{\lambda, n + 1}$ and $v'_{\lambda, n + 1}$ cannot be both in $S_{a_1, \cdots, a_n; n + 1}$. 
+    		
+    		\item 
+    		Let $B_k\in\mathbb{R}^{k\times n}$ be obtained such that 
+    		the $i$-th column of $B$ is $v_{a_i, k}$, $i=1, 2, \cdots, n$. 
+    		If $w\in \mathbb{R}^n$ satisfies $B_{n+1}w = v_{\lambda, n + 1}$ for some $\lambda$, 
+    		then  $B_{k}w = v_{\lambda, k}$ for all $k$. 
+    	\end{enumerate}
+
+    \end{lemma}
+
+    \begin{proof}
+    	W.l.o.g. we consider the nonzero distinct elements $a_1, \cdots, a_m$ of $a_1, \cdots, a_n$ ($m\le n$). 
+    	Then $S_{a_1, \cdots, a_n; n + 1}=S_{a_1, \cdots, a_m; n + 1}$ and 
+    	if $v_{\lambda, n + 1}\in S_{a_1, \cdots, a_m; n + 1}$ then $v_{\lambda, m + 1}\in S_{a_1, \cdots, a_m; m + 1}$. 
+    	Now consider the $(m + 1)\times (m + 1)$ matrix 
+    	\[
+    	\begin{pmatrix}
+    		v_{a_1, m+1} & v_{a_2, m+1} & \cdots & v_{a_m, m+1} & v_{\lambda, m+1}\\
+    	\end{pmatrix}
+    	\]
+    	This is a Vandermonde matrix with determinant 
+    	\[
+    	P(\lambda)=\lambda\left(\prod_{i=1}^m a_i\right)\left(\prod_{i < j}(a_j-a_i)\right)\left(\prod_{i=1}^m (\lambda - a_i)\right)
+    	\]
+    	If $v_{\lambda, m+1}\in S_{a_1, \cdots, a_m; m + 1}$, then 
+    	$P(\lambda) = 0$. 
+    	Since $a_i$ are nonzero and distinct, $\lambda\left(\prod_{i=1}^m (\lambda - a_i)\right)=0$, 
+    	i.e. $\lambda \in \{0, a_1, \cdots, a_m\}$. 
+    	
+    	For the second bullet point, note that $P'(\lambda)$ is the determinant of the matrix 
+    	\[
+    	\begin{pmatrix}
+    		v_{a_1, m+1} & v_{a_2, m+1} & \cdots & v_{a_m, m+1} & v'_{\lambda, m+1}\\
+    	\end{pmatrix}
+    	\]
+    	Having both $v_{\lambda, m+1}$ and $v'_{\lambda, m + 1}$ to be in $S_{a_1, \cdots, a_m; m + 1}$ implies the polynomial $\lambda\left(\prod_{i=1}^m (\lambda - a_i)\right)=$ has double root at $\lambda$, 
+    	which is impossible since $a_i$'s are all nonzero and distinct. 
+    	For the third aspect, denote $k > n + 1$ the minimum index such that 
+    	$B_kw\neq v_{\lambda, k}$. 
+    	Since $\lambda\in \{0, a_1, \cdots, a_n\}$, $v_{\lambda, k}\in S_{a_1, \cdots, a_n; k}$. 
+    	It follows that $(B_kw - v_{\lambda, k})\in S_{a_1, \cdots, a_n; k}$. 
+    	Now the vector $B_kw - v_{\lambda, k} = (0, 0, \cdots, 0, c)^T$ where $c\neq 0$ 
+    	(all the elements match $v_{\lambda, k}$ except $k$-th due to the minimality of $k$). 
+    	It follows that $(0, 0, \cdots, 0, 1)^T\in S_{a_1, \cdots, a_n; k}$. 
+    	By taking inverses, this means $(1, 0, \cdots, 0)^T\in S_{1/a_i: a_i\neq 0; k}$, which is a contradiction to the previous lemma. 
+    \end{proof}
+    
+
+    To establish the problem, we show two things: first, for each eigenvector $v$ of $A$ with eigenvalue $\lambda$, 
+    $A^{[k]}v = \lambda^k v$, and second, $A$ is fully diagonalizable. 
+    This gives us $n$ linearly independent vectors such that $A^{[k]}v = A^{k}v$ and thus $A^{[k]}=A^k$. 
+    
+    For the first part we pick any eigenpair $(\lambda, v)$; 
+    it follows that $(A_{i, 1}^k, \cdots, A_{i, n}^k)\cdot v = \lambda^k v_i$ for all $k = 1, \cdots, n + 1$. 
+    This means taking the matrix 
+    \[
+    B_k = 
+    \begin{pmatrix}
+    	v_{A_{i, 1}, n + 1} & \cdots & v_{A_{i, n}, n + 1}\\
+    \end{pmatrix}
+    \]
+    gives $B_{n+1}v = v_i\cdot v_{\lambda, n + 1}$. 
+    By the third bullet point of our lemma, $B_kv = v_i\cdot v_{\lambda, k}$.
+    Taking this for all $i = 1, 2, \cdots, n$, and all eigenvectors $v$ we proved the first part. 
+    
+    For the second part, suppose otherwise. 
+    Now consider a vector $w$ that's a generalized eigenvector of rank 2 (corresponding to $\lambda$), i.e. 
+    \[
+    (A - \lambda I)^2 w = 0
+    \qquad 
+    (A - \lambda I) w \neq 0
+    \]
+    Then 
+    \[
+    A^k w = ((A - \lambda I) + \lambda I)^k w 
+    = \lambda ^k w + k\lambda^{k - 1}(A - \lambda I)w
+    \]
+    and in addition $(A - \lambda I)w$ is an $\lambda$-eigenvector of $A$, call it $v$. 
+    Take $i$ such that $v_i\neq 0$. Stacking the same $B_k = 
+    \begin{pmatrix}
+    	v_{A_{i, 1}, n + 1} & \cdots & v_{A_{i, n}, n + 1}\\
+    \end{pmatrix}$ gives 
+    \[
+    B_{n+1} w = w_i\cdot v_{\lambda, n + 1} + v_i\cdot v'_{\lambda, n + 1}
+    \]
+    for $\lambda \neq 0$. We have $v_{\lambda, n + 1}$ in the span of $B_{n+1}$, 
+    hence so must be $v_i\cdot v'_{\lambda, n + 1}$ and $v'_{\lambda, n + 1}$ (since $v_i\neq 0$). 
+    This contradicts our earlier lemma that $v'_{\lambda, n + 1}$ and $v_{\lambda, n + 1}$ cannot both be in span of $B_{n+1}$. 
+    Thus this shows our $A$ is indeed diagonalizable. 
+    	
 \end{enumerate}
 \end{document}

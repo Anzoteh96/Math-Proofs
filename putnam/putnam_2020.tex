@@ -360,6 +360,47 @@
 	If we extend $t_0, \cdots, t_{2n-1}$ infinitely (hence having $2n$ as period) and let $g$ as its \emph{minimal} period, we see that each $\mathbf{v}'\in E_{\mathbf{v}}$ shows up $\frac{2n}{g}$ times, 
 	proving our claim. 
 	
+	\item[\textbf{B6}] Let $n$ be a positive integer. Prove that
+	$$\sum_{k=1}^n (-1)^{\lfloor k (\sqrt{2} - 1) \rfloor} \geq 0.$$(As usual, $\lfloor x \rfloor$ denotes the greatest integer less than or equal to $x$.)
+	
+	\textbf{Solution.} Let $\alpha = \sqrt{2} - 1$, which is irrational. 
+	Note that for all $n\ge 0$, $\lfloor \frac{(n+1)}{\alpha}\rfloor - \lfloor \frac{n}{\alpha}\rfloor$ has to be either 2 or 3 given that 
+	$\lfloor \frac{1}{\alpha}\rfloor = 2$. 
+	Consider, now, the set $S = \{n\ge 0\in \mathbb{N}: \lfloor \frac{(n+1)}{\alpha}\rfloor - \lfloor \frac{n}{\alpha}\rfloor = 3\}$. 
+	Note also that $\frac{1}{\alpha} = \alpha+2$, and therefore 
+	\[
+	\lfloor \frac{(n+1)}{\alpha}\rfloor - \lfloor \frac{n}{\alpha}\rfloor = 3
+	\Leftrightarrow 
+	\lfloor (n+1)(\alpha + 2)\rfloor - \lfloor n(\alpha + 2)\rfloor = 3
+	\Leftrightarrow 
+	 \lfloor (n+1)\alpha\rfloor - \lfloor n\alpha\rfloor = 1
+	\]
+	and moreover for $n\ge 0$ this is equivalent to that there is an integer $k$ in the range $(n\alpha, (n+1)\alpha)$, 
+	or $n\le \frac{k}{\alpha}\le n + 1$. 
+	Therefore $n = \lfloor \frac{k}{\alpha}\rfloor$ and $S$ is equivalent to 
+	\[
+	S = \{\lfloor k(\alpha + 2)\rfloor, k = 1, 2, 3, \cdots\}
+	\]
+	
+	Going back to the problem, denote the sum as $T(n)$. 
+	Suppose for sake of contradiction, $T(n_0) < 0$ for some $n_0$; we choose the minimum such $n_0$. 
+	Then $n_1 := \lfloor n_0\alpha\rfloor$ must be odd. 
+	Note now that $T(\lfloor \frac{n_1+1}{\alpha}\rfloor)\le T(n_0) < 0$, 
+	while for any even integer $k$, we have 
+	\[
+	T(\lfloor \frac{k}{\alpha}\rfloor) = \sum_{\ell = 1}^{k} (\lfloor \frac{\ell}{\alpha}\rfloor - \lfloor \frac{\ell - 1}{\alpha}\rfloor)(-1)^{\ell - 1}
+	=\sum_{\ell = 1}^{k} \boldsymbol{1}_{\ell - 1\in S}(-1)^{\ell - 1}
+	\]
+	the last inequality is due to that $\sum_{\ell = 1}^{k} (-1)^{\ell - 1}=0$. 
+	Consequently, this means among $1, 2, \cdots, n_1$ there are more odd numbers in $S$ compared to even numbers. 
+	By the minimality of $n_0$, this $n_1$ is also the minimum odd number with this property, so $n_1\in S$, too. 
+	Consequently, $n_1=\lfloor k_1(\alpha + 2)\rfloor$ for some $k_1$, 
+	and this means among $\lfloor \alpha\rfloor, \cdots, \lfloor k_1\alpha\rfloor, \cdots$ there are more odd numbers than even numbers, and so $T(k_1) < 0$. 
+	But now we have 
+	$
+	k_1 < n_1 < n_0
+	$
+	contradicting the minimality of $n_0$. 
 \end{enumerate}
 
 \end{document}

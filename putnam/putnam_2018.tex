@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz}
+\usepackage{amsmath, amssymb, fullpage, mathrsfs, bm, pgf, tikz, amsthm}
 \usepackage{mathrsfs}
 \usetikzlibrary{arrows}
 \setlength{\textheight}{10in}
@@ -49,6 +49,8 @@
 \newcommand{\dsum}{\displaystyle\sum}
 \newcommand{\dprod}{\displaystyle\prod}
 
+\newtheorem{lemma}{Lemma}
+
 \begin{document}
 
 \newcommand{\sgn}{\text{sgn}}
@@ -76,45 +78,28 @@
 	\textbf{Answer.} $1$ if $n=1$, and $-1$ if $n>1$. Alternatively, $(-1)^{(n>1)}$ in the computer science terms (where false is 0 and true is 1). \\
 	\textbf{Solution.} If $n=1$ then the matrix is $(1)$, so the determinant is 1. Let $M_n$ be the matrix when the size of the matrix is $n\times n$, and we will show that $\det(M_{n+1})=-(\det(M_n))^2$. 
 	
-	First, notice that the determinant depends only on $n$ and not the order of the sets $S_1, \cdots , S_{2^n-1}$. (I wrote something way more rigorous during the contest to prevent risking points, but I think the following argument is sufficient). 
-	Consider what happens when you swap two arbitrary sets $S_i$ and $S_j$, then we can show that this induces a swap of rows $i$ and $j$ followed by a swap of columns $i$ and $j$ in the matrix $M_n$ (though the two swaps could have been in any order). The two swaps of columns and rows negate the determinant twice, which in turn preserve the determinant. Since each permutation can be obtained from the another by iteratively swapping two items, we have our conclusion here. 
-	
-	Having established the above, we can rearrange (permute) the $2^n-1$ subsets in anyway we want. Now we need an induction argument to move from $n$ to $n+1$. Let $T_1, \cdots , T_{2^n-1}$ be an arbitrary arrangement of the non-empty subsets of $\{1, \cdots , n\}$, and $M_n$ be the corresponding $n\times n$ matrix. Now consider the arrangement of the subsets $S_i$ of $\{1, \cdots , n+1\}$ as the following: 
-	$S_1=\{n+1\}$, $S_{k+1}=\{n+1\}\cup T_k$ for $1\le k\le 2^n-1$, and $S_{2^n+k}=T_k$. We notice the following: 
-	\begin{itemize}
-		\item $n+1\in S_i\cup S_j$ for $i, j\le 2^n$ so $m_{ij}=1$ for those $i, j$. In addition, if $i>2^k$ then $n+1\not\in S_i$ so $m_{1i}=m_{i1}=0$. 
-		
-		\item for all $1\le k\le 2^n-1$ we have $S_{2^n+i}\cap S_{j+1}=S_{i+1}\cap S_{2^n+j}=S_{2^n+i}\cap S_{2^n+j}=T_i\cap T_j$. This means that, if we view the $(2^n-1)\times (2^n-1)$ submatrices determined by rows $2$ to $2^n$ and columns $2^n+1$ to $2^{n-1}$, rows $2^n+1$ to $2^{n-1}$ and columns $2$ to $2^n$, and rows $2^n+1$ to $2^{n+1}-1$ and columns $2^n+1$ to $2^{n-1}$, they are all identical, i.e. equal to $M_n$. 
-	\end{itemize}
-	This gives the following configuration: 
+	First, we use the well-known fact that swapping any two rows (and similarly swapping any two columns) negates the determinant of a square matrix. Hence, if we swap the roles of any $S_i$ and $S_j$, 
+	this is as if we swap rows $i$ and $j$, and then columns $i$ and $j$, of the matrix $M$, 
+	therefore $\det(M)$ remains the same. 
+	Thus $\det(M)$ is independent of the permutations of $S_1, \cdots, S_{2^n-1}$, and it suffices to solve this problem for one particular arranement of $S_1, \cdots, S_{2^n-1}$. 
+	We do the following: given the index $n+1$, let $S_1, \cdots, S_{2^n-1}\subset \{1, 2, \cdots, n\}$, 
+	$S_{2^n}=\{n+1\}$ and $S_{i+2^n}=S_i\cup\{n+1\}$ for $i=1, 2, \cdots, 2^n-1$. In particular, 
+	our matrix (name it $M_{n+1}$) looks like the following: 
 	\[
-	\left[\begin{array}{c|c|c}
-	1 & [1] & [0]\\
-	\hline
-	(1) & \<1\> & M_n\\
-	\hline
-	(0) & M_n & M_n\\ 
-	\end{array}\right]
+	\begin{pmatrix}
+		M_n & 0_{(2^n-1)\times 1} & M_n\\
+		0_{1\times (2^n-1)} & 1_{1\times 1} & 1_{1\times (2^n-1)}\\
+		M_n & 1_{(2^n-1)\times 1} & 1_{(2^n-1)\times (2^n - 1)}\\
+	\end{pmatrix}
 	\]
-	where $[x]$ means a $1\times (2^n-1)$ row matrix of $x$, $(y)$ means a $(2^n-1)\times 1$ column matrix of $y$ and $\<z\>$ means a $(2^n-1)\times (2^n-1)$ matrix, all of $z$. Keeping in mind that row reduction preserves the determinant, we subtract rows $i$ from row 1 for all $i=2, \cdots , 2^n$ to get the following: 
+	Subtracting rows $2^n+1, \cdots, 2^{n+1}-1$ by row $2^n$, 
+	and then columns $2^n+1, \cdots, 2^{n+1}-1$ by column $2^n$, we end up with 
 	\[
-	\left[\begin{array}{c|c|c}
-	1 & [1] & [0]\\
-	\hline
-	(0) & \<0\> & M_n\\
-	\hline
-	(0) & M_n & M_n\\ 
-	\end{array}\right]
-	\]
-	and a further reduction of rows $2^n+k$ from $1+k$ ($k=1, \cdots , 2^n-1$) to get the following:
-	\[
-	\left[\begin{array}{c|c|c}
-	1 & [1] & [0]\\
-	\hline
-	(0) & \<0\> & M_n\\
-	\hline
-	(0) & M_n & \<0\>\\ 
-	\end{array}\right]
+	\begin{pmatrix}
+		M_n & 0_{(2^n-1)\times 1} & M_n\\
+		0_{1\times (2^n-1)} & 1_{1\times 1} & 0_{1\times (2^n-1)}\\
+		M_n & 0_{(2^n-1)\times 1} & 0_{(2^n-1)\times (2^n - 1)}\\
+	\end{pmatrix}
 	\]
 	Now this is the reverse block matrix (with the two $M_n$'s reversed), so the determinant is now $(-1)^{2^n-1}(\det(M_n))^2=-(\det(M_n))^2$, as desired (with the $2^n-1$ due to the size of $M_n$). 
 	
@@ -139,7 +124,7 @@
 	Thus, whenever $\sum_{i=1}^{10} \cos x_i=0$, we have 
 	\[
 	\sum_{i=1}^{10} \cos 3x_i
-	=\sum_{i=1}^{10} (4 cos^3 x - 3 cos x)
+	=\sum_{i=1}^{10} (4 \cos^3 x - 3 \cos x)
 	=4\sum_{i=1}^{10}\cos^3 x
 	\]
 	Set $y_i=\cos x_i$. 
@@ -276,6 +261,79 @@
 	=g^{c_1}(g^dh)\cdots g^{c_m}(g^dh)
 	\]
 	and since $n'<m<n$ and the pair $(g, g^dh)$ corresponds to the pair $(m, n')$ with $\gcd(m, n')=1$, by inductive hypothesis, $g$ and $g^dh$ commutes. Thus $gg^{d}h=g^dhg$, and cancelling $g^d$ from the left we have $gh=hg$. 
+	
+	\item [\textbf{A5}]
+	Let $f: \mathbb{R} \to \mathbb{R}$ be an infinitely differentiable function satisfying $f(0) = 0$, $f(1) = 1$, and $f(x) \ge 0$ for all $x \in \mathbb{R}$. Show that there exist a positive integer $n$ and a real number $x$ such that $f^{(n)}(x) < 0$.
+	
+	\textbf{Solution.} 
+	Suppose for sake of contradiction that $f^{(n)}(x)\ge 0$ for all $n\ge 0$ and $x\in\mathbb{R}$; 
+	this would mean $f$ (and all its derivatives) are non-decreasing, 
+	hence $f(x)=0$ for all $x < 0$. Consequently, $f^{(n)}(x) = 0$ for all positive $n$ and $x < 0$; 
+	and this gives $f^{(n)}(0) = 0$ for all positive integers $n$. 
+	
+	We now show that for all $x > 0$ and all integers $n > 0$, $\frac{f(x)}{x^n}$ is non-decreasing in $x$. 
+	Indeed, we shall show via induction on $m$ that $\frac{f^{(n - m)}(x)}{x^m}$. 
+	Base case is where $f^{(n)}(x)$ is non-decreasing in $x > 0$. 
+	Now suppose that for some $m\ge 1$ we have $\frac{f^{(n - m + 1)}(x)}{x^{m - 1}}$ non-decreasing. 
+	Take $0 < x < y$, we have  
+	\[
+	f^{(n-m)}(x)=\int_0^x f^{(n - m + 1)}(t)dt\le f^{(n-m+1)}(x)\int_0^x \left(\frac{t}{x}\right)^{m-1}dt
+	=\frac{f^{(n-m+1)}(x)\cdot x^m}{x^{m-1}m}
+	\]
+	\[
+	f^{(n-m)}(y)-f^{(n-m)}(x)=\int_x^y f^{(n - m + 1)}(t)dt\ge f^{(n-m+1)}(x)\int_x^y \left(\frac{t}{x}\right)^{m-1}dt
+	\]
+	\[
+	=\frac{f^{(n-m+1)}(x)\cdot (y^m-x^m)}{x^{m-1}m}
+	\]
+	and therefore 
+	\[
+	\frac{f^{(n-m)}(y)}{f^{(n-m)}(x)}\ge 1 + \frac{y^m-x^m}{x^m}=\frac{y^m}{x^m}
+	\]
+	as desired. 
+	
+	Now going back to the problem, we now have that for all $x < 1$ and positive integer $n > 0$, we have $f(x)\le x^n$. 
+	Consequently, taking $n\to\infty$ for any fixed $x\in (0, 1)$ we have $f(x)=0$ for all $x < 1$. 
+	This means $f$ is discontinuous at $x=1$, contradicting that it is infinitely differentiable. 
+	
+	\item [\textbf{A6}] 
+	Suppose that $A$, $B$, $C$, and $D$ are distinct points, no three of which lie on a line, in the Euclidean plane. Show that if the squares of the lengths of the line segments $AB$, $AC$, $AD$, $BC$, $BD$, and $CD$ are rational numbers, then the quotient
+	\[\frac{\mathrm{area}(\triangle ABC)}{\mathrm{area}(\triangle ABD)}\]is a rational number.
+	
+	\textbf{Solution.} Let the perpendicular from $C$ and $D$ to $AB$ be $H_1$ and $H_2$, respectively. Then the ratio of the areas of the two triangles is $\frac{CH_1}{DH_2}$. The central claim is the following: 
+	
+	\begin{lemma}
+		The lengths $AH_1\cdot AB, AH_2\cdot AB, BH_1\cdot AB, BH_2\cdot AB$ are all rational, 
+		as well as $CH_1^2, DH_2^2$. 
+	\end{lemma}
+    
+    \begin{proof}
+    	We have $AH_1^2+CH_1^2=AC^2$ so $AC^2-BC^2=AH_1^2-BH_1^2\in\mathbb{Q}$. 
+    	In dot product language, we have: 
+    	\[
+    	(\vec{AH_1}-\vec{H_1B})\cdot \vec{AB}
+    	=(\vec{AH_1}-\vec{H_1B})\cdot (\vec{AH_1}+\vec{H_1B})
+    	=AH_1^2-H_1B^2
+    	\]
+    	is rational. Given that $||AB||^2\in\mathbb{Q}$, 
+    	$||\vec{AH_1}-\vec{H_1B}||^2\in\mathbb{Q}$. 
+    	Iteratively, this gives both $||AH_1||^2+||H_1B||^2\in\mathbb{Q}$, 
+    	and $\vec{AH_1}\cdot \vec{H_1B}\in\mathbb{Q}$. 
+    	We may further deduce $||AH_1||^2, ||BH_1||^2\in\mathbb{Q}$ and so 
+    	$||AC||^2\in\mathbb{Q}$, we have $||CH_1||^2\in\mathbb{Q}$. 
+    	Finally, $\vec{AH_1}\cdot \vec{AB}=||AH_1||^2+\vec{AH_1}\cdot \vec{H_1B}\in\mathbb{Q}$. 
+    	The other set of identities (involving $H_2$ and $D$) follows similarly. 
+    \end{proof}
+    
+    Now, since $AH_1\cdot AB$ and $AH_2\cdot AB$ are rational, so is the difference $H_1H_2\cdot AB$ 
+    (in particular, $||H_1H_2||^2\in \mathbb{Q}$). 
+    We now claim that both $(||CH_1||+||DH_2||)^2$ and $(||CH_1||-||DH_2||)^2$ are rational. 
+    Indeed, if $H_1$ and $H_2$ are on different sides of $AB$, 
+    then $(||CH_1||+||DH_2||)^2+||H_1H_2||^2=||CD||^2$; 
+    if they are on the same side of $AB$ then $(||CH_1||-||DH_2||)^2+||H_1H_2||^2=||CD||^2$. 
+    In either case, given both $||CH_1||^2$, $||DH_2|^2$ are rational, so is the cross product 
+    $||CH_1||\cdot||DH_2||$. 
+    Finally, $\frac{CH_1}{DH_2}=\frac{CH_1^2}{CH_1\cdot DH_2}$ is rational, as desired. 
 	
 	\item [\textbf{B1}] 
 	Let $\mathcal{P}$ be the set of vectors defined by
